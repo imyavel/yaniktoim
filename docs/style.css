@@ -489,8 +489,15 @@ footer.footer a:hover { color: var(--accent); }
 }
 .edit-fab:hover { opacity: 1; transform: scale(1.06); }
 .edit-fab[hidden] { display: none; }   /* beat .edit-fab's display:flex */
-/* "Вход" state — a wider pill instead of the round ✎ icon. */
-.edit-fab.login { width: auto; padding: 0 1.1rem; border-radius: 1.4rem; font-size: 0.95rem; font-weight: 600; }
+/* "Вход" state — discreet: most visitors don't need it. Muted outlined pill,
+   low opacity, no bright fill; only becomes prominent on hover. */
+.edit-fab.login {
+  width: auto; height: auto; padding: 0.3rem 0.8rem; border-radius: 1.2rem;
+  font-size: 0.8rem; font-weight: 400;
+  background: transparent; color: var(--muted);
+  border: 1px solid var(--border); box-shadow: none; opacity: 0.45;
+}
+.edit-fab.login:hover { opacity: 1; background: var(--soft); color: var(--fg); transform: none; }
 
 /* In-page (wiki-style) editor */
 .yanik-editbar {
