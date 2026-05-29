@@ -1,7 +1,12 @@
-// In-page (wiki-style) editor. Loaded only in edit mode by the article page.
-// Clicking ✎ turns the <article> area into a ZML editor with a live preview
-// rendered by the SAME render.js that builds the site — no separate page/form.
-import { renderArticleParts, renderArticleHtml } from "./render.js";
+// In-page (wiki-style) editor + login control.
+// In Worker mode the page always shows a discreet "Вход" button; once a writer
+// logs in it becomes ✎ (enter edit). Editing turns <article> into a ZML editor
+// with a live preview rendered by the SAME render.js that builds the site.
+//
+// render.js is heavy (full ZML renderer) — loaded LAZILY so guests/readers who
+// only need the login control don't pull it. enterEdit awaits it before editing.
+let RENDER = null;
+async function ensureRender() { if (!RENDER) RENDER = await import("./render.js"); return RENDER; }
 
 const dataURL = (p) => new URL("data/" + p, import.meta.url).href;
 const art = document.body.dataset.art;
@@ -32,10 +37,11 @@ const saveSigner = (n) => { try { localStorage.setItem(SIGNER_KEY, n); } catch {
 // the editor logs in by nick (session, no PAT in the browser) and saves via the
 // Worker (which holds the GitHub token). Empty workerUrl → interim PAT mode below.
 const SESSION_KEY = "yanik_session";
-let session = null; // { token, nick, role }
+let session = null;   // { token, nick, role }
+let siteCfg = null;   // { workerUrl } — loaded at boot, before ensureData
 const loadSession = () => { try { return JSON.parse(localStorage.getItem(SESSION_KEY)) || null; } catch { return null; } };
 const saveSession = (s) => { try { s ? localStorage.setItem(SESSION_KEY, JSON.stringify(s)) : localStorage.removeItem(SESSION_KEY); } catch {} };
-function workerUrl() { return (base && base.site && base.site.workerUrl) ? String(base.site.workerUrl).replace(/\/+$/, "") : ""; }
+function workerUrl() { const c = siteCfg || (base && base.site); return c && c.workerUrl ? String(c.workerUrl).replace(/\/+$/, "") : ""; }
 const roleRu = (r) => ({ admin: "админ", editor: "редактор", pending: "ожидает прав" }[r] || r || "—");
 const canWrite = (r) => r === "editor" || r === "admin";
 
@@ -91,6 +97,7 @@ async function ensureData() {
   const manifestByArt = {};
   for (const r of manifest) if (r.art) manifestByArt[r.art] = r;
   base = { manifest, manifestByArt, zoharIndex, properNouns, template, users, site };
+  siteCfg = site;
   rec = manifestByArt[art];
   session = loadSession();
 }
@@ -114,7 +121,10 @@ async function fetchZml() {
 // ── enter / exit ───────────────────────────────────────────────────────────────
 async function enterEdit() {
   try {
+    // In Worker mode editing requires a writer session.
+    if (workerUrl() && !(session && canWrite(session.role))) { openAuth(); return; }
     await ensureData();
+    await ensureRender();
     if (!rec) { alert("Статья " + art + " не найдена в manifest."); return; }
     const zml = await fetchZml();
 
@@ -204,7 +214,7 @@ function cancel() {
 
 // ── preview ──────────────────────────────────────────────────────────────────
 function renderInner(zml) {
-  const parts = renderArticleParts({ zml, rec, ...base });
+  const parts = RENDER.renderArticleParts({ zml, rec, ...base });
   const inner = (parts.tocHtml ? parts.tocHtml + "\n" : "") + parts.articleInner;
   return { inner, parts };
 }
@@ -280,7 +290,7 @@ function prepareSave(signerName) {
   let zml = setFrontmatter(lf, "editor", signerName);
   zml = setFrontmatter(zml, "edited", todayISO());
   if (!base.template) throw new Error("нет template.html в data/");
-  const html = renderArticleHtml({ zml, rec, ...base });
+  const html = RENDER.renderArticleHtml({ zml, rec, ...base });
   const section = rec.section || "_unsorted";
   return { zml, html, section };
 }
@@ -417,7 +427,7 @@ function buildAuthDialog() {
     try {
       const r = await wapi("/api/login", { method: "POST", body: { nick: $("#yk-anick").value.trim(), password: $("#yk-apass").value } });
       session = { token: r.token, nick: r.nick, role: r.role }; saveSession(session);
-      $("#yk-apass").value = ""; renderChip(); msg("Вошёл: " + r.nick, true); refreshAuthDialog();
+      $("#yk-apass").value = ""; renderChip(); refreshFab(); msg("Вошёл: " + r.nick, true); refreshAuthDialog();
     } catch (e) { msg(e.message); }
   });
   $("#yk-aregister").addEventListener("click", async () => {
@@ -428,7 +438,7 @@ function buildAuthDialog() {
       msg(r.message || "Заявка создана. Жди прав от админа.", true);
     } catch (e) { msg(e.message); }
   });
-  $("#yk-alogout").addEventListener("click", () => { session = null; saveSession(null); renderChip(); msg("Вышел", true); refreshAuthDialog(); });
+  $("#yk-alogout").addEventListener("click", () => { session = null; saveSession(null); renderChip(); refreshFab(); msg("Вышел", true); refreshAuthDialog(); });
   $("#yk-aclose").addEventListener("click", () => authDlg.close());
   return authDlg;
 }
@@ -468,10 +478,37 @@ function openAuth() {
   d.showModal();
 }
 
+// ── fab state ────────────────────────────────────────────────────────────────
+// One floating button. Worker mode: "Вход" for guests → ✎ once a writer logs in.
+// PAT mode (no workerUrl): ✎ only when ?edit=1 set the yanik_edit flag.
+function refreshFab() {
+  if (!fab || !art || !articleEl) return;
+  if (workerUrl()) {
+    if (session && canWrite(session.role)) {
+      fab.textContent = "✎"; fab.classList.remove("login");
+      fab.title = "Редактировать"; fab.onclick = enterEdit; fab.hidden = false;
+    } else {
+      fab.textContent = "Вход"; fab.classList.add("login");
+      fab.title = "Войти / регистрация"; fab.onclick = openAuth; fab.hidden = false;
+    }
+  } else {
+    // interim PAT mode
+    if (localStorage.getItem("yanik_edit") === "1") {
+      fab.textContent = "✎"; fab.classList.remove("login");
+      fab.title = "Редактировать"; fab.onclick = enterEdit; fab.hidden = false;
+    } else {
+      fab.hidden = true;
+    }
+  }
+}
+
 // ── boot ──────────────────────────────────────────────────────────────────────
 if (fab && art && articleEl) {
-  fab.hidden = false;
-  fab.addEventListener("click", enterEdit);
+  fetch(dataURL("site.json")).then((r) => (r.ok ? r.json() : {})).catch(() => ({})).then((cfg) => {
+    siteCfg = cfg || {};
+    session = loadSession();
+    refreshFab();
+  });
   // Ctrl+S inside the editor → save
   window.addEventListener("keydown", (e) => {
     if (ui && (e.ctrlKey || e.metaKey) && e.key === "s") { e.preventDefault(); save(); }

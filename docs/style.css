@@ -489,6 +489,8 @@ footer.footer a:hover { color: var(--accent); }
 }
 .edit-fab:hover { opacity: 1; transform: scale(1.06); }
 .edit-fab[hidden] { display: none; }   /* beat .edit-fab's display:flex */
+/* "Вход" state — a wider pill instead of the round ✎ icon. */
+.edit-fab.login { width: auto; padding: 0 1.1rem; border-radius: 1.4rem; font-size: 0.95rem; font-weight: 600; }
 
 /* In-page (wiki-style) editor */
 .yanik-editbar {

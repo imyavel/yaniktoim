@@ -98,17 +98,17 @@
   window.yanikBindArticle = function(){ bindMusic(); bindFootnotes(); };
   window.yanikBindArticle();
 
-  // Edit mode: load the in-page editor only for the editor, never for readers.
-  // Enable once with ?edit=1 (persisted); disable with ?edit=0.
+  // Load the editor/login module. It decides what to show: a discreet «Вход»
+  // button in Worker mode (→ ✎ once a writer logs in), or ✎ in interim PAT mode
+  // when ?edit=1 set the yanik_edit flag. The heavy renderer is lazy-loaded only
+  // on entering edit, so readers stay light.
   try{
     var p = new URLSearchParams(location.search);
     if (p.get('edit') === '1') localStorage.setItem('yanik_edit','1');
     if (p.get('edit') === '0') localStorage.removeItem('yanik_edit');
-    if (localStorage.getItem('yanik_edit') === '1'){
-      var s = document.createElement('script');
-      s.type = 'module'; s.src = '../editor/inline.js';
-      document.body.appendChild(s);
-    }
+    var s = document.createElement('script');
+    s.type = 'module'; s.src = '../editor/inline.js';
+    document.body.appendChild(s);
   }catch(e){}
 })();
 </script>
