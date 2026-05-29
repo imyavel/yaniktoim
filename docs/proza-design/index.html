@@ -44,6 +44,10 @@
   footer{margin-top:clamp(36px,6vw,60px); text-align:center; color:var(--muted);
     font-size:.85rem; font-family:system-ui,sans-serif}
   footer a{color:var(--accent)}
+  .sec{margin:clamp(30px,5vw,52px) 0 18px; display:flex; align-items:baseline; gap:12px; flex-wrap:wrap}
+  .sec h2{font-size:1.3rem; font-weight:600; margin:0}
+  .sec .src{font-family:system-ui,sans-serif; font-size:.82rem; color:var(--muted)}
+  .sec .src a{color:var(--accent)}
   @media(max-width:520px){.card{padding-left:28px} .card::before{position:static; margin-bottom:12px}}
 </style>
 </head>
@@ -57,6 +61,9 @@
       в порядке приоритета. Номер = насколько вариант нравится (может пригодиться при пограничных решениях).
       Под каждым — резюме автора о логике разметки.</p>
   </header>
+
+  <div class="sec"><h2>Стихотворный гимн</h2>
+    <span class="src">статья №1 · <a href="https://proza.ru/2022/05/05/670" target="_blank" rel="noopener">Дано Творцу право Любить</a></span></div>
 
   <ol class="list">
     <li class="card">
@@ -86,9 +93,41 @@
     </li>
   </ol>
 
+  <div class="sec"><h2>Те же 5 тем на прозе</h2>
+    <span class="src">статья №2 · <a href="https://proza.ru/2021/08/28/1406" target="_blank" rel="noopener">Только Ты будешь жить вечно</a> · тест переносимости тем</span></div>
+
+  <ol class="list">
+    <li class="card">
+      <div class="top"><h2>Иллюминированный манускрипт</h2><span class="badge">узкий</span></div>
+      <p>Та же тема на прозе: предисловие, разделы, библейская цитата-выноска, абзацный ритм.</p>
+      <div class="links"><a class="btn primary" href="prose/01-manuscript-narrow/">Открыть</a><a class="btn ghost" href="prose/01-manuscript-narrow/rationale.txt">Резюме</a></div>
+    </li>
+    <li class="card">
+      <div class="top"><h2>Sacred-modern editorial</h2><span class="badge wide">широкий</span></div>
+      <p>Прозаическая вёрстка в широком формате: заголовки разделов, выноски, сетка.</p>
+      <div class="links"><a class="btn primary" href="prose/02-modern-wide/">Открыть</a><a class="btn ghost" href="prose/02-modern-wide/rationale.txt">Резюме</a></div>
+    </li>
+    <li class="card">
+      <div class="top"><h2>Журнально-редакторский лонгрид</h2><span class="badge wide">широкий</span></div>
+      <p>Проза как журнальный лонгрид: предисловие, blockquote-цитаты, буквицы.</p>
+      <div class="links"><a class="btn primary" href="prose/03-editorial-wide/">Открыть</a><a class="btn ghost" href="prose/03-editorial-wide/rationale.txt">Резюме</a></div>
+    </li>
+    <li class="card">
+      <div class="top"><h2>Классическая типографика с засечками</h2><span class="badge">узкий</span></div>
+      <p>Проза в книжно-академическом ключе: разделы, цитаты, сноски внизу.</p>
+      <div class="links"><a class="btn primary" href="prose/04-classic-narrow/">Открыть</a><a class="btn ghost" href="prose/04-classic-narrow/rationale.txt">Резюме</a></div>
+    </li>
+    <li class="card">
+      <div class="top"><h2>Иллюминированный манускрипт</h2><span class="badge wide">широкий</span></div>
+      <p>Манускрипт-язык на прозе в широком формате — для сравнения с узкой версией.</p>
+      <div class="links"><a class="btn primary" href="prose/05-manuscript-wide/">Открыть</a><a class="btn ghost" href="prose/05-manuscript-wide/rationale.txt">Резюме</a></div>
+    </li>
+  </ol>
+
   <footer>
     Сгенерировано независимыми агентами Claude Opus 4.8 (headless, adaptive thinking). ·
-    Исходный текст © автор на <a href="https://proza.ru/2022/05/05/670" target="_blank" rel="noopener">Proza.ru</a>.
+    Тексты © автор на <a href="https://proza.ru/2022/05/05/670" target="_blank" rel="noopener">Proza.ru</a>
+    (<a href="https://proza.ru/2021/08/28/1406" target="_blank" rel="noopener">№2</a>).
   </footer>
 </div>
 </body>
