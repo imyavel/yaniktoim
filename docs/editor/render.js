@@ -9,14 +9,17 @@
 
 export const CSS_VERSION = "20260529-04";
 
+// АВТОРСКИЕ названия разделов (сборники proza.ru). НЕ переименовывать/не
+// «адаптировать» — переносятся как есть. Канон сверен с первым деплоем; должно
+// совпадать с SECTION_NAMES в src/5_index.py.
 export const SECTION_HUMAN = {
   best: "Избранное",
-  confront: "Столкновение с реальностью",
-  shoshana: "Шошана среди шипов",
-  dabudet: "Да будет",
-  dreamon: "Сновидения",
+  dreamon: "Мечтай!!",
   cyberson: "Киберсон",
-  other: "Прочее",
+  dabudet: "Да будет Свет!",
+  confront: "Конфронтология Духа",
+  shoshana: "Роза Среди Шипов",
+  other: "Без категории",
 };
 
 // ── PROPER NOUNS (kept capitalised inside small-caps) ───────────────────────

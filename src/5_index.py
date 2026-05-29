@@ -12,13 +12,16 @@ SITE = ROOT / "docs"
 MANIFEST = ROOT / "manifest.json"
 
 CSS_VERSION = "20260529-04"
+# АВТОРСКИЕ названия разделов (сборники proza.ru). НЕ переименовывать и НЕ
+# «адаптировать» — только переносить как есть. Канон сверен с первым деплоем.
+# Должно совпадать с SECTION_HUMAN в docs/editor/render.js.
 SECTION_NAMES = {
     "best":     "Избранное",
     "dreamon":  "Мечтай!!",
     "cyberson": "Киберсон",
     "dabudet":  "Да будет Свет!",
-    "confront": "Столкновение с реальностью",
-    "shoshana": "Шошана среди шипов",
+    "confront": "Конфронтология Духа",
+    "shoshana": "Роза Среди Шипов",
     "other":    "Без категории",
 }
 ORDER = ["best", "dreamon", "cyberson", "dabudet", "confront", "shoshana", "other"]
