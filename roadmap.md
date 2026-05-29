@@ -276,7 +276,7 @@ LLM возвращает готовый `.zml`. Скрипт:
 
 ### Этап 8 — Многопользовательский логин (Cloudflare Worker proxy) — АКТУАЛЬНЫЙ ДИЗАЙН (2026-05-29)
 
-> Заменяет прежнюю «OAuth-relay» модель. **Код написан и проверен локально (2026-05-29)** — осталось задеплоить Worker на Cloudflare (это делает оператор). До деплоя редактор работает в интерим-PAT-режиме (`workerUrl` пуст). Не блокирует выкатку базы.
+> **РАЗВЁРНУТ И ПОДКЛЮЧЁН 2026-05-29.** Worker: `https://yaniktoim-auth.imyavel.workers.dev` (Cloudflare, аккаунт imyavel; поддомен `imyavel.workers.dev`; KV `USERS` id `2a6d63c…`; секреты `GH_TOKEN`/`SESSION_SECRET`/`ADMIN_BOOTSTRAP` заданы). Админы `nipna` (Элиягу) и `anibe` (Бина) заведены в KV (оба role=admin). `config/site.json.workerUrl` указывает на воркер → редактор на сайте в **Worker-режиме логина** (PAT-режим — фолбэк при пустом workerUrl). Проверено: login обоих → 200/admin, неверный пароль → 401, `/api/me` → роль. Передеплой воркера: `cd worker && CLOUDFLARE_API_TOKEN=… npx wrangler deploy`.
 >
 > **Реализовано:** `worker/src/index.js` (регистрация→pending, логин PBKDF2+HMAC-сессия 12ч, `/api/me`, `/api/save` = commit zml+html через Git Data API серверным токеном author=ник, `/api/admin/users`+`/promote`, CORS, bootstrap-админ из секрета), `worker/wrangler.toml`, `worker/README.md` (деплой по шагам). Редактор: `config/site.json {workerUrl}` → `docs/editor/data/site.json`; если задан — `inline.js` показывает чип аккаунта + «Аккаунт» (логин/регистрация/выход, у админа — панель промоута), Save → `/api/save` (без PAT в браузере); если пуст — прежний PAT-режим (select «как:» + ⚙). Оба режима проверены в браузере.
 >
