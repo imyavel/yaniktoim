@@ -79,12 +79,13 @@ function main(argv) {
     const zmlPath = join(ZML, `${art}.zml`);
     if (!existsSync(zmlPath)) { console.error(`  ! ${art}: no zml`); continue; }
     const zml = readFileSync(zmlPath, "utf-8");
-    const section = rec.section || "_unsorted";
-    const outDir = join(SITE, section);
+    // Flat layout: every article at docs/art/<art>.html, independent of section
+    // (section is metadata only → moving between sections never changes the URL).
+    const outDir = join(SITE, "art");
     mkdirSync(outDir, { recursive: true });
     const html = renderArticleHtml({ zml, rec, ...base });
     writeFileSync(join(outDir, `${art}.html`), html, "utf-8"); // LF
-    console.log(`  ✓ ${art} → docs/${section}/${art}.html`);
+    console.log(`  ✓ ${art} → docs/art/${art}.html`);
     ok++;
   }
   emitEditorData(base, arts.filter((a) => base.manifestByArt[a] && existsSync(join(ZML, `${a}.zml`))));

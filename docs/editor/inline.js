@@ -364,7 +364,7 @@ async function saveViaPat() {
       base_tree: headCommit.tree.sha,
       tree: [
         { path: `zml/${art}.zml`, mode: "100644", type: "blob", sha: zmlBlob.sha },
-        { path: `docs/${prep.section}/${art}.html`, mode: "100644", type: "blob", sha: htmlBlob.sha },
+        { path: `docs/art/${art}.html`, mode: "100644", type: "blob", sha: htmlBlob.sha },
       ],
     }) });
     const commit = await ghApi(cfg, "git/commits", { method: "POST", body: JSON.stringify({

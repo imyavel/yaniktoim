@@ -7,7 +7,7 @@
 // CONSTANTS  (keep in sync with 4_render.py)
 // ════════════════════════════════════════════════════════════════════════════
 
-export const CSS_VERSION = "20260529-04";
+export const CSS_VERSION = "20260529-05";
 
 // АВТОРСКИЕ названия разделов (сборники proza.ru). НЕ переименовывать/не
 // «адаптировать» — переносятся как есть. Канон сверен с первым деплоем; должно
@@ -320,9 +320,9 @@ function resolveInternals(s, manifestByArt) {
   return s.replace(/\[\[([A-Za-z0-9]+)\]\]/g, (_, art) => {
     const rec = manifestByArt[art];
     if (!rec) return `<a class="broken" href="#">[[${art}]]</a>`;
-    const section = rec.section || "";
     const title = rec.title || art;
-    const href = `../${section}/${art}.html`;
+    // Flat layout: all articles live in docs/art/<art>.html → same dir.
+    const href = `${art}.html`;
     return `<a class="internal" href="${href}">${htmlEscape(title)}</a>`;
   });
 }
@@ -803,6 +803,8 @@ export function renderArticleHtml(ctx) {
   html = replaceAllLiteral(html, "{{DESCRIPTION}}", htmlEscape(description));
   html = replaceAllLiteral(html, "{{CSS_VERSION}}", CSS_VERSION);
   html = replaceAllLiteral(html, "{{SECTION_NAME}}", htmlEscape(sectionHuman));
+  // Flat layout: article at docs/art/<art>.html → section index is one level up.
+  html = replaceAllLiteral(html, "{{SECTION_HREF}}", `../${ctx.rec.section || "other"}/index.html`);
   html = replaceAllLiteral(html, "{{ILLUSTRATION}}", illustration);
   html = replaceAllLiteral(html, "{{NUMBER}}", ctx.rec.art);
   html = replaceAllLiteral(html, "{{DATE_DISPLAY}}", htmlEscape(dateDisplay));

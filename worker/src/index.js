@@ -202,7 +202,7 @@ async function handleSave(env, payload, body) {
       message: `cms: edit ${art} — ${payload.nick}`,
       files: [
         { path: `zml/${art}.zml`, content: zml },
-        { path: `docs/${section}/${art}.html`, content: html },
+        { path: `docs/art/${art}.html`, content: html },
       ],
     });
     return json(env, { ok: true, sha });

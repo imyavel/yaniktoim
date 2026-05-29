@@ -11,7 +11,7 @@ TPL = ROOT / "templates"
 SITE = ROOT / "docs"
 MANIFEST = ROOT / "manifest.json"
 
-CSS_VERSION = "20260529-04"
+CSS_VERSION = "20260529-05"
 # АВТОРСКИЕ названия разделов (сборники proza.ru). НЕ переименовывать и НЕ
 # «адаптировать» — только переносить как есть. Канон сверен с первым деплоем.
 # Должно совпадать с SECTION_HUMAN в docs/editor/render.js.
@@ -73,10 +73,11 @@ def main():
         lis = []
         for r in rows:
             art = r.get("art") or r.get("number", "???")
-            published = (sec_dir / f"{art}.html").exists()
+            # Flat layout: articles live in docs/art/<art>.html (section is metadata).
+            published = (SITE / "art" / f"{art}.html").exists()
             title_safe = html_mod.escape(r["title"])
             if published:
-                title_html = f'<a href="{art}.html">{title_safe}</a>'
+                title_html = f'<a href="../art/{art}.html">{title_safe}</a>'
                 li_cls = ""
             else:
                 # Not transformed/rendered yet — grayed-out, not clickable.
