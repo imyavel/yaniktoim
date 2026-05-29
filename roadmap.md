@@ -276,7 +276,11 @@ LLM возвращает готовый `.zml`. Скрипт:
 
 ### Этап 8 — Многопользовательский логин (Cloudflare Worker proxy) — АКТУАЛЬНЫЙ ДИЗАЙН (2026-05-29)
 
-> Заменяет прежнюю «OAuth-relay» модель. Запускаем, когда захотим пускать редактировать не только себя. До этого — интерим на PAT (см. §0.5). Не блокирует выкатку базы.
+> Заменяет прежнюю «OAuth-relay» модель. **Код написан и проверен локально (2026-05-29)** — осталось задеплоить Worker на Cloudflare (это делает оператор). До деплоя редактор работает в интерим-PAT-режиме (`workerUrl` пуст). Не блокирует выкатку базы.
+>
+> **Реализовано:** `worker/src/index.js` (регистрация→pending, логин PBKDF2+HMAC-сессия 12ч, `/api/me`, `/api/save` = commit zml+html через Git Data API серверным токеном author=ник, `/api/admin/users`+`/promote`, CORS, bootstrap-админ из секрета), `worker/wrangler.toml`, `worker/README.md` (деплой по шагам). Редактор: `config/site.json {workerUrl}` → `docs/editor/data/site.json`; если задан — `inline.js` показывает чип аккаунта + «Аккаунт» (логин/регистрация/выход, у админа — панель промоута), Save → `/api/save` (без PAT в браузере); если пуст — прежний PAT-режим (select «как:» + ⚙). Оба режима проверены в браузере.
+>
+> **Оператору для запуска:** см. `worker/README.md` — `wrangler login`, создать KV `USERS`, секреты `GH_TOKEN`/`SESSION_SECRET`/`ADMIN_BOOTSTRAP`, `wrangler deploy`, вписать URL в `config/site.json`, `node tools/build.mjs`, push.
 
 Цель оператора: друзья **без своего GitHub** правят «под общим аккаунтом», но логинятся каждый под своим ником; «доступ только через этот сайт и больше никак».
 
@@ -340,6 +344,8 @@ yaniktoim/
 ├── config/          ← proper-nouns.txt (CAPS→Заглавная), users.json (3 юзера)
 ├── templates/       ← article.html, main_index.html, section_index.html ({{…}}-подстановка)
 ├── tools/build.mjs  ← Node-сборка: zml → docs/, + docs/editor/data/
+├── worker/          ← Cloudflare Worker (Этап 8): src/index.js, wrangler.toml, README.md
+│                       (деплоится отдельно на Cloudflare, НЕ через Pages; секреты — там)
 ├── src/             ← python-пайплайн наполнения корпуса
 │   ├── 1_fetch.py / 1b_fetch_missing.py / 2_manifest.py / 2b_section_order.py  (готовы)
 │   ├── 3_transform.py + transform_prompt.md   HTML→ZML (готово)

@@ -27,6 +27,28 @@ const SIGNER_KEY = "yanik_signer";
 const loadSigner = () => { try { return localStorage.getItem(SIGNER_KEY) || ""; } catch { return ""; } };
 const saveSigner = (n) => { try { localStorage.setItem(SIGNER_KEY, n); } catch {} };
 
+// ── Worker mode (Этап 8) ─────────────────────────────────────────────────────
+// If config/site.json → docs/editor/data/site.json carries a non-empty workerUrl,
+// the editor logs in by nick (session, no PAT in the browser) and saves via the
+// Worker (which holds the GitHub token). Empty workerUrl → interim PAT mode below.
+const SESSION_KEY = "yanik_session";
+let session = null; // { token, nick, role }
+const loadSession = () => { try { return JSON.parse(localStorage.getItem(SESSION_KEY)) || null; } catch { return null; } };
+const saveSession = (s) => { try { s ? localStorage.setItem(SESSION_KEY, JSON.stringify(s)) : localStorage.removeItem(SESSION_KEY); } catch {} };
+function workerUrl() { return (base && base.site && base.site.workerUrl) ? String(base.site.workerUrl).replace(/\/+$/, "") : ""; }
+const roleRu = (r) => ({ admin: "админ", editor: "редактор", pending: "ожидает прав" }[r] || r || "—");
+const canWrite = (r) => r === "editor" || r === "admin";
+
+async function wapi(path, { method = "GET", body = null, auth = false } = {}) {
+  const headers = {};
+  if (body) headers["Content-Type"] = "application/json";
+  if (auth && session) headers["Authorization"] = `Bearer ${session.token}`;
+  const res = await fetch(workerUrl() + path, { method, headers, body: body ? JSON.stringify(body) : null });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+  return data;
+}
+
 // today as YYYY-MM-DD (local) for the `edited:` frontmatter stamp.
 function todayISO() {
   const d = new Date();
@@ -58,17 +80,19 @@ function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.
 // ── data ─────────────────────────────────────────────────────────────────────
 async function ensureData() {
   if (base) return;
-  const [manifest, zoharIndex, properNouns, template, users] = await Promise.all([
+  const [manifest, zoharIndex, properNouns, template, users, site] = await Promise.all([
     fetch(dataURL("manifest.json")).then((r) => r.json()),
     fetch(dataURL("zohar_index.json")).then((r) => r.json()).catch(() => ({ chapters: {}, articles: {} })),
     fetch(dataURL("proper-nouns.txt")).then((r) => (r.ok ? r.text() : "")).catch(() => ""),
     fetch(dataURL("template.html")).then((r) => (r.ok ? r.text() : "")).catch(() => ""),
     fetch(dataURL("users.json")).then((r) => (r.ok ? r.json() : [])).catch(() => []),
+    fetch(dataURL("site.json")).then((r) => (r.ok ? r.json() : {})).catch(() => ({})),
   ]);
   const manifestByArt = {};
   for (const r of manifest) if (r.art) manifestByArt[r.art] = r;
-  base = { manifest, manifestByArt, zoharIndex, properNouns, template, users };
+  base = { manifest, manifestByArt, zoharIndex, properNouns, template, users, site };
   rec = manifestByArt[art];
+  session = loadSession();
 }
 
 // Editors selectable in "подписываюсь как…" — everyone except the auto/AI
@@ -108,39 +132,50 @@ async function enterEdit() {
     const bDl = mk("↓ zml");
     const bCfg = mk("⚙");
 
-    // "подписываюсь как…" — who this edit is attributed to.
-    const signer = el("select", "yanik-signer");
-    signer.title = "Подписываюсь как…";
-    const names = signerOptions();
-    const prev0 = loadSigner();
-    for (const n of names) {
-      const o = document.createElement("option");
-      o.value = n; o.textContent = n;
-      if (n === prev0) o.selected = true;
-      signer.append(o);
+    const worker = !!workerUrl();
+    let signer = null, chip = null;
+    if (worker) {
+      // Worker mode: sign as the logged-in nick; "Аккаунт" opens login/register.
+      chip = el("span", "yanik-signchip");
+      const bAuth = mk("Аккаунт");
+      bAuth.addEventListener("click", openAuth);
+      bar.append(bSave, bPrev, bCancel, el("span", "yanik-grow"), chip, bAuth, status, bDl);
+    } else {
+      // Interim PAT mode: pick a signature from config/users.json + ⚙ for token.
+      signer = el("select", "yanik-signer");
+      signer.title = "Подписываюсь как…";
+      const names = signerOptions();
+      const prev0 = loadSigner();
+      for (const n of names) {
+        const o = document.createElement("option");
+        o.value = n; o.textContent = n;
+        if (n === prev0) o.selected = true;
+        signer.append(o);
+      }
+      if (!names.length) { const o = document.createElement("option"); o.textContent = "(нет пользователей)"; o.value = ""; signer.append(o); }
+      signer.addEventListener("change", () => saveSigner(signer.value));
+      bar.append(bSave, bPrev, bCancel, el("span", "yanik-grow"),
+                 el("span", "yanik-signlabel", "как:"), signer, status, bDl, bCfg);
     }
-    if (!names.length) { const o = document.createElement("option"); o.textContent = "(нет пользователей)"; o.value = ""; signer.append(o); }
-    signer.addEventListener("change", () => saveSigner(signer.value));
-
-    bar.append(bSave, bPrev, bCancel, el("span", "yanik-grow"),
-               el("span", "yanik-signlabel", "как:"), signer, status, bDl, bCfg);
 
     const ta = el("textarea", "yanik-ta"); ta.spellcheck = false; ta.value = zml;
     const prev = el("article", "yanik-preview"); prev.hidden = true;
 
     articleEl.innerHTML = "";
     articleEl.append(bar, ta, prev);
-    ui = { bar, ta, prev, status, signer };
+    ui = { bar, ta, prev, status, signer, chip, worker };
     previewing = false;
 
     bSave.addEventListener("click", save);
     bPrev.addEventListener("click", () => togglePreview(bPrev));
     bCancel.addEventListener("click", cancel);
     bDl.addEventListener("click", download);
-    bCfg.addEventListener("click", openSettings);
+    if (!worker) bCfg.addEventListener("click", openSettings);
     ta.addEventListener("input", () => { if (ta.value !== originalZml) setStatus("● изменено", "dirty"); else setStatus("правка"); });
     ta.focus();
     window.addEventListener("beforeunload", beforeUnload);
+
+    if (worker) { renderChip(); refreshMe(); }
   } catch (e) {
     alert("Ошибка входа в правку: " + e.message);
     console.error(e);
@@ -215,74 +250,100 @@ async function ghApi(cfg, path, opts = {}) {
   return res.json();
 }
 
-async function save() {
-  const cfg = loadCfg();
-  if (!cfg.token || !cfg.owner || !cfg.repo) {
-    setStatus("нет настроек GitHub", "err");
-    openSettings();
-    return;
+// Worker-mode account chip + role refresh.
+function renderChip() {
+  if (!ui || !ui.chip) return;
+  if (session) {
+    ui.chip.textContent = `${session.nick} · ${roleRu(session.role)}`;
+    ui.chip.className = "yanik-signchip " + (canWrite(session.role) ? "ok" : "warn");
+  } else {
+    ui.chip.textContent = "не вошёл";
+    ui.chip.className = "yanik-signchip warn";
   }
-  const signerName = (ui.signer && ui.signer.value) || loadSigner();
-  if (!signerName) { setStatus("выбери, как подписать", "err"); return; }
-  const branch = cfg.branch || "main";
+}
+async function refreshMe() {
+  if (!session) { renderChip(); return; }
+  try {
+    const me = await wapi("/api/me", { auth: true });
+    session = { ...session, nick: me.nick, role: me.role };
+    saveSession(session);
+  } catch {
+    session = null; saveSession(null); // expired/invalid token
+  }
+  renderChip();
+}
 
-  // 1. Stamp attribution into the source. Normalize to LF first — source .zml
-  // may be CRLF (Windows), and setFrontmatter's regex + the committed form are
-  // LF (matches render.js normalization and the LF html the build writes).
+// Stamp attribution + render full page (shared by PAT and Worker save paths).
+// Normalize to LF first — source .zml may be CRLF (Windows); committed form is LF.
+function prepareSave(signerName) {
   const lf = ui.ta.value.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
   let zml = setFrontmatter(lf, "editor", signerName);
   zml = setFrontmatter(zml, "edited", todayISO());
-
-  // 2. Render the full page (same renderer + template as the build).
-  let html;
-  try {
-    if (!base.template) throw new Error("нет template.html в data/");
-    html = renderArticleHtml({ zml, rec, ...base });
-  } catch (e) {
-    setStatus("✗ render: " + e.message, "err"); console.error(e); return;
-  }
-
+  if (!base.template) throw new Error("нет template.html в data/");
+  const html = renderArticleHtml({ zml, rec, ...base });
   const section = rec.section || "_unsorted";
-  const zmlPath = `zml/${art}.zml`;
-  const htmlPath = `docs/${section}/${art}.html`;
+  return { zml, html, section };
+}
 
+async function save() {
+  if (ui && ui.worker) return saveViaWorker();
+  return saveViaPat();
+}
+
+// Worker-mode: token lives on the Worker; we send the rendered files + session.
+async function saveViaWorker() {
+  if (!session) { setStatus("войдите, чтобы сохранять", "err"); openAuth(); return; }
+  if (!canWrite(session.role)) { setStatus(`нет прав (роль: ${roleRu(session.role)})`, "err"); return; }
+  let prep;
+  try { prep = prepareSave(session.nick); }
+  catch (e) { setStatus("✗ render: " + e.message, "err"); console.error(e); return; }
   setStatus("⏳ сохраняю…", "wait");
   try {
-    // 3. Current branch head + base tree.
+    const r = await wapi("/api/save", { method: "POST", auth: true, body: {
+      art, section: prep.section, zml: prep.zml, html: prep.html,
+    } });
+    originalZml = prep.zml; ui.ta.value = prep.zml;
+    setStatus(`✓ закоммичено (${(r.sha || "").slice(0, 7)}, обновится ~30-60 c)`, "ok");
+  } catch (e) {
+    if (/401|не авторизован/i.test(e.message)) { session = null; saveSession(null); renderChip(); openAuth(); }
+    setStatus("✗ " + e.message, "err"); console.error(e);
+  }
+}
+
+// Interim PAT-mode: commit straight to GitHub Git Data API with a personal token.
+async function saveViaPat() {
+  const cfg = loadCfg();
+  if (!cfg.token || !cfg.owner || !cfg.repo) { setStatus("нет настроек GitHub", "err"); openSettings(); return; }
+  const signerName = (ui.signer && ui.signer.value) || loadSigner();
+  if (!signerName) { setStatus("выбери, как подписать", "err"); return; }
+  const branch = cfg.branch || "main";
+  let prep;
+  try { prep = prepareSave(signerName); }
+  catch (e) { setStatus("✗ render: " + e.message, "err"); console.error(e); return; }
+  setStatus("⏳ сохраняю…", "wait");
+  try {
     const refObj = await ghApi(cfg, `git/ref/heads/${encodeURIComponent(branch)}`);
     const headSha = refObj.object.sha;
     const headCommit = await ghApi(cfg, `git/commits/${headSha}`);
-    const baseTree = headCommit.tree.sha;
-
-    // 4. Blobs for both files.
     const [zmlBlob, htmlBlob] = await Promise.all([
-      ghApi(cfg, "git/blobs", { method: "POST", body: JSON.stringify({ content: b64utf8(zml), encoding: "base64" }) }),
-      ghApi(cfg, "git/blobs", { method: "POST", body: JSON.stringify({ content: b64utf8(html), encoding: "base64" }) }),
+      ghApi(cfg, "git/blobs", { method: "POST", body: JSON.stringify({ content: b64utf8(prep.zml), encoding: "base64" }) }),
+      ghApi(cfg, "git/blobs", { method: "POST", body: JSON.stringify({ content: b64utf8(prep.html), encoding: "base64" }) }),
     ]);
-
-    // 5. Tree → commit → move ref.
     const tree = await ghApi(cfg, "git/trees", { method: "POST", body: JSON.stringify({
-      base_tree: baseTree,
+      base_tree: headCommit.tree.sha,
       tree: [
-        { path: zmlPath, mode: "100644", type: "blob", sha: zmlBlob.sha },
-        { path: htmlPath, mode: "100644", type: "blob", sha: htmlBlob.sha },
+        { path: `zml/${art}.zml`, mode: "100644", type: "blob", sha: zmlBlob.sha },
+        { path: `docs/${prep.section}/${art}.html`, mode: "100644", type: "blob", sha: htmlBlob.sha },
       ],
     }) });
     const commit = await ghApi(cfg, "git/commits", { method: "POST", body: JSON.stringify({
-      message: `cms: edit ${art} — ${signerName}`,
-      tree: tree.sha,
-      parents: [headSha],
+      message: `cms: edit ${art} — ${signerName}`, tree: tree.sha, parents: [headSha],
     }) });
-    await ghApi(cfg, `git/refs/heads/${encodeURIComponent(branch)}`, {
-      method: "PATCH", body: JSON.stringify({ sha: commit.sha }),
-    });
-
-    originalZml = zml;
-    ui.ta.value = zml; // reflect stamped frontmatter back into the textarea
+    await ghApi(cfg, `git/refs/heads/${encodeURIComponent(branch)}`, { method: "PATCH", body: JSON.stringify({ sha: commit.sha }) });
+    originalZml = prep.zml; ui.ta.value = prep.zml;
     setStatus("✓ закоммичено (обновится ~30-60 c)", "ok");
   } catch (e) {
-    setStatus("✗ " + e.message, "err");
-    console.error(e);
+    setStatus("✗ " + e.message, "err"); console.error(e);
   }
 }
 
@@ -327,6 +388,83 @@ function openSettings() {
   d.querySelector("#yk-repo").value = c.repo || "";
   d.querySelector("#yk-branch").value = c.branch || "main";
   d.querySelector("#yk-token").value = c.token || "";
+  d.showModal();
+}
+
+// ── account dialog (Worker mode) ────────────────────────────────────────────
+let authDlg = null;
+function buildAuthDialog() {
+  if (authDlg) return authDlg;
+  authDlg = el("dialog", "yanik-settings yanik-auth");
+  authDlg.innerHTML = `
+    <h3 style="margin:0 0 .6rem">Аккаунт yaniktoim</h3>
+    <div id="yk-astate" class="yanik-astate"></div>
+    <div id="yk-aforms">
+      <label>ник</label><input id="yk-anick" autocomplete="off">
+      <label>пароль</label><input id="yk-apass" type="password" autocomplete="off">
+      <label>инвайт-код <span class="hint">(если нужен)</span></label>
+      <input id="yk-ainvite" autocomplete="off" placeholder="оставь пустым, если без кода">
+      <div class="row"><button type="button" id="yk-aregister">Регистрация</button><button type="button" id="yk-alogin" class="primary">Войти</button></div>
+    </div>
+    <p class="hint" id="yk-amsg"></p>
+    <div id="yk-admin" hidden><h4 style="margin:.6rem 0 .3rem">Пользователи</h4><div id="yk-users" class="yanik-users"></div></div>
+    <div class="row"><button type="button" id="yk-alogout" hidden>Выйти</button><button type="button" id="yk-aclose" class="primary">Закрыть</button></div>`;
+  document.body.appendChild(authDlg);
+  const $ = (s) => authDlg.querySelector(s);
+  const msg = (t, ok) => { const m = $("#yk-amsg"); m.textContent = t || ""; m.style.color = ok ? "var(--done)" : "#b00020"; };
+
+  $("#yk-alogin").addEventListener("click", async () => {
+    try {
+      const r = await wapi("/api/login", { method: "POST", body: { nick: $("#yk-anick").value.trim(), password: $("#yk-apass").value } });
+      session = { token: r.token, nick: r.nick, role: r.role }; saveSession(session);
+      $("#yk-apass").value = ""; renderChip(); msg("Вошёл: " + r.nick, true); refreshAuthDialog();
+    } catch (e) { msg(e.message); }
+  });
+  $("#yk-aregister").addEventListener("click", async () => {
+    try {
+      const body = { nick: $("#yk-anick").value.trim(), password: $("#yk-apass").value };
+      const inv = $("#yk-ainvite").value.trim(); if (inv) body.invite = inv;
+      const r = await wapi("/api/register", { method: "POST", body });
+      msg(r.message || "Заявка создана. Жди прав от админа.", true);
+    } catch (e) { msg(e.message); }
+  });
+  $("#yk-alogout").addEventListener("click", () => { session = null; saveSession(null); renderChip(); msg("Вышел", true); refreshAuthDialog(); });
+  $("#yk-aclose").addEventListener("click", () => authDlg.close());
+  return authDlg;
+}
+
+async function refreshAuthDialog() {
+  const d = buildAuthDialog();
+  const $ = (s) => d.querySelector(s);
+  await refreshMe();
+  const logged = !!session;
+  $("#yk-astate").textContent = logged ? `Вы вошли как ${session.nick} · ${roleRu(session.role)}` : "Вы не вошли.";
+  $("#yk-aforms").hidden = logged;
+  $("#yk-alogout").hidden = !logged;
+  const isAdmin = logged && session.role === "admin";
+  $("#yk-admin").hidden = !isAdmin;
+  if (isAdmin) {
+    try {
+      const { users } = await wapi("/api/admin/users", { auth: true });
+      const box = $("#yk-users"); box.innerHTML = "";
+      for (const u of users) {
+        const row = el("div", "yanik-userrow");
+        const sel = el("select"); for (const r of ["pending", "editor", "admin"]) { const o = document.createElement("option"); o.value = o.textContent = r; if (r === u.role) o.selected = true; sel.append(o); }
+        const apply = el("button"); apply.type = "button"; apply.textContent = "⤴";
+        apply.addEventListener("click", async () => {
+          try { await wapi("/api/admin/promote", { method: "POST", auth: true, body: { nick: u.nick, role: sel.value } }); apply.textContent = "✓"; }
+          catch (e) { alert(e.message); }
+        });
+        row.append(el("span", "yanik-unick", u.nick), sel, apply);
+        box.append(row);
+      }
+    } catch (e) { $("#yk-users").textContent = e.message; }
+  }
+}
+
+function openAuth() {
+  const d = buildAuthDialog();
+  refreshAuthDialog();
   d.showModal();
 }
 

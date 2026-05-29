@@ -511,6 +511,13 @@ footer.footer a:hover { color: var(--accent); }
   font: inherit; padding: 0.25rem 0.4rem; border: 1px solid #cdbfae;
   border-radius: 0.35rem; background: #fff; color: var(--fg); max-width: 14rem;
 }
+.yanik-editbar .yanik-signchip { font-size: 0.85rem; padding: 0.2rem 0.5rem; border-radius: 0.35rem; background: var(--soft); }
+.yanik-editbar .yanik-signchip.ok { color: var(--done); }
+.yanik-editbar .yanik-signchip.warn { color: #b06f00; }
+.yanik-astate { font-size: 0.9rem; margin: 0 0 0.6rem; }
+.yanik-users { display: flex; flex-direction: column; gap: 0.35rem; max-height: 14rem; overflow: auto; }
+.yanik-userrow { display: flex; align-items: center; gap: 0.4rem; }
+.yanik-userrow .yanik-unick { flex: 1 1 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .yanik-status { font-size: 0.85rem; color: var(--muted); }
 .yanik-status.dirty { color: #b06f00; }
 .yanik-status.ok    { color: var(--done); }

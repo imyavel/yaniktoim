@@ -31,7 +31,9 @@ function loadCtx() {
   const properNouns = existsSync(pnPath) ? readFileSync(pnPath, "utf-8") : "";
   const usersPath = join(ROOT, "config/users.json");
   const users = existsSync(usersPath) ? readFileSync(usersPath, "utf-8") : "[]";
-  return { manifest, manifestByArt, zoharIndex, template, properNouns, users };
+  const sitePath = join(ROOT, "config/site.json");
+  const site = existsSync(sitePath) ? readFileSync(sitePath, "utf-8") : '{"workerUrl":""}';
+  return { manifest, manifestByArt, zoharIndex, template, properNouns, users, site };
 }
 
 function discoverArts() {
@@ -62,6 +64,8 @@ function emitEditorData(base, arts) {
   writeFileSync(join(DATA, "template.html"), base.template, "utf-8");
   // User list for the "подписываюсь как…" selector + attribution.
   writeFileSync(join(DATA, "users.json"), base.users || "[]", "utf-8");
+  // Site config (workerUrl): empty → editor uses interim PAT mode; set → Worker login.
+  writeFileSync(join(DATA, "site.json"), base.site || '{"workerUrl":""}', "utf-8");
   for (const art of arts) copyFileSync(join(ZML, `${art}.zml`), join(DATA, "zml", `${art}.zml`));
 }
 
