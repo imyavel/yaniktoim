@@ -3,18 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Дизайн-эксперимент · варианты вёрстки одной статьи</title>
+<title>Дизайн-эксперимент · короткий список (5 вариантов)</title>
 <style>
   :root{
     --bg:#f7f5f0; --paper:#fffdf8; --ink:#2b2622; --muted:#8a7f72;
     --line:#e6e0d5; --accent:#b07a3c; --accent-soft:#f0e7d8;
   }
   *{box-sizing:border-box}
-  body{
-    margin:0; background:var(--bg); color:var(--ink);
-    font-family:"Georgia","Times New Roman",serif;
-    -webkit-font-smoothing:antialiased; line-height:1.6;
-  }
+  body{margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Georgia","Times New Roman",serif; -webkit-font-smoothing:antialiased; line-height:1.6}
   .wrap{max-width:1080px; margin:0 auto; padding:clamp(28px,6vw,72px) clamp(20px,5vw,40px)}
   header{text-align:center; margin-bottom:clamp(28px,5vw,48px)}
   .kicker{font-family:system-ui,-apple-system,"Segoe UI",sans-serif; font-size:.72rem;
@@ -23,135 +20,71 @@
   .lead{max-width:62ch; margin:0 auto; color:var(--muted); font-size:1.02rem}
   .lead a{color:var(--accent)}
 
-  .section-head{display:flex; align-items:baseline; gap:14px; margin:0 0 20px; flex-wrap:wrap}
-  .section-head h2{font-size:1.35rem; font-weight:600; margin:0}
-  .section-head .tag{font-family:system-ui,sans-serif; font-size:.7rem; letter-spacing:.16em;
-    text-transform:uppercase; color:#fff; background:var(--accent); padding:4px 10px; border-radius:999px}
-  .section-head .note{font-family:system-ui,sans-serif; font-size:.85rem; color:var(--muted)}
-
-  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(16px,3vw,24px)}
-  .card{
-    background:var(--paper); border:1px solid var(--line); border-radius:14px;
-    padding:24px 24px 20px; display:flex; flex-direction:column; gap:10px;
-    transition:transform .18s ease, box-shadow .18s ease;
-  }
-  .card:hover{transform:translateY(-3px); box-shadow:0 10px 30px rgba(80,60,30,.10)}
-  .num{font-family:system-ui,sans-serif; font-size:.72rem; letter-spacing:.18em;
-    text-transform:uppercase; color:var(--accent)}
-  .card h3{font-size:1.2rem; margin:0; font-weight:600}
-  .card p{margin:0; color:var(--muted); font-size:.93rem; flex:1}
-  .links{display:flex; gap:10px; margin-top:8px; flex-wrap:wrap}
+  ol.list{list-style:none; counter-reset:p; margin:0; padding:0;
+    display:flex; flex-direction:column; gap:clamp(14px,2.5vw,20px)}
+  .card{position:relative; background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:24px 28px 22px 84px; transition:transform .18s ease, box-shadow .18s ease}
+  .card:hover{transform:translateY(-2px); box-shadow:0 10px 30px rgba(80,60,30,.10)}
+  .card::before{counter-increment:p; content:counter(p);
+    position:absolute; left:24px; top:24px; width:40px; height:40px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--accent); color:#fff; font-family:system-ui,sans-serif; font-weight:600; font-size:1.05rem}
+  .top{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:6px}
+  .card h2{font-size:1.25rem; margin:0; font-weight:600}
+  .badge{font-family:system-ui,sans-serif; font-size:.68rem; letter-spacing:.12em; text-transform:uppercase;
+    padding:3px 9px; border-radius:999px; border:1px solid var(--line); color:var(--muted)}
+  .badge.wide{background:var(--accent-soft); color:#7a5320; border-color:#e3d2b6}
+  .card p{margin:0 0 12px; color:var(--muted); font-size:.95rem}
+  .links{display:flex; gap:10px; flex-wrap:wrap}
   .btn{font-family:system-ui,sans-serif; font-size:.82rem; text-decoration:none;
     padding:9px 16px; border-radius:999px; border:1px solid var(--line)}
   .btn.primary{background:var(--accent); color:#fff; border-color:var(--accent)}
   .btn.ghost{background:transparent; color:var(--ink)}
   .btn.ghost:hover{background:var(--accent-soft)}
-
-  .divider{display:flex; align-items:center; gap:18px; margin:clamp(40px,7vw,72px) 0}
-  .divider::before,.divider::after{content:""; flex:1; height:1px;
-    background:linear-gradient(90deg,transparent,var(--accent),transparent)}
-  .divider span{font-family:system-ui,sans-serif; font-size:.74rem; letter-spacing:.2em;
-    text-transform:uppercase; color:var(--accent)}
-
   footer{margin-top:clamp(36px,6vw,60px); text-align:center; color:var(--muted);
     font-size:.85rem; font-family:system-ui,sans-serif}
   footer a{color:var(--accent)}
+  @media(max-width:520px){.card{padding-left:28px} .card::before{position:static; margin-bottom:12px}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <p class="kicker">Дизайн-эксперимент</p>
-    <h1>Варианты вёрстки одной статьи</h1>
+    <p class="kicker">Дизайн-эксперимент · короткий список</p>
+    <h1>5 отобранных вариантов</h1>
     <p class="lead">Один и тот же текст —
       «<a href="https://proza.ru/2022/05/05/670" target="_blank" rel="noopener">Дано Творцу право Любить</a>» —
-      оформлен независимыми дизайнерами, каждым в своём эстетическом направлении.
-      Сравните и выберите лучший. Под каждым — резюме автора о найденной логике разметки.</p>
+      в порядке приоритета. Номер = насколько вариант нравится (может пригодиться при пограничных решениях).
+      Под каждым — резюме автора о логике разметки.</p>
   </header>
 
-  <!-- ===== НОВЫЕ: широкоформатные, светлый фон + контрастные элементы ===== -->
-  <section>
-    <div class="section-head">
-      <span class="tag">Новые</span>
-      <h2>Широкоформатные</h2>
-      <span class="note">светлый фон, контрастные элементы, колонка ~2/3 экрана</span>
-    </div>
-    <div class="grid">
-      <div class="card">
-        <span class="num">01 · Airy</span>
-        <h3>Воздушный книжный минимализм</h3>
-        <p>Много воздуха, изящная антиква, кремовый фон, чёткие акценты — в широком контейнере.</p>
-        <div class="links"><a class="btn primary" href="v2/airy/">Открыть</a><a class="btn ghost" href="v2/airy/rationale.txt">Резюме</a></div>
-      </div>
-      <div class="card">
-        <span class="num">02 · Editorial</span>
-        <h3>Журнально-редакторский лонгрид</h3>
-        <p>Крупные заголовки, контрастные блоки эпиграфов, широкая сетка, буквицы.</p>
-        <div class="links"><a class="btn primary" href="v2/editorial/">Открыть</a><a class="btn ghost" href="v2/editorial/rationale.txt">Резюме</a></div>
-      </div>
-      <div class="card">
-        <span class="num">03 · Classic</span>
-        <h3>Классическая типографика с засечками</h3>
-        <p>Сакральная торжественность, буквица, настоящие сноски внизу, насыщенный текст.</p>
-        <div class="links"><a class="btn primary" href="v2/classic/">Открыть</a><a class="btn ghost" href="v2/classic/rationale.txt">Резюме</a></div>
-      </div>
-      <div class="card">
-        <span class="num">04 · Modern</span>
-        <h3>Sacred-modern editorial</h3>
-        <p>Крупная воздушная сетка, гротеск + антиква, уверенный сакральный акцент.</p>
-        <div class="links"><a class="btn primary" href="v2/modern/">Открыть</a><a class="btn ghost" href="v2/modern/rationale.txt">Резюме</a></div>
-      </div>
-      <div class="card">
-        <span class="num">05 · Manuscript</span>
-        <h3>Иллюминированный манускрипт</h3>
-        <p>Декоративные инициалы, орнаментальные рамки и флероны, пергаментный фон.</p>
-        <div class="links"><a class="btn primary" href="v2/manuscript/">Открыть</a><a class="btn ghost" href="v2/manuscript/rationale.txt">Резюме</a></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"><span>&#10070; ранняя серия ниже &#10070;</span></div>
-
-  <!-- ===== СТАРЫЕ: узкоформатные (первый прогон) ===== -->
-  <section>
-    <div class="section-head">
-      <span class="tag" style="background:var(--muted)">Ранние</span>
-      <h2>Узкоформатные</h2>
-      <span class="note">первый прогон, узкая колонка чтения</span>
-    </div>
-    <div class="grid">
-      <div class="card">
-        <span class="num">01 · Airy</span>
-        <h3>Воздушный книжный минимализм</h3>
-        <p>Узкая колонка, много воздуха, тонкая антиква, кремово-слоновая палитра.</p>
-        <div class="links"><a class="btn primary" href="airy/">Открыть</a><a class="btn ghost" href="airy/rationale.txt">Резюме</a></div>
-      </div>
-      <div class="card">
-        <span class="num">02 · Editorial</span>
-        <h3>Журнально-редакторский лонгрид</h3>
-        <p>Акцидентные заголовки, контрастные эпиграфы, буквицы — как digital-журнал.</p>
-        <div class="links"><a class="btn primary" href="editorial/">Открыть</a><a class="btn ghost" href="editorial/rationale.txt">Резюме</a></div>
-      </div>
-      <div class="card">
-        <span class="num">03 · Classic</span>
-        <h3>Классическая типографика с засечками</h3>
-        <p>Академически-сакральная торжественность, буквица, настоящие сноски, симметрия.</p>
-        <div class="links"><a class="btn primary" href="classic/">Открыть</a><a class="btn ghost" href="classic/rationale.txt">Резюме</a></div>
-      </div>
-      <div class="card">
-        <span class="num">04 · Modern</span>
-        <h3>Sacred-modern editorial</h3>
-        <p>Воздушная сетка, гротеск + антиква, сдержанный сакральный акцент.</p>
-        <div class="links"><a class="btn primary" href="modern/">Открыть</a><a class="btn ghost" href="modern/rationale.txt">Резюме</a></div>
-      </div>
-      <div class="card">
-        <span class="num">05 · Manuscript</span>
-        <h3>Иллюминированный манускрипт</h3>
-        <p>Декоративные инициалы, орнаментальные рамки и флероны, пергаментный фон.</p>
-        <div class="links"><a class="btn primary" href="manuscript/">Открыть</a><a class="btn ghost" href="manuscript/rationale.txt">Резюме</a></div>
-      </div>
-    </div>
-  </section>
+  <ol class="list">
+    <li class="card">
+      <div class="top"><h2>Иллюминированный манускрипт</h2><span class="badge">узкий</span></div>
+      <p>Декоративные инициалы, орнаментальные рамки и флероны, пергаментный фон, мистическая атмосфера.</p>
+      <div class="links"><a class="btn primary" href="01-manuscript-narrow/">Открыть</a><a class="btn ghost" href="01-manuscript-narrow/rationale.txt">Резюме</a></div>
+    </li>
+    <li class="card">
+      <div class="top"><h2>Sacred-modern editorial</h2><span class="badge wide">широкий</span></div>
+      <p>Крупная воздушная сетка, гротеск + антиква, уверенный сакральный акцент, светлый фон.</p>
+      <div class="links"><a class="btn primary" href="02-modern-wide/">Открыть</a><a class="btn ghost" href="02-modern-wide/rationale.txt">Резюме</a></div>
+    </li>
+    <li class="card">
+      <div class="top"><h2>Журнально-редакторский лонгрид</h2><span class="badge wide">широкий</span></div>
+      <p>Крупные заголовки, контрастные блоки эпиграфов, широкая сетка, буквицы.</p>
+      <div class="links"><a class="btn primary" href="03-editorial-wide/">Открыть</a><a class="btn ghost" href="03-editorial-wide/rationale.txt">Резюме</a></div>
+    </li>
+    <li class="card">
+      <div class="top"><h2>Классическая типографика с засечками</h2><span class="badge">узкий</span></div>
+      <p>Академически-сакральная торжественность, буквица, настоящие сноски внизу, симметрия.</p>
+      <div class="links"><a class="btn primary" href="04-classic-narrow/">Открыть</a><a class="btn ghost" href="04-classic-narrow/rationale.txt">Резюме</a></div>
+    </li>
+    <li class="card">
+      <div class="top"><h2>Иллюминированный манускрипт</h2><span class="badge wide">широкий</span></div>
+      <p>Тот же манускрипт-язык, но в широком формате — для сравнения с узкой версией №1.</p>
+      <div class="links"><a class="btn primary" href="05-manuscript-wide/">Открыть</a><a class="btn ghost" href="05-manuscript-wide/rationale.txt">Резюме</a></div>
+    </li>
+  </ol>
 
   <footer>
     Сгенерировано независимыми агентами Claude Opus 4.8 (headless, adaptive thinking). ·
