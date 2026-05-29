@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дизайн-эксперимент · 5 вариантов вёрстки одной статьи</title>
+<style>
+  :root{
+    --bg:#f7f5f0; --paper:#fffdf8; --ink:#2b2622; --muted:#8a7f72;
+    --line:#e6e0d5; --accent:#b07a3c; --accent-soft:#f0e7d8;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Georgia","Times New Roman",serif;
+    -webkit-font-smoothing:antialiased; line-height:1.6;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding:clamp(28px,6vw,72px) clamp(20px,5vw,40px)}
+  header{text-align:center; margin-bottom:clamp(32px,6vw,56px)}
+  .kicker{font-family:system-ui,-apple-system,"Segoe UI",sans-serif; font-size:.72rem;
+    letter-spacing:.22em; text-transform:uppercase; color:var(--accent); margin:0 0 14px}
+  h1{font-size:clamp(1.7rem,4.5vw,2.7rem); font-weight:600; margin:0 0 16px; line-height:1.2}
+  .lead{max-width:60ch; margin:0 auto; color:var(--muted); font-size:1.02rem}
+  .lead a{color:var(--accent)}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(16px,3vw,24px)}
+  .card{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:24px 24px 20px; display:flex; flex-direction:column; gap:10px;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .card:hover{transform:translateY(-3px); box-shadow:0 10px 30px rgba(80,60,30,.10)}
+  .num{font-family:system-ui,sans-serif; font-size:.72rem; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--accent)}
+  .card h2{font-size:1.25rem; margin:0; font-weight:600}
+  .card p{margin:0; color:var(--muted); font-size:.95rem; flex:1}
+  .links{display:flex; gap:10px; margin-top:8px; flex-wrap:wrap}
+  .btn{font-family:system-ui,sans-serif; font-size:.82rem; text-decoration:none;
+    padding:9px 16px; border-radius:999px; border:1px solid var(--line)}
+  .btn.primary{background:var(--accent); color:#fff; border-color:var(--accent)}
+  .btn.ghost{background:transparent; color:var(--ink)}
+  .btn.ghost:hover{background:var(--accent-soft)}
+  footer{margin-top:clamp(36px,6vw,60px); text-align:center; color:var(--muted);
+    font-size:.85rem; font-family:system-ui,sans-serif}
+  footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="kicker">Дизайн-эксперимент</p>
+    <h1>Пять вариантов вёрстки одной статьи</h1>
+    <p class="lead">Один и тот же текст —
+      «<a href="https://proza.ru/2022/05/05/670" target="_blank" rel="noopener">Дано Творцу право Любить</a>» —
+      оформлен пятью независимыми дизайнерами, каждым в своём эстетическом направлении.
+      Откройте варианты, сравните и выберите лучший. Под каждым — резюме автора о найденной логике разметки.</p>
+  </header>
+
+  <div class="grid">
+    <div class="card">
+      <span class="num">01 · Airy</span>
+      <h2>Воздушный книжный минимализм</h2>
+      <p>Узкая колонка, много воздуха, тонкая антиква, кремово-слоновая палитра, один тёплый акцент.</p>
+      <div class="links"><a class="btn primary" href="airy/">Открыть</a><a class="btn ghost" href="airy/rationale.txt">Резюме</a></div>
+    </div>
+    <div class="card">
+      <span class="num">02 · Editorial</span>
+      <h2>Журнально-редакторский лонгрид</h2>
+      <p>Крупные акцидентные заголовки, контрастные блоки эпиграфов, сетка, буквицы — как digital-журнал.</p>
+      <div class="links"><a class="btn primary" href="editorial/">Открыть</a><a class="btn ghost" href="editorial/rationale.txt">Резюме</a></div>
+    </div>
+    <div class="card">
+      <span class="num">03 · Classic</span>
+      <h2>Классическая типографика с засечками</h2>
+      <p>Академически-сакральная торжественность, буквица, настоящие сноски внизу, симметрия.</p>
+      <div class="links"><a class="btn primary" href="classic/">Открыть</a><a class="btn ghost" href="classic/rationale.txt">Резюме</a></div>
+    </div>
+    <div class="card">
+      <span class="num">04 · Modern</span>
+      <h2>Sacred-modern editorial</h2>
+      <p>Крупная воздушная сетка, гротеск + антиква, один сдержанный сакральный акцент, дорогая минималистичность.</p>
+      <div class="links"><a class="btn primary" href="modern/">Открыть</a><a class="btn ghost" href="modern/rationale.txt">Резюме</a></div>
+    </div>
+    <div class="card">
+      <span class="num">05 · Manuscript</span>
+      <h2>Иллюминированный манускрипт</h2>
+      <p>Декоративные инициалы, орнаментальные рамки и флероны, пергаментный фон, мистическая атмосфера.</p>
+      <div class="links"><a class="btn primary" href="manuscript/">Открыть</a><a class="btn ghost" href="manuscript/rationale.txt">Резюме</a></div>
+    </div>
+  </div>
+
+  <footer>
+    Сгенерировано независимыми агентами Claude Opus 4.8 (headless, adaptive thinking). ·
+    Исходный текст © автор на <a href="https://proza.ru/2022/05/05/670" target="_blank" rel="noopener">Proza.ru</a>.
+  </footer>
+</div>
+</body>
+</html>
