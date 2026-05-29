@@ -494,10 +494,10 @@ footer.footer a:hover { color: var(--accent); }
 .edit-fab.login {
   width: auto; height: auto; padding: 0.3rem 0.8rem; border-radius: 1.2rem;
   font-size: 0.8rem; font-weight: 400;
-  background: transparent; color: var(--muted);
-  border: 1px solid var(--border); box-shadow: none; opacity: 0.45;
+  background: var(--soft); color: var(--fg);
+  border: 1px solid var(--border); box-shadow: none; opacity: 1;
 }
-.edit-fab.login:hover { opacity: 1; background: var(--soft); color: var(--fg); transform: none; }
+.edit-fab.login:hover { transform: none; }
 
 /* In-page (wiki-style) editor */
 .yanik-editbar {
