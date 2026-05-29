@@ -55,7 +55,8 @@ GIT_USER_EMAIL = "imyavel@gmail.com"
 # Patterns. HIT_LIMIT_RESET_RX — anchored to "hit your limit" so a stray
 # "resets" elsewhere in the log can't trigger sleep. re.DOTALL because the
 # reset clause may be on a separate stderr line. Mirrors ZoharTGBatch/
-# orchestrator.py.
+# orchestrator.py. Both session (5h) AND weekly (Max-plan, dated) formats
+# are handled — see parse_reset / HIT_LIMIT_WEEKLY_RX.
 HIT_LIMIT_RX = re.compile(r"hit your limit", re.IGNORECASE)
 HIT_LIMIT_RESET_RX = re.compile(
     r"hit your limit.*?resets?\s*(?:at\s*)?"
@@ -66,6 +67,19 @@ HIT_LIMIT_RESET_RX = re.compile(
 HIT_LIMIT_IN_RX = re.compile(
     r"hit your limit.*?in\s+(\d+)\s+hour", re.IGNORECASE | re.DOTALL,
 )
+# Weekly (Max-plan) limit carries a DATE: "resets Feb 4, 9pm (Africa/Johannesburg)".
+# Tried BEFORE the session regex (it's more specific — month + day + time).
+# Ported from zohar-translator/corpus_tools/process_results.py (HIT_LIMIT_RX_WEEKLY).
+HIT_LIMIT_WEEKLY_RX = re.compile(
+    r"hit your limit.*?resets?\s+([A-Za-z]{3,9})\s+(\d{1,2}),?\s+"
+    r"(\d{1,2})(?::(\d{2}))?\s*(am|pm)?"
+    r"\s*(?:\(([^)]+)\))?",
+    re.IGNORECASE | re.DOTALL,
+)
+_MONTH_ABBR = {
+    "jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6,
+    "jul": 7, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dec": 12,
+}
 # Hard authentication / quota failures — abort, don't retry.
 FATAL_RX = re.compile(
     r"\b(401|403|unauthorized|forbidden|invalid\s+api\s+key|"
@@ -336,8 +350,42 @@ def _tz_offset(tz_str: str | None) -> dt.timedelta | None:
 
 def parse_reset(text: str) -> dt.datetime | None:
     """Return the wall-clock local datetime when claude's quota resets.
-    Returns None if no reset clause is found. Two formats handled:
-    'resets at 5pm (UTC)' (with optional TZ tag) and 'resets in 3 hours'."""
+    Returns None if no reset clause is found. Three formats handled (most
+    specific first):
+      weekly (Max):  'resets Feb 4, 9pm (TZ)'   — dated, may be days away
+      relative:      'resets in 3 hours'
+      session (5h):  'resets at 5pm (UTC)'      — today/tomorrow
+    Recognized TZ tags are converted to local; unknown/IANA tags → local."""
+    # 1. Weekly first — it carries month+day, so the session regex below would
+    #    otherwise miss it entirely and the caller would fall to the 5h default.
+    mw = HIT_LIMIT_WEEKLY_RX.search(text)
+    if mw:
+        mon = _MONTH_ABBR.get(mw.group(1).lower()[:3])
+        if mon:
+            day = int(mw.group(2))
+            h = int(mw.group(3))
+            mn = int(mw.group(4) or 0)
+            ampm = (mw.group(5) or "").lower()
+            tz_str = mw.group(6)
+            if ampm == "pm" and h < 12:
+                h += 12
+            if ampm == "am" and h == 12:
+                h = 0
+            tz_off = _tz_offset(tz_str)
+            now = dt.datetime.now()
+            for year in (now.year, now.year + 1):
+                try:
+                    if tz_off is not None:
+                        cand = dt.datetime(year, mon, day, h, mn,
+                                           tzinfo=dt.timezone(tz_off)
+                                           ).astimezone().replace(tzinfo=None)
+                    else:
+                        cand = dt.datetime(year, mon, day, h, mn)
+                except ValueError:
+                    break  # invalid date (e.g. Feb 30) — give up on weekly
+                if cand > now:
+                    return cand
+
     m_in = HIT_LIMIT_IN_RX.search(text)
     if m_in:
         hours = int(m_in.group(1))

@@ -82,7 +82,7 @@ HTML→ZML **нельзя** сделать чистым JS-скриптом: м�
 - **Картинки**: cover-картинок в frontmatter ZML не пересобираем — inline-картинок в исходниках proza.ru нет (там они были недоступны на отдачу).
 - **База Зоар**: внешний корпус `https://imyavel.github.io/zohar-sulam/` с новой URL-структурой `<chapter>/<NNN>.html` (например `akdama/004.html`). Локальный first-source: `C:\Users\admin\Heb\Translated\Site\`.
 - **GUI batch-runner**: `batch_runner/gui.pyw` (Tk) + `batch_runner/run_batch.py` (оркестратор) — внешняя обвязка работает: батч, single-instance lock, hit-limit-handling (парсит **session-формат** «resets at Xpm (UTC)» / «resets in N hours», спит, retry батча), fatal-abort (401/403/quota), atomic state.json, render+index+push после батча. **Не переписывать.** Адаптируем только то, что вызывает (`subprocess.run([sys.executable, "src/3_transform.py", ...])` — внутрь идёт новая логика).
-  - ⚠ **Пробел**: weekly-лимит Max-плана (формат `«hit your limit - resets Feb 4, 9pm (Africa/Johannesburg)»`) НЕ парсится — упадёт в 5h-fallback. Логика weekly-парсинга отлажена в `C:\Users\admin\zohar-translator\corpus_tools\process_results.py` (`HIT_LIMIT_RX_WEEKLY` + `parse_hit_limit_reset`) и обработка ISO в `ZoharTGBatch\orchestrator.py:_compute_next_wake_after_hit_limit`. **Портировать** в `run_batch.py` отдельным TODO (см. ниже).
+  - ✅ weekly-лимит Max-плана (`«resets Feb 4, 9pm (TZ)»`) теперь парсится (`HIT_LIMIT_WEEKLY_RX` в `run_batch.py`, TODO 11). Session (5h) и relative («in N hours») — тоже.
 
 ### 2.2. Устарело, переписываем
 
@@ -306,7 +306,7 @@ LLM возвращает готовый `.zml`. Скрипт:
 8. **[ ] Переписать или скипнуть `src/7_postcheck.py`** — сейчас лишь ре-рендер через `build.mjs`; полноценный LLM-аудит ZML — опционально.
 9. **[ ] Отладка на 3-5 пилотных статьях** через GUI batch-runner (Этап 6).
 10. **[ ] Массовый прогон 339 статей** (Этап 7).
-11. **[ ] Портировать weekly hit-limit парсер** из `zohar-translator\corpus_tools\process_results.py` (`HIT_LIMIT_RX_WEEKLY`, `parse_hit_limit_reset` → возвращает ISO datetime для weekly) в наш `batch_runner/run_batch.py`. Изменить `parse_reset()` так, чтобы для weekly возвращался полный `datetime`, для session — как сейчас. Без этого недельный Max-лимит не обрабатывается.
+11. **[x] Weekly hit-limit парсер** — портирован в `run_batch.py` (`HIT_LIMIT_WEEKLY_RX` + `_MONTH_ABBR`, ветка в `parse_reset`, пробуется ПЕРВОЙ). Формат `resets <Месяц> <день>, <H>pm [(TZ)]` → датированный `datetime` (катится на след. год если месяц прошёл; recognized TZ конвертится в локальное). Протестировано на weekly/session/in. Недельный Max-лимит теперь не уходит в 5h-fallback.
 12. **[x] `src/build_art_ids.py`** — арт-id сгенерены для всех **350/350** записей `manifest.json` (поле `art`). Алгоритм — SPEC §2.3.
 13. **[x] Мини-CMS (локальная, MVP)** — **СУПЕРСЕДНУТА** браузерным inline-редактором (TODO 13c). Старая `cms/` (HTTP-сервер на localhost:8765) перенесена в `_backups/` (gitignored).
 13c. **[x] Браузерный редактор для gh-pages (2026-05-29)** — отказ от server-CMS в пользу статики, отлаживаемой локально как финальный gh-pages-артефакт. Решение оператора: «сделать всё как будет потом использоваться». Компоненты:
@@ -366,7 +366,7 @@ yaniktoim/
 
 - **CLAUDE_EXE** = `C:\Users\admin\AppData\Local\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Roaming\Claude\claude-code\2.1.149\claude.exe` (прямой путь в MSIX-sandbox, обходит сломанный симлинк в `%APPDATA%\Roaming\Claude`).
 - **UTF-8 stdout**: при кракозябрах из `python -c` или PowerShell — `python -X utf8 ...` или `[Console]::OutputEncoding=[Text.Encoding]::UTF8` первой строкой.
-- **Hit-limit-handling** в `batch_runner/run_batch.py` покрывает **только session (5h)** формат («resets 6:40pm» / «in N hours»). Weekly (Max-план, «resets Feb 4, 9pm») — ⚠ не парсится, портируем из `zohar-translator\corpus_tools\process_results.py` (см. TODO 11).
+- **Hit-limit-handling** в `batch_runner/run_batch.py` покрывает session (5h, «resets 6:40pm»), relative («in N hours») И weekly (Max, «resets Feb 4, 9pm (TZ)») — все три формата (`parse_reset`, TODO 11).
 - **Версии файлов**: для `<name>_NNN.<ext>` НИКОГДА не править в-месте; каждая правка = `cp _NNN.ext _NNN+1.ext` затем Edit. (К `roadmap.md`, `SPEC.md`, скриптам без `_NNN` это правило НЕ относится.)
 - **Headless claude-subagent**: предпочитать `claude.exe -p` (subprocess) над встроенным Task/Agent tool — у первого наследуется thinking-mode оператора, у второго нет.
 
