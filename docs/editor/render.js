@@ -7,7 +7,7 @@
 // CONSTANTS  (keep in sync with 4_render.py)
 // ════════════════════════════════════════════════════════════════════════════
 
-export const CSS_VERSION = "20260529-03";
+export const CSS_VERSION = "20260529-04";
 
 export const SECTION_HUMAN = {
   best: "Избранное",

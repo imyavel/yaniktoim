@@ -107,7 +107,7 @@
     if (p.get('edit') === '1') localStorage.setItem('yanik_edit','1');
     if (p.get('edit') === '0') localStorage.removeItem('yanik_edit');
     var s = document.createElement('script');
-    s.type = 'module'; s.src = '../editor/inline.js';
+    s.type = 'module'; s.src = '../editor/inline.js?v={{CSS_VERSION}}';
     document.body.appendChild(s);
   }catch(e){}
 })();

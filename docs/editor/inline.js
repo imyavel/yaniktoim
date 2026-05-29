@@ -6,7 +6,9 @@
 // render.js is heavy (full ZML renderer) — loaded LAZILY so guests/readers who
 // only need the login control don't pull it. enterEdit awaits it before editing.
 let RENDER = null;
-async function ensureRender() { if (!RENDER) RENDER = await import("./render.js"); return RENDER; }
+// Carry the cache-busting ?v= from our own URL onto the render.js import too.
+const SELF_V = (() => { try { return new URL(import.meta.url).searchParams.get("v") || ""; } catch { return ""; } })();
+async function ensureRender() { if (!RENDER) RENDER = await import("./render.js" + (SELF_V ? "?v=" + SELF_V : "")); return RENDER; }
 
 const dataURL = (p) => new URL("data/" + p, import.meta.url).href;
 const art = document.body.dataset.art;
@@ -139,6 +141,8 @@ async function enterEdit() {
     const bSave = mk("Сохранить", "primary");
     const bPrev = mk("Предпросмотр");
     const bCancel = mk("Отмена");
+    const bClose = mk("Закрыть");
+    bClose.title = "Закрыть редактор и показать страницу";
     const bDl = mk("↓ zml");
     const bCfg = mk("⚙");
 
@@ -149,7 +153,7 @@ async function enterEdit() {
       chip = el("span", "yanik-signchip");
       const bAuth = mk("Аккаунт");
       bAuth.addEventListener("click", openAuth);
-      bar.append(bSave, bPrev, bCancel, el("span", "yanik-grow"), chip, bAuth, status, bDl);
+      bar.append(bSave, bPrev, bCancel, el("span", "yanik-grow"), chip, bAuth, status, bDl, bClose);
     } else {
       // Interim PAT mode: pick a signature from config/users.json + ⚙ for token.
       signer = el("select", "yanik-signer");
@@ -165,7 +169,7 @@ async function enterEdit() {
       if (!names.length) { const o = document.createElement("option"); o.textContent = "(нет пользователей)"; o.value = ""; signer.append(o); }
       signer.addEventListener("change", () => saveSigner(signer.value));
       bar.append(bSave, bPrev, bCancel, el("span", "yanik-grow"),
-                 el("span", "yanik-signlabel", "как:"), signer, status, bDl, bCfg);
+                 el("span", "yanik-signlabel", "как:"), signer, status, bDl, bCfg, bClose);
     }
 
     const ta = el("textarea", "yanik-ta"); ta.spellcheck = false; ta.value = zml;
@@ -179,6 +183,7 @@ async function enterEdit() {
     bSave.addEventListener("click", save);
     bPrev.addEventListener("click", () => togglePreview(bPrev));
     bCancel.addEventListener("click", cancel);
+    bClose.addEventListener("click", closeEditor);
     bDl.addEventListener("click", download);
     if (!worker) bCfg.addEventListener("click", openSettings);
     ta.addEventListener("input", () => { if (ta.value !== originalZml) setStatus("● изменено", "dirty"); else setStatus("правка"); });
@@ -199,7 +204,7 @@ function beforeUnload(e) {
 function exitEdit() {
   window.removeEventListener("beforeunload", beforeUnload);
   ui = null; previewing = false;
-  fab.hidden = false;
+  refreshFab(); // back to ✎ (writer) / «Вход» (guest)
 }
 
 function cancel() {
@@ -208,6 +213,22 @@ function cancel() {
   const h1 = document.getElementById("article-title");
   if (h1) h1.textContent = savedH1;
   document.title = savedDocTitle;
+  window.yanikBindArticle && window.yanikBindArticle();
+  exitEdit();
+}
+
+// Close the editor and show the normal page — rendered from the persisted source
+// (originalZml = last saved / original), so a just-saved edit is shown at once
+// without waiting for the gh-pages rebuild.
+function closeEditor() {
+  if (ui.ta.value !== originalZml && !confirm("Закрыть редактор? Несохранённые изменения не будут опубликованы.")) return;
+  try {
+    const r = renderInner(originalZml);
+    articleEl.innerHTML = r.inner;
+    const h1 = document.getElementById("article-title");
+    if (h1 && r.parts.title) h1.textContent = r.parts.title;
+    if (r.parts.title) document.title = r.parts.title + " — Путь Восходящей Звезды";
+  } catch { articleEl.innerHTML = savedArticleHTML; }
   window.yanikBindArticle && window.yanikBindArticle();
   exitEdit();
 }
