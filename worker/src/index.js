@@ -247,16 +247,17 @@ export default {
       if (req.method === "GET" && p === "/api/me") {
         const pl = await authedPayload(env, req);
         if (!pl) return json(env, { error: "не авторизован" }, 401);
-        // re-read role from KV so promotions take effect without re-login
+        // re-read role + display nick from KV (canonical) so promotions and
+        // nick-capitalization take effect without re-login.
         const u = await getUser(env, pl.nick);
-        return json(env, { ok: true, nick: pl.nick, role: u ? u.role : pl.role });
+        return json(env, { ok: true, nick: u ? u.nick : pl.nick, role: u ? u.role : pl.role });
       }
 
       if (req.method === "POST" && p === "/api/save") {
         const pl = await authedPayload(env, req);
         if (!pl) return json(env, { error: "не авторизован" }, 401);
-        const u = await getUser(env, pl.nick);                // fresh role
-        return handleSave(env, { nick: pl.nick, role: u ? u.role : pl.role }, await req.json());
+        const u = await getUser(env, pl.nick);                // fresh role + canonical nick
+        return handleSave(env, { nick: u ? u.nick : pl.nick, role: u ? u.role : pl.role }, await req.json());
       }
 
       if (p.startsWith("/api/admin/")) {
