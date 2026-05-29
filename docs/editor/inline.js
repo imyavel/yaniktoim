@@ -440,6 +440,9 @@ function buildAuthDialog() {
   });
   $("#yk-alogout").addEventListener("click", () => { session = null; saveSession(null); renderChip(); refreshFab(); msg("Вышел", true); refreshAuthDialog(); });
   $("#yk-aclose").addEventListener("click", () => authDlg.close());
+  // After the dialog closes (Escape/Закрыть), focus returns to the fab — drop it
+  // so the button doesn't keep a lingering focus look.
+  authDlg.addEventListener("close", () => { try { fab && fab.blur(); } catch {} });
   return authDlg;
 }
 

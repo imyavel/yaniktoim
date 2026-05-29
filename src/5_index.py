@@ -11,7 +11,7 @@ TPL = ROOT / "templates"
 SITE = ROOT / "docs"
 MANIFEST = ROOT / "manifest.json"
 
-CSS_VERSION = "20260529-02"
+CSS_VERSION = "20260529-03"
 SECTION_NAMES = {
     "best":     "Избранное",
     "dreamon":  "Мечтай!!",

@@ -497,7 +497,9 @@ footer.footer a:hover { color: var(--accent); }
   background: var(--soft); color: var(--fg);
   border: 1px solid var(--border); box-shadow: none; opacity: 1;
 }
-.edit-fab.login:hover { transform: none; }
+/* Emphasis only on hover; no lingering focus ring after a mouse click. */
+.edit-fab.login:hover { transform: none; background: var(--card); border-color: var(--accent); color: var(--accent); }
+.edit-fab.login:focus:not(:focus-visible) { outline: none; }
 
 /* In-page (wiki-style) editor */
 .yanik-editbar {
