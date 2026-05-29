@@ -1,0 +1,3548 @@
+{
+  "stats": {
+    "total": 350,
+    "fetched_html": 350,
+    "fetched_img": 195,
+    "transformed": 3,
+    "rendered": 3,
+    "by_section": {
+      "shoshana": {
+        "n": 84,
+        "transformed": 0,
+        "rendered": 0
+      },
+      "dabudet": {
+        "n": 51,
+        "transformed": 0,
+        "rendered": 0
+      },
+      "dreamon": {
+        "n": 35,
+        "transformed": 0,
+        "rendered": 0
+      },
+      "best": {
+        "n": 32,
+        "transformed": 2,
+        "rendered": 2
+      },
+      "confront": {
+        "n": 100,
+        "transformed": 1,
+        "rendered": 1
+      },
+      "cyberson": {
+        "n": 21,
+        "transformed": 0,
+        "rendered": 0
+      },
+      "other": {
+        "n": 27,
+        "transformed": 0,
+        "rendered": 0
+      }
+    }
+  },
+  "articles": [
+    {
+      "number": "001",
+      "section": "shoshana",
+      "stem": "2021_11_15_1662",
+      "title": "Чьи преступления покрывает Любовь",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "002",
+      "section": "dabudet",
+      "stem": "2021_09_06_1595",
+      "title": "Сказка со счастливым концом",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "003",
+      "section": "dreamon",
+      "stem": "2021_08_04_1218",
+      "title": "Услышь, Душа",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "004",
+      "section": "best",
+      "stem": "2021_08_05_90",
+      "title": "Вначале",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "005",
+      "section": "shoshana",
+      "stem": "2022_05_12_1579",
+      "title": "Воззвание к Воинам Духа",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "006",
+      "section": "best",
+      "stem": "2021_10_08_1757",
+      "title": "Воззвание к друзьям-каббалистам",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "007",
+      "section": "dreamon",
+      "stem": "2021_08_04_1109",
+      "title": "Ода вечному и древнему Царю",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "008",
+      "section": "shoshana",
+      "stem": "2022_05_07_1494",
+      "title": "Абе ве Има, Зеир Анпин и Нуква",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "009",
+      "section": "shoshana",
+      "stem": "2022_05_21_1554",
+      "title": "Обращение к друзьям и подругам из мирового Кли",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "010",
+      "section": "shoshana",
+      "stem": "2022_05_21_1571",
+      "title": "Ода начавшемуся Концу Исправления Этого Мира",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "011",
+      "section": "shoshana",
+      "stem": "2021_08_06_1087",
+      "title": "В чем разница между материальной любовью...",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "012",
+      "section": "shoshana",
+      "stem": "2022_05_07_1393",
+      "title": "Совместная духовная работа мужчин и женщин",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "013",
+      "section": "shoshana",
+      "stem": "2022_06_04_1592",
+      "title": "Каббала от А до Я",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "014",
+      "section": "shoshana",
+      "stem": "2022_05_07_1442",
+      "title": "Круг Жизни-взрослая десятка",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "015",
+      "section": "shoshana",
+      "stem": "2022_05_07_1539",
+      "title": "Монополия на Истину?!",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "016",
+      "section": "shoshana",
+      "stem": "2022_05_08_958",
+      "title": "Маасер",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "017",
+      "section": "shoshana",
+      "stem": "2022_05_07_1566",
+      "title": "Кто создал Их",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "018",
+      "section": "shoshana",
+      "stem": "2022_09_14_924",
+      "title": "Кто Она",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "019",
+      "section": "shoshana",
+      "stem": "2022_05_08_818",
+      "title": "Молитва Господь Великий!",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "020",
+      "section": "shoshana",
+      "stem": "2022_05_08_900",
+      "title": "Молитва Творец! Свят Благословен Ты Один вовеки",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "021",
+      "section": "confront",
+      "stem": "2022_05_08_932",
+      "title": "Целостность духовной методики",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "022",
+      "section": "shoshana",
+      "stem": "2022_05_08_982",
+      "title": "Молитва за Товарищей на конгрессе",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "023",
+      "section": "confront",
+      "stem": "2022_05_08_1067",
+      "title": "Наука Каббала один из миллиона возможных путей",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "024",
+      "section": "shoshana",
+      "stem": "2022_01_22_91",
+      "title": "Здравствуй, МИР",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "025",
+      "section": "shoshana",
+      "stem": "2022_05_10_866",
+      "title": "Молитва Сыновей Адама",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "026",
+      "section": "shoshana",
+      "stem": "2022_05_12_1459",
+      "title": "Как Роза среди шипов",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "027",
+      "section": "shoshana",
+      "stem": "2021_08_12_1505",
+      "title": "Есть Зоар и есть Роза",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "028",
+      "section": "confront",
+      "stem": "2022_06_04_1500",
+      "title": "Развитие малого духовного Кли",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "029",
+      "section": "shoshana",
+      "stem": "2022_05_12_1519",
+      "title": "Имя Творца АВАЯ",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "030",
+      "section": "shoshana",
+      "stem": "2022_05_12_1537",
+      "title": "Как понять, что мои усилия направлены на Творца?",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "031",
+      "section": "dabudet",
+      "stem": "2022_05_29_834",
+      "title": "Чем помогает Творец мужчине-каббалисту.",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "032",
+      "section": "shoshana",
+      "stem": "2022_05_03_931",
+      "title": "Праведник, оживляющий Миры",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "033",
+      "section": "shoshana",
+      "stem": "2022_05_13_1479",
+      "title": "Одно напротив другого создал Творец",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "034",
+      "section": "shoshana",
+      "stem": "2022_05_13_1502",
+      "title": "А на меньшее я не согласен",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "035",
+      "section": "confront",
+      "stem": "2022_05_10_1186",
+      "title": "Начало Нового Цикла",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "036",
+      "section": "confront",
+      "stem": "2022_05_13_1230",
+      "title": "Про действие без ожидания награды...",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "037",
+      "section": "confront",
+      "stem": "2022_05_13_1278",
+      "title": "Сила-это один из врагов Человека Знания",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "038",
+      "section": "shoshana",
+      "stem": "2022_05_13_1351",
+      "title": "Скрытая наука ОБ МАН",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "039",
+      "section": "shoshana",
+      "stem": "2022_05_13_1443",
+      "title": "В Добрый Путь",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "040",
+      "section": "confront",
+      "stem": "2022_05_14_1289",
+      "title": "Чистая монета",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "041",
+      "section": "confront",
+      "stem": "2022_05_14_907",
+      "title": "Что такое первое и второе кольцо Силы",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "042",
+      "section": "shoshana",
+      "stem": "2022_05_14_859",
+      "title": "Надо становиться зеркалом",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "043",
+      "section": "shoshana",
+      "stem": "2021_09_12_1301",
+      "title": "Подобие свойств в Науке Каббала",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "044",
+      "section": "shoshana",
+      "stem": "2022_05_14_769",
+      "title": "Сияй, бриллиант безрассудный!",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "045",
+      "section": "best",
+      "stem": "2022_05_14_1327",
+      "title": "Закон подобия свойств в Науке Каббала 2",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "046",
+      "section": "confront",
+      "stem": "2022_06_14_840",
+      "title": "Путь Воина - Исраэль",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "047",
+      "section": "confront",
+      "stem": "2022_05_14_1355",
+      "title": "Вечное здесь и сейчас",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "048",
+      "section": "cyberson",
+      "stem": "2021_08_05_43",
+      "title": "7-е О. П. Комплексная модель ТС",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "049",
+      "section": "dabudet",
+      "stem": "2021_09_12_1243",
+      "title": "Золушка",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "050",
+      "section": "dabudet",
+      "stem": "2021_09_12_1230",
+      "title": "Абстрактные Ядра Сказок о Силе",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "051",
+      "section": "dabudet",
+      "stem": "2021_09_12_1257",
+      "title": "Снежная Королева",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "052",
+      "section": "confront",
+      "stem": "2022_05_14_1476",
+      "title": "Красное и Белое",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "053",
+      "section": "shoshana",
+      "stem": "2022_05_14_1491",
+      "title": "Духовное наслаждение",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "054",
+      "section": "shoshana",
+      "stem": "2021_08_05_99",
+      "title": "Онтология единства человеческой Души 1",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "055",
+      "section": "shoshana",
+      "stem": "2022_05_14_1549",
+      "title": "Манула и мифтеха",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "056",
+      "section": "other",
+      "stem": "2022_05_14_1571",
+      "title": "Вопросы и Ответы",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "057",
+      "section": "confront",
+      "stem": "2021_08_28_1398",
+      "title": "Вечное сияние чистого разума",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "058",
+      "section": "confront",
+      "stem": "2022_05_15_1213",
+      "title": "Почему мы называем ситра ахра злым началом, если..",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "059",
+      "section": "shoshana",
+      "stem": "2022_05_15_1550",
+      "title": "Ева",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "060",
+      "section": "confront",
+      "stem": "2022_06_04_1580",
+      "title": "Город, Которого нет",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "061",
+      "section": "confront",
+      "stem": "2022_05_17_1385",
+      "title": "Я люблю Тебя, и хочу быть слитым с Тобой навеки",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "062",
+      "section": "best",
+      "stem": "2021_08_28_1406",
+      "title": "Только Ты будешь жить вечно",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "063",
+      "section": "shoshana",
+      "stem": "2021_10_08_1762",
+      "title": "Внутренний регламент Круга Жизни",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "064",
+      "section": "shoshana",
+      "stem": "2021_08_06_1095",
+      "title": "Намерение работы со статьями Круга Жизни",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "065",
+      "section": "confront",
+      "stem": "2022_05_17_1469",
+      "title": "Опусти глаза вниз, и не смотри",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "066",
+      "section": "dabudet",
+      "stem": "2021_08_06_1493",
+      "title": "Часть 1 Вера и Разум",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "067",
+      "section": "dabudet",
+      "stem": "2021_08_06_1500",
+      "title": "Часть 2 Небо и Земля",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "068",
+      "section": "dabudet",
+      "stem": "2021_09_12_1197",
+      "title": "Часть 3 Сын своего Отца",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "069",
+      "section": "dabudet",
+      "stem": "2021_08_06_1381",
+      "title": "Царь Салтан",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "070",
+      "section": "shoshana",
+      "stem": "2021_08_06_1397",
+      "title": "Пойдем к Фараону",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "071",
+      "section": "shoshana",
+      "stem": "2022_05_17_1496",
+      "title": "Пойдем к Фараону",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "072",
+      "section": "confront",
+      "stem": "2022_05_17_1538",
+      "title": "Как объединение усиливает намерение",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "073",
+      "section": "dreamon",
+      "stem": "2021_08_04_1259",
+      "title": "Лукоморья больше нет",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "074",
+      "section": "dabudet",
+      "stem": "2021_09_12_1206",
+      "title": "Часть 4 Плод Вечной Весны",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "075",
+      "section": "confront",
+      "stem": "2022_05_17_1590",
+      "title": "Внутренний Огонь",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "076",
+      "section": "dabudet",
+      "stem": "2021_09_12_1269",
+      "title": "Сказка о Рыбаке и Рыбке",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "077",
+      "section": "dabudet",
+      "stem": "2021_09_12_1310",
+      "title": "Часть 5 Точка Невозврата",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "078",
+      "section": "best",
+      "stem": "2021_08_02_157",
+      "title": "Летопись Живого Огня",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": true,
+      "rendered": true
+    },
+    {
+      "number": "079",
+      "section": "shoshana",
+      "stem": "2021_08_05_67",
+      "title": "Катнут свойства Образ Всесильного",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "080",
+      "section": "shoshana",
+      "stem": "2021_08_05_70",
+      "title": "Забывая о Любви к Себе",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "081",
+      "section": "best",
+      "stem": "2021_08_05_77",
+      "title": "22 Буквы Кли Средней Линии",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "082",
+      "section": "shoshana",
+      "stem": "2021_08_05_94",
+      "title": "Завершающая молитва Адама",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "083",
+      "section": "confront",
+      "stem": "2021_08_06_1092",
+      "title": "Правило духовной работы в левой линии",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "084",
+      "section": "confront",
+      "stem": "2021_08_06_1135",
+      "title": "Выбери Жизнь",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "085",
+      "section": "dabudet",
+      "stem": "2021_08_06_1310",
+      "title": "Способный ученик",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "086",
+      "section": "confront",
+      "stem": "2021_08_06_1416",
+      "title": "Несущий Свет",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "087",
+      "section": "shoshana",
+      "stem": "2021_08_09_181",
+      "title": "5 стадий развития малого духовного Кли",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "088",
+      "section": "shoshana",
+      "stem": "2021_08_09_191",
+      "title": "Онтология единства человеческой Души 2",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "089",
+      "section": "shoshana",
+      "stem": "2021_08_09_400",
+      "title": "Мужчиной и Женщиной Он создах Их",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "090",
+      "section": "shoshana",
+      "stem": "2021_08_10_393",
+      "title": "Школа Ацилут анонс",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "091",
+      "section": "dabudet",
+      "stem": "2021_08_10_1324",
+      "title": "Один день из жизни дельфинов",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "092",
+      "section": "dreamon",
+      "stem": "2021_08_13_873",
+      "title": "Древняя нагвальская считалочка",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "093",
+      "section": "dreamon",
+      "stem": "2021_08_14_164",
+      "title": "Живые Нити и мертвые люди",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "094",
+      "section": "confront",
+      "stem": "2021_08_15_112",
+      "title": "Первая практическая ступень",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "095",
+      "section": "confront",
+      "stem": "2021_08_15_1296",
+      "title": "Бросившие Вызов Любви",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "096",
+      "section": "shoshana",
+      "stem": "2021_08_18_478",
+      "title": "Место Силы изменить нельзя",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "097",
+      "section": "confront",
+      "stem": "2021_08_17_1469",
+      "title": "Командный Голос Нагваля",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "098",
+      "section": "confront",
+      "stem": "2021_08_17_1489",
+      "title": "Получение Дара Орла",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "099",
+      "section": "confront",
+      "stem": "2021_08_18_433",
+      "title": "Нет Нагваля в своем Отечестве",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "100",
+      "section": "confront",
+      "stem": "2021_08_20_269",
+      "title": "Вначале было Слово... часть 1",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "101",
+      "section": "confront",
+      "stem": "2021_08_22_98",
+      "title": "Про Намерения Духа",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "102",
+      "section": "confront",
+      "stem": "2021_08_22_264",
+      "title": "Сделаем и услышим!",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "103",
+      "section": "shoshana",
+      "stem": "2021_08_22_301",
+      "title": "Орлята учатся летать",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "104",
+      "section": "shoshana",
+      "stem": "2021_08_29_616",
+      "title": "Ревность ангелов Творца в духовной работе",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "105",
+      "section": "shoshana",
+      "stem": "2021_09_01_788",
+      "title": "Письмо Творцу, Отцу и Другу",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "106",
+      "section": "dreamon",
+      "stem": "2021_09_12_1695",
+      "title": "Жемчужина Севера",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "107",
+      "section": "shoshana",
+      "stem": "2021_09_14_313",
+      "title": "Урок 1 Меняем восприятие Реальности",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "108",
+      "section": "shoshana",
+      "stem": "2021_09_23_1503",
+      "title": "Король и Шут",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "109",
+      "section": "shoshana",
+      "stem": "2022_05_03_741",
+      "title": "Гадлут свойства Образ Всесильного 2",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "110",
+      "section": "shoshana",
+      "stem": "2021_11_14_1401",
+      "title": "Гадлут свойства Образ Всесильного. Часть 1",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "111",
+      "section": "dabudet",
+      "stem": "2021_10_10_601",
+      "title": "Бремя Власти Небес",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "112",
+      "section": "shoshana",
+      "stem": "2021_10_13_1855",
+      "title": "Введение в методику духовного общества",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "113",
+      "section": "dreamon",
+      "stem": "2022_05_28_1542",
+      "title": "Стихотворение АРИ. Часть 3",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "114",
+      "section": "dreamon",
+      "stem": "2022_05_28_1567",
+      "title": "Стихотворение АРИ. Часть 1",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "115",
+      "section": "dabudet",
+      "stem": "2021_10_22_953",
+      "title": "Часть 6 Письмо Счастья",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "116",
+      "section": "dreamon",
+      "stem": "2021_10_23_912",
+      "title": "Ты не знаешь",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "117",
+      "section": "confront",
+      "stem": "2021_10_29_684",
+      "title": "Зеркало, которое не светит",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "118",
+      "section": "confront",
+      "stem": "2021_10_26_1360",
+      "title": "Нихт Ферштейн",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "119",
+      "section": "confront",
+      "stem": "2021_10_28_1492",
+      "title": "Аль Таасе часть 1",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "120",
+      "section": "confront",
+      "stem": "2021_10_29_608",
+      "title": "Дорогая Передача",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "121",
+      "section": "confront",
+      "stem": "2021_11_03_1300",
+      "title": "Последняя Битва Воина Исраэль",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "122",
+      "section": "dreamon",
+      "stem": "2021_11_05_152",
+      "title": "Знание!! Сила",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "123",
+      "section": "shoshana",
+      "stem": "2021_11_05_1252",
+      "title": "Малхут де Рош Арих Анпин",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "124",
+      "section": "shoshana",
+      "stem": "2021_11_07_789",
+      "title": "Не ради себя",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "125",
+      "section": "dreamon",
+      "stem": "2021_11_09_1104",
+      "title": "Знаешь ли ты",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "126",
+      "section": "shoshana",
+      "stem": "2021_11_17_490",
+      "title": "17 мгновений Вечной Весны",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "127",
+      "section": "shoshana",
+      "stem": "2021_12_06_1475",
+      "title": "Бина Анеле",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "128",
+      "section": "cyberson",
+      "stem": "2022_05_22_1378",
+      "title": "Киберсон",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "129",
+      "section": "shoshana",
+      "stem": "2022_05_22_1398",
+      "title": "Не было такого, и не будет",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "130",
+      "section": "confront",
+      "stem": "2022_05_22_1367",
+      "title": "Кто такая Женщина-Нагваль?",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "131",
+      "section": "cyberson",
+      "stem": "2022_05_22_1350",
+      "title": "Очерки об эволюции человека. Очерк 1",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "132",
+      "section": "confront",
+      "stem": "2021_11_25_220",
+      "title": "Ни там, ни тут",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "133",
+      "section": "dabudet",
+      "stem": "2021_11_26_1340",
+      "title": "Я летала",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "134",
+      "section": "best",
+      "stem": "2021_10_26_1421",
+      "title": "Конечное Исправление",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "135",
+      "section": "best",
+      "stem": "2021_12_01_179",
+      "title": "Апрель навсегда",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "136",
+      "section": "dabudet",
+      "stem": "2021_12_08_476",
+      "title": "Действие без ожиданий",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "137",
+      "section": "confront",
+      "stem": "2021_12_08_466",
+      "title": "Жизненно важное Искусство",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "138",
+      "section": "shoshana",
+      "stem": "2021_12_08_474",
+      "title": "Духовная половая Любовь",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "139",
+      "section": "confront",
+      "stem": "2021_12_08_551",
+      "title": "Моя ТьМа",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "140",
+      "section": "dabudet",
+      "stem": "2021_12_08_557",
+      "title": "Действие без ожиданий продолжение",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "141",
+      "section": "shoshana",
+      "stem": "2021_12_11_210",
+      "title": "Путь Творца, Свят Благословен Он",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "142",
+      "section": "dabudet",
+      "stem": "2021_12_15_1538",
+      "title": "Диалог Нипна к Анибе",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "143",
+      "section": "dabudet",
+      "stem": "2021_12_18_211",
+      "title": "Откуда берутся дети - инфографика",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "144",
+      "section": "shoshana",
+      "stem": "2021_12_18_664",
+      "title": "Радость ответной Любви",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "145",
+      "section": "confront",
+      "stem": "2022_05_29_959",
+      "title": "Сталкинг Сталкеров",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "146",
+      "section": "confront",
+      "stem": "2022_05_29_992",
+      "title": "Действуя посредством воли...",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "147",
+      "section": "confront",
+      "stem": "2022_05_29_1013",
+      "title": "Ты ничего не знаешь про существование души...",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "148",
+      "section": "shoshana",
+      "stem": "2022_05_03_973",
+      "title": "Образ Всесильного Адам Ришон",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "149",
+      "section": "shoshana",
+      "stem": "2022_05_28_1485",
+      "title": "Следующая жизнь",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "150",
+      "section": "shoshana",
+      "stem": "2022_01_03_138",
+      "title": "Заря Близко",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "151",
+      "section": "dreamon",
+      "stem": "2022_01_05_199",
+      "title": "Любовь Нагвалей",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "152",
+      "section": "confront",
+      "stem": "2022_05_29_1068",
+      "title": "Ресурсность АВАЯ 2",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "153",
+      "section": "best",
+      "stem": "2022_05_05_1174",
+      "title": "Авая. Сосуд Не-Я",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "154",
+      "section": "confront",
+      "stem": "2022_01_06_372",
+      "title": "Недокументированная особенность Дара Орла",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "155",
+      "section": "confront",
+      "stem": "2022_05_28_1462",
+      "title": "Буревестник",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "156",
+      "section": "shoshana",
+      "stem": "2022_01_20_1027",
+      "title": "Моя Звезда",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "157",
+      "section": "confront",
+      "stem": "2022_01_21_616",
+      "title": "Вход в Поручительство",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "158",
+      "section": "confront",
+      "stem": "2022_05_31_1200",
+      "title": "Аль Таасе. Часть 2",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "159",
+      "section": "confront",
+      "stem": "2022_05_31_861",
+      "title": "Кто-нибудь из Вас видел Бога?",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "160",
+      "section": "confront",
+      "stem": "2022_02_01_116",
+      "title": "Один, единственный, единый",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "161",
+      "section": "confront",
+      "stem": "2022_05_31_1256",
+      "title": "Модель развития человека и человечества",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "162",
+      "section": "confront",
+      "stem": "2022_06_02_1463",
+      "title": "Неудобная реальность",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "163",
+      "section": "shoshana",
+      "stem": "2022_02_07_1189",
+      "title": "Коуч. Введение",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "164",
+      "section": "confront",
+      "stem": "2022_06_03_1468",
+      "title": "Тайны Второго Внимания. Часть 2. Сосуд не -я",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "165",
+      "section": "shoshana",
+      "stem": "2022_05_28_1442",
+      "title": "Корень и Ветвь",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "166",
+      "section": "shoshana",
+      "stem": "2022_05_28_1396",
+      "title": "Необходимость пути Средней Линии",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "167",
+      "section": "confront",
+      "stem": "2022_02_27_127",
+      "title": "Услышим и сделаем!",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "168",
+      "section": "shoshana",
+      "stem": "2022_02_28_440",
+      "title": "Вспоминая о Любви к Тебе",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "169",
+      "section": "best",
+      "stem": "2022_07_24_1575",
+      "title": "Вылупляясь из яйца Кукушкой",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "170",
+      "section": "best",
+      "stem": "2022_05_05_670",
+      "title": "Дано Творцу право Любить",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "171",
+      "section": "best",
+      "stem": "2022_03_29_764",
+      "title": "Воля Творца, Свят Благословен Он",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "172",
+      "section": "shoshana",
+      "stem": "2022_05_27_1228",
+      "title": "Воля Творца, Свят Благословен Он",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "173",
+      "section": "dreamon",
+      "stem": "2022_04_03_1460",
+      "title": "Эники Беники Ели Вареники",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "174",
+      "section": "cyberson",
+      "stem": "2022_05_03_1534",
+      "title": "Сияние Утренней Звезды",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "175",
+      "section": "best",
+      "stem": "2022_05_27_1206",
+      "title": "Конфронтология человеческого Духа",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "176",
+      "section": "dreamon",
+      "stem": "2022_05_22_1430",
+      "title": "Обладательница крыльев",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "177",
+      "section": "dabudet",
+      "stem": "2022_04_28_1638",
+      "title": "Башня, парящая в воздухе",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "178",
+      "section": "confront",
+      "stem": "2022_05_24_820",
+      "title": "Правильно мыслишь",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "179",
+      "section": "other",
+      "stem": "2022_06_15_1564",
+      "title": "Коротко, но очень важно",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "180",
+      "section": "confront",
+      "stem": "2022_05_03_129",
+      "title": "Поле, полное всех благ",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "181",
+      "section": "confront",
+      "stem": "2022_05_04_1478",
+      "title": "Безмолвное Знание",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "182",
+      "section": "confront",
+      "stem": "2022_05_04_1509",
+      "title": "Правило Трехзубчатого Нагваля.",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "183",
+      "section": "confront",
+      "stem": "2022_05_04_1598",
+      "title": "Командное неделание Воинов Исраэль",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "184",
+      "section": "best",
+      "stem": "2022_05_05_679",
+      "title": "Мечтай!!",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "185",
+      "section": "best",
+      "stem": "2022_05_05_1209",
+      "title": "Последнее Поколение",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "186",
+      "section": "dabudet",
+      "stem": "2022_05_05_1219",
+      "title": "Предисловие к началу серии Добрая речь",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "187",
+      "section": "confront",
+      "stem": "2022_05_10_1181",
+      "title": "Получение Торы ч. 1",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "188",
+      "section": "shoshana",
+      "stem": "2022_05_10_1241",
+      "title": "Знание, смерть, наука и истина",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "189",
+      "section": "confront",
+      "stem": "2022_05_10_1400",
+      "title": "Вступление",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "190",
+      "section": "confront",
+      "stem": "2022_05_24_954",
+      "title": "Нет действующего без Цели",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "191",
+      "section": "confront",
+      "stem": "2022_05_24_927",
+      "title": "Да, я дурак",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "192",
+      "section": "other",
+      "stem": "2022_05_24_1406",
+      "title": "Собственно",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "193",
+      "section": "dreamon",
+      "stem": "2022_05_28_1556",
+      "title": "Стихотворение АРИ. Часть 2",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "194",
+      "section": "dabudet",
+      "stem": "2022_06_04_13",
+      "title": "Небесная Дорога",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "195",
+      "section": "best",
+      "stem": "2022_06_14_893",
+      "title": "В Свободном Парении",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "196",
+      "section": "confront",
+      "stem": "2022_06_14_767",
+      "title": "Место Силы изменить нельзя",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "197",
+      "section": "best",
+      "stem": "2022_08_18_661",
+      "title": "Лоно Природы",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "198",
+      "section": "best",
+      "stem": "2022_06_26_486",
+      "title": "Модус Операнди",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "199",
+      "section": "confront",
+      "stem": "2022_10_08_985",
+      "title": "Дальше действовать будем Мы",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "200",
+      "section": "other",
+      "stem": "2022_07_01_139",
+      "title": "Про Издохехут, или утоньшение вибраций, очищение",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "201",
+      "section": "dabudet",
+      "stem": "2022_07_02_1344",
+      "title": "Прыжок веры в Абстрактное",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "202",
+      "section": "other",
+      "stem": "2022_07_03_24",
+      "title": "Кто Я",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "203",
+      "section": "confront",
+      "stem": "2022_07_03_968",
+      "title": "Третье Кольцо Силы",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "204",
+      "section": "other",
+      "stem": "2022_07_14_899",
+      "title": "Размышления об эволюции Духа AN27E",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "205",
+      "section": "other",
+      "stem": "2022_07_16_547",
+      "title": "Мир, которым правит Любовь",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "206",
+      "section": "other",
+      "stem": "2022_07_16_1194",
+      "title": "Потеря человеческой формы и самораспятие в Круге",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "207",
+      "section": "confront",
+      "stem": "2022_07_17_1407",
+      "title": "Принцип Голубого Кафе",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "208",
+      "section": "other",
+      "stem": "2022_07_19_1096",
+      "title": "Про игры, в которые играют воины",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "209",
+      "section": "other",
+      "stem": "2022_07_20_684",
+      "title": "Я люблю тебя, поэтому, прощай навеки",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "210",
+      "section": "confront",
+      "stem": "2022_08_22_815",
+      "title": "Методика Трех Линий 111-115",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "211",
+      "section": "dreamon",
+      "stem": "2022_10_30_873",
+      "title": "Здесь стоит Трон Элиягу",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "212",
+      "section": "dreamon",
+      "stem": "2022_08_25_1684",
+      "title": "Да, я такая",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "213",
+      "section": "dreamon",
+      "stem": "2022_09_09_489",
+      "title": "Берегите свои желания",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "214",
+      "section": "confront",
+      "stem": "2022_12_26_6",
+      "title": "Пролетая над гнездом Кукушки",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "215",
+      "section": "best",
+      "stem": "2022_09_22_1319",
+      "title": "Быть впервые настоящим",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "216",
+      "section": "confront",
+      "stem": "2022_09_23_62",
+      "title": "Последний Отсчет",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "217",
+      "section": "other",
+      "stem": "2022_09_23_105",
+      "title": "Путь Одиночки",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "218",
+      "section": "shoshana",
+      "stem": "2022_10_09_239",
+      "title": "Давай представим этот мир другим",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "219",
+      "section": "other",
+      "stem": "2022_10_10_216",
+      "title": "Этапы Путей Воинов",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "220",
+      "section": "other",
+      "stem": "2022_10_11_389",
+      "title": "Я уже отдан Силе",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "221",
+      "section": "shoshana",
+      "stem": "2022_10_14_854",
+      "title": "Страх Творца, Свят Благословен Он",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "222",
+      "section": "other",
+      "stem": "2022_10_15_1228",
+      "title": "А зачем чайникам Каббала?",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "223",
+      "section": "confront",
+      "stem": "2022_10_15_1235",
+      "title": "Искусство читать между строк Бесконечности",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "224",
+      "section": "other",
+      "stem": "2022_10_15_1419",
+      "title": "Про чувственное восприятие",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "225",
+      "section": "confront",
+      "stem": "2022_10_23_1497",
+      "title": "Гармония с Намерением",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "226",
+      "section": "confront",
+      "stem": "2022_10_29_1443",
+      "title": "Точка невозврата к глупости своей",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "227",
+      "section": "dreamon",
+      "stem": "2022_11_03_1417",
+      "title": "Храни и Помни",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "228",
+      "section": "confront",
+      "stem": "2022_11_06_1321",
+      "title": "Наасе ве Нишма",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "229",
+      "section": "other",
+      "stem": "2022_11_10_1840",
+      "title": "Группа и Практика",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "230",
+      "section": "other",
+      "stem": "2022_11_11_82",
+      "title": "Только не выходи из Круга",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "231",
+      "section": "confront",
+      "stem": "2022_11_12_33",
+      "title": "Молчание - Золото",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "232",
+      "section": "shoshana",
+      "stem": "2022_11_16_133",
+      "title": "П-е-с-н-ь C-т-у-п-е-н-е-й",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "233",
+      "section": "dabudet",
+      "stem": "2022_11_18_1913",
+      "title": "Письмо Нипна к Анибе",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "234",
+      "section": "best",
+      "stem": "2022_11_20_1722",
+      "title": "Парадок Создателя",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "235",
+      "section": "other",
+      "stem": "2022_11_23_52",
+      "title": "Популярная онтогастраномия",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "236",
+      "section": "best",
+      "stem": "2022_11_23_76",
+      "title": "Немая Песнь Хозяйки Ночи",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "237",
+      "section": "confront",
+      "stem": "2022_11_23_1757",
+      "title": "Зеркало Тр. Олли",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "238",
+      "section": "confront",
+      "stem": "2022_11_28_427",
+      "title": "Чему пока детей не учат в Школе",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "239",
+      "section": "confront",
+      "stem": "2022_11_28_709",
+      "title": "Точка Невозврата",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "240",
+      "section": "confront",
+      "stem": "2022_11_29_1088",
+      "title": "Новое Слово на букву К",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "241",
+      "section": "dabudet",
+      "stem": "2022_12_03_1287",
+      "title": "ДНА - По воле каждого",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "242",
+      "section": "confront",
+      "stem": "2022_12_05_723",
+      "title": "АЯ нашествие Духа",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "243",
+      "section": "dreamon",
+      "stem": "2022_12_05_899",
+      "title": "Неорганикон",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "244",
+      "section": "dabudet",
+      "stem": "2022_12_07_195",
+      "title": "ДНА - Мечта",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "245",
+      "section": "dabudet",
+      "stem": "2022_12_16_1450",
+      "title": "Сам такой ДНА 3",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "246",
+      "section": "dabudet",
+      "stem": "2022_12_18_524",
+      "title": "Место, Которое изменить нельзя",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "247",
+      "section": "dabudet",
+      "stem": "2022_12_20_1075",
+      "title": "Новая сказка о Золотой Рыбке",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "248",
+      "section": "confront",
+      "stem": "2022_12_21_222",
+      "title": "Тыр-пыр 9 дыр части 1-3",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "249",
+      "section": "dreamon",
+      "stem": "2022_12_21_1915",
+      "title": "Пушистый подарок Риты",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "250",
+      "section": "confront",
+      "stem": "2022_12_24_938",
+      "title": "Один, Единственный и Единый",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "251",
+      "section": "shoshana",
+      "stem": "2023_01_12_1114",
+      "title": "По Любви к Ближнему как к Самому Себе.",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "252",
+      "section": "cyberson",
+      "stem": "2023_01_14_1834",
+      "title": "ЛЛЛиелату - новое Кли, связующее Науку и Магию",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "253",
+      "section": "cyberson",
+      "stem": "2023_01_19_1634",
+      "title": "Я увижу тебя, увижу на этой стороне",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "254",
+      "section": "dreamon",
+      "stem": "2023_02_02_320",
+      "title": "Кто создан Им",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "255",
+      "section": "dreamon",
+      "stem": "2023_02_03_98",
+      "title": "Обитаемый остров",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "256",
+      "section": "confront",
+      "stem": "2023_02_04_1126",
+      "title": "Мертвые боги",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "257",
+      "section": "cyberson",
+      "stem": "2023_02_15_298",
+      "title": "Ллл Дорогу Осилит Идущий",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "258",
+      "section": "cyberson",
+      "stem": "2023_02_18_725",
+      "title": "Змей",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "259",
+      "section": "cyberson",
+      "stem": "2023_02_19_107",
+      "title": "Происхождение Времени ч. 1",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "260",
+      "section": "cyberson",
+      "stem": "2023_02_19_290",
+      "title": "Происхождение времени ч. 2",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "261",
+      "section": "other",
+      "stem": "2023_02_20_690",
+      "title": "Высший Свет, Время...",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "262",
+      "section": "cyberson",
+      "stem": "2023_02_22_746",
+      "title": "Внутреннее и внешнее Кли",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "263",
+      "section": "confront",
+      "stem": "2023_03_02_851",
+      "title": "Тихая Тактика Атаки Атика",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "264",
+      "section": "confront",
+      "stem": "2023_03_02_1091",
+      "title": "На берегу Моря Лжи",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "265",
+      "section": "confront",
+      "stem": "2023_03_02_1112",
+      "title": "Вопрос на 1кк",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "266",
+      "section": "confront",
+      "stem": "2023_03_04_115",
+      "title": "Трупак Последней Надежды",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "267",
+      "section": "cyberson",
+      "stem": "2023_03_04_455",
+      "title": "Ллл. Внимание Человека",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "268",
+      "section": "confront",
+      "stem": "2023_03_05_1109",
+      "title": "Настоящие сатанисты",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "269",
+      "section": "shoshana",
+      "stem": "2023_03_05_1362",
+      "title": "Молитва Сына Живого Человека",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "270",
+      "section": "dreamon",
+      "stem": "2023_03_06_1676",
+      "title": "Я счастлив",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "271",
+      "section": "best",
+      "stem": "2023_03_07_149",
+      "title": "Костер",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "272",
+      "section": "dreamon",
+      "stem": "2023_03_09_980",
+      "title": "Пусть всегда будет Солнце",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "273",
+      "section": "cyberson",
+      "stem": "2023_03_13_1240",
+      "title": "Никтояим",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "274",
+      "section": "dabudet",
+      "stem": "2023_03_15_356",
+      "title": "Хозяин и гость",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "275",
+      "section": "confront",
+      "stem": "2023_03_16_1834",
+      "title": "Яврем Дети Вперде!",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "276",
+      "section": "best",
+      "stem": "2023_03_17_62",
+      "title": "Я Никто Им",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "277",
+      "section": "dreamon",
+      "stem": "2023_03_20_1266",
+      "title": "Эй, Земля!",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "278",
+      "section": "dreamon",
+      "stem": "2023_04_15_760",
+      "title": "Новая Песнь Хозяйки Ночи",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "279",
+      "section": "cyberson",
+      "stem": "2023_04_01_1667",
+      "title": "Вечный Циклик",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "280",
+      "section": "dreamon",
+      "stem": "2023_04_01_1878",
+      "title": "Любовь спасет Мир",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "281",
+      "section": "confront",
+      "stem": "2023_04_03_1771",
+      "title": "Кукушка",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "282",
+      "section": "confront",
+      "stem": "2023_04_22_1558",
+      "title": "Каменное Сердце Нуквы Ацилута ч 1",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "283",
+      "section": "best",
+      "stem": "2023_04_24_304",
+      "title": "Огонь с Пылающих Небес",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "284",
+      "section": "dreamon",
+      "stem": "2023_04_26_327",
+      "title": "Один на всех",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "285",
+      "section": "shoshana",
+      "stem": "2023_04_26_662",
+      "title": "Центр Самоуправления",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "286",
+      "section": "dreamon",
+      "stem": "2023_04_29_590",
+      "title": "Время Собирать Камни",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "287",
+      "section": "confront",
+      "stem": "2023_04_29_1292",
+      "title": "По чем стоит Мир",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "288",
+      "section": "confront",
+      "stem": "2023_04_30_194",
+      "title": "Крылья Шхины ч. 1",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "289",
+      "section": "confront",
+      "stem": "2023_04_30_813",
+      "title": "Джва штопанных баяна",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "290",
+      "section": "confront",
+      "stem": "2023_05_02_36",
+      "title": "Принцип ОВД",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "291",
+      "section": "dreamon",
+      "stem": "2023_05_07_1204",
+      "title": "Нейрогинекологическое",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "292",
+      "section": "dreamon",
+      "stem": "2023_05_11_1576",
+      "title": "На Цепи по Жизни",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "293",
+      "section": "best",
+      "stem": "2023_05_15_970",
+      "title": "Теилим Псалмы Царя Давида 119",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "294",
+      "section": "shoshana",
+      "stem": "2023_05_19_1560",
+      "title": "Не верь, не бойся, не проси",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "295",
+      "section": "confront",
+      "stem": "2023_05_26_116",
+      "title": "АЯ ПЧФ",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "296",
+      "section": "dabudet",
+      "stem": "2023_06_03_706",
+      "title": "Пространство Бины предисловие",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "297",
+      "section": "dreamon",
+      "stem": "2023_06_04_1412",
+      "title": "Миг Счастья",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "298",
+      "section": "shoshana",
+      "stem": "2023_06_05_48",
+      "title": "Мудрость Рабби Абба",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "299",
+      "section": "best",
+      "stem": "2023_06_08_698",
+      "title": "Мир Света и Сон Разума",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "300",
+      "section": "best",
+      "stem": "2023_11_24_1408",
+      "title": "Катехизис Детей Вечной Весны",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "301",
+      "section": "cyberson",
+      "stem": "2023_09_13_19",
+      "title": "Эволюционная динамика Круга Жизни",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "302",
+      "section": "confront",
+      "stem": "2023_09_21_159",
+      "title": "Моё - твое, а Твоё - моё",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "303",
+      "section": "confront",
+      "stem": "2023_10_07_1278",
+      "title": "В духовном все наоборот",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "304",
+      "section": "confront",
+      "stem": "2023_10_29_1694",
+      "title": "Я вернусь",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "305",
+      "section": "shoshana",
+      "stem": "2023_11_07_38",
+      "title": "Прыжок",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "306",
+      "section": "dabudet",
+      "stem": "2023_12_05_1235",
+      "title": "Жизнь в Дар",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "307",
+      "section": "other",
+      "stem": "2023_12_07_603",
+      "title": "Из переписки двух воинов",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "308",
+      "section": "other",
+      "stem": "2023_12_22_1796",
+      "title": "Мне давно уже не больно",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "309",
+      "section": "confront",
+      "stem": "2024_01_06_897",
+      "title": "Ощущение недовольства",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "310",
+      "section": "confront",
+      "stem": "2024_01_06_1439",
+      "title": "Сталкерский Дзен",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": true,
+      "rendered": true
+    },
+    {
+      "number": "311",
+      "section": "other",
+      "stem": "2024_01_06_1656",
+      "title": "Напоследок для форума ККО",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "312",
+      "section": "shoshana",
+      "stem": "2024_02_13_485",
+      "title": "Молчаливая Сказка",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "313",
+      "section": "shoshana",
+      "stem": "2024_02_13_815",
+      "title": "Молитва шепотом",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "314",
+      "section": "other",
+      "stem": "2024_03_03_972",
+      "title": "Парадокс Очистителя",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "315",
+      "section": "confront",
+      "stem": "2024_03_24_915",
+      "title": "Не хочешь, не верь мне",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "316",
+      "section": "dreamon",
+      "stem": "2024_03_27_672",
+      "title": "Дорога к самому себе",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "317",
+      "section": "other",
+      "stem": "2024_04_03_1199",
+      "title": "Трое сокроются в Сердце Моем",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "318",
+      "section": "cyberson",
+      "stem": "2024_04_26_1683",
+      "title": "Чмоки, черти!",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "319",
+      "section": "best",
+      "stem": "2024_05_07_835",
+      "title": "Хоровод",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "320",
+      "section": "dabudet",
+      "stem": "2024_07_17_839",
+      "title": "Стенограмма 5 Урока 2 по статье Шамати 3",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "321",
+      "section": "dabudet",
+      "stem": "2024_06_04_886",
+      "title": "Стенограмма 3 Урока 2 по статье Шамати 3",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "322",
+      "section": "dabudet",
+      "stem": "2024_07_24_981",
+      "title": "Стенограмма 6-7 Урока 2 по статье Шамати 3",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "323",
+      "section": "dabudet",
+      "stem": "2024_06_03_1273",
+      "title": "Стенограмма 2 Урока 2 по статье Шамати 3",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "324",
+      "section": "dabudet",
+      "stem": "2024_06_02_1601",
+      "title": "Стенограмма 1 Урока 2 по статье Шамати 3",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "325",
+      "section": "dabudet",
+      "stem": "2024_06_21_1665",
+      "title": "Стенограмма 4 Урока 2 по статье Шамати 3",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "326",
+      "section": "dabudet",
+      "stem": "2021_09_12_1252",
+      "title": "Сказка о мертвой царевне",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "327",
+      "section": "other",
+      "stem": "2025_02_17_1707",
+      "title": "Враги Человека Знания",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "328",
+      "section": "cyberson",
+      "stem": "2025_03_02_1",
+      "title": "Заметки путешественника во времени",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "329",
+      "section": "best",
+      "stem": "2025_03_09_1126",
+      "title": "Сон Жены Рыбака",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "330",
+      "section": "cyberson",
+      "stem": "2025_03_19_753",
+      "title": "Очерки об эволюции человека. Очерк 2",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "331",
+      "section": "cyberson",
+      "stem": "2025_03_20_1093",
+      "title": "Точка сборки",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "332",
+      "section": "other",
+      "stem": "2025_03_20_1170",
+      "title": "3. 14",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "333",
+      "section": "cyberson",
+      "stem": "2025_04_17_334",
+      "title": "Горе от ума",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "334",
+      "section": "best",
+      "stem": "2025_04_26_1474",
+      "title": "Разумная модель настоящего времени",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "335",
+      "section": "dabudet",
+      "stem": "2025_05_13_26",
+      "title": "ДНА - Стрела Времени часть 1",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "336",
+      "section": "dreamon",
+      "stem": "2025_05_20_1484",
+      "title": "Мама, ты иди к подружкам...",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "337",
+      "section": "dabudet",
+      "stem": "2025_05_27_1499",
+      "title": "Новое начало",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "338",
+      "section": "shoshana",
+      "stem": "2025_06_23_1792",
+      "title": "Дорога в Небо",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "339",
+      "section": "dabudet",
+      "stem": "2025_07_01_1949",
+      "title": "Смерть в Сказках, ч. 1",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "340",
+      "section": "dabudet",
+      "stem": "2025_07_04_1356",
+      "title": "Каббала Смерть в Сказках, ч. 2",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "341",
+      "section": "other",
+      "stem": "2025_09_20_586",
+      "title": "Переписка с умным читателем",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "342",
+      "section": "dabudet",
+      "stem": "2025_09_12_953",
+      "title": "И это только начало",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "343",
+      "section": "dabudet",
+      "stem": "2025_09_12_1233",
+      "title": "Волшебник",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "344",
+      "section": "dabudet",
+      "stem": "2025_11_25_948",
+      "title": "Гром и Молния",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "345",
+      "section": "dabudet",
+      "stem": "2025_12_04_2015",
+      "title": "Раскрытие СДПЛ",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "346",
+      "section": "dabudet",
+      "stem": "2026_01_13_1842",
+      "title": "Сказка Хозяйки Ночи",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "347",
+      "section": "cyberson",
+      "stem": "2026_01_17_715",
+      "title": "Разум - Квантовый Компьютер",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "348",
+      "section": "best",
+      "stem": "2026_01_29_85",
+      "title": "Детям будущего мира",
+      "fetched_html": true,
+      "fetched_img": false,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "349",
+      "section": "dabudet",
+      "stem": "2026_04_25_605",
+      "title": "Уровни авиюта в развитии Человечества",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": false,
+      "rendered": false
+    },
+    {
+      "number": "350",
+      "section": "best",
+      "stem": "2026_05_04_367",
+      "title": "Подступая к раскрытию Книги Зоар",
+      "fetched_html": true,
+      "fetched_img": true,
+      "transformed": true,
+      "rendered": true
+    }
+  ]
+}

@@ -1,0 +1,478 @@
+/* yaniktoim — стиль форка zohar-sulam с расширениями poyasneniya (article-page)
+ * + стихи (Courier New), эпиграфы, цитаты, сворачиваемый TOC, semi-bold вместо CAPS.
+ */
+:root {
+  --fg: #1a1a1a;
+  --muted: #666;
+  --accent: #6b2d5c;     /* можно сменить — оператор уточнит */
+  --bg: #fdfcf7;
+  --card: #fff;
+  --border: #e0dbce;
+  --done: #2d7a3e;
+  --pending: #999;
+  --soft: #f6f1e3;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 18px;
+  line-height: 1.4;
+  color: var(--fg);
+  background: var(--bg);
+}
+.wrap {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+.wrap.wide { max-width: 1200px; }
+
+header.breadcrumbs {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border);
+}
+header.breadcrumbs a { color: var(--muted); text-decoration: none; }
+header.breadcrumbs a:hover { color: var(--accent); text-decoration: underline; }
+header.breadcrumbs .sep { margin: 0 0.4rem; }
+
+.site-logo {
+  display: block;
+  margin: 0 auto 1.5rem;
+}
+
+h1 { font-size: 1.9rem; margin: 0 0 1.5rem; color: var(--accent); font-weight: normal; }
+h2 { font-size: 1.4rem; margin: 2.2rem 0 0.8rem; color: var(--accent); font-weight: normal; }
+h3 { font-size: 1.15rem; margin: 1.8rem 0 0.6rem; color: var(--accent); font-weight: normal; }
+
+p { margin: 0 0 1rem; text-align: justify; }
+/* «См. также: …» trailing block — менее жирный, чуть сдвинут, без justify.
+ * Соседние такие подряд визуально группируются через сжатые отступы. */
+p.see-also {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin: 0.25rem 0;
+  text-align: left;
+}
+p.see-also + p.see-also { margin-top: 0.15rem; }
+p.see-also:first-of-type { margin-top: 1.5rem; }
+strong { font-weight: bold; }
+em { font-style: italic; }
+a { color: var(--accent); }
+a:hover { color: #4a1e42; }
+
+/* TOC of sections / chapters / articles */
+ul.toc { list-style: none; padding: 0; margin: 0; }
+ul.toc li {
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px dashed var(--border);
+  display: flex; align-items: baseline; gap: 0.8rem;
+}
+ul.toc li:last-child { border-bottom: none; }
+ul.toc a { text-decoration: none; flex: 1; color: var(--fg); }
+ul.toc a:hover { color: var(--accent); text-decoration: underline; }
+ul.toc .num {
+  display: inline-block; min-width: 2.6rem;
+  color: var(--muted); font-size: 0.9rem; text-align: right;
+}
+ul.toc .meta { color: var(--muted); font-size: 0.85rem; margin-left: auto; }
+/* Article entry in section index that hasn't been transformed/rendered yet —
+ * shown grayed out, not clickable. */
+ul.toc li.pending { color: var(--pending); }
+ul.toc li.pending .title { color: var(--pending); cursor: not-allowed; }
+ul.toc li.pending .num { color: var(--pending); }
+
+p.meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+/* Article page (wide) */
+.article-page .byline { color: var(--muted); font-size: 0.9rem; margin: 0 0 1.5rem; }
+.article-page .byline a { color: var(--muted); }
+
+img.diagram {
+  display: block; max-width: 100%; height: auto; margin: 0 0 2rem;
+  border-radius: 4px;
+}
+
+article {
+  background: var(--card); border: 1px solid var(--border); border-radius: 4px;
+  padding: 2rem 2.4rem;
+}
+article p:first-of-type { margin-top: 0; }
+
+/* Red-line indent for prose paragraphs inside article body. */
+.article-page article p { text-indent: 3em; }
+.article-page article p.attribution,
+.article-page article p.colophon,
+.article-page article p.byline,
+.article-page article .epigraph p,
+.article-page article .epilogue p,
+.article-page article blockquote.q p,
+.article-page article details.music p { text-indent: 0; }
+.article-page article h2 { font-size: 1.7rem; text-align: center; margin: 2.6rem 0 1rem; }
+/* Title-echo: a body paragraph that repeats the h1 text but carries an
+ * inline footnote marker. Same h2 styling, smaller top margin (it sits
+ * right under the byline / attribution area, not deep in the article). */
+.article-page article h2.subtitle { margin: 1.2rem 0 1.4rem; }
+.article-page article h3 { font-size: 1.3rem; text-align: center; margin: 2.2rem 0 0.8rem; }
+.article-page article h2 .back-to-toc,
+.article-page article h3 .back-to-toc {
+  text-decoration: none;
+  font-size: 0.85em;
+  color: var(--muted);
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+.article-page article h2 .back-to-toc:hover,
+.article-page article h3 .back-to-toc:hover { color: var(--accent); }
+.article-page article p.attribution {
+  /* Inherit base <p> typography (Georgia, 18px, color --fg, justify).
+   * Just a 1-line gap before the TOC. */
+  margin: 0 0 1.7rem;
+}
+.article-page article p.attribution + p.attribution {
+  margin-bottom: 0;
+}
+.article-page article p.colophon {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 2.4rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--border);
+}
+
+/* Inline TOC (сворачиваемое оглавление статьи, появляется если ≥3 h2/h3) */
+/* TOC — MediaWiki-style: narrow, light border, neutral background.
+ * Sits inline-block so it doesn't span the full column width. */
+details.article-toc {
+  display: inline-block;
+  margin: 2rem 0 2rem;
+  background: #f8f9fa;
+  border: 1px solid #a2a9b1;
+  padding: 0.6rem 1.1rem 0.7rem;
+  min-width: 18rem;
+  /* font inherits from body (Georgia 18px) */
+}
+details.article-toc:first-child { margin-top: 0; }
+details.article-toc summary {
+  cursor: pointer;
+  font-weight: normal;
+  color: var(--fg);
+  list-style: none;
+  text-align: center;
+  padding: 0.1rem 0 0.2rem;
+  border-bottom: 1px solid transparent;
+}
+details.article-toc summary::-webkit-details-marker { display: none; }
+details[open].article-toc summary {
+  border-bottom-color: #c8ccd1;
+  margin-bottom: 0.4rem;
+}
+details.article-toc ol {
+  margin: 0; padding-left: 1.6rem;
+  list-style-type: decimal;
+}
+details.article-toc ol li { margin: 0.15rem 0; }
+details.article-toc a {
+  text-decoration: none;
+  color: #0645ad; /* mw-style link blue */
+}
+details.article-toc a:hover { text-decoration: underline; }
+
+/* Music block (раскрываемый youtube) */
+details.music {
+  margin: 1.4rem 0 1.6rem;
+  background: #e8f1f7;            /* light blue — distinguishes from quote blocks */
+  border-left: 3px solid #5a8bb5;  /* matching blue accent */
+  /* font-size inherits from body (Georgia 18px) — same as paragraphs */
+}
+details.music summary {
+  padding: 0.8rem 1rem; cursor: pointer; list-style: none; text-align: left;
+}
+details.music summary::-webkit-details-marker { display: none; }
+details.music summary .label { color: var(--muted); margin-right: 0.4rem; }
+details.music summary .title { color: var(--accent); font-style: italic; text-decoration: underline; }
+details.music summary .caret { color: var(--muted); margin-left: 0.4rem; display: inline-block; transition: transform 0.15s; }
+details.music summary .ext {
+  color: var(--muted); text-decoration: none; margin-left: 0.8rem;
+  font-size: 0.9em; padding: 0 0.3rem;
+}
+details.music summary .ext:hover { color: var(--accent); }
+details.music[open] summary .caret { transform: rotate(90deg); }
+details.music .player { padding: 0 1rem 1rem; }
+details.music .player iframe { display: block; width: 100%; aspect-ratio: 16/9; border: 0; }
+
+/* Музыкальный блок без URL — тот же визуал, что и у details.music summary,
+ * но статичный <div>: не раскрывается, без caret, без ↗. */
+.music-noplayer {
+  margin: 1.4rem 0 1.6rem;
+  background: #e8f1f7;
+  border-left: 3px solid #5a8bb5;
+}
+.music-noplayer .summary {
+  padding: 0.8rem 1rem;
+  text-align: left;
+}
+.music-noplayer .summary .label { color: var(--muted); margin-right: 0.4rem; }
+.music-noplayer .summary .title { color: var(--accent); font-style: italic; }
+
+/* Группа подряд идущих music-блоков с одинаковым label.
+ * Label рендерится один раз через data-label::before; внутренние .label
+ * скрываются; блоки склеиваются по вертикали. */
+.music-group {
+  margin: 1.4rem 0 1.6rem;
+  background: #e8f1f7;             /* light blue — distinct from quote/epigraph */
+  border-left: 3px solid #5a8bb5;  /* matching blue accent */
+  padding: 1.9rem 1.4rem 0.9rem 1.4rem;
+  position: relative;
+}
+.music-group::before {
+  content: attr(data-label);
+  position: absolute;
+  top: 0.35rem;
+  left: 0.9rem;
+  font-family: Georgia, serif;
+  font-style: normal;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #3a3a3a;
+  opacity: 0.85;
+  pointer-events: none;
+}
+/* Если перед группой уже стоит h2 с тем же названием (trailing-music на
+ * конце статьи), рендер ставит классу .music-group ещё .has-heading —
+ * тогда дублирующий label-prefix не рисуется. */
+.music-group.has-heading::before { display: none; }
+
+.music-group > details.music,
+.music-group > .music-noplayer,
+.music-group > .music-flat {
+  margin: 0 0 0.25rem 0;
+  background: transparent;
+  border-left: none;
+}
+.music-group > :last-child { margin-bottom: 0; }
+.music-group .label { display: none; }
+.music-group details.music summary,
+.music-group .music-noplayer .summary {
+  padding: 0.3rem 0;
+}
+
+/* Нумерованная группа параграфов: [num]...[/num] */
+ol.num {
+  margin: 1.2rem 0 1.4rem;
+  padding-left: 2.4rem;
+}
+ol.num li {
+  margin-bottom: 0.8rem;
+  padding-left: 0.3rem;
+}
+ol.num li::marker {
+  color: var(--accent);
+  font-weight: bold;
+}
+/* Параграф внутри li — без text-indent (нумерация уже даёт визуальный отступ) */
+.article-page article ol.num li,
+.article-page article ol.num li p { text-indent: 0; text-align: justify; }
+
+/* Поэзия (стихи) */
+.poem {
+  font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: 1.125rem;
+  /* Block sized to its widest line; left edge fixed at 1/3 of the
+   * article's content width. Lines inside share that left edge —
+   * short lines hang left, the widest line defines block width. */
+  text-align: left;
+  white-space: pre-wrap;
+  width: fit-content;
+  max-width: 66%;
+  margin: 1.6rem 0 1.6rem 33%;
+  color: #2a2a2a;
+}
+.poem .title {
+  display: block; font-weight: bold; margin-bottom: 0.6rem;
+  text-align: center;
+  text-transform: none;
+}
+
+/* Эпиграф / эпилог / цитата */
+.epigraph, .epilogue, blockquote.q {
+  font-style: italic;
+  border-left: 3px solid var(--accent);
+  padding: 1.4rem 1.4rem 0.6rem;
+  margin: 1.4rem 0;
+  background: var(--soft);
+  position: relative;
+}
+/* Small label ("Эпиграф" / "Эпилог" / "Цитата") in the top-right corner.
+ * Pulled from the `data-label` attribute the renderer sets per-block. */
+.epigraph::before, .epilogue::before, blockquote.q::before {
+  content: attr(data-label);
+  position: absolute;
+  top: 0.35rem; right: 0.9rem;
+  font-family: Georgia, serif;
+  font-style: normal;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.7;
+  pointer-events: none;
+  color: #3a3a3a;
+}
+.epigraph .cite, .epilogue .cite, blockquote.q .cite {
+  display: block; text-align: right; font-style: normal; color: var(--muted);
+  font-size: 0.9rem; margin-top: 0.4rem;
+}
+
+/* Epigraph-specific: pulled to the right, 2/3 width, accent bar on the
+ * right edge, label on the left.  Цитата (blockquote.q) — полное зеркало:
+ * прижата к левому краю, полоса слева, метка справа.  .epilogue — третий
+ * вариант, conventional left-aligned full-width (см. ниже). */
+.epigraph {
+  width: 66%;
+  margin-left: auto;
+  margin-right: 0;
+  border-left: none;
+  border-right: 3px solid var(--accent);
+  padding: 1.4rem 1.4rem 0.6rem 1rem;
+}
+.epigraph::before {
+  left: 0.9rem;
+  right: auto;
+}
+
+blockquote.q {
+  width: 66%;
+  margin-left: 0;
+  margin-right: auto;
+  /* border-left already comes from the shared base rule above */
+  padding: 1.4rem 1rem 0.6rem 1.4rem;
+}
+/* Label «Цитата» — справа сверху (mirror of эпиграф's left label) — это
+ * уже дефолт из общего ::before правила (right: 0.9rem), отдельный
+ * override не нужен. */
+
+/* Override the global p { text-align: justify } for boxed quotes —
+ * justify растягивает длинные абзацы на всю ширину box-а, короткие
+ * <br>-разбитые блоки рядом этим не «болеют», и получается разнобой.
+ * И для эпиграфов, и для цитат — везде ровно по левому краю. */
+.epigraph p, blockquote.q p { text-align: left; }
+
+@media (max-width: 700px) {
+  /* Full width on narrow screens — оба прижимаются к краю экрана. */
+  .epigraph, blockquote.q { width: auto; }
+}
+
+/* Zohar references → local mirror at imyavel.github.io/zohar-sulam. */
+a.zohar {
+  color: #7a5a1a;
+  text-decoration: none;
+  border-bottom: 1px dotted #7a5a1a;
+}
+a.zohar:hover {
+  color: #5a3e10;
+  border-bottom-style: solid;
+}
+
+/* Internal corpus links (proza.ru/agent017 → local rendered article).
+ * Distinct from external links: accent colour, no underline by default —
+ * marks them as part of our own corpus while still being clickable. */
+a.internal {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--accent);
+}
+a.internal:hover { text-decoration: underline; border-bottom: none; }
+
+/* Bold replacement for source CAPS — Georgia only ships 400 & 700 weights,
+ * so weight alone tops out at 700. A faint same-colour text-shadow gives
+ * an extra visual heft beyond that. */
+.sb {
+  font-weight: 700;
+  text-shadow: 0.025em 0 0 currentColor;
+}
+
+/* Сноски wiki-style */
+.article-page sup a { text-decoration: none; color: var(--accent); }
+.article-page sup a:hover { text-decoration: underline; }
+ol.notes {
+  margin: 0; padding-left: 1.5rem; font-size: 0.95rem; color: var(--muted);
+}
+ol.notes li { margin-bottom: 0.5rem; }
+ol.notes a { color: var(--muted); text-decoration: underline; }
+ol.notes a.backref { text-decoration: none; margin-right: 0.3rem; }
+ol.notes li:target, sup:target a { background: #fff3cd; }
+
+/* Анонимные сноски — без номера-маркера, идут после нумерованных.
+ * Префикс («См. также:» по умолчанию или кастомный из `[^|...]:`) ставит
+ * рендер в текст li, отдельным CSS не дублируется. */
+ol.notes li.anon { list-style: none; margin-left: -1.5rem; }
+ol.notes li.anon::before { content: ""; }
+/* Зазор между последней нумерованной и первой анонимной — мягко отделяет. */
+ol.notes li.anon:first-of-type { margin-top: 0.8rem; }
+
+/* Footnote popup-bubble (shown on hover over a [N] sup link). */
+.footnote-bubble {
+  position: absolute;
+  z-index: 1000;
+  max-width: 28rem;
+  background: var(--card);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  padding: 0.7rem 0.9rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(4px) scale(0.96);
+  transform-origin: bottom center;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.footnote-bubble.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+.footnote-bubble.below { transform-origin: top center; }
+.footnote-bubble::after {
+  content: "";
+  position: absolute;
+  left: 50%; margin-left: -7px;
+  width: 0; height: 0;
+  border: 7px solid transparent;
+  border-top-color: var(--card);
+  bottom: -14px;
+  filter: drop-shadow(0 1px 0 var(--border));
+}
+.footnote-bubble.below::after {
+  bottom: auto;
+  top: -14px;
+  border-top-color: transparent;
+  border-bottom-color: var(--card);
+  filter: drop-shadow(0 -1px 0 var(--border));
+}
+.footnote-bubble a { color: var(--accent); }
+
+/* Navigation between articles */
+nav.article-nav {
+  display: flex; justify-content: space-between; margin-top: 2rem;
+  padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.95rem;
+}
+nav.article-nav a { text-decoration: none; }
+
+/* Footer */
+footer.footer {
+  margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border);
+  color: var(--muted); font-size: 0.85rem; text-align: center;
+}
+footer.footer p { margin: 0.35rem 0; line-height: 1.5; }
+footer.footer a { color: var(--muted); text-decoration: underline; }
+footer.footer a:hover { color: var(--accent); }

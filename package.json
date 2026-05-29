@@ -1,0 +1,7 @@
+{
+  "name": "yaniktoim-cms",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "ZML static site + browser-native editor (gh-pages). render.js is the single rendering source of truth (Node build + in-browser preview)."
+}

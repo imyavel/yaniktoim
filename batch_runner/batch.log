@@ -1,0 +1,52 @@
+2026-05-26T21:08:47 START · pending=5 · batch_size=5 · section=best
+2026-05-26T21:08:47 DRY RUN: ['004', '006', '045', '062', '134']
+2026-05-26T21:09:13 START · pending=24 · batch_size=5 · section=best
+2026-05-26T21:09:13 DRY RUN: ['195', '234', '329', '153', '276', '004', '271', '319', '184', '197', '135', '198', '348', '185', '134', '236', '062', '300', '293', '006', '171', '175', '334', '045']
+2026-05-26T21:09:13 START · pending=10 · batch_size=5 · section=any
+2026-05-26T21:09:13 DRY RUN: ['195', '234', '329', '153', '276', '004', '271', '319', '184', '197']
+2026-05-26T21:54:14 START · pid=11028 · pending=3 · batch_size=5 · section=any
+2026-05-26T21:54:14 DRY RUN: ['329', '153', '276']
+2026-05-26T21:55:38 START · pid=1884 · pending=1 · batch_size=5 · section=any
+2026-05-26T21:55:38 DRY RUN: ['329']
+2026-05-27T13:37:49 START · pid=12368 · pending=1 · batch_size=5 · numbers=283
+2026-05-27T13:37:49 DRY RUN: ['283']
+2026-05-27T13:37:54 NOTE: --numbers 078 — json/078.json уже есть, пропускаю (удалите файл, чтобы пересобрать)
+2026-05-27T13:37:54 WARN: --numbers 9999 — not in manifest.json, skipping
+2026-05-27T13:37:54 START · pid=8288 · pending=1 · batch_size=5 · numbers=078,283,9999
+2026-05-27T13:37:54 DRY RUN: ['283']
+2026-05-27T13:54:52 START · pid=5984 · pending=1 · batch_size=5 · numbers=283
+2026-05-27T13:54:52 TRANSFORM start: 283
+2026-05-27T13:54:52 TRANSFORM exit=1
+2026-05-27T13:54:52 FAILED in batch (no/invalid JSON): ['283']
+2026-05-27T13:54:52 DONE · transformed=0 · failed=1
+2026-05-27T14:03:32 START · pid=4704 · pending=1 · batch_size=5 · numbers=283
+2026-05-27T14:03:32 TRANSFORM start: 283
+2026-05-27T14:03:32 TRANSFORM exit=1
+2026-05-27T14:03:32   → subproc output: C:\Users\admin\yaniktoim\_logs\transform_283.subproc.txt
+2026-05-27T14:03:32 FAILED in batch (no/invalid JSON): ['283']
+2026-05-27T14:03:32   → 283: see C:\Users\admin\yaniktoim\_logs\transform_283.diff.txt
+2026-05-27T14:03:32 DONE · transformed=0 · failed=1
+2026-05-27T15:10:03 START · pid=5060 · pending=1 · batch_size=5 · numbers=215
+2026-05-27T15:10:03 TRANSFORM start: 215
+2026-05-27T15:10:03 TRANSFORM exit=1
+2026-05-27T15:10:03   → subproc output: C:\Users\admin\yaniktoim\_logs\transform_215.subproc.txt
+2026-05-27T15:10:03 FAILED in batch (no/invalid JSON): ['215']
+2026-05-27T15:10:03 DONE · transformed=0 · failed=2
+2026-05-27T15:25:08 START · pid=13064 · pending=1 · batch_size=5 · numbers=215
+2026-05-27T15:25:08 TRANSFORM start: 215
+2026-05-27T15:26:36 TRANSFORM exit=0
+2026-05-27T15:26:36 RENDER 215
+2026-05-27T15:26:36 INDEX rebuild
+2026-05-27T15:26:36 DONE · transformed=1 · failed=2
+2026-05-27T15:44:43 START · pid=9008 · pending=1 · batch_size=5 · numbers=299
+2026-05-27T15:44:43 TRANSFORM start: 299
+2026-05-27T15:47:55 TRANSFORM exit=0
+2026-05-27T15:47:55 RENDER 299
+2026-05-27T15:47:55 INDEX rebuild
+2026-05-27T15:47:55 DONE · transformed=2 · failed=2
+2026-05-27T16:10:22 START · pid=6648 · pending=1 · batch_size=5 · numbers=195
+2026-05-27T16:10:22 TRANSFORM start: 195
+2026-05-27T16:18:37 TRANSFORM exit=0
+2026-05-27T16:18:37 RENDER 195
+2026-05-27T16:18:38 INDEX rebuild
+2026-05-27T16:18:38 DONE · transformed=3 · failed=2

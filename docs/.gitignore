@@ -1,0 +1,36 @@
+# yaniktoim site — published to GitHub Pages.
+# Whitelist mentality: anything not part of a rendered page or asset stays
+# out of gh-pages. If you need to publish a new asset type, allow it
+# explicitly here rather than relaxing this list.
+
+# Editor / OS detritus.
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Logs & temp.
+*.log
+*.tmp
+*.bak
+*.orig
+*.rej
+
+# Underscore-prefixed working directories (mirror of yaniktoim/_logs, _notes…).
+_*/
+_*.html
+_*.md
+_*.txt
+
+# Python noise (in case a tool ever spits something here).
+__pycache__/
+*.pyc
+
+# Anything stashed by accident.
+*.zip
+*.tar
+*.tar.gz

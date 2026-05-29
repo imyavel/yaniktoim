@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+Thumbs.db
+node_modules/
+tools/_parity/
+_backups/
+raw/
+_research/
+src/*.sqlite
+# audit logs etc — keep ONLY the zohar index the build needs
+_logs/*
+!_logs/zohar_index.json
+# old JSON intermediates (superseded by zml/ source-of-truth)
+json/
+manifest_pre_art.json
