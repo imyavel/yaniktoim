@@ -1,8 +1,8 @@
-# yaniktoim-cms — Roadmap (актуально на 2026-05-29)
+# yaniktoim — Roadmap (актуально на 2026-05-29)
 
-Самодостаточная инструкция для свежего контекста Claude. Описывает целостную архитектуру проекта **с нуля**, после решения сменить формат source-of-truth с JSON на ZML и переработать pipeline.
+Самодостаточная инструкция для свежего контекста Claude. Описывает целостную архитектуру проекта: source-of-truth = ZML, рендер = `render.js`, публикация = gh-pages legacy `main /docs`, правка = inline-редактор на самих страницах.
 
-> **ЧИТАТЬ ПЕРВЫМ — §0.** Ниже по тексту (§1-2, Этап 8, диаграммы) есть устаревшие места (адрес `…/yaniktoim-cms/`, OAuth-relay-модель, «html в legacy-корне»). Они помечены, но при противоречии — **верен §0**.
+> **§0 — текущая (живая) картина**, согласована и реализована: сайт развёрнут на `https://imyavel.github.io/yaniktoim/`, миграция-flip выполнена. §1-§10 ниже — справка (ZML-формат, pipeline по файлам, оставшиеся этапы, история TODO). Документ приведён в соответствие с фактом 2026-05-29; явных противоречий с §0 быть не должно.
 
 ---
 
@@ -11,8 +11,8 @@
 Всё в этой секции согласовано с оператором и готово к реализации. Это перекрывает противоречащие места ниже.
 
 ### 0.1 Цель и адрес
-- Боевой сайт — **`https://imyavel.github.io/yaniktoim/`**, репозиторий **`imyavel/yaniktoim`** (СУЩЕСТВУЕТ; сейчас в нём старый сайт в legacy-Pages из корня — это **мусор**, оператор разрешил затереть). `gh` залогинен как `imyavel` (scope `repo`). Прежнее имя `-cms` уходит: рабочая папка и репо — `yaniktoim`.
-- `imyavel/yaniktoim-cms` на GitHub НЕ существует; наша работа нигде не пушилась.
+- Боевой сайт — **`https://imyavel.github.io/yaniktoim/`**, репозиторий **`imyavel/yaniktoim`** (PUBLIC). Старое содержимое репо затёрто force-push'ем (выполнено 2026-05-29). `gh` залогинен как `imyavel` (scope `repo`). Рабочая папка — `C:\Users\admin\yaniktoim\` (прежнее имя `-cms` ушло при flip).
+- Pages source = `main /docs`, есть `docs/.nojekyll`. Сборка `built`, сайт отдаёт наш контент.
 
 ### 0.2 Модель деплоя — БЫСТРАЯ, без CI («компромисс старого и нового»)
 - **CI-сборки НЕТ.** html генерит `render.js` в двух местах одним и тем же кодом: (а) **браузер редактора** при «Сохранить» (рендерит ПОЛНУЮ страницу) и (б) **локальный батч** `tools/build.mjs` (пачкой). Идентичный вывод → нет дрейфа.
@@ -26,12 +26,12 @@
 - **Батч перед работой делает `git pull --rebase`** → видит правки из редактора; добавляет только НОВЫЕ статьи; коммитит/пушит. Редактор и батч правят разные файлы → конфликтов почти нет.
 
 ### 0.4 Рендер — один движок
-- **`site/editor/render.js`** (после миграции → `docs/editor/render.js`) — ЕДИНСТВЕННЫЙ рендер ZML→HTML. Экспортит `renderArticleParts` (нутро `<article>`) и `renderArticleHtml` (полная страница). Питон `4_render.py` **retired** (в `_backups/`, gitignored). Parity-обвязки нет.
+- **`docs/editor/render.js`** — ЕДИНСТВЕННЫЙ рендер ZML→HTML. Экспортит `renderArticleParts` (нутро `<article>`), `renderArticleHtml` (полная страница), `parseFrontmatter`. Питон `4_render.py` **retired** (в `_backups/`, gitignored). Parity-обвязки нет.
 - Имена собственные (CAPS→Заглавная) — редактируемый `config/proper-nouns.txt` (базовые формы; склонения regex; `!СЛОВО`=точное, стоит `!ХОД`). Фраза «Благословен Он»/«Свят Благословен Он» — правило в `render.js`. (Сделано и проверено.)
 
 ### 0.5 Редактирование на gh (inline, wiki-стиль)
 - ✎ на самих статьях (edit-режим `?edit=1`). На https модули/fetch/GitHub-API работают — проблема `file://` не возникает.
-- **Save**: редактор рендерит ПОЛНУЮ страницу в браузере (нужен шаблон в данных редактора — вернуть в `docs/editor/data/`), проставляет frontmatter `editor`/`edited`, и **одним логическим коммитом** пишет `zml/<art>.zml` + `docs/<section>/<art>.html` через GitHub Contents API.
+- **Save**: редактор нормализует ZML к LF, проставляет frontmatter `editor`/`edited`, рендерит ПОЛНУЮ страницу `renderArticleHtml` (шаблон — `docs/editor/data/template.html`), и **одним логическим коммитом** пишет `zml/<art>.zml` + `docs/<section>/<art>.html` через **GitHub Git Data API** (blobs→tree→commit→ref).
 - **Авторизация интерим**: твой **fine-grained PAT** (только репо `yaniktoim`, Contents: write) в ⚙ редактора (localStorage). «Подписываюсь как…» — выбор из `config/users.json`. Полноценный вход — Этап 8 (см. ниже, переписанный).
 
 ### 0.6 Система пользователей и атрибуция
@@ -64,12 +64,12 @@ HTML→ZML **нельзя** сделать чистым JS-скриптом: м�
 
 ## 1. Что делаем
 
-`C:\Users\admin\yaniktoim-cms\` — форк существующего `C:\Users\admin\yaniktoim\` (оригинал НЕ трогаем; остаётся как рабочая копия pipeline старой архитектуры). В форке выстраиваем заново всю техническую базу под две цели:
+`C:\Users\admin\yaniktoim\` — рабочая папка и клон репо `imyavel/yaniktoim`. (Историческая справка: проект начинался как форк `yaniktoim-cms\`; при flip 2026-05-29 эта папка стала боевой `yaniktoim\`, прежнее содержимое репо затёрто, старая папка сохранена как `yaniktoim_OLD_preflip\`.) Две цели:
 
-1. **Адаптированный корпус статей** автора Элиягу Бар Малей (≈350 статей с proza.ru) — опубликован как статический сайт на GitHub Pages. **Актуальный адрес — `https://imyavel.github.io/yaniktoim/`** (репо `imyavel/yaniktoim`; «-cms» устарело, см. §0).
-2. **Мини-CMS** — редактор прямо на страницах (inline ✎, wiki-стиль). Интерим-вход — PAT; многопользовательский — через Cloudflare Worker-прокси (см. переписанный Этап 8, НЕ старый OAuth-relay).
+1. **Адаптированный корпус статей** автора Элиягу Бар Малей (≈350 статей с proza.ru) — статический сайт на GitHub Pages, **`https://imyavel.github.io/yaniktoim/`**.
+2. **Мини-CMS** — редактор прямо на страницах (inline ✎, wiki-стиль). Интерим-вход — PAT (см. §0.5); многопользовательский — Cloudflare Worker-прокси (Этап 8).
 
-Корпус наполняется через **локальный desktop GUI** (Tk), который батчами прогоняет статьи через LLM-агента (headless `claude -p`), рендерит в HTML и пушит в репо. После того как техбаза готова и отлажена на 3-5 статьях вручную — массовый автоматический прогон оставшихся 339.
+Корпус наполняется через **локальный desktop GUI** (Tk), который батчами прогоняет статьи через LLM-агента (headless `claude -p`), рендерит в HTML (`tools/build.mjs`) и пушит в репо. Техбаза готова и отлажена на 3 статьях; дальше — массовый прогон оставшихся ≈339.
 
 ---
 
@@ -86,13 +86,15 @@ HTML→ZML **нельзя** сделать чистым JS-скриптом: м�
 
 ### 2.2. Устарело, переписываем
 
-- **`src/3_transform.py`**: HTML → JSON через LLM с Unicode-маркерами (`⟦H1⟧`/`⟦P⟧`/...) + `transform_prompt.md` + парсер маркеров. Новый формат — **HTML → ZML напрямую** (LLM сразу выдаёт финальный source с ASCII-тегами).
-- **`src/4_render.py`**: JSON → HTML через шаблон + post-processing. Новый — **ZML → HTML** парсер с inline-цепочкой из спеки.
-- **`src/5_index.py`**: главный index + section indexes. Перепроверить — формально читает manifest, не json, так что может почти не поменяться.
-- **`src/6_deploy.py`**: сейчас стаб (только `git init`). Развернуть до полноценного push в gh-pages (отдельный branch или отдельный репо).
-- **`src/7_postcheck.py`**: LLM-аудит блоков JSON. Переписать под ZML-структуру (или временно отключить).
-- **`src/transform_prompt.md`**: инструкция LLM для Unicode-маркеров. Переписать под прямой ZML-выход.
-- **`_logs/zohar_index.json`**: старая структура zohar-sulam. Перекомпилировать под новый URL-формат `<chapter>/<NNN>.html`.
+*(Статусы на 2026-05-29 — основное уже сделано, см. §0 и TODO.)*
+
+- **`src/3_transform.py`**: ✅ переписан — **HTML → ZML напрямую** (LLM сразу выдаёт финальный source с ASCII-тегами) + lossless-валидация + `inject_attribution`.
+- **`src/4_render.py`**: ⛔ **retired** (в `_backups/`). Рендер целиком на JS — `docs/editor/render.js` (+`tools/build.mjs`).
+- **`src/6_deploy.py`**: ⛔ **retired** (в `_backups/`) — создавал вложенный git в `site/`, противоречит однорепной модели §0.3. Деплой теперь — `git_push` из `run_batch.py`/`gui.pyw` (push всего репо из ROOT).
+- **`src/5_index.py`**: главный index + section indexes; читает manifest, пишет в `docs/`. Работает.
+- **`src/7_postcheck.py`**: LLM-аудит блоков. Сейчас просто вызывает `node tools/build.mjs` для ре-рендера; полноценный аудит под ZML — опционально позже (TODO 8).
+- **`src/transform_prompt.md`**: ✅ переписан под прямой ZML-выход.
+- **`_logs/zohar_index.json`**: ✅ перекомпилирован под URL `<chapter>/<NNN>.html` (52 главы, 1777 статей).
 
 ### 2.3. ZML-спека готова (Этап 0)
 
@@ -105,58 +107,39 @@ HTML→ZML **нельзя** сделать чистым JS-скриптом: м�
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────┐
-│ ЛОКАЛЬНО (твой комп)                                                     │
-│                                                                          │
-│   raw/<stem>.html (350)                                                  │
+│ ЛОКАЛЬНО (наполнение корпуса)                                            │
+│   raw/<stem>.html (≈350, gitignored)                                     │
 │         │                                                                │
-│   ┌─────┴─────────────────────────────────┐                              │
-│   │ GUI batch-runner (Tk, batch_runner/) │  ← human-in-loop:             │
-│   │   ┌─────────────────────────────┐    │    batch size, section, push  │
-│   │   │ run_batch.py (оркестратор)  │    │                               │
-│   │   │  hit-limit: sleep & retry   │    │                               │
-│   │   │  ┌──────────────────────┐   │    │                               │
-│   │   │  │ 3_transform.py       │   │    │                               │
-│   │   │  │  headless claude -p  │   │    │                               │
-│   │   │  │  HTML → ZML (новый)  │   │    │                               │
-│   │   │  └──────────┬───────────┘   │    │                               │
-│   │   │  zml/<NNN>.zml ◄── source   │    │                               │
-│   │   │  ┌──────────┴───────────┐   │    │                               │
-│   │   │  │ 4_render.py          │   │    │                               │
-│   │   │  │  ZML → HTML (новый)  │   │    │                               │
-│   │   │  └──────────┬───────────┘   │    │                               │
-│   │   │  ┌──────────┴───────────┐   │    │                               │
-│   │   │  │ 5_index.py (адаптир.)│   │    │                               │
-│   │   │  └──────────┬───────────┘   │    │                               │
-│   │   │  ┌──────────┴───────────┐   │    │                               │
-│   │   │  │ 6_deploy.py (push)   │   │    │                               │
-│   │   │  └──────────┬───────────┘   │    │                               │
-│   │   └─────────────┼─────────────┘    │                                 │
-│   └─────────────────┼──────────────────┘                                 │
-└─────────────────────┼────────────────────────────────────────────────────┘
-                      │ git push
+│   GUI batch-runner (Tk) → run_batch.py (оркестратор, hit-limit retry)    │
+│         │   git pull --rebase                                            │
+│         ├─ 3_transform.py  (headless claude -p)  HTML → zml/<art>.zml     │
+│         ├─ tools/build.mjs (render.js)           ZML → docs/<sec>/<a>.html│
+│         ├─ 5_index.py                            docs/index + разделы     │
+│         └─ git_push (весь репо из ROOT: zml + docs)                       │
+└─────────────────────┼──────────────────────────────────────────────────┘
+                      │ git push (origin main)
                       ▼
 ┌──────────────────────────────────────────────────────────────────────────┐
-│ GitHub: imyavel/yaniktoim-cms                                            │
-│   main branch:  zml/, raw/, manifest.json, src/, batch_runner/, ...      │
-│   gh-pages:     site/* + cms/* (статика)                                 │
-└──────────────────────────────────────────────────────────────────────────┘
-                      │
-        ┌─────────────┼─────────────┐
-        ▼                           ▼
-   читатель сайта             редактор (mini-CMS)
-   yaniktoim-cms/             yaniktoim-cms/cms/
-        │                           │
-        │                           │ GitHub OAuth (через relay)
-        │                           ▼
-        │                     Cloudflare Worker / Vercel function
-        │                           │  обмен code→token
-        │                           ▼
-        │                     GitHub API: read zml/, edit, commit
-        ▼                           │
-   статичный HTML            commit triggers gh-pages rebuild
+│ GitHub: imyavel/yaniktoim (PUBLIC)                                        │
+│   main:  zml/ (source) + docs/ (готовый сайт+редактор) + src/ + config/…  │
+│   Pages: legacy, source = main /docs  (+ docs/.nojekyll)                  │
+└─────────────────────┼──────────────────────────────────────────────────┘
+                      │  CDN (≈30-60с после коммита, без CI)
+        ┌─────────────┴───────────────┐
+        ▼                             ▼
+   читатель                      редактор (inline ✎, ?edit=1)
+   готовый статичный html        тот же render.js в браузере
+        │                             │ Save: stamp editor/edited →
+        │                             │ render полной страницы →
+        │                             ▼
+        │                        ИНТЕРИМ: PAT (localStorage) → Git Data API
+        │                        ПОЗЖЕ:  Cloudflare Worker (Этап 8), токен на Worker
+        │                             │  один коммит zml+html
+        ▼                             ▼
+   /yaniktoim/…                  origin main ←──┘  (страница обновляется ~30-60с)
 ```
 
-**Принцип**: один source-of-truth — `.zml` файлы в `zml/` ветки main. Два потребителя — рендер сайта и веб-редактор. Никаких параллельных JSON.
+**Принцип**: один source-of-truth — `.zml` в `zml/` ветки main; html всегда производный (тот же `render.js` в батче и в браузере-редакторе) и коммитится в `docs/`. Никаких параллельных JSON, никакого CI.
 
 ---
 
@@ -202,9 +185,9 @@ HTML→ZML **нельзя** сделать чистым JS-скриптом: м�
 | - | `src/build_progress.py` | проверить | сборка `progress.json`. |
 | 3 | `src/3_transform.py` | **переписать** | HTML → ZML через headless `claude -p`. Выход: `zml/<NNN>.zml`. Lossless-валидация: strip разметку из ZML → сравнить с canon-текстом из raw → diff в `_logs/transform_<NNN>.diff.txt`. |
 | - | `src/transform_prompt.md` | **переписать** | Инструкция LLM: «верни мне исходный текст с разметкой ZML»; перечень всех тегов; правила оборачивания URL, распознавания CAPS/эпиграфов/стихов/etc. |
-| 4 | `src/4_render.py` | **переписать** | ZML → `site/<section>/<NNN>.html`. Парсит frontmatter (YAML), блочные теги (§4 спеки), inline-цепочку (§5), резолвит `[[nnn]]` через manifest, `{chapter\|N}` через zohar_index. |
-| 5 | `src/5_index.py` | проверить, мин. правки | `site/index.html` + `site/<section>/index.html`. Читает manifest, не статьи — формально менять нечего. |
-| 6 | `src/6_deploy.py` | **развернуть** | сейчас стаб (init+commit). Дотянуть до полноценного push на gh-pages. |
+| 4 | ~~`src/4_render.py`~~ → `tools/build.mjs` + `docs/editor/render.js` | ✅ retired (py в `_backups/`) | Рендер ZML → `docs/<section>/<art>.html` целиком на JS. frontmatter, блочные теги (§4), inline-цепочка (§5), `[[art]]` через manifest, `{chapter\|N}` через zohar_index. |
+| 5 | `src/5_index.py` | готово | `docs/index.html` + `docs/<section>/index.html`. Читает manifest. |
+| 6 | ~~`src/6_deploy.py`~~ | ✅ retired (`_backups/`) | Деплой — `git_push` из `run_batch.py`/`gui.pyw` (push всего репо из ROOT по `.gitignore`), Pages legacy `main /docs`. |
 | 7 | `src/7_postcheck.py` | переписать или отключить | LLM-аудит ZML-блоков (skeleton-pass). На первое время можно скипнуть. |
 | - | `batch_runner/run_batch.py` | готово | оркестратор: transform → render → index → push. Hit-limit-handling готов. |
 | - | `batch_runner/gui.pyw` | готово | Tk-GUI launcher. |
@@ -266,22 +249,15 @@ LLM возвращает готовый `.zml`. Скрипт:
 - Lossless-валидация: strip ZML-разметку → сравнить с canon-текстом. Diff в `_logs/transform_<NNN>.diff.txt`.
 - Сохраняет `zml/<NNN>.zml`.
 
-### Этап 4 — Новый `4_render.py`
+### Этап 4 — Рендер ZML → HTML *(готово, на JS)*
 
-Парсер ZML → HTML по спеке. Использует:
-- `manifest.json` для резолва `[[nnn]]` (заголовок статьи).
-- `_logs/zohar_index.json` (новый, Этап 1) для `{chapter|N}`.
-- `pics/<filename>` для frontmatter.image.
-- `templates/article.html` (Jinja или прямая подстановка — решим в процессе).
-- CSS_VERSION bump.
+Реализован НЕ как `4_render.py`, а как `docs/editor/render.js` (+ `tools/build.mjs` для пачки). Парсер по спеке использует: `manifest.json` (`[[art]]`), `_logs/zohar_index.json` (`{chapter|N}`), `pics/<file>` (frontmatter.image), `templates/article.html` (прямая подстановка `{{…}}`), CSS_VERSION. Выход: `docs/<section>/<art>.html` (LF).
 
-Выход: `site/<section>/<NNN>.html`.
+### Этап 5 — `5_index.py`, деплой, `7_postcheck.py` *(в основном готово)*
 
-### Этап 5 — Проверка / минимальные правки `5_index.py`, `6_deploy.py`, `7_postcheck.py`
-
-- **5_index.py** — читает только manifest, скорее всего почти не изменится. Проверить.
-- **6_deploy.py** — раскрутить от стаба до рабочего push на gh-pages (решить: отдельный branch `gh-pages` в том же репо, или отдельный репо `yaniktoim-cms-pages`).
-- **7_postcheck.py** — переписать skeleton-pass под ZML-блоки (или временно скипнуть, вернёмся после Этапа 6).
+- **5_index.py** — читает manifest, пишет в `docs/`. Работает.
+- **Деплой** — `git_push` из `run_batch.py`/`gui.pyw`, Pages legacy `main /docs` (см. §0.2/§0.8). `6_deploy.py` retired.
+- **7_postcheck.py** — сейчас лишь ре-рендерит через `node tools/build.mjs`. Полноценный аудит ZML-блоков — опционально (TODO 8).
 
 ### Этап 6 — Отладка на 3-5 статьях вручную
 
@@ -325,9 +301,9 @@ LLM возвращает готовый `.zml`. Скрипт:
 3. **[x] Переписать `src/transform_prompt.md`** под прямой ZML-выход — готово. 11 разделов: lossless-правило, frontmatter, URL-маркеры `⟦INT/ZOH/EXT⟧` (pre-resolved python-обвязкой), блочные теги (`[poem]/[epi]/[mus]/[num]/[sub]`), сноски (числовые/именованные/анонимные), colophon-чистка, минимальный пример. Italic `_..._` приходит pre-converted, LLM не трогает.
 4. **[x] Переписать `src/3_transform.py`** — HTML → ZML через `claude -p`. Готово (≈550 строк). Pipeline: `article_text()` → `classify_links()` (⟦INT⟧/⟦EXT⟧ + bare URLs) → `convert_italic()` (`[фраза]` → `_фраза_`) → headless `claude -p --model claude-opus-4-8 --max-turns 1` → `inject_art()` → `validate_lossless()` (двусторонний strip с маскированием music-блоков, footnote-section, эпиграф-маркеров, colophon) → `zml/<art>.zml`. **3 пилота прошли валидацию**: `416A` (4404 chars, 23s), `654` (18556 chars, 277s), `237` (15727 chars, 795s). CLI: `<art> [<art>...]` / `--stem <YYYY_MM_DD_NNN>` / `--pilot` / `--all` / `--force`.
 5. **[x] Переписать `src/4_render.py`** — ZML → HTML. Готово (≈580 строк). Парсер frontmatter + блоков (paragraph, heading `## … {slug}`, `[poem]`, `[epi cite=…]`, `[epil]`, `[quote cite=…]`, `[num]`, `[mus|mus="label"]` с `[url|title|author]`-треками, `[sub]` в обоих формах — multi-line и single-line). Inline-cascade из SPEC §7: `[^N]` → sup+ref/note pair, `[[<art>]]` → internal с заголовком из manifest, `{chapter|N}` → zohar-link «Книга Зоар. <kniga>. <article>», `[url|анкор]` / `[url]`, `_фраза_` → `<em>`, CAPS-pass → `<span class="sb">` с lowercase + PROPER_NOUNS (40+ слов: Орёл, Творец, Адам, Кли, Нагваль, сфирот, …), `^WORD` → forced capital. Поэма: CAPS-runs склеиваются в один span. TOC из h2-секций + back-to-toc `↑`. Footnotes: numbered (`<sup>`+backref) + anonymous (`См. также:`/кастомный prefix). Pilot render OK: `site/confront/416A.html`, `site/best/654.html`, `site/best/237.html`. CSS: `style.css` v=20260528-01 копия `_zml_spec/style.css`.
-6. **[ ] Проверить `src/5_index.py`** — нужны ли изменения для нового pipeline.
-7. **[ ] Развернуть `src/6_deploy.py`** до полноценного push в gh-pages. Решить ветка vs отдельный репо.
-8. **[ ] Переписать или скипнуть `src/7_postcheck.py`** — LLM-аудит под ZML.
+6. **[x] `src/5_index.py`** — пишет в `docs/`, читает manifest. Работает.
+7. **[x] Деплой** — `6_deploy.py` retired; push через `git_push` (`run_batch.py`/`gui.pyw`) всего репо из ROOT, Pages legacy `main /docs`. См. §0.2/§0.8.
+8. **[ ] Переписать или скипнуть `src/7_postcheck.py`** — сейчас лишь ре-рендер через `build.mjs`; полноценный LLM-аудит ZML — опционально.
 9. **[ ] Отладка на 3-5 пилотных статьях** через GUI batch-runner (Этап 6).
 10. **[ ] Массовый прогон 339 статей** (Этап 7).
 11. **[ ] Портировать weekly hit-limit парсер** из `zohar-translator\corpus_tools\process_results.py` (`HIT_LIMIT_RX_WEEKLY`, `parse_hit_limit_reset` → возвращает ISO datetime для weekly) в наш `batch_runner/run_batch.py`. Изменить `parse_reset()` так, чтобы для weekly возвращался полный `datetime`, для session — как сейчас. Без этого недельный Max-лимит не обрабатывается.
@@ -341,51 +317,48 @@ LLM возвращает готовый `.zml`. Скрипт:
     - **Inline-редактор на самой странице** (wiki-стиль, БЕЗ отдельной формы/страницы — это итоговое требование оператора, см. 2-й раунд уточнения): `site/editor/inline.js`. ✎ на статье → область `<article>` превращается в ZML-textarea + sticky-тулбар (Сохранить / Предпросмотр(toggle) / Отмена / ↓zml / ⚙). Предпросмотр рендерит `<article>` тем же `renderArticleParts` (пути и стиль резолвятся как на странице — base не нужен) и обновляет h1/`<title>`. Сохранение — GitHub Contents API (PAT/branch/owner/repo в localStorage `yanik_gh`, диалог ⚙); «↓ zml» — локальный фолбэк. Отмена восстанавливает исходный рендер.
     - **Шаблон** `templates/article.html`: `<body data-art>`, кнопка ✎ (`#edit-fab`, скрыта для читателей), скрипты статьи (music lazy + footnote bubble) обёрнуты в идемпотентный `window.yanikBindArticle()` (re-bind после предпросмотра). В edit-режиме (`?edit=1` → `localStorage.yanik_edit`) страница динамически подгружает `../editor/inline.js` (читатели его не грузят).
     - **WYSIWYG отвергнут**: правка идёт в ZML-исходнике (обратный HTML→ZML транзформ невозможен из-за капители/сносок/ссылок).
-    - **Локальный прогон**: `node tools/build.mjs` → `python -X utf8 -m http.server 8770 --directory site` (или Preview MCP, `.claude/launch.json`, имя `site`). Проверено в браузере (DOM): ✎-gating, вход в правку, live-предпросмотр (5×h2/3 поэмы/4 эпиграфа/26 сносок), реактивность h1, отмена-восстановление.
+    - **Локальный прогон**: `node tools/build.mjs` → `python -X utf8 -m http.server 8770 --directory docs` (или Preview MCP, `.claude/launch.json`, имя `site`). Проверено в браузере (DOM): ✎-gating, вход в правку, live-предпросмотр (5×h2/3 поэмы/4 эпиграфа/26 сносок), реактивность h1, отмена-восстановление.
     - **Осталось (13d)** — перекрыто §0: деплой по §0.8 (быстрая модель: legacy `main /docs`, **без CI**, push через `gui.pyw`); многопользовательский вход — Этап 8 (Worker-прокси, НЕ OAuth-relay). `cms/` + `4_render.py` уже перенесены в `_backups/` (gitignored).
-13b. **[ ] gh-deploy** — см. §0.8 (миграция на `imyavel/yaniktoim`) + Этап 8 (логин).
+13b. **[x] gh-deploy / flip** — выполнено 2026-05-29 (см. §0.8 шаги 2-3): репо `imyavel/yaniktoim`, Pages `main /docs`, сайт живой. Осталось оператору — live-тест inline-Save с PAT (§0.8 шаг 4). Многопользовательский вход — Этап 8.
 
 ---
 
-## 8. Структура `yaniktoim-cms\`
+## 8. Структура `yaniktoim\`  (★ = в `.gitignore`, в публичный репо НЕ идёт)
 
 ```
-yaniktoim-cms/
-├── _backups/        ← старые версии скриптов (legacy)
-├── _logs/           ← run-логи, transform diffs, zohar_index.json
-├── _research/       ← служебное
-├── _zml_spec/       ← спецификация ZML
-│   ├── SPEC.md
-│   ├── demo.zml
-│   ├── demo.html
-│   └── style.css    ← копия site/style.css + .music-group/.music-noplayer/.num/li.anon
-├── batch_runner/    ← Tk-GUI + run_batch.py (готов, hit-limit-handling работает)
-│   ├── gui.pyw
-│   ├── run_batch.py
-│   └── state.json
-├── json/            ← старые JSON статей (350) — legacy, после Этапа 7 убираем
-├── pics/            ← cover-картинки (frontmatter.image → pics/<file>)  ★ создать
-├── zml/             ← НОВЫЙ source-of-truth: <NNN>.zml                  ★ создать
-├── manifest.json    ← структурные метаданные статей
-├── progress.json    ← состояние pipeline
-├── raw/             ← исходные HTML proza.ru (350 файлов)
-├── roadmap.md       ← этот файл
-├── site/            ← собранные HTML (≈11 в best от старого pipeline; пересоберём)
-├── src/             ← скрипты pipeline
-│   ├── 1_fetch.py            не трогаем
-│   ├── 1b_fetch_missing.py   не трогаем
-│   ├── 2_manifest.py         не трогаем
-│   ├── 2b_section_order.py   не трогаем
-│   ├── 3_transform.py        ★ переписать (HTML→ZML)
-│   ├── transform_prompt.md   ★ переписать
-│   ├── 4_render.py           ★ переписать (ZML→HTML)
-│   ├── 5_index.py            проверить
-│   ├── 6_deploy.py           развернуть
-│   ├── 7_postcheck.py        переписать или скип
-│   ├── build_progress.py     проверить
-│   └── cookie_eater.py       utility
-└── templates/       ← Jinja-шаблоны (article.html, main_index.html, section_index.html)
+yaniktoim/
+├── zml/             ← SOURCE-OF-TRUTH: <art>.zml (frontmatter + тело + editor/edited)
+├── docs/            ← SERVED ROOT (gh-pages main /docs); всё машинно-сгенерено, руками не править
+│   ├── .nojekyll
+│   ├── index.html, style.css, img/      статика + главная
+│   ├── <section>/<art>.html             собранные статьи (+ <section>/index.html)
+│   └── editor/      ← код редактора (отдаётся и импортируется страницей)
+│       ├── render.js   ЕДИНСТВЕННЫЙ рендер (Node-сборка + браузерный preview/Save)
+│       ├── inline.js   inline ✎-редактор; Save через Git Data API
+│       └── data/       выгрузка build.mjs: manifest(subset), zohar_index,
+│                       proper-nouns.txt, template.html, users.json, zml/<art>.zml
+├── config/          ← proper-nouns.txt (CAPS→Заглавная), users.json (3 юзера)
+├── templates/       ← article.html, main_index.html, section_index.html ({{…}}-подстановка)
+├── tools/build.mjs  ← Node-сборка: zml → docs/, + docs/editor/data/
+├── src/             ← python-пайплайн наполнения корпуса
+│   ├── 1_fetch.py / 1b_fetch_missing.py / 2_manifest.py / 2b_section_order.py  (готовы)
+│   ├── 3_transform.py + transform_prompt.md   HTML→ZML (готово)
+│   ├── 5_index.py                              docs-индексы (готово)
+│   ├── 7_postcheck.py                          ре-рендер через build.mjs
+│   ├── build_progress.py / build_zohar_index.py / build_art_ids.py / cookie_eater.py
+│   └── (4_render.py, 6_deploy.py — retired, в _backups/)
+├── batch_runner/    ← Tk-GUI + run_batch.py (оркестратор, hit-limit retry) + state.json
+├── _zml_spec/       ← SPEC.md, demo.zml/html/css
+├── manifest.json    ← метаданные статей (section, art, title, order, dates)
+├── progress.json, package.json, roadmap.md
+├── _logs/           ← ★ кроме zohar_index.json (он коммитится — нужен сборке)
+├── raw/             ← ★ исходные HTML proza.ru (≈350) + куки-файлы
+├── _research/       ← ★ служебное (в т.ч. копия куки-sqlite!)
+├── _backups/        ← ★ retired-скрипты (4_render.py, 6_deploy.py, cms/)
+├── json/, manifest_pre_art.json   ← ★ старые JSON-интермедиаты
+└── node_modules/    ← ★ (если появится)
 ```
+**.gitignore-инвариант (репо PUBLIC):** куки/`*.sqlite`/`raw/`/`_research/` НЕ должны попадать в коммиты — проверять перед любым новым `git add` (см. §0.7).
 
 ---
 
@@ -401,7 +374,12 @@ yaniktoim-cms/
 
 ## 10. С чего продолжить в свежем контексте
 
-1. Прочитать этот файл целиком.
-2. Прочитать `_zml_spec/SPEC.md` (актуальная ZML-спека).
-3. Просмотреть `_zml_spec/demo.zml` и `_zml_spec/demo.html` (как выглядит ZML и его рендер).
-4. Спросить оператора, к какому пункту TODO переходим. По плану — Этап 1 (`zohar_index.json`) или Этап 2 (чистка `[...]` из raw), они независимы; затем Этап 3 (`transform_prompt.md` + `3_transform.py`).
+1. Прочитать §0 (живая картина) + при необходимости `_zml_spec/SPEC.md`.
+2. Локальный прогон: Preview MCP имя `site` (отдаёт `docs/`) или `python -X utf8 -m http.server 8770 --directory docs`.
+3. Сборка: `node tools/build.mjs [<art>…]` → `docs/`; индексы — `python -X utf8 src/5_index.py`.
+4. Оставшаяся работа (по приоритету оператора):
+   - **Live-тест inline-Save** на сайте с реальным PAT (§0.8 шаг 4).
+   - **Доводка UI/рендера** статей (по списку правок оператора).
+   - **Массовый прогон корпуса** ≈339 статей через `gui.pyw` (Этап 7).
+   - **Этап 8** — Cloudflare Worker-логин (когда понадобится пускать друзей).
+   - Опционально: `7_postcheck.py` полноценный аудит (TODO 8).
