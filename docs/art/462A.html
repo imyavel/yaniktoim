@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Стенограмма 3 Урока 2 по статье Шамати 3</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#22201c;
+    --muted:#6d665b;
+    --accent:#9a3412;
+    --accent-soft:#c2703f;
+    --rule:#ddd5c6;
+    --link:#8a2d12;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;
+    font-size:19px;
+    line-height:1.7;
+  }
+  a{color:var(--link);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .wrap{
+    width:66%;
+    max-width:900px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 28px 80px;
+  }
+  @media(max-width:1100px){.wrap{width:80%;}}
+  @media(max-width:760px){
+    body{font-size:18px;}
+    .wrap{width:100%;padding:20px 18px 60px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:12px;
+    margin-bottom:28px;
+  }
+  .crumbs a{color:var(--muted);}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs span{margin:0 .5em;color:var(--accent-soft);}
+
+  h1{
+    font-size:33px;
+    line-height:1.22;
+    font-weight:600;
+    margin:0 0 .35em;
+    color:#1a1814;
+  }
+  .subtitle{
+    font-size:18px;
+    color:var(--muted);
+    font-style:italic;
+    margin:0 0 1.2em;
+    line-height:1.5;
+  }
+  .meta-top{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    line-height:1.6;
+    border-left:3px solid var(--accent-soft);
+    padding:8px 0 8px 16px;
+    margin:0 0 28px;
+  }
+  .meta-top .lead{color:var(--ink);font-weight:bold;}
+  .parts{margin:10px 0 0;}
+  .parts a{display:inline-block;margin-right:14px;}
+
+  hr.div{
+    border:none;
+    border-top:1px solid var(--rule);
+    margin:30px 0;
+  }
+
+  p{margin:0 0 1.1em;}
+
+  /* speaker paragraphs */
+  .turn{margin:0 0 1.25em;}
+  .turn .who{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    font-size:14px;
+    letter-spacing:.05em;
+    color:var(--accent);
+    margin-right:.4em;
+  }
+  .turn.ba{border-left:3px solid #d8c9b0;padding-left:14px;}
+  .turn.ebm{border-left:3px solid var(--accent-soft);padding-left:14px;}
+  .turn p{margin:0 0 .7em;}
+  .turn p:last-child{margin-bottom:0;}
+
+  .stage{color:var(--muted);font-style:italic;}
+
+  .endnote{
+    text-align:center;
+    font-style:italic;
+    color:var(--muted);
+    font-size:16px;
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+
+  /* music */
+  .music{margin:26px 0;}
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:8px;
+  }
+  .track{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .track summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:13px 16px;
+    font-size:17px;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .track .arrow{
+    color:var(--accent-soft);
+    transition:transform .2s;
+    font-size:13px;
+  }
+  .track[open] .arrow{transform:rotate(90deg);}
+  .track .tname{font-weight:600;}
+  .track .tartist{color:var(--muted);}
+  .track .ext{margin-left:auto;color:var(--muted);font-size:15px;}
+  .track .ext:hover{color:var(--accent);}
+  .player{padding:0 16px 16px;}
+  .player .frame{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    border-radius:5px;
+    overflow:hidden;
+    background:#000;
+  }
+  .player iframe{
+    position:absolute;top:0;left:0;width:100%;height:100%;border:0;
+  }
+
+  /* bottom nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:50px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    display:block;
+    max-width:46%;
+    font-size:15px;
+  }
+  .corpus-nav .dir{
+    display:block;
+    font-size:12px;
+    letter-spacing:.07em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:3px;
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer .attrib{margin:0 0 .5em;}
+  footer a{color:var(--link);}
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>/</span><a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <h1>Стенограмма 3 Урока 2 по статье Шамати 3</h1>
+
+  <div class="meta-top">
+    <span class="lead">Телеграм-канал Путь Восходящей Звезды</span><br>
+    <a href="https://t.me/binazone">https://t.me/binazone</a>
+    <p style="margin:.7em 0 0;">Урок 02.06.2024 по статье Шамати 3 «Суть духовного постижения»<br>
+    Благословенного праведника и мудреца Каббалы Йегуды Лейб Алеви Ашлага (Бааль Сулам)</p>
+    <p style="margin:.5em 0 0;">Ведущие Элиягу Бар Малей и Бина Анеле</p>
+    <p style="margin:.5em 0 0;">Ссылка на урок: <a href="https://t.me/binazone/499">https://t.me/binazone/499</a></p>
+    <div class="parts">
+      <a href="http://proza.ru/2024/06/02/1601">Часть 1</a>
+      <a href="http://proza.ru/2024/06/03/1273">Часть 2</a>
+      <span style="color:var(--ink);">Часть 3 (10:51&nbsp;&ndash;&nbsp;15:06)</span>
+    </div>
+  </div>
+
+  <div class="music">
+    <div class="music-label">Музыка под настроение</div>
+    <details class="track">
+      <summary>
+        <span class="arrow">▶</span>
+        <span><span class="tname">Brides of Lucifer</span> &mdash; <span class="tartist">Warriors of the World</span></span>
+        <a class="ext" href="https://www.youtube.com/watch?v=1Bzu14_-CM8" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </summary>
+      <div class="player">
+        <div class="frame" data-embed="https://www.youtube.com/embed/1Bzu14_-CM8"></div>
+      </div>
+    </details>
+  </div>
+
+  <hr class="div">
+
+  <div class="turn ba">
+    <p><span class="who">БА:</span>Получается, что... Я просто хочу вернуться к той позиции, на которой человек, формирует, осознает себя. Как разумное существо, обладающее свойствами и «Света», и «Кли». Так можно выразиться?</p>
+  </div>
+
+  <div class="turn ebm">
+    <p><span class="who">ЭБМ:</span>Да, но не «сам по себе». Потому, что и то и другое свойство через него проявляется. Одно из этих свойств называется «общее управление», другое «личное» или «частное управление». Да? То есть «Ситра Ахра», скажем так - «управление от обратного» - и Свет Любви.</p>
+    <p>То есть [последнее, это] – прямое управление. Когда человек входит, скажем так, в стадию своего собственного полового взросления, в любом смысле, не обязательно в чисто материальном [физиологическом – комм. ЭБМ], но и в «духовном» тоже есть такое понятие абсолютно точно, потому что оно называется «гадлут».</p>
+    <p>И, на каждом этапе нашего эволюционного развития, уже не просто как «человеков разумных», а как «магов» и «каббалистов», скажем так, да? Как «праведников», например, которые «рассажены в каждом поколении», для того, чтобы производить эволюцию этого поколения. Потому, что, как сказать-то. Если сравнить уровень, объективный уровень того или иного праведника в каком-нибудь XX веке, там, да? И через 5 веков, уровень совершенно обычного человека, то они будут совершенно соотносимы. Потому, что этот «праведник», он не «просто так» там сидел, в этом ХХ веке, а он производил эту эволюцию, он первым проходил, вырабатывал те механизмы, которые дальше ложатся в основу «общей» ступени, да? И начинают реализовываться уже «на конвейере», скажем так.</p>
+    <p>В этом заключается смысл происхождения всех вот этих [особых] судеб, и, собственно, того, что они создают далее, что далее находит раскрытие и распространение в «келим мира».</p>
+  </div>
+
+  <div class="turn ba">
+    <p><span class="who">БА:</span>Вопрос. Не знаю, насколько он...</p>
+    <p>В определенном философском рассмотрении человеческого сознания всегда присутствует такой, как бы, не раскрытый, вопрос: что же управляет – яйцо курицей, или курица яйцом?</p>
+  </div>
+
+  <div class="turn ebm">
+    <p><span class="who">ЭБМ:</span>Ты в этом вопросе попыталась совместить, «бульдога с носорогом». Потому что, на самом деле, там вопрос «кто был первым», яйцо или курица, а насчет управления – это «хвост собакой, или собака хвостом». <span class="stage">[смеется]</span></p>
+  </div>
+
+  <div class="turn ba">
+    <p><span class="who">БА:</span>Так, если мы говорим, что мир «Асия»...</p>
+  </div>
+
+  <div class="turn ebm">
+    <p><span class="who">ЭБМ:</span>Если говорить... Извини, что я тебя перебил. Если говорить о курице с яйцом, то первым было яйцо внутри курицы. А потом, это яйцо вышло из курицы, и из него начали рождаться новые курицы, которые потом стали нести новые яйца, и так далее.</p>
+    <p>Если говорить о «хвосте и собаке» - более понятные нам термины, особенно, если «хвост» заменить на другое понятие, о котором я говорил в самом начале этого Урока [см. стенограмму ч. 1 – комм. ЭБМ], а «собаку» - на человека, то очевидно, что, если уж совсем объективно говорить, особенно, на уровне «катнута», да? Да и на уровне «гадлута» тоже, только осознанно со стороны человека и по его желанию – вот в этом вся разница, - то, конечно же, «хвост», он «собакой» управляет, в более объективном смысле, нежели «собака» «хвостом»...</p>
+  </div>
+
+  <p class="endnote">[конец 3 части стенограммы (15:06)]</p>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="363.html">
+      <span class="dir">← Предыдущая</span>
+      Пространство Бины предисловие
+    </a>
+    <a class="next" href="462C.html">
+      <span class="dir">Следующая →</span>
+      Стенограмма 2 Урока 2 по статье Шамати 3
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.track').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open){
+        var f=d.querySelector('.frame');
+        if(f && !f.querySelector('iframe')){
+          var url=f.getAttribute('data-embed');
+          var ifr=document.createElement('iframe');
+          ifr.setAttribute('src',url+'?autoplay=1');
+          ifr.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+          ifr.setAttribute('allowfullscreen','');
+          f.appendChild(ifr);
+        }
+      }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — стенограмма устного урока в форме диалога двух ведущих (БА и ЭБМ), то есть прозаический разговорный текст без стихотворных форм. По правилам это однозначно редакторская широкая схема: основная колонка ~66% ширины окна (ограничена ~900px для комфортной меры строки), светлый книжный фон с тёплой палитрой и кирпичным акцентом, засечный шрифт для тела и гротеск для служебных элементов. Реплики оформил как чередующиеся 'turn'-блоки с цветной левой линейкой и выделенной меткой говорящего — это сохраняет дословный текст, но делает диалог читаемым; никаких заголовков, врезок или сокращений не добавлял.",
+  "rationale2": "",
+  "features": ["music"]
+}
+</script>
+</body>
+</html>
