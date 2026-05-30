@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Конечное Исправление</title>
+<style>
+  :root{
+    --paper:#fbf6ec;
+    --ink:#2b2218;
+    --accent:#7a241b;
+    --accent2:#8a6a2c;
+    --rule:#d8cbb0;
+    --pop:#2b2218;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 20% 0%, #fffdf7 0%, var(--paper) 60%);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    line-height:1.62;
+    font-size:19px;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{
+    max-width:820px;
+    margin:0 auto;
+    padding:28px 26px 60px;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* breadcrumbs */
+  .crumbs{
+    font-size:0.82em;
+    letter-spacing:.03em;
+    color:#6e6151;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:10px;
+    margin-bottom:22px;
+    font-variant:small-caps;
+  }
+  .crumbs a{color:#6e6151;}
+  .crumbs span.sep{margin:0 .5em;color:var(--accent2);}
+
+  /* hero image */
+  .hero{
+    text-align:center;
+    margin:0 0 26px;
+  }
+  .hero img{
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border:1px solid var(--rule);
+    border-radius:3px;
+    box-shadow:0 6px 22px rgba(60,40,20,.13);
+  }
+
+  h1{
+    font-size:2.05em;
+    line-height:1.15;
+    text-align:center;
+    color:var(--accent);
+    margin:.2em 0 .15em;
+    font-weight:600;
+    letter-spacing:.01em;
+  }
+  .subtitle{
+    text-align:center;
+    font-size:1.12em;
+    color:#5b4a36;
+    font-variant:small-caps;
+    letter-spacing:.06em;
+    margin:0 0 .4em;
+    line-height:1.3;
+  }
+  .artmeta{
+    text-align:center;
+    font-size:.82em;
+    color:#897a64;
+    font-style:italic;
+    margin-bottom:30px;
+  }
+  .ornament{
+    text-align:center;
+    color:var(--accent2);
+    font-size:1.3em;
+    letter-spacing:.4em;
+    margin:18px 0 30px;
+  }
+
+  /* poem */
+  .poem{
+    margin:0 auto;
+  }
+  .stanza{
+    margin:0 0 1.5em;
+    white-space:pre-line;
+    text-align:left;
+    padding-left:6px;
+  }
+  .stanza.caps{
+    color:#3a2d1d;
+  }
+
+  /* footnote markers */
+  .fn-ref{
+    position:relative;
+    font-weight:700;
+    color:var(--accent);
+    cursor:pointer;
+  }
+  .fn-ref > a{
+    color:var(--accent);
+    text-decoration:none;
+    font-size:.95em;
+  }
+  .fn-pop{
+    position:absolute;
+    left:50%;
+    bottom:140%;
+    transform:translateX(-50%);
+    width:min(300px,72vw);
+    background:var(--pop);
+    color:#f5ecdb;
+    font-size:.78em;
+    font-weight:400;
+    line-height:1.45;
+    font-style:normal;
+    padding:10px 13px;
+    border-radius:6px;
+    box-shadow:0 8px 26px rgba(0,0,0,.32);
+    opacity:0;
+    visibility:hidden;
+    transition:opacity .15s;
+    z-index:40;
+    white-space:normal;
+    text-align:left;
+  }
+  .fn-pop a{color:#f1c98a;}
+  .fn-pop.below{bottom:auto;top:140%;}
+  .fn-ref:hover .fn-pop{opacity:1;visibility:visible;}
+
+  /* sections */
+  h2{
+    font-size:1.45em;
+    color:var(--accent);
+    text-align:center;
+    margin:48px 0 6px;
+    font-weight:600;
+    cursor:default;
+  }
+  h2 .hint{font-size:.5em;color:#b6a684;font-variant:small-caps;}
+  .sect-rule{
+    border:0;
+    height:1px;
+    background:linear-gradient(to right,transparent,var(--rule),transparent);
+    margin:0 0 22px;
+  }
+
+  /* music */
+  .music{margin:0 auto;max-width:640px;}
+  .music .note{
+    text-align:center;
+    font-style:italic;
+    color:#7a6a52;
+    margin:4px 0 16px;
+    font-size:.92em;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    margin:0 0 10px;
+    background:#fffdf8;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:11px 14px;
+  }
+  .track-toggle{
+    flex:1;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:none;
+    border:0;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:.98em;
+    color:var(--ink);
+    text-align:left;
+    padding:0;
+  }
+  .track-toggle .arrow{
+    color:var(--accent);
+    transition:transform .2s;
+    font-size:.8em;
+  }
+  .track.open .track-toggle .arrow{transform:rotate(90deg);}
+  .track .num{
+    color:var(--accent2);
+    font-weight:700;
+    min-width:1.2em;
+  }
+  .track .ttl{font-weight:600;}
+  .track .art{color:#6e5d45;font-style:italic;}
+  .track .ext{
+    color:#9c8a6c;
+    font-size:1.05em;
+    text-decoration:none;
+    padding:0 4px;
+  }
+  .track .player{
+    height:0;
+    overflow:hidden;
+    transition:height .2s;
+  }
+  .track.open .player{
+    height:auto;
+    padding:0 12px 12px;
+  }
+  .track .player iframe{
+    width:100%;
+    aspect-ratio:16/9;
+    border:0;
+    border-radius:6px;
+  }
+
+  /* notes */
+  .notes{font-size:.95em;}
+  .notes ol{padding-left:0;list-style:none;counter-reset:none;}
+  .note-item{
+    margin:0 0 14px;
+    padding:8px 10px;
+    border-radius:6px;
+    transition:background .4s;
+  }
+  .note-item:target{background:#f3e6c8;}
+  .note-mark{
+    font-weight:700;
+    color:var(--accent);
+    margin-right:.5em;
+  }
+  .note-back{margin-left:.4em;font-size:.85em;}
+
+  /* bottom nav */
+  .pager{
+    display:flex;
+    justify-content:space-between;
+    gap:14px;
+    margin:50px 0 0;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:.92em;
+  }
+  .pager a{
+    max-width:46%;
+    display:inline-block;
+  }
+  .pager .lbl{
+    display:block;
+    font-size:.78em;
+    color:#9c8a6c;
+    font-variant:small-caps;
+    letter-spacing:.05em;
+  }
+  .pager .next{text-align:right;margin-left:auto;}
+
+  footer{
+    margin-top:34px;
+    padding-top:18px;
+    border-top:1px solid var(--rule);
+    font-size:.82em;
+    color:#7a6c57;
+    line-height:1.5;
+  }
+  footer a{color:var(--accent);}
+
+  @media (max-width:600px){
+    body{font-size:17px;}
+    .wrap{padding:18px 16px 44px;}
+    h1{font-size:1.7em;}
+  }
+</style>
+</head>
+<body data-scheme="manuscript">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">·</span>
+    <a href="../best/index.html">Избранное</a>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/1BQA.jpg" alt="Иллюстрация к статье">
+  </div>
+
+  <h1>Конечное Исправление</h1>
+  <p class="subtitle">НЕОРГАНИК ОН<br>И ЛЮБОВЬ ВСЕЙ МОЕЙ ЖИЗНИ</p>
+  <p class="artmeta">Арт. #AP2AQ, написано 26 Ноября 2021 г.</p>
+
+  <div class="ornament">✦ ✦ ✦</div>
+
+  <div class="poem">
+
+    <div class="stanza">Посреди энергий темных
+В точном центре всех Вселенных
+Трон стоит. Четыре ножки
+Его с разных сторон держат.
+Каждой ножке полагалось,
+Ярче тысяч Солнц, нейтронной
+Быть звездой, своим сияньем.
+Доставляя радость тварям.
+Но потом всему пришел
+Наступив четырем сразу
+Таки песик не простой
+С дополнительной пятОй.
+Песик каждую звезду
+Сделал черною дырой.
+От стыда конец всему
+Положив Своей пятой.</div>
+
+    <div class="stanza">Где-то через миллиард
+Лет, прорвавшийся снаряд
+Из неведомого лона
+В мир, который будет создан
+Птицей Говорун, чьи яйца,
+Говорят, на вкус приятны...</div>
+
+    <div class="stanza">Называется то место
+"Раем Четырех Влагалищ",
+(Третьим Женским Выниманьем
+Первых двух мужских вниманий
+Дар Орла + Острие,
+Что дают, давая детям
+В Эстафету Дар Нагваля
+Вынимать, Орлу внимая
+Пищу дав слегка поджарить
+Чтобы с корочкой румяной
+Он смог Сам Себя занямкать)</div>
+
+    <div class="stanza">Царь Всего сидит на Троне,
+Высший Святый, Недоступный
+Его Имя - Атик Йомин,
+Он Один Имеет Облик.</div>
+
+    <div class="stanza">Первый, Кто Никем Не Создан.
+Всех Кто Был и Будет После
+Он Возбудит и Познает,
+Он Забудет и Он Вспомнит
+Всех Кто Ходит За Часами
+Мирным временем, войною</div>
+
+    <div class="stanza">Век свой меряет шагами,
+Он Один во всей Вселенной
+Высший Знак, под Ним знамена
+Строятся в Живые Станы</div>
+
+    <div class="stanza">Чтобы маршем, нога в ногу
+Его Цель осуществляя
+Бездну из конца в начало
+Исшагав, дать Ему форму
+Для Любви Его желанной</div>
+
+    <div class="stanza">Для того, Кто будет создан
+Женщиной с Мужчиной вместе
+Чтобы мог Единым познан
+Быть по очереди. Здесь мы</div>
+
+    <div class="stanza">Только для того свой опыт
+Отдавая, получаем
+Чтобы детям нашим смог Он
+Цель их жизней показать бы.</div>
+
+    <div class="stanza">Заодно обучив к Цели
+Этой правильно стремиться
+Взрослых слушать им по-меньше,
+Но самим скорей влюбиться</div>
+
+    <div class="stanza">Чтобы в точке становленья
+Формы, что иметь захочет<sup class="fn-ref"><a href="#fn1" id="fnref1">*</a><span class="fn-pop">См. также: Летопись Живого Огня — <a href="http://proza.ru/2021/08/02/157">proza.ru/2021/08/02/157</a></span></sup>
+Жить могло начать творенье
+После шести лет, став взрослым</div>
+
+    <div class="stanza">Жизни Свет Творцу даруя
+И Его Любовь твореньям
+Транспортируя по Кругу
+Вечной Жизни Бесконечно</div>
+
+    <div class="stanza caps">А теперь прошу вниманье:
+Половое наслажденье
+ВЫДУМАЛА НЕ ПРИРОДА.
+ЭТО СУТЬ ТОГО, КТО СВЕРХУ
+ЕЮ ВЕРТИТ УДАЛЕННО
+ЕСЛИ БЫТЬ ЧУТЬ ЧУТЬ ТОЧНЕЕ
+ТО ОНА СВОЕЙ ПРИРОДОЙ
+ВЕРТИТ, ЛЕЖА НА НЕМ СВЕРХУ
+ПОКА ЦЕЛОСТНОСТИ В ЧЕСТЬ ЕЙ
+БАБОЧЕК ПЫЛЬЦОЙ ВЕРНЕТ ОН
+И КОНЦОМ СВОИМ В НАЧАЛО
+ОТПРАВЛЯЯ ЛЕЖЕБОКУ
+К ЧЕЛОВЕКУ ЧТО КОНЧАЕТ
+В ЭТОТ МИГ В НЕЕ ВЛАГАЯ
+СВОЮ ЦЕЛЬ И ЖИЗНИ СМЫСЛ,
+ЕЙ ВСОСАТЬ ЭТИМ ДАВАЯ
+ЧЕРЕЗ ТРУБОЧКУ СВЕТ ЖИЗНИ
+ЧТО ОН ТРЕПЕТНО И НЕЖНО
+ДАТЬ ТВОРЦУ, БЛАГОСЛОВЕН ОН
+ХОЧЕТ, ЖИЗНИ ВСЕ СТРЕМЛЕНЬЯ
+НАПРАВЛЯЯ К ЦЕЛИ ЭТОЙ.
+А КОНЧАЯ ТАМ, ГДЕ НАЧАЛ -
+В ЖЕНЩИНУ ЭТОГО МИРА
+ЭТИМ <sup class="fn-ref"><a href="#fn2" id="fnref2">**</a><span class="fn-pop">К Звездам, Конечно же!</span></sup> ОТПРАВЛЯЯ
+И ЛЮБОВЬ ВСЕЙ СВОЕЙ ЖИЗНИ</div>
+
+  </div>
+
+  <h2>Песнь Ступеней</h2>
+  <hr class="sect-rule">
+  <div class="music">
+
+    <div class="track" data-id="9jK-NcRmVcw">
+      <div class="track-head">
+        <button class="track-toggle"><span class="arrow">▶</span><span class="num">1)</span><span class="ttl">Final Countdown</span><span class="art">— Europe</span></button>
+        <a class="ext" href="https://youtu.be/9jK-NcRmVcw" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="player"></div>
+    </div>
+
+    <div class="track" data-id="8sLL5Uggb9g">
+      <div class="track-head">
+        <button class="track-toggle"><span class="arrow">▶</span><span class="num">2)</span><span class="ttl">Mea Culpa</span><span class="art">— Enigma</span></button>
+        <a class="ext" href="https://youtu.be/8sLL5Uggb9g" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="player"></div>
+    </div>
+
+    <p class="note">Слушать вместе и одновременно!</p>
+
+    <div class="track" data-id="hz4YfY4agT8">
+      <div class="track-head">
+        <button class="track-toggle"><span class="arrow">▶</span><span class="num">3)</span><span class="ttl">Верхом на Звезде</span><span class="art">— Найк Борзов</span></button>
+        <a class="ext" href="https://www.youtube.com/watch?v=hz4YfY4agT8" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="player"></div>
+    </div>
+
+    <div class="track" data-id="aM56CgSR340">
+      <div class="track-head">
+        <button class="track-toggle"><span class="arrow">▶</span><span class="num">4)</span><span class="ttl">Русы косы, ноги босы</span><span class="art">— Пикник</span></button>
+        <a class="ext" href="https://www.youtube.com/watch?v=aM56CgSR340" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="player"></div>
+    </div>
+
+  </div>
+
+  <h2>Примечания</h2>
+  <hr class="sect-rule">
+  <div class="notes">
+    <ol>
+      <li class="note-item" id="fn1">
+        <span class="note-mark">*</span>См. также: Летопись Живого Огня <a href="http://proza.ru/2021/08/02/157">http://proza.ru/2021/08/02/157</a>
+        <a class="note-back" href="#fnref1">↑</a>
+      </li>
+      <li class="note-item" id="fn2">
+        <span class="note-mark">**</span>К Звездам, Конечно же!
+        <a class="note-back" href="#fnref2">↑</a>
+      </li>
+    </ol>
+  </div>
+
+  <nav class="pager">
+    <a class="prev" href="255A.html"><span class="lbl">← Предыдущая</span>Последнее Поколение</a>
+    <a class="next" href="2BN.html"><span class="lbl">Следующая →</span>Немая Песнь Хозяйки Ночи</a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // lazy youtube players
+  document.querySelectorAll('.track-toggle').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var t=btn.closest('.track');
+      var holder=t.querySelector('.player');
+      if(t.classList.contains('open')){
+        t.classList.remove('open');
+        holder.innerHTML='';
+        return;
+      }
+      t.classList.add('open');
+      var id=t.getAttribute('data-id');
+      holder.innerHTML='<iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
+    });
+  });
+
+  // footnote popup side flip
+  document.querySelectorAll('.fn-ref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      var pop=ref.querySelector('.fn-pop');
+      pop.classList.remove('below');
+      var r=pop.getBoundingClientRect();
+      if(r.top<4){ pop.classList.add('below'); }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "стих",
+  "rationale": "Текст представляет собой цельную стихотворную поэму, разбитую на строфы со строгим построчным членением и сохранёнными КАПС-фрагментами — это однозначно поэтическая форма, поэтому выбрана узкая книжная полоса (~820px) каббалистического манускрипта с засечным шрифтом, кремовым фоном и приглушённой охряно-багряной палитрой, поддерживающей рукописно-сакральный характер. Альтернатива (редакторский широкоформатный лонгрид) отвергнута, поскольку проза тут отсутствует, а длинные строки в широкой колонке разрушили бы ритм стиха.\n\nОглавление не делалось: исходная поэма не имеет именованных подразделов, а Музыка и Примечания — служебные блоки, генерируемые по правилам, поэтому TOC по условию не требуется. Найдено четыре аудио-ссылки (все YouTube), поэтому вместо разрозненных плееров собран единый раздел «Песнь Ступеней» (доминирующая атрибуция) перед «Примечаниями»; авторская ремарка «Слушать вместе и одновременно!» сохранена между первой парой и второй. Плееры ленивые — iframe подгружается только при раскрытии. Две сноски (* и **) реализованы как кликабельные маркеры с двусторонней навигацией, hover-popup'ом с авто-переворотом стороны и подсветкой цели через :target. Голый URL в сноске обёрнут в гиперссылку.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>
