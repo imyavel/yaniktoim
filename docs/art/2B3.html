@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Храни и Помни</title>
+<style>
+  :root{
+    --bg:#f6f1e4;
+    --panel:#fbf8ef;
+    --ink:#2c2218;
+    --soft:#5a4a38;
+    --accent:#8a5320;
+    --gold:#b07d2b;
+    --rule:#d8cbb0;
+    --hl:#f5e4b0;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Palatino Linotype","Book Antiqua",Palatino,Georgia,"Times New Roman",serif;
+    line-height:1.7;
+    font-size:19px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{
+    max-width:820px;
+    margin:0 auto;
+    padding:32px 28px 72px;
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-size:0.82em;
+    letter-spacing:0.04em;
+    color:var(--soft);
+    text-transform:uppercase;
+    margin-bottom:26px;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:12px;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs .sep{margin:0 .5em;color:var(--gold);}
+  /* title */
+  h1{
+    font-size:2.15em;
+    font-weight:600;
+    text-align:center;
+    margin:.2em 0 .1em;
+    color:var(--accent);
+    letter-spacing:.01em;
+    line-height:1.2;
+  }
+  .title-orn{
+    text-align:center;
+    color:var(--gold);
+    font-size:1.4em;
+    margin:.1em 0 1.4em;
+    letter-spacing:.4em;
+  }
+  /* verse */
+  .verse{margin:0 auto;max-width:34em;}
+  .stanza{
+    margin:0 0 1.35em;
+    text-align:left;
+  }
+  .stanza .ln{display:block;}
+  .first .ln:first-child::first-letter{
+    font-size:2.2em;
+    line-height:.9;
+    float:left;
+    margin:.02em .08em 0 0;
+    color:var(--gold);
+    font-weight:600;
+  }
+  /* P.S. prose */
+  .ps{
+    max-width:34em;
+    margin:2.4em auto 1.2em;
+    padding-top:1.4em;
+    border-top:1px solid var(--rule);
+    text-align:justify;
+    font-size:.96em;
+  }
+  .ps-label{font-weight:600;color:var(--accent);}
+  .closer{
+    text-align:center;
+    font-style:italic;
+    font-size:1.15em;
+    color:var(--accent);
+    margin:1.6em auto;
+  }
+  /* music */
+  .music{max-width:34em;margin:2em auto;}
+  .music-label{
+    font-variant:small-caps;
+    letter-spacing:.05em;
+    color:var(--soft);
+    font-size:.9em;
+    margin-bottom:.4em;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:6px;
+    background:var(--panel);
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:.6em;
+    padding:.7em .9em;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#f3ecdb;}
+  .track-arrow{color:var(--gold);transition:transform .2s;font-size:.9em;}
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-name{flex:1;font-style:italic;color:var(--ink);line-height:1.4;}
+  .track-ext{color:var(--accent);text-decoration:none;font-size:1.05em;}
+  .track-ext:hover{color:var(--gold);}
+  .track-body{display:none;padding:0 .9em .9em;}
+  .track.open .track-body{display:block;}
+  .track-body .frame{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .track-body iframe{
+    position:absolute;top:0;left:0;width:100%;height:100%;border:0;
+  }
+  /* footnotes */
+  .fn-ref{
+    color:var(--accent);
+    font-weight:600;
+    text-decoration:none;
+    cursor:pointer;
+    position:relative;
+  }
+  .fn-ref:hover{color:var(--gold);}
+  .fn-pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:135%;
+    width:240px;
+    max-width:70vw;
+    background:var(--ink);
+    color:#f6efe0;
+    font-size:.82em;
+    font-weight:400;
+    line-height:1.5;
+    padding:.6em .8em;
+    border-radius:6px;
+    box-shadow:0 6px 20px rgba(0,0,0,.3);
+    z-index:30;
+    text-align:left;
+  }
+  .fn-pop a{color:var(--gold);}
+  .fn-ref.below .fn-pop{bottom:auto;top:135%;}
+  .fn-ref:hover .fn-pop{display:block;}
+  .notes{
+    max-width:34em;
+    margin:2.6em auto 0;
+    padding-top:1.2em;
+    border-top:1px solid var(--rule);
+    font-size:.92em;
+  }
+  .notes h2{
+    font-size:1.1em;
+    font-variant:small-caps;
+    letter-spacing:.08em;
+    color:var(--accent);
+    margin:.2em 0 .8em;
+  }
+  .notes li{margin-bottom:.5em;color:var(--soft);}
+  .notes li a{color:var(--accent);text-decoration:none;}
+  .note-back{margin-left:.4em;color:var(--gold);text-decoration:none;}
+  :target{animation:flash 2.2s ease;}
+  @keyframes flash{0%,40%{background:var(--hl);}100%{background:transparent;}}
+  /* corpus nav */
+  .corpus-nav{
+    max-width:34em;
+    margin:3em auto 0;
+    padding-top:1.4em;
+    border-top:1px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:1em;
+    font-size:.9em;
+  }
+  .corpus-nav a{
+    color:var(--accent);
+    text-decoration:none;
+    max-width:48%;
+  }
+  .corpus-nav a:hover{text-decoration:underline;}
+  .corpus-nav .dir{display:block;font-size:.8em;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;}
+  .corpus-nav .nx{text-align:right;margin-left:auto;}
+  footer{
+    max-width:34em;
+    margin:2.4em auto 0;
+    padding-top:1.2em;
+    border-top:1px solid var(--rule);
+    font-size:.8em;
+    color:var(--soft);
+    line-height:1.55;
+  }
+  footer a{color:var(--accent);}
+  @media (max-width:680px){
+    body{font-size:17px;}
+    .page{padding:22px 16px 56px;}
+    h1{font-size:1.7em;}
+    .verse,.ps,.music,.notes,.corpus-nav,footer{max-width:100%;}
+  }
+</style>
+</head>
+<body data-scheme="manuscript">
+<div class="page">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">·</span>
+    <a href="../dreamon/index.html">Мечтай!!</a>
+  </nav>
+
+  <h1>Храни и Помни</h1>
+  <div class="title-orn">❧</div>
+
+  <div class="verse">
+
+    <p class="stanza first">
+      <span class="ln">...Опыт приключений разных</span>
+      <span class="ln">За барьер "этого Мира",</span>
+      <span class="ln">В Мире Снов Реальных Ярких</span>
+      <span class="ln">Духа проходя маршрутом</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Милостью Творца Святого</span>
+      <span class="ln">Мудрого и Всеблагого</span>
+      <span class="ln">(Амен Амен) "впитать" телом</span>
+      <span class="ln">То есть, ощутить, соделать</span>
+      <span class="ln">Завершить "ступень" как воин</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">И перепросмотр "на месте"</span>
+      <span class="ln">Делая, посредством Воли</span>
+      <span class="ln">Высшего Царя веденья</span>
+      <span class="ln">В том, о чем узнаем вскоре</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Что "нам было туда надо"</span>
+      <span class="ln">По причинам, что знать раньше</span>
+      <span class="ln">Мы никак не могли, фактом</span>
+      <span class="ln">Потому, что оно с нами</span>
+      <span class="ln">Еще не осуществилось.</span>
+      <span class="ln">"Знать" для ведьмы и для мага</span>
+      <span class="ln">Это значить послужить им</span>
+      <span class="ln">В опосредуемой данным</span>
+      <span class="ln">Знанием, Души Единой</span>
+      <span class="ln">Эволюции, Реальном</span>
+      <span class="ln">Месте, Времени, порядкам</span>
+      <span class="ln">Человеческого Духа</span>
+      <span class="ln">Что был создан Духом Жизни</span>
+      <span class="ln">С Целью даровать Свой дар нам, -</span>
+      <span class="ln">Маг и Ведьма, "отменившись",</span>
+      <span class="ln">Перед Ним, Ему послужат</span>
+      <span class="ln">Инструментом в Его Целях</span>
+      <span class="ln">А потом "подарок Духа",</span>
+      <span class="ln">Опосредуемый этим</span>
+      <span class="ln">В виде "знания их тела"</span>
+      <span class="ln">Про то Знание, с которым</span>
+      <span class="ln">Их знакомство протекало</span>
+      <span class="ln">(Завершившись только-только)</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">И уже имея навык</span>
+      <span class="ln">Извлекут из той работы</span>
+      <span class="ln">В коей нету "личной пользы"</span>
+      <span class="ln">Прямым образом нисколько -</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Но развитие их "дубля" -</span>
+      <span class="ln">Тела Снов Реальных Ярких</span>
+      <span class="ln">Неизменно происходит</span>
+      <span class="ln">В этих "битвах" настоящих</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">И они, капля за каплей,</span>
+      <span class="ln">Начинают в самом деле</span>
+      <span class="ln">Быть Людьми что Знают Тайны</span>
+      <span class="ln">Опыт накопив бесценный</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">В разных, пройденных в их прошлом</span>
+      <span class="ln">Пути Воина и Мага,</span>
+      <span class="ln">Ситуаций, где их Сила</span>
+      <span class="ln">Человеческий Дух Жизни</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Обучала, проводила,</span>
+      <span class="ln">И использовала в деле</span>
+      <span class="ln">По их собственной, свободной,</span>
+      <span class="ln">Независимой от "мнений"</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Мира разума фантомов</span>
+      <span class="ln">Воле, быть Ему подспорьем,</span>
+      <span class="ln">Ведь Он Сам Велик настолько,</span>
+      <span class="ln">Что в Миры, где мы сновидим</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Никогда не станет лично,</span>
+      <span class="ln">Своей Высшей, Абсолютной</span>
+      <span class="ln">Силой, в изначальной форме</span>
+      <span class="ln">"Раскрываться" кому либо</span>
+      <span class="ln">Потому, что так Порядок</span>
+      <span class="ln">Мироздания незыблем</span>
+      <span class="ln">До Зари Веков устроен</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Не случайно, и кем либо</span>
+      <span class="ln">Он не может быть нарушен.</span>
+      <span class="ln">Раскрывает эта Сила</span>
+      <span class="ln">Человеку Себя, тут же</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Опосредуя конец их</span>
+      <span class="ln">Путешествия по Миру,</span>
+      <span class="ln">Душу заберет к Себе в миг</span>
+      <span class="ln">Словно Силой притяженья</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Что не вниз, "к Земле", любое</span>
+      <span class="ln">Тело в воздухе направит</span>
+      <span class="ln">С ускорением их мощным,</span>
+      <span class="ln">А как если бы представить,</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Хоть и невозможно это,</span>
+      <span class="ln">Но не менее Реально</span>
+      <span class="ln">От того, - что притяженье</span>
+      <span class="ln">Поднимает ввысь, в бескрайний</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Космос Супер Абсолюта</span>
+      <span class="ln">Бесклонечный Свет их Душу.</span>
+      <span class="ln">Так что тот порядок "высший"</span>
+      <span class="ln">Магами и Духом Жизни</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">"Произвольно" не придуман</span>
+      <span class="ln">Чтобы "утаить секреты"</span>
+      <span class="ln">Или,не дай Бог, запутать,</span>
+      <span class="ln">Удлинить Путь трудный к Знаньям</span>
+      <span class="ln">О Реальном Мире людям</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">А лишь только Волей Доброй</span>
+      <span class="ln">Высшей, Совершенномудрой</span>
+      <span class="ln">Скрытой, Прявящей всем Миром</span>
+      <span class="ln">Силы вызван, чтобы людям</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Не пришлось покидать Жизни</span>
+      <span class="ln">Раньше собственного Срока</span>
+      <span class="ln">А уж в срок - в "третьем вниманьи"</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Абсолютно с полным Знаньем</span>
+      <span class="ln">И осознанностью действий</span>
+      <span class="ln">Умирают на Планете</span>
+      <span class="ln">Абсолютно все, но каждый</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">В собственное, до рожденья</span>
+      <span class="ln">Установленное время,</span>
+      <span class="ln">Образом, что характерен</span>
+      <span class="ln">Для их жизни как явленья.</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Так вот, Маги выполняют</span>
+      <span class="ln">Волю Скрытой Высшей Силы</span>
+      <span class="ln">Ничего о Ней не зная</span>
+      <span class="ln">И знать не хотя, но быть им</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Лишь посредством "инструментов"</span>
+      <span class="ln">Путей Воинов духовных</span>
+      <span class="ln">В состояньи раз за разом</span>
+      <span class="ln">Становиться "объективно"</span>
+      <span class="ln">"Инструментом" совершенья</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Ими, действий, смысл которых</span>
+      <span class="ln">Не всегда им самим ясен</span>
+      <span class="ln">Но всегда во всем осознан,</span>
+      <span class="ln">Совершенен и Реален</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">И произведен в деталях</span>
+      <span class="ln">В точности "как было нужно"</span>
+      <span class="ln">Человеком, что дал править</span>
+      <span class="ln">Силе, Мудрой Абсолютно</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Тем, чем/кем он в своей "битве"</span>
+      <span class="ln">В этом социальном Мире</span>
+      <span class="ln">Каждой "на Земле последней"</span>
+      <span class="ln">Будет, как актер на Ринге</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Выступая театральном.</span>
+      <span class="ln">Вся-вся жизнь в подлунном Мире</span>
+      <span class="ln">Таким рингом ему стала.</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">А не то, чтобы он прятал</span>
+      <span class="ln">"Настоящего" за маской</span>
+      <span class="ln">Самого себя, дурача</span>
+      <span class="ln">Этим "глупенькие массы".</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Его нет, он отдан Силе</span>
+      <span class="ln">Правящей его судьбою</span>
+      <span class="ln">С ним по выбору им лично</span>
+      <span class="ln">И последующей просьбой</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Вслух, отчетливо и ясно</span>
+      <span class="ln">ВысказАнному решенью</span>
+      <span class="ln">В Мире Снов Реальных Ярких</span>
+      <span class="ln">Слитой по Любви Взаимной</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Настоящей абсолютно:</span>
+      <span class="ln">Этим неприложным Фактом</span>
+      <span class="ln">Об Энергии "был создан"</span>
+      <span class="ln">"Назван" и "отправлен Видеть"</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">В Мир, не "тем-то ставшим Магом",</span>
+      <span class="ln">А как Женщина с Мужчиной,</span>
+      <span class="ln">Лишь объединившись Вместе,</span>
+      <span class="ln">Для Любви и для Служенья</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Высшей Силе Совершенной</span>
+      <span class="ln">Но от жителей Вселенной</span>
+      <span class="ln">Скрытой абсолютно в Мире</span>
+      <span class="ln">Чтоб служили Ему средством,</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Инструментом проведенья</span>
+      <span class="ln">Тех событий и явлений,</span>
+      <span class="ln">"Этого" людского Мира,</span>
+      <span class="ln">Что является "веденьем"</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Мудрым, трепетным и личным</span>
+      <span class="ln">Созданного Им Творенья -</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Души, более Реальной</span>
+      <span class="ln">Чем все вместе наши Души</span>
+      <span class="ln">Но их вместе содержащей</span>
+      <span class="ln">В чем суть "Третьего вниманья":</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Он Один Мирами Правит</span>
+      <span class="ln">И Реально Существует.</span>
+      <span class="ln">Не в Мирах Реальных наших,</span>
+      <span class="ln">А в том Принципе структурном,</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Чувственного восприятья</span>
+      <span class="ln" style="padding-left:1.6em;">"Коконом" всех Точек Сборки</span>
+      <span class="ln" style="padding-left:3.2em;">В миг их смерти Одним ставших,</span>
+      <span class="ln" style="padding-left:4.8em;">Чтоб Хранить и чтобы Помнить:</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Кто Я, кто я, Кто мне близок</span>
+      <span class="ln">И любим всем моим Сердцем,</span>
+      <span class="ln">"Со шнурками от ботинок",</span>
+      <span class="ln">И всем прочим реквизитом</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Полагающимся теми,</span>
+      <span class="ln">Кто проходит Опыт Жизни</span>
+      <span class="ln">Чтобы быть Духу полезным</span>
+      <span class="ln">И осознанно Любимым</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Ближним, как самим собою</span>
+      <span class="ln">Связан истинной Любовью</span>
+      <span class="ln">По желанию их Сердца</span>
+      <span class="ln">А не "в Силу обстоятельств"</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Ведь Творец, Благословен Он,</span>
+      <span class="ln">Это каждая и каждый</span>
+      <span class="ln">Из людей, что наблюдаешь,</span>
+      <span class="ln">Но, в особенности, это -</span>
+      <span class="ln">Те, с кем ты любовью связан.</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Это Он "на самом деле",</span>
+      <span class="ln">А не "ум в Слова играет".</span>
+      <span class="ln">Просто есть Реальность Сердца</span>
+      <span class="ln">И Она очень простая</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Но пока простой факт этот</span>
+      <span class="ln">Будет принят Человеком,</span>
+      <span class="ln">Пройдет столько Земных лет, что</span>
+      <span class="ln">Позабыто прочно нами</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Кто мы, Кто Он, наш Любимый</span>
+      <span class="ln">И Любимая, Реально</span>
+      <span class="ln">То есть, что на самом деле</span>
+      <span class="ln">Это так всегда и было.</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Только требовалось Время</span>
+      <span class="ln">Разрешить просто любить нам</span>
+      <span class="ln">И самим нам быть любимым.</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">До последнего не даст нам</span>
+      <span class="ln">Ум признать, что эта Сила</span>
+      <span class="ln">Мало, что единолично</span>
+      <span class="ln">Правит всем, что есть и было,</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Но, для нас самих, включает,</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">В Себя просто и красиво</span>
+      <span class="ln">Смысл, Цель и Суть всей Жизни,</span>
+      <span class="ln">Осознания и Воли,</span>
+      <span class="ln">Восприятия посредством</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Коконов и Точек Сборки,</span>
+      <span class="ln">Бросившего Вызов Смерти,</span>
+      <span class="ln">Шестизубчатых Нагвалей,</span>
+      <span class="ln">Памяти, что человек бы</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Мог хотеть "увековечить"</span>
+      <span class="ln">Сохраняя осознанье</span>
+      <span class="ln">Через Точки Невозврата -</span>
+      <span class="ln">Это все Любовь простая,</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Сила, что сокрыта в Сердце //в Свете.</span>
+    </p>
+
+    <p class="stanza">
+      <span class="ln">Так давайте же стремиться</span>
+      <span class="ln">Подарить друг другу Это.</span>
+    </p>
+
+  </div>
+
+  <p class="ps">
+    <span class="ps-label">П.С.</span> Люблю и верю, что, когда-нибудь, еще при жизни в этом Мире, искренне любимые мной форумяне этого форума<a class="fn-ref" id="fnref1" href="#fn1">*<span class="fn-pop"><a href="https://ccastaneda.ru" target="_blank" rel="noopener">ccastaneda.ru</a></span></a>, смогут понять, что я все это время пытаюсь донести до них, и мы просто начнем дарить друг другу "опыт всех опытов" - "Жить, давая Жить", то есть, жить не "просто так", и не из-за страха смерти, а потому, что ты нужен/нужна кому-то другому больше, чем он/она могли бы думать о самом себе, и поэтому Жизнь, причина, по которой вы живете в этом Мире, уже сама по себе находится "выше" всего, что в нем принято считать "объективной внешней действительностью", а значит, может быть "осознанно увековечена ради сохранения памями" о чем-то, являющемся Реальным выше "Силы и давления тех или иных обстоятельств" - о Духовной Половой Любви к Ближнему Своему, как к Самому Себе.
+  </p>
+
+  <p class="closer">Сделаем и услышим!</p>
+
+  <div class="music">
+    <div class="music-label">Музыка под настроение</div>
+    <div class="track" id="track1">
+      <div class="track-head" onclick="toggleTrack(this)">
+        <span class="track-arrow">▶</span>
+        <span class="track-name">Think of me long enough to make a memory<br>Come to bless the child one more time...</span>
+        <a class="track-ext" href="https://youtu.be/U52aAa9VkEk" target="_blank" rel="noopener" title="Открыть на YouTube" onclick="event.stopPropagation()">↗</a>
+      </div>
+      <div class="track-body" data-embed="https://www.youtube.com/embed/U52aAa9VkEk">
+        <div class="frame"></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1">
+        <a href="https://ccastaneda.ru" target="_blank" rel="noopener">ccastaneda.ru</a>
+        <a class="note-back" href="#fnref1" title="Вернуться к тексту">↩</a>
+      </li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a href="Z4L.html"><span class="dir">← Предыдущая</span>Услышь, Душа</a>
+    <a class="nx" href="215.html"><span class="dir">Следующая →</span>Любовь Нагвалей</a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggleTrack(head){
+    var track = head.parentElement;
+    var open = track.classList.toggle('open');
+    if(open){
+      var body = track.querySelector('.track-body');
+      var frame = body.querySelector('.frame');
+      if(!frame.querySelector('iframe')){
+        var ifr = document.createElement('iframe');
+        ifr.src = body.getAttribute('data-embed') + '?autoplay=1';
+        ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        ifr.allowFullscreen = true;
+        frame.appendChild(ifr);
+      }
+    }
+  }
+  // footnote popup flip if near top edge
+  document.querySelectorAll('.fn-ref').forEach(function(ref){
+    ref.addEventListener('mouseenter', function(){
+      var r = ref.getBoundingClientRect();
+      if(r.top < 150){ ref.classList.add('below'); }
+      else { ref.classList.remove('below'); }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "стих",
+  "rationale": "Текст — длинное метрическое стихотворение строфами по 3–5 строк, тоном близкое к духовной поэме (кастанедовская терминология, библейские интонации), поэтому выбрана узкая книжная полоса манускрипта (~820px, внутренняя мера ~34em), засечный шрифт семейства Palatino и тёплая пергаментная палитра на светлом фоне. Развилка была в том, что в конце есть прозаический постскриптум (П.С.) и куплет англоязычной песни — но доминирует именно стихотворная форма, прозаический хвост подан отдельным блоком, не меняя сути выбора. Строки 'Коконом / В миг их смерти / Чтоб Хранить' сохранены с авторской нарастающей лесенкой-отступом; глиф '//в Свете' и капсовые слова оставлены дословно, регистр не тронут.",
+  "rationale_extra": "",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>
