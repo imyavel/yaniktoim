@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Уровни авиюта в развитии Человечества</title>
+<style>
+  :root{
+    --ink:#1d1b17;
+    --soft:#4a463e;
+    --muted:#736c5e;
+    --bg:#f7f4ec;
+    --paper:#fffdf8;
+    --rule:#ddd5c3;
+    --accent:#9a3b1f;
+    --accent2:#3a5a40;
+    --hl:#fbe7a1;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{
+    width:66vw;
+    max-width:var(--maxw);
+    min-width:320px;
+    margin:0 auto;
+    padding:32px 0 80px;
+  }
+  @media(max-width:1100px){ .wrap{ width:86vw; } }
+  @media(max-width:680px){
+    body{font-size:18px}
+    .wrap{ width:100%; padding:18px 18px 60px; }
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:12px;
+    margin-bottom:24px;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none}
+  .crumbs a:hover{text-decoration:underline}
+  .crumbs span.sep{color:var(--rule);margin:0 .5em}
+
+  .lead-img{display:block;max-width:100%;width:auto;height:auto;margin:0 auto 30px;border:1px solid var(--rule)}
+
+  h1{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:800;
+    font-size:2.05em;
+    line-height:1.18;
+    color:var(--ink);
+    margin:.2em 0 .15em;
+    letter-spacing:-.01em;
+  }
+  .dedication{
+    font-style:italic;
+    color:var(--muted);
+    margin:0 0 1.6em;
+    padding-left:1em;
+    border-left:3px solid var(--accent);
+  }
+
+  /* TOC */
+  .toc{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:4px;
+    padding:14px 22px;
+    margin:0 0 38px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .toc summary{
+    cursor:pointer;
+    font-weight:700;
+    font-size:.82em;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--soft);
+    list-style:none;
+  }
+  .toc summary::-webkit-details-marker{display:none}
+  .toc summary::before{content:"▾ ";color:var(--accent)}
+  .toc[open] summary::before{content:"▾ "}
+  .toc:not([open]) summary::before{content:"▸ "}
+  .toc ol{margin:.8em 0 .2em;padding-left:1.4em;font-size:.92em}
+  .toc li{margin:.35em 0}
+  .toc a{color:var(--accent2);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+
+  section h2{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:800;
+    font-size:1.32em;
+    line-height:1.25;
+    color:var(--accent);
+    margin:2.2em 0 .6em;
+    padding-top:.3em;
+    border-top:2px solid var(--rule);
+  }
+  section h2 a{color:inherit;text-decoration:none;display:block}
+  section h2 a:hover{color:var(--accent2)}
+
+  p{margin:0 0 1.15em}
+  .intro p:first-child::first-letter{
+    font-size:1px;
+  }
+  a{color:var(--accent)}
+
+  /* footnote markers */
+  a.fnref{
+    color:var(--accent);
+    font-weight:700;
+    text-decoration:none;
+    font-size:.78em;
+    vertical-align:super;
+    line-height:0;
+    padding:0 1px;
+    cursor:pointer;
+  }
+  a.fnref:hover{color:var(--accent2)}
+
+  /* notes */
+  .notes{margin-top:1.4em}
+  .notes ol{padding-left:0;list-style:none;counter-reset:none}
+  .footnote{
+    font-size:.9em;
+    line-height:1.6;
+    color:var(--soft);
+    padding:.55em .7em;
+    border-bottom:1px solid var(--rule);
+    border-radius:3px;
+    transition:background .4s;
+  }
+  .footnote .num{
+    color:var(--accent);
+    font-weight:700;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    margin-right:.4em;
+  }
+  .footnote a.backref{
+    text-decoration:none;
+    color:var(--accent2);
+    font-weight:700;
+    margin-left:.35em;
+  }
+  .footnote:target,.footnote.flash{background:var(--hl)}
+  .footnote a{word-break:break-word}
+
+  /* popup */
+  #fn-popup{
+    position:absolute;
+    z-index:50;
+    max-width:380px;
+    background:#2b2722;
+    color:#f3ecd9;
+    font-family:Georgia,serif;
+    font-size:15px;
+    line-height:1.5;
+    padding:11px 14px;
+    border-radius:6px;
+    box-shadow:0 6px 24px rgba(0,0,0,.32);
+    display:none;
+    pointer-events:none;
+  }
+  #fn-popup a{color:#e8b48a}
+  #fn-popup .num{color:#e8b48a;font-weight:700;margin-right:.3em}
+
+  /* bottom nav */
+  .seqnav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin:54px 0 0;
+    padding-top:22px;
+    border-top:2px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.92em;
+  }
+  .seqnav a{
+    text-decoration:none;
+    color:var(--accent2);
+    max-width:46%;
+    display:block;
+  }
+  .seqnav a:hover{color:var(--accent)}
+  .seqnav .dir{display:block;font-size:.78em;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.25em}
+  .seqnav .next{text-align:right;margin-left:auto}
+
+  footer.colophon{
+    margin-top:46px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:.82em;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent)}
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <img class="lead-img" src="../img/64P.jpg" alt="">
+
+  <h1>Уровни авиюта в развитии Человечества <span style="font-weight:400;font-size:.72em;color:var(--muted)">(Ростки показались из земли)</span></h1>
+  <p class="dedication">Посвящение: моей возлюбленной Бине</p>
+
+  <details class="toc" open>
+    <summary>Содержание</summary>
+    <ol>
+      <li><a href="#s1">Уровень 1. Неживой — массы</a></li>
+      <li><a href="#s2">Уровень 2. Растительный — «богачи, правители, мудрецы»</a></li>
+      <li><a href="#s3">Уровень 3. Животный — маги</a></li>
+      <li><a href="#s4">Уровень 4. Говорящий — дети вечной весны</a></li>
+      <li><a href="#s5">Ростки показались из земли</a></li>
+      <li><a href="#notes">Примечания</a></li>
+    </ol>
+  </details>
+
+  <div class="intro">
+    <p>В чём суть. Я проснулся с мыслью, что хочу написать статью о том, как в человечестве происходит развитие по уровням авиюта.</p>
+
+    <p>Подобно тому, как это писал Бааль Сулам<a class="fnref" id="ref2" href="#fn2">*2</a> — но он писал для своего времени и в контексте иудаистской традиции, не выходя из неё. Поэтому там, конечно, не было ни магов, ни эзотериков, ни эргрегоров: это было «ни-ни», нельзя. Он был строго ограничен тем контекстом, в котором работал, и его задача не выходила за пределы этого контекста.</p>
+
+    <p>Наша задача шире. Она выходит за пределы локальных контекстов — она глобальная.</p>
+
+    <p>Я хотел описать, как развиваются авиюты — это и есть те самые "ростки"<a class="fnref" id="ref1" href="#fn1">*1</a>, о которых пишет Зоар. Те самые ростки, что показались из земли. А что такое земля? Земля — это платформа. Наша общечеловеческая платформа "человек разумный". То, что еще называют "коллективным бессознательным".</p>
+  </div>
+
+  <section>
+    <h2 id="s1"><a href="#top">УРОВЕНЬ 1. НЕЖИВОЙ — МАССЫ</a></h2>
+    <p>В этой платформе целиком находится первая, нулевая ступень, которую Бааль Сулам назвал «массы». Она и эта платформа — одно и то же: их там просто нет. «Неживое» означает, что у них нет ничего своего — нет собственного движения, индивидуального движения. Человек этого уровня и есть сама платформа, и всё. Она управляет целиком его жизнью, его мыслями, его чувствами, сопутствующими этим мыслям. Своего движения у него нет вовсе.</p>
+    <p>Это общая ступень, на которой находится более 90% населения планеты.</p>
+  </section>
+
+  <section>
+    <h2 id="s2"><a href="#top">УРОВЕНЬ 2. РАСТИТЕЛЬНЫЙ — "БОГАЧИ, ПРАВИТЕЛИ, МУДРЕЦЫ"</a></h2>
+    <p>Дальше у Бааль Сулама следуют богачи и правители, а затем мудрецы<a class="fnref" id="ref3" href="#fn3">*3</a>. Я бы поместил всех троих — богачей, правителей и мудрецов — на один уровень, растительный. Это ещё нужно обдумать, потому что моя задумка была не об этом уровне, а о верхнем. Но допустим: богачи, правители и мудрецы этого мира участвуют в жизни уже отчасти самостоятельно — хотя на деле под управлением тех или иных общих эргрегоров этого мира.</p>
+    <p>То есть индивидуально со своим эргрегором они ещё не работают. У них нет представления о том, что есть реальный мир за пределами того мира, который они окормляют. Но при этом каждый из них уже окормляет его каким-то образом. Этот уровень я бы назвал растительным.</p>
+  </section>
+
+  <section>
+    <h2 id="s3"><a href="#top">УРОВЕНЬ 3. ЖИВОТНЫЙ — МАГИ</a></h2>
+    <p>Над ними идут маги. Это уже как животные. Маги этого мира — но какого мира? У каждого мага свой мир<a class="fnref" id="ref4" href="#fn4">*4</a>, потому что у них уже собственные эргрегоры, в том числе наследуемые, разные по составу и качеству.</p>
+    <p>Суть в том, что все эти эргрегоры по сути животного типа. Это эргрегоры, как мы говорим, «старого катнута»: они организованы не по принципу Круга<a class="fnref" id="ref5" href="#fn5">*5</a>, а по закрытому типу. Их строение в общем-то похоже друг на друга — различия в основном в мощности; есть фазовые переходы, при которых количество переходит в качество, но мы их пока не рассматриваем.</p>
+    <p>Эти эргрегоры создают отдельные миры. Их адепты при этом продолжают находиться в общем мире, но у каждого есть и "отдельная реальность". Они обретают определённые силы и способности, которые им даруют силы этого эргрегора, и всю свою жизнь работают, выполняя задания эргрегора и на его пользу: бенефициаром их жизненных усилий является сам эргрегор и его развитие.</p>
+    <p>Получается, что половина механизмов реального мира для них уже открыта — та половина, которую открывает эргрегор. Другая половина закрыта: в соответствии с ней они сами находятся под управлением этого эргрегора и фактически не имеют здесь свободы выбора. И та отдельная реальность, в которой они существуют, создана эргрегором специально для них — чтобы их тонали существовали в ней так, будто это реальный мир, не подозревая, что на самом деле они "играют в компьютерную игру".</p>
+    <p>Это третий уровень авиюта.</p>
+  </section>
+
+  <section>
+    <h2 id="s4"><a href="#top">УРОВЕНЬ 4. ГОВОРЯЩИЙ — ДЕТИ ВЕЧНОЙ ВЕСНЫ</a></h2>
+    <p>Есть и четвёртый уровень — последний, на котором я хотел сосредоточить внимание. Это уровень МЖОСИ<a class="fnref" id="ref6" href="#fn6">*6</a>, уровень Мужчины и Женщины, которых на данный момент просто нет. Точнее, они есть - я думаю (даже уверен), что они есть, но они настолько атомизированы... Они могут принадлежать к абсолютно любым социальным уровням. Они могут быть человеком этого мира, который никогда ничего не понимал, и не имел желания понимать, в эзотерике, в духовных учениях, а просто идёт по жизни. Но он идёт по жизни не один: их двое. И обстоятельства их встречи, и суть их отношений совершенно особенные.</p>
+    <p>Они находятся в постоянном, как бы вечном зивуге — в состоянии абсолютной влюблённости, которое не уменьшается с годами. Оно находится на уровне Рош, на уровне Ацилута (я уже перехожу на каббалистические термины). Оно не уменьшается потому, что они любят "не ради себя". Т.е. они любят друг друга — а не какое-то абстрактное божество<a class="fnref" id="ref7" href="#fn7">*7</a>, — но всё равно не ради себя. Эта любовь, которая есть у них и есть между ними, она не привязана к эгоистическим формам этого мира.</p>
+    <p>Скажу даже так — и не сильно ошибусь: единственная причина, по которой они остаются абсолютно верны друг другу, в том, что вокруг них - "планета обезьян". Вокруг нет ни одного потенциального партнёра, с которым можно было бы в подобные же отношения им вступить, кроме как они двое. Они двое - как пришельцы с другой планеты. Но на самом деле эта любовь строго полигамна. Она не привязана к личностям обезьянок этого мира; так привязана только любовь и те отношения, которые есть у нижних слоёв этой пирамиды.</p>
+    <p>Они чувствуют, они знают, что эта Сила Любви (Ор Хохма - каб. ивр.), которая между ними, Она на самом деле управляет миром. Она управляет человеком, Она управляет его судьбой, Она управляет всем происходящим вокруг. И помимо этого, Она управляет эволюцией человеческого Духа — то есть эволюцией всех нас, всего мира и нас в частности. Она ведёт нас, как каждого конкретного человека, так и всё человечество. Они видят пути, по которым происходит это "ведение", и сами включены в эти пути.</p>
+    <p>Они живут ради этой любви и ради друг друга — но, фактически, они делают дело. Они созданы не просто так: поскольку ничего "просто так" не бывает в творении. Для того, чтобы жить — нужно ещё и выполнять какую-то полезную работу. Но одно другого не отменяет, а только взаимодополняет, и включается одно в другое.</p>
+    <p>И этот уровень свободы — его не описать словами. Это истинная свобода — свобода от эргрегоров. Это истинная свобода, потому, что они сами, фактически, создают свой эргрегор; они и есть эргрегор — и одновременно свободны<a class="fnref" id="ref8" href="#fn8">*8</a> от всех эргрегоров.</p>
+  </section>
+
+  <section>
+    <h2 id="s5"><a href="#top">РОСТКИ ПОКАЗАЛИСЬ ИЗ ЗЕМЛИ</a></h2>
+    <p>К сожалению, пока что в нашей реальности мало возможностей для того, чтобы эта форма действительно могла раскрыться, могла открыто существовать — да и вообще могла существовать. Потому, что есть определенные жёсткие ограничения на её формирование и развитие.</p>
+    <p>В идеале это должно происходить с детства. Только та форма, в которой соединение происходит с раннего детства, фактически со школьного возраста, способна быть полноценной — именно той формой, которая соответствует концу эволюции, по которой нас ведёт эта Сила, о которой я говорил выше. Потому что именно эта форма является целью данной эволюции, которую мы проходим.</p>
+    <p>Ещё много столетий мы будем к этой цели двигаться, но мы обязательно её достигнем. Потому что всё, что делает эта Сила, она делает не так, как человек: «может, у меня получится, может, нет; а может, прилетит метеорит и меня прихлопнет, и меня нет».</p>
+    <p>Для этой Силы нет границы между прошлым, настоящим и будущим. Она действует везде, сразу, одновременно. Она достигает той Цели, которую Она поставила в мысли Своей сразу же действием — т.е. "мысль" и "действие" для Неё одно и то же, и оно не ограничено временем: это действие совершается во всём времени сразу<a class="fnref" id="ref9" href="#fn9">*9</a>.</p>
+    <p>Как я протягиваю руку, беру чашку — и я её взял. А для Неё, Она "протягивает руку и берёт" - и это "время", которое "будущее". А мы - "начинаемся" уже "после того", как это действие Ею совершено<a class="fnref" id="ref10" href="#fn10">*10</a>. Мы находимся во времени — мы как фильм, как программа, которая выполняется: она уже составлена, она уже есть. И её результат — фактически это дело времени. Дело нашего времени.</p>
+    <p>А результат — форма МЖОСИ, как мы её называем: «мужчиной и женщиной Он создал их». Она является финальной стадией нашей эволюции — которой мы достигаем, и которая видна уже сейчас. Не была видна нашим предшественникам, Бааль Суламу тем более — и тем, кто был до него.</p>
+  </section>
+
+  <section class="notes">
+    <h2 id="notes"><a href="#top">Примечания</a></h2>
+    <ol>
+      <li class="footnote" id="fn1"><span class="num">*1</span>См. также: Ростки показались из земли, Книга Зоар в редакции Бааля Сулама, Введение (Акдама), пп. 4-6 <a href="https://clck.ru/3TPssD">https://clck.ru/3TPssD</a><a class="backref" href="#ref1">↩</a></li>
+      <li class="footnote" id="fn2"><span class="num">*2</span>См. также: Предисловие к книге Паним Меирот, п. 3, Бааль Сулам <a href="https://w.wiki/CeTs">https://w.wiki/CeTs</a><a class="backref" href="#ref2">↩</a></li>
+      <li class="footnote" id="fn3"><span class="num">*3</span>Мудрецы и "ученые" - здесь можно сейчас поставить знак равенства, т.к. Бааль Сулам жил на рубеже 19-20 веков. "Правители" соответственно - это всяческие бюрократы, делающие карьеру в органах управления.<a class="backref" href="#ref3">↩</a></li>
+      <li class="footnote" id="fn4"><span class="num">*4</span>На тему этого, а также для расшифровки понятия "эргрегор", советую обратиться к творчеству Виктора Венского (Маске Ворона) <a href="http://proza.ru/avtor/viktor1717">http://proza.ru/avtor/viktor1717</a><a class="backref" href="#ref4">↩</a></li>
+      <li class="footnote" id="fn5"><span class="num">*5</span>См. также: Только Ты будешь жить вечно, ЭБМ <a href="http://proza.ru/2021/08/28/1406">http://proza.ru/2021/08/28/1406</a><a class="backref" href="#ref5">↩</a></li>
+      <li class="footnote" id="fn6"><span class="num">*6</span>МЖОСИ = Мужчиной и Женщиной Он Создал Их. Это терминология из Книги Зоар (встречается во многих местах Зоара; см. например: 9 заповедь, Введение - <a href="https://w.wiki/88WK">https://w.wiki/88WK</a>). Но данный термин и явление не раскрыто этой Книгой открыто и явно, даже с комментарием Бааля Сулама, так, чтобы можно было понять его в требуемой полноте на современном уровне нашей эволюции, и уж тем более, на последующих. Данной задаче в том числе посвящена жизнь и творчество автора настоящего текста<a class="backref" href="#ref6">↩</a></li>
+      <li class="footnote" id="fn7"><span class="num">*7</span>Или "природу" или "весь мир", "всех людей / существ", и так далее. Все эти формы так называемой "духовной любви", у которой отсутствуют "материальные корни" - это обман, это "замануха" того или иного эргрегора, который сублимирует в человеке способность и стремление любить по-настоящему - любить во "взрослой" форме Мужчиной и Женщиной Он Создал Их. А уже из этой их формы - и не из какой иной - исходит их мудрость и бережное отношение к Миру, людям и всему на Свете...<a class="backref" href="#ref7">↩</a></li>
+      <li class="footnote" id="fn8"><span class="num">*8</span>Свобода обходится дорого. "Свободны" не означает - "сильнее" или "защищены" автоматически - это означает только то, что они не подпадают (хотя или не хотят) под все существующие механизмы манипулирования и управления, на которых построено общество этого мира, равно как и мира "скрытого" - мира магов и их эрегрегоров<a class="backref" href="#ref8">↩</a></li>
+      <li class="footnote" id="fn9"><span class="num">*9</span>В Книге Зоар это действие называется "маасе берешит" - "действием начала творения".<a class="backref" href="#ref9">↩</a></li>
+      <li class="footnote" id="fn10"><span class="num">*10</span>"На седьмой день" - после "шести дней сотворения мира" - по тексту Книги Зоар<a class="backref" href="#ref10">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="seqnav">
+    <a class="prev" href="2C7.html"><span class="dir">← Предыдущая</span>ДНА - Мечта</a>
+    <a class="next" href="1CI.html"><span class="dir">Следующая →</span>Откуда берутся дети - инфографика</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<span id="top"></span>
+<div id="fn-popup"></div>
+
+<script>
+(function(){
+  var popup=document.getElementById("fn-popup");
+  var refs=document.querySelectorAll("a.fnref");
+
+  function fnContent(id){
+    var fn=document.getElementById(id);
+    if(!fn) return "";
+    var clone=fn.cloneNode(true);
+    var back=clone.querySelector(".backref");
+    if(back) back.remove();
+    return clone.innerHTML;
+  }
+
+  refs.forEach(function(r){
+    var targetId=r.getAttribute("href").substring(1);
+
+    r.addEventListener("mouseenter",function(){
+      popup.innerHTML=fnContent(targetId);
+      popup.style.display="block";
+      var rect=r.getBoundingClientRect();
+      var pw=popup.offsetWidth, ph=popup.offsetHeight;
+      var sx=window.pageXOffset, sy=window.pageYOffset;
+      var left=rect.left+sx+rect.width/2-pw/2;
+      if(left<8+sx) left=8+sx;
+      var maxLeft=sx+document.documentElement.clientWidth-pw-8;
+      if(left>maxLeft) left=maxLeft;
+      var top;
+      if(rect.top>ph+12){ top=rect.top+sy-ph-8; }
+      else { top=rect.bottom+sy+8; }
+      popup.style.left=left+"px";
+      popup.style.top=top+"px";
+    });
+    r.addEventListener("mouseleave",function(){
+      popup.style.display="none";
+    });
+
+    r.addEventListener("click",function(e){
+      var fn=document.getElementById(targetId);
+      if(fn){
+        document.querySelectorAll(".footnote.flash").forEach(function(f){f.classList.remove("flash");});
+        fn.classList.add("flash");
+        setTimeout(function(){fn.classList.remove("flash");},2200);
+      }
+    });
+  });
+
+  document.querySelectorAll(".footnote .backref").forEach(function(b){
+    b.addEventListener("click",function(){
+      var id=b.getAttribute("href").substring(1);
+      var el=document.getElementById(id);
+      if(el){
+        el.style.transition="background .4s";
+        el.style.background="#fbe7a1";
+        setTimeout(function(){el.style.background="";},1600);
+      }
+    });
+  });
+})();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза / эссе",
+  "rationale": "Текст — мировоззренческое эссе в прозе (рассуждение о четырёх уровнях авиюта), без стихотворных строф, поэтому выбрана широкая редакторская схема, а не узкий манускрипт. Контентную колонку задал шириной 66vw с потолком 1180px и переходом на полную ширину на планшете/мобиле, чтобы реализовать требование «около 2/3 окна». Палитра тёплая бумажная (светлый фон), кирпично-красный акцент для заголовков и маркеров сносок плюс приглушённо-зелёный для второстепенных ссылок — контрастно, но не крикливо; заголовки набраны гротеском, тело — Georgia для длинного чтения.\n\nПодразделов больше одного (пять смысловых блоков уровней + Примечания), поэтому сделал сворачиваемое оглавление (по умолчанию раскрыто), а каждый H2 кликабелен и ведёт наверх через якорь #top. Музыкальных треков в статье нет — раздел музыки не создавался. Сносок десять (*1–*10), все имеют и маркер в тексте, и тело; реализованы переходы вниз/вверх, подсветка целевой сноски и всплывающий popup с JS-определением стороны (над маркером, либо под ним у верхнего края экрана). КАПС в заголовках уровней и авторские кавычки/термины сохранены дословно; голые URL в примечаниях обёрнуты в ссылки. Отказался от узкой колонки и от добавления заголовка к вводному абзацу «В чём суть» — он идёт сплошным текстом в оригинале.",
+  "features": ["footnotes", "toc"]
+}
+</script>
+</body>
+</html>

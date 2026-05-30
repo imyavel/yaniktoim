@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Место, Которое изменить нельзя</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --muted:#6b6052;
+    --accent:#8a3a2b;
+    --accent2:#2f5d50;
+    --line:#ddd4c4;
+    --hl:#fbe7b0;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{
+    width:min(1080px,92vw);
+    margin:0 auto;
+    padding:28px 0 70px;
+  }
+  /* editorial wide: content column ~2/3, on big screens use generous width */
+  @media(min-width:1100px){
+    .wrap{width:min(1080px,68vw);}
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .crumbs{
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    border-bottom:1px solid var(--line);
+    padding-bottom:14px;
+    margin-bottom:22px;
+  }
+  .crumbs a{color:var(--accent2);}
+  .crumbs span{margin:0 .5em;color:var(--muted);}
+
+  .lead-img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    margin:0 auto 26px;
+    border:1px solid var(--line);
+  }
+
+  h1{
+    font-size:40px;
+    line-height:1.18;
+    font-weight:700;
+    margin:.2em 0 .35em;
+    letter-spacing:.01em;
+  }
+  .seealso{
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:15.5px;
+    color:var(--muted);
+    background:var(--paper);
+    border-left:3px solid var(--accent2);
+    padding:10px 16px;
+    margin:0 0 30px;
+  }
+  .subtitle{
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:17px;
+    color:var(--accent);
+    font-weight:600;
+    margin:0 0 26px;
+  }
+
+  /* TOC */
+  .toc{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:14px 22px 18px;
+    margin:0 0 38px;
+  }
+  .toc>summary{
+    cursor:pointer;
+    font-family:Helvetica,Arial,sans-serif;
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    list-style:none;
+  }
+  .toc>summary::-webkit-details-marker{display:none;}
+  .toc>summary::before{content:"▾ ";}
+  .toc:not([open])>summary::before{content:"▸ ";}
+  .toc ol{margin:14px 0 2px;padding-left:1.4em;}
+  .toc li{margin:.35em 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;}
+
+  section{margin:0 0 30px;scroll-margin-top:14px;}
+  h2{
+    font-size:22px;
+    color:var(--accent);
+    margin:0 0 .5em;
+    padding-top:10px;
+    border-top:1px solid var(--line);
+  }
+  h2 a.self{color:inherit;}
+  h2 a.self:hover{text-decoration:none;color:var(--accent2);}
+  p{margin:0 0 1.1em;}
+
+  /* footnotes */
+  sup.fnref{font-size:.72em;line-height:0;}
+  sup.fnref a{
+    color:var(--accent2);
+    font-weight:700;
+    padding:0 1px;
+  }
+  .fn-pop{position:relative;}
+  .fn-pop .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:1.4em;
+    width:min(320px,80vw);
+    background:#2b2620;
+    color:#f4efe4;
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:14.5px;
+    line-height:1.5;
+    font-weight:400;
+    padding:10px 13px;
+    border-radius:6px;
+    box-shadow:0 6px 22px rgba(0,0,0,.28);
+    z-index:30;
+    text-align:left;
+    white-space:normal;
+  }
+  .fn-pop .pop.below{bottom:auto;top:1.4em;}
+  .fn-pop:hover .pop{display:block;}
+  .fn-pop .pop a{color:#ffd9a0;}
+
+  .notes{margin-top:46px;}
+  .notes h2{color:var(--accent2);}
+  .notes ol{padding-left:0;list-style:none;}
+  .note{
+    margin:0 0 1em;
+    font-size:17px;
+    line-height:1.6;
+    padding:8px 10px;
+    border-radius:5px;
+    scroll-margin-top:20px;
+  }
+  .note .num{font-weight:700;color:var(--accent2);margin-right:.4em;}
+  .note:target{background:var(--hl);}
+  .backref{margin-left:.4em;font-size:.85em;}
+
+  /* music */
+  .music{margin:38px 0;}
+  .music .mlabel{
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:700;
+    margin-bottom:8px;
+  }
+  .track{
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:var(--paper);
+    overflow:hidden;
+  }
+  .track .thead{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:13px 16px;
+    cursor:pointer;
+    font-family:Helvetica,Arial,sans-serif;
+  }
+  .track .arrow{color:var(--accent2);transition:transform .2s;font-size:14px;}
+  .track.open .arrow{transform:rotate(90deg);}
+  .track .tname{font-weight:600;}
+  .track .tartist{color:var(--muted);}
+  .track .ext{margin-left:auto;color:var(--accent2);font-size:16px;}
+  .track .player{display:none;background:#000;}
+  .track.open .player{display:block;}
+  .track .player iframe{display:block;width:100%;height:340px;border:0;}
+
+  /* bottom nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin:54px 0 0;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:16px;
+  }
+  .corpus-nav a{display:block;max-width:46%;}
+  .corpus-nav .lbl{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:14.5px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent2);}
+
+  @media(max-width:640px){
+    body{font-size:18px;}
+    h1{font-size:30px;}
+    .track .player iframe{height:210px;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>›</span><a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <img class="lead-img" src="../img/2CI.jpg" alt="Иллюстрация к статье">
+
+  <h1>МЕСТО, КОТОРОЕ ИЗМЕНИТЬ НЕЛЬЗЯ</h1>
+
+  <p class="seealso">См. также: Методика Трех Линий, п. 111-115 <a href="http://proza.ru/2022/08/22/815">http://proza.ru/2022/08/22/815</a></p>
+
+  <p class="subtitle">1.2. Место, которое изменить нельзя</p>
+
+  <details class="toc" open>
+    <summary>Содержание</summary>
+    <ol>
+      <li><a href="#s121">1.2.1.</a></li>
+      <li><a href="#s122">1.2.2.</a></li>
+      <li><a href="#s123">1.2.3.</a></li>
+      <li><a href="#s124">1.2.4.</a></li>
+      <li><a href="#music">Песнь Ступеней</a></li>
+      <li><a href="#notes">Примечания</a></li>
+    </ol>
+  </details>
+
+  <section id="s121">
+    <h2><a class="self" href="#top">1.2.1.</a></h2>
+    <p>Реальность неутешительна как для "среднего человека", так и для "просветленных" всех разнообразных мастей и типов, поскольку и тот, и другие традиционно помещают себя на возвышенный и особый постамент-пьедестал, думая, что они т.о. дистанцируют себя друг с другом, "по объективным наблюдаемым и проверяемым признакам", а на самом деле, посредством "Зеркала разума", непоправимо (для любого отдельно взятого живого человека) поврежденного, посредством своего "падения" с уровня "1, единственный, единый", до уровня "миллионов и миллиардов особых мнений", и, вследствие этого, переставшего нести Свет<sup class="fnref fn-pop"><a href="#fn1" id="ref1">*1</a><span class="pop">Несущий Свет — Люцифер, "Светоносный".</span></sup>, то есть Истину, порядок с гармонией, и отражать Намерения Высшего Существа, Которое ЕДИНОЛИЧНО производит все действия, которые кто-либо производил, производит, или будет производить в каком угодно уголке Мироздания каким угодно способом и ради каких угодно "целей, обстоятельств, поводов и намерений", существующих в головах осуществляющих эти действия прямоходящих существ, обладающих голосом. Равно как и всех остальных, только без уточнения про "цели и обстоятельства". У тех, кто не происходит изначально из корня "разбиения", взаимодействие с Миром и самим собой устроено гораздо проще и естественнее. Правда, и само это "разбиение" вовсе не является тем, как привыкли считать адепты всевозможных Учений, ни одно из которых не говорит прямым языком с рядовыми адептами о ступенях, категория которых Непостижимое, а все, что им таковым представляется, является конкретной специфической для данного Учения формой пускания пыли в глаза с предположительно конструктивной и полезной целью. Беда только в том, что непробиваемая твердолобость, - развиваемая у человека при применении этих способов, кроме непосредственно достижения данной "положительной цели", даже если допустить, что она оправданно имеется, а не высосана из пальца, и не успела 10 раз устареть с момента своей формулировки и до настоящего времени, - прочно закрывает его от перехода с уровня "вынужденного дурака" на уровень "думающего своей головой и говорящего своим голосом", в следствие чего, подавляющее большинство из адептов ЛЮБОГО духовного учения или традиции не достигают и близко ничего из того, что видели перед собой в начале "ученичества". Вместо этого им "открываются глаза на обстоятельства", которые сильно меняют их представления о прекрасном и ужасном на другие такие же, но только "правильные, истинные, духовные, отрешенные и трезвые" и т.п. То есть на порядок опаснее, чем те, что имелись до этого, поскольку в них "встроена" защита от "непроизвольных" попыток "дурака" поумнеть раньше, чем в назначенный ему материнским "эргрегором" срок - т.е. никогда.</p>
+  </section>
+
+  <section id="s122">
+    <h2><a class="self" href="#top">1.2.2.</a></h2>
+    <p>На самом деле, посредством этого действия "дистанцирующие" себя с Духом Жизни, кроме Которого "вокруг" "каждого по отдельности", равно как и "всех вместе", нет никого и ничего, никогда не было, и быть не может и не сможет. А все, что делает вышеупомянутое Зеркало на самом деле - поднимает отраженный Свет, подобно (тому, как Он свободно и беспрепятственно поднимается - в моих терминах - самовоспроисходит к) Своему Источнику в неизмеримом и непостижимом Абсолюте "3-первых сфирот мира Адам Кадомон" Света Мира Бесконечности, Свят Благословен Он, являющегося, по меткому выражению Карлоса Кастанеды, "свободной энергией, текущей так, как Она течет во Вселенной, не учитывая человеческие соглашения" о реальном и вымышленном, возможном и невозможном, мыслимом и немыслимом. Если говорить в понятных нам терминах и определениях - Источник Всего создает "из ничего" (т.е. фантазирует "на пустом месте") будущее Реального Мира посредством "воплощения в действительность" Мечты о духовной половой "Любви к ближнему, как к самому себе", которая есть у человека, используемого в этом процессе в качестве "подсобного инструмента", в его "наблюдаемом настоящем". Смыслы и обстоятельства в этом процессе - последнее, что имеет для Совершающего его какой-либо реальный Смысл и значение. Они обретают их уже потом, когда "совершающий" (с маленькой буквы) перешел из категории "очевидца невероятного" в категорию "имеющих какое угодно "особо важное мнение" по какому угодно "объективно и независимо реальному" поводу".</p>
+  </section>
+
+  <section id="s123">
+    <h2><a class="self" href="#top">1.2.3.</a></h2>
+    <p>В этой неутешительной, но от этого не менее объективной и независимой от наших "особых мнений", Реальности, в которой мы все существуем (если можно так выразиться, во всяком случае - не "живем" уж точно, до истинной Жизни нам как пешком до Луны), человек этого мира - используется инструментальным образом, Единой Высшей Самоуправляемой Системой, Которая является совокупным осознанием всех живых существ, и которая "не делится" "на самом деле" на всех этих существ, а находится в супер-реальности, обладающей свойствами "один, единственный и единый". Но (с точки зрения восприятия посредством точки сборки - изменяющего свою форму и качество с течением времени и в зависимости от имеющегося опыта и обстоятельств влияющих на восприятие многочисленных сопряженных "энерго-фактов") существующий на разных уровнях сознания одновременно, причем, эти уровни, хоть они и имеют четкую "иерархию" интенсивности, или меру "отдаленности" от Источника Всего (называемую в Н.К. "уровнем Авиюта /грубости/, определяющим 'качество' парцуфа восприятия"), находятся взаимно в состоянии строго отрицания любыми двумя "соседними" (т.е. последовательными) уровнями всего, что только можно "отрицать" (друг в друге), что обуславливается (Высшим, всеобщим и неизменным) "Законом Печати и Отпечатка", посредством которого "отпечатывается" с самого Верха и до самого Низа вся "духовная мульти-вселенная/Реальный/Высший Мир". И который продолжает оказывать сильное влияние и обуславливает своей формой и характерными свойствами, так или иначе, большинство "реальных" процессов, которые происходят уже непосредственно в самих этих мирах, включая (главным образом, поскольку другое нас не сильно интересуют практически) "нашу", "самую нижнюю ступень" "лестницы в Небо" - "этот", "повседневный" Мир людей, или, как говорят каббалисты, Мир Асия ("действительность").</p>
+  </section>
+
+  <section id="s124">
+    <h2><a class="self" href="#top">1.2.4.</a></h2>
+    <p>И эта "инструментальная форма", которой в действительности является человек этого мира, функционирует и управляется по типу "собаки Павлова". Т.е. посредством управления удовольствием (или неудовольствием), которое она получает здесь и сейчас, и которое оказывает решающее влияние на характер, вектор и качество принимаемых ею "решений", совершаемых ею действий, имеющихся у нее "своих собственных мыслей", собственно, что является сутью явления и феномена чувственного восприятия в принципе, поскольку все оно, при видимом разнообразии, как нам ошибочно кажется, "сущностно" противоположных (несовместимых) форм, "выходит" из одного Высшего Корня (т.е. производится одной и той же "инстанцией", и одинаковым же образом), который является "Корнем" явления и феномена "восприятия", как процесса, происходящего "во времени" и в некотором качестве "пространства", ограничивающего рамки восприятия этой формой "самого себя" и остального мира, поскольку сам по себе вышеописанный феномен восприятия, независимо от "деталей, качества, характера и обстоятельств" своего происхождения в жизненном опыте "человека говорящего", не является Реальным Миром, а является управляемым и контролируемым Высшей (верховной для всех людей, независимо от обстоятельств их жизни, опыта, эпохи, социума, и чего угодно еще) духовной сущностью (каббалистами называемой Общемировой Душой Адам Ришон) состоянием "сна внутри сна".</p>
+  </section>
+
+  <div class="music" id="music">
+    <div class="mlabel">Песнь Ступеней<sup class="fnref fn-pop"><a href="#fn2" id="ref2">*2</a><span class="pop">См. также: <a href="https://tier.bneiadam.com" target="_blank" rel="noopener">https://tier.bneiadam.com</a></span></sup>:</div>
+    <div class="track" data-yt="2wMYpKRHUns">
+      <div class="thead" onclick="toggleTrack(this)">
+        <span class="arrow">▶</span>
+        <span class="tname">The Blue Cafe</span>
+        <span class="tartist">— <a href="https://www.youtube.com/watch?v=2wMYpKRHUns" target="_blank" rel="noopener" onclick="event.stopPropagation()">Chris Rea</a></span>
+        <a class="ext" href="https://www.youtube.com/watch?v=2wMYpKRHUns" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="player"></div>
+    </div>
+  </div>
+
+  <section class="notes" id="notes">
+    <h2><a class="self" href="#top">Примечания</a></h2>
+    <ol>
+      <li class="note" id="fn1"><span class="num">*1</span>Несущий Свет - Люцифер, "Светоносный".<a class="backref" href="#ref1" title="Вернуться к тексту">↩</a></li>
+      <li class="note" id="fn2"><span class="num">*2</span>См. также: <a href="https://tier.bneiadam.com" target="_blank" rel="noopener">https://tier.bneiadam.com</a><a class="backref" href="#ref2" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="33F.html"><span class="lbl">← Предыдущая</span>Хозяин и гость</a>
+    <a class="next" href="3C5.html"><span class="lbl">Следующая →</span>Жизнь в Дар</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<span id="top"></span>
+
+<script>
+  function toggleTrack(head){
+    var t=head.parentElement;
+    var p=t.querySelector('.player');
+    if(!t.classList.contains('open')){
+      if(!p.querySelector('iframe')){
+        var id=t.getAttribute('data-yt');
+        var f=document.createElement('iframe');
+        f.src='https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0';
+        f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        f.setAttribute('allowfullscreen','');
+        p.appendChild(f);
+      }
+      t.classList.add('open');
+    } else {
+      t.classList.remove('open');
+    }
+  }
+  // footnote popup side adjust
+  document.querySelectorAll('.fn-pop').forEach(function(el){
+    el.addEventListener('mouseenter',function(){
+      var pop=el.querySelector('.pop');
+      pop.classList.remove('below');
+      var r=el.getBoundingClientRect();
+      if(r.top<160){pop.classList.add('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — плотный философско-каббалистический трактат сплошной прозой с нумерованными клаузами 1.2.1–1.2.4 и длинными периодами; стихотворных форм нет, поэтому однозначно выбрана редакторская широкая схема, а не узкий манускрипт. Колонка сделана широкой (до 68vw на больших экранах, с разумным потолком ~1080px), чтобы тяжёлые длинные абзацы дышали и не превращались в бесконечную ленту в узкой полосе.\n\nПограничные решения: нумерованные пункты не имеют собственных заголовков, но их больше одного — поэтому я сделал TOC, используя сами номера клауз как заголовки-якоря (клик по номеру возвращает наверх), и добавил в оглавление Песнь Ступеней и Примечания. Музыкальный трек один (меньше трёх), поэтому отдельный сводный раздел музыки не создавался — плеер стоит на своём месте в конце с ленивой подгрузкой iframe только при раскрытии. Атрибуция трека — авторская «Песнь Ступеней:», сохранена дословно вместе со сноской *2. Обе сноски имеют тела и обратные ссылки, реализованы hover-popup с выбором стороны у верхней границы окна. КАПС (ЕДИНОЛИЧНО, ЛЮБОГО) и кавычки сохранены как есть.",
+  "features": ["music", "footnotes", "toc"]
+}
+</script>
+</body>
+</html>
