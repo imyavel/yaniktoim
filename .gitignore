@@ -20,3 +20,5 @@ batch_runner/*.log
 batch_runner/*.lock
 batch_runner/state.json
 batch_runner/state_html.json
+# локальные заметки по багам пайплайна
+problems.md
