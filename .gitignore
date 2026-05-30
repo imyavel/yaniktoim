@@ -15,3 +15,8 @@ _logs/*
 # old JSON intermediates (superseded by zml/ source-of-truth)
 json/
 manifest_pre_art.json
+# batch_runner runtime artefacts — регенерируются, в репозитории не нужны
+batch_runner/*.log
+batch_runner/*.lock
+batch_runner/state.json
+batch_runner/state_html.json
