@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Огонь с Пылающих Небес</title>
+<style>
+  :root{
+    --ink:#2a2018;
+    --ink-soft:#4a3c2e;
+    --paper:#f6efe1;
+    --paper-edge:#efe5d2;
+    --rule:#c9b48c;
+    --accent:#9c2b1b;
+    --accent-2:#b8862e;
+    --link:#8a3210;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 20% 0%, #fbf6ea 0%, transparent 55%),
+      radial-gradient(circle at 100% 100%, #f1e6cf 0%, transparent 50%),
+      #efe4cf;
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua","Georgia",serif;
+    font-size:19px;
+    line-height:1.62;
+  }
+  .sheet{
+    max-width:820px;
+    margin:34px auto 60px;
+    background:var(--paper);
+    border:1px solid #d9c9a4;
+    box-shadow:0 2px 0 #d9c9a4, 0 18px 50px rgba(60,40,15,.18);
+    padding:46px 56px 50px;
+    position:relative;
+  }
+  .sheet::before{
+    content:"";
+    position:absolute;inset:10px;
+    border:1px solid rgba(156,43,27,.18);
+    pointer-events:none;
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-size:15px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:26px;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(156,43,27,.35);}
+  .crumbs a:hover{border-bottom-color:var(--accent);}
+  .crumbs .sep{margin:0 .5em;color:var(--rule);}
+
+  h1.title{
+    font-size:33px;
+    line-height:1.18;
+    text-align:center;
+    font-weight:600;
+    margin:.2em 0 .1em;
+    color:var(--ink);
+    letter-spacing:.01em;
+  }
+  .title-orn{
+    text-align:center;
+    color:var(--accent);
+    font-size:22px;
+    margin:6px 0 30px;
+    letter-spacing:.3em;
+  }
+
+  /* epigraph */
+  .epigraph-label{
+    text-align:center;
+    letter-spacing:.34em;
+    text-transform:uppercase;
+    font-size:14px;
+    color:var(--accent-2);
+    margin:6px 0 18px;
+  }
+  .epigraph{
+    font-size:17.5px;
+    line-height:1.7;
+    color:var(--ink-soft);
+    font-style:italic;
+    border-left:3px solid var(--rule);
+    padding:4px 4px 4px 22px;
+    margin:0 0 8px;
+  }
+  .epigraph .num{font-style:normal;color:var(--accent);font-weight:600;}
+  .epigraph cite{
+    display:block;
+    font-style:normal;
+    font-size:15px;
+    margin-top:14px;
+    color:var(--ink-soft);
+    letter-spacing:.02em;
+  }
+  .epigraph cite a{color:var(--link);}
+
+  a{color:var(--link);}
+  a:hover{color:var(--accent);}
+
+  .ornament{
+    text-align:center;
+    color:var(--rule);
+    margin:30px 0;
+    font-size:20px;
+    letter-spacing:.5em;
+  }
+
+  /* poem */
+  .poem{
+    margin:14px 0 8px;
+    text-align:center;
+  }
+  .stanza{
+    margin:0 0 26px;
+    line-height:1.74;
+    font-size:20px;
+  }
+  .stanza .line{display:block;}
+
+  /* music */
+  .music-block{
+    margin:30px 0;
+    border:1px solid var(--rule);
+    border-radius:6px;
+    background:linear-gradient(#fbf5e7,#f3e9d4);
+    padding:14px 18px 16px;
+  }
+  .music-label{
+    font-variant:small-caps;
+    letter-spacing:.12em;
+    font-size:16px;
+    color:var(--accent);
+    margin-bottom:10px;
+    font-weight:600;
+  }
+  .track{border-top:1px dashed rgba(156,43,27,.25);}
+  .track:first-of-type{border-top:none;}
+  .track summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:9px 2px;
+    font-size:17px;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .track .arrow{
+    color:var(--accent);
+    transition:transform .2s ease;
+    font-size:14px;
+    flex:0 0 auto;
+  }
+  .track[open] .arrow{transform:rotate(90deg);}
+  .track .tname{font-weight:600;}
+  .track .tartist{color:var(--ink-soft);}
+  .track .ext{
+    margin-left:auto;
+    text-decoration:none;
+    color:var(--accent-2);
+    font-size:16px;
+    flex:0 0 auto;
+  }
+  .track .ext:hover{color:var(--accent);}
+  .player{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    margin:6px 0 12px;
+    border-radius:4px;
+    overflow:hidden;
+    background:#000;
+  }
+  .player iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+  }
+
+  /* see also */
+  .seealso{
+    margin:28px 0 4px;
+    font-size:17px;
+    color:var(--ink-soft);
+  }
+  .seealso p{margin:.35em 0;}
+
+  /* bottom corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:42px;
+    padding-top:22px;
+    border-top:2px solid var(--rule);
+    font-size:16px;
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    color:var(--accent);
+    max-width:46%;
+  }
+  .corpus-nav .lbl{
+    display:block;
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:3px;
+  }
+  .corpus-nav .nx{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:34px;
+    padding-top:18px;
+    border-top:1px solid var(--rule);
+    font-size:14.5px;
+    color:var(--ink-soft);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--link);}
+  .attrib{margin:.2em 0;}
+  .license{margin:.2em 0;}
+
+  @media (max-width:680px){
+    body{font-size:18px;}
+    .sheet{margin:0;padding:30px 20px 36px;border-left:none;border-right:none;}
+    .sheet::before{inset:6px;}
+    h1.title{font-size:27px;}
+    .stanza{font-size:18.5px;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav .nx{text-align:left;}
+    .corpus-nav a{max-width:100%;}
+  }
+</style>
+</head>
+<body data-scheme="manuscript">
+<div class="sheet">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">◆</span>
+    <a href="../best/index.html">Избранное</a>
+  </nav>
+
+  <p class="epigraph-label">Эпиграф</p>
+  <blockquote class="epigraph">
+    <span class="num">82)</span> Осталась другая суббота, которая не была упомянута и испытывала стыд. Обратилась к Нему: «Владыка мира! С того дня, как Ты создал меня, я называюсь субботой, и нет дня без ночи». Ответил ей: «Дочь Моя! Суббота ты, и субботой Я назвал тебя. Но теперь Я венчаю тебя самым высшим украшением». И провозгласил: «И святыни Моей страшитесь» – это суббота, относящаяся к ночи субботы, т.е. свойство «страх», и в ней присутствует страх. А что же он собой представляет? Творец соединился вместе (с ней) и сказал: «Я Творец», где «Я» – это Малхут, ночь субботы, «Творец» – Зеир Анпин. А в словах «Я Творец» – они соединены вместе.
+    <cite>Книга Зоар, том 1, Погонщик Ослов — <a href="https://w.wiki/AghB">https://w.wiki/AghB</a></cite>
+  </blockquote>
+
+  <div class="music-block">
+    <div class="music-label">Музыка под настроение</div>
+    <details class="track">
+      <summary>
+        <span class="arrow">▶</span>
+        <span><span class="tname">Hard Rock Аллилуйя</span> <span class="tartist">— Radio Tapok vs Lordi</span></span>
+        <a class="ext" href="https://www.youtube.com/watch?v=LgOPBbBUpUo" target="_blank" rel="noopener" title="Открыть на YouTube" onclick="event.stopPropagation()">↗</a>
+      </summary>
+      <div class="player" data-yt="LgOPBbBUpUo"></div>
+    </details>
+  </div>
+
+  <h1 class="title">Огонь с Пылающих Небес</h1>
+  <div class="title-orn">✦ ❖ ✦</div>
+
+  <div class="poem">
+    <div class="stanza">
+      <span class="line">Любовь не спрашивает Ум</span>
+      <span class="line">Который плавится как снег</span>
+      <span class="line">Под летним солнечным огнем</span>
+      <span class="line">Попав под половой процесс</span>
+    </div>
+    <div class="stanza">
+      <span class="line">Неповезло когда в капкан</span>
+      <span class="line">Поймав себя же самого</span>
+      <span class="line">Внезапный половой удар</span>
+      <span class="line">Вернул на место прах земной</span>
+    </div>
+    <div class="stanza">
+      <span class="line">Установив Истинный Мир</span>
+      <span class="line">На пепелище тех руин</span>
+      <span class="line">В которые ум превратил</span>
+      <span class="line">То место, где происходил</span>
+    </div>
+    <div class="stanza">
+      <span class="line">Процесс отдачи половой</span>
+      <span class="line">Когда любовь то, чего нет</span>
+      <span class="line">Возлюбив ближним своего</span>
+      <span class="line">Ушла, подняв Правду-Шхину</span>
+      <span class="line">От-туда, где пришел Конец</span>
+      <span class="line">Когда пылающий прошел</span>
+      <span class="line">Дождем Огонь с Новых Небес</span>
+      <span class="line">Перевернувший град Содом</span>
+      <span class="line">Который раз Гоморрой вверх</span>
+      <span class="line">Чтобы могли увидеть шанс</span>
+      <span class="line">В далекой предрассветной мгле</span>
+      <span class="line">Безумцы, кто посмел мечтать</span>
+      <span class="line">Что вечной первозданной Тьме</span>
+      <span class="line">Вот-вот навек придет Конец</span>
+      <span class="line">И так сильна была Мечта</span>
+      <span class="line">Что глаз вдали видит рассвет</span>
+      <span class="line">И подо льдом дрожит Земля</span>
+      <span class="line">Готовясь Корни пустить Вверх</span>
+      <span class="line">Скорый предчувствуя финал</span>
+      <span class="line">Мира, где Ум любовью лгал</span>
+      <span class="line">Замуровавшись в толще льда</span>
+      <span class="line">И в нем мечтая никогда</span>
+    </div>
+    <div class="stanza">
+      <span class="line">Не отвечать за эту ложь</span>
+      <span class="line">Поскольку Тьма была всегда</span>
+      <span class="line">И будет до Конца времен</span>
+      <span class="line">А значит мертвые слова</span>
+    </div>
+    <div class="stanza">
+      <span class="line">Не потревожат вечный сон</span>
+      <span class="line">Того, что ложью смерти страх</span>
+      <span class="line">Скрывает ненависть к любой</span>
+      <span class="line">Травинке, смеющей мечтать</span>
+      <span class="line">Пустив вверх корни, быть живой</span>
+    </div>
+    <div class="stanza">
+      <span class="line">Поскольку Смерть огнем с Небес</span>
+      <span class="line">Испепелит вековой Лед</span>
+      <span class="line">Ложь мертвых слов развеет в прах</span>
+      <span class="line">Под Новым Небом и Землей</span>
+      <span class="line">Согретой Светом от Костра</span>
+      <span class="line">Рассветной утренней Зарей</span>
+    </div>
+  </div>
+
+  <div class="ornament">✦ · ✦ · ✦</div>
+
+  <div class="music-block">
+    <div class="music-label">Музыка под настроение</div>
+    <details class="track">
+      <summary>
+        <span class="arrow">▶</span>
+        <span><span class="tname">Roots, bloody Roots</span> <span class="tartist">— Sepultura</span></span>
+        <a class="ext" href="https://www.youtube.com/watch?v=F_6IjeprfEs" target="_blank" rel="noopener" title="Открыть на YouTube" onclick="event.stopPropagation()">↗</a>
+      </summary>
+      <div class="player" data-yt="F_6IjeprfEs"></div>
+    </details>
+  </div>
+
+  <div class="seealso">
+    <p>См. также: <a href="http://proza.ru/2023/03/07/149">Костер</a></p>
+    <p>См. также: <a href="http://proza.ru/2022/06/14/893">В свободном парении</a></p>
+    <p>См. также: <a href="https://w.wiki/Aymp">Книга Зоар, том 1, Со Мной ты в сотрудничестве</a></p>
+  </div>
+
+  <nav class="corpus-nav">
+    <a href="237.html"><span class="lbl">← Предыдущая</span>Дано Творцу право Любить</a>
+    <a class="nx" href="29MA.html"><span class="lbl">Следующая →</span>Быть впервые настоящим</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('details.track').forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if(d.open){
+        var box = d.querySelector('.player');
+        if(box && !box.querySelector('iframe')){
+          var id = box.getAttribute('data-yt');
+          var f = document.createElement('iframe');
+          f.src = 'https://www.youtube.com/embed/'+id+'?rel=0&autoplay=1';
+          f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          f.allowFullscreen = true;
+          box.appendChild(f);
+        }
+      }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "стих",
+  "rationale": "Статья — это рифмованное стихотворение «Огонь с Пылающих Небес» с прозаическим эпиграфом из Книги Зоар и двумя музыкальными ссылками. Доминирующая форма безусловно стихотворная, поэтому выбрана узкая книжная схема «манускрипт» (~820px): центрированная стихотворная полоса, засечный шрифт, тёплая пергаментная палитра и рамка-иллюминация передают каббалистически-поэтический характер источника. Прозаический эпиграф подан как italic-цитата с боковой линейкой, чтобы визуально отделить его от тела поэмы, но не доминировать.",
+  "rationale2": "",
+  "rationale_note": "Развилки: эпиграф — проза, но он лишь обрамление одного стихотворения, поэтому редакторскую широкую схему не выбирал. Музыкальных треков ровно два (не больше двух), и они стоят в разных местах текста с собственной меткой «Музыка под настроение», поэтому сводный раздел не создавался, а каждая метка сохранена на своём месте; оба трека — YouTube, оформлены свёрнутыми ленивыми плеерами (iframe вставляется только при раскрытии). Подразделов нет — оглавление и аппарат сносок не требуются; маркер «82)» — часть текста Зоар, а не сноска. Голые URL обёрнуты в ссылки, КАПС и авторская орфография сохранены дословно.",
+  "features": ["music"]
+}
+</script>
+</body>
+</html>
