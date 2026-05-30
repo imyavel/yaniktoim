@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Конфронтология человеческого Духа</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fcfaf4;
+    --ink:#1f1b16;
+    --muted:#6b6253;
+    --rule:#d9d1c0;
+    --accent:#8a3a2e;
+    --accent-soft:#bf6a45;
+    --link:#7a4a2c;
+    --hl:#fdeec4;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-text-size-adjust:100%;
+  }
+  a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(122,74,44,.35);}
+  a:hover{border-bottom-color:var(--accent);color:var(--accent);}
+
+  .wrap{
+    width:66%;
+    max-width:960px;
+    min-width:0;
+    margin:0 auto;
+    padding:34px 28px 80px;
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding-bottom:14px;
+    margin-bottom:26px;
+    border-bottom:1px solid var(--rule);
+  }
+  .crumbs a{border:none;color:var(--muted);}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs span.sep{margin:0 .5em;color:var(--accent-soft);}
+
+  header.title h1{
+    font-size:33px;
+    line-height:1.18;
+    font-weight:700;
+    letter-spacing:.01em;
+    margin:.2em 0 .15em;
+    color:var(--ink);
+  }
+  header.title h1 .ln{display:block;}
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:6px;
+  }
+  .rule-orn{
+    border:none;height:1px;background:var(--rule);
+    margin:30px 0 26px;
+  }
+
+  article p.body{
+    margin:0 0 1.5em;
+    text-align:justify;
+    hyphens:auto;
+  }
+  article p.body .num{
+    font-weight:700;
+    color:var(--accent);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.82em;
+    letter-spacing:.03em;
+    margin-right:.45em;
+    vertical-align:.05em;
+  }
+  .caps{letter-spacing:.01em;}
+
+  /* footnote markers */
+  .fnref{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.62em;
+    vertical-align:super;
+    line-height:0;
+    font-weight:700;
+    color:var(--accent);
+    border:none;
+    cursor:pointer;
+    position:relative;
+  }
+  .fnref a{border:none;color:var(--accent);}
+  .fnref .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:1.6em;
+    width:min(330px,78vw);
+    background:#2a241c;
+    color:#f3ead6;
+    font-family:Georgia,serif;
+    font-size:15px;
+    line-height:1.5;
+    font-weight:400;
+    letter-spacing:0;
+    text-align:left;
+    padding:11px 14px;
+    border-radius:6px;
+    box-shadow:0 8px 26px rgba(0,0,0,.3);
+    z-index:40;
+    vertical-align:baseline;
+  }
+  .fnref .pop a{color:#f0c89a;border-bottom:1px solid rgba(240,200,154,.4);}
+  .fnref .pop.below{bottom:auto;top:1.6em;}
+  .fnref:hover .pop{display:block;}
+
+  /* music */
+  .music{
+    margin:34px 0;
+    border:1px solid var(--rule);
+    border-left:4px solid var(--accent);
+    background:var(--paper);
+    border-radius:6px;
+    padding:18px 20px;
+  }
+  .music .mlabel{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:12.5px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:12px;
+  }
+  .track{border-top:1px dashed var(--rule);}
+  .track:first-of-type{border-top:none;}
+  .track summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:baseline;
+    gap:.5em;
+    padding:9px 0;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .track .arrow{
+    color:var(--accent);
+    font-size:.8em;
+    transition:transform .2s;
+    flex:0 0 auto;
+  }
+  .track[open] .arrow{transform:rotate(90deg);}
+  .track .tname{font-weight:700;}
+  .track .tartist{color:var(--muted);font-style:italic;}
+  .track .ext{margin-left:auto;font-size:.85em;border:none;}
+  .track .player{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    margin:6px 0 14px;
+    border-radius:6px;
+    overflow:hidden;
+    background:#000;
+  }
+  .track .player iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+  }
+
+  /* notes */
+  .notes{margin-top:48px;padding-top:18px;border-top:2px solid var(--rule);}
+  .notes h2{
+    font-size:20px;
+    letter-spacing:.03em;
+    color:var(--accent);
+    margin:0 0 14px;
+  }
+  ol.fnlist{padding-left:1.4em;margin:0;}
+  ol.fnlist li{
+    font-size:16.5px;
+    line-height:1.6;
+    color:var(--muted);
+    margin-bottom:10px;
+    padding:4px 6px;
+    border-radius:4px;
+    scroll-margin-top:20px;
+  }
+  ol.fnlist li.flash{animation:flash 1.8s ease;}
+  @keyframes flash{0%,40%{background:var(--hl);}100%{background:transparent;}}
+  .backref{margin-left:.4em;font-family:"Helvetica Neue",Arial,sans-serif;font-size:.85em;border:none;}
+
+  .signed{
+    margin-top:34px;
+    font-style:italic;
+    color:var(--muted);
+    font-size:16px;
+  }
+
+  /* corpus nav */
+  .corpusnav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:54px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .corpusnav a{
+    display:block;
+    max-width:46%;
+    border:none;
+  }
+  .corpusnav .lbl{
+    display:block;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent-soft);
+    margin-bottom:3px;
+  }
+  .corpusnav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--muted);}
+
+  @media (max-width:900px){
+    .wrap{width:100%;max-width:100%;padding:22px 18px 60px;}
+    body{font-size:18px;}
+    header.title h1{font-size:27px;}
+    article p.body{text-align:left;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../best/index.html">Избранное</a>
+  </nav>
+
+  <header class="title">
+    <div class="kicker">Конфронтология человеческого Духа</div>
+    <h1>
+      <span class="ln">КОНФРОНТОЛОГИЯ</span>
+      <span class="ln">САМОВОСПРОИСХОЖДЕНИЯ</span>
+      <span class="ln">ЧЕЛОВЕЧЕСКОГО ДУХА</span>
+    </h1>
+  </header>
+
+  <hr class="rule-orn">
+
+  <article>
+    <p class="body"><span class="num">1.</span>Как мы выяснили ранее<span class="fnref"><a href="#fn1" id="fnref1">[*]<span class="pop">АА23Т — <a href="http://proza.ru/2022/03/29/764" target="_blank" rel="noopener">proza.ru/2022/03/29/764</a></span></a></span>, воспринимаемый человеком "этот мир", является ничем иным, как программным кодом. И человек, воспринимающий его, осуществляет выполнение этого кода, "получая" в процессе тот объем реальности, с которого средний человек привык начинать думать о чем-либо, как об имеющим место в "реальности", не догадываясь о том, что основная часть настоящей реальности уже оставлена позади, опосредована его действием в силу привычки, без предварения такового действия осознаваемым намерением, поскольку происходит одним и тем же образом всегда, являясь, по сути своей, одним и тем же действием, открывающим для человека "этот мир". Точку сборки не требуется каждый раз релоцировать для восприятии этого мира, но необходимо постоянно обновлять усилия для ее удержания в том состоянии и положении, которое она приняла единожды в момент совершения действия настройки этого мира впервые. Для этого человек всегда оставляет часть прилагаемых им осознанных усилий "за кадром" своего осознания и целеполагания в результирующей форме, которая является формой, характерной для этого мира, т.е. места фиксации точки сборки, такого, как первое, второе или третье внимание (последнее не является отдельным "местом" от первых двух, а является изменением периода их взаимно сопряженной настройки мужчиной и женщиной этого мира как одним функциональным "магическим" целым, существующим "в двух местах одновременно", то есть по сути с разных сторон одной и той же точки сборки, представляя собой форму, которой опосредуется все остальное многообразие ступеней реального мира, созданных от самой первой до самой последней ступени посредством связи между ступенями по типу клиент-сервер, говоря компьютерным языком, что делает всю реальность находящейся в самосопряженном состоянии, которое дает воспринимающим существам возможность настройки восприятия, которая, как говорил Дон Хуан, является предметом обучения и совершенствования в течение их жизней, в то время, как само по себе восприятие является "физической способностью", задействуемой всеми и всегда одинаково, только с разными предпосылками и результатами, что является целью и задачей наших жизней как микрокосмоса, так и макрокосмоса, поскольку они подобны во всем с точностью до масштабов происходящего).</p>
+
+    <p class="body"><span class="num">2.</span>Таким образом, "этот мир" всегда имеет "обратную сторону", которая жизненно важна для своего восприятия приемлемым образом, и всегда находится за границами того объема реальности, которая посредством его настройки становится человеку доступна для выполнения осознанно. Разницу между этими двумя понятиями новые видящие отразили в терминах восприятие и интерпретация, а также, альтернативы и возможности, доступные живому человеку в принципе. Интерпретация по определению является неполной моделью реальности, причем, неполнота эта имеет критическое значение в том смысле, который человек этого мира привык называть "объективной реальностью", точнее, понятию быть ей адекватным в чем-либо, действуя сознательно. Быть адекватным человек, чей мир уже построен, то есть чуть более, чем каждый и всегда, независимо ни от чего вообще, кто обладает жизнью здесь и сейчас, тому объему реального мира, который существует реально, и в котором в действительности происходит его жизнь, опыт и восприятие, не может быть принципиально, поскольку он пользуется вниманием осознанно, не важно, первым или вторым, поскольку и то и другое используют друг друга как физическую способность, чтобы сделать другую возможность доступной для дальнейшего осознанного целеполагания посредством воли, механизм работы которой действует целиком "от обратного", то есть, условно говоря, для того, чтобы настроить тот или иной объем восприятия или мир, "точка сборки" действует не по команде "использовать эманации X, Y и Я", а по обратной ей команде "не использовать (функционально окончательно и немедленно заблокировать) эманации X, Y", причем эта команда "выполняется" на "аппаратном уровне" в условиях неизменной "аппаратной среды", которая состоит функционально из эманаций X, Y и Я, которые можно указывать в параметрах "команды Орла", только эта команда не переводится на "естественный язык" разума как "настроить то-то и то-то", а переводится как "забыть про то-то и то-то", что является тем же самым, что "опосредовать настройку Я по комплементарному принципу, заблокировав X и Y, чтобы получить *** - XY = Я на выходе". Этот принцип в жизни, сознании и Мире определяет очень многое, он абсолютно неочевиден интуитивно, насколько я могу судить, никем в достаточной мере и понятным языком ранее не описывался, либо таковое описание не смогло быть человеком осознанно. Этот принцип лежит в основе всех процессов, которые управляют и составляют для человека и человечества (микрокосм и макрокосм подобны во всем с точностью до масштабов происходящего) реальность последовательного эволюционного развития, степень успешности любого реального целеполагания, результат тех или иных прикладываемых усилий, поскольку именно он определяет степень соответствия подразумеваемой формы целеполагания, которая есть у человека, и того, как в реальности выглядит и происходит явление, или совокупность явлений и факторов, которые опосредуют физическую (принципиальную) возможность этому целеполаганию существовать, <span class="caps">НАПРОТИВ</span> того состояния "здесь и сейчас", где подразумеваемая цель человеком <span class="caps">ОЩУЩАЕМО НЕ ДОСТИГНУТА</span>, делая возможным осознанно стремиться к ее достижению "от противного", которое у человека уже имеется, и которое в действительности определяет форму его стремления, но не является ничем из того, что для человека имеет значение и важность здесь и сейчас.</p>
+
+    <p class="body"><span class="num">3.</span>Сделаем и услышим, услышим и сделаем все наоборот, получив в точности то, что и требуется посредством этого, как нам самим, так и Тому, кто Своей волей задал для нас "начальные условия задачи", отталкиваясь от которых по принципу "вопреки", и поэтому не рассматривая происходящее иначе, чем результат совпадения случайных слепых сил и безличных законов природы, мы неизбежно и с филигранной точностью, заложенной в действительную форму существования и происхождения мироздания, воспринимаемого чувственным образом посредством точки сборки, достигнем практически той точки, в которой без тени сомнения, оглядываясь назад, увидим, поймем и осознаем то, что весь пройденный до этого Путь происходил целенаправленно, и ничего "случайного" и "оставленного на откуп" человеческого фактора, и прочих "условностей и обстоятельств", которые могли бы влиять на характер его происхождения, в этом Пути не было, и быть не могло, поскольку мы лишь раскрываем то, что существует в реальности, свойства которой не меняются, потому что она "выше" "реальности" сна внутри сна, характерной происхождением чего бы то ни было во времени и пространстве каким угодно мыслимым и немыслимым способом, и эти свойства не предполагают существование в опосредуемом Ею мире возможность несовершенства чего бы то ни было, но таковое несовершенство является инструментальной особенностью порядка раскрытия того совершенства, которое уже есть, и было всегда, но только того, кто мог бы почувствовать, осознать и оценить это совершенство не было, а посредством возникновения "несовершенства" последовательно и определенным образом, и его последующего "исправления", он появился, и это совершенство посредством этого смогло быть раскрыто в мирах в необходимой полноте подобающим образом, истинный смысл которого - в опосредуемой этим раскрытием <span class="caps">ОГРОМНОЙ ДУХОВНОЙ ПОЛОВОЙ ЛЮБВИ</span>, посредством которой это раскрытие осуществляется <span class="caps">НА ТРЕХ УРОВНЯХ ОДНОВРЕМЕННО, И ПОЭТОМУ НАЗЫВАЕТСЯ НАСТРОЙКОЙ ВОСПРИЯТИЯ</span>. И лишь три уровня, существующих в правильном соединении между собой, реализуют, составляют и обеспечивают то, что новые видящие называют полнотой и целостностью самого себя, из которой человек выходит и в которую возвращается посредством рождения в этот мир и ухода из него, но с которой маги стремятся познакомиться, находясь внутри него, поскольку таковое знакомство происходит на качественно более сильном <span class="caps">ЧУВСТВЕННОМ</span> уровне своего раскрытия здесь и сейчас, предоставляя человеку для этого весь комплекс преодоленных им на долгом Пути к этой возвышенной точке "несовершенств", остающихся в вечности неизменными также, как таковым является изначальное и неизменное абсолютное совершенство, которое они раскрывают и инструментом раскрытия которого служат посредством своего формирования и раскрытия своего предназначения человеком этого мира, как в частном, так и в общем, потому что общее и частное равны во всех деталях, с точностью до масштабов опосредуемого ими происходящего.</p>
+
+    <div class="music">
+      <div class="mlabel">Музыка под настроение</div>
+      <details class="track">
+        <summary>
+          <span class="arrow">▶</span>
+          <span class="tname">Dont judge a Book by its cover</span>
+          <span class="tartist">— Jadyn Rylee</span>
+          <a class="ext" href="https://youtu.be/1b9gH-OlozU" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+        </summary>
+        <div class="player" data-embed="https://www.youtube-nocookie.com/embed/1b9gH-OlozU"></div>
+      </details>
+    </div>
+
+    <p class="signed">Написано 7 Апреля 2022 г.</p>
+  </article>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol class="fnlist">
+      <li id="fn1">АА23Т — <a href="http://proza.ru/2022/03/29/764" target="_blank" rel="noopener">proza.ru/2022/03/29/764</a><a class="backref" href="#fnref1" title="Вернуться к тексту">↑</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpusnav">
+    <a class="prev" href="23T.html">
+      <span class="lbl">← Предыдущая</span>
+      Воля Творца, Свят Благословен Он
+    </a>
+    <a class="next" href="54Q.html">
+      <span class="lbl">Следующая →</span>
+      Разумная модель настоящего времени
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // lazy-load YouTube players on first open
+  document.querySelectorAll('details.track').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open){
+        var box=d.querySelector('.player');
+        if(box && !box.dataset.loaded){
+          var f=document.createElement('iframe');
+          f.src=box.dataset.embed+'?autoplay=1&rel=0';
+          f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          f.allowFullscreen=true;
+          box.appendChild(f);
+          box.dataset.loaded='1';
+        }
+      }
+    });
+  });
+
+  // footnote popup side flip
+  document.querySelectorAll('.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      var pop=ref.querySelector('.pop');
+      if(!pop)return;
+      pop.classList.remove('below');
+      var r=ref.getBoundingClientRect();
+      if(r.top<180){pop.classList.add('below');}
+    });
+  });
+
+  // highlight target footnote on jump
+  document.querySelectorAll('.fnref a').forEach(function(a){
+    a.addEventListener('click',function(){
+      var id=a.getAttribute('href');
+      var t=document.querySelector(id);
+      if(t){t.classList.remove('flash');void t.offsetWidth;t.classList.add('flash');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза / эссе",
+  "rationale": "Статья представляет собой сплошной философско-эзотерический текст из трёх длинных пронумерованных абзацев-периодов без стихотворной структуры — это проза (эссе), поэтому выбрана редакторская широкая схема (контейнер ~66% ширины окна, макс. 960px) для комфортного журнального лонгрида, а не узкая манускриптная колонка. Длинные предложения с обилием придаточных потребовали выровненного по ширине набора с переносами и умеренного кегля при щедром межстрочном интервале.\n\nРазвилки: единственная сноска в аппарате — это отсылка АА23Т с голым URL (proza.ru/2022/03/29/764); в тексте было два маркера [*] (на заголовке и в п.1), но тело сноски одно и по смыслу относится к обороту «Как мы выяснили ранее» в п.1, поэтому маркер привязан туда, а висячий маркер у заголовка опущен как не имеющий тела. URL обёрнут в ссылку и продублирован во всплывающем popup. Музыкальный трек один — YouTube-ссылка оформлена свёрнутым ленивым плеером (iframe грузится только при раскрытии); сводный раздел музыки не делал, так как распознан лишь один трек (порог >2 не достигнут). Оглавление не вводил: именованных подразделов нет, только нумерованные абзацы, поэтому TOC был бы искусственным. Капс сохранён дословно через .caps без понижения регистра. Палитра — тёплая бумажная со сдержанным терракотовым акцентом, контраст на светлом фоне.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>
