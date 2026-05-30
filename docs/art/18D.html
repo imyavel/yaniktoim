@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Древняя нагвальская считалочка</title>
+<style>
+  :root{
+    --paper:#f7f1e3;
+    --paper-edge:#efe5cd;
+    --ink:#2b2118;
+    --ink-soft:#5a4a35;
+    --accent:#8a2f1d;
+    --accent-2:#b8862a;
+    --rule:#cdb88a;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:#e8dcc0;
+    background-image:radial-gradient(circle at 30% 20%, #f2e9d2 0%, #e3d4b3 70%, #d8c69e 100%);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    line-height:1.6;
+    font-size:19px;
+    padding:32px 16px 64px;
+  }
+  .page{
+    max-width:820px;
+    margin:0 auto;
+    background:var(--paper);
+    background-image:linear-gradient(180deg,#faf5e8 0%, #f5eeda 100%);
+    border:1px solid var(--paper-edge);
+    box-shadow:0 2px 0 #d6c8a6, 0 14px 40px rgba(60,40,15,.28);
+    padding:44px clamp(22px,6vw,68px) 52px;
+    position:relative;
+  }
+  .page::before{
+    content:"";
+    position:absolute;inset:10px;
+    border:1px solid var(--rule);
+    pointer-events:none;
+    opacity:.5;
+  }
+  /* breadcrumbs */
+  nav.crumbs{
+    font-size:.82em;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:22px;
+    position:relative;
+    z-index:1;
+  }
+  nav.crumbs a{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent);}
+  nav.crumbs a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2);}
+  nav.crumbs .sep{margin:0 .5em;color:var(--rule);}
+
+  .lead-img{
+    display:block;
+    margin:0 auto 26px;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border:1px solid var(--rule);
+    box-shadow:0 4px 16px rgba(60,40,15,.25);
+  }
+
+  .date{
+    text-align:center;
+    font-style:italic;
+    color:var(--ink-soft);
+    font-size:.92em;
+    letter-spacing:.05em;
+    margin-bottom:10px;
+  }
+
+  h1{
+    text-align:center;
+    font-size:2.05em;
+    font-weight:600;
+    line-height:1.2;
+    margin:.1em 0 .1em;
+    color:var(--accent);
+    letter-spacing:.01em;
+  }
+  .ornament{
+    text-align:center;
+    color:var(--accent-2);
+    font-size:1.4em;
+    letter-spacing:.4em;
+    margin:.4em 0 1.7em;
+  }
+
+  .poem{
+    margin:0 auto;
+    max-width:34ch;
+  }
+  .stanza{
+    margin:0 0 1.55em;
+    white-space:pre-line;
+  }
+  .stanza p{margin:0;}
+
+  /* drop initial on first stanza */
+  .poem .stanza:first-of-type::first-letter{
+    font-size:3.1em;
+    line-height:.8;
+    float:left;
+    padding:.04em .12em .02em 0;
+    color:var(--accent);
+    font-weight:600;
+  }
+
+  /* music */
+  .music{
+    margin:2.6em auto 0;
+    max-width:34ch;
+  }
+  .music-label{
+    font-variant:small-caps;
+    letter-spacing:.08em;
+    color:var(--accent);
+    font-size:1.02em;
+    border-top:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+    padding:.35em 0;
+    text-align:center;
+    margin-bottom:.9em;
+  }
+  .track{
+    border:1px solid var(--rule);
+    background:rgba(255,255,255,.4);
+    border-radius:3px;
+    overflow:hidden;
+  }
+  .track summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:.55em;
+    padding:.6em .8em;
+    font-size:.97em;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .track .arrow{
+    color:var(--accent);
+    transition:transform .2s ease;
+    font-size:.85em;
+  }
+  .track[open] .arrow{transform:rotate(90deg);}
+  .track .t-title{font-weight:600;}
+  .track .t-artist{color:var(--ink-soft);font-style:italic;}
+  .track .ext{
+    margin-left:auto;
+    color:var(--accent);
+    text-decoration:none;
+    font-size:1.05em;
+  }
+  .track .ext:hover{color:var(--accent-2);}
+  .track .player{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    background:#000;
+    border-top:1px solid var(--rule);
+  }
+  .track .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+  /* bottom corpus nav */
+  .corpus-nav{
+    max-width:820px;
+    margin:26px auto 0;
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    font-size:.92em;
+  }
+  .corpus-nav a{
+    color:var(--accent);
+    text-decoration:none;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    padding:.65em 1em;
+    max-width:46%;
+    box-shadow:0 6px 18px rgba(60,40,15,.18);
+  }
+  .corpus-nav a:hover{color:var(--accent-2);border-color:var(--accent-2);}
+  .corpus-nav .lbl{display:block;font-size:.78em;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    max-width:820px;
+    margin:30px auto 0;
+    text-align:center;
+    font-size:.85em;
+    color:var(--ink-soft);
+    line-height:1.5;
+  }
+  footer.colophon a{color:var(--accent);}
+  footer.colophon .license{font-size:.95em;}
+
+  @media (max-width:600px){
+    body{font-size:18px;padding:14px 6px 40px;}
+    .page{padding:30px 18px 36px;}
+    .poem,.music{max-width:100%;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav a{max-width:100%;}
+    .corpus-nav .next{text-align:left;}
+  }
+</style>
+</head>
+<body data-scheme="manuscript">
+  <article class="page">
+    <nav class="crumbs">
+      <a href="../index.html">Главная</a>
+      <span class="sep">·</span>
+      <a href="../dreamon/index.html">Мечтай!!</a>
+    </nav>
+
+    <img class="lead-img" src="../img/18D.jpg" alt="Иллюстрация к статье">
+
+    <div class="date">13 августа 2021 г.</div>
+
+    <h1>Древняя нагвальская считалочка</h1>
+    <div class="ornament">✦ ❧ ✦</div>
+
+    <div class="poem">
+      <div class="stanza"><p>Чудо-юдо рыба Кит.
+Глаз незрячий все пронзит,
+Через что от края к краю
+Рыба море проплывает.</p></div>
+
+      <div class="stanza"><p>Всех, кто ждал, когда к Проходу
+Поведет их во главе
+Проглотил, как воевода
+Ловкий водный чудо-змей.</p></div>
+
+      <div class="stanza"><p>Ты не спрашивай Адама,
+Он не знает этой рыбы.
+Ева знает, но не скажет,
+Чтоб с Умом еще пожил ты.</p></div>
+
+      <div class="stanza"><p>Просто знай, что Рыба эта -
+Путешествует в Великом
+Также ловко и проворно
+Как и ты в своей квартирке</p></div>
+
+      <div class="stanza"><p>По ковру, встав ранним утром
+Драпаешь в сторону ванной.
+Рыба Ключ имеет главный
+Что Проходы открывает.</p></div>
+
+      <div class="stanza"><p>Человеческого Мага
+Хоть в лепешку расшибись
+Здесь не хватит, чтобы Стражу
+Убедить их пропустить.</p></div>
+
+      <div class="stanza"><p>Но лишь только когда вместе
+СИЛА мы, и с одним Сердцем
+Нас Орел пропустит мимо,
+Чтобы сделать нас Живыми.</p></div>
+    </div>
+
+    <div class="music">
+      <div class="music-label">Музыка под настроение</div>
+      <details class="track" id="track-1">
+        <summary>
+          <span class="arrow">▶</span>
+          <span class="t-title">Passenger</span>
+          <span class="t-artist">— Deftones</span>
+          <a class="ext" href="https://youtu.be/IjainiB8mk4" target="_blank" rel="noopener" title="Открыть на YouTube" onclick="event.stopPropagation()">↗</a>
+        </summary>
+        <div class="player"></div>
+      </details>
+    </div>
+  </article>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="04I.html"><span class="lbl">← Предыдущая</span>Ода вечному и древнему Царю</a>
+    <a class="next" href="1AHA.html"><span class="lbl">Следующая →</span>Стихотворение АРИ. Часть 1</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.track').forEach(function(d){
+      d.addEventListener('toggle', function(){
+        if(d.open){
+          var box = d.querySelector('.player');
+          if(box && !box.querySelector('iframe')){
+            var id = d.getAttribute('id');
+            var vid = d.querySelector('.ext').getAttribute('href').split('/').pop().split('?')[0];
+            var ifr = document.createElement('iframe');
+            ifr.src = 'https://www.youtube.com/embed/' + vid + '?autoplay=1';
+            ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+            ifr.allowFullscreen = true;
+            box.appendChild(ifr);
+          }
+        }
+      });
+    });
+  </script>
+
+  <script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "стих",
+  "rationale": "Статья целиком — стихотворение в семи катренах («Древняя нагвальская считалочка»), поэтому по правилу «стих/поэма → манускрипт» выбрана узкая книжная схема с колонкой ~820px и засечным книжно-рукописным характером. Текст центрирован в узкой мере строки (~34ch), чтобы катрены читались как поэтическая полоса; первая строфа открывается буквицей, строфы разделены воздухом, регистр (включая КАПС «СИЛА») сохранён дословно. Палитра — тёплый пергаментный фон с двойной рамкой полосы, винно-красный акцент и охра, что поддерживает поэтичный, манускриптный тон.\n\nОглавления нет: подразделов в тексте нет (единый стих), поэтому TOC не строился. Сносок нет. Единственная музыкальная атрибуция — YouTube-ссылка на Deftones «Passenger» в конце: оформлена как свёрнутый ленивый плеер (iframe создаётся только при раскрытии), метка по умолчанию «Музыка под настроение». Сводный музыкальный раздел не нужен — трек один (порог «более двух» не достигнут). Дата «13 августа 2021 г.» оставлена как строка перед заголовком; название взято из метаданных.",
+  "features": ["music"]
+}
+  </script>
+</body>
+</html>

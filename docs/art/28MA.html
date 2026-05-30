@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Здесь стоит Трон Элиягу</title>
+<style>
+  :root{
+    --bg:#fbf6ec;
+    --panel:#f4ecda;
+    --ink:#2a2014;
+    --ink-soft:#5a4a36;
+    --rule:#d8c9aa;
+    --gold:#9c6b1e;
+    --crimson:#8a2b22;
+    --link:#7a4a12;
+    --hl:#f6e39a;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 50% -10%, #fffaf0 0%, var(--bg) 60%);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.7;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{
+    max-width:820px;
+    margin:0 auto;
+    padding:28px 28px 70px;
+  }
+  a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(122,74,18,.35);}
+  a:hover{color:var(--crimson);border-bottom-color:var(--crimson);}
+
+  /* breadcrumbs */
+  .crumbs{
+    font-size:15px;
+    letter-spacing:.03em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:10px;
+    margin-bottom:26px;
+  }
+  .crumbs a{border:none;color:var(--gold);}
+  .crumbs .sep{margin:0 .5em;color:var(--rule);}
+
+  h1{
+    font-size:33px;
+    line-height:1.25;
+    text-align:center;
+    margin:.2em 0 .15em;
+    letter-spacing:.02em;
+    color:var(--crimson);
+    font-weight:600;
+  }
+  .meta-id{
+    text-align:center;
+    font-size:15px;
+    letter-spacing:.18em;
+    color:var(--ink-soft);
+    margin-bottom:1.1em;
+  }
+  .series{
+    text-align:center;
+    font-style:italic;
+    color:var(--ink-soft);
+    font-size:18px;
+    margin:0 auto 1.6em;
+    max-width:36em;
+  }
+  .ornament{
+    text-align:center;
+    color:var(--gold);
+    font-size:22px;
+    margin:1.4em 0;
+    letter-spacing:.4em;
+  }
+
+  /* TOC */
+  .toc{
+    background:var(--panel);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    padding:6px 20px 14px;
+    margin:0 0 34px;
+  }
+  .toc summary{
+    cursor:pointer;
+    font-variant:small-caps;
+    letter-spacing:.06em;
+    font-size:18px;
+    color:var(--crimson);
+    padding:8px 0;
+    list-style:none;
+  }
+  .toc summary::-webkit-details-marker{display:none;}
+  .toc summary::before{content:"❧ ";color:var(--gold);}
+  .toc ol{margin:.4em 0 0;padding-left:1.4em;}
+  .toc li{margin:.25em 0;}
+  .toc a{border:none;}
+
+  h2{
+    font-size:23px;
+    text-align:center;
+    color:var(--crimson);
+    margin:1.9em 0 .9em;
+    letter-spacing:.05em;
+    font-weight:600;
+  }
+  h2 a{color:inherit;border:none;}
+  h2::after{
+    content:"";
+    display:block;
+    width:90px;height:1px;
+    margin:.5em auto 0;
+    background:var(--gold);
+  }
+
+  p.prose{text-align:justify;hyphens:auto;}
+  p.epigraph-author{text-align:right;font-style:italic;color:var(--ink-soft);margin-top:.3em;}
+
+  .verse{margin:1.1em 0;}
+  .verse p{margin:0 0 1.05em;}
+  .stanza-num{color:var(--gold);font-weight:600;}
+  .indent{display:inline-block;width:1.6em;}
+
+  blockquote.epigraph{
+    font-style:italic;
+    color:var(--ink-soft);
+    border-left:3px solid var(--gold);
+    margin:1em 0;
+    padding:.4em 0 .4em 1.1em;
+  }
+
+  /* footnote refs */
+  .fn-ref{
+    font-size:.72em;
+    vertical-align:super;
+    line-height:0;
+    color:var(--crimson);
+    border:none;
+    padding:0 1px;
+    cursor:pointer;
+    font-style:normal;
+  }
+  .fn-ref:hover{color:var(--gold);}
+
+  /* notes */
+  .notes{counter-reset:none;}
+  .note{
+    display:flex;
+    gap:.7em;
+    padding:.5em .6em;
+    border-radius:5px;
+    margin:.2em 0;
+    scroll-margin-top:20px;
+  }
+  .note:target{background:var(--hl);box-shadow:0 0 0 2px var(--gold);}
+  .note .fn-num{
+    color:var(--crimson);
+    font-weight:600;
+    min-width:2.2em;
+    text-align:right;
+    flex:none;
+  }
+  .note .fn-body{flex:1;}
+  .note .fn-body p{margin:0 0 .5em;}
+  .note .fn-back{
+    border:none;
+    color:var(--gold);
+    margin-left:.35em;
+    font-size:.9em;
+  }
+  .note .qverse{font-style:italic;}
+
+  /* music */
+  .music-label{
+    font-variant:small-caps;
+    letter-spacing:.06em;
+    color:var(--gold);
+    font-size:17px;
+    margin:1.4em 0 .35em;
+  }
+  details.track{
+    border:1px solid var(--rule);
+    border-radius:5px;
+    background:var(--panel);
+    margin:0 0 6px;
+    overflow:hidden;
+  }
+  details.track summary{
+    list-style:none;
+    cursor:pointer;
+    padding:.55em .8em;
+    display:flex;
+    align-items:center;
+    gap:.5em;
+  }
+  details.track summary::-webkit-details-marker{display:none;}
+  .t-name{font-weight:600;color:var(--ink);}
+  .t-art{color:var(--ink-soft);font-style:italic;}
+  .t-art::before{content:"— ";}
+  .t-ext{margin-left:auto;border:none;font-size:1.05em;color:var(--gold);}
+  .t-arrow{
+    color:var(--gold);
+    transition:transform .2s;
+    font-size:.85em;
+  }
+  details.track[open] .t-arrow{transform:rotate(180deg);}
+  .t-player{padding:0 .8em .8em;}
+  .t-player iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:4px;display:block;}
+
+  /* music summary section tracks share label position */
+  .music-summary details.track{margin-bottom:8px;}
+
+  /* bottom nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:14px;
+    margin:48px 0 0;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:16px;
+  }
+  .corpus-nav a{flex:1;border:none;}
+  .corpus-nav .nx{text-align:right;}
+  .corpus-nav .lbl{display:block;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);}
+
+  footer.colophon{
+    margin-top:34px;
+    padding-top:18px;
+    border-top:1px solid var(--rule);
+    font-size:14.5px;
+    color:var(--ink-soft);
+    text-align:center;
+  }
+  footer.colophon a{color:var(--gold);}
+
+  /* popup */
+  #fn-popup{
+    position:absolute;
+    display:none;
+    max-width:380px;
+    z-index:50;
+    background:#fffdf6;
+    border:1px solid var(--gold);
+    box-shadow:0 6px 22px rgba(60,40,10,.28);
+    border-radius:6px;
+    padding:.7em .9em;
+    font-size:15.5px;
+    line-height:1.55;
+    color:var(--ink);
+  }
+  #fn-popup p{margin:0 0 .5em;}
+  #fn-popup p:last-child{margin-bottom:0;}
+  #fn-popup .qverse{font-style:italic;}
+
+  @media (max-width:860px){
+    .wrap{padding:18px 16px 56px;}
+    body{font-size:18px;}
+    h1{font-size:27px;}
+  }
+</style>
+</head>
+<body data-scheme="manuscript">
+<a id="top"></a>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../dreamon/index.html">Мечтай!!</a>
+  </nav>
+
+  <h1>ЗДЕСЬ СТОИТ ТРОН ЭЛИЯГУ<a class="fn-ref" id="ref-15-1" href="#fn-15">15</a></h1>
+  <div class="meta-id">22.08.22, #AA28N</div>
+  <p class="series">Серия<a class="fn-ref" id="ref-6" href="#fn-6">6</a> Добрая речь<a class="fn-ref" id="ref-7" href="#fn-7">7</a>. School story, Bro!<br>«Школьные истории» не столь отдаленного Будущего «этого Мира»</p>
+
+  <div class="ornament">✦ ✦ ✦</div>
+
+  <details class="toc" open>
+    <summary>Оглавление</summary>
+    <ol>
+      <li><a href="#vvedenie">ВВЕДЕНИЕ</a></li>
+      <li><a href="#epigraf">ЭПИГРАФ</a></li>
+      <li><a href="#akt1">АКТ 1</a></li>
+      <li><a href="#akt2">АКТ 2</a></li>
+      <li><a href="#music">Песнь Ступеней</a></li>
+      <li><a href="#notes">ОР ПНИМИ (ПРИМЕЧАНИЯ)</a></li>
+    </ol>
+  </details>
+
+  <section>
+    <h2 id="vvedenie"><a href="#top">ВВЕДЕНИЕ</a></h2>
+    <p class="prose">Книга порождений Адама<a class="fn-ref" href="#fn-8">8</a>, Сына человека Живого<a class="fn-ref" href="#fn-9">9</a>, созданного Творцом<a class="fn-ref" href="#fn-10">10</a>, Свят Благословен Он, Мужчиной и Женщиной<a class="fn-ref" href="#fn-11">11</a> "этого мира", посредством "получения" ими, "как одним человеком с одним сердцем", Высшего Бесконечного Света Духовной Половой Любви<a class="fn-ref" href="#fn-12">12</a> (Ор Хохма 32 путей Мира Ацилут<a class="fn-ref" href="#fn-17">17</a>), с целью раскрытия, посредством Его облачения в "Келим"<a class="fn-ref" href="#fn-3">3</a> настоящего и будущего "этого мира", Своего непостижимого совершенства<a class="fn-ref" href="#fn-13">13</a>, мудрости, милосердия, могущества и благородства, мирам и душам праведников ("грешники" все остались во "втором тысячелетии" по р.х., в наступившем "третьем" будут рождаться на Свет только "полные праведники", а про старые страшные сказки на ночь можно смело забыть уже сейчас, потому что отныне и далее "драйвер" человеческой эволюции, как частной, так и общей, из метода "развития пинками и от обратного" (ситра ахра, злое начало, "не ходите дети в Африку гулять"<a class="fn-ref" href="#fn-4">4</a>, ад, сатана, дьявол, клипот, эгоизм, бесы, летуны, ЧСВ и т.п.) уступает место принципу "мне туда надо" (Ж) и "мне это нравится"<a class="fn-ref" href="#fn-5">5</a> (М), посредством пробуждения во все большем кол-ве нынеживущих душ соответствующих "решимот", т.е. энерго-информационных "записей" ДНК личной судьбы<a class="fn-ref" href="#fn-2">2</a>, закладываемого "Отправителем" в "послание" перед отправкой его новорожденным "получателем" для рождения в "этот мир" и раскрытия соответствующих обстоятельств, событий и переживаний индивидуальной судьбы на личном Пути Сердца). Сделаем и услышим, услышим и "с-не-делаем" все наоборот, получив этим в точности то, что и требуется<a class="fn-ref" href="#fn-14">14</a>!</p>
+  </section>
+
+  <section>
+    <h2 id="epigraf"><a href="#top">ЭПИГРАФ</a></h2>
+    <blockquote class="epigraph">
+      «Нет клейма на душе моей.<br>
+      Кроме Господа, я не знал Царей.<br>
+      Но, на скрипке мне<br>
+      <span class="indent"></span>выжег Мастер тайный знак<a class="fn-ref" href="#fn-16">16</a>…»
+    </blockquote>
+    <p class="epigraph-author">Маргарита Пушкина</p>
+
+    <div class="music-label">Песнь Ступеней:</div>
+    <details class="track">
+      <summary><span class="t-name">Игра с Огнем</span><span class="t-art">АРИЯ</span><a class="t-ext" href="https://youtu.be/MQpTyHJ6pKQ" target="_blank" rel="noopener">↗</a><span class="t-arrow">▾</span></summary>
+      <div class="t-player" data-yt="MQpTyHJ6pKQ"></div>
+    </details>
+  </section>
+
+  <section>
+    <h2 id="akt1"><a href="#top">АКТ 1</a></h2>
+    <div class="verse">
+      <p><span class="stanza-num">1.</span> Ниночка летом на даче<br>
+      (Было ей тогда лет девять,<br>
+      Или восемь, но не старше -<br>
+      Можете тут мне поверить)</p>
+
+      <p>Одно время утром часто<br>
+      В лес на озеро ходила.<br>
+      Там местечко она знала<br>
+      Тайное, где не увидят</p>
+
+      <p>Девочку другие люди.<br>
+      Впрочем, их там не водилось -<br>
+      Бабушкин заброшен хутор<br>
+      Был в лесах вдали от мира</p>
+
+      <p>Человеков безнадежно.<br>
+      Но уверенность давало,<br>
+      Девочке, чтобы спокойно<br>
+      Выйдя к озеру, на травку</p>
+
+      <p>Побросать с себя одежку<br>
+      Чтобы тело все дышало<br>
+      И вода ее ласкала<br>
+      С Солнышком, каждую клетку.</p>
+    </div>
+
+    <div class="music-label">Песнь Ступеней:</div>
+    <details class="track">
+      <summary><span class="t-name">Bless the Child</span><span class="t-art">Nightwish</span><a class="t-ext" href="https://youtu.be/U52aAa9VkEk" target="_blank" rel="noopener">↗</a><span class="t-arrow">▾</span></summary>
+      <div class="t-player" data-yt="U52aAa9VkEk"></div>
+    </details>
+  </section>
+
+  <section>
+    <h2 id="akt2"><a href="#top">АКТ 2</a></h2>
+    <div class="verse">
+      <p><span class="stanza-num">2.</span> - Я пред нею, обнаженной,<br>
+      Обнаженным появился,<br>
+      Стоя к ней спиной, а к волнам -<br>
+      Лицом стоя, лишив мыслей</p>
+
+      <p>Враз прелесное созданье.<br>
+      Т.к. на разумном плане<br>
+      Быть такое в самом деле<br>
+      Никаким путем не смело.<a class="fn-ref" href="#fn-1">1</a></p>
+
+      <p>Обернувшись, краем глаза<br>
+      Взгляд на девочку я бросил<br>
+      Подмигнув ей хитровато,<br>
+      И вперед прыгнул на волны.</p>
+
+      <p>Я летел плашмя на волны<br>
+      И разбил бы о них тело<br>
+      Если бы в миг встречи вновь я<br>
+      Не исчез пред ней волшебно.</p>
+
+      <p>И не просто "растворился" -<br>
+      А на стаю птиц разбился<br>
+      Белоперых певчих соек<br>
+      Разлетевшихся крикливо.</p>
+    </div>
+
+    <div class="music-label">Песнь Ступеней:</div>
+    <details class="track">
+      <summary><span class="t-name">The Phantom of the Opera</span><span class="t-art">Nightwish</span><a class="t-ext" href="https://youtu.be/tL25rbnvM4o" target="_blank" rel="noopener">↗</a><span class="t-arrow">▾</span></summary>
+      <div class="t-player" data-yt="tL25rbnvM4o"></div>
+    </details>
+
+    <div class="verse">
+      <p><span class="stanza-num">3.</span> На глазах и на экране<br>
+      Мира Снов Реальных ярких<br>
+      Что у девочек и женщин<br>
+      Расположен ниже матки.</p>
+
+      <p>Мальчик и мужчина бьется<br>
+      В него членом при соитьи.<br>
+      Чтобы семя Жизни новой<br>
+      Шанс имело просочиться</p>
+
+      <p>Вопреки защите мощной<br>
+      Перегруженной, ей в Лоно<br>
+      (Методом DDoS-атаки,<br>
+      Как IT-шники б сказали)</p>
+
+      <p>А затем укорениться,<br>
+      Свету став новой опорой<br>
+      Чтобы Кли новой ступени<br>
+      Инкарнироваться в Душу</p>
+
+      <p>Норме Света Бесконечной<br>
+      Что вместилищем послужит<br>
+      В срок вскормившись и родившись<br>
+      В свой Мир Снов Реальных ярких.</p>
+    </div>
+
+    <div class="music-label">Песнь Ступеней:</div>
+    <details class="track">
+      <summary><span class="t-name">Circle of Life</span><span class="t-art">Elton John</span><a class="t-ext" href="https://youtu.be/IwH9YvhPN7c" target="_blank" rel="noopener">↗</a><span class="t-arrow">▾</span></summary>
+      <div class="t-player" data-yt="IwH9YvhPN7c"></div>
+    </details>
+
+    <div class="verse">
+      <p><span class="stanza-num">4.</span> Впрочем, суть рассказа нам здесь<br>
+      Призывать пора обратно<br>
+      (To recall the circumstances<br>
+      Of betrothed Future events).</p>
+
+      <p>...Эти птицы<a class="fn-ref" id="ref-15-2" href="#fn-15">15</a> "облаченьем"<br>
+      Внешним были моей Воли.<br>
+      Суть же, как движенье ветра<br>
+      На девчонку я настроил.</p>
+
+      <p>И она меня прекрасно,<br>
+      Матку к жизни пробуждая,<br>
+      В Мире Снов своих реальных<br>
+      Пред собою ощущала.</p>
+
+      <p>Этот факт, крайне удачный,<br>
+      Я использовал мгновенно:<br>
+      Зафиксировав вниманьем<br>
+      Её Целью своей - Чрево.</p>
+
+      <p>И, пронзая возбужденьем<br>
+      Скань картинки сна девчонки,<br>
+      ВЗЯЛ ЕЕ ПОЛОВЫМ ЧЛЕНОМ<br>
+      Мир Иллюзий порвав в клочья</p>
+    </div>
+
+    <div class="music-label">Песнь Ступеней:</div>
+    <details class="track">
+      <summary><span class="t-name">Инцидент в Настасьино</span><span class="t-art">Б.Г.</span><a class="t-ext" href="https://www.youtube.com/watch?v=L31_wqA3Nm4" target="_blank" rel="noopener">↗</a><span class="t-arrow">▾</span></summary>
+      <div class="t-player" data-yt="L31_wqA3Nm4"></div>
+    </details>
+
+    <div class="verse">
+      <p><span class="stanza-num">5.</span> И наполнив новым смыслом<br>
+      Обновленную Реальность,<br>
+      Положив начало дивной<br>
+      Тропе Сердца в Мире Счастья,</p>
+
+      <p>Где отдельно мы не будем -<br>
+      Дух, и Женщина с Мужчиной,<br>
+      Став Одной Единой сутью -<br>
+      Человеком Триединым</p>
+
+      <p>Человеком Говорящим,<br>
+      Человеком, слитым с Духом<br>
+      Человеком, проводящим<br>
+      Волю Бога к живым людям</p>
+
+      <p>К детям Будущего Мира<a class="fn-ref" href="#fn-23">23</a>,<br>
+      К взрослым - в Мире Настоящем<br>
+      Выполнив Команду Силы:<br>
+      "Нас троих Одним создал Он"<a class="fn-ref" href="#fn-18">18</a>.</p>
+    </div>
+
+    <div class="music-label">Песнь Ступеней:</div>
+    <details class="track">
+      <summary><span class="t-name">Верхом на Звезде<a class="fn-ref" id="ref-22-1" href="#fn-22">22</a></span><span class="t-art">Найк Борзов</span><a class="t-ext" href="https://youtu.be/hz4YfY4agT8" target="_blank" rel="noopener">↗</a><span class="t-arrow">▾</span></summary>
+      <div class="t-player" data-yt="hz4YfY4agT8"></div>
+    </details>
+
+    <div class="verse">
+      <p><span class="stanza-num">6.</span> Да прибудет Воля Света<br>
+      Бесконечного, вовеки!<br>
+      Да познают Его телом<br>
+      Женщина с Мужчиной вместе,</p>
+
+      <p>Раскрывая совершенство<br>
+      В "этом мире", в чувствах "нижних"<br>
+      Невозможного блаженства,<br>
+      "Жить, давая Жить", навечно.</p>
+
+      <p>Жить посредством Любви к детям<br>
+      Половой Любви Духовной<br>
+      Создавая вместе с Богом<br>
+      Их, и вместе с мамой с папой.</p>
+
+      <p>Ведь Трон<a class="fn-ref" id="ref-22-2" href="#fn-22">22</a> Элиягу Крылатый<a class="fn-ref" id="ref-15-3" href="#fn-15">15</a><br>
+      Должен быть Живым Глаголом<br>
+      Высказан посредством Слова<br>
+      Что "вначале" есть у Бога<br>
+      А потом - у Человека,</p>
+
+      <p>Назван Человеком явно:<br>
+      ЗДЕСЬ СТОИТ ТРОН ЭЛИЯГУ.<br>
+      Чтоб Творца раскрылось Знанье<br>
+      Всем от мала до велика</p>
+
+      <p>То есть, нам и детям нашим<br>
+      В «Келим Будущего мира»<br>
+      По Любви, желанной каждым,<br>
+      <span class="indent" style="width:.8em"></span>О Любви всей своей Жизни<a class="fn-ref" id="ref-22-3" href="#fn-22">22</a>.</p>
+    </div>
+  </section>
+
+  <section class="music-summary">
+    <h2 id="music"><a href="#top">Песнь Ступеней</a></h2>
+    <details class="track">
+      <summary><span class="t-name">Игра с Огнем</span><span class="t-art">АРИЯ</span><a class="t-ext" href="https://youtu.be/MQpTyHJ6pKQ" target="_blank" rel="noopener">↗</a><span class="t-arrow">▾</span></summary>
+      <div class="t-player" data-yt="MQpTyHJ6pKQ"></div>
+    </details>
+    <details class="track">
+      <summary><span class="t-name">Bless the Child</span><span class="t-art">Nightwish</span><a class="t-ext" href="https://youtu.be/U52aAa9VkEk" target="_blank" rel="noopener">↗</a><span class="t-arrow">▾</span></summary>
+      <div class="t-player" data-yt="U52aAa9VkEk"></div>
+    </details>
+    <details class="track">
+      <summary><span class="t-name">The Phantom of the Opera</span><span class="t-art">Nightwish</span><a class="t-ext" href="https://youtu.be/tL25rbnvM4o" target="_blank" rel="noopener">↗</a><span class="t-arrow">▾</span></summary>
+      <div class="t-player" data-yt="tL25rbnvM4o"></div>
+    </details>
+    <details class="track">
+      <summary><span class="t-name">Circle of Life</span><span class="t-art">Elton John</span><a class="t-ext" href="https://youtu.be/IwH9YvhPN7c" target="_blank" rel="noopener">↗</a><span class="t-arrow">▾</span></summary>
+      <div class="t-player" data-yt="IwH9YvhPN7c"></div>
+    </details>
+    <details class="track">
+      <summary><span class="t-name">Инцидент в Настасьино</span><span class="t-art">Б.Г.</span><a class="t-ext" href="https://www.youtube.com/watch?v=L31_wqA3Nm4" target="_blank" rel="noopener">↗</a><span class="t-arrow">▾</span></summary>
+      <div class="t-player" data-yt="L31_wqA3Nm4"></div>
+    </details>
+    <details class="track">
+      <summary><span class="t-name">Верхом на Звезде</span><span class="t-art">Найк Борзов</span><a class="t-ext" href="https://youtu.be/hz4YfY4agT8" target="_blank" rel="noopener">↗</a><span class="t-arrow">▾</span></summary>
+      <div class="t-player" data-yt="hz4YfY4agT8"></div>
+    </details>
+    <details class="track">
+      <summary><span class="t-name">Не думай о секундах свысока</span><span class="t-art">к/ф 17 мгновений весны</span><a class="t-ext" href="https://youtu.be/XkptwawfnJQ" target="_blank" rel="noopener">↗</a><span class="t-arrow">▾</span></summary>
+      <div class="t-player" data-yt="XkptwawfnJQ"></div>
+    </details>
+  </section>
+
+  <section class="notes">
+    <h2 id="notes"><a href="#top">ОР ПНИМИ (ПРИМЕЧАНИЯ)</a></h2>
+
+    <div class="note" id="fn-1">
+      <div class="fn-num">*1</div>
+      <div class="fn-body">
+        <p class="qverse">В «мире взрослом и разумном»<br>
+        А не «выдуманном детском».<br>
+        Впрочем, тут поспорить трудно<br>
+        Дочитав до конца текста...</p>
+        <a class="fn-back" href="#ref-1">↑</a>
+      </div>
+    </div>
+
+    <div class="note" id="fn-2">
+      <div class="fn-num">*2</div>
+      <div class="fn-body">
+        <p>См. также: Откуда берутся дети - инфографика (Зеир Арихович Анпин) <a href="http://proza.ru/2021/12/18/211">proza.ru/2021/12/18/211</a><a class="fn-back" href="#ref-2">↑</a></p>
+      </div>
+    </div>
+
+    <div class="note" id="fn-3">
+      <div class="fn-num">*3</div>
+      <div class="fn-body">
+        <p>Кли (каб.ивр.; мн.ч. - Келим) - ощущения, механизмы, формы и действия (в данном контексте).<a class="fn-back" href="#ref-3">↑</a></p>
+      </div>
+    </div>
+
+    <div class="note" id="fn-4">
+      <div class="fn-num">*4</div>
+      <div class="fn-body">
+        <p>Первоисточник: Песнь про Бар Малея. <a href="https://www.youtube.com/watch?v=sybxMdW6kSY">youtube.com/watch?v=sybxMdW6kSY</a><a class="fn-back" href="#ref-4">↑</a></p>
+      </div>
+    </div>
+
+    <div class="note" id="fn-5">
+      <div class="fn-num">*5</div>
+      <div class="fn-body">
+        <p>Цитата: «И дело в том, что до создания «мира исправления» было разбиение келим в ЗАТ мира Некудим. Мы изучаем также, что «Он создавал и разрушал миры, пока не создал их, и сказал: "Это Мне нравится"»», Заповедь девятая, п. 236, том 1, Книга Зоар, РАШБИ — Бааль Сулам <a href="https://w.wiki/88WK">w.wiki/88WK</a><a class="fn-back" href="#ref-5">↑</a></p>
+      </div>
+    </div>
+
+    <div class="note" id="fn-6">
+      <div class="fn-num">*6</div>
+      <div class="fn-body">
+        <p>См. также:<br>
+        Обладательница Крыльев <a href="http://proza.ru/2022/05/22/1430">proza.ru/2022/05/22/1430</a>,<br>
+        Да, я такая <a href="http://proza.ru/2022/08/25/1684">proza.ru/2022/08/25/1684</a>,<br>
+        Лоно Природы <a href="http://proza.ru/2022/08/18/661">proza.ru/2022/08/18/661</a>,<br>
+        и др. стихи серии Добрая речь (Зеир Арихович Анпин) <a href="http://proza.ru/avtor/agent017&book=14#14">proza.ru/avtor/agent017&book=14#14</a><a class="fn-back" href="#ref-6">↑</a></p>
+      </div>
+    </div>
+
+    <div class="note" id="fn-7">
+      <div class="fn-num">*7</div>
+      <div class="fn-body">
+        <p>См. также: стих Конечное Исправление (Зеир Арихович Анпин) <a href="http://proza.ru/2021/10/26/1421">proza.ru/2021/10/26/1421</a><a class="fn-back" href="#ref-7">↑</a></p>
+      </div>
+    </div>
+
+    <div class="note" id="fn-8">
+      <div class="fn-num">*8</div>
+      <div class="fn-body">
+        <p>Цитата: «Сказано: «Могучая башня – имя Творца, Свят Благословен Он, в нее убежит праведник и укрепится». «Праведник», о котором здесь говорится, – это «книга порождений Адама», которая устремляется в эту башню. И это «башня Давида», т.е. Малхут, а также «могучая башня – имя Творца, Свят Благословен Он». И всё является одним целым, поскольку башней (мигдаль) называется Малхут в состоянии гадлут, потому что «мигдаль (башня)» означает «гадлут» (от слова гадоль — большой, каб. ивр. - прим. Зеир А“А). Здесь скрыта тайна, известная обладающим верой, т.е. тайна сочетания имен, исходящих из сказанного: «Могучая башня…» И это, конечно, книга порождений, т.е. Есод праведника, который с помощью этой башни производит порождения», Вот книга порождений Адама, Берешит-1, п. 471, т. 2, Книга Зоар, РАШБИ — Бааль Сулам<a class="fn-back" href="#ref-8">↑</a></p>
+      </div>
+    </div>
+
+    <div class="note" id="fn-9">
+      <div class="fn-num">*9</div>
+      <div class="fn-body">
+        <p>Цитата: «Сказал он в ответ: «И Бнайяу, сын Йеояды бен Иш Хай, Рав Пэалим, Микавцеэль» – это высказывание приводится, чтобы обратить наше внимание на высшие тайны Торы. И Имя Бнайяу, сына Йеояды, указывает на скрытую мудрость. Это указывает на скрытие, которое вызвано этим именем. «Бен Иш Хай (сын человека живого)» – это праведник, оживляющий миры. «Рав Пэалим (многодействующий)» – т.е. он Властелин всех деяний и всех высших воинств, так как все они исходят от Него. Он называется «Творец воинств», будучи знамением во всех Его воинствах, – знаменит Он и величественней всех», Погонщик ослов, п. 91, том 1, Книга Зоар, РАШБИ — Бааль Сулам <a href="https://w.wiki/AghB">w.wiki/AghB</a><a class="fn-back" href="#ref-9">↑</a></p>
+      </div>
+    </div>
+
+    <div class="note" id="fn-10">
+      <div class="fn-num">*10</div>
+      <div class="fn-body">
+        <p>Цитата: ««Мужчиной и женщиной создал Он их». Высшие тайны раскрывались посредством двух изречений – «вот Книга порождений Адама» и «мужчиной и женщиной создал Он их». Изречение «мужчиной и женщиной создал Он их» – для постижения высшего величия в свойстве веры, и от этого свойства произошел Адам, т.е. от высших ЗОН, называемых небом и землей», Мужчиной и женщиной создал Он, их п. 367, том 3, Берешит-2, Книга Зоар, РАШБИ — Бааль Сулам<a class="fn-back" href="#ref-10">↑</a></p>
+      </div>
+    </div>
+
+    <div class="note" id="fn-11">
+      <div class="fn-num">*11</div>
+      <div class="fn-body">
+        <p>Цитата: ««Мужчиной и женщиной (захар и некева) создал Он их». Отсюда становится ясным, что любая форма, в которой не находятся свойства захар и некева, не является высшей формой, как подобает», там же, п. 368</p>
+        <p>А также: ««Мужского и женского пола (захар ве-некева) сотворил Он их» – непонятно. Следовало сказать: «Мужчиной и женщиной сотворил Он их». Но дело в том, что один был включен в другого, т.е. некева была включена в захара во время создания его, потому что они были двойным парцуфом, но затем разделил Он их», п. 470, Вот Книга порождений Адама, том 2, Берешит-1, Книга Зоар, РАШБИ — Бааль Сулам<a class="fn-back" href="#ref-11">↑</a></p>
+      </div>
+    </div>
+
+    <div class="note" id="fn-12">
+      <div class="fn-num">*12</div>
+      <div class="fn-body">
+        <p>См. также: Радость Ответной Любви (Зеир Арихович Анпин) <a href="http://proza.ru/2021/12/18/664">proza.ru/2021/12/18/664</a><a class="fn-back" href="#ref-12">↑</a></p>
+      </div>
+    </div>
+
+    <div class="note" id="fn-13">
+      <div class="fn-num">*13</div>
+      <div class="fn-body">
+        <p>См. также: Путь Творца, Свят Благословен Он (Зеир Арихович Анпин) <a href="http://proza.ru/2021/12/11/210">proza.ru/2021/12/11/210</a><a class="fn-back" href="#ref-13">↑</a></p>
+      </div>
+    </div>
+
+    <div class="note" id="fn-14">
+      <div class="fn-num">*14</div>
+      <div class="fn-body">
+        <p>См. также: Конфронтология Самовоспроисхождения Человеческого Духа (Зеир Арихович Анпин) <a href="http://proza.ru/2022/05/27/1206">proza.ru/2022/05/27/1206</a><a class="fn-back" href="#ref-14">↑</a></p>
+      </div>
+    </div>
+
+    <div class="note" id="fn-15">
+      <div class="fn-num">*15</div>
+      <div class="fn-body">
+        <p>Цитата: ««И птица будет летать над землею» – это Элияу, облетавший мир в четыре перелета, для того чтобы быть там, во время (совершения) этого святого союза обрезания. И нужно установить ему трон, и упомянуть устами: «Это трон Элияу», а иначе он не пребывает там.» - Заповедь седьмая, п. 255, том 1, Книга Зоар, РАШБИ — Бааль Сулам <a href="https://w.wiki/88TP">w.wiki/88TP</a></p>
+        <p>А также: «...И далее выясняется, что следующее изречение: «И всякую птицу крылатую по виду ее» – об ангелах, которые, кружась по миру, облетают его в шесть перелетов. Здесь выясняется конец речения, где говорится о земле, и поэтому нельзя отнести его к высшим ангелам, так как они не находятся на земле. И поэтому понятно, что это Элияу...», там же</p>
+        <p><a class="fn-back" href="#ref-15-1">↑¹</a> <a class="fn-back" href="#ref-15-2">↑²</a> <a class="fn-back" href="#ref-15-3">↑³</a></p>
+      </div>
+    </div>
+
+    <div class="note" id="fn-16">
+      <div class="fn-num">*16</div>
+      <div class="fn-body">
+        <p>Цитата: ««И это – знак буквы "йуд ;", запечатлевшейся на святой плоти более, чем все остальные впечатления в мире», так как с помощью обрезания и подворачивания из человека тоже устраняются все впечатления этого мира, относящиеся к букве «хэй ;». И знак буквы «йуд ;» появляется вместо нее, так же как это произошло в Нукве, когда она поднялась в Бину. И поскольку святая плоть Есода отмечена буквой «йуд ;», человек тоже может получить завершенную «нефеш хая» от святой Нуквы.», там же, п. 224<a class="fn-back" href="#ref-16">↑</a></p>
+      </div>
+    </div>
+
+    <div class="note" id="fn-17">
+      <div class="fn-num">*17</div>
+      <div class="fn-body">
+        <p>См. также: Мудрость, на которой держится Мир, п. 40, том 1, Книга Зоар, РАШБИ — Бааль Сулам <a href="https://w.wiki/Aiad">w.wiki/Aiad</a><a class="fn-back" href="#ref-17">↑</a></p>
+      </div>
+    </div>
+
+    <div class="note" id="fn-18">
+      <div class="fn-num">*18</div>
+      <div class="fn-body">
+        <p>См. также: Кто создал их (по Элияу), п. 11, том 1, Книга Зоар, РАШБИ — Бааль Сулам <a href="https://w.wiki/Ayrn">w.wiki/Ayrn</a><a class="fn-back" href="#ref-18">↑</a></p>
+      </div>
+    </div>
+
+    <div class="note" id="fn-22">
+      <div class="fn-num">*22</div>
+      <div class="fn-body">
+        <p>См. также: стих «Конечное Исправление» (Зеир Арихович Анпин) <a href="http://proza.ru/2021/10/26/1421">proza.ru/2021/10/26/1421</a></p>
+        <p><a class="fn-back" href="#ref-22-1">↑¹</a> <a class="fn-back" href="#ref-22-2">↑²</a> <a class="fn-back" href="#ref-22-3">↑³</a></p>
+      </div>
+    </div>
+
+    <div class="note" id="fn-23">
+      <div class="fn-num">*23</div>
+      <div class="fn-body">
+        <p>См. также: Детям будущего мира, ЭБМ <a href="http://proza.ru/2026/01/29/85">proza.ru/2026/01/29/85</a><a class="fn-back" href="#ref-23">↑</a></p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="pv" href="299.html"><span class="lbl">← Предыдущая</span>Берегите свои желания</a>
+    <a class="nx" href="243.html"><span class="lbl">Следующая →</span>Эники Беники Ели Вареники</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<div id="fn-popup"></div>
+
+<script>
+  // Lazy YouTube players
+  document.querySelectorAll('details.track').forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if(d.open){
+        var p = d.querySelector('.t-player');
+        if(p && !p.dataset.loaded){
+          var id = p.dataset.yt;
+          p.innerHTML = '<iframe src="https://www.youtube.com/embed/'+id+'?rel=0" title="YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+          p.dataset.loaded = '1';
+        }
+      }
+    });
+  });
+  // External link inside summary shouldn't toggle
+  document.querySelectorAll('details.track .t-ext').forEach(function(a){
+    a.addEventListener('click', function(e){ e.stopPropagation(); });
+  });
+
+  // Footnote popups
+  (function(){
+    var pop = document.getElementById('fn-popup');
+    function build(ref){
+      var id = ref.getAttribute('href').slice(1);
+      var note = document.getElementById(id);
+      if(!note) return null;
+      var body = note.querySelector('.fn-body').cloneNode(true);
+      body.querySelectorAll('.fn-back').forEach(function(e){ e.remove(); });
+      return body.innerHTML;
+    }
+    function show(ref){
+      var html = build(ref);
+      if(!html) return;
+      pop.innerHTML = html;
+      pop.style.display = 'block';
+      var r = ref.getBoundingClientRect();
+      var pr = pop.getBoundingClientRect();
+      var top;
+      if(r.top - pr.height - 10 < 0){
+        top = r.bottom + 8 + window.scrollY;
+      } else {
+        top = r.top - pr.height - 8 + window.scrollY;
+      }
+      var left = r.left + window.scrollX;
+      if(left + pr.width > window.innerWidth - 12){
+        left = window.innerWidth - pr.width - 12;
+      }
+      if(left < 8) left = 8;
+      pop.style.top = top + 'px';
+      pop.style.left = left + 'px';
+    }
+    function hide(){ pop.style.display = 'none'; }
+    document.querySelectorAll('.fn-ref').forEach(function(ref){
+      ref.addEventListener('mouseenter', function(){ show(ref); });
+      ref.addEventListener('mouseleave', hide);
+    });
+    pop.addEventListener('mouseenter', function(){ pop.style.display='block'; });
+    pop.addEventListener('mouseleave', hide);
+  })();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "поэма",
+  "rationale": "Статья состоит из короткого прозаического «Введения», стихотворного эпиграфа и шести нумерованных строф (АКТ 1–2), построенных как поэма-«school story». Доминирующая форма — стих/поэма, поэтому выбрана манускрипт-схема с узкой книжной полосой (~820px) и засечным, рукописно-поэтичным характером на светлом пергаментном фоне; альтернативу — широкий редакторский лонгрид — отверг, так как длинная проза тут лишь обрамляет стихи. Палитра тёплая (пергамент, чернильно-коричневый, золото и приглушённый багрянец) под каббалистический манускрипт; заголовки центрированы, КАПС оригинала сохранён дословно (например ВЗЯЛ ЕЕ ПОЛОВЫМ ЧЛЕНОМ, ЗДЕСЬ СТОИТ ТРОН ЭЛИЯГУ).\n\nВсе 7 ютуб-треков «Песнь Ступеней» оформлены как ленивые сворачиваемые плееры на своих местах в строфах; так как их больше двух, добавлен сводный раздел «Песнь Ступеней» перед примечаниями (доминирующая атрибуция именно «Песнь Ступеней»). Метку не дублирую подряд — треки разрознены по строфам, у каждого своя подпись. Сноски снабжены переходами вниз/вверх, всплывающим popup над/под маркером и подсветкой :target; сноски *15 и *22 многократны — даны множественные обратные ссылки. Пустые тела *19, *20, *21 — висячие маркеры без текста, поэтому соответствующие маркеры из стихов убраны, пустые записи не выводятся. Голые URL обёрнуты в ссылки. Оглавление сворачиваемое, по умолчанию открыто; клик по заголовку раздела возвращает наверх.",
+  "features": ["music", "footnotes", "toc"]
+}
+</script>
+</body>
+</html>
