@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Очерки об эволюции человека. Очерк 1</title>
+<style>
+  :root{
+    --bg:#f6f4ef;
+    --paper:#fffdf8;
+    --ink:#1f1c17;
+    --muted:#6b6357;
+    --accent:#8a5a2b;
+    --accent-soft:#c89b6a;
+    --rule:#e3ddd0;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1100px;
+    margin:0 auto;
+    padding:48px 40px 80px;
+  }
+  /* breadcrumbs */
+  nav.crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:36px;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+  }
+  nav.crumbs a{color:var(--accent);text-decoration:none;}
+  nav.crumbs a:hover{text-decoration:underline;}
+  nav.crumbs span.sep{margin:0 .5em;color:var(--accent-soft);}
+
+  h1{
+    font-size:2.4rem;
+    line-height:1.15;
+    font-weight:700;
+    margin:0 0 8px;
+    letter-spacing:-.01em;
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--accent);
+    margin:0 0 14px;
+  }
+  .dateline{
+    font-style:italic;
+    color:var(--muted);
+    margin:0 0 40px;
+    font-size:1.05rem;
+  }
+  article p{
+    margin:0 0 1.4em;
+    text-align:justify;
+    hyphens:auto;
+  }
+  article p:first-of-type::first-letter{
+    font-size:3.4em;
+    line-height:.8;
+    float:left;
+    padding:6px 10px 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+  .contd{
+    font-style:italic;
+    color:var(--muted);
+    text-align:center;
+    margin:2.4em 0;
+    font-size:1.1rem;
+  }
+
+  /* music */
+  .music{
+    margin:48px 0 0;
+    border-top:1px solid var(--rule);
+    padding-top:28px;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    color:var(--accent);
+    margin-bottom:12px;
+  }
+  .track{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#faf6ee;}
+  .track-arrow{
+    color:var(--accent);
+    transition:transform .25s ease;
+    font-size:.9rem;
+  }
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-title{flex:1;font-size:1.05rem;}
+  .track-title b{font-weight:700;}
+  .track-title span{color:var(--muted);}
+  .track-ext{
+    color:var(--accent);
+    text-decoration:none;
+    font-size:1.1rem;
+  }
+  .track-ext:hover{color:var(--accent-soft);}
+  .track-body{display:none;background:#000;}
+  .track.open .track-body{display:block;}
+  .track-body .ratio{
+    position:relative;
+    width:100%;
+    padding-top:56.25%;
+  }
+  .track-body iframe{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    border:0;
+  }
+
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    margin-top:60px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    color:var(--accent);
+    max-width:46%;
+  }
+  .corpus-nav .lbl{
+    display:block;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .corpus-nav a.next{text-align:right;margin-left:auto;}
+  .corpus-nav a:hover .ttl{text-decoration:underline;}
+
+  footer.colophon{
+    margin-top:48px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-size:.85rem;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent);}
+
+  @media(max-width:760px){
+    body{font-size:18px;}
+    .wrap{width:100%;padding:28px 20px 56px;}
+    h1{font-size:1.9rem;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav a,.corpus-nav a.next{max-width:100%;text-align:left;margin-left:0;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../cyberson/index.html">Киберсон</a>
+  </nav>
+
+  <p class="kicker">Очерки об эволюции человека</p>
+  <h1>Очерки об эволюции человека. Очерк 1</h1>
+  <p class="dateline">23 ноября 2021 г.</p>
+
+  <article>
+    <p>Эволюция человека отличается от эволюции предшествующих ему форм живых организмов тем, что сам человек участвует личным непосредственным образом в том, как происходит последовательная смена генераций внутри этого процесса, — то есть того, как происходит последовательная смена этих форм во времени, развивающихся от простого к сложному, к более совершенному, развитому и близкому к цели, которой является следующий, несравнимо более совершенный по качеству, вид внутренней и внешней организации и соорганизации форм живой материи, — то есть, говоря простым человеческим языком, смена поколений. В этом участии, или влиянии, в его осознанности и развитости его становления самим человеком, — по сравнению с тем участием и влиянием, которое в нем все еще занимают механизмы, формы и практики, установленные самим эволюционным контекстом жизни как явления вообще, то есть, что мы называем "живым", или "животным" уровнем эволюционной организации форм жизни, — оказывается "включен" целый пласт собственной эволюционной динамики и реальности последовательного развития, которого не было до возникновения такого качественно нового, по отношению к прочим живым организмам нашего мира, явления и эволюционной сферы или среды, "ринга", на котором происходит "соревнование" "естественного отбора" по типу "выживает сильнейший", то есть более близкий по факту к следующей, пока еще не достигнутой и поэтому не раскрытой и неизвестной человеку в общем и целом, ожидающей его ступени собственной эволюции, на котором он станет чем то значительно большим, чем он сам по себе является, как принято считать, на ступени "человека разумного", то есть в наших мыслях и представлениях о себе и мире.</p>
+
+    <p>Это новое будет настолько же качественно большим и более важным как целое, нежели набор своих элементарных составных частей, насколько человек как общество себе подобных, как социум, род, культура, родина, нация, цивилизация, человечество — является большим и объективно более важным, сильным, влияющим, управляющим, познающим и значимым, чем таковой является популяция обезьян, или даже совокупность всех млекопитающих, рассматриваемая на момент времени до появления человека разумного и до начала соответствующего ему качественного витка эволюции жизни на планете Земля. Чем именно этот уровень будет характерен в деталях, и какими будут его основные черты, мы сейчас едва ли можем описать правдоподобно, поскольку наши способности к познанию мира и самопознанию в частности посредством этого качественного скачка претерпят соответствующие качественные усовершенствования, причем самым сущностным образом, о котором мы тоже едва ли можем достоверно предположить в силу той же самой причины в точности.</p>
+
+    <p class="contd">Продолжение следует</p>
+  </article>
+
+  <section class="music">
+    <div class="music-label">Музыка под настроение</div>
+    <div class="track" id="track1">
+      <div class="track-head" onclick="toggleTrack('track1','Eqilin4Cv08')">
+        <span class="track-arrow">▶</span>
+        <span class="track-title"><span>Jean-Michel Jarre — </span><b>Chronology, Pt. 4</b></span>
+        <a class="track-ext" href="https://youtu.be/Eqilin4Cv08" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="track-body"><div class="ratio" data-loaded="0"></div></div>
+    </div>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="53J.html">
+      <span class="lbl">← Предыдущая</span>
+      <span class="ttl">Очерки об эволюции человека. Очерк 2</span>
+    </a>
+    <a class="next" href="1BJ.html">
+      <span class="lbl">Следующая →</span>
+      <span class="ttl">Киберсон</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+function toggleTrack(id,vid){
+  var el=document.getElementById(id);
+  var open=el.classList.toggle('open');
+  if(open){
+    var box=el.querySelector('.ratio');
+    if(box.getAttribute('data-loaded')==='0'){
+      var f=document.createElement('iframe');
+      f.src='https://www.youtube.com/embed/'+vid+'?rel=0';
+      f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen=true;
+      box.appendChild(f);
+      box.setAttribute('data-loaded','1');
+    }
+  }
+}
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — короткий философско-эссеистический очерк об эволюции человека, написанный сплошной прозой длинными периодами; стихотворных форм нет, поэтому однозначно выбрана редакторская широкая схема, а не узкий манускрипт. Колонку задал в 66% ширины окна с потолком 1100px, чтобы длинные предложения дышали, но мера строки оставалась читаемой; засечный Georgia для тела и гротеск для служебных надписей создают журнальный лонгрид-контраст. Буквица на первом абзаце — лёгкий акцент входа без добавления собственного контента.",
+  "rationale_extra": "Оглавление не делал: подраздел всего нет (единый текст), а свод музыки и раздел примечаний не требуются — сносок нет, а музыкальный трек единственный (меньше трёх), поэтому отдельный сводный раздел не создавался, плеер стоит на своём месте. Авторские кавычки и регистр сохранены дословно; для читаемости длинных тире заменил дефис-разделители на тире, не трогая слова. YouTube-трек оформлен как свёрнутый ленивый плеер с иконкой внешней ссылки.",
+  "features": ["music"]
+}
+</script>
+</body>
+</html>
