@@ -1,0 +1,33 @@
+[gui] === yaniktoim GUI started 2026-05-30 13:14:56 ===
+[gui] start: --batch-size 5
+2026-05-30T13:14:58 START(html) · pid=11524 · pending=347 · batch_size=5 · section=any
+2026-05-30T13:14:58 GIT pull --rebase
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+2026-05-30T13:14:58 GIT pull --rebase rc=128 (likely no upstream yet or conflict)
+fatal: no rebase in progress
+2026-05-30T13:14:58 HTML-TRANSFORM start: 185B 34O 29MA 368 182
+
+[gui] процесс завершён, exit=1
+[gui] === GUI closed 2026-05-30 13:17:32 ===
+[gui] === yaniktoim GUI started 2026-05-30 13:25:36 ===
+[gui] === yaniktoim GUI started 2026-05-30 13:26:35 ===
+[gui] start: --limit 1 --batch-size 1
+2026-05-30T13:29:13 START(html) · pid=11216 · pending=1 · batch_size=1 · section=any
+2026-05-30T13:29:13 GIT pull --rebase
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+2026-05-30T13:29:13 GIT pull --rebase rc=128 (likely no upstream yet or conflict)
+fatal: no rebase in progress
+2026-05-30T13:29:13 HTML-TRANSFORM start: 185B
+2026-05-30T13:31:50 HTML-TRANSFORM exit=0
+2026-05-30T13:31:50 INDEX rebuild
+main → site/index.html (350 articles, 7 sections)
+  best → 32 articles
+  dreamon → 35 articles
+  cyberson → 21 articles
+  dabudet → 51 articles
+  confront → 100 articles
+  shoshana → 84 articles
+  other → 27 articles
+2026-05-30T13:31:50 GIT push: html: +1 (185B..185B)

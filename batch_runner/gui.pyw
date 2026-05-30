@@ -1,4 +1,4 @@
-"""yaniktoim batch_runner GUI — простая обёртка над run_batch.py.
+"""yaniktoim batch_runner GUI — простая обёртка над run_batch_html.py.
 
 Двойной клик по этому файлу запускает приложение через pythonw.exe (без
 чёрной консоли). Окно одно:
@@ -30,9 +30,12 @@ from tkinter import messagebox, ttk
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 HERE = Path(__file__).resolve().parent
-RUN_BATCH = HERE / "run_batch.py"
-STATE_FILE = HERE / "state.json"
-LOCK_FILE = HERE / "run.lock"
+# HTML-пайплайн (roadmap3): GUI запускает run_batch_html.py (прямая
+# LLM-вёрстка raw→docs/art/<art>.html). Старый ZML-раннер run_batch.py
+# заморожен и здесь не используется.
+RUN_BATCH = HERE / "run_batch_html.py"
+STATE_FILE = HERE / "state_html.json"
+LOCK_FILE = HERE / "run_html.lock"
 LOG_FILE_FMT = HERE / "gui_{}.log"
 MANIFEST = PROJECT_ROOT / "manifest.json"
 
@@ -158,11 +161,24 @@ class BatchProcess:
             return False
 
     def stop_force(self) -> None:
-        if self.is_running():
+        if not self.is_running():
+            return
+        # proc.kill() убивает ТОЛЬКО раннер-родитель, а его дети
+        # (3b_transform_html.py → claude.exe) остаются сиротами и держат
+        # работу. На Windows валим всё дерево через taskkill /T /F.
+        pid = self.proc.pid
+        if os.name == "nt":
             try:
-                self.proc.kill()
+                subprocess.run(
+                    ["taskkill", "/PID", str(pid), "/T", "/F"],
+                    capture_output=True, timeout=10,
+                )
             except Exception:
                 pass
+        try:
+            self.proc.kill()
+        except Exception:
+            pass
 
 
 # ---------------------------------------------------------------------------
@@ -388,7 +404,7 @@ class App:
             return True
         messagebox.showerror(
             "yaniktoim",
-            f"Уже запущен другой run_batch.py (PID {pid}).\n"
+            f"Уже запущен другой раннер (PID {pid}).\n"
             f"Lock-файл: {LOCK_FILE}\n\n"
             f"Дождитесь его завершения, либо, если процесс мёртв, "
             f"удалите вручную lock-файл.",
@@ -484,26 +500,16 @@ class App:
             self._close_log_file(); self.root.destroy(); return
         ok = messagebox.askyesno(
             "yaniktoim",
-            "Процесс работает. Остановить его (Ctrl-Break, до 30s,\n"
-            "затем kill) и закрыть окно?",
+            "Процесс работает. Остановить его и закрыть окно?\n\n"
+            "(Текущая статья оборвётся; уже готовые страницы сохранены.)",
         )
         if not ok: return
-        self.batch.stop_graceful()
-        # Non-blocking wait: schedule polls through the Tk event loop instead
-        # of blocking it with time.sleep — иначе окно «не отвечает» 30 сек.
-        self._close_deadline = time.time() + 30.0
-        self.root.after(200, self._await_shutdown_step)
-
-    def _await_shutdown_step(self) -> None:
-        if not self.batch.is_running():
-            self._close_log_file(); self.root.destroy(); return
-        if time.time() >= self._close_deadline:
-            # Grace expired — escalate to kill, then give it 1.5s more.
-            self.batch.stop_force()
-            self._close_deadline = time.time() + 1.5
-            self.root.after(50, self._await_kill_step)
-            return
-        self.root.after(200, self._await_shutdown_step)
+        # При ЗАКРЫТИИ окна не ждём graceful-завершения целого батча (это до
+        # часа на 5 длинных статьях — окно казалось бы зависшим). Сразу валим
+        # всё дерево процессов (раннер + 3b_transform + claude.exe) и закрываемся.
+        self.batch.stop_force()
+        self._close_deadline = time.time() + 5.0
+        self.root.after(50, self._await_kill_step)
 
     def _await_kill_step(self) -> None:
         if not self.batch.is_running() or time.time() >= self._close_deadline:
@@ -527,21 +533,24 @@ class App:
             manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
         except Exception:
             return "manifest.json не читается"
-        json_dir = PROJECT_ROOT / "json"
+        # «Готово» = новая HTML-страница docs/art/<art>.html (по data-scheme).
+        # Переиспущем ровно ту же проверку, что и раннер, чтобы не разъехаться.
+        from run_batch_html import _is_built
         total = len(manifest)
-        done = sum(1 for r in manifest if (json_dir / f"{r['number']}.json").exists())
+        done = sum(1 for r in manifest if r.get("art") and _is_built(r["art"]))
         pending = total - done
-        # Same iteration order as run_batch.pending_articles: section_order
-        # within SECTION_ORDER. First not-yet-transformed wins.
+        # Тот же порядок, что в run_batch_html.pending_articles: section_order
+        # внутри SECTION_ORDER. Первая непостроенная — «следующая».
         sec_order = ["best", "dreamon", "cyberson", "dabudet",
                      "confront", "shoshana", "other"]
         next_num: str | None = None
         for sec in sec_order:
-            rows = [r for r in manifest if r.get("section") == sec]
+            rows = [r for r in manifest
+                    if r.get("section") == sec and r.get("art")]
             rows.sort(key=lambda x: x.get("section_order", 9999))
             for r in rows:
-                if not (json_dir / f"{r['number']}.json").exists():
-                    next_num = r["number"]
+                if not _is_built(r["art"]):
+                    next_num = f"{r['number']} (art={r['art']})"
                     break
             if next_num:
                 break
@@ -577,7 +586,7 @@ class App:
             pid = _lock_owner_pid()
             if pid is not None:
                 self.proc_var.set(
-                    f"Чужой run_batch.py активен (PID {pid}) — Start заблокирован")
+                    f"Чужой раннер активен (PID {pid}) — Start заблокирован")
             else:
                 self.proc_var.set("Не запущен")
 
