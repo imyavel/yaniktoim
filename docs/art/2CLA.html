@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Пушистый подарок Риты</title>
+<style>
+  :root{
+    --ink:#2b2218;
+    --ink-soft:#5a4a36;
+    --gold:#9a6b1f;
+    --rule:#d8c7a6;
+    --bg:#f7f1e2;
+    --paper:#fffdf6;
+    --link:#8a5a14;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #fbf6e9 0%, var(--bg) 60%),
+      var(--bg);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
+    line-height:1.7;
+    font-size:19px;
+  }
+  .wrap{
+    max-width:820px;
+    margin:0 auto;
+    padding:32px 28px 72px;
+  }
+  .sheet{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:4px;
+    box-shadow:0 1px 0 #fff inset, 0 10px 40px rgba(80,55,15,.10);
+    padding:44px 48px 52px;
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-size:15.5px;
+    letter-spacing:.02em;
+    color:var(--ink-soft);
+    margin:0 0 22px;
+  }
+  .crumbs a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(138,90,20,.35);}
+  .crumbs a:hover{border-bottom-color:var(--link);}
+  .crumbs span.sep{margin:0 .5em;color:var(--gold);}
+
+  /* article image */
+  .art-img{
+    text-align:center;
+    margin:0 0 26px;
+  }
+  .art-img img{
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border:1px solid var(--rule);
+    border-radius:3px;
+    box-shadow:0 6px 22px rgba(80,55,15,.18);
+  }
+
+  /* ornament */
+  .orn{
+    text-align:center;
+    color:var(--gold);
+    font-size:22px;
+    letter-spacing:.4em;
+    margin:0 0 18px;
+  }
+
+  h1{
+    font-size:33px;
+    line-height:1.18;
+    text-align:center;
+    margin:.1em 0 .35em;
+    font-weight:600;
+    color:var(--ink);
+    letter-spacing:.005em;
+  }
+  .rule{
+    width:62%;
+    margin:0 auto 30px;
+    border:0;
+    border-top:1px solid var(--rule);
+    position:relative;
+  }
+  .rule::after{
+    content:"❧";
+    position:absolute;
+    top:-.85em;left:50%;
+    transform:translateX(-50%);
+    background:var(--paper);
+    padding:0 .5em;
+    color:var(--gold);
+    font-size:18px;
+  }
+
+  .subtitle{
+    text-align:center;
+    color:var(--ink-soft);
+    font-style:italic;
+    font-size:18px;
+    line-height:1.55;
+    margin:0 0 34px;
+  }
+
+  .poem{
+    margin:0 auto;
+    max-width:30em;
+  }
+  .stanza{
+    margin:0 0 1.7em;
+  }
+  .stanza p{
+    margin:0;
+    line-height:1.6;
+  }
+
+  footer{
+    margin-top:46px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+  }
+  .nav-corpus{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    flex-wrap:wrap;
+    font-size:16px;
+    margin-bottom:26px;
+  }
+  .nav-corpus a{
+    color:var(--link);
+    text-decoration:none;
+    max-width:46%;
+  }
+  .nav-corpus a:hover{text-decoration:underline;}
+  .nav-corpus .lbl{display:block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:3px;}
+  .nav-corpus .next{text-align:right;margin-left:auto;}
+  .colophon{
+    font-size:14.5px;
+    color:var(--ink-soft);
+    line-height:1.55;
+  }
+  .colophon a{color:var(--link);}
+  .colophon .attrib{margin:0 0 .5em;}
+
+  @media (max-width:560px){
+    body{font-size:18px;}
+    .wrap{padding:18px 12px 48px;}
+    .sheet{padding:26px 20px 34px;}
+    h1{font-size:27px;}
+    .poem{max-width:100%;}
+  }
+</style>
+</head>
+<body data-scheme="manuscript">
+  <div class="wrap">
+    <article class="sheet">
+
+      <nav class="crumbs" aria-label="Хлебные крошки">
+        <a href="../index.html">Главная</a>
+        <span class="sep">·</span>
+        <a href="../dreamon/index.html">Мечтай!!</a>
+      </nav>
+
+      <div class="art-img">
+        <img src="../img/2CLA.jpg" alt="Иллюстрация к статье «Пушистый подарок Риты»">
+      </div>
+
+      <div class="orn">✦ ❧ ✦</div>
+      <h1>Пушистый подарок Риты</h1>
+      <hr class="rule">
+
+      <p class="subtitle">Добрая Речь. School story, Bro!<br>
+      Серия стихов и рассказов о детях Будущего Мира.</p>
+
+      <div class="poem">
+
+        <div class="stanza">
+          <p>Рита в 6 лет получила Кота.</p>
+          <p>На свой шестой День Рожденья.</p>
+          <p>Он был пушистый с усов до Хвоста -</p>
+          <p>Рыжий, и нос "5 копеек".</p>
+        </div>
+
+        <div class="stanza">
+          <p>Он был под цвет ее рыжих волос -</p>
+          <p>Что золотистой копною</p>
+          <p>Падали с плеч, обвивая весь торс</p>
+          <p>Девочки, гибкий и стройный.</p>
+        </div>
+
+        <div class="stanza">
+          <p>Рита нарадоваться не могла</p>
+          <p>На свой пушистый "подарок".</p>
+          <p>Кот то и дело пытался сбежать,</p>
+          <p>Но девочка догоняла.</p>
+        </div>
+
+        <div class="stanza">
+          <p>И заключала в "объятья любви"</p>
+          <p>Теплый комочек из шерсти.</p>
+          <p>Кот возмущенно мяукал: "Пусти!"</p>
+          <p>Пока, смирившись с судьбой, не затих...</p>
+        </div>
+
+        <div class="stanza">
+          <p>Рита, держа на коленках Кота,</p>
+          <p>В двух местах сразу приятность Тепла</p>
+          <p>В теле своем ощущала:</p>
+          <p>- Там, где был Кот, и был Ритин живот.</p>
+          <p>- Ниже, под ним, между Ритиных ног.</p>
+        </div>
+
+        <div class="stanza">
+          <p>Оба они ей приятными были</p>
+          <p>Но то, что ниже, прибавило в Силе</p>
+          <p>Став чем-то большим, и важным для Риты,</p>
+          <p>Чем Кот, мурлыкающий и притихший...</p>
+        </div>
+
+      </div>
+
+      <footer>
+        <nav class="nav-corpus" aria-label="Навигация по разделу">
+          <a class="prev" href="24C.html">
+            <span class="lbl">← Предыдущая</span>
+            Обладательница крыльев
+          </a>
+          <a class="next" href="193.html">
+            <span class="lbl">Следующая →</span>
+            Жемчужина Севера
+          </a>
+        </nav>
+        <div class="colophon">
+          <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+          <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+        </div>
+      </footer>
+
+    </article>
+  </div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "стих",
+  "rationale": "Текст представляет собой шестистрофное рифмованное стихотворение с чёткой строфической структурой и построчным членением, поэтому выбрана узкая книжная схема «манускрипт» (~820px) — она лучше держит вертикальный ритм стиха и располагает к медленному чтению. Подзаголовок-цикл («Добрая Речь. School story, Bro! Серия стихов и рассказов о детях Будущего Мира.») сохранён дословно как авторская приписка под названием, без превращения в собственный заголовок. Палитру взял тёплую пергаментно-золотую на светлом фоне под рукописный засечный характер; строки стиха не оборачиваю в justify, сохраняю авторские разрывы и кавычки.",
+  "rationale_extra": "Оглавление не делалось — в тексте нет нескольких подразделов (единое стихотворение). Сносок и музыкальных ссылок в тексте нет, поэтому соответствующие аппараты не строились. Авторская пунктуация, прописные (Кот, Хвост, Тепла, Сила) и кавычки сохранены как есть.",
+  "features": []
+}
+</script>
+</body>
+</html>
