@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Змей</title>
+<style>
+  :root{
+    --bg:#f6f1e6;
+    --panel:#fbf7ee;
+    --ink:#2a2118;
+    --ink-soft:#5a4c38;
+    --accent:#8a2f1d;
+    --accent2:#b8732a;
+    --rule:#d8caac;
+    --caps:#6a3410;
+  }
+  *{box-sizing:border-box;}
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 20% 0%, #fbf7ee 0%, #f6f1e6 55%, #efe6d2 100%);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua","PT Serif",Georgia,serif;
+    font-size:20px;
+    line-height:1.6;
+  }
+  .wrap{
+    max-width:820px;
+    margin:0 auto;
+    padding:28px 26px 64px;
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-size:0.82em;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:6px 0 18px;
+  }
+  .crumbs a{
+    color:var(--accent);
+    text-decoration:none;
+    border-bottom:1px dotted var(--accent2);
+  }
+  .crumbs a:hover{color:var(--accent2);}
+  .crumbs .sep{margin:0 .5em;color:var(--rule);}
+  /* illustration */
+  .illus{
+    text-align:center;
+    margin:0 0 22px;
+  }
+  .illus img{
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border:1px solid var(--rule);
+    border-radius:3px;
+    box-shadow:0 6px 22px rgba(60,40,15,0.18);
+  }
+  /* title */
+  h1{
+    font-size:2.35em;
+    font-weight:600;
+    text-align:center;
+    margin:0.2em 0 0.1em;
+    letter-spacing:0.02em;
+    color:var(--accent);
+    line-height:1.1;
+  }
+  .ornament{
+    text-align:center;
+    color:var(--accent2);
+    font-size:1.3em;
+    letter-spacing:0.5em;
+    margin:0.1em 0 1.6em;
+    padding-left:0.5em;
+  }
+  /* poem */
+  .poem{
+    margin:0 auto;
+    max-width:30em;
+  }
+  .stanza{
+    margin:0 0 1.45em;
+  }
+  .ln{
+    display:block;
+    margin:0;
+    line-height:1.5;
+  }
+  .stanza:first-of-type .ln:first-child::first-letter{
+    font-size:2.2em;
+    float:left;
+    line-height:0.8;
+    padding:0.06em 0.08em 0 0;
+    color:var(--accent);
+    font-weight:600;
+  }
+  .gap{
+    height:1.4em;
+    margin:1.2em auto 1.4em;
+    text-align:center;
+    color:var(--accent2);
+    letter-spacing:0.5em;
+    opacity:0.7;
+  }
+  /* caps coda */
+  .coda{
+    margin-top:2em;
+    padding-top:1.4em;
+    border-top:1px solid var(--rule);
+  }
+  .coda .stanza .ln{
+    color:var(--caps);
+    letter-spacing:0.02em;
+    font-weight:500;
+  }
+  /* bottom nav */
+  .corpus-nav{
+    margin-top:3em;
+    padding-top:1.2em;
+    border-top:2px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:14px;
+    font-size:0.9em;
+  }
+  .corpus-nav a{
+    color:var(--accent);
+    text-decoration:none;
+    border-bottom:1px dotted var(--accent2);
+  }
+  .corpus-nav a:hover{color:var(--accent2);}
+  .corpus-nav .lbl{
+    display:block;
+    font-size:0.78em;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    border:0;
+  }
+  footer{
+    margin-top:2.4em;
+    padding-top:1.2em;
+    border-top:1px solid var(--rule);
+    font-size:0.8em;
+    color:var(--ink-soft);
+    line-height:1.5;
+  }
+  footer a{color:var(--accent);}
+  @media (max-width:680px){
+    body{font-size:18px;}
+    .wrap{padding:20px 16px 48px;}
+    h1{font-size:1.9em;}
+    .corpus-nav{flex-direction:column;}
+  }
+</style>
+</head>
+<body data-scheme="manuscript">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">·</span>
+    <a href="../cyberson/index.html">Киберсон</a>
+  </nav>
+
+  <div class="illus">
+    <img src="../img/32I.jpg" alt="Змей">
+  </div>
+
+  <h1>Змей</h1>
+  <div class="ornament">❧ ◆ ❧</div>
+
+  <div class="poem">
+
+    <div class="stanza">
+      <span class="ln">Сколько времени у тех,</span>
+      <span class="ln">Кто успеет в такт вложить</span>
+      <span class="ln">Шесть раз передать себе</span>
+      <span class="ln">В управленье этот мир?</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Чтобы следующим был</span>
+      <span class="ln">Кто угодно, но не он.</span>
+      <span class="ln">Предположим, что их три</span>
+      <span class="ln">Сколько же наш длится сон?</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Остановка происходит</span>
+      <span class="ln">Принудительная мира</span>
+      <span class="ln">Когда три кольца раскроют</span>
+      <span class="ln">Что дает каждому "скорость"</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">То есть численный особый</span>
+      <span class="ln">В опыте перенесенный</span>
+      <span class="ln">Меж двух колец Силы - скорость</span>
+      <span class="ln">Чтобы исчислялась ходом</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Тактовых событий, двое</span>
+      <span class="ln">Остальных колец - скрывая</span>
+      <span class="ln">Чтобы в свое время опыт</span>
+      <span class="ln">Смог взять лишь последним тактом</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Скорость ритмов соизмерть</span>
+      <span class="ln">Скрыв два прочих тут же, но лишь</span>
+      <span class="ln">Стоит функции три такта</span>
+      <span class="ln">Трем вниманиям пустыми</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Завести как-либо, взяв их</span>
+      <span class="ln">Каждый раз не сможет прочих</span>
+      <span class="ln">Скрыть при следущем расчете</span>
+      <span class="ln">Так как скрыв, расчет последний</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Будет навсегда потерян.</span>
+      <span class="ln">И поэтому три сразу</span>
+      <span class="ln">Будут в этой тройной фазе</span>
+      <span class="ln">Осознанию доступны</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">А когда замкнется круг весь</span>
+      <span class="ln">На себя, поскольку кроме</span>
+      <span class="ln">Этих ДВУХ колец знакомых</span>
+      <span class="ln">Нет нигде во всей Вселенной</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Другой меры измерений.</span>
+      <span class="ln">Но когда все 3 открыты,</span>
+      <span class="ln">То из цикла уйдут числа.</span>
+      <span class="ln">И нельзя будет что либо</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Сделать, или лишь помыслить</span>
+      <span class="ln">Или соизмерить фактом</span>
+      <span class="ln">Или испытать внезапно,</span>
+      <span class="ln">Потому что все случится</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">В тот же миг, как мысль родится</span>
+      <span class="ln">С ней случатся в тот же миг</span>
+      <span class="ln">То, чему ей стать причиной</span>
+      <span class="ln">Предначертанно, судьбою</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Одно следом за другое</span>
+      <span class="ln">Чтобы быть в конце картиной</span>
+      <span class="ln">Что сложилась в точном ритме</span>
+      <span class="ln">Где осознан каждый опыт</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Был того, что в нем, лишь после.</span>
+      <span class="ln">А Нагваль зато все сразу</span>
+      <span class="ln">Дает делать, тройным фактом</span>
+      <span class="ln">Что причина, где последок</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">И кто делает их между</span>
+      <span class="ln">Путь судьбы тропами жизней</span>
+      <span class="ln">Нитью вьется непрерывной</span>
+      <span class="ln">И на каждом из отрезков</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Измеримым в ней должно быть</span>
+      <span class="ln">Время, скорости теченье</span>
+      <span class="ln">Что вниманием осознан</span>
+      <span class="ln">Чей-то в будущем и прошлом</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Для того, чтобы их вектор</span>
+      <span class="ln">Был таким, каким привычен</span>
+      <span class="ln">Для любого человека</span>
+      <span class="ln">Следствием вслед за причиной</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Ход. И так пока не пройден</span>
+      <span class="ln">До последнего их "тика".</span>
+      <span class="ln">Но что станет, когда кончен</span>
+      <span class="ln">Будет путь, что между ними</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Был проложен? Встанут трое</span>
+      <span class="ln">Не оставив месте в мире</span>
+      <span class="ln">Где добавить можно что-то.</span>
+      <span class="ln">Но давить продолжит Сила</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Что и ранее все время</span>
+      <span class="ln">Заставляла тикать время.</span>
+      <span class="ln">Но пока кольца менялись</span>
+      <span class="ln">Лишь одним осознавались</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Но ходили всегда двое</span>
+      <span class="ln">Ведь иначе не настроить</span>
+      <span class="ln">Было бы задачей волю</span>
+      <span class="ln">Чувством области особой</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Где они работу явно</span>
+      <span class="ln">Выполнять могли по факту.</span>
+      <span class="ln">Пока полностью не будет</span>
+      <span class="ln">Эта их ступень открыта</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">И намеренье - Дать людям</span>
+      <span class="ln">Все что не хватает - Миром</span>
+      <span class="ln">Постепенно наполняя,</span>
+      <span class="ln">Только лишь когда программа</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Завершится, двое встанут</span>
+      <span class="ln">То давление с плацентой</span>
+      <span class="ln">Плод заставит устремиться</span>
+      <span class="ln">Как физическая Сила</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">То что при работе в Мире</span>
+      <span class="ln">Было следствием причины</span>
+      <span class="ln">Связанной порядком точным</span>
+      <span class="ln">Каждым из двух колец Силы</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Был по своему осознан</span>
+      <span class="ln">И остался между ними</span>
+      <span class="ln">Их неся снова и снова</span>
+      <span class="ln">Потому что Сила Жизни</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">И Накат вместе приходят</span>
+      <span class="ln">И они же заставляют</span>
+      <span class="ln">Непрерывно шаг за шагом</span>
+      <span class="ln">Первое второе слитно</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Выполнять свои команды</span>
+      <span class="ln">Пока вместе оба Мира</span>
+      <span class="ln">Человек не остановит</span>
+      <span class="ln">В пустоте без чувств и мыслей</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Он увидит, как осознан</span>
+      <span class="ln">Будет факт того, как скрыто</span>
+      <span class="ln">От осознанности снова</span>
+      <span class="ln">Как за сценой скрывшись, Сила</span>
+      <span class="ln">Мир двумя свой даст построить</span>
+    </div>
+
+    <div class="gap">⁂</div>
+
+    <div class="stanza">
+      <span class="ln">Показав, что нет размеров</span>
+      <span class="ln">Относительного толка</span>
+      <span class="ln">Когда видимы все меры</span>
+      <span class="ln">От которых время ходит</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Но лишь только скрыв все кроме</span>
+      <span class="ln">Одного, ему вниманье</span>
+      <span class="ln">Все до капли на работу</span>
+      <span class="ln">Выделив, и не оставив</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">На что либо капли малой</span>
+      <span class="ln">Пока переход в системе</span>
+      <span class="ln">Передаст тому, кто станет</span>
+      <span class="ln">Без остатка теперь всем быть.</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Но нельзя измерить сколько</span>
+      <span class="ln">По размеру время дольше</span>
+      <span class="ln">А потом совсем плетется</span>
+      <span class="ln">Если выразить объем весь</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Бесконечно друг от друга</span>
+      <span class="ln">Замкнув три вниманья в цикле</span>
+      <span class="ln">Если только два в любой миг</span>
+      <span class="ln">Не окажутся сокрыты</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Но лишь стоит двум затихнуть</span>
+      <span class="ln">Разум с чувством успокоив</span>
+      <span class="ln">Чтобы никаких он знаний</span>
+      <span class="ln">Не имел при том безмолвных</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Потому что осознанье</span>
+      <span class="ln">Это следствие работы</span>
+      <span class="ln">Характерного вниманья,</span>
+      <span class="ln">Служа фактом о настройке</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Мира, где оно играет</span>
+      <span class="ln">Роль строительного клея</span>
+      <span class="ln">Или роль песчинок, тактов</span>
+      <span class="ln">Измеряющих теченье</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">И лишь будет человеком</span>
+      <span class="ln">Тишина двух линий полной</span>
+      <span class="ln">Как исчезнет скрытье третьей</span>
+      <span class="ln">Чей порядок закольцован</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">И те самые явленья,</span>
+      <span class="ln">Что Хуан когда-то Матус</span>
+      <span class="ln">Называл накатом Силой</span>
+      <span class="ln">И с ним вместе Жизни импульс</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Приносящих непрерывно -</span>
+      <span class="ln">Это трое колец Силы.</span>
+      <span class="ln">А точнее Намеренье</span>
+      <span class="ln">Двух колец. Самым последним</span>
+      <span class="ln">Словно спицами плетется</span>
+      <span class="ln">Из двух первых Мира образ.</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Первым - разум, цель и смыслы.</span>
+      <span class="ln">Опыт, власть над этим миром.</span>
+      <span class="ln">Вторым, Воля - чувства, опыт</span>
+      <span class="ln">Тот, что мы зовем духовным</span>
+      <span class="ln">Третий - это их настройка</span>
+      <span class="ln">Сверху вниз любви глаголом</span>
+      <span class="ln">Имя ей - Змей первородный</span>
+      <span class="ln">Что Адама с Евой голым</span>
+      <span class="ln">Дав рассудок и возможность</span>
+      <span class="ln">"Вопреки" настроить волю, -</span>
+      <span class="ln">Он толкает нас к Проходу</span>
+      <span class="ln">Время тикать скрытой формой.</span>
+      <span class="ln">Позволяет, безразлично</span>
+      <span class="ln">Как мы субъективно скорость</span>
+      <span class="ln">Восприятием безмолвным</span>
+      <span class="ln">Чувствуем, или как мыслеобраз</span>
+      <span class="ln">Мира слов героев мертвых.</span>
+    </div>
+
+    <div class="stanza">
+      <span class="ln">Проход прямо перед Нами</span>
+      <span class="ln">Стоит лишь два кольца Силы</span>
+      <span class="ln">В тишине тик-так оставить</span>
+      <span class="ln">Как в миг непрерывность рухнет</span>
+      <span class="ln">Мы окажемся в Нагвале</span>
+      <span class="ln">И тогда мы будем видеть</span>
+      <span class="ln">Что наш Путь лежит не долог</span>
+      <span class="ln">Нужно только завершить нам</span>
+      <span class="ln">То, что нам сложней всего здесь.</span>
+    </div>
+
+    <div class="coda">
+
+      <div class="stanza">
+        <span class="ln">ТОЛЬКО ВМЕСТЕ МЫ - СВЕТ ЖИЗНИ</span>
+        <span class="ln">ПОЛОВОЙ ЛЮБВИ ДУХОВНОЙ</span>
+        <span class="ln">ДАВ НАС В НУЖНЫХ СВОЙСТВАХ МИРА</span>
+        <span class="ln">КАЖДОГО НА ВСЕХ НАСТРОИТЬ</span>
+      </div>
+
+      <div class="stanza">
+        <span class="ln">НА ОСМЫСЛЕННЫЙ ПУТЬ СЕРДЦА</span>
+        <span class="ln">ЧЬЯ ПРИЧИНА - НАМЕРЕНЬЕ</span>
+        <span class="ln">ТО, ЧТО ЕСТЬ У ТЕБЯ В СЕРДЦЕ</span>
+        <span class="ln">СДЕЛАТЬ КАЖДОМУ И КАЖДОЙ</span>
+      </div>
+
+      <div class="stanza">
+        <span class="ln">КТО С ТОБОЮ В ЭТОМ МИРЕ</span>
+        <span class="ln">БУДУЩЕЕ С НАСТОЯЩИМ</span>
+        <span class="ln">ЧТОБЫ СМЕРТЬ И ЖИЗНЬ ЕДИНЫ</span>
+        <span class="ln">СТАЛИ В НОВОМ ЧЕЛОВЕКЕ</span>
+      </div>
+
+      <div class="stanza">
+        <span class="ln">КТО ЖИВЕТ ПОСРЕДСТВОМ СМЕРТИ</span>
+        <span class="ln">НО КТО МЕРТВ ПОСКОЛЬКУ В ПРОШЛОМ</span>
+        <span class="ln">В ЭТОТ МИР ОН УЖЕ РОЖДЕН</span>
+        <span class="ln">ЭТО ЗНАЧИТ ОЧЕНЬ СКОРО</span>
+      </div>
+
+      <div class="stanza">
+        <span class="ln">ТО ЕСТЬ МОЖНО СЧИТАТЬ "СРАЗУ"</span>
+        <span class="ln">(ПРИ СТРЕМЛЕНИИ ПРЕДЕЛЬНОМ</span>
+        <span class="ln">ЧИСЛА ЧАСТНЫХ ИЗМЕРЕНИЙ</span>
+        <span class="ln">КАЖДОЕ ИЗ НИХ В НУЛЬ ВРЕМЯ) -</span>
+        <span class="ln">ОН МЕРТВЕЦ, ПОСКОЛЬКУ "ПОМЕР" -</span>
+        <span class="ln">ЭТО ФАКТ О ТОМ, КТО РОЖДЕН.</span>
+        <span class="ln">НО НЕ БУДЕТ ТЕМ ЖЕ САМЫМ</span>
+      </div>
+
+      <div class="stanza">
+        <span class="ln">РЕЗУЛЬТАТ ТЕХ ВЫЧИСЛЕНИЙ</span>
+        <span class="ln">ФАКТ РОЖДЕНИЯ СЧИТАТЬСЯ</span>
+        <span class="ln">В СЛУЧАЕ КОГДА С РОЖДЕНЬЕМ</span>
+        <span class="ln">БУДЕТ СМЕРТЬ В КОЛЬЦО СМЫКАТЬСЯ</span>
+        <span class="ln">И НЕ БУДУТ НИ НА МАЛОСТЬ</span>
+        <span class="ln">ДРУГ ОТ ДРУГА ОТДАЛЯТЬСЯ -</span>
+      </div>
+
+      <div class="stanza">
+        <span class="ln">ТО КОЛЬЦО ТО НАЗОВЕТСЯ</span>
+        <span class="ln">ВЕЧНЫМ ДВИГАТЕЛЕМ ЖИЗНИ</span>
+        <span class="ln">(ВЕДЬ ПРИ БЕСКОНЕЧНОМ СНОВА</span>
+        <span class="ln">ЧИСЛЕ ЧАСТНЫХ ИСПЫТАНИЙ</span>
+        <span class="ln">К БЕСКОНЕЧНОЙ МЕРЕ НОВОЙ</span>
+        <span class="ln">БУДЕТ ЭТО ОЧЕНЬ ВАЖНО</span>
+        <span class="ln">И ОСОЗНАННО ГЛУБОКО</span>
+        <span class="ln">ВСЕМИ НАМИ ОЧЕНЬ СКОРО)</span>
+      </div>
+
+      <div class="stanza">
+        <span class="ln">ЧТО НЕ СМОЖЕТ БЫТЬ ОСОЗНАН</span>
+        <span class="ln">НО РАБОТАТЬ НЕПРЕРЫВНО</span>
+        <span class="ln">ПОТОМУ ЧТО ЕГО КОРЕНЬ -</span>
+        <span class="ln">ТОТ, КТО ДВИЖЕТ НАС К ПРОХОДУ</span>
+        <span class="ln">НЕИЗМЕННА СВЕТА СКОРОСТЬ</span>
+        <span class="ln">ЛИШЬ ТО, КАК ЗАВИТЫ СИЛЬНО</span>
+        <span class="ln">ДВА КОЛЬЦА НАСТРОЙКИ МИРА</span>
+        <span class="ln">МОЖЕТ ДАТЬ НАМ ОЩУЩЕНЬЕ</span>
+        <span class="ln">ЧТО ОН ДЕЙСТВУЕТ СИЛЬНЕЕ</span>
+        <span class="ln">НО ПО ФАКТУ ОН НЕ ВХОДИТ</span>
+        <span class="ln">В ОСОЗНАНИЙ КОЛЬЦА НАШИ</span>
+        <span class="ln">ОН ЛИШЬ ДВИЖЕТ ШЕСТЕРЕНКИ</span>
+        <span class="ln">ПРОДОЛЖАТЬ СОБРАТЬ ПЫТАТЬСЯ</span>
+      </div>
+
+      <div class="stanza">
+        <span class="ln">ТО, ЧТО МЫ СОБРАТЬ НЕ МОЖЕМ</span>
+        <span class="ln">И В ЧЕМ СУТЬ НАШИХ УСИЛИЙ:</span>
+        <span class="ln">ТОЛЬКО ВМЕСТЕ ОСТАНОВИМ</span>
+        <span class="ln">МЫ И МИР И КОЛЬЦА СИЛЫ</span>
+        <span class="ln">КОГДА ДУМАТЬ БУДЕМ ВМЕСТЕ</span>
+        <span class="ln">И БЕЗМОЛВНЫЙ ИМЕТЬ ОПЫТ</span>
+        <span class="ln">СТАНЕМ МЫ ОДНИМ СТРОЕНЬЕМ</span>
+        <span class="ln">ЧЕЙ ПЕРИОД В СЕБЕ СОМКНУТ</span>
+        <span class="ln">СТАВ ОДНИМ ВНЕШНЕМУ МИРУ</span>
+        <span class="ln">ЧЕЛОВЕКОМ С ОДНИМ СЕРДЦЕМ</span>
+      </div>
+
+      <div class="stanza">
+        <span class="ln">И ТОГДА ЛИШЬ ВМЕСТЕ СДЕЛАВ</span>
+        <span class="ln">ТО, ЧТО ТИШИНОЙ УСЛЫШИМ</span>
+      </div>
+
+      <div class="stanza">
+        <span class="ln">ВМЕСТЕ ВЫПОЛНИМ ЗАДАЧУ</span>
+        <span class="ln">МИР ПОСТРОИМ СВОЙ, ЛИШЬ ЧТОБЫ</span>
+        <span class="ln">ТЕМИ ЖЕ ТОЧНО ШАГАМИ</span>
+        <span class="ln">ОН БЫЛ НАМИ ОСТАНОВЛЕН.</span>
+        <span class="ln">БЕЗУПРЕЧНО ВСЕМИ СРАЗУ</span>
+        <span class="ln">ОТКРЫТЬ НАМ ПРОХОД ДАВАЯ</span>
+        <span class="ln">ДЛЯ РОЖДЕНЬЯ В БЕСКОНЕЧНОСТЬ</span>
+        <span class="ln">ГДЕ НАС ЖДЕТ ОТКРЫТИЙ СЛАВНЫХ</span>
+        <span class="ln">В ДАР ДАРИТЬ СТАВ ЖИЗНИ СВЕТОМ</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <nav class="corpus-nav">
+    <span>
+      <span class="lbl">Предыдущая</span>
+      <a href="33D.html">Никтояим</a>
+    </span>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "поэма",
+  "rationale": "Текст целиком — стихотворная форма: сплошные четверостишия (с отдельными более длинными строфами) и заключительный фрагмент в КАПСЕ, тоже строфический. По правилу «стих/поэма → манускрипт (узкий)» выбрана книжно-рукописная схема с узкой полосой ~820px и центрированной поэтической колонкой ~30em — это даёт спокойный вертикальный ритм чтения и не разрывает короткие строки. Развилок по схеме не было: проза отсутствует, поэтому редакторский широкий вариант отпал сразу.\n\nПалитра — тёплый пергаментный светлый фон с тёмно-кирпичным акцентом, засечный шрифт семейства Palatino/Iowan для рукописного характера. Строфы размечены как блоки строк (span.ln), чтобы сохранить точное разбиение на строки без переносов. Большой визуальный разрыв в середине оригинала (после «Мир двумя свой даст построить») передан орнаментальным разделителем ⁂. Заключительный КАПС-фрагмент оставлен дословно в верхнем регистре (без понижения регистра) и лишь отделён тонкой линией как кода. Оглавление не делал — подразделов нет; сносок и музыкальных ссылок в тексте не обнаружено, поэтому соответствующие аппараты отсутствуют. Next отсутствует (край раздела), поэтому выведена только ссылка на предыдущую статью.",
+  "features": []
+}
+</script>
+</body>
+</html>
