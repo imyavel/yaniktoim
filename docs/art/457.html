@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Хоровод</title>
+<style>
+  :root{
+    --bg:#f7f1e3;
+    --paper:#fcf8ee;
+    --ink:#2a2018;
+    --ink-soft:#5a4a38;
+    --crimson:#8a2b2b;
+    --gold:#9a7321;
+    --rule:#d8c9a6;
+    --shadow:rgba(60,40,20,.14);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    font-size:19px;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:820px;
+    margin:0 auto;
+    padding:28px 26px 70px;
+  }
+  .sheet{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    box-shadow:0 2px 18px var(--shadow);
+    padding:38px 44px 52px;
+    border-radius:3px;
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-size:15.5px;
+    letter-spacing:.02em;
+    color:var(--ink-soft);
+    margin-bottom:26px;
+    font-variant:small-caps;
+  }
+  .crumbs a{color:var(--crimson);text-decoration:none;border-bottom:1px solid transparent;}
+  .crumbs a:hover{border-bottom-color:var(--crimson);}
+  .crumbs span.sep{margin:0 .5em;color:var(--gold);}
+
+  h1{
+    font-size:33px;
+    line-height:1.18;
+    text-align:center;
+    margin:.2em 0 .15em;
+    font-weight:600;
+    letter-spacing:.01em;
+    color:var(--ink);
+  }
+  .byline{
+    text-align:center;
+    color:var(--ink-soft);
+    font-style:italic;
+    font-size:17px;
+    margin:0 0 6px;
+  }
+  .ornament{
+    text-align:center;
+    color:var(--gold);
+    font-size:22px;
+    letter-spacing:.4em;
+    margin:14px 0 26px;
+  }
+
+  /* TOC */
+  details.toc{
+    border:1px solid var(--rule);
+    background:rgba(154,115,33,.06);
+    border-radius:3px;
+    padding:6px 18px;
+    margin:0 0 34px;
+  }
+  details.toc summary{
+    cursor:pointer;
+    font-variant:small-caps;
+    letter-spacing:.06em;
+    color:var(--crimson);
+    font-size:17px;
+    padding:6px 0;
+    list-style:none;
+  }
+  details.toc summary::-webkit-details-marker{display:none;}
+  details.toc summary::before{content:"❧ ";color:var(--gold);}
+  details.toc ol{margin:.4em 0 .8em;padding-left:1.6em;}
+  details.toc li{margin:.22em 0;}
+  details.toc a{color:var(--ink-soft);text-decoration:none;}
+  details.toc a:hover{color:var(--crimson);}
+
+  h2{
+    font-size:25px;
+    color:var(--crimson);
+    text-align:center;
+    margin:46px 0 8px;
+    font-weight:600;
+    cursor:pointer;
+  }
+  h2 a.back{color:inherit;text-decoration:none;}
+  h2::after{
+    content:"";
+    display:block;
+    width:90px;height:1px;
+    margin:12px auto 0;
+    background:var(--rule);
+  }
+
+  .epi-label{
+    text-align:center;font-style:italic;color:var(--ink-soft);
+    margin:8px 0 14px;font-size:17px;
+  }
+  .epigraph{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6px 28px;
+    font-style:italic;
+    color:var(--ink-soft);
+    line-height:1.7;
+    margin:0 auto 8px;
+    max-width:680px;
+  }
+  .epigraph .col p{margin:0;}
+
+  .verse{
+    line-height:1.8;
+    margin:18px 0;
+    text-align:left;
+  }
+  .verse.center{text-align:left;}
+  .ps{
+    font-style:italic;
+    color:var(--ink-soft);
+    border-left:3px solid var(--gold);
+    padding:4px 0 4px 16px;
+    margin:30px 0 6px;
+  }
+
+  /* footnote markers */
+  sup.fn-ref{font-size:.66em;line-height:0;}
+  sup.fn-ref a{
+    color:var(--crimson);
+    text-decoration:none;
+    font-weight:700;
+    padding:0 1px;
+  }
+  sup.fn-ref a:hover{color:var(--gold);}
+
+  .fn-pop{
+    position:absolute;
+    z-index:50;
+    max-width:320px;
+    background:#2a2018;
+    color:#f6efde;
+    font-style:normal;
+    font-size:15px;
+    line-height:1.45;
+    padding:10px 13px;
+    border-radius:5px;
+    box-shadow:0 5px 20px rgba(0,0,0,.35);
+    pointer-events:none;
+    opacity:0;
+    transition:opacity .12s;
+  }
+  .fn-pop.show{opacity:1;}
+  .fn-pop a{color:#e9c673;}
+
+  /* footnotes list */
+  ol.notes{padding-left:1.4em;}
+  ol.notes li{
+    margin:.7em 0;
+    color:var(--ink-soft);
+    font-size:17px;
+    scroll-margin-top:20px;
+  }
+  ol.notes li.anon{list-style:none;margin-left:-1.4em;}
+  ol.notes li.hl{
+    background:rgba(154,115,33,.22);
+    border-radius:4px;
+    transition:background 1.4s;
+  }
+  ol.notes a{color:var(--crimson);}
+  .fn-back{margin-left:.4em;text-decoration:none;color:var(--gold);font-weight:700;}
+
+  /* music */
+  .music-group{margin:26px 0;}
+  .music-label{
+    font-variant:small-caps;
+    letter-spacing:.05em;
+    color:var(--gold);
+    font-size:16px;
+    margin-bottom:8px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:4px;
+    background:rgba(154,115,33,.05);
+    margin:6px 0;
+    overflow:hidden;
+  }
+  .track summary{
+    list-style:none;
+    cursor:pointer;
+    padding:11px 14px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:17px;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .track .arrow{color:var(--crimson);transition:transform .2s;font-size:14px;}
+  .track[open] .arrow{transform:rotate(90deg);}
+  .track .tname{flex:1;}
+  .track .tname b{color:var(--ink);font-weight:600;}
+  .track .tname span{color:var(--ink-soft);}
+  .track .ext{color:var(--gold);text-decoration:none;font-weight:700;}
+  .track .embed{padding:0 14px 14px;}
+  .track .embed iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:4px;}
+  .track.flat{padding:11px 14px;font-size:17px;}
+  .track.flat a{color:var(--crimson);}
+
+  /* bottom nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:14px;
+    margin:50px 0 0;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-size:16px;
+  }
+  .corpus-nav a{
+    color:var(--crimson);
+    text-decoration:none;
+    max-width:46%;
+  }
+  .corpus-nav a:hover{color:var(--gold);}
+  .corpus-nav .lbl{display:block;font-size:13px;color:var(--ink-soft);font-variant:small-caps;letter-spacing:.05em;}
+  .corpus-nav .nx{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:38px;
+    padding-top:18px;
+    border-top:1px solid var(--rule);
+    font-size:14.5px;
+    color:var(--ink-soft);
+    line-height:1.5;
+  }
+  footer.colophon a{color:var(--crimson);}
+
+  @media(max-width:640px){
+    body{font-size:18px;}
+    .wrap{padding:14px 10px 50px;}
+    .sheet{padding:22px 18px 36px;}
+    h1{font-size:27px;}
+    h2{font-size:22px;}
+    .epigraph{grid-template-columns:1fr;gap:2px;}
+    .epigraph .col + .col{margin-top:14px;}
+  }
+</style>
+</head>
+<body data-scheme="manuscript">
+<div class="wrap">
+<article class="sheet" id="top">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../best/index.html">Избранное</a>
+  </nav>
+
+  <h1>ХОРОВОД (конец словам)</h1>
+  <p class="byline">Элиягу Бар Малей (ЭБМ) feat. Мальвина Павловна Савельева<sup class="fn-ref" id="ref8"><a href="#fn8" data-fn="fn8">8</a></sup></p>
+  <div class="ornament">✦ ❧ ✦</div>
+
+  <details class="toc" open>
+    <summary>Оглавление</summary>
+    <ol>
+      <li><a href="#sec-epi">Эпиграф</a></li>
+      <li><a href="#sec-horovod">Хоровод</a></li>
+      <li><a href="#sec-music">Музыка под настроение</a></li>
+      <li><a href="#sec-notes">Пояснения</a></li>
+    </ol>
+  </details>
+
+  <!-- ЭПИГРАФ -->
+  <h2 id="sec-epi"><a class="back" href="#top">Эпиграф</a></h2>
+  <p class="epi-label">Эпиграф:</p>
+  <div class="epigraph">
+    <div class="col">
+      <p>Материал мира живых,</p>
+      <p>Чья природа спасет мир,</p>
+      <p>Красивее в небе звезд</p>
+      <p>Хлопнув крыльями об пол</p>
+      <p>А потом она же вновь</p>
+      <p>И с ним будет до тех пор</p>
+      <p>Где детей их ждет Она.</p>
+      <p>Но он с ней идет туда,</p>
+      <p>А он Сын, а Отца нет.</p>
+      <p>Потому что Сыном вновь</p>
+    </div>
+    <div class="col">
+      <p>Сказочных снов о любви</p>
+      <p>А потом ему найдет</p>
+      <p>Раскрасавицу жену</p>
+      <p>И сказав трах тибидох</p>
+      <p>Его в этот мир родит</p>
+      <p>Пока он не создаст мир</p>
+      <p>А его никто не ждет</p>
+      <p>Потому что Она - Бог</p>
+      <p>Не успел счастья познать</p>
+      <p>Ему было пора стать</p>
+    </div>
+  </div>
+
+  <div class="music-group">
+    <div class="music-label">Музыка под настроение</div>
+    <details class="track">
+      <summary>
+        <span class="arrow">▶</span>
+        <span class="tname"><b>Песенка Бармалея</b> — <span>Хоровая студия Фантазия</span></span>
+        <a class="ext" href="https://m.youtube.com/watch?v=sybxMdW6kSY" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </summary>
+      <div class="embed" data-src="https://www.youtube.com/embed/sybxMdW6kSY"></div>
+    </details>
+  </div>
+
+  <!-- ХОРОВОД -->
+  <h2 id="sec-horovod"><a class="back" href="#top">Хоровод</a></h2>
+
+  <p class="verse">
+    Материал тех снов - слова<br>
+    Что мы слышим день за днем<br>
+    Неоправданно виня<br>
+    Собственный страх, смерть и боль<br>
+    В том, что слышат в головах<br>
+    И бегут делать назло<br>
+    То есть жить чтобы всем Вам<br>
+    Очень в жизни повезло<br>
+    Вам мужской половой член<sup class="fn-ref" id="ref1"><a href="#fn1" data-fn="fn1">1</a></sup><br>
+    А мне Морг, а не Его<br>
+    Потому что я не дам<br>
+    А коль дам, то не возьмет.<br>
+    Потому что Он не ты<br>
+    И не младшая сестра<br>
+    У которой нет груди<br>
+    Так как юная она.<sup class="fn-ref" id="ref4"><a href="#fn4" data-fn="fn4">4</a></sup><br>
+    Он не те, кому в живых<br>
+    Быть или не быть всем нам<br>
+    Так вопрос им не стоит<br>
+    И не встанет никогда<br>
+    Потому что невдомек<br>
+    Им, к чему весь этот цирк<br>
+    Их самих и нас с тобой<br>
+    Приведет в конце их слов<br>
+    Когда кончится их сон<br>
+    И на сцене включат Свет<br>
+    Перерыв чтобы успеть<br>
+    Перед обьявленьем всем<br>
+    Что сейчас страшный урод<br>
+    Карлик с носом и горбом<br>
+    Им будет удасно горд<br>
+    И грозить им сжав рукой<br>
+    Непослушным детям кто<br>
+    К нему в Африку идет<br>
+    Ведь не только Бар Малей<sup class="fn-ref" id="ref2"><a href="#fn2" data-fn="fn2">2</a></sup><br>
+    Один в Африке такой<br>
+    Там еще девчонок семь<br>
+    И один чешырский Кот<br>
+    Хотя тем, кто не знаком<br>
+    С этим хитрым существом<br>
+    Не один, а целый полк<br>
+    Может промелькнуть из ртов.<br>
+    Потому что Бармалей<br>
+    Он сам Кот, а не злодей<br>
+    И он несказанно рад,<br>
+    Когда гости в Детский Сад<br>
+    С именем Нижний Эден...<br>
+    Все в котором - про Любовь<br>
+    И не только для Котов<br>
+    Исчезающих как вид<br>
+    Чтобы видеть вас двоих<br>
+    А не то, что когда врозь<br>
+    Вы привыкли звать "собой".<br>
+    Кто ты, кошка или кот,<br>
+    Важно лишь в тот миг святой<br>
+    Или, может быть, простой,<br>
+    Проще, чем праздничный торт,<br>
+    Это уж как повезет,<br>
+    Когда Кот и Кошка вдруг<br>
+    Начнут вместе только вкруг<br>
+    Бегать друг за другом в хвост<br>
+    И куда то убегут<br>
+    А куда - рот на замок.
+  </p>
+
+  <div class="music-group">
+    <div class="music-label">Музыка под настроение</div>
+    <details class="track">
+      <summary>
+        <span class="arrow">▶</span>
+        <span class="tname"><b>Can you feel the Love Tonight</b> — <span>Elton John (из м/ф Lion King)</span></span>
+        <a class="ext" href="https://www.youtube.com/watch?v=KjgWWjkNbhU" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </summary>
+      <div class="embed" data-src="https://www.youtube.com/embed/KjgWWjkNbhU"></div>
+    </details>
+  </div>
+
+  <p class="verse">
+    Но тому, кому мутня<br>
+    Детских сказок и стихов,<br>
+    И вопрос им Нафига<br>
+    Бред и так все хорово<sup class="fn-ref" id="ref6"><a href="#fn6" data-fn="fn6">6</a></sup>.<br>
+    И поэтому у них<br>
+    Не стоИт на то, что Он<br>
+    Брал, берет и вечность жить<br>
+    Будет кто Ему дает<br>
+    В жены в Мире, где нет лжи<br>
+    Где смерть - это Хоровод<br>
+    Потому что скоро Тот<br>
+    Кому не нужны слова,<br>
+    (Потому что занят рот),<br>
+    Будет вновь со мной играть<br>
+    В ту волшебную игру<br>
+    Своим Ева и Адам<br>
+    Детям будут поутру<br>
+    Чтобы был их День Один<br>
+    Днем Победы Сна над Моргом<br>
+    И меня в нем ждет Весна<br>
+    Где я, Ты, Чеширский Кот,<br>
+    Ведьма, Шляпник, все дела,<br>
+    Пока мама не родит,<br>
+    А когда уж родила -<br>
+    Тут придется брать мечи,<br>
+    И идти ломать врата<br>
+    Стены, морги и дворцы<br>
+    Огненным Дождем<sup class="fn-ref" id="ref7"><a href="#fn7" data-fn="fn7">7</a></sup> сжигать<br>
+    Ложь и боль со смертью зла,<br>
+    Чтобы ты пришел в свой срок<br>
+    К тем же самым что и мы<br>
+    Выводам, создав Мир свой,<br>
+    И Живыми заселив -
+  </p>
+
+  <div class="music-group">
+    <div class="music-label">Музыка под настроение</div>
+    <details class="track">
+      <summary>
+        <span class="arrow">▶</span>
+        <span class="tname"><b>Oops, I did it again...</b> — <span>Britney Spears</span></span>
+        <a class="ext" href="https://www.youtube.com/watch?v=CduA0TULnow" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </summary>
+      <div class="embed" data-src="https://www.youtube.com/embed/CduA0TULnow"></div>
+    </details>
+  </div>
+
+  <p class="verse">
+    Где все также, как вокруг,<br>
+    Только все наоборот.<br>
+    А мечта в нем наяву<br>
+    И поэтому тот Мир<br>
+    Будет им, кого создашь<br>
+    Ты, мечтая о Любви<br>
+    В мире без кривых зеркал,<br>
+    Называться из трех букв<br>
+    Словом емким и простым<br>
+    Он Всем Нам, а Морг пусть Сам<sup class="fn-ref" id="ref3"><a href="#fn3" data-fn="fn3">3</a></sup><br>
+    Себе и тем "летунам"<sup class="fn-ref" id="ref5"><a href="#fn5" data-fn="fn5">5</a></sup>,<br>
+    Кто еще не сменил пол,<br>
+    И Котом не влился к нам.<br>
+    Вот и все, конец словам<br>
+    А кто слушал и не стух,<br>
+    В гости жду на суп с Котом :)
+  </p>
+
+  <div class="music-group">
+    <div class="music-label">Музыка под настроение</div>
+    <details class="track">
+      <summary>
+        <span class="arrow">▶</span>
+        <span class="tname"><b>Dream On</b> — <span>Jadyn Rylee feat. Aviv Cohen</span></span>
+        <a class="ext" href="https://www.youtube.com/watch?v=FsE3D1b9j-8" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </summary>
+      <div class="embed" data-src="https://www.youtube.com/embed/FsE3D1b9j-8"></div>
+    </details>
+  </div>
+
+  <p class="ps">П.С. Лев сидит в засаде. Это нормально. Но он добрый. Во всяком случае, НИКТО пока на него не жаловался.</p>
+
+  <!-- СВОДНЫЙ РАЗДЕЛ МУЗЫКИ -->
+  <h2 id="sec-music"><a class="back" href="#top">Музыка под настроение</a></h2>
+  <div class="music-group">
+    <details class="track">
+      <summary>
+        <span class="arrow">▶</span>
+        <span class="tname"><b>Песенка Бармалея</b> — <span>Хоровая студия Фантазия</span></span>
+        <a class="ext" href="https://m.youtube.com/watch?v=sybxMdW6kSY" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </summary>
+      <div class="embed" data-src="https://www.youtube.com/embed/sybxMdW6kSY"></div>
+    </details>
+    <details class="track">
+      <summary>
+        <span class="arrow">▶</span>
+        <span class="tname"><b>Can you feel the Love Tonight</b> — <span>Elton John (из м/ф Lion King)</span></span>
+        <a class="ext" href="https://www.youtube.com/watch?v=KjgWWjkNbhU" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </summary>
+      <div class="embed" data-src="https://www.youtube.com/embed/KjgWWjkNbhU"></div>
+    </details>
+    <details class="track">
+      <summary>
+        <span class="arrow">▶</span>
+        <span class="tname"><b>Oops, I did it again...</b> — <span>Britney Spears</span></span>
+        <a class="ext" href="https://www.youtube.com/watch?v=CduA0TULnow" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </summary>
+      <div class="embed" data-src="https://www.youtube.com/embed/CduA0TULnow"></div>
+    </details>
+    <details class="track">
+      <summary>
+        <span class="arrow">▶</span>
+        <span class="tname"><b>Dream On</b> — <span>Jadyn Rylee feat. Aviv Cohen</span></span>
+        <a class="ext" href="https://www.youtube.com/watch?v=FsE3D1b9j-8" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </summary>
+      <div class="embed" data-src="https://www.youtube.com/embed/FsE3D1b9j-8"></div>
+    </details>
+  </div>
+
+  <!-- ПОЯСНЕНИЯ -->
+  <h2 id="sec-notes"><a class="back" href="#top">Пояснения</a></h2>
+  <ol class="notes">
+    <li id="fn1">См. также: стих Конечное Исправление, ЭБМ <a href="http://proza.ru/2021/10/26/1421" target="_blank" rel="noopener">proza.ru/2021/10/26/1421</a> <a class="fn-back" href="#ref1" title="Вернуться к тексту">↩</a></li>
+    <li id="fn2">См. также: Здесь стоит трон Элиягу, ЭБМ <a href="https://adam.fandom.com/ru/wiki/TronE" target="_blank" rel="noopener">adam.fandom.com/ru/wiki/TronE</a> <a class="fn-back" href="#ref2" title="Вернуться к тексту">↩</a></li>
+    <li id="fn3">См. также: Я Никто Им, ЭБМ <a href="http://proza.ru/2023/03/17/62" target="_blank" rel="noopener">proza.ru/2023/03/17/62</a> <a class="fn-back" href="#ref3" title="Вернуться к тексту">↩</a></li>
+    <li id="fn4">См. также: Песнь Песней Царя Соломона, гл. 8 <a href="https://azbyka.ru/biblia/?Song.8:8" target="_blank" rel="noopener">azbyka.ru/biblia/?Song.8:8</a> — Песн.8:8 <a class="fn-back" href="#ref4" title="Вернуться к тексту">↩</a></li>
+    <li id="fn5">См. также: Мертвые боги, ЭБМ <a href="http://proza.ru/2023/02/04/1126" target="_blank" rel="noopener">proza.ru/2023/02/04/1126</a> <a class="fn-back" href="#ref5" title="Вернуться к тексту">↩</a></li>
+    <li id="fn6">См. также: <a href="https://www.anekdot.ru/id/943238/" target="_blank" rel="noopener">anekdot.ru/id/943238/</a> <a class="fn-back" href="#ref6" title="Вернуться к тексту">↩</a></li>
+    <li id="fn7">См. также: Огонь с Пылающих Небес, ЭБМ <a href="http://proza.ru/2023/04/24/304" target="_blank" rel="noopener">proza.ru/2023/04/24/304</a> <a class="fn-back" href="#ref7" title="Вернуться к тексту">↩</a></li>
+    <li id="fn8">См. также: Да, я такая, ЭБМ <a href="http://proza.ru/2022/08/25/1684" target="_blank" rel="noopener">proza.ru/2022/08/25/1684</a> <a class="fn-back" href="#ref8" title="Вернуться к тексту">↩</a></li>
+  </ol>
+
+  <!-- НИЖНЯЯ НАВИГАЦИЯ КОРПУСА -->
+  <nav class="corpus-nav">
+    <a href="337.html"><span class="lbl">← Предыдущая</span>Костер</a>
+    <a class="nx" href="255.html"><span class="lbl">Следующая →</span>Мечтай!!</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</article>
+</div>
+
+<script>
+// Ленивая загрузка плееров при раскрытии
+document.querySelectorAll('details.track').forEach(function(d){
+  d.addEventListener('toggle',function(){
+    if(d.open){
+      var box=d.querySelector('.embed');
+      if(box && !box.querySelector('iframe')){
+        var src=box.getAttribute('data-src');
+        var f=document.createElement('iframe');
+        f.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        f.setAttribute('allowfullscreen','');
+        f.src=src+'?autoplay=1';
+        box.appendChild(f);
+      }
+    }
+  });
+});
+
+// Подсветка целевой сноски при переходе вниз
+document.querySelectorAll('sup.fn-ref a').forEach(function(a){
+  a.addEventListener('click',function(){
+    var id=a.getAttribute('href').slice(1);
+    var li=document.getElementById(id);
+    if(li){
+      document.querySelectorAll('ol.notes li.hl').forEach(function(x){x.classList.remove('hl');});
+      void li.offsetWidth;
+      li.classList.add('hl');
+      setTimeout(function(){li.classList.remove('hl');},2200);
+    }
+  });
+});
+
+// Всплывающее отображение сноски при наведении
+(function(){
+  var pop=document.createElement('div');
+  pop.className='fn-pop';
+  document.body.appendChild(pop);
+  function bodyText(id){
+    var li=document.getElementById(id);
+    if(!li)return '';
+    var clone=li.cloneNode(true);
+    var b=clone.querySelector('.fn-back'); if(b)b.remove();
+    return clone.innerHTML;
+  }
+  document.querySelectorAll('sup.fn-ref a').forEach(function(a){
+    a.addEventListener('mouseenter',function(){
+      var id=a.getAttribute('data-fn');
+      pop.innerHTML=bodyText(id);
+      pop.classList.add('show');
+      var r=a.getBoundingClientRect();
+      var pr=pop.getBoundingClientRect();
+      var sx=window.scrollX, sy=window.scrollY;
+      var left=sx+r.left+r.width/2-pr.width/2;
+      left=Math.max(sx+8,Math.min(left,sx+document.documentElement.clientWidth-pr.width-8));
+      var top;
+      if(r.top-pr.height-10<0){ top=sy+r.bottom+8; } // не хватает места сверху -> снизу
+      else { top=sy+r.top-pr.height-8; }
+      pop.style.left=left+'px';
+      pop.style.top=top+'px';
+    });
+    a.addEventListener('mouseleave',function(){
+      pop.classList.remove('show');
+    });
+  });
+})();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "стих",
+  "rationale": "Текст «Хоровод (конец словам)» — это цельное стихотворение со строгой строфической формой (эпиграф плюс длинные верлибрические строки), поэтому выбрана манускриптная схема с узкой книжной полосой ~820px: это поддерживает медленное, поэтическое чтение строка-за-строкой, что и требует стих. Редакторский широкий лонгрид отвергнут, так как проза здесь отсутствует, а растягивание стихотворных строк на 2/3 экрана разрушило бы ритм.\n\nЭпиграф в оригинале набран в две колонки — я сохранил это двухколоночной сеткой, сворачивающейся в одну колонку на мобильном, чтобы не искажать авторскую визуальную форму при неоднозначном порядке чтения. Распознано четыре YouTube-трека с меткой «Музыка под настроение»; они разнесены по тексту, поэтому метка повторяется на каждом (не группа подряд), а так как треков больше двух — добавлен сводный раздел перед «Пояснениями». Плееры свёрнуты и грузят iframe лениво при раскрытии. Восемь сносок (*1–*8, где *8 стоит в строке авторства) снабжены переходами вниз/вверх, подсветкой цели и hover-popup с выбором стороны по краю экрана. Палитра — тёплый пергамент со светлым фоном, кримсон и золото как акценты, засечный шрифт Palatino/Iowan для рукописно-книжного характера."
+}
+</script>
+</body>
+</html>
