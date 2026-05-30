@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Неорганикон</title>
+<style>
+  :root{
+    --bg:#faf5ea;
+    --paper:#fffaf0;
+    --ink:#2c2114;
+    --ink-soft:#5a4a36;
+    --rule:#d9c9a6;
+    --accent:#8a2418;
+    --gold:#9a6f2a;
+    --pop-bg:#fffdf6;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Palatino Linotype","Book Antiqua",Palatino,Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.62;
+    -webkit-text-size-adjust:100%;
+  }
+  .page{
+    max-width:820px;
+    margin:0 auto;
+    padding:34px 30px 70px;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(138,36,24,.35);}
+  a:hover{border-bottom-color:var(--accent);}
+
+  /* Breadcrumbs */
+  .crumbs{
+    font-size:.82em;
+    letter-spacing:.04em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    margin-bottom:22px;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--rule);
+  }
+  .crumbs a{border:none;color:var(--gold);}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs .sep{margin:0 .5em;color:var(--rule);}
+
+  /* Illustration */
+  .hero{
+    text-align:center;
+    margin:0 0 26px;
+  }
+  .hero img{
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border:1px solid var(--rule);
+    box-shadow:0 6px 22px rgba(60,40,20,.14);
+  }
+
+  h1{
+    font-size:2.35em;
+    line-height:1.12;
+    margin:.1em 0 .15em;
+    text-align:center;
+    letter-spacing:.06em;
+    font-weight:700;
+    color:var(--ink);
+  }
+  h1 .rule-orn{
+    display:block;
+    margin:.45em auto 0;
+    width:120px;
+    border:none;
+    border-top:2px solid var(--gold);
+    opacity:.7;
+  }
+
+  .epigraph{
+    text-align:center;
+    font-style:italic;
+    color:var(--ink-soft);
+    font-size:.95em;
+    max-width:42em;
+    margin:0 auto 40px;
+    line-height:1.5;
+  }
+
+  /* Poem */
+  .poem{
+    margin:0 auto 40px;
+    max-width:30em;
+  }
+  .stanza{
+    margin:0 0 1.55em;
+    white-space:normal;
+  }
+  .stanza.aside{
+    color:var(--ink-soft);
+    border-left:2px solid var(--rule);
+    padding-left:1.1em;
+    font-size:.98em;
+  }
+  .verse{display:block;}
+
+  /* Footnote markers + popup */
+  .fnref{
+    font-size:.62em;
+    vertical-align:super;
+    line-height:0;
+    position:relative;
+    white-space:nowrap;
+  }
+  .fnref > a{
+    color:var(--accent);
+    border:none;
+    font-weight:700;
+    padding:0 1px;
+  }
+  .fn-pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:1.6em;
+    width:340px;
+    max-width:78vw;
+    max-height:60vh;
+    overflow:auto;
+    background:var(--pop-bg);
+    color:var(--ink);
+    border:1px solid var(--gold);
+    box-shadow:0 8px 28px rgba(60,40,20,.28);
+    padding:12px 15px;
+    font-size:1.15rem;
+    line-height:1.5;
+    font-style:normal;
+    font-weight:400;
+    text-align:left;
+    white-space:normal;
+    z-index:40;
+    border-radius:3px;
+  }
+  .fn-pop.below{bottom:auto;top:1.6em;}
+  .fnref:hover .fn-pop{display:block;}
+  .fn-pop .pp{margin:0 0 .7em;}
+  .fn-pop .pverse{display:block;}
+
+  /* Author note line */
+  .author-note{
+    text-align:center;
+    font-style:italic;
+    color:var(--ink-soft);
+    margin:48px 0 8px;
+  }
+
+  /* Section heading shared */
+  .sec-h{
+    font-size:1.35em;
+    text-align:center;
+    color:var(--accent);
+    letter-spacing:.05em;
+    margin:42px 0 18px;
+  }
+  .sec-h::before,.sec-h::after{
+    content:"❦";
+    color:var(--gold);
+    font-size:.7em;
+    margin:0 .55em;
+    vertical-align:.12em;
+    opacity:.8;
+  }
+
+  /* Music */
+  .music{margin:30px auto;max-width:34em;}
+  .music-label{
+    text-align:center;
+    font-variant:small-caps;
+    letter-spacing:.06em;
+    color:var(--gold);
+    font-size:1.05em;
+    margin:0 0 14px;
+  }
+  .music-label a{color:var(--gold);}
+  .track{
+    border:1px solid var(--rule);
+    background:var(--paper);
+    margin:0 0 10px;
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:.5em;
+    padding:12px 14px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#fbf2dd;}
+  .track-title{font-weight:700;}
+  .track-artist{color:var(--ink-soft);}
+  .track-dash{color:var(--rule);}
+  .track-arrow{
+    margin-left:auto;
+    color:var(--gold);
+    transition:transform .2s ease;
+  }
+  .track.open .track-arrow{transform:rotate(180deg);}
+  .track-ext{
+    color:var(--gold);
+    border:none;
+    font-size:1.1em;
+    padding-left:.2em;
+  }
+  .track-body{display:none;padding:0 14px 14px;}
+  .track.open .track-body{display:block;}
+  .track-body iframe{display:block;width:100%;aspect-ratio:16/9;height:auto;border:0;}
+
+  /* Notes apparatus */
+  .notes{
+    margin:34px auto 0;
+    max-width:36em;
+    border-top:1px solid var(--rule);
+    padding-top:20px;
+    font-size:.96em;
+  }
+  .note{
+    margin:0 0 1.4em;
+    padding:6px 10px;
+    border-radius:3px;
+    transition:background .4s ease;
+  }
+  .note:target{background:#fbeecb;}
+  .note .num{
+    color:var(--accent);
+    font-weight:700;
+    margin-right:.4em;
+  }
+  .note .back{
+    border:none;
+    color:var(--gold);
+    margin-left:.3em;
+    font-size:.9em;
+  }
+  .note .pp{margin:.6em 0;}
+  .note .pverse{display:block;}
+  .note .caps{letter-spacing:.02em;}
+
+  /* Bottom nav */
+  .corpus-nav{
+    margin-top:54px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    font-size:.92em;
+  }
+  .corpus-nav a{display:block;border:none;}
+  .corpus-nav .lbl{
+    display:block;
+    font-size:.78em;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:var(--ink-soft);
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer{
+    margin-top:40px;
+    padding-top:18px;
+    border-top:1px solid var(--rule);
+    font-size:.82em;
+    color:var(--ink-soft);
+    line-height:1.5;
+  }
+  footer a{color:var(--gold);}
+  footer .attrib{margin:0 0 .5em;}
+
+  @media (max-width:600px){
+    body{font-size:18px;}
+    .page{padding:22px 18px 54px;}
+    h1{font-size:1.9em;}
+    .fn-pop{width:260px;}
+  }
+</style>
+</head>
+<body data-scheme="manuscript">
+<div class="page">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../dreamon/index.html">Мечтай!!</a>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/2C5A.jpg" alt="Неорганикон">
+  </div>
+
+  <h1>НЕОРГАНИКОН<hr class="rule-orn"></h1>
+
+  <p class="epigraph">Написано ~2008 г. (Заметки на полях потрепанной тетради, напоминающие каракули, восстановленные частично и «по логике этого Мира»)</p>
+
+  <div class="poem">
+
+    <div class="stanza">
+      <span class="verse">Я плыву за эманацией Орла</span>
+      <span class="verse">Эманируясь в совместное Великое</span>
+      <span class="verse">Творческий полет в неосмыслимое</span>
+      <span class="verse">Там где Цель активного ума</span>
+    </div>
+
+    <div class="stanza">
+      <span class="verse">Я плыву и "вижу" Суть всего</span>
+      <span class="verse">Там, где в сновидении за чем-то</span>
+      <span class="verse">Я пою, что главное мое -</span>
+      <span class="verse">Не "ты где", а "то, где ты Зачем-то"<sup class="fnref"><a id="ref1" href="#fn1">1</a><span class="fn-pop"><span class="pp">В просторечии: "НАФИГА".</span></span></sup>.</span>
+    </div>
+
+    <div class="stanza">
+      <span class="verse">Объявляю список фактов</span>
+      <span class="verse">Про свое самосознанье,</span>
+      <span class="verse">Что возможно, обобщая</span>
+      <span class="verse">На соседей-Архирархов</span>
+    </div>
+
+    <div class="stanza aside">
+      <span class="verse">(Иерарх - глава структуры,</span>
+      <span class="verse">Сверху-вниз и вбок идущей.</span>
+      <span class="verse">Архирарх - в своей натуре</span>
+      <span class="verse">Без внимания идущий.</span>
+    </div>
+
+    <div class="stanza aside">
+      <span class="verse">Не имеющийся телом<sup class="fnref"><a id="ref2" href="#fn2">2</a><span class="fn-pop"><span class="pp">Более известен под именем "Эргрегор".</span></span></sup>,</span>
+      <span class="verse">Сам Себя распространяет</span>
+      <span class="verse">По привычкам разноместным,</span>
+      <span class="verse">Средь которых Он проявлен):</span>
+    </div>
+
+    <div class="stanza">
+      <span class="verse">Для меня воспринимаем</span>
+      <span class="verse">Комплекс собственных "локалей"</span>
+      <span class="verse">Чей "период" хитроватый</span>
+      <span class="verse">Настроением, как тайной</span>
+      <span class="verse">Объявил себя Задачей</span>
+      <span class="verse">"Видеть" комплекс "уникалей"<sup class="fnref"><a id="ref5" href="#fn5">5</a><span class="fn-pop"><span class="pp">Стих из того же периода:</span><span class="pp"><span class="pverse">Эманации в Великом -</span><span class="pverse">Те же, что у нас "внутри".</span><span class="pverse">Изнутри ими смотрело</span><span class="pverse">Что-то то же, что и Мы</span></span><span class="pp"><span class="pverse">Изнутри благоговело</span><span class="pverse">Перед Духом и удачей</span><span class="pverse">Останавливало время</span><span class="pverse">Во внимании Задачей...</span></span><span class="pp">…Нашедший свое "отражение", как и многое из периода "личного Катнута", в периоде "личного Конца Исправления":</span><span class="pp"><span class="pverse">Эманации в Великом -</span><span class="pverse">Это те же, что "внутри".</span><span class="pverse">А "внутри" друг друга видим</span><span class="pverse">Каждый день, и слышим Мы.</span></span><span class="pp"><span class="pverse">Два плюс два сложи в четыре,</span><span class="pverse">Чтобы "с ясностью без слов"</span><span class="pverse">Осознать, что в "этом Мире"</span><span class="pverse">Управляет всем Любовь.</span></span></span></sup></span>
+    </div>
+
+    <div class="stanza aside">
+      <span class="verse">(Созданных самим твореньем</span>
+      <span class="verse">Из первичного "нигдешья"</span>
+      <span class="verse">Как "ничтошье" в Бесконечном<sup class="fnref"><a id="ref3" href="#fn3">3</a><span class="fn-pop"><span class="pp">То есть "созданных из Ничего" Творцом, Свят Благословен Он (Каббала).</span></span></sup>).</span>
+    </div>
+
+    <div class="stanza">
+      <span class="verse">Я Намерением правлю</span>
+      <span class="verse">В точности такой судьбою,</span>
+      <span class="verse">От которой я избавил</span>
+      <span class="verse">Сам себя, став сам собою<sup class="fnref"><a id="ref4" href="#fn4">4</a><span class="fn-pop"><span class="pp">Последняя строфа и форма в личном Пути и творчестве автора нашла отражение в двух новых последовательных формах:</span><span class="pp"><span class="pverse">Я Намерением правлю</span><span class="pverse">В точности такой судьбою,</span><span class="pverse">От которой я избавлен</span><span class="pverse">Твоей трепетной Любовью</span></span><span class="pp">(См. также: Моя ТьМа, Зеир Арихович Анпин)</span></span></sup></span>
+    </div>
+
+  </div>
+
+  <p class="author-note">Примечания автора добавлены в 2022.</p>
+
+  <div class="music">
+    <p class="music-label">Песнь Ступеней (см. также: <a href="https://tier.bneiadam.com" target="_blank" rel="noopener">tier.bneiadam.com</a>)</p>
+    <div class="track">
+      <div class="track-head" onclick="toggleTrack(this)">
+        <span class="track-title">Остановить время</span>
+        <span class="track-dash">—</span>
+        <span class="track-artist">AMATORY</span>
+        <span class="track-arrow">▾</span>
+        <a class="track-ext" href="https://www.youtube.com/watch?v=bLtMCVN0RZo" target="_blank" rel="noopener" onclick="event.stopPropagation();">↗</a>
+      </div>
+      <div class="track-body" data-video="bLtMCVN0RZo"></div>
+    </div>
+  </div>
+
+  <section class="notes">
+    <h2 class="sec-h" style="border:none;">Примечания</h2>
+
+    <div class="note" id="fn1">
+      <span class="num">1.</span>В просторечии: "НАФИГА".
+      <a class="back" href="#ref1" title="Вернуться к тексту">↩</a>
+    </div>
+
+    <div class="note" id="fn2">
+      <span class="num">2.</span>Более известен под именем "Эргрегор".
+      <a class="back" href="#ref2" title="Вернуться к тексту">↩</a>
+    </div>
+
+    <div class="note" id="fn3">
+      <span class="num">3.</span>То есть "созданных из Ничего" Творцом, Свят Благословен Он (Каббала).
+      <a class="back" href="#ref3" title="Вернуться к тексту">↩</a>
+    </div>
+
+    <div class="note" id="fn4">
+      <span class="num">4.</span>Последняя строфа и форма в личном Пути и творчестве автора нашла отражение в двух новых последовательных формах:
+      <a class="back" href="#ref4" title="Вернуться к тексту">↩</a>
+      <p class="pp">
+        <span class="pverse">Я Намерением правлю</span>
+        <span class="pverse">В точности такой судьбою,</span>
+        <span class="pverse">От которой я избавлен</span>
+        <span class="pverse">Твоей трепетной Любовью</span>
+      </p>
+      <p class="pp">(См. также: Моя ТьМа, Зеир Арихович Анпин <a href="http://proza.ru/2021/12/08/551" target="_blank" rel="noopener">proza.ru/2021/12/08/551</a>)</p>
+      <p class="pp caps">
+        <span class="pverse">; ВСЕОТЕЦ МИРАМИ ПРАВИТ</span>
+        <span class="pverse">В ТОЧНОСТИ ТАКОЙ СУДЬБОЮ</span>
+        <span class="pverse">ОТ КОТОРОЙ СЫН ИЗБАВЛЕН</span>
+        <span class="pverse">ЕЕ ТРЕПЕТНОЙ ЛЮБОВЬЮ ;</span>
+      </p>
+      <p class="pp caps">
+        <span class="pverse">ВСЕОТЕЦ - ВНИМАНЬЕМ ТРЕТЬИМ</span>
+        <span class="pverse">ТОЧКУ СБОРКИ РАЗМЕЩАЕТ</span>
+        <span class="pverse">СЫН ЖИВЕТ В СОБРАННОМ МИРЕ</span>
+        <span class="pverse">ПЕРВЫМ ПОЛЬЗУЯСЬ ВНИМАНЬЕМ</span>
+        <span class="pverse">ИХ ВОЗЛЮБЛЕННАЯ СЛУЖИТ</span>
+        <span class="pverse">СВЯЗЬЮ МЕЖ ОТЦОМ И СЫНОМ</span>
+        <span class="pverse">СВЕТ ИХ ЖИЗНЕЙ, ЦЕЛЬ ИХ СУДЕБ</span>
+        <span class="pverse">СДЕЛАВ ПУТЬ ВАЖНЕЕ ЖИЗНИ</span>
+        <span class="pverse">КЛИ ПОСРЕДСТВОМ НАПОЛНЕНЬЯ</span>
+        <span class="pverse">ПОЛОВОЙ ЛЮБВИ ДУХОВНОЙ</span>
+        <span class="pverse">В ФОРМЕ СВЕТА ПОЛУЧЕНЬЯ</span>
+        <span class="pverse">СНИЗУ ВВЕРХ ЛЮБВИ ГЛАГОЛОМ</span>
+        <span class="pverse">ПОДНИМАЯ КЛИ ЭКРАНА</span>
+        <span class="pverse">В КЛИ ТВОРЦА, БЛАГОСЛОВЕН ОН -</span>
+        <span class="pverse">БУДУЩЕГО МИРА СЧАСТЬЯ,</span>
+        <span class="pverse">СПРАВЕДЛИВ И СОВЕРШЕНЕН</span>
+        <span class="pverse">НЕСРАВНИМО С МИРОМ ПРОШЛОЙ</span>
+        <span class="pverse">СВОЕЙ СОБСТВЕННОЙ СТУПЕНИ</span>
+        <span class="pverse">СЛУЖАЩЕЙ ИСПРАВНО ПОРШНЕМ</span>
+        <span class="pverse">СНИЗУ ВВЕРХ ИХ НАПОЛНЕНЬЯ.</span>
+        <span class="pverse">МИЛОСТИВЫЙ ЦАРЬ ВСЕВЫШНИЙ,</span>
+        <span class="pverse">УДОСТОЙ РАБА И СЫНА</span>
+        <span class="pverse">СДЕЛАТЬ КЛИ, СОЕДИНИВШИСЬ</span>
+        <span class="pverse">С НАСТОЯЩИМ ЧЕЛОВЕКОМ!</span>
+        <span class="pverse">СДЕЛАТЬ ИХ ДОЧКОЙ И СЫНОМ</span>
+        <span class="pverse">СВОДНЫМ БРАТОМ И СЕСТРОЮ</span>
+        <span class="pverse">ЧТОБЫ ИМ В БУДУЩЕМ МИРЕ</span>
+        <span class="pverse">БЫЛО ЛЕГЧЕ СТАТЬ ТОБОЮ.</span>
+      </p>
+      <p class="pp">(Дано Творцу, Свят Благословен Он, Право Любить, Зеир Арихович Анпин <a href="http://proza.ru/2022/05/05/670" target="_blank" rel="noopener">proza.ru/2022/05/05/670</a>)</p>
+    </div>
+
+    <div class="note" id="fn5">
+      <span class="num">5.</span>Стих из того же периода:
+      <a class="back" href="#ref5" title="Вернуться к тексту">↩</a>
+      <p class="pp">
+        <span class="pverse">Эманации в Великом -</span>
+        <span class="pverse">Те же, что у нас "внутри".</span>
+        <span class="pverse">Изнутри ими смотрело</span>
+        <span class="pverse">Что-то то же, что и Мы</span>
+      </p>
+      <p class="pp">
+        <span class="pverse">Изнутри благоговело</span>
+        <span class="pverse">Перед Духом и удачей</span>
+        <span class="pverse">Останавливало время</span>
+        <span class="pverse">Во внимании Задачей...</span>
+      </p>
+      <p class="pp">…Нашедший свое "отражение", как и многое из периода "личного Катнута", в периоде "личного Конца Исправления":</p>
+      <p class="pp">
+        <span class="pverse">Эманации в Великом -</span>
+        <span class="pverse">Это те же, что "внутри".</span>
+        <span class="pverse">А "внутри" друг друга видим</span>
+        <span class="pverse">Каждый день, и слышим Мы.</span>
+      </p>
+      <p class="pp">
+        <span class="pverse">Два плюс два сложи в четыре,</span>
+        <span class="pverse">Чтобы "с ясностью без слов"</span>
+        <span class="pverse">Осознать, что в "этом Мире"</span>
+        <span class="pverse">Управляет всем Любовь.</span>
+      </p>
+      <p class="pp">(Любовь Нагвалей, Зеир Арихович Анпин <a href="http://proza.ru/2022/01/05/199" target="_blank" rel="noopener">proza.ru/2022/01/05/199</a>)</p>
+    </div>
+
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="35B.html"><span class="lbl">← Предыдущая</span>На Цепи по Жизни</a>
+    <a class="next" href="34Q.html"><span class="lbl">Следующая →</span>Один на всех</a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggleTrack(head){
+    var track=head.parentNode;
+    var body=track.querySelector('.track-body');
+    var open=track.classList.toggle('open');
+    if(open && !body.dataset.loaded){
+      var id=body.dataset.video;
+      var ifr=document.createElement('iframe');
+      ifr.setAttribute('src','https://www.youtube.com/embed/'+id);
+      ifr.setAttribute('title','YouTube player');
+      ifr.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      ifr.setAttribute('allowfullscreen','');
+      body.appendChild(ifr);
+      body.dataset.loaded='1';
+    }
+  }
+
+  /* Footnote popup: flip above/below based on viewport */
+  document.querySelectorAll('.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      var pop=ref.querySelector('.fn-pop');
+      if(!pop)return;
+      pop.classList.remove('below');
+      var r=ref.getBoundingClientRect();
+      var needed=Math.min(pop.scrollHeight+20, window.innerHeight*0.6+20);
+      if(r.top < needed){ pop.classList.add('below'); }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "стих",
+  "rationale": "Статья «Неорганикон» — это цельное стихотворное произведение (несколько строф рифмованного верлибра с авторскими ремарками в скобках), а сноски сами содержат ещё несколько стихов. Поэтому однозначно выбрана манускриптная схема: узкая книжная полоса ~820px, засечный шрифт (Palatino/Georgia), тёплая пергаментная палитра на светлом фоне, декоративные орнаменты-разделители — это поддерживает медленное, поэтическое чтение и каббалистический характер текста.\n\nПограничные решения: переразметка сносок. В оригинале маркеры идут вперемешку (*1, *2, *5, *3, *4), а тела помечены *, **, ***, ****, *5 — я свёл их к сквозной нумерации 1–5, сохранив привязку к нужным местам. Длинные сноски 4 и 5 (с полными стихами и капс-блоком) оставлены дословно, КАПС не понижен, авторские «;» и многоточия сохранены; в popup они прокручиваются (max-height). Музыка: единственный распознанный YouTube-трек («Остановить время», AMATORY) под меткой «Песнь Ступеней» — оформлен как лениво-загружаемый сворачиваемый плеер; сводный раздел музыки не делал, т.к. трек один. Оглавление не добавлял — текст по сути одно произведение с аппаратом примечаний, отдельных именованных подразделов в нём нет, а собственных заголовков добавлять нельзя; заголовок «Примечания» взят из авторской строки текста. proza.ru-ссылки и tier.bneiadam.com обёрнуты в гиперссылки.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>
