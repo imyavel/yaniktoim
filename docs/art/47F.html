@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сказка о мертвой царевне</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#231f1a;
+    --muted:#6b6253;
+    --accent:#8a3d2e;
+    --accent2:#b5703a;
+    --rule:#d8cfbd;
+    --link:#7a3322;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+  }
+  .wrap{
+    width:66%;
+    max-width:920px;
+    min-width:0;
+    margin:0 auto;
+    padding:34px 20px 80px;
+  }
+  a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(122,51,34,.35);}
+  a:hover{border-bottom-color:var(--link);}
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.82rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:22px;
+  }
+  .crumbs a{border:none;color:var(--accent);}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs .sep{margin:0 .55em;color:var(--rule);}
+
+  /* image */
+  .lead-img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    margin:0 auto 26px;
+    border:1px solid var(--rule);
+    box-shadow:0 6px 22px rgba(0,0,0,.10);
+  }
+
+  h1{
+    font-size:2.35rem;
+    line-height:1.15;
+    font-weight:700;
+    margin:.2em 0 .15em;
+    letter-spacing:.01em;
+  }
+  .byline{
+    font-style:italic;
+    color:var(--muted);
+    font-size:1rem;
+    margin:0 0 30px;
+    padding-bottom:18px;
+    border-bottom:2px solid var(--rule);
+  }
+
+  p{margin:0 0 1.25em;text-align:justify;hyphens:auto;}
+  .closing{
+    font-style:italic;
+    font-size:1.15rem;
+    text-align:center;
+    color:var(--accent);
+    margin:1.8em 0;
+  }
+
+  /* music */
+  .music-group{
+    margin:26px 0;
+    padding:16px 20px;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-left:4px solid var(--accent2);
+    border-radius:3px;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.78rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin:0 0 10px;
+    font-weight:600;
+  }
+  .track{border-top:1px dotted var(--rule);}
+  .track:first-of-type{border-top:none;}
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:.6em;
+    cursor:pointer;
+    padding:9px 2px;
+    user-select:none;
+  }
+  .track-head .arrow{
+    color:var(--accent);
+    transition:transform .2s ease;
+    font-size:.85em;
+    flex:0 0 auto;
+  }
+  .track.open .arrow{transform:rotate(90deg);}
+  .track-title{flex:1 1 auto;}
+  .track-title .name{font-weight:600;}
+  .track-title .artist{color:var(--muted);}
+  .track-ext{
+    flex:0 0 auto;
+    border:none;
+    color:var(--accent2);
+    font-size:1.05em;
+  }
+  .player{
+    display:none;
+    margin:0 0 12px;
+  }
+  .track.open .player{display:block;}
+  .player .frame{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    background:#000;
+    border-radius:3px;
+    overflow:hidden;
+  }
+  .player iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+  }
+
+  /* bottom nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:54px;
+    padding-top:22px;
+    border-top:2px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.95rem;
+  }
+  .corpus-nav a{
+    border:none;
+    max-width:48%;
+  }
+  .corpus-nav .lbl{
+    display:block;
+    font-size:.72rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:3px;
+  }
+  .corpus-nav .next{text-align:right;}
+
+  footer.colophon{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:.85rem;
+    color:var(--muted);
+    line-height:1.5;
+  }
+  footer.colophon a{color:var(--accent);}
+
+  @media (max-width:860px){
+    body{font-size:18px;}
+    .wrap{width:100%;max-width:100%;padding:22px 16px 60px;}
+    h1{font-size:1.9rem;}
+    p{text-align:left;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs" aria-label="Хлебные крошки">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <img class="lead-img" src="../img/47F.jpg" alt="Иллюстрация к статье">
+
+  <h1>Сказка о мертвой царевне</h1>
+  <p class="byline">Написано 15 мая 2021 г. на форуме ЛЛ</p>
+
+  <div class="music-group">
+    <p class="music-label">Музыка под настроение (добавлено 15.07.24)</p>
+    <div class="track" data-embed="https://www.youtube-nocookie.com/embed/0LVL8NU6cAM">
+      <div class="track-head" onclick="toggleTrack(this)">
+        <span class="arrow">▶</span>
+        <span class="track-title"><span class="artist">Rammstein —</span> <span class="name">Sonne (8 bit)</span></span>
+        <a class="track-ext" href="https://www.youtube.com/watch?v=0LVL8NU6cAM" target="_blank" rel="noopener" title="Открыть на YouTube" onclick="event.stopPropagation()">↗</a>
+      </div>
+      <div class="player"><div class="frame"></div></div>
+    </div>
+  </div>
+
+  <p>Если Золушка — это история о начале духовного Пути человека, то "Сказка о мертвой царевне" Пушкина — это магическая история о его продолжении, в центре которого развитие собственного осознанного стремления следовать Намерению Духа и идти по Пути Сердца. Начинается все с конца предыдущей сказки (с этого вообще все истории начинаются, независимо от названия сказки) — "красавица-дочь", оставшаяся от предыдущего состояния (мать-царица умерла при родах) форма осознанного намерения и стремления человека на Пути, довольно скоро сталкивается с новыми, непредвиденными и непредсказуемыми помехами со стороны Мира, которые, через какое-то время, множат все достижения предшествующего этапа Пути (результат которого в конце казался воину самой надежной внутренней основой намерения, с которой произойти не может ничего и никогда в принципе) на ноль, пока человек не оказывается буквально опрокинут в бездну, сулящую близкий конец не только Пути, но и всей жизни, из которой воин не видит никакой возможности выхода. Здесь воин должен полностью избавиться от последствий достигнутой им кристальной ясности во всем, что касается себя, Мира, жизни и Пути вообще, пока от этой ясности, и уверенности в собственных силах, не остается ни единой капли. Это состояние объективно необходимо для начала каждого последовательно этапа накопления "духовного" опыта. Когда Цель достигнута, перед воином открывается еле видная тропинка, которой он раньше никогда в жизни бы не воспользовался по собственной воле, в связи с ее небогатой перспективой, поскольку то, что воину предстоит делать на этой тропе, не сулит ему значимой выгоды ни духовно, ни, тем более, материально. Зато, позволяет продолжить Путь. А не пассивно дожидаться смерти. Ни один человек, и уж тем более воин, не согласится ставить на кон свою жизнь и судьбу на таких условиях, поэтому его собственное "эго" должно быть перед этим нейтрализовано ("умерщвлено"). В этом смысл первой части повествования Сказки. Последовательное достижение этого метафорически описывается посредством механизма отрицательной обратной связи саморефлексии этого мира — "зеркальце, скажи, я ль на Свете всех милее". Милее всех для существа, ощущающего собственную важность, может быть только то, что не сравнимо с ним в образе самого себя (пока Царевна не подросла), или мертво (когда собственное "эго" временно нейтрализовано посредством ударов судьбы). Каждое "ухудшение" является на самом деле "обраткой", прилетающей человеку от Мира, к которому он подходит со своим Уставом, у которого истек срок годности (закончился прошлый этап в развитии воина).</p>
+
+  <p>Теперь перед ним стоит задача найти самого себя на новом непонятном этапе собственной жизни и Пути, что он производит сначала наиболее привычными способами (солнце и луна — аналог дня и ночи — это свойства в дисциплине воина, когда он, условно говоря, развивается при помощи стратегии мелочных тиранов, т.е. продвигается "вопреки" ощущению и пониманию, или при помощи "развития внимания сновидения", когда он продвигается ясным и ощущаемым понятным образом). Оба эти подхода, бывшие эффективными в прошлом, отказываются служить ему в новых обстоятельствах. А третий — действие, не ожидая наград, без разницы, какой результат оно приносит ощущаемо и понимаемо — т.е. "несгибаемое намерение", плюс намерение, высказываемое ясными словами Духу, оказывается полезнее, что позволяет нащупать "в потемках" Путь к обнаружению и возрождению собственной души (высшее "эго" и душа — это одно и то же). Точнее, позволяет совершить этот Путь практически, без того, чтобы что-либо видеть или понимать в собственных действиях "правильным образом". Этот подход к Пути, равно как и к самому себе и собственным усилиям, становится затем путеводной нитью и основой дальнейшей судьбы воина, посредством свадьбы Духа с собственным "телом сновидения" (а то и с реальной "второй половинкой" своей "двойной сущности" в этом мире, если очень повезет), поскольку в нем заключается единственная возможная основа осознанного Пути в этом мире в принципе. Воин должен верить, а не верит "сам по себе". Он это делает только потому, что в этом заключается безупречная стратегия его Бенефактора. И поэтому то, во что он верит, становится безусловной Истиной, как для самого воина, так и для всех, с кем он пересекается на этом Пути. А во что конкретно верить, он должен разобраться и решить для себя сам, точно понимая цель, с которой он собирается связать себя с формой веры, а затем и с формой восприятия этого мира, который является точным зеркальным отражением того, насколько безупречно он подошел к выполнению этого долга.</p>
+
+  <p class="closing">Сделаем и услышим!</p>
+
+  <div class="music-group">
+    <p class="music-label">Рекомендуемая музыка:</p>
+    <div class="track" data-embed="https://www.youtube-nocookie.com/embed/ySbLvg_9cEs">
+      <div class="track-head" onclick="toggleTrack(this)">
+        <span class="arrow">▶</span>
+        <span class="track-title"><span class="artist">Би-2, С.Сурганова, М.Максакова —</span> <span class="name">Слепой</span></span>
+        <a class="track-ext" href="https://youtu.be/ySbLvg_9cEs" target="_blank" rel="noopener" title="Открыть на YouTube" onclick="event.stopPropagation()">↗</a>
+      </div>
+      <div class="player"><div class="frame"></div></div>
+    </div>
+  </div>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="15E.html"><span class="lbl">← Предыдущая</span>Золушка</a>
+    <a class="next" href="15FA.html"><span class="lbl">Следующая →</span>Снежная Королева</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+function toggleTrack(head){
+  var track = head.closest('.track');
+  var open = track.classList.toggle('open');
+  if(open){
+    var frame = track.querySelector('.frame');
+    if(frame && !frame.querySelector('iframe')){
+      var src = track.getAttribute('data-embed') + '?rel=0&autoplay=1';
+      var ifr = document.createElement('iframe');
+      ifr.setAttribute('src', src);
+      ifr.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      ifr.setAttribute('allowfullscreen','');
+      frame.appendChild(ifr);
+    }
+  }
+}
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — целиком прозаическое эссе-толкование пушкинской сказки в эзотерическом ключе, без стихотворных строк, поэтому выбрана редакторская широкоформатная схема с основной колонкой около 2/3 ширины окна (ограниченной max-width ради комфортной меры строки на больших мониторах). Текст состоит из двух длинных абзацев плюс короткая фраза-возглас 'Сделаем и услышим!', которую я подал как центрированную курсивную врезку, не добавляя своего смысла. Подразделов как таковых нет — оглавление не делалось, сносок в тексте тоже нет.\n\nМузыкальных ссылок ровно две (Rammstein и Би-2/Сурганова/Максакова), обе ведут на YouTube, поэтому оформлены как лениво подгружаемые сворачиваемые плееры на своих местах. Так как треков не больше двух, сводный раздел музыки не создавался. Метки атрибуции различаются ('Музыка под настроение' и 'Рекомендуемая музыка') и относятся к разным одиночным трекам, разнесённым по тексту, — поэтому обе метки сохранены дословно над своими группами. Палитра — тёплая бумажно-книжная на светлом фоне с терракотовым акцентом, засечный шрифт для тела, гротеск для служебных подписей и навигации."
+,
+  "features": ["music"]
+}
+</script>
+</body>
+</html>
