@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Про действие без ожидания награды...</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --muted:#6b6256;
+    --accent:#9a3b1f;
+    --accent2:#2f5d50;
+    --rule:#ddd5c6;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    line-height:1.7;
+    font-size:19px;
+  }
+  .wrap{
+    width:66%;
+    max-width:1080px;
+    margin:0 auto;
+    padding:32px 28px 80px;
+  }
+  @media(max-width:1100px){.wrap{width:82%;}}
+  @media(max-width:760px){
+    .wrap{width:100%;padding:20px 18px 60px;}
+    body{font-size:18px;}
+  }
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:12px;
+    margin-bottom:30px;
+  }
+  .crumbs a{color:var(--accent2);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 8px;color:#bbb;}
+  .date{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--muted);
+    margin-bottom:10px;
+  }
+  h1{
+    font-size:34px;
+    line-height:1.25;
+    font-weight:700;
+    margin:0 0 36px;
+    color:var(--ink);
+  }
+  @media(max-width:760px){h1{font-size:27px;}}
+  p{margin:0 0 1.25em;}
+  article p{text-align:justify;}
+  .lead{font-size:1.05em;}
+  /* footnote markers */
+  a.fnref{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:bold;
+    font-size:.78em;
+    vertical-align:super;
+    padding:0 1px;
+    cursor:pointer;
+  }
+  a.fnref:hover{text-decoration:underline;}
+  .fn-popup{
+    position:absolute;
+    z-index:50;
+    max-width:380px;
+    background:var(--paper);
+    color:var(--ink);
+    border:1px solid var(--accent);
+    border-radius:6px;
+    box-shadow:0 6px 24px rgba(0,0,0,.18);
+    padding:12px 14px;
+    font-size:15.5px;
+    line-height:1.55;
+    display:none;
+  }
+  .fn-popup.show{display:block;}
+  /* notes */
+  .notes{
+    margin-top:48px;
+    border-top:2px solid var(--rule);
+    padding-top:20px;
+  }
+  .notes h2{
+    font-size:22px;
+    color:var(--accent);
+    margin:0 0 18px;
+  }
+  .notes ol{
+    padding-left:1.4em;
+    font-size:16.5px;
+    line-height:1.6;
+    color:#3a352d;
+  }
+  .notes li{margin-bottom:14px;}
+  .notes li:target{
+    background:#fdeec9;
+    box-shadow:0 0 0 6px #fdeec9;
+    border-radius:3px;
+  }
+  .backref{
+    color:var(--accent2);
+    text-decoration:none;
+    margin-left:6px;
+    font-size:.85em;
+  }
+  .backref:hover{text-decoration:underline;}
+  /* music */
+  .music{
+    margin:36px 0;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    background:var(--paper);
+    overflow:hidden;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--muted);
+    padding:12px 16px 0;
+  }
+  .track{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track .arrow{transition:transform .2s;color:var(--accent);}
+  .track.open .arrow{transform:rotate(90deg);}
+  .track .tname{flex:1;font-style:italic;}
+  .track .ext{color:var(--accent2);text-decoration:none;font-size:1.1em;}
+  .player{display:none;padding:0 16px 16px;}
+  .player.open{display:block;}
+  .player .frame{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+  }
+  .player iframe{
+    position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:6px;
+  }
+  /* bottom nav */
+  .pager{
+    margin-top:56px;
+    border-top:1px solid var(--rule);
+    padding-top:24px;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .pager a{
+    text-decoration:none;
+    color:var(--accent2);
+    max-width:46%;
+    font-size:15px;
+  }
+  .pager a:hover{text-decoration:underline;}
+  .pager .lbl{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px;}
+  .pager .next{text-align:right;margin-left:auto;}
+  footer{
+    margin-top:48px;
+    border-top:1px solid var(--rule);
+    padding-top:20px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer a{color:var(--accent2);}
+  .closing{
+    font-style:italic;
+    font-size:1.1em;
+    color:var(--accent);
+    margin:30px 0;
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span>/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <div class="date">25 февраля 2021 г.</div>
+  <h1>Про действие без ожидания награды и ощущение собственной ущербности.</h1>
+
+  <article>
+    <p class="lead">Следует понять, что человек в "первом внимании" создан таким, каким он создан<a class="fnref" id="ref1" href="#fn1" data-fn="1">*1</a> намеренно и в точности выверено ради определенной цели и задачи.</p>
+
+    <p>В отношении ощущения ущербности, эта задача состоит в том, чтобы, "потеряв ЧСВ", превратить в себе это ощущение из недостатка в преимущество, заставив его работать в интересах Духа. В методике "правой линии"<a class="fnref" id="ref2" href="#fn2" data-fn="2">*2</a> это решается посредством совместной молитвы. Молиться навиду - это само по себе сложно, поскольку сильно страдает гордость человека, который с детства привык быть "сам сусам", а уж с тех пор, как стал "воином" - и подавно. Молиться Тому, не знаю Кому, про то, не знаю про что<a class="fnref" id="ref3" href="#fn3" data-fn="3">*3</a> - вдвойне трудно. А если к этому прибавить, что молитва должна быть "не за себя и не ради себя" - то кажется по началу, что невозможно в принципе. Но это решается с помощью "несгибаемого намерения"<a class="fnref" id="ref4" href="#fn4" data-fn="4">*4</a> (НН) в два счета. "Воины" обладают в этом смысле решающим преимуществом, потому что у них уже есть этот инструмент - несгибаемое намерение. У остальных, кто решает учиться методике "правой линии", не имея такого полезного бэкграунда, как НН, "вера выше знания", которой должна быть верой в Творца, о Котором человек ничего не знает и знать не стремится, то есть, верой, по сути, в "самого себя, в своем будущем, более совершенном состоянии", нередко становится "отливанием золотого тельца" и "поклонением идолам", то есть, не инструментом духовного развития, а инструментом укрепления идеи и образа самого себя, основанного на саморефлексии и ЧСВ. Это одна из важных причин, почему "правая линия" без "левой" настолько же неполноценна, насколько левая без правой. Обе методики должны быть объединены посредством практики человеком для того, чтобы у него появился ясный Путь духовно-магической самореализации, в практической полноценности которого и верности выбранного курса, равно как и значимости достигнутых результатов, не могло бы быть никаких сомнений.</p>
+
+    <p>Так вот, практика молитвы, имеющаяся в методике "правой линии" - принимает недостаток, имеющийся в человеке, как преимущество, поскольку это означает, что у него есть весомый повод поднять молитву Творцу об исправлении в нем этого недостатка, поскольку человек настолько "очистил свое звено связи с Духом" от ЧСВ и свой ВД от "лишних мыслей", что он точно знает<a class="fnref" id="ref5" href="#fn5" data-fn="5">*5</a>, что только Сам Творец может помочь ему от этого недостатка избавиться, а если Он человеку не поможет, то человек обречен, поскольку жизнь без продолжения Пути для него - хуже, чем смерть. И тогда Творец реально помогает человеку и ощущение "ущербности" уходит от него, заменяясь на ощущение безграничной внутренней свободы, радости и удачи, называемое "Свет Хасадим". И, заодно, развивая в человеке способность "несгибаемого намерения" до следующего, более совершенного "уровня", называемого "верой выше знания", когда это НН уже используется человеком постоянно практически, для создания реальности, в которой он существует по тем законам, которые он сам установил для себя считать "истиной", а не по тем "объективным законам реальности", по которым существует пассивное большинство. Это открывает перед ним новые горизонты, поскольку открывает возможность "апгрейта" этого умения ("Кли") до следующего "уровня" развития - "взрослой" каббалистической молитвы<a class="fnref" id="ref6" href="#fn6" data-fn="6">*6</a>. А эта способность, в свою очередь, открывает человеку двери к таким способностям и возможностям, о которых он не смел даже мечтать. Его жизнь превращается в "хогвартс-экспресс", и полет под крылом птицы Свободы одновременно.</p>
+  </article>
+
+  <div class="music">
+    <div class="music-label">Музыка под настроение:</div>
+    <div class="track" data-vid="ftI_p44xGWU">
+      <span class="arrow">▶</span>
+      <span class="tname">YouTube — трек под настроение</span>
+      <a class="ext" href="https://www.youtube.com/watch?v=ftI_p44xGWU" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </div>
+    <div class="player"><div class="frame"></div></div>
+  </div>
+
+  <p class="closing">Сделаем и услышим!</p>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1">"Самим собой" с "более высшего плана", или Высшей Силой, не суть важно (не важно, что Она такое Собой представляет, поскольку все, что мы думаем, или думаем, что знаем о Ней, все равно будет оставаться предметом веры, а не точного знания, даже для потерявших ЧФ магов, читай КК про взаимоотношения воинов с Духом)<a class="backref" href="#ref1">↩</a></li>
+      <li id="fn2">Методиками "правой" и "левой" линии здесь, соответственно, называются "Путь стремящихся к Творцу" - методика Каббалы (Бааля Сулама) и "Путь Знания" - учение Дона Хуана (Карлоса Кастанеды). Почему выбраны именно такие названия и что они конкретно означают, это предмет отдельного выяснения<a class="backref" href="#ref2">↩</a></li>
+      <li id="fn3">Поскольку не только Тот, Кому молится человек в методике "правой линии", но и сам предмет молитвы, то есть те свойства, которые он "хочет" приобрести посредством молитвы "в подарок" от Творца, являются для него категорией "должен верить", или "веры выше знания", а не чего-то такого, в "привлекательности" которого он хотя бы убедил сам себя. Это выглядит невыполнимой задачей, но выполняется практически элементарно за счет других элементов методики "правой линии"<a class="backref" href="#ref3">↩</a></li>
+      <li id="fn4">"начинается все с какого-нибудь одного действия, которое должно быть целенаправленным, точным и осуществляемым с непреклонностью. Повторяя такое действие достаточно долго, человек обретает несгибаемое намерение. А несгибаемое намерение может быть приложено к чему угодно. И, как только оно достигнуто – путь свободен. Каждый шаг повлечет за собой следующий и так будет продолжаться до тех пор, пока весь потенциал воина не будет полностью реализован". Колесо Времени, Карлос Кастанеда<a class="backref" href="#ref4">↩</a></li>
+      <li id="fn5">Посредством "веры выше знания" ("должен верить"), которая при посредстве НН становится для воина источником убежденности, значительно превосходящей "знание" обычного человека<a class="backref" href="#ref5">↩</a></li>
+      <li id="fn6">Подробнее см. по ссылке <a href="https://www.facebook.com/arykhanpin/posts/454928025661299" target="_blank" rel="noopener">https://www.facebook.com/arykhanpin/posts/454928025661299</a><a class="backref" href="#ref6">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="pager">
+    <a class="prev" href="12PB.html">
+      <span class="lbl">← Предыдущая</span>
+      Сила-это один из врагов Человека Знания
+    </a>
+    <a class="next" href="24I.html">
+      <span class="lbl">Следующая →</span>
+      Вступление
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // footnote popups
+  (function(){
+    var popup=document.createElement('div');
+    popup.className='fn-popup';
+    document.body.appendChild(popup);
+    var refs=document.querySelectorAll('a.fnref');
+    refs.forEach(function(r){
+      r.addEventListener('mouseenter',function(){
+        var n=r.getAttribute('data-fn');
+        var li=document.getElementById('fn'+n);
+        if(!li)return;
+        var html=li.innerHTML.replace(/<a class="backref"[^>]*>.*?<\/a>/,'');
+        popup.innerHTML=html;
+        popup.classList.add('show');
+        var rect=r.getBoundingClientRect();
+        var pw=popup.offsetWidth, ph=popup.offsetHeight;
+        var left=window.scrollX+rect.left+rect.width/2-pw/2;
+        if(left<8)left=8;
+        var maxL=window.scrollX+document.documentElement.clientWidth-pw-8;
+        if(left>maxL)left=maxL;
+        var top;
+        if(rect.top-ph-10<0){ // not enough room above -> below
+          top=window.scrollY+rect.bottom+8;
+        }else{
+          top=window.scrollY+rect.top-ph-8;
+        }
+        popup.style.left=left+'px';
+        popup.style.top=top+'px';
+      });
+      r.addEventListener('mouseleave',function(){
+        popup.classList.remove('show');
+      });
+    });
+  })();
+
+  // lazy youtube
+  document.querySelectorAll('.music .track').forEach(function(t){
+    t.addEventListener('click',function(e){
+      if(e.target.classList.contains('ext'))return;
+      var player=t.nextElementSibling;
+      var frame=player.querySelector('.frame');
+      var open=player.classList.toggle('open');
+      t.classList.toggle('open',open);
+      if(open && !frame.querySelector('iframe')){
+        var vid=t.getAttribute('data-vid');
+        var ifr=document.createElement('iframe');
+        ifr.src='https://www.youtube.com/embed/'+vid+'?autoplay=1';
+        ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        ifr.allowFullscreen=true;
+        frame.appendChild(ifr);
+      }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст представляет собой цельное прозаическое эссе-рассуждение о духовной практике (молитва, несгибаемое намерение, каббалистические понятия), без стихотворных строф — поэтому выбрана широкая редакторская схема с основной колонкой ~2/3 ширины окна. Развилок по форме почти не было: ритмически и структурно это плотные абзацы прозы, что однозначно указывает на лонгрид-стиль.\n\nОглавление не делал: в статье фактически один смысловой блок плюс аппарат «Примечания», то есть нет более одного содержательного подраздела для построения TOC. Музыкальный трек один (порог сводного раздела — более двух), поэтому встроил единственный ленивый раскрывающийся YouTube-плеер на его месте с меткой «Музыка под настроение:» (исполнитель/название в исходнике не указаны, поэтому подпись нейтральная плюс значок внешней ссылки). Сноски *1–*6 все имеют тела и обратные ссылки — реализованы кликабельные маркеры, переходы вниз/вверх, подсветка цели через :target и hover-popup, позиционируемый сверху, а при нехватке места — снизу. Палитра — тёплый бумажный фон с терракотовым и зелёным акцентами, засечный шрифт для тела, гротеск для служебных элементов, чтобы держать редакторский, спокойный характер.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>
