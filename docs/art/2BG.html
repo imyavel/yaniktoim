@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>П-е-с-н-ь C-т-у-п-е-н-е-й</title>
+<style>
+  :root{
+    --bg:#faf7f1;
+    --ink:#211c16;
+    --muted:#6b6258;
+    --accent:#9c6b2f;
+    --accent-deep:#7a4e1e;
+    --link:#2f5d62;
+    --rule:#e2d8c7;
+    --card:#fffdf8;
+    --hl:#fcefb4;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.74;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--link);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{
+    width:68vw;
+    max-width:1080px;
+    margin:0 auto;
+    padding:32px 28px 80px;
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin:6px 0 22px;
+  }
+  .crumbs a{color:var(--accent-deep);}
+  .crumbs .sep{margin:0 .5em;color:var(--rule);}
+  /* hero image */
+  .hero{margin:0 0 26px;}
+  .hero img{display:block;max-width:100%;width:auto;height:auto;border-radius:3px;}
+  /* title */
+  h1{
+    font-size:2.45rem;
+    line-height:1.15;
+    font-weight:600;
+    margin:.1em 0 .5em;
+    letter-spacing:.01em;
+  }
+  .meta{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    border-left:3px solid var(--accent);
+    padding:6px 0 6px 16px;
+    margin:0 0 34px;
+  }
+  .meta div{margin:2px 0;}
+  .meta .lbl{color:var(--accent-deep);font-weight:600;}
+  hr.div{border:none;border-top:1px solid var(--rule);margin:38px 0;}
+  /* TOC */
+  .toc{
+    background:var(--card);
+    border:1px solid var(--rule);
+    border-radius:4px;
+    padding:14px 22px 18px;
+    margin:0 0 38px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .toc-head{
+    display:flex;align-items:center;justify-content:space-between;
+    cursor:pointer;
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent-deep);font-weight:700;
+  }
+  .toc-toggle{
+    background:none;border:none;cursor:pointer;color:var(--accent-deep);
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+    display:flex;align-items:center;gap:8px;width:100%;justify-content:space-between;
+    font-family:inherit;padding:0;
+  }
+  .toc-toggle .chev{transition:transform .2s;}
+  .toc.collapsed .toc-toggle .chev{transform:rotate(-90deg);}
+  .toc ul{list-style:none;margin:14px 0 0;padding:0;}
+  .toc.collapsed ul{display:none;}
+  .toc li{margin:7px 0;font-size:16px;}
+  .toc li a{color:var(--ink);}
+  .toc li a:hover{color:var(--accent-deep);}
+  /* body */
+  p{margin:0 0 1.15em;}
+  .lead{font-size:1.05em;}
+  .qa b, .qa strong{color:var(--accent-deep);}
+  blockquote.epi{
+    margin:0 0 1em;
+    font-style:italic;
+    font-size:1.12em;
+    line-height:1.6;
+    color:#33291d;
+    border-left:3px solid var(--accent);
+    padding-left:20px;
+  }
+  cite{
+    display:block;
+    font-style:normal;
+    font-size:.85em;
+    color:var(--muted);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    line-height:1.4;
+  }
+  .exclaim{
+    text-align:center;
+    font-size:1.18em;
+    font-weight:600;
+    color:var(--accent-deep);
+    line-height:1.5;
+    margin:30px 0;
+  }
+  h2{
+    font-size:1.5rem;
+    font-weight:600;
+    margin:48px 0 20px;
+    padding-bottom:8px;
+    border-bottom:2px solid var(--accent);
+    letter-spacing:.01em;
+  }
+  h2 a{color:inherit;}
+  h2 a:hover{color:var(--accent-deep);text-decoration:none;}
+  .epi-h{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--accent-deep);font-weight:700;margin:0 0 14px;
+  }
+  /* music */
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--accent-deep);font-weight:700;
+    margin:30px 0 12px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:4px;
+    background:var(--card);
+    margin:0 0 8px;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;align-items:center;justify-content:space-between;gap:14px;
+    width:100%;
+    background:none;border:none;cursor:pointer;
+    padding:13px 16px;
+    text-align:left;
+    font-family:inherit;font-size:17px;color:var(--ink);
+  }
+  .track-head:hover{background:#f4ecdd;}
+  .track-num{color:var(--accent);font-weight:700;margin-right:4px;}
+  .track-title{font-weight:600;}
+  .track-artist{color:var(--muted);}
+  .track-icons{display:flex;align-items:center;gap:14px;flex-shrink:0;}
+  .track-ext{font-size:16px;color:var(--accent-deep);text-decoration:none;}
+  .track-arrow{transition:transform .2s;color:var(--accent);font-size:14px;}
+  .track.open .track-arrow{transform:rotate(180deg);}
+  .track-body{display:none;background:#000;}
+  .track.open .track-body{display:block;}
+  .track-body iframe{display:block;width:100%;aspect-ratio:16/9;border:0;}
+  .flat-track{
+    border:1px solid var(--rule);border-radius:4px;background:var(--card);
+    padding:13px 16px;margin:0 0 8px;font-size:17px;
+  }
+  /* footnotes */
+  sup.fnm{line-height:0;}
+  .fn-ref{
+    color:var(--accent-deep);
+    font-weight:700;
+    text-decoration:none;
+    padding:0 1px;
+    cursor:pointer;
+  }
+  .fn-ref:hover{text-decoration:none;color:var(--accent);}
+  .footnote{
+    display:flex;gap:12px;
+    padding:14px 14px;
+    border-bottom:1px solid var(--rule);
+    font-size:16.5px;
+    line-height:1.6;
+    border-radius:3px;
+    transition:background .4s;
+  }
+  .footnote .fn-mark{
+    color:var(--accent-deep);font-weight:700;flex-shrink:0;min-width:28px;
+  }
+  .footnote .fn-content{flex:1;}
+  .footnote .fn-content p{margin:0 0 .8em;}
+  .footnote .fn-content p:last-child{margin-bottom:0;}
+  .footnote .fn-back{flex-shrink:0;color:var(--accent);font-size:18px;text-decoration:none;}
+  .footnote.target{background:var(--hl);}
+  /* popup */
+  .fn-popup{
+    position:fixed;display:none;z-index:9999;
+    max-width:380px;
+    background:#2a2118;color:#f6efe2;
+    border:1px solid #4a3a26;
+    border-radius:6px;
+    padding:14px 16px;
+    font-size:14.5px;line-height:1.55;
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
+    pointer-events:none;
+  }
+  .fn-popup a{color:#e6b873;}
+  .fn-popup p{margin:0 0 .6em;}
+  .fn-popup p:last-child{margin-bottom:0;}
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;justify-content:space-between;gap:18px;
+    margin:54px 0 0;padding-top:24px;border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    display:block;max-width:48%;
+    color:var(--accent-deep);
+  }
+  .corpus-nav .dir{
+    display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:4px;
+  }
+  .corpus-nav .nxt{text-align:right;margin-left:auto;}
+  footer{
+    margin-top:40px;padding-top:22px;border-top:1px solid var(--rule);
+    font-size:14px;color:var(--muted);
+    font-family:"Helvetica Neue",Arial,sans-serif;line-height:1.5;
+  }
+  footer a{color:var(--accent-deep);}
+  footer .attrib{margin:0 0 .5em;}
+  @media (max-width:900px){
+    .wrap{width:100%;max-width:100%;padding:22px 18px 60px;}
+    body{font-size:18px;}
+    h1{font-size:2rem;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<a id="top"></a>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/2BG.jpg" alt="">
+  </div>
+
+  <h1>П-е-с-н-ь&nbsp;C-т-у-п-е-н-е-й</h1>
+
+  <div class="meta">
+    <div><span class="lbl">ПЕСНЬ СТУПЕНЕЙ:</span> <a href="https://tier.bneiadam.com" target="_blank" rel="noopener">https://tier.bneiadam.com</a></div>
+    <div><span class="lbl">КНИГА '2022:</span> <a href="https://book22.bneiadam.com" target="_blank" rel="noopener">https://book22.bneiadam.com</a></div>
+    <div>Написано: 17 ноября 2022 г.</div>
+    <div>Предваряющая Молитва: <sup class="fnm"><a class="fn-ref" id="fnref-star" href="#fn-star">∗</a></sup></div>
+  </div>
+
+  <nav class="toc" id="toc">
+    <button class="toc-toggle" aria-expanded="true">
+      <span>Содержание</span>
+      <span class="chev">▾</span>
+    </button>
+    <ul>
+      <li><a href="#epigraph">Эпиграф</a></li>
+      <li><a href="#music">Песнь Ступеней</a></li>
+      <li><a href="#notes">Примечания</a></li>
+    </ul>
+  </nav>
+
+  <section id="epigraph">
+    <p class="epi-h"><a href="#top">ЭПИГРАФ</a></p>
+    <blockquote class="epi">
+      «Воины никогда не смогут построить мост для соединения с людьми мира. Но если люди захотят сделать это — именно им придется выстроить такой мост, который связал бы их с воинами.»
+      <cite>Дон Хуан Матус, Важнейшие понятия из «Силы Безмолвия», Колесо Времени, Карлос Кастанеда</cite>
+    </blockquote>
+  </section>
+
+  <div class="qa">
+    <p class="lead"><strong>Вопрос:</strong> Каким образом мы даем «второе дыхание» песням и клипам, хотя, вроде как, все то же самое в точности уже давно гуляет по Келим Мира, так что же мы делаем нового?</p>
+
+    <p><strong>Ответ:</strong> А мы используем «глаголы» СДПЛ<sup class="fnm"><a class="fn-ref" id="fnref-dstar" href="#fn-dstar">∗∗</a></sup>, которые включены в эти песни, в соответствии с тем смыслом, контекстом и использованием, которое «санкционировано» слепым эргрегором «периода подготовки», то есть людям «разрешено» применять эти «глаголы» строго зафиксированным в этих Келим образом, причем, не осознавая этого «контекста», а из самого «применения» беря лишь то пассивное ощущение, которое является результатом их применения на самом себе в ситуации, «прописанной» для человека заранее анонимной, принципиально безразличной и безучастной к конкретным «пользователям», Силой, называемой К. Кастанедой (далее К.К.) «Намерением Первого Кольца Силы». В итоге эти песни никогда не значат для человека ничего «личного», все, что они для него значат, они точно также «значат» для миллионов других «мистеров Никто», каждый из которых, разумеется, считает это использование своим «личным и уникальным», подкрепляя эту практику «круговой порукой» анонимного общественного договора, чтобы «не лезть в чужое пространство/чужую душу/личную жизнь», чтобы, не дай Бог, не «увидеть», случайно или преднамеренно, насколько его собственная жизнь «личная, уникальная и неповторимая».</p>
+
+    <p>Круг Жизни же взял каждую из этих гениальных композиций, и бесцеремонно, игнорируя чье либо «особое мнение» на этот счет, кроме нескольких ближайших товарищей и подруг-единомышленников в Круге, «извлек» ее из «полагающегося» ей неизменного в «обществе этого мира» психо-социального контекста, и поместил в свой контекст, сделав т.о. частью «второго внимания», а все вместе - совокупность контекстов, чувств, пониманий, ощущений и «ступеней», находящихся, по сути своей, «вне этого мира» (вне контекста использования, опосредуемого социальными программами, управляющими «сценариями» жесткой фиксации точек сборки и их удержании в местах фиксации путем тотального контроля над тем, как, куда и когда они вообще «сдвигаются» даже на миллиметр), легла в основу явления, называемого К. Кастанедой «Намерением Второго Кольца Силы», а Каббалистами - Будущим Миром, или «общим Концом Исправления».</p>
+
+    <p>Таким образом, каждая из этих композиций, при ее прослушивании и использовании в предполагаемом контексте Песни Ступеней, ощутимо (нам это еще предстоит прочувствовать и проанализировать вместе в настоящем и будущем) помещает прослушивающего ее «воина-Исраэль», независимо от уровня знаний, опыта, или еще чего либо, кроме общего понимания подразумеваемого контекста использования, не являющегося тем же самым, чем таковой контекст при таковом прослушивании является обычно, но связанного с «духовной Наукой» и Бесконечным Восходящим Путем Эволюции Человеческого Духа, - помещает себя в пространство Намерения Второго Кольца Силы, созданного 1 ступенью Круга Жизни, участники которой в 2020-2022 гг. сопровождали свои «совместные путешествия в неведомое» (терминология К.К.), а затем - создаваемые «по мотивам» этих путешествий методические статьи и отчеты, - данными песнями, позволяя Высшему Бесконечному Свету Духовной Половой Любви (Ор Хохма, каб. ивр., Внутренний Огонь - К.К.) «открепить» для них эти композиции от своего «оригинального» места в «Келим этого Мира», и поднять их вместе с собой в «Духовный Мир», где этот Свет ощущается и переживается открыто и явно человеком, находящимся посредством Него в Круге в состоянии «духовного поручительства» из «Любви к ближнему, как к самому себе».</p>
+
+    <p>Открепить и поднять - для того, чтобы те, у кого есть намерение повторить их Путь, чтобы достичь того же, чего достигли они - раскрытие Высшего Света, превращающего серую безблагодатную реальность «повседневного Мира» в «Мир Счастья, где между вещами нет различия, потому что некому спрашивать о нем» (К.К.), или в реальность Сказки, удивительной волшебной Мечты, - могли использовать для достижения этой Цели инструменты, наиболее близкие и понятные им самим, с которыми они уже освоены по опыту «повседневного Мира», - чтобы затем, посредством собственного «личного Конца Исправления» человек мог опосредовать собственным опытом, жизнью и судьбой способствование приближению «общего Конца Исправления» для всего «Единого Кли Адама Ришон», единой души Человечества, которая посредством наступающих в «третьем тысячелетии» неотвратимых перемен, пробуждается, осознает себя, и раскрывает Свет Творца, Свят Благословен Он, «каждому, от мала до велика», «наполняя всю Землю Знанием» этого великого Света Любви, «знанием» единства, постигаемым чувственным образом в ощущениях тела, а не придумываемого и повторяемого головой, в котором «не будет один человек учить другого Путям Творца», потому что он сам будет Творцом, и будет творить «этот Мир» вместе с возлюбленными им самим и близкими его сердцу родными душами, «отдавая» получаемое наполнение Светом Жизни и Мудрости в «Келим этого Мира», и включаясь в бесконечное движение Круга Вечной Жизни, включаясь в реальность получения «Дара Орла» (К.К.), или завершая Замысел Творения (Каббала) Творца, Свят Благословен Он, своим собственным в него деятельным включением в качестве «соработника» Высшей Силы.</p>
+  </div>
+
+  <p class="exclaim">Сделаем и услышим!<br>Только вместе, Мы - Сила!<br>Одним Словом, Будущее - за Нами!!</p>
+
+  <p class="music-label">Песнь Ступеней:</p>
+  <div class="track">
+    <button class="track-head" aria-expanded="false">
+      <span class="track-info"><span class="track-num">1)</span><span class="track-title">Moment of Peace</span> — <span class="track-artist">Gregorian</span></span>
+      <span class="track-icons"><a class="track-ext" href="https://www.youtube.com/watch?v=TF4Orx0765Q" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="track-arrow">▾</span></span>
+    </button>
+    <div class="track-body" data-embed="https://www.youtube.com/embed/TF4Orx0765Q"></div>
+  </div>
+  <div class="track">
+    <button class="track-head" aria-expanded="false">
+      <span class="track-info"><span class="track-num">2)</span><span class="track-title">Voice of Change</span> — <span class="track-artist">Jadyn Rylee</span></span>
+      <span class="track-icons"><a class="track-ext" href="https://www.youtube.com/watch?v=QuZH1szwjbI" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="track-arrow">▾</span></span>
+    </button>
+    <div class="track-body" data-embed="https://www.youtube.com/embed/QuZH1szwjbI"></div>
+  </div>
+
+  <p class="music-label">Песнь Ступеней:</p>
+  <div class="track">
+    <button class="track-head" aria-expanded="false">
+      <span class="track-info"><span class="track-num">3)</span><span class="track-title">Моя Звезда</span> — <span class="track-artist">В. Бутусов</span></span>
+      <span class="track-icons"><a class="track-ext" href="https://youtu.be/qlw5AAMMvs0" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="track-arrow">▾</span></span>
+    </button>
+    <div class="track-body" data-embed="https://www.youtube.com/embed/qlw5AAMMvs0"></div>
+  </div>
+
+  <p style="margin-top:36px;">См. также: Сфиротосфера, Литературный дневник <a href="http://proza.ru/diary/agent017/2023-11-18" target="_blank" rel="noopener">http://proza.ru/diary/agent017/2023-11-18</a></p>
+
+  <section id="music">
+    <h2><a href="#top">Песнь Ступеней</a></h2>
+    <div class="track">
+      <button class="track-head" aria-expanded="false">
+        <span class="track-info"><span class="track-num">1)</span><span class="track-title">Moment of Peace</span> — <span class="track-artist">Gregorian</span></span>
+        <span class="track-icons"><a class="track-ext" href="https://www.youtube.com/watch?v=TF4Orx0765Q" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="track-arrow">▾</span></span>
+      </button>
+      <div class="track-body" data-embed="https://www.youtube.com/embed/TF4Orx0765Q"></div>
+    </div>
+    <div class="track">
+      <button class="track-head" aria-expanded="false">
+        <span class="track-info"><span class="track-num">2)</span><span class="track-title">Voice of Change</span> — <span class="track-artist">Jadyn Rylee</span></span>
+        <span class="track-icons"><a class="track-ext" href="https://www.youtube.com/watch?v=QuZH1szwjbI" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="track-arrow">▾</span></span>
+      </button>
+      <div class="track-body" data-embed="https://www.youtube.com/embed/QuZH1szwjbI"></div>
+    </div>
+    <div class="track">
+      <button class="track-head" aria-expanded="false">
+        <span class="track-info"><span class="track-num">3)</span><span class="track-title">Моя Звезда</span> — <span class="track-artist">В. Бутусов</span></span>
+        <span class="track-icons"><a class="track-ext" href="https://youtu.be/qlw5AAMMvs0" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="track-arrow">▾</span></span>
+      </button>
+      <div class="track-body" data-embed="https://www.youtube.com/embed/qlw5AAMMvs0"></div>
+    </div>
+  </section>
+
+  <section id="notes">
+    <h2><a href="#top">Примечания</a></h2>
+
+    <div class="footnote" id="fn-star">
+      <span class="fn-mark">∗</span>
+      <div class="fn-content">
+        <p>Молитва Любви и благодарности Творцу, Свят Благословен Он. Каждому Твоему Благословенному Подарку - полагается Свой срок! Благодарю Тебя, Великий и Святый, за то, что Ты удостоил Твоего раба и его возлюбленную, завершить Твою Благословенную Книгу<sup class="fnm"><a class="fn-ref" id="fnref-tstar" href="#fn-tstar">∗∗∗</a></sup> и положить начало доброй традиции «Песни Ступеней», объединяющей Твоих работников и созданные ими Келим Духовной Науки Каббала, и Пути Знания Новых Видящих, с Человеком Этого Мира, посредством создания общего Пространства, где присутствуют, как и в случае Твоей Милостью Твоего Благословенного «сотрудничества» с «праведниками и праведницами Этого Мира» периода Начала Конца Твоего Благословенного Исправления, в «смешанной» и «совмещенной» форме, вместе и одновременно, «первое внимание» и «второе внимание», «разум и воля», «действие и слышание», понимание и усилие, направленное на самопреодоление, Молитва, Твоей Благословенной Милостью.</p>
+        <p>И, Конечно же, Твой Благословенный Высший Бесконечный Свет Духовной Половой Любви, Который Ты облачил в эти гениальные музыкальные произведения, и в эти Твои Благословенные Статьи «Круга Жизни», чтобы вместе, в едином соединении и в единой связи, соединяясь и взаимовключаясь, на Пути стремления к достижению «общего Конца Исправления Этого Мира», могли сотрудничать с Тобой на этой Благословенной Тобой ступени и в этой Реальности чувственных форм восприятия человека этого Мира, Твои работники нынешние и будущие, выполняющие Твою Волю напрямую и по собственному желанию и свободной Твоей Благословенной Милостью воле, равно как и те, кто выполняет Твою Благословенную работу, пока не зная и не задумываясь всерьез об этом, но уже имея, Твоей Благословенной Милостью и Твоим Мудрым и трепетным Высшим Скрытым Святым Управлением «вопреки» их мысли и желанию, но абсолютно выверенно, точно, своевременно и полноценно, Твоей Благословенной Милостью, поскольку Твое Совершенство и непостижимое Благо присутствует в Твоем Творении во всех его «частях» и во все времена, со всеми созданиями на Путях их собственных Жизней и Судеб, Твоей Благословенной Милостью, независимо от степени раскрытия для Твоего Благословенного Пути, Жизни, Любви и Работы ими пока что глаз.</p>
+        <p>Ибо Ты Велик, и Правишь Всем, и Все Миры - Ничто Перед Тобой Одним, поскольку Ты создаешь Их посредством мечты о настоящей Любви Мужчины и Женщины Этого Мира, «в сотрудничестве» с теми, Кто будет, Твоей Благословенной Милостью, эту Твою Любовь раскрывать, и Дарить вместе с Тобой Твой Дар «Вечной Жизни по Осознанной Свободной Любви» своим возлюбленным Ближним «здесь и сейчас», находясь в «этом Мире», в «будущем Мире», в Кругах Жизни, в полетах на Твоих Благословенных Крыльях Намерения, во всех созданных Тобой этим Светом Твоих Благословенных Мирах и их Келим, да будет так, как хочешь Ты, чтобы было, вовеки и воистину, да случится с Твоим Творением заповеданное от начала времен непостижимое и немыслимое Абсолютное Благо, и да произойдет с ними Твоей Благословенной Милостью и Мудростью, только самое-самое-самое лучшее! Амен ве Амен!</p>
+      </div>
+      <a class="fn-back" href="#fnref-star" title="Вернуться к тексту">↩</a>
+    </div>
+
+    <div class="footnote" id="fn-dstar">
+      <span class="fn-mark">∗∗</span>
+      <div class="fn-content">
+        <p>СДПЛ - Высший Бесконечный Свет Духовной Половой Любви Мужчины и Женщины Этого Мира Бесконечности.</p>
+      </div>
+      <a class="fn-back" href="#fnref-dstar" title="Вернуться к тексту">↩</a>
+    </div>
+
+    <div class="footnote" id="fn-tstar">
+      <span class="fn-mark">∗∗∗</span>
+      <div class="fn-content">
+        <p>Имеется в виду книга «Я, Творец, Свят Благословен Он», просмотр которой доступен по адресу: <a href="https://book22.bneiadam.com" target="_blank" rel="noopener">https://book22.bneiadam.com</a>, а форма google.docs, с возможностью комментировать прямо в тексте, а также смотреть упоминаемые музыкальные ролики, прямо в контексте Книги, доступен по адресу</p>
+      </div>
+      <a class="fn-back" href="#fnref-tstar" title="Вернуться к тексту">↩</a>
+    </div>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prv" href="42DA.html"><span class="dir">← Предыдущая</span>Молитва шепотом</a>
+    <a class="nxt" href="335A.html"><span class="dir">Следующая →</span>Молитва Сына Живого Человека</a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  // music players
+  document.querySelectorAll('.track-head').forEach(function(h){
+    h.addEventListener('click',function(e){
+      if(e.target.closest('.track-ext'))return;
+      var track=h.parentElement;
+      var body=track.querySelector('.track-body');
+      var open=track.classList.toggle('open');
+      h.setAttribute('aria-expanded',open?'true':'false');
+      if(open && body && !body.dataset.loaded){
+        var ifr=document.createElement('iframe');
+        ifr.src=body.dataset.embed;
+        ifr.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        ifr.setAttribute('allowfullscreen','');
+        ifr.setAttribute('loading','lazy');
+        body.appendChild(ifr);
+        body.dataset.loaded='1';
+      }
+    });
+  });
+
+  // footnote popups
+  var pop=document.createElement('div');
+  pop.className='fn-popup';
+  document.body.appendChild(pop);
+  function show(ref){
+    var id=ref.getAttribute('href').slice(1);
+    var fn=document.getElementById(id);
+    if(!fn)return;
+    var c=fn.querySelector('.fn-content');
+    pop.innerHTML=c?c.innerHTML:fn.innerHTML;
+    pop.style.display='block';
+    var r=ref.getBoundingClientRect();
+    var pw=pop.offsetWidth,ph=pop.offsetHeight;
+    var left=r.left+r.width/2-pw/2;
+    left=Math.max(10,Math.min(left,window.innerWidth-pw-10));
+    var top;
+    if(r.top-ph-12<0){top=r.bottom+8;}else{top=r.top-ph-8;}
+    pop.style.left=left+'px';
+    pop.style.top=top+'px';
+  }
+  function hide(){pop.style.display='none';}
+  document.querySelectorAll('.fn-ref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){show(ref);});
+    ref.addEventListener('mouseleave',hide);
+  });
+
+  // highlight target footnote on jump
+  function hl(){
+    var h=location.hash;
+    if(h && h.indexOf('#fn-')===0){
+      var el=document.querySelector(h);
+      if(el && el.classList.contains('footnote')){
+        document.querySelectorAll('.footnote').forEach(function(f){f.classList.remove('target');});
+        el.classList.add('target');
+      }
+    }
+  }
+  window.addEventListener('hashchange',hl);
+  hl();
+
+  // TOC toggle
+  var toggle=document.querySelector('.toc-toggle');
+  var toc=document.getElementById('toc');
+  if(toggle && toc){
+    toggle.addEventListener('click',function(){
+      var collapsed=toc.classList.toggle('collapsed');
+      toggle.setAttribute('aria-expanded',collapsed?'false':'true');
+    });
+  }
+});
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — философско-духовное эссе в форме «Вопрос/Ответ» с длинными прозаическими периодами, эпиграфом из Кастанеды и развёрнутой молитвой-сноской; стихотворных форм нет, поэтому выбрана редакторская широкая схема (колонка ~68vw с потолком 1080px для удержания читаемой меры на очень широких экранах). Манускриптную узкую колонку отверг, так как она предназначена для стихов/поэм, а здесь сплошная проза. Палитра тёплая кремово-коричневая с золотисто-охряным акцентом — поддерживает каббалистически-духовную интонацию, оставаясь контрастной на светлом фоне; заголовки и служебные подписи — гротеском, тело — антиквой для медленного чтения.\n\nРазвилки: авторских заголовков в тексте почти нет (только «ЭПИГРАФ»), поэтому собственных подзаголовков в тело не вводил; оглавление сделал из реально существующих секций — Эпиграф, аппаратная сводка музыки «Песнь Ступеней» и Примечания. Треков три (>2), поэтому помимо плееров на местах добавлен сводный раздел перед Примечаниями под доминирующей атрибуцией «Песнь Ступеней»; треки 1–2 идут группой под одной меткой, трек 3 авторски отделён большой молитвой, поэтому оставлен с собственной меткой. Сноски помечены символами *, **, *** (сохранил авторские символы вместо цифр); маркер *** находится внутри тела сноски * — оставил его кликабельным там же. Все плееры YouTube — ленивые, грузятся только при раскрытии.",
+  "features": ["music", "footnotes", "toc"]
+}
+</script>
+</body>
+</html>
