@@ -23,3 +23,7 @@ batch_runner/state.json
 batch_runner/state_html.json
 # локальные заметки по багам пайплайна
 problems.md
+
+# redate backups/intermediates — в репозитории не нужны
+manifest_pre_redate.json
+manifest_redated.json

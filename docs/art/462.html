@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Стенограмма 5 Урока 2 по статье Шамати 3</title>
+<title>Стенограмма 1 Урока 2 по статье Шамати 3</title>
 <style>
   :root{
-    --bg:#f6f4ef;
-    --paper:#fffdf9;
-    --ink:#22201c;
-    --muted:#6b655c;
-    --accent:#8a3324;
-    --accent-soft:#b8542f;
-    --line:#ddd6c8;
-    --hl:#ffe9a8;
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --muted:#6c635521;
+    --accent:#9a3b1f;
+    --accent2:#37618f;
+    --rule:#d8cfbf;
+    --soft:#7a6f5c;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -23,323 +23,288 @@
     color:var(--ink);
     font-family:"Georgia","Iowan Old Style",serif;
     font-size:19px;
-    line-height:1.72;
+    line-height:1.7;
     -webkit-font-smoothing:antialiased;
   }
   .wrap{
     width:66%;
-    max-width:920px;
+    max-width:1040px;
     min-width:0;
     margin:0 auto;
-    padding:34px 26px 70px;
+    padding:40px 48px 80px;
+    background:var(--paper);
+    box-shadow:0 0 60px rgba(80,60,30,.06);
   }
-  @media(max-width:1100px){.wrap{width:80%;}}
-  @media(max-width:760px){
-    body{font-size:18px;}
-    .wrap{width:100%;padding:20px 16px 50px;}
-  }
-  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(138,51,36,.32);}
-  a:hover{color:var(--accent-soft);border-bottom-color:var(--accent-soft);}
-
   /* breadcrumbs */
   .crumbs{
-    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-family:"Helvetica Neue",Arial,sans-serif;
     font-size:14px;
     letter-spacing:.02em;
-    color:var(--muted);
-    margin-bottom:26px;
-    padding-bottom:14px;
-    border-bottom:1px solid var(--line);
-  }
-  .crumbs a{border-bottom:none;color:var(--muted);}
-  .crumbs a:hover{color:var(--accent);}
-  .crumbs span.sep{margin:0 .5em;opacity:.6;}
-
-  h1{
-    font-size:33px;
-    line-height:1.2;
-    margin:.2em 0 .15em;
-    font-weight:700;
-    letter-spacing:-.01em;
-  }
-  .sub-meta{
-    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
-    font-size:15px;
-    color:var(--muted);
-    line-height:1.55;
-    margin:0 0 30px;
-    padding-bottom:24px;
-    border-bottom:1px solid var(--line);
-  }
-  .sub-meta a{color:var(--accent);}
-
-  .lead-block{
-    background:var(--paper);
-    border:1px solid var(--line);
-    border-left:4px solid var(--accent);
-    padding:16px 22px;
-    margin:0 0 30px;
-    font-size:16.5px;
-    line-height:1.6;
-    border-radius:3px;
-  }
-  .lead-block p{margin:.35em 0;}
-  .lead-block .ttl{font-weight:700;color:var(--ink);}
-  .parts{
-    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
-    font-size:15px;
-  }
-  .timing{font-style:italic;color:var(--muted);}
-
-  p{margin:0 0 1.15em;}
-  .speaker{font-weight:700;color:var(--accent);}
-
-  .endmark{
-    text-align:center;
-    font-style:italic;
-    color:var(--muted);
-    margin:34px 0;
-    font-size:16px;
-  }
-
-  /* music */
-  .music{
-    margin:26px 0;
-    background:var(--paper);
-    border:1px solid var(--line);
-    border-radius:6px;
-    padding:14px 18px;
-  }
-  .music .label{
-    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
-    font-size:12.5px;
     text-transform:uppercase;
-    letter-spacing:.09em;
-    color:var(--accent);
-    margin-bottom:8px;
+    color:var(--soft);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:30px;
   }
-  .track-head{
+  .crumbs a{color:var(--accent2);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 8px;color:#b9ad97;}
+  h1{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:800;
+    font-size:34px;
+    line-height:1.2;
+    letter-spacing:-.01em;
+    margin:0 0 6px;
+  }
+  .lede{
+    border-left:3px solid var(--accent);
+    padding:8px 0 8px 20px;
+    margin:24px 0 34px;
+    color:var(--soft);
+    font-size:18px;
+  }
+  .lede strong{color:var(--ink);}
+  .lede a{color:var(--accent2);}
+  .src-link{font-family:"Helvetica Neue",Arial,sans-serif;font-size:15px;}
+  p{margin:0 0 18px;}
+  a{color:var(--accent2);}
+  .speaker{color:var(--accent);font-weight:700;}
+  .reading{
+    background:#f3ede0;
+    border-left:3px solid var(--rule);
+    padding:14px 20px;
+    margin:0 0 20px;
+    font-style:italic;
+  }
+  .stage{color:var(--soft);font-style:italic;}
+  .end-note{
+    text-align:center;
+    color:var(--soft);
+    font-style:italic;
+    font-size:16px;
+    margin:34px 0;
+  }
+  hr.div{
+    border:none;
+    border-top:1px solid var(--rule);
+    margin:40px 0;
+  }
+  /* footnote markers */
+  sup.fn{font-size:.72em;line-height:0;}
+  sup.fn a{
+    text-decoration:none;
+    color:var(--accent);
+    font-weight:700;
+    padding:0 1px;
+  }
+  sup.fn a:hover{text-decoration:underline;}
+  .fnpop{position:relative;}
+  .fnpop .pop{
+    visibility:hidden;
+    opacity:0;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:140%;
+    width:300px;
+    max-width:78vw;
+    background:#2a241c;
+    color:#f3ece0;
+    font-size:15px;
+    font-style:normal;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    line-height:1.45;
+    padding:10px 14px;
+    border-radius:7px;
+    box-shadow:0 8px 26px rgba(0,0,0,.28);
+    z-index:30;
+    transition:opacity .15s;
+    pointer-events:none;
+  }
+  .fnpop .pop a{color:#e7b58e;}
+  .fnpop.below .pop{bottom:auto;top:140%;}
+  .fnpop:hover .pop{visibility:visible;opacity:1;}
+  /* notes section */
+  .notes{margin-top:48px;}
+  .notes h2{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:22px;
+    border-bottom:2px solid var(--accent);
+    padding-bottom:6px;
+  }
+  .notes ol{padding-left:24px;}
+  .notes li{margin-bottom:12px;font-size:17px;}
+  .notes li:target{
+    background:#fbe7c4;
+    border-radius:5px;
+    box-shadow:0 0 0 6px #fbe7c4;
+  }
+  .backref{text-decoration:none;color:var(--accent2);font-weight:700;margin-left:4px;}
+  /* music player */
+  .music-block{
+    margin:26px 0;
+    border:1px solid var(--rule);
+    border-radius:10px;
+    background:#f3ede0;
+    overflow:hidden;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--soft);
+    padding:12px 18px 4px;
+  }
+  .track{
     display:flex;
     align-items:center;
     gap:10px;
+    padding:10px 18px 16px;
     cursor:pointer;
-    user-select:none;
   }
-  .track-head .arrow{
-    transition:transform .2s;
-    color:var(--muted);
-    font-size:13px;
-    flex:0 0 auto;
-  }
-  .track.open .track-head .arrow{transform:rotate(90deg);}
-  .track-title{
-    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
-    font-size:16px;
-    flex:1 1 auto;
-  }
-  .track-title .artist{color:var(--muted);}
-  .ext{flex:0 0 auto;color:var(--muted);border-bottom:none;font-size:15px;}
-  .ext:hover{color:var(--accent);}
-  .player{margin-top:12px;display:none;}
-  .track.open .player{display:block;}
-  .player .frame{
-    position:relative;
+  .track .arrow{transition:transform .2s;color:var(--accent);font-size:14px;}
+  .track.open .arrow{transform:rotate(90deg);}
+  .track .tname{font-weight:700;}
+  .track .tartist{color:var(--soft);}
+  .track .ext{margin-left:auto;text-decoration:none;font-size:16px;}
+  .player-slot{padding:0 18px;}
+  .player-slot.open{padding-bottom:18px;}
+  .player-slot iframe{
     width:100%;
-    padding-bottom:56.25%;
-    height:0;
-    border-radius:5px;
-    overflow:hidden;
-    background:#000;
+    aspect-ratio:16/9;
+    border:0;
+    border-radius:8px;
   }
-  .player iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
-
-  /* notes */
-  .notes{
-    margin-top:50px;
-    padding-top:22px;
-    border-top:2px solid var(--line);
-  }
-  .notes h2{
-    font-size:21px;
-    margin:0 0 16px;
-  }
-  .seealso{
-    font-style:italic;
-    color:var(--muted);
-    margin:30px 0 10px;
-  }
-  ol.fnlist{padding-left:1.4em;margin:0;}
-  ol.fnlist li{
-    margin-bottom:14px;
-    font-size:16.5px;
-    line-height:1.6;
-    padding:4px 6px;
-    border-radius:4px;
-  }
-  li.fn-target{background:var(--hl);transition:background 1.4s;}
-  .backref{margin-left:6px;border-bottom:none;font-size:14px;}
-
-  /* footnote markers */
-  sup.fnm{line-height:0;}
-  a.fnref{
-    border-bottom:none;
-    font-weight:700;
-    font-size:.72em;
-    color:var(--accent);
-    padding:0 1px;
-  }
-  a.fnref:hover{color:var(--accent-soft);}
-  .fn-pop{
-    display:none;
-    position:absolute;
-    z-index:50;
-    width:300px;
-    max-width:80vw;
-    background:#2b2823;
-    color:#f4efe6;
-    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
-    font-size:14px;
-    font-weight:400;
-    line-height:1.5;
-    padding:11px 14px;
-    border-radius:7px;
-    box-shadow:0 8px 26px rgba(0,0,0,.32);
-  }
-  .fn-pop a{color:#ffcf8f;border-bottom:1px solid rgba(255,207,143,.4);}
-
-  /* nav bottom */
+  /* footer nav */
   .corpus-nav{
-    margin-top:54px;
-    padding-top:24px;
-    border-top:1px solid var(--line);
     display:flex;
     justify-content:space-between;
     gap:18px;
-    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    margin-top:60px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
     font-size:15px;
   }
   .corpus-nav a{
     display:block;
+    text-decoration:none;
+    color:var(--accent2);
     max-width:46%;
-    border-bottom:none;
   }
-  .corpus-nav .dir{
+  .corpus-nav .lbl{
     display:block;
     font-size:12px;
     text-transform:uppercase;
-    letter-spacing:.08em;
-    color:var(--muted);
-    margin-bottom:3px;
+    letter-spacing:.06em;
+    color:var(--soft);
+    margin-bottom:4px;
   }
-  .corpus-nav .nx{text-align:right;margin-left:auto;}
-  footer.colophon{
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  footer.colofon{
     margin-top:40px;
     padding-top:20px;
-    border-top:1px solid var(--line);
-    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
-    font-size:13.5px;
-    color:var(--muted);
-    line-height:1.55;
+    border-top:1px solid var(--rule);
+    font-size:14px;
+    color:var(--soft);
+    font-family:"Helvetica Neue",Arial,sans-serif;
   }
-  footer.colophon a{color:var(--muted);}
-  footer.colophon a:hover{color:var(--accent);}
+  footer.colofon a{color:var(--accent2);}
+  @media(max-width:880px){
+    .wrap{width:100%;max-width:100%;padding:24px 18px 60px;}
+    body{font-size:18px;}
+    h1{font-size:27px;}
+  }
 </style>
 </head>
 <body data-scheme="editorial">
 <div class="wrap">
 
   <nav class="crumbs">
-    <a href="../index.html">Главная</a>
-    <span class="sep">/</span>
-    <a href="../dabudet/index.html">Да будет Свет!</a>
+    <a href="../index.html">Главная</a><span>›</span><a href="../dabudet/index.html">Да будет Свет!</a>
   </nav>
 
-  <h1>Стенограмма 5 Урока 2 по статье Шамати 3</h1>
-  <div class="sub-meta">
-    Телеграм-канал <a href="https://t.me/binazone" target="_blank" rel="noopener">Путь Восходящей Звезды</a>
+  <h1>Стенограмма 1 Урока 2 по статье Шамати 3</h1>
+
+  <div class="lede">
+    <p>Телеграм-канал <strong>Путь Восходящей Звезды</strong> — <a href="https://t.me/binazone">t.me/binazone</a></p>
+    <p>Урок 02.06.2024 по статье Шамати 3 «Суть духовного постижения» благословенного праведника и мудреца Каббалы Йегуды Лейб Алеви Ашлага (Бааль Сулам).</p>
+    <p>Ведущие <strong>Элиягу Бар Малей</strong> и <strong>Бина Анеле</strong>.</p>
+    <p class="src-link">Ссылка на урок: <a href="https://t.me/binazone/499">t.me/binazone/499</a></p>
   </div>
 
-  <div class="lead-block">
-    <p class="ttl">Урок 02.06.2024 по статье Шамати 3 «Суть духовного постижения»</p>
-    <p>Благословенного праведника и мудреца Каббалы Йегуды Лейб Алеви Ашлага (Бааль Сулам)</p>
-    <p>Ведущие Элиягу Бар Малей (ЭБМ) и Бина Анеле (БА)</p>
-    <p>Ссылка на урок: <a href="https://t.me/binazone/499" target="_blank" rel="noopener">https://t.me/binazone/499</a></p>
-  </div>
-
-  <div class="lead-block parts">
-    <p>Часть 1: <a href="http://proza.ru/2024/06/02/1601" target="_blank" rel="noopener">http://proza.ru/2024/06/02/1601</a></p>
-    <p>Часть 2: <a href="http://proza.ru/2024/06/03/1273" target="_blank" rel="noopener">http://proza.ru/2024/06/03/1273</a></p>
-    <p>Часть 3: <a href="http://proza.ru/2024/06/04/886" target="_blank" rel="noopener">http://proza.ru/2024/06/04/886</a></p>
-    <p>Часть 4: <a href="http://proza.ru/2024/06/21/1665" target="_blank" rel="noopener">http://proza.ru/2024/06/21/1665</a></p>
-    <p class="timing">Часть 5:  (20:20 - 24:14)</p>
-  </div>
-
-  <!-- music track 1 -->
-  <div class="music">
-    <div class="label">Музыка под настроение</div>
-    <div class="track" data-yt="aDdOnl0bHO4">
-      <div class="track-head" onclick="toggleTrack(this)">
-        <span class="arrow">▶</span>
-        <span class="track-title"><span class="artist">Joan Osborne</span> — One of us</span>
-        <a class="ext" href="https://www.youtube.com/watch?v=aDdOnl0bHO4" target="_blank" rel="noopener" title="Открыть на YouTube" onclick="event.stopPropagation()">↗</a>
-      </div>
-      <div class="player"></div>
+  <div class="music-block">
+    <div class="music-label">Музыка под настроение</div>
+    <div class="track" data-yt="IwH9YvhPN7c" id="trk1">
+      <span class="arrow">▶</span>
+      <span><span class="tname">Circle of Life (Круг Жизни)</span> — <span class="tartist">Elton John</span></span>
+      <a class="ext" href="https://www.youtube.com/watch?v=IwH9YvhPN7c" target="_blank" rel="noopener" title="Открыть на YouTube" onclick="event.stopPropagation()">↗</a>
     </div>
+    <div class="player-slot" id="slot1"></div>
   </div>
 
-  <p><span class="speaker">ЭБМ:</span> Но, мы этого чаще всего не видим. Находясь в «катнуте», т.е. как «средний человек», по терминологии Карлоса Кастанеды (КК), то есть тот, кто еще не находится на Пути «взрослого» мага и каббалиста, и так далее – тот, кто еще не находится в Круге (в Группе, Мандале, «собрании», Ковене, Когорте, и т.д. и т.п. – комм. ЭБМ) – типа «Розы»<sup class="fnm"><a class="fnref" id="ref1" href="#fn1" data-fn="fn1">*1</a></sup> Книги Зоар, в состоянии «гадлут».</p>
+  <p><span class="speaker">Элиягу Бар Малей (далее ЭБМ):</span> Благодарю Тебя, Господь, за возможность пообщаться, прояснить наш Путь, провести Урок, продолжить раскрытие и выяснение и чтение статьи благословенного праведника Йегуды Лейб Алеви Ашлага (Бааль Сулам), книга Шамати, статья 3, Суть духовного постижения. Амен ве Амен.</p>
 
-  <p>Фактически, очень мало кто, на нашем (Человечества – комм. ЭБМ) этапе нашего развития, в этом состоянии находится, но, тем не менее, предпосылки для этого все уже есть – для того, чтобы любой человек, точнее говоря, группа людей, инициативных, могла это сделать: взять, просто, и сделать. А иначе мы бы с тобой, Леночка, сейчас бы здесь не сидели, и не говорили всего этого. Это было бы бессмысленно, это было бы сотрясение воздуха.</p>
+  <p><span class="speaker">Бина Анеле (далее БА):</span> Амен ве Амен, благодарю Господь, благодарю Илья, и присоединяюсь к молитве, и к Уроку. Амен ве Амен ве Амен.</p>
 
-  <p>Ну вот. А подтверждением тому являемся мы сами, потому что ничего «особенного» в нас, во мне так точно, не было, до того, как так получилось, что мы взяли, и собрались в этот «Круг», Милостью Творца, Свят Благословен Он, разумеется, посредством того, что у Него на нас были планы. Но, так абсолютно любого можно «взять», и поднять на этот уровень, и сделать «магом». Вернее, он сам может это сделать, если он захочет.</p>
+  <p><span class="speaker">ЭБМ:</span> Ну, мы закончили (предыдущий Урок<sup class="fn fnpop" id="ref1"><a href="#fn1">1</a><span class="pop">Урок по Шамати 3 часть 1, Канал ПВЗ — <a href="https://t.me/binazone/497">t.me/binazone/497</a></span></sup>), мы хотели [продолжить] со второго пункта объяснения, да?</p>
 
-  <p>Но, на самом деле, его одного желания, конечно, недостаточно, но, с этого желания все начинается, опять же, потому что мы говорим о том, что, как ты сказала, Леночка, что Высшее управление находится в этом мире (Асия – комм. ЭБМ), и «бразды» этого управления находятся в руках человека, просто «Человек», это несколько более сложное явление, чем мы привыкли представлять себе...</p>
+  <p><span class="speaker">БА:</span> Да, вот – Бесконечность...</p>
 
-  <p>Человек – это не один человек, а Человек – это несколько человек. Несколько человек, скажем так, шесть человек – уже вполне себе точно могут взять, и составить из себя Человека Говорящего. Т.е. «Сын Человеческий» - вот то, что Иисус Христос, и традиция Христианства, называет «Сын Человеческий». «Сын Живого Человека» по терминологии Книги Зоар<sup class="fnm"><a class="fnref" id="ref2" href="#fn2" data-fn="fn2">*2</a></sup>. Это, на самом деле, вот этот «образ Целем Элоким»<sup class="fnm"><a class="fnref" id="ref3" href="#fn3" data-fn="fn3">*3</a></sup>, Адама Ришон (АР), он не составляется в одиночку, даже вдвоем (М и Ж – комм. ЭБМ) он не составляется. Но вшестером, да?</p>
+  <p><span class="speaker">ЭБМ</span> (читает):</p>
+  <div class="reading">«Бесконечность представляет собой замысел творения, скрытый в словах «Его желание – насладить Свои творения» на уровне бесконечности, что называется Бесконечностью (Эйн Соф – ивр.). И это связь, которая существует между Ацмуто и душами. Связь эта понимается нами, как тайна желания насладить творения.» (конец отрывка)</div>
 
-  <p><span class="speaker">БА:</span> Ну да.</p>
+  <p>Ну, можно далеко не ходить. У меня такое ощущение, что я бы мог всю эту встречу посвятить попытке объяснения одного базового явления, которое оставалось скрытым на протяжении 2000 лет.</p>
 
-  <p><span class="speaker">ЭБМ:</span> Вшестером объективно составляется. И здесь все в наших руках. Вот. И, соответственно, «сделав все как полагается»<sup class="fnm"><a class="fnref" id="ref4" href="#fn4" data-fn="fn4">*4</a></sup>, пройдя определенный Путь выяснения того, как это - «как полагается», и приложив определенную долю усилий «против самих себя», собравшись в это объединение, Человек получает бразды правления самим собой<sup class="fnm"><a class="fnref" id="ref5" href="#fn5" data-fn="fn5">*5</a></sup>.</p>
+  <p>Все указывает на то, что «древние» прекрасно его знали (были ознакомлены с этим). Все остальное время, включая нынешнее время, это явление остается скрытым. Но не от великих праведников, таких как Бааль Сулам, на что нам указывает его формулировка, то «скрытие», в которое <em>он</em> «облачил» это явление: «Его желание насладить Свои творения».</p>
 
-  <p>Вот эти «бразды правления», они переходят от системы чистой «Ситра Ахра», к системе «смешанной». На данный момент, смешанной, потому, что, получается, что у этой Группы, или у ее членов, скажем так, в течение некоторого времени, попеременно, может быть... Возникают эти ситуации, когда у них, когда они находятся под «личным управлением» полностью.</p>
+  <p>В наше время и далее... С чего мы начали? Мы начали 4 года назад, наш Круг<sup class="fn fnpop" id="ref2"><a href="#fn2">2</a><span class="pop">Только Ты будешь жить вечно, ЭБМ — <a href="http://proza.ru/2021/08/28/1406">proza.ru/2021/08/28/1406</a></span></sup> был создан [с того], что это явление, оно было нам раскрыто. Что такое это «явление»? В Каббале оно носит Имя, или название «Атик Йомин», Свят Благословен Он, парцуф Кетер Мира Ацилут. Или парцуф Малхут Мира Адам Кадмон. Я бы так сказал. Да? То есть Он, согласно Науке Каббала, существует в двух «ипостасях» - «разделенный» и «неразделенный».</p>
 
-  <p>И они ощущают это, и они ощущают такие явления, как «видение», в терминах КК, еще что-нибудь, «второе внимание», они раскрывают все это, они раскрывают тайны Каббалы. Они удивляются, они поражаются, как выстраиваются обстоятельства их личной судьбы, и так далее.</p>
+  <p>Что это значит? «Неразделенный» - это значит «бесконечность», то есть Единый. В котором едино Женское и Мужское начало, которые включены друг в друга [и производят "зивуг" - комм. ЭБМ]. Что значит «разделенный»? Нам это очень легко понять. Поскольку это «разделение», по сути, или «разбиение», оно означает разделение этого Единого явления, на два «начала» - Мужское и Женское.</p>
 
-  <p>Вот. Но, тем не менее, общее Кли (АР), оно остается в том же состоянии, в котором оно было. Из которого они вышли. А поэтому они не могут в этом (новом – комм. ЭБМ) состоянии находиться стабильным образом. Поэтому, это (их новое – комм. ЭБМ) состояние, оно приходит и уходит, поэтому, наш Круг был разрушен, он был создан, скажем так, выполнил какую-то часть работы, предполагающейся вот этим вот «изначальным замыслом» (см. оригинальную статью БС – комм. ЭБМ), о котором здесь пишет Бааль Сулам, - он реализуется в течение 800 лет (период «конечного исправления» - см. первый том кн. Зоар – комм. ЭБМ), а в наше время он только начал раскрываться, по сути, с создания нашего Круга...</p>
+  <p>А если быть еще более конкретным, то речь идет об их половых органах. Поскольку, складываясь вместе, эти два явления – половые органы мужчины и женщины, они способствуют воспроизводству Жизни. И они являются основой этого воспроизводства жизни.</p>
 
-  <!-- music track 2 -->
-  <div class="music">
-    <div class="label">Музыка под настоение</div>
-    <div class="track" data-yt="wyn7gfcbqEQ">
-      <div class="track-head" onclick="toggleTrack(this)">
-        <span class="arrow">▶</span>
-        <span class="track-title"><span class="artist">Мираж</span> — Новый герой</span>
-        <a class="ext" href="https://www.youtube.com/watch?v=wyn7gfcbqEQ" target="_blank" rel="noopener" title="Открыть на YouTube" onclick="event.stopPropagation()">↗</a>
-      </div>
-      <div class="player"></div>
-    </div>
-  </div>
+  <p>Насколько я знаю, эволюционная наука современного мира, она до сих пор задается вопросом, почему эволюция «выбрала» в качестве итогового, скажем так, высшего [механизма] высшей организации размножения, именно половое размножение. Потому что она не знает ответа на этот вопрос. Точнее, он не следует логически, видимо, из их выкладок. Я это видел, во всяком случае, читал об этом, т.к. я сам ни разу не биолог, и не ученый, но на уровне любителя исследовал эти вопросы. Из того, с чем я сталкивался, следует, что у них нет ответа на этот вопрос. У меня, у каббалистов, на этот вопрос ответ есть.</p>
 
-  <p class="endmark">Конец 5 части Стенограммы (24:14)</p>
+  <p>Поскольку этот «высший» принцип, он «раскрывается», находит свое непосредственное, и необходимое, как говорят каббалисты, развитие и раскрытие, именно в этой форме именно в этой форме «полового размножения».</p>
+
+  <p>Что такое «Атик Йомин», Свят Благословен Он, и «Его желание насладить Свои творения»? Это мужской половой член<sup class="fn fnpop" id="ref3"><a href="#fn3">3</a><span class="pop">стих Конечное Исправление, ЭБМ — <a href="http://proza.ru/2021/10/26/1421">proza.ru/2021/10/26/1421</a></span></sup>. Точнее говоря, МПЧ, образ, явление и форма, которая существует в «этом мире», она является ветвью, как говорят каббалисты, от корня того «духовного явления», которое находится... Разумеется, Оно не заключено в телах «обезьянок» этого мира.</p>
+
+  <p>Но, тем не менее, этот «парцуф»<sup class="fn fnpop" id="ref4"><a href="#fn4">4</a><span class="pop">Введение в Науку Каббала (птиха), Бааль Сулам</span></sup>, его Суть, она является именно этим. Она является «высшим образом», от Которого происходят вот все эти образы, которых очень много, да? Тел очень много.</p>
+
+  <p>Соответственно, его «вторая половинка» - это вульва. И они, соединяясь, они способствуют «созданию Мира», созданию творений, из того состояния (Бесконечность – по Б.С.) в котором «творений» еще нет вообще. И восприятия нет вообще. И Мира нет вообще. Они способствуют этому.</p>
+
+  <p>Причем, «по желанию нижнего» они этому способствуют. Т.е. «нижний» поднимает МАН, как это называется в Науке Каббала. То есть, он имеет «визию» того, о чем он молится, что он просит [у Высшего], чего он хочет. Уже после того, как он понял, скажем так... [смеется]. Это уже частности, мы будем говорить потом о Молитве<sup class="fn fnpop" id="ref5"><a href="#fn5">5</a><span class="pop">Тора и Молитва, Книга Зоар, том 1 — <a href="https://w.wiki/AGbA">w.wiki/AGbA</a></span></sup>.</p>
+
+  <p class="end-note">[конец 1 части стенограммы (05:38)]</p>
+
+  <hr class="div">
 
   <section class="notes">
-    <p class="seealso">См. также:</p>
-    <h2>Примечания</h2>
-    <ol class="fnlist">
-      <li id="fn1">Роза, Книга Зоар, Том 1, РАШБИ-Бааль Сулам <a href="https://w.wiki/88WV" target="_blank" rel="noopener">https://w.wiki/88WV</a><a class="backref" href="#ref1" title="Вернуться к тексту">↩</a></li>
-      <li id="fn2">Погонщик Ослов, Книга Зоар, Том 1, РАШБИ-Бааль Сулам <a href="https://w.wiki/AghB" target="_blank" rel="noopener">https://w.wiki/AghB</a><a class="backref" href="#ref2" title="Вернуться к тексту">↩</a></li>
-      <li id="fn3">См. заповеди 9 и 10, Книга Зоар, Том 1, РАШБИ-Бааль Сулам <a href="https://w.wiki/88WK" target="_blank" rel="noopener">https://w.wiki/88WK</a> <a href="https://w.wiki/AghE" target="_blank" rel="noopener">https://w.wiki/AghE</a><a class="backref" href="#ref3" title="Вернуться к тексту">↩</a></li>
-      <li id="fn4">См. также, книгу и/или фильм (лучше старый, Польский 1996 immdfm «Ведьмак» - комм. ЭБМ) Анжея Сапковского «Меч предназначения или последнее желание» (Ведьмак)<a class="backref" href="#ref4" title="Вернуться к тексту">↩</a></li>
-      <li id="fn5">См. также:  Бремя Власти Небес, ЭБМ <a href="http://proza.ru/2021/10/10/601" target="_blank" rel="noopener">http://proza.ru/2021/10/10/601</a><a class="backref" href="#ref5" title="Вернуться к тексту">↩</a></li>
+    <h2>См. также</h2>
+    <ol>
+      <li id="fn1">Урок по Шамати 3 часть 1, Канал ПВЗ — <a href="https://t.me/binazone/497">t.me/binazone/497</a> <a class="backref" href="#ref1" title="Вернуться к тексту">↩</a></li>
+      <li id="fn2">Только Ты будешь жить вечно, ЭБМ — <a href="http://proza.ru/2021/08/28/1406">proza.ru/2021/08/28/1406</a> <a class="backref" href="#ref2" title="Вернуться к тексту">↩</a></li>
+      <li id="fn3">стих Конечное Исправление, ЭБМ — <a href="http://proza.ru/2021/10/26/1421">proza.ru/2021/10/26/1421</a> <a class="backref" href="#ref3" title="Вернуться к тексту">↩</a></li>
+      <li id="fn4">Введение в Науку Каббала (птиха), Бааль Сулам <a class="backref" href="#ref4" title="Вернуться к тексту">↩</a></li>
+      <li id="fn5">Тора и Молитва, Книга Зоар, том 1 — <a href="https://w.wiki/AGbA">w.wiki/AGbA</a> <a class="backref" href="#ref5" title="Вернуться к тексту">↩</a></li>
     </ol>
   </section>
 
   <nav class="corpus-nav">
-    <a href="462E.html" class="pv"><span class="dir">← Предыдущая</span>Стенограмма 4 Урока 2 по статье Шамати 3</a>
-    <a href="5C4.html" class="nx"><span class="dir">Следующая →</span>Раскрытие СДПЛ</a>
+    <a class="prev" href="463.html">
+      <span class="lbl">← Предыдущая</span>
+      Стенограмма 2 Урока 2 по статье Шамати 3
+    </a>
+    <a class="next" href="24H.html">
+      <span class="lbl">Следующая →</span>
+      Башня, парящая в воздухе
+    </a>
   </nav>
 
-  <footer class="colophon">
+  <footer class="colofon">
     <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
     <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
   </footer>
@@ -347,68 +312,38 @@
 </div>
 
 <script>
-  function toggleTrack(head){
-    var t=head.parentElement;
-    var open=t.classList.toggle('open');
-    if(open){
-      var p=t.querySelector('.player');
-      if(!p.dataset.loaded){
-        var id=t.dataset.yt;
-        p.innerHTML='<div class="frame"><iframe src="https://www.youtube.com/embed/'+id+'?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
-        p.dataset.loaded='1';
+  // lazy YouTube player
+  document.querySelectorAll('.track[data-yt]').forEach(function(t){
+    t.addEventListener('click', function(){
+      var id = t.getAttribute('data-yt');
+      var slot = t.parentElement.querySelector('.player-slot');
+      if(t.classList.contains('open')){
+        t.classList.remove('open');
+        slot.classList.remove('open');
+        slot.innerHTML='';
+      } else {
+        t.classList.add('open');
+        slot.classList.add('open');
+        slot.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
       }
-    }
-  }
-
-  // footnote popups
-  (function(){
-    var pop=null;
-    function makePop(text){
-      var d=document.createElement('div');
-      d.className='fn-pop';
-      d.innerHTML=text;
-      d.style.display='block';
-      document.body.appendChild(d);
-      return d;
-    }
-    document.querySelectorAll('a.fnref').forEach(function(m){
-      m.addEventListener('mouseenter',function(){
-        var li=document.getElementById(m.dataset.fn);
-        if(!li)return;
-        var html=li.innerHTML.replace(/<a class="backref"[\s\S]*?<\/a>/,'');
-        pop=makePop(html);
-        var r=m.getBoundingClientRect();
-        var sx=window.scrollX, sy=window.scrollY;
-        var pw=pop.offsetWidth, ph=pop.offsetHeight;
-        var left=r.left+sx+r.width/2-pw/2;
-        if(left<6)left=6;
-        if(left+pw>window.innerWidth-6)left=window.innerWidth-pw-6;
-        var top=r.top+sy-ph-9;
-        if(r.top-ph-9<0){top=r.bottom+sy+9;}
-        pop.style.left=left+'px';
-        pop.style.top=top+'px';
-      });
-      m.addEventListener('mouseleave',function(){
-        if(pop){pop.remove();pop=null;}
-      });
     });
-    // highlight on jump down
-    document.querySelectorAll('a.fnref').forEach(function(m){
-      m.addEventListener('click',function(){
-        var li=document.getElementById(m.dataset.fn);
-        if(!li)return;
-        document.querySelectorAll('.fn-target').forEach(function(x){x.classList.remove('fn-target');});
-        setTimeout(function(){li.classList.add('fn-target');},60);
-      });
+  });
+  // footnote popup edge flip
+  document.querySelectorAll('.fnpop').forEach(function(m){
+    m.addEventListener('mouseenter', function(){
+      var r = m.getBoundingClientRect();
+      if(r.top < 170){ m.classList.add('below'); }
+      else { m.classList.remove('below'); }
     });
-  })();
+  });
 </script>
 
 <script type="application/json" id="yanik-meta">
 {
   "scheme": "editorial",
   "form": "проза",
-  "rationale": "Статья — стенограмма устного урока (диалог ЭБМ и БА) с комментариями и аппаратом сносок, то есть преобладает прозаическая форма, а не стих или поэма. Поэтому выбрана редакторская широкоформатная схема с основной колонкой около 2/3 ширины окна и засечным шрифтом для длинного чтения; манускриптная узкая колонка не подошла бы, так как стихотворных форм здесь нет.\nПограничные решения: вступительный блок (телеграм, данные урока, ведущие, ссылки на части) оформлен как служебные врезки, отделённые от тела диалога, без добавления собственных заголовков. Подразделов в тексте нет (один сплошной поток с примечаниями), поэтому оглавление не строилось. Музыкальных ссылок ровно две — обе YouTube, оформлены как лениво подгружаемые свёрнутые плееры с метками на своих местах; сводный раздел музыки не создавался, так как требуется более двух треков. Реплики ЭБМ/БА выделены как имена говорящих, регистр КАПС и авторские глифы сохранены дословно. Сноски *1–*5 все имеют тела и ссылки — реализованы переходы вниз/вверх, подсветка цели и hover-popup с автоматическим выбором стороны.",
+  "rationale": "Статья — стенограмма устного каббалистического урока (диалог двух ведущих с вкраплением зачитываемой цитаты). Это прозаическая разговорная форма, никаких стихотворных строф нет, поэтому однозначно выбрана редакторская широкоформатная схема, а не узкий манускрипт. Контейнер задан на 66% ширины окна (с ограничением max-width для очень больших экранов) и на мобильных раскрывается на всю ширину. Палитра тёплая кремово-бумажная со сдержанным терракотовым акцентом и синими ссылками — спокойный лонгрид-вид для медитативного текста.\n\nРазвилки: оглавление не делал, так как сплошной текст не разбит на несколько подразделов (есть только аппарат сносок «См. также» и единственный музыкальный трек), а правило требует TOC лишь при более чем одном подразделе. Музыкальный трек один (Circle of Life, YouTube) — оформлен как сворачиваемый ленивый плеер прямо на своём месте; сводный раздел музыки не создавал, т.к. треков не больше двух. Пять сносок-источников (*1–*5) исходно собраны в блоке «См. также» — сохранил это авторское название как заголовок аппарата, сделал двунаправленную навигацию, подсветку цели по :target и hover-popup с автоматическим переворотом вверх/вниз у края экрана. Голые URL обёрнуты в ссылки, КАПС и авторские вставки в квадратных скобках сохранены дословно."
+,
   "features": ["music", "footnotes"]
 }
 </script>

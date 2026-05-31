@@ -3,606 +3,402 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Стихотворение АРИ. Часть 3</title>
+<title>Стихотворение АРИ. Часть 2</title>
 <style>
   :root{
-    --ink:#2a211a;
-    --ink-soft:#5a4d3f;
-    --wine:#7a2230;
-    --indigo:#3a3866;
-    --gold:#9a6b1e;
-    --paper:#faf5e9;
-    --paper-2:#f3ead5;
-    --rule:#d8c9a6;
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#1d1b18;
+    --muted:#6a6258;
+    --accent:#8d2b2b;
+    --accent-soft:#c0492f;
+    --rule:#ddd5c7;
+    --hl:#ffe9b0;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
     margin:0;
-    background:
-      radial-gradient(circle at 20% 0%, #fffdf6, var(--paper)) fixed;
+    background:var(--bg);
     color:var(--ink);
-    font-family:"PT Serif","Palatino Linotype","Book Antiqua",Georgia,serif;
-    font-size:19px;
-    line-height:1.72;
-    -webkit-text-size-adjust:100%;
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
   }
   .wrap{
-    max-width:820px;
+    width:clamp(320px,66vw,1080px);
+    max-width:92vw;
     margin:0 auto;
-    padding:28px 26px 70px;
+    padding:34px 0 80px;
   }
-  a{color:var(--wine);}
-  a:hover{color:var(--gold);}
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
 
   /* breadcrumbs */
   .crumbs{
-    font-size:.86em;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
     letter-spacing:.02em;
-    color:var(--ink-soft);
+    color:var(--muted);
     border-bottom:1px solid var(--rule);
-    padding-bottom:10px;
-    margin-bottom:26px;
+    padding-bottom:14px;
+    margin-bottom:30px;
   }
-  .crumbs a{text-decoration:none;}
-  .crumbs span{color:var(--gold);margin:0 .5em;}
+  .crumbs a{color:var(--muted);}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs span{margin:0 8px;color:#bcb3a3;}
 
-  h1{
-    font-family:"Cormorant Garamond","PT Serif",Georgia,serif;
-    font-size:2.15em;
-    line-height:1.18;
-    text-align:center;
-    color:var(--wine);
-    font-weight:700;
-    margin:.2em 0 .1em;
-    letter-spacing:.01em;
-  }
-  .h1-orn{
-    text-align:center;color:var(--gold);
-    font-size:1.3em;margin:.1em 0 1.4em;letter-spacing:.4em;
-  }
-
-  /* preface card */
-  .preface{
-    background:var(--paper-2);
-    border:1px solid var(--rule);
-    border-radius:5px;
-    padding:18px 24px;
-    margin:0 0 30px;
-    font-size:.96em;
-  }
-  .preface .row{margin:.18em 0;color:var(--ink-soft);}
-  .preface .row b{color:var(--ink);font-weight:700;}
-  .preface .subtitle{
-    text-align:center;
-    font-style:italic;
-    color:var(--indigo);
-    font-size:1.12em;
-    margin:.8em 0 1em;
-    line-height:1.4;
-  }
-  .epi-label{
-    text-align:center;
-    color:var(--gold);
-    letter-spacing:.18em;
+  /* title block */
+  header.doc{margin-bottom:10px;}
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
     text-transform:uppercase;
-    font-size:.8em;
-    margin:1.1em 0 .5em;
+    letter-spacing:.18em;
+    font-size:14px;
+    color:var(--accent-soft);
+    margin-bottom:14px;
   }
-  .epigraph{
+  h1{
+    font-size:40px;
+    line-height:1.15;
+    margin:0 0 6px;
+    font-weight:700;
+    letter-spacing:-.01em;
+  }
+  .subtitle{
     font-style:italic;
-    color:var(--indigo);
-    text-align:center;
-    line-height:1.55;
+    color:var(--muted);
+    font-size:21px;
+    margin:0 0 4px;
   }
-  .epigraph .ln{margin:0;}
+  .meta-line{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    margin-top:10px;
+  }
+  hr.major{
+    border:0;border-top:2px solid var(--ink);
+    margin:30px 0 26px;
+  }
 
   /* TOC */
   details.toc{
+    background:var(--paper);
     border:1px solid var(--rule);
-    border-radius:5px;
-    background:#fffdf6;
-    margin:0 0 34px;
-    padding:6px 18px;
+    border-radius:6px;
+    padding:10px 22px;
+    margin:0 0 40px;
   }
-  details.toc>summary{
+  details.toc summary{
     cursor:pointer;
-    font-variant:small-caps;
-    letter-spacing:.08em;
-    color:var(--wine);
-    font-size:1.02em;
-    padding:6px 0;
-    list-style:none;
-  }
-  details.toc>summary::-webkit-details-marker{display:none;}
-  details.toc>summary::before{content:"❧ ";color:var(--gold);}
-  .toc ol{margin:.4em 0 .6em 0;padding-left:1.4em;}
-  .toc li{margin:.3em 0;}
-  .toc a{text-decoration:none;}
-
-  /* part heading */
-  h2.part{
-    font-family:"Cormorant Garamond","PT Serif",Georgia,serif;
-    text-align:center;
-    color:var(--indigo);
-    font-size:1.5em;
-    letter-spacing:.04em;
-    margin:1.6em 0 .2em;
-    cursor:pointer;
-  }
-  h2.part .star{color:var(--gold);display:block;font-size:.7em;margin-top:.2em;}
-  h2.part a, h3.notes a{color:inherit;text-decoration:none;}
-
-  /* poem */
-  .poem{margin:1.4em 0 1.2em;}
-  .poem .ln{
-    margin:0;
-    padding:.02em 0;
-    text-indent:0;
-  }
-  .poem .ln.caps{color:var(--wine);font-weight:600;}
-
-  /* music */
-  .music{
-    margin:1.6em 0;
-    background:var(--paper-2);
-    border:1px solid var(--rule);
-    border-left:4px solid var(--gold);
-    border-radius:4px;
-    padding:12px 16px;
-  }
-  .music .mlabel{
-    font-size:.78em;
-    letter-spacing:.14em;
+    font-family:"Helvetica Neue",Arial,sans-serif;
     text-transform:uppercase;
-    color:var(--gold);
-    margin-bottom:6px;
-  }
-  details.track{margin:0;}
-  details.track>summary{
-    cursor:pointer;
+    letter-spacing:.14em;
+    font-size:14px;
+    color:var(--accent-soft);
+    font-weight:700;
     list-style:none;
-    display:flex;
-    align-items:center;
-    gap:.5em;
-    font-size:1.02em;
+    padding:6px 0;
   }
-  details.track>summary::-webkit-details-marker{display:none;}
-  .track .arrow{color:var(--gold);transition:transform .2s;font-size:.8em;}
-  details.track[open] .arrow{transform:rotate(90deg);}
-  .track .tname{font-weight:700;color:var(--ink);}
-  .track .tartist{color:var(--ink-soft);}
-  .track .ext{margin-left:auto;text-decoration:none;font-size:1.05em;}
-  .track .embed{margin-top:12px;}
-  .track .embed iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:4px;}
+  details.toc summary::-webkit-details-marker{display:none;}
+  details.toc summary::before{content:"▾ ";}
+  details.toc[open] summary::before{content:"▴ ";}
+  details.toc ol{
+    margin:8px 0 6px;padding-left:22px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:17px;
+  }
+  details.toc li{margin:6px 0;}
 
-  /* footnotes */
-  h3.notes{
-    font-family:"Cormorant Garamond","PT Serif",Georgia,serif;
-    color:var(--wine);
-    font-size:1.4em;
-    border-top:1px solid var(--rule);
-    padding-top:.7em;
-    margin-top:2.4em;
-    cursor:pointer;
+  /* sections */
+  section{margin-bottom:18px;}
+  h2{
+    font-size:26px;
+    margin:46px 0 16px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--rule);
+    letter-spacing:.01em;
   }
-  .fnref{
-    font-size:.72em;
-    vertical-align:super;
-    line-height:0;
-    color:var(--wine);
-    text-decoration:none;
+  h2 a{color:inherit;}
+  h2 a:hover{color:var(--accent);text-decoration:none;}
+
+  .epigraph{
+    background:var(--paper);
+    border-left:4px solid var(--accent-soft);
+    padding:20px 26px;
+    margin:0 0 8px;
+    font-style:italic;
+    color:#332f29;
+    font-size:19px;
+    line-height:1.5;
+  }
+  .epigraph .src{
+    font-style:normal;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    margin-top:12px;
+  }
+  p.body{margin:0 0 22px;text-align:justify;hyphens:auto;}
+  .dropcap::first-letter{
+    initial-letter:2;
+    font-weight:700;
+    color:var(--accent);
+    margin-right:.06em;
+  }
+  .endmark{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-align:center;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    font-size:15px;
+    color:var(--accent-soft);
+    margin:26px 0;
+  }
+
+  /* footnote markers */
+  sup.fnref{font-size:.7em;line-height:0;}
+  sup.fnref a{
+    color:var(--accent);
     font-weight:700;
     padding:0 1px;
   }
-  .fnref:hover{color:var(--gold);}
-  ol.fnlist, ul.fnlist{list-style:none;padding-left:0;font-size:.95em;}
-  .fnlist li{
-    margin:.7em 0;
-    padding:.4em .6em;
-    border-radius:4px;
-    color:var(--ink-soft);
-    transition:background .4s;
-  }
-  .fnlist li:target{background:#fff3c8;}
-  .fn-back{
-    color:var(--wine);
-    font-weight:700;
-    text-decoration:none;
-    margin-right:.5em;
-  }
-  .fn-eng{font-style:italic;color:var(--indigo);}
-
-  /* popup */
-  #fnpop{
-    position:absolute;
-    z-index:50;
-    max-width:340px;
-    background:#fffaf0;
-    color:var(--ink);
-    border:1px solid var(--gold);
-    box-shadow:0 6px 22px rgba(60,40,10,.25);
-    border-radius:6px;
-    padding:10px 14px;
-    font-size:.82em;
-    line-height:1.5;
+  .fn{position:relative;}
+  .fn-pop{
     display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:140%;
+    width:min(360px,80vw);
+    background:#2a2622;
+    color:#f4efe6;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-style:normal;
+    font-size:15px;
+    line-height:1.45;
+    font-weight:400;
+    letter-spacing:0;
+    text-align:left;
+    padding:12px 15px;
+    border-radius:7px;
+    box-shadow:0 8px 26px rgba(0,0,0,.28);
+    z-index:50;
   }
-  #fnpop .fn-eng{font-size:1em;}
+  .fn-pop.below{bottom:auto;top:140%;}
+  .fn-pop a{color:#ffcf8f;}
+  .fn:hover .fn-pop{display:block;}
 
-  /* bottom nav */
-  .corpusnav{
+  /* footnotes apparatus */
+  ol.notes{
+    list-style:none;
+    margin:0;padding:0;
+    font-size:17px;
+    line-height:1.5;
+  }
+  ol.notes li{
+    margin:0 0 16px;
+    padding:10px 14px;
+    border-left:3px solid var(--rule);
+    background:var(--paper);
+    border-radius:0 5px 5px 0;
+    transition:background .4s,border-color .4s;
+  }
+  ol.notes li:target{
+    background:var(--hl);
+    border-left-color:var(--accent);
+  }
+  .note-no{font-weight:700;color:var(--accent);margin-right:8px;}
+  .backref{margin-left:6px;font-size:14px;}
+  .verse-tr{display:block;margin-top:8px;font-style:italic;white-space:pre-line;}
+
+  /* music player */
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    font-size:13px;
+    color:var(--accent-soft);
+    margin:6px 0 8px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    background:var(--paper);
+    margin:14px 0;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 16px;
+    cursor:pointer;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .track-head .chev{
+    color:var(--accent-soft);
+    transition:transform .25s;
+    font-size:15px;
+  }
+  .track.open .track-head .chev{transform:rotate(90deg);}
+  .track-title{flex:1;}
+  .track-title b{font-weight:700;}
+  .track-title span{color:var(--muted);}
+  .track-head .ext{color:var(--muted);font-size:15px;}
+  .track-head .ext:hover{color:var(--accent);}
+  .track-body{display:none;padding:0 16px 16px;}
+  .track.open .track-body{display:block;}
+  .track-body .frame{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .track-body iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+  }
+
+  /* corpus footer nav */
+  nav.corpus{
     display:flex;
     justify-content:space-between;
-    gap:14px;
-    margin-top:3em;
-    border-top:1px solid var(--rule);
-    padding-top:16px;
-    font-size:.92em;
+    gap:18px;
+    margin-top:56px;
+    padding-top:22px;
+    border-top:2px solid var(--ink);
+    font-family:"Helvetica Neue",Arial,sans-serif;
   }
-  .corpusnav a{
-    text-decoration:none;
+  nav.corpus a{
+    display:block;
     max-width:46%;
+    font-size:16px;
   }
-  .corpusnav .lbl{
-    display:block;font-size:.72em;letter-spacing:.12em;
-    text-transform:uppercase;color:var(--gold);
+  nav.corpus .lbl{
+    display:block;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:4px;
   }
-  .corpusnav .nx{text-align:right;margin-left:auto;}
-
+  nav.corpus .nx{text-align:right;margin-left:auto;}
   footer.colophon{
-    margin-top:2.4em;
+    margin-top:40px;
+    padding-top:20px;
     border-top:1px solid var(--rule);
-    padding-top:14px;
-    font-size:.8em;
-    color:var(--ink-soft);
-    text-align:center;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.5;
   }
-  footer.colophon a{color:var(--wine);}
+  footer.colophon a{color:var(--accent);}
 
-  @media (max-width:600px){
-    body{font-size:17px;}
-    .wrap{padding:18px 16px 50px;}
-    h1{font-size:1.7em;}
+  @media(max-width:760px){
+    body{font-size:18px;}
+    .wrap{width:100%;max-width:100%;padding:22px 18px 60px;}
+    h1{font-size:30px;}
+    nav.corpus{flex-direction:column;}
+    nav.corpus a{max-width:100%;}
+    nav.corpus .nx{text-align:left;}
   }
 </style>
 </head>
-<body data-scheme="manuscript">
+<body data-scheme="editorial">
 <div class="wrap" id="top">
 
   <nav class="crumbs">
-    <a href="../index.html">Главная</a><span>›</span><a href="../dreamon/index.html">Мечтай!!</a>
+    <a href="../index.html">Главная</a><span>/</span><a href="../dreamon/index.html">Мечтай!!</a>
   </nav>
 
-  <h1>Стихотворение АРИ. Часть 3</h1>
-  <div class="h1-orn">✦ ❦ ✦</div>
+  <header class="doc">
+    <div class="kicker">ДОБРАЯ РЕЧЬ<sup class="fnref fn"><a href="#fn3" id="ref3">***</a><span class="fn-pop">См. также: Стихотворение АРИ, ч.1; Ты не знаешь; Жемчужина Севера.</span></sup></div>
+    <h1>СТИХОТВОРЕНИЕ АРИ<sup class="fnref fn"><a href="#fn2" id="ref2">**</a><span class="fn-pop">АРИ = Андрей + Раиса. Имена и детали событий «будущего мира» изменены автором с целью защиты личной информации героев рассказа.</span></sup></h1>
+    <p class="subtitle">Школьная история (School Story, Bro!)</p>
+    <p class="subtitle">Рассказ 2, часть 2</p>
+    <p class="meta-line">17.10–2.11 2021 г.</p>
+  </header>
 
-  <div class="preface">
-    <div class="row"><b>Серия:</b> ДОБРАЯ РЕЧЬ</div>
-    <div class="row"><b>Формат:</b> Школьная история (School Story, Bro!)</div>
-    <div class="subtitle">Дети Будущего Мира, Мужчиной и Женщиной Он создал Их</div>
-
-    <div class="epi-label">Эпиграф<a href="#fn3" id="fnref3" class="fnref" data-fn="3">*3</a></div>
-    <div class="epigraph">
-      <p class="ln">Те, кто только учатся</p>
-      <p class="ln">Смогут испытать</p>
-      <p class="ln">Где у жизни смысл и цель</p>
-      <p class="ln">Нужно всем искать.</p>
-      <p class="ln">Смыслом облекаются</p>
-      <p class="ln">Каменные джунгли</p>
-      <p class="ln">Когда в унисон с твоим</p>
-      <p class="ln">Бьется сердце друга.</p>
-    </div>
-
-    <div class="row" style="margin-top:1.1em;"><b>Название:</b> СТИХОТВОРЕНИЕ АРИ<a href="#fn2" id="fnref2" class="fnref" data-fn="2">*2</a></div>
-    <div class="row"><b>Рассказ:</b> 2, часть 3<a href="#fn1" id="fnref1" class="fnref" data-fn="1">*1</a></div>
-    <div class="row"><b>Испытано:</b> 17 октября 2021 г.</div>
-    <div class="row"><b>Записано:</b> 10 ноябрь 2021 г.</div>
-  </div>
+  <hr class="major">
 
   <details class="toc" open>
-    <summary>Оглавление</summary>
+    <summary>Содержание</summary>
     <ol>
-      <li><a href="#part3">Часть третья, верхом на звезде</a></li>
+      <li><a href="#epigraph">Эпиграф</a></li>
+      <li><a href="#part2">Часть вторая</a></li>
       <li><a href="#notes">Примечания</a></li>
     </ol>
   </details>
 
-  <h2 class="part" id="part3"><a href="#top">ЧАСТЬ ТРЕТЬЯ,<span class="star">ВЕРХОМ НА ЗВЕЗДЕ</span></a></h2>
+  <section id="epigraph">
+    <h2><a href="#top">Эпиграф</a></h2>
+    <div class="epigraph">
+      There's a time for everyone<br>
+      If they only learn<br>
+      That the twisting kaleidoscope<br>
+      Moves us all in turn<br>
+      There's a rhyme and reason<br>
+      To the wild outdoors<br>
+      When the heart of this star-crossed voyager<br>
+      Beats in time with yours<sup class="fnref fn"><a href="#fn4" id="ref4">****</a><span class="fn-pop">Вольный перевод приведён в примечаниях.</span></sup>
+      <div class="src">Can you feel the Love tonight, Elton John</div>
+    </div>
 
-  <div class="music">
-    <div class="mlabel">Музыка:</div>
-    <details class="track">
-      <summary>
-        <span class="arrow">▶</span>
-        <span><span class="tname">Верхом на Звезде</span> — <span class="tartist">Найк Борзов</span></span>
-        <a class="ext" href="https://youtu.be/hz4YfY4agT8" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
-      </summary>
-      <div class="embed" data-video="hz4YfY4agT8"></div>
-    </details>
-  </div>
+    <div class="track" data-vid="KjgWWjkNbhU">
+      <div class="track-head">
+        <span class="chev">▶</span>
+        <span class="track-title"><b>Can You Feel the Love Tonight</b> <span>— Elton John</span></span>
+        <a class="ext" href="https://youtu.be/KjgWWjkNbhU" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="track-body"></div>
+    </div>
+  </section>
 
-  <div class="poem">
-    <p class="ln">Тамара Пал-на<a href="#fn4" id="fnref4" class="fnref" data-fn="4">*4</a> посмотрела. На них. Убрала слезу</p>
-    <p class="ln">Скупую. Потому, что... Ей учить еще, полчаса, ватагу</p>
-    <p class="ln">Умных, и очень хороших. Каждый с каждой из которых</p>
-    <p class="ln">Человеком Настоящим, станет. Хоть пока еще подросток.</p>
-    <p class="ln">Хоть пока много не знает, быть может, не понимает...</p>
-    <p class="ln">...Что нет Силы во Вселенной</p>
-    <p class="ln">Более Великой, важной,</p>
-    <p class="ln">В жизни каждого и каждой,</p>
-    <p class="ln">В прошлом, или предстоящем</p>
-    <p class="ln">Кто ступал или ступает</p>
-    <p class="ln">По Земле этого мира,</p>
-    <p class="ln">Или над Землей летает,</p>
-    <p class="ln">Или плавает, под нею ползает...</p>
-    <p class="ln">Да вовсе, то не важно,</p>
-    <p class="ln">Кем он создан. Важно то, что</p>
-    <p class="ln">Любит точно его тот, кто</p>
-    <p class="ln">Его создал. И важней нет</p>
-    <p class="ln">Факта для него в этой Вселенной.</p>
-    <p class="ln">А те, кто познал ТАКУЮ</p>
-    <p class="ln">Сильную Любовь на деле,</p>
-    <p class="ln">Как Андрей с Раисой, -</p>
-    <p class="ln">Им Бог позволил наблюдать,</p>
-    <p class="ln">Из миллиарда всех людей,</p>
-    <p class="ln">Ныне живущих, этим Даром</p>
-    <p class="ln">Наделенных - если двух</p>
-    <p class="ln">Найдете, можно Вам сказать,</p>
-    <p class="ln">Что повезло. Потому что эти двое,</p>
-    <p class="ln">Один раз найдя друг друга,</p>
-    <p class="ln">Все поймут и напоказ</p>
-    <p class="ln">Выставлять уже не будут никогда</p>
-    <p class="ln">Это для Вас. Тамара Пал-на,</p>
-    <p class="ln">Их секретом наделенная судьбою,</p>
-    <p class="ln">Вспоминать до самой смерти...</p>
-    <p class="ln">...Такой Любовью</p>
-    <p class="ln">Зачинаются планеты.</p>
-    <p class="ln">Эти двое были</p>
-    <p class="ln">На "особенном учете",</p>
-    <p class="ln">Совершенно очевидно.</p>
-    <p class="ln">У Единой Силы Жизни,</p>
-    <p class="ln">Мудрость Коей бесконечна</p>
-    <p class="ln">Совершенство, Доброта.</p>
-    <p class="ln">Милосердие и Правда</p>
-    <p class="ln">Этой Силы никогда</p>
-    <p class="ln">Не раскрыть нашему брату.</p>
-    <p class="ln">И за благо это славить</p>
-    <p class="ln">Силу брат наш не устанет.</p>
-    <p class="ln">Потому что Силой этой</p>
-    <p class="ln">Человек был создан так,</p>
-    <p class="ln">Чтобы он любить на век</p>
-    <p class="ln">Мог быть Силой "удостоен"</p>
-    <p class="ln">С Нею встретившись однажды,</p>
-    <p class="ln">И однажды полюбив,</p>
-    <p class="ln">Станет этой Силе равным.</p>
-    <p class="ln">Навсегда в Святой тот миг -</p>
-    <p class="ln">Приближенье к нему оба</p>
-    <p class="ln">Два растерянных подростка</p>
-    <p class="ln">Сейчас ощущали явно.</p>
-    <p class="ln">Неизбежность</p>
-    <p class="ln">Роковую того счастья,</p>
-    <p class="ln">Пред которым <span class="caps">МЕРК СВЕТ ДНЯ</span>.</p>
-    <p class="ln">Через все Миры светила</p>
-    <p class="ln">Ярче Солнечного света</p>
-    <p class="ln">Тьмою Нуква Ацилута</p>
-    <p class="ln">Их телам этого мира</p>
-    <p class="ln">Свет духовный ясно видно</p>
-    <p class="ln">И настолько сильно было,</p>
-    <p class="ln">Что Андрюша, смотря вдаль</p>
-    <p class="ln">Должен был глаза прищурить</p>
-    <p class="ln">А Раиса его за руку должна была держать</p>
-    <p class="ln">Голову вниз опустив, поскольку видеть</p>
-    <p class="ln">Не способна была вовсе ясно улицу.</p>
-    <p class="ln">Одна вспышка Любви скорой</p>
-    <p class="ln">Воссияла Тьма сверхновой</p>
-    <p class="ln">Живым Светом все залила,</p>
-    <p class="ln">Озарила взор Раисы.</p>
-    <p class="ln">Выплеснувшись за пределы</p>
-    <p class="ln">Того Мира, где Реальность</p>
-    <p class="ln">Будущего была нормой, в тот мир,</p>
-    <p class="ln">Где такого не могло быть по Законам,</p>
-    <p class="ln">Что еще совсем недавно</p>
-    <p class="ln">Человечество считало</p>
-    <p class="ln">Навсегда и неизменно</p>
-    <p class="ln">Объективным и реальным,</p>
-    <p class="ln">Установленным порядком</p>
-    <p class="ln">Их самих и всей Вселенной</p>
-    <p class="ln">Принципом существованья.</p>
-    <p class="ln">Хотя часть людей, конечно,</p>
-    <p class="ln">Была в каждом поколеньи,</p>
-    <p class="ln">Кто знал цену всем законам,</p>
-    <p class="ln">Установленным не сердцем.</p>
-    <p class="ln">А еще меньшая часть нас</p>
-    <p class="ln">Раскрывала те Законы,</p>
-    <p class="ln">Что умом не будут также,</p>
-    <p class="ln">Как незыблемо сегодня</p>
-    <p class="ln">Никогда раскрыты явно.</p>
-    <p class="ln">Так как в тот момент,</p>
-    <p class="ln">Все люди, как сейчас наши герои,</p>
-    <p class="ln">Приходить начнут к "ступени"</p>
-    <p class="ln">На которых озарится</p>
-    <p class="ln">Их сознанье Светом Веры</p>
-    <p class="ln">Раскрывающей Реальность -</p>
-    <p class="ln">Не найдется человека,</p>
-    <p class="ln">Чтобы сделать описанье.</p>
-    <p class="ln">Тех Законов, что для сердца,</p>
-    <p class="ln">А не для ума, создались</p>
-    <p class="ln">Волею непостижимой</p>
-    <p class="ln">Чтобы каждым человеком</p>
-    <p class="ln">Путь в том Свете мог быть пройден</p>
-    <p class="ln">Очень личный и интимный ему абсолютно</p>
-    <p class="ln">К этой Силе, пока равным</p>
-    <p class="ln">Он в намереньи духовном</p>
-    <p class="ln">С Ней не станет, полюбив</p>
-    <p class="ln">Кого-то сильно так, что Тьма как Солнце</p>
-    <p class="ln">Будет им сиять, сжигая</p>
-    <p class="ln">Пламенем Огня Живого</p>
-    <p class="ln">Те картинки, что их разум</p>
-    <p class="ln">Внешним миром называет,</p>
-    <p class="ln">А на месте их Реальность</p>
-    <p class="ln">Высшего Святого Света</p>
-    <p class="ln">Сверху до низу в Которым</p>
-    <p class="ln">Существует Мир духовный,</p>
-    <p class="ln">И где их Душа проходит</p>
-    <p class="ln">До того, как облачиться</p>
-    <p class="ln">В жизнь свою "этого мира"</p>
-    <p class="ln">Новой личностью родиться</p>
-    <p class="ln">Получая весь Свет Жизни</p>
-    <p class="ln">И учась объединяться</p>
-    <p class="ln">С Душами другими, навык</p>
-    <p class="ln">Личностной самоотмены</p>
-    <p class="ln">Что понадобиться явно</p>
-    <p class="ln">В свое время человеку</p>
-    <p class="ln">Личностью что будет создан</p>
-    <p class="ln">Собственной Душой, подобно</p>
-    <p class="ln">Сну, который подконтролен</p>
-    <p class="ln">Будет Ею и осознан...</p>
-    <p class="ln">...Связь духовно-половая</p>
-    <p class="ln">Женщины с Мужчиной пары</p>
-    <p class="ln">Вдруг окажется сильнее,</p>
-    <p class="ln">Жизни личной всех стремлений</p>
-    <p class="ln">Коротко и ясно, вдруг окажется</p>
-    <p class="ln">Что кроме себялюбия пустого</p>
-    <p class="ln">В ней ничего быть не может.</p>
-    <p class="ln">Внезапно человек поймет, что время</p>
-    <p class="ln">Все это, пока не возникла</p>
-    <p class="ln">Эта Искра между ними,</p>
-    <p class="ln">Что случилось с ним впервые</p>
-    <p class="ln">В Школьном возрасте, так сильно,</p>
-    <p class="ln">Потому, что эта Сила проявиться</p>
-    <p class="ln">Могла с ними в этот только</p>
-    <p class="ln">Неоформленный, наивный,</p>
-    <p class="ln">И вне всяческих сомнений</p>
-    <p class="ln">Господом благословенный</p>
-    <p class="ln">Хоть и крайне быстротечный</p>
-    <p class="ln">Юный трепетный период</p>
-    <p class="ln">Когда сердцем и душою</p>
-    <p class="ln">Человек открыт Вселенной</p>
-    <p class="ln">А теперь им предстояло</p>
-    <p class="ln">Им двоим... Хотя я плачу,</p>
-    <p class="ln">Я реально плачу, вместе</p>
-    <p class="ln">Мы с Тамарой Пал-ной, вольно</p>
-    <p class="ln">Иль невольно Силе этой</p>
-    <p class="ln">Высшей, Мощной, неотмирной</p>
-    <p class="ln">Став свидетелями, слезы</p>
-    <p class="ln">Счастия Святой Любовью...</p>
-    <p class="ln">...Раиска - очень ранимая девочка.</p>
-    <p class="ln">И она не хочет, чтобы</p>
-    <p class="ln">Что сейчас произойдет с ней</p>
-    <p class="ln">И Андрюшей вообще кто-то</p>
-    <p class="ln">Видел. Хоть поймет в процессе</p>
-    <p class="ln">Девочка, что должна была, понять</p>
-    <p class="ln">Кое что здесь, и свое мненье</p>
-    <p class="ln">Поменять кое о чем. Потом искать</p>
-    <p class="ln">Она будет, кто поможет</p>
-    <p class="ln">Повторить это событье.</p>
-    <p class="ln">Чтоб в итоге поисков этих</p>
-    <p class="ln">Ей раскрыть удалось вещи</p>
-    <p class="ln">Еще большего значенья</p>
-    <p class="ln">Для нее и для Андрея.</p>
-    <p class="ln">И вот так, одно к другому</p>
-    <p class="ln">Будет их вести. Незримо</p>
-    <p class="ln">По началу, потом явно</p>
-    <p class="ln">Трепетно, по своей воле</p>
-    <p class="ln">Что откроется обоим</p>
-    <p class="ln">Пока то, с какою Целью</p>
-    <p class="ln">Были созданы, родившись</p>
-    <p class="ln">Каббалисты не откроют,</p>
-    <p class="ln">И поняв, обратным взором</p>
-    <p class="ln">Охватив тот Путь, что пройден...</p>
-    <p class="ln">...Что он не принадлежит им самим.</p>
-    <p class="ln">И никогда не принадлежал.</p>
-    <p class="ln">Такой Подарок не может кому-то принадлежать...</p>
-    <p class="ln">...Такой Подарок... Во всяком случае, они</p>
-    <p class="ln">Себя положат костьми на это - чтобы</p>
-    <p class="ln">Такой Подарок принадлежал каждому и каждой,</p>
-    <p class="ln">Кто выйдет из стен этой Школы.</p>
-    <p class="ln">Но, при этом, молиться нужно Господу,</p>
-    <p class="ln">Чтобы что-то не вышло из-под контроля.</p>
-    <p class="ln">Чтобы Он, Милостью Своей Благословенной,</p>
-    <p class="ln">Следил за каждым и каждой так, как будто бы</p>
-    <p class="ln">Это Его "личный" ребенок...Почему "как будто бы"?</p>
-    <p class="ln">Это Его личный ребенок и есть. Он так и делает.</p>
-    <p class="ln">Андрей с Раисой поняли это в тот же миг,</p>
-    <p class="ln">Когда эта мысль сформировалась у них в голове.</p>
-    <p class="ln">Но она не могла сформироваться раньше.</p>
-    <p class="ln">И они взмолились Господу, чтобы Он простил</p>
-    <p class="ln">Им их непонятливость и неверие...</p>
-    <p class="ln">...И тут же поняли, что Он уже их простил.</p>
-    <p class="ln">Потому что Он...</p>
-    <p class="ln">...на них и не гневался, Он никогда не гневается</p>
-    <p class="ln">На человека, <span class="caps">НИКОГДА</span>... Человек сам на себя гневается,</p>
-    <p class="ln">Понимая, какой он... А какой Творец.</p>
-    <p class="ln">А потом, смотря вдаль, и видя, что</p>
-    <p class="ln caps">Им ЕСТЬ ЗАЧЕМ ЖИТЬ В ЭТОМ МИРЕ.</p>
-    <p class="ln">Да будет так, как хочешь Ты, вовеки.</p>
-    <p class="ln caps">РЕБЯТА, Я ЛЮБЛЮ ВАС. КОГДА НИБУДЬ МЫ</p>
-    <p class="ln caps">ВСТРЕТИМСЯ ОБЯЗАТЕЛЬНО ВНОВЬ.</p>
-    <p class="ln caps">ОБНИМИТЕ ДРУГ ДРУГА ОЧЕНЬ ТЕСНО.</p>
-    <p class="ln caps">ДА БУДЕТ ТАК, КАК ХОЧЕТ ОН, С ВАМИ В ЭТО ВРЕМЯ</p>
-    <p class="ln caps">ДА БУДЕТ ТАК, КАК ХОЧЕТ ОН ВОВЕКИ. АМЕН ВЕ АМЕН</p>
-    <p class="ln caps">ВЕДЬ "КОНЕЧНОЕ ИСПРАВЛЕНИЕ"</p>
-    <p class="ln caps">СЕБЯ И МИРА СВЕТОМ ЖИЗНИ,</p>
-    <p class="ln caps">МУДРОСТИ И ЛЮБВИ ТВОРЦА -</p>
-    <p class="ln caps">ЭТО НЕ КОНЕЦ, ЭТО ТОЛЬКО НАЧАЛО</p>
-    <p class="ln caps">МУЖЧИНОЙ И ЖЕНЩИНОЙ ОН СОЗДАЛ ИХ</p>
-    <p class="ln caps">ТЕПЕРЬ ИХ ОЧЕРЕДЬ ДЕЛАТЬ ЕМУ ДОБРО</p>
-    <p class="ln caps">И ИСКАТЬ ЕГО НЕ НАДО ЗА ЗАВЕСАМИ ЭКРАНОВ</p>
-    <p class="ln caps">ОН ВОКРУГ, В КАЖДОЙ И КАЖДОМ. РАДИ НИХ</p>
-    <p class="ln caps">И ТЕХ, КТО БУДЕТ ПОСЛЕ НАС К ТВОРЦУ СТРЕМИТЬСЯ</p>
-    <p class="ln caps">В ЭТОМ МИРЕ ЖИТЬ, ДАРИТЬ ИМ СВЕТ ЛЮБВИ</p>
-    <p class="ln caps">ДРУГ ДРУГУ ПРОЩЕ БЫЛО И ПУТЬ ЛЕГЧЕ И ПОНЯТНЕЙ</p>
-    <p class="ln caps">БЫЛ, ЧЕМ ТОТ, ЧТО МЫ ПРОХОДИМ, И ТВОРЦУ ЕЩЕ ПРИЯТНЕЙ -</p>
-    <p class="ln caps">В ЭТОМ БЫЛА, ЕСТЬ И БУДЕТ ЦЕЛЬ И СМЫСЛ ЖИЗНЕЙ НАШИХ</p>
-    <p class="ln caps">И ДА БУДЕТ ОН СВЕТИТЬ НАМ СВЕТОМ ВЕРЫ И МОЛИТВОЙ</p>
-    <p class="ln caps">ПРОЛИВАТЬСЯ В СЕРДЦЕ КАЖДОМ, МИЛОСТЬЮ ДОЖДЕМ ЖЕЛАННЫМ.</p>
-  </div>
+  <section id="part2">
+    <h2><a href="#top">ЧАСТЬ ВТОРАЯ</a></h2>
+    <p class="body dropcap">- ...«Да конечно же, Андрюша! Ты иди, иди. Ляг, дома отдохни. Это, наверное, перегрелся ты На Солнце. Нынче Солнце светит ярко...» В это время шалопаи с первых парт подло заржали. Тамара Пал-на, брови вскинув, на них зоркнула сердито, Чем веселье их на время на какое-то, хотя бы, прекратила. Обреченно продолжая голову вниз опускать, Вышел в дверь Андрей наружу, встал к окну. И стал смотреть, как внизу играют дети. А внутри его... Понять этого еще не мог он, но - затеплилась надежда. Он почувствовал, как Дух его, с самого... такого Состояния, ниже нету, уже больше, что ему... Ведь иначе он в любви Ей в жизни не осмелился Признаться. Но лишь доведен «до ручки», сам того Не пожелая, он Ей все же сказал ЭТО. А одно это так важно для него вдруг оказалось, Что он знал, что даже если... Умереть ему, Не встретив Ее более ни разу, суждено - А он знал точно, что, не встретившись ни разу С Ней, он не протянет больше нескольких дней, Полных состояния страданий, от которых Он покинет этот мир - через неделю, потому, Что жить не хочет без нее он, почему-то. Сам не зная, как такое может быть на Белом Свете, Чтоб человек... Чтобы смог... Чтоб могла любовь Такая, в этом мире быть Реальной. В этот миг, Стрелой с портфелем вылетает из того же Кабинета вдруг Раиска. Замечает у окна Андрюшу. Хода своего не замедляя, тут же к мальчику Стрелою подлетает. На колени перед ним встает, Целует его ручки... Что с ним... Что с Душою В это время происходит у Андрюши, описать словами... В принципе, возможно. Но боюсь, что мастеров, Способных описать такие вещи, со времен Шекспира Мало на Земле рождалось. Крепче, чем... Рукою взял он взявшую Раису, опустившись На колени вместе с Ней, Ее за руку... К счастью, вовремя заметив, что он стягивает Сильно этой хваткой Ее руку. Отпустив - Тот час одернув руку, будто бы ошпарив, он Ее Принялся гладить беспорядочно руками. Говоря Тихонько что-то, Ей одной что было ясно. Абсолютно точно. Слово каждое. Любому, кто За ними наблюдал бы, стоя в метре, и все Слыша, точно также, как Раиса - то, что Изо рта Андрюши доносилось, бормотаньем, Абсолютно невозможно было бы назвать словами Речи, сколь-нибудь разумной. А Раиса понимала. Сказанную им... Произнес ту... Все те буквы, что струились изо рта Андрея, Будто бы касались частей тела также, как и Его руки, только... Нет, Она не хочет. С кем-нибудь делиться дальше Тем, что с ней происходило в результате их Касанья. Можем лишь пока отметить, что Так уши не горели, в Школе этой еще долго У кого-нибудь на деле. На теле... Хотя, Здесь случалось много. Очень разных ситуаций.</p>
 
-  <div class="music">
-    <div class="mlabel">Музыка:</div>
-    <details class="track">
-      <summary>
-        <span class="arrow">▶</span>
-        <span><span class="tname">Chronologie 4</span> — <span class="tartist">Jean-Michel Jarre</span></span>
-        <a class="ext" href="https://youtu.be/Eqilin4Cv08" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
-      </summary>
-      <div class="embed" data-video="Eqilin4Cv08"></div>
-    </details>
-  </div>
+    <div class="track" data-vid="djV11Xbc914">
+      <div class="track-head">
+        <span class="chev">▶</span>
+        <span class="track-title"><b>YouTube</b> <span>— видео к части</span></span>
+        <a class="ext" href="https://www.youtube.com/watch?v=djV11Xbc914" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="track-body"></div>
+    </div>
 
-  <h3 class="notes" id="notes"><a href="#top">Примечания</a></h3>
-  <ol class="fnlist">
-    <li id="fn1"><a href="#fnref1" class="fn-back" title="Вернуться к тексту">*1 ↑</a>
-      Стихотворение АРИ, ч.1 <a href="https://fb.com/Nichtverstanden/posts/107506521732609" target="_blank" rel="noopener">fb.com/Nichtverstanden/posts/107506521732609</a><br>
-      Знаешь ли ты <a href="http://proza.ru/2021/11/09/1104" target="_blank" rel="noopener">http://proza.ru/2021/11/09/1104</a><br>
-      Ты не знаешь <a href="http://proza.ru/2021/10/23/912" target="_blank" rel="noopener">http://proza.ru/2021/10/23/912</a><br>
-      Жемчужина Севера <a href="http://proza.ru/2021/09/12/1695" target="_blank" rel="noopener">http://proza.ru/2021/09/12/1695</a>
-    </li>
-    <li id="fn2"><a href="#fnref2" class="fn-back" title="Вернуться к тексту">*2 ↑</a>
-      АРИ = Андрей + Раиса. Нихт Ферштейн?
-    </li>
-    <li id="fn3"><a href="#fnref3" class="fn-back" title="Вернуться к тексту">*3 ↑</a>
-      Can you feel the Love tonight, Elton John
-      <span class="fn-eng">
-        <br>There's a time for everyone
-        <br>If they only learn
-        <br>That the twisting kaleidoscope
-        <br>Moves us all in turn
-        <br>There's a rhyme and reason
-        <br>To the wild outdoors
-        <br>When the heart of this star-crossed voyager
-        <br>Beats in time with yours
-      </span>
-    </li>
-    <li id="fn4"><a href="#fnref4" class="fn-back" title="Вернуться к тексту">*4 ↑</a>
-      Имена и детали событий "будущего мира" изменены автором с целью защиты личной информации героев рассказа.
-    </li>
-  </ol>
+    <p class="endmark">Конец второй части</p>
+    <p class="endmark">Продолжение следует</p>
+  </section>
 
-  <nav class="corpusnav">
-    <a href="25S.html"><span class="lbl">← Предыдущая</span>Стихотворение АРИ. Часть 2</a>
-    <a class="nx" href="341.html"><span class="lbl">Следующая →</span>Новая Песнь Хозяйки Ночи</a>
+  <section id="notes">
+    <h2><a href="#top">Примечания</a></h2>
+    <ol class="notes">
+      <li id="fn2"><span class="note-no">**</span>АРИ = Андрей + Раиса. Имена и детали событий «будущего мира» изменены автором с целью защиты личной информации героев рассказа. <a class="backref" href="#ref2" title="Вернуться к тексту">↩</a></li>
+      <li id="fn3"><span class="note-no">***</span>См. также:<br>
+        Стихотворение АРИ, ч.1 <a href="https://fb.com/Nichtverstanden/posts/107506521732609" target="_blank" rel="noopener">fb.com/Nichtverstanden/posts/107506521732609</a><br>
+        Ты не знаешь <a href="https://fb.com/Nichtverstanden/posts/107265165090078" target="_blank" rel="noopener">fb.com/Nichtverstanden/posts/107265165090078</a><br>
+        Жемчужина Севера <a href="http://proza.ru/2021/09/12/1695" target="_blank" rel="noopener">proza.ru/2021/09/12/1695</a>
+        <a class="backref" href="#ref3" title="Вернуться к тексту">↩</a></li>
+      <li id="fn4"><span class="note-no">****</span>Вольный перевод:
+        <span class="verse-tr">Те, кто только учатся
+Смогут испытать
+Где у жизни смысл и цель
+Нужно всем искать.
+Смыслом облекаются
+Каменные джунгли
+Когда в унисон с твоим
+Бьется сердце друга.</span>
+        <a class="backref" href="#ref4" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus">
+    <a href="1AHA.html"><span class="lbl">← Предыдущая</span>Стихотворение АРИ. Часть 1</a>
+    <a class="nx" href="1AH.html"><span class="lbl">Следующая →</span>Стихотворение АРИ. Часть 3</a>
   </nav>
 
   <footer class="colophon">
@@ -612,61 +408,41 @@
 
 </div>
 
-<div id="fnpop"></div>
-
 <script>
-  // lazy youtube
-  document.querySelectorAll('details.track').forEach(function(d){
-    d.addEventListener('toggle',function(){
-      if(d.open){
-        var box=d.querySelector('.embed');
-        if(box && !box.querySelector('iframe')){
-          var id=box.getAttribute('data-video');
-          var f=document.createElement('iframe');
-          f.src='https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0';
-          f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-          f.setAttribute('allowfullscreen','');
-          box.appendChild(f);
-        }
+  // lazy collapsible players
+  document.querySelectorAll('.track').forEach(function(t){
+    var head=t.querySelector('.track-head');
+    var body=t.querySelector('.track-body');
+    var vid=t.getAttribute('data-vid');
+    head.addEventListener('click',function(e){
+      if(e.target.closest('.ext'))return;
+      var opening=!t.classList.contains('open');
+      t.classList.toggle('open');
+      if(opening && !body.dataset.loaded){
+        body.innerHTML='<div class="frame"><iframe src="https://www.youtube.com/embed/'+vid+'?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>';
+        body.dataset.loaded='1';
       }
     });
-    var ext=d.querySelector('.ext');
-    if(ext) ext.addEventListener('click',function(e){e.stopPropagation();});
   });
 
-  // footnote popups
-  var pop=document.getElementById('fnpop');
-  function fnBody(n){
-    var li=document.getElementById('fn'+n);
-    if(!li) return '';
-    var c=li.cloneNode(true);
-    var b=c.querySelector('.fn-back'); if(b) b.remove();
-    return c.innerHTML.trim();
-  }
-  document.querySelectorAll('.fnref').forEach(function(m){
-    m.addEventListener('mouseenter',function(){
-      var n=m.getAttribute('data-fn');
-      pop.innerHTML=fnBody(n);
-      pop.style.display='block';
-      var r=m.getBoundingClientRect();
-      var pw=pop.offsetWidth, ph=pop.offsetHeight;
-      var left=window.scrollX+r.left+r.width/2-pw/2;
-      left=Math.max(8+window.scrollX,Math.min(left,window.scrollX+document.documentElement.clientWidth-pw-8));
-      var top;
-      if(r.top>ph+12){ top=window.scrollY+r.top-ph-8; }
-      else { top=window.scrollY+r.bottom+8; }
-      pop.style.left=left+'px';
-      pop.style.top=top+'px';
+  // footnote popup flip
+  document.querySelectorAll('.fn').forEach(function(fn){
+    var pop=fn.querySelector('.fn-pop');
+    if(!pop)return;
+    fn.addEventListener('mouseenter',function(){
+      pop.classList.remove('below');
+      var r=fn.getBoundingClientRect();
+      if(r.top<180){pop.classList.add('below');}
     });
-    m.addEventListener('mouseleave',function(){ pop.style.display='none'; });
   });
 </script>
 
 <script type="application/json" id="yanik-meta">
 {
-  "scheme": "manuscript",
-  "form": "поэма",
-  "rationale": "Текст целиком стихотворный — это «СТИХОТВОРЕНИЕ АРИ», длинная белостишная поэма с эпиграфом-стихом и устойчивым строфическим строем, поэтому выбрана манускриптная узкая колонка (~820px) с засечной книжной типографикой и тёплым светлым фоном пергамента — она поддерживает медленное, поэтическое чтение строка-за-строкой. Развилок по схеме почти не было: прозаических абзацев нет, вкрапления вроде дат и метрики формата я оформил как преамбулу-карточку, не ломая стиховую часть.\n\nДва трека («Верхом на Звезде» и «Chronologie 4») разнесены по тексту (в начале части и в конце), поэтому метку «Музыка:» оставил у каждого отдельно и не сводил их в общий раздел — распознанных аудио-ссылок ровно две, порог «более двух» не достигнут. Песня Элтона Джона в сноске *3 дана без ссылки, поэтому осталась простым текстом. Все четыре маркера сносок (*1–*4) имеют тела и места в тексте, реализованы переходы вниз/вверх, подсветка :target и hover-popup с авто-выбором стороны. КАПС-строки финала сохранены дословно как акцент; авторские глифы отсутствуют. Оглавление минимальное (часть + примечания), сворачиваемое, заголовки кликабельны для возврата наверх.",
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Хотя текст открывается стихотворным англоязычным эпиграфом из «Can You Feel the Love Tonight», доминирующая форма статьи — повествовательная проза («Школьная история», Рассказ 2, часть 2): связный нарратив с диалогом и описаниями, набранный по-машинописному с жёсткими переносами строк. Поэтому выбрана редакторская широкая схема (основная колонка ~66vw, до 1080px), а не узкая манускриптная. Машинописные переносы внутри предложений я трактовал как артефакт набора и собрал тело «Части второй» в единый прозаический абзац с выключкой по ширине, сохранив все слова, регистр (ЭТО, Белый Свет) и авторскую пунктуацию дословно.",
+    "rationale2": "Эпиграф вынесен в отдельную врезку, англоязычный оригинал сохранён построчно. Сносок три (**, ***, ****) — оформлены маркерами с popup при наведении (с флипом вниз у верхней кромки) и двусторонней навигацией; «вольный перевод» помещён телом сноски ****. Музыкальных ссылок ровно две (Elton John в эпиграфе и голый YouTube-URL в тексте) — обе сделаны ленивыми сворачиваемыми плеерами на своих местах; сводный раздел музыки не создавался, так как порог «более двух треков» не достигнут. TOC включён (есть несколько разделов: Эпиграф, Часть вторая, Примечания), свёрнут в details (по умолчанию открыт), заголовки разделов кликабельны и ведут наверх.",
   "features": ["music", "footnotes", "toc"]
 }
 </script>

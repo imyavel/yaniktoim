@@ -8,12 +8,12 @@
     "img": "2021_11_15_1662.jpg",
     "url_date": "2021-11-15",
     "url_nnn": 1662,
-    "text_date": "2015-11-21",
-    "date_chosen": "2015-11-21",
+    "text_date": "2021-11-15",
+    "date_chosen": "2021-11-15",
     "date_source": "text",
     "number": "001",
     "section_order": 13,
-    "art": "VBL"
+    "art": "1BF"
   },
   {
     "stem": "2021_09_06_1595",
@@ -40,12 +40,12 @@
     "img": "2021_08_04_1218.jpg",
     "url_date": "2021-08-04",
     "url_nnn": 1218,
-    "text_date": "2019-04-21",
-    "date_chosen": "2019-04-21",
-    "date_source": "text",
+    "text_date": null,
+    "date_chosen": "2021-08-04",
+    "date_source": "url",
     "number": "003",
     "section_order": 11,
-    "art": "Z4L"
+    "art": "184A"
   },
   {
     "stem": "2021_08_05_90",
@@ -72,12 +72,12 @@
     "img": null,
     "url_date": "2022-05-12",
     "url_nnn": 1579,
-    "text_date": "2020-03-17",
-    "date_chosen": "2020-03-17",
+    "text_date": "2021-02-21",
+    "date_chosen": "2021-02-21",
     "date_source": "text",
     "number": "005",
     "section_order": 66,
-    "art": "03HA"
+    "art": "12L"
   },
   {
     "stem": "2021_10_08_1757",
@@ -88,12 +88,12 @@
     "img": "2021_10_08_1757.jpg",
     "url_date": "2021-10-08",
     "url_nnn": 1757,
-    "text_date": "2020-03-17",
-    "date_chosen": "2020-03-17",
+    "text_date": "2020-06-18",
+    "date_chosen": "2020-06-18",
     "date_source": "text",
     "number": "006",
     "section_order": 27,
-    "art": "03HB"
+    "art": "06I"
   },
   {
     "stem": "2021_08_04_1109",
@@ -381,7 +381,7 @@
     "date_source": "text",
     "number": "024",
     "section_order": 50,
-    "art": "11H"
+    "art": "11HA"
   },
   {
     "stem": "2022_05_10_866",
@@ -813,7 +813,7 @@
     "date_source": "text",
     "number": "051",
     "section_order": 34,
-    "art": "15FA"
+    "art": "15FB"
   },
   {
     "stem": "2022_05_14_1476",
@@ -1192,12 +1192,12 @@
     "img": null,
     "url_date": "2022-05-17",
     "url_nnn": 1590,
-    "text_date": "2021-07-25",
-    "date_chosen": "2021-07-25",
+    "text_date": "2021-07-26",
+    "date_chosen": "2021-07-26",
     "date_source": "text",
     "number": "075",
     "section_order": 75,
-    "art": "17P"
+    "art": "17QA"
   },
   {
     "stem": "2021_09_12_1269",
@@ -1256,12 +1256,12 @@
     "img": "2021_08_05_67.jpg",
     "url_date": "2021-08-05",
     "url_nnn": 67,
-    "text_date": "2070-05-08",
-    "date_chosen": "2021-08-05",
-    "date_source": "url",
+    "text_date": "2021-01-17",
+    "date_chosen": "2021-01-17",
+    "date_source": "text",
     "number": "079",
     "section_order": 1,
-    "art": "185"
+    "art": "11H"
   },
   {
     "stem": "2021_08_05_70",
@@ -1272,12 +1272,12 @@
     "img": "2021_08_05_70.jpg",
     "url_date": "2021-08-05",
     "url_nnn": 70,
-    "text_date": "2067-05-08",
+    "text_date": null,
     "date_chosen": "2021-08-05",
     "date_source": "url",
     "number": "080",
     "section_order": 52,
-    "art": "185A"
+    "art": "185"
   },
   {
     "stem": "2021_08_05_77",
@@ -1288,12 +1288,12 @@
     "img": "2021_08_05_77.jpg",
     "url_date": "2021-08-05",
     "url_nnn": 77,
-    "text_date": "2067-05-08",
+    "text_date": null,
     "date_chosen": "2021-08-05",
     "date_source": "url",
     "number": "081",
     "section_order": 2,
-    "art": "185B"
+    "art": "185A"
   },
   {
     "stem": "2021_08_05_94",
@@ -1304,12 +1304,12 @@
     "img": "2021_08_05_94.jpg",
     "url_date": "2021-08-05",
     "url_nnn": 94,
-    "text_date": "2067-05-08",
-    "date_chosen": "2021-08-05",
-    "date_source": "url",
+    "text_date": "2021-08-04",
+    "date_chosen": "2021-08-04",
+    "date_source": "text",
     "number": "082",
     "section_order": 75,
-    "art": "185C"
+    "art": "184"
   },
   {
     "stem": "2021_08_06_1092",
@@ -1320,7 +1320,7 @@
     "img": "2021_08_06_1092.jpg",
     "url_date": "2021-08-06",
     "url_nnn": 1092,
-    "text_date": "2067-05-08",
+    "text_date": null,
     "date_chosen": "2021-08-06",
     "date_source": "url",
     "number": "083",
@@ -1336,7 +1336,7 @@
     "img": null,
     "url_date": "2021-08-06",
     "url_nnn": 1135,
-    "text_date": "2077-05-08",
+    "text_date": null,
     "date_chosen": "2021-08-06",
     "date_source": "url",
     "number": "084",
@@ -1352,12 +1352,12 @@
     "img": "2021_08_06_1310.jpg",
     "url_date": "2021-08-06",
     "url_nnn": 1310,
-    "text_date": "2077-05-08",
-    "date_chosen": "2021-08-06",
-    "date_source": "url",
+    "text_date": "2021-07-22",
+    "date_chosen": "2021-07-22",
+    "date_source": "text",
     "number": "085",
     "section_order": 38,
-    "art": "186B"
+    "art": "17M"
   },
   {
     "stem": "2021_08_06_1416",
@@ -1373,7 +1373,7 @@
     "date_source": "text",
     "number": "086",
     "section_order": 98,
-    "art": "186C"
+    "art": "186B"
   },
   {
     "stem": "2021_08_09_181",
@@ -1384,12 +1384,12 @@
     "img": null,
     "url_date": "2021-08-09",
     "url_nnn": 181,
-    "text_date": "2099-05-08",
-    "date_chosen": "2021-08-09",
-    "date_source": "url",
+    "text_date": "2021-07-06",
+    "date_chosen": "2021-07-06",
+    "date_source": "text",
     "number": "087",
     "section_order": 49,
-    "art": "189"
+    "art": "176"
   },
   {
     "stem": "2021_08_09_191",
@@ -1400,12 +1400,12 @@
     "img": "2021_08_09_191.jpg",
     "url_date": "2021-08-09",
     "url_nnn": 191,
-    "text_date": "2099-05-08",
-    "date_chosen": "2021-08-09",
-    "date_source": "url",
+    "text_date": "2021-06-03",
+    "date_chosen": "2021-06-03",
+    "date_source": "text",
     "number": "088",
     "section_order": 28,
-    "art": "189A"
+    "art": "163A"
   },
   {
     "stem": "2021_08_09_400",
@@ -1421,7 +1421,7 @@
     "date_source": "text",
     "number": "089",
     "section_order": 55,
-    "art": "189B"
+    "art": "189"
   },
   {
     "stem": "2021_08_10_393",
@@ -1624,9 +1624,9 @@
     "img": "2021_08_22_264.jpg",
     "url_date": "2021-08-22",
     "url_nnn": 264,
-    "text_date": "2077-05-08",
+    "text_date": "2021-08-22",
     "date_chosen": "2021-08-22",
-    "date_source": "url",
+    "date_source": "text",
     "number": "102",
     "section_order": 29,
     "art": "18MA"
@@ -1720,7 +1720,7 @@
     "img": "2021_09_23_1503.jpg",
     "url_date": "2021-09-23",
     "url_nnn": 1503,
-    "text_date": "2010-09-08",
+    "text_date": null,
     "date_chosen": "2021-09-23",
     "date_source": "url",
     "number": "108",
@@ -1768,7 +1768,7 @@
     "img": "2021_10_10_601.jpg",
     "url_date": "2021-10-10",
     "url_nnn": 601,
-    "text_date": "2067-05-08",
+    "text_date": null,
     "date_chosen": "2021-10-10",
     "date_source": "url",
     "number": "111",
@@ -1800,12 +1800,12 @@
     "img": null,
     "url_date": "2022-05-28",
     "url_nnn": 1542,
-    "text_date": "2021-10-17",
-    "date_chosen": "2021-10-17",
+    "text_date": "2021-11-10",
+    "date_chosen": "2021-11-10",
     "date_source": "text",
     "number": "113",
     "section_order": 24,
-    "art": "1AH"
+    "art": "1BA"
   },
   {
     "stem": "2022_05_28_1567",
@@ -1816,12 +1816,12 @@
     "img": null,
     "url_date": "2022-05-28",
     "url_nnn": 1567,
-    "text_date": "2021-10-17",
-    "date_chosen": "2021-10-17",
+    "text_date": "2021-10-29",
+    "date_chosen": "2021-10-29",
     "date_source": "text",
     "number": "114",
     "section_order": 22,
-    "art": "1AHA"
+    "art": "1ATA"
   },
   {
     "stem": "2021_10_22_953",
@@ -1832,9 +1832,9 @@
     "img": "2021_10_22_953.jpg",
     "url_date": "2021-10-22",
     "url_nnn": 953,
-    "text_date": null,
+    "text_date": "2021-10-22",
     "date_chosen": "2021-10-22",
-    "date_source": "url",
+    "date_source": "text",
     "number": "115",
     "section_order": 25,
     "art": "1AM"
@@ -1896,7 +1896,7 @@
     "img": "2021_10_28_1492.jpg",
     "url_date": "2021-10-28",
     "url_nnn": 1492,
-    "text_date": "2067-05-08",
+    "text_date": null,
     "date_chosen": "2021-10-28",
     "date_source": "url",
     "number": "119",
@@ -2104,9 +2104,9 @@
     "img": "2021_11_25_220.jpg",
     "url_date": "2021-11-25",
     "url_nnn": 220,
-    "text_date": "2067-05-08",
+    "text_date": "2021-11-25",
     "date_chosen": "2021-11-25",
-    "date_source": "url",
+    "date_source": "text",
     "number": "132",
     "section_order": 28,
     "art": "1BP"
@@ -2120,12 +2120,12 @@
     "img": "2021_11_26_1340.jpg",
     "url_date": "2021-11-26",
     "url_nnn": 1340,
-    "text_date": "2067-05-08",
-    "date_chosen": "2021-11-26",
-    "date_source": "url",
+    "text_date": "2020-12-10",
+    "date_chosen": "2020-12-10",
+    "date_source": "text",
     "number": "133",
     "section_order": 17,
-    "art": "1BQ"
+    "art": "0CA"
   },
   {
     "stem": "2021_10_26_1421",
@@ -2136,12 +2136,12 @@
     "img": "2021_10_26_1421.jpg",
     "url_date": "2021-10-26",
     "url_nnn": 1421,
-    "text_date": "2021-11-26",
-    "date_chosen": "2021-11-26",
-    "date_source": "text",
+    "text_date": null,
+    "date_chosen": "2021-10-26",
+    "date_source": "url",
     "number": "134",
     "section_order": 22,
-    "art": "1BQA"
+    "art": "1AQA"
   },
   {
     "stem": "2021_12_01_179",
@@ -2248,12 +2248,12 @@
     "img": "2021_12_11_210.jpg",
     "url_date": "2021-12-11",
     "url_nnn": 210,
-    "text_date": null,
-    "date_chosen": "2021-12-11",
-    "date_source": "url",
+    "text_date": "2021-04-01",
+    "date_chosen": "2021-04-01",
+    "date_source": "text",
     "number": "141",
     "section_order": 26,
-    "art": "1CB"
+    "art": "141"
   },
   {
     "stem": "2021_12_15_1538",
@@ -2264,7 +2264,7 @@
     "img": "2021_12_15_1538.jpg",
     "url_date": "2021-12-15",
     "url_nnn": 1538,
-    "text_date": "2067-05-08",
+    "text_date": null,
     "date_chosen": "2021-12-15",
     "date_source": "url",
     "number": "142",
@@ -2392,12 +2392,12 @@
     "img": "2022_01_03_138.jpg",
     "url_date": "2022-01-03",
     "url_nnn": 138,
-    "text_date": null,
-    "date_chosen": "2022-01-03",
-    "date_source": "url",
+    "text_date": "2021-12-11",
+    "date_chosen": "2021-12-11",
+    "date_source": "text",
     "number": "150",
     "section_order": 2,
-    "art": "213"
+    "art": "1CB"
   },
   {
     "stem": "2022_01_05_199",
@@ -2488,12 +2488,12 @@
     "img": "2022_01_20_1027.jpg",
     "url_date": "2022-01-20",
     "url_nnn": 1027,
-    "text_date": "2070-05-08",
-    "date_chosen": "2022-01-20",
-    "date_source": "url",
+    "text_date": "2020-09-16",
+    "date_chosen": "2020-09-16",
+    "date_source": "text",
     "number": "156",
     "section_order": 12,
-    "art": "21K"
+    "art": "09G"
   },
   {
     "stem": "2022_01_21_616",
@@ -2680,7 +2680,7 @@
     "img": "2022_02_28_440.jpg",
     "url_date": "2022-02-28",
     "url_nnn": 440,
-    "text_date": "2070-05-08",
+    "text_date": null,
     "date_chosen": "2022-02-28",
     "date_source": "url",
     "number": "168",
@@ -2728,9 +2728,9 @@
     "img": "2022_03_29_764.jpg",
     "url_date": "2022-03-29",
     "url_nnn": 764,
-    "text_date": "2029-03-22",
+    "text_date": "2022-03-29",
     "date_chosen": "2022-03-29",
-    "date_source": "url",
+    "date_source": "text",
     "number": "171",
     "section_order": 28,
     "art": "23T"
@@ -2856,12 +2856,12 @@
     "img": "2022_06_15_1564.jpg",
     "url_date": "2022-06-15",
     "url_nnn": 1564,
-    "text_date": "2022-05-01",
-    "date_chosen": "2022-05-01",
+    "text_date": "2022-01-07",
+    "date_chosen": "2022-01-07",
     "date_source": "text",
     "number": "179",
     "section_order": 26,
-    "art": "251A"
+    "art": "217A"
   },
   {
     "stem": "2022_05_03_129",
@@ -2936,12 +2936,12 @@
     "img": "2022_05_05_679.jpg",
     "url_date": "2022-05-05",
     "url_nnn": 679,
-    "text_date": "2067-05-08",
-    "date_chosen": "2022-05-05",
-    "date_source": "url",
+    "text_date": "2022-03-09",
+    "date_chosen": "2022-03-09",
+    "date_source": "text",
     "number": "184",
     "section_order": 16,
-    "art": "255"
+    "art": "239"
   },
   {
     "stem": "2022_05_05_1209",
@@ -2957,7 +2957,7 @@
     "date_source": "url",
     "number": "185",
     "section_order": 21,
-    "art": "255A"
+    "art": "255"
   },
   {
     "stem": "2022_05_05_1219",
@@ -2973,7 +2973,7 @@
     "date_source": "url",
     "number": "186",
     "section_order": 3,
-    "art": "255B"
+    "art": "255A"
   },
   {
     "stem": "2022_05_10_1181",
@@ -2984,12 +2984,12 @@
     "img": null,
     "url_date": "2022-05-10",
     "url_nnn": 1181,
-    "text_date": "2067-05-08",
-    "date_chosen": "2022-05-10",
-    "date_source": "url",
+    "text_date": "2022-01-20",
+    "date_chosen": "2022-01-20",
+    "date_source": "text",
     "number": "187",
     "section_order": 14,
-    "art": "25A"
+    "art": "21K"
   },
   {
     "stem": "2022_05_10_1241",
@@ -3000,12 +3000,12 @@
     "img": null,
     "url_date": "2022-05-10",
     "url_nnn": 1241,
-    "text_date": "2077-05-08",
-    "date_chosen": "2022-05-10",
-    "date_source": "url",
+    "text_date": "2021-05-02",
+    "date_chosen": "2021-05-02",
+    "date_source": "text",
     "number": "188",
     "section_order": 20,
-    "art": "25AA"
+    "art": "152"
   },
   {
     "stem": "2022_05_10_1400",
@@ -3016,12 +3016,12 @@
     "img": null,
     "url_date": "2022-05-10",
     "url_nnn": 1400,
-    "text_date": null,
-    "date_chosen": "2022-05-10",
-    "date_source": "url",
+    "text_date": "2022-04-18",
+    "date_chosen": "2022-04-18",
+    "date_source": "text",
     "number": "189",
     "section_order": 82,
-    "art": "25AB"
+    "art": "24I"
   },
   {
     "stem": "2022_05_24_954",
@@ -3064,12 +3064,12 @@
     "img": null,
     "url_date": "2022-05-24",
     "url_nnn": 1406,
-    "text_date": "2015-05-22",
-    "date_chosen": "2022-05-24",
-    "date_source": "url",
+    "text_date": "2022-04-15",
+    "date_chosen": "2022-04-15",
+    "date_source": "text",
     "number": "192",
     "section_order": 18,
-    "art": "25OA"
+    "art": "24F"
   },
   {
     "stem": "2022_05_28_1556",
@@ -3080,12 +3080,12 @@
     "img": null,
     "url_date": "2022-05-28",
     "url_nnn": 1556,
-    "text_date": "2011-02-10",
-    "date_chosen": "2022-05-28",
-    "date_source": "url",
+    "text_date": "2021-10-17",
+    "date_chosen": "2021-10-17",
+    "date_source": "text",
     "number": "193",
     "section_order": 23,
-    "art": "25S"
+    "art": "1AH"
   },
   {
     "stem": "2022_06_04_13",
@@ -3416,12 +3416,12 @@
     "img": "2022_12_26_6.jpg",
     "url_date": "2022-12-26",
     "url_nnn": 6,
-    "text_date": "2022-09-22",
-    "date_chosen": "2022-09-22",
-    "date_source": "text",
+    "text_date": null,
+    "date_chosen": "2022-12-26",
+    "date_source": "url",
     "number": "214",
     "section_order": 45,
-    "art": "29M"
+    "art": "2CQ"
   },
   {
     "stem": "2022_09_22_1319",
@@ -3437,7 +3437,7 @@
     "date_source": "text",
     "number": "215",
     "section_order": 5,
-    "art": "29MA"
+    "art": "29M"
   },
   {
     "stem": "2022_09_23_62",
@@ -3608,9 +3608,9 @@
     "img": null,
     "url_date": "2022-10-29",
     "url_nnn": 1443,
-    "text_date": "2070-05-08",
+    "text_date": "2022-10-29",
     "date_chosen": "2022-10-29",
-    "date_source": "url",
+    "date_source": "text",
     "number": "226",
     "section_order": 18,
     "art": "2AT"
@@ -3688,7 +3688,7 @@
     "img": "2022_11_12_33.jpg",
     "url_date": "2022-11-12",
     "url_nnn": 33,
-    "text_date": "2090-05-08",
+    "text_date": null,
     "date_chosen": "2022-11-12",
     "date_source": "url",
     "number": "231",
@@ -3704,12 +3704,12 @@
     "img": "2022_11_16_133.jpg",
     "url_date": "2022-11-16",
     "url_nnn": 133,
-    "text_date": "2022-11-17",
-    "date_chosen": "2022-11-17",
-    "date_source": "text",
+    "text_date": null,
+    "date_chosen": "2022-11-16",
+    "date_source": "url",
     "number": "232",
     "section_order": 59,
-    "art": "2BH"
+    "art": "2BG"
   },
   {
     "stem": "2022_11_18_1913",
@@ -3720,7 +3720,7 @@
     "img": "2022_11_18_1913.jpg",
     "url_date": "2022-11-18",
     "url_nnn": 1913,
-    "text_date": "2077-05-08",
+    "text_date": null,
     "date_chosen": "2022-11-18",
     "date_source": "url",
     "number": "233",
@@ -3848,7 +3848,7 @@
     "img": "2022_12_03_1287.jpg",
     "url_date": "2022-12-03",
     "url_nnn": 1287,
-    "text_date": "2070-05-08",
+    "text_date": null,
     "date_chosen": "2022-12-03",
     "date_source": "url",
     "number": "241",
@@ -3880,12 +3880,12 @@
     "img": "2022_12_05_899.jpg",
     "url_date": "2022-12-05",
     "url_nnn": 899,
-    "text_date": null,
-    "date_chosen": "2022-12-05",
-    "date_source": "url",
+    "text_date": "2008-04-26",
+    "date_chosen": "2008-04-26",
+    "date_source": "override",
     "number": "243",
     "section_order": 8,
-    "art": "2C5A"
+    "art": "O4Q"
   },
   {
     "stem": "2022_12_07_195",
@@ -3896,7 +3896,7 @@
     "img": "2022_12_07_195.jpg",
     "url_date": "2022-12-07",
     "url_nnn": 195,
-    "text_date": "2013-04-06",
+    "text_date": null,
     "date_chosen": "2022-12-07",
     "date_source": "url",
     "number": "244",
@@ -3912,7 +3912,7 @@
     "img": "2022_12_16_1450.jpg",
     "url_date": "2022-12-16",
     "url_nnn": 1450,
-    "text_date": "2013-04-06",
+    "text_date": null,
     "date_chosen": "2022-12-16",
     "date_source": "url",
     "number": "245",
@@ -4872,7 +4872,7 @@
     "img": null,
     "url_date": "2023-11-07",
     "url_nnn": 38,
-    "text_date": "2077-05-08",
+    "text_date": null,
     "date_chosen": "2023-11-07",
     "date_source": "url",
     "number": "305",
@@ -4984,9 +4984,9 @@
     "img": null,
     "url_date": "2024-02-13",
     "url_nnn": 485,
-    "text_date": "2024-02-13",
+    "text_date": null,
     "date_chosen": "2024-02-13",
-    "date_source": "text",
+    "date_source": "url",
     "number": "312",
     "section_order": 57,
     "art": "42D"
@@ -5112,12 +5112,12 @@
     "img": null,
     "url_date": "2024-07-17",
     "url_nnn": 839,
-    "text_date": "2024-06-02",
-    "date_chosen": "2024-06-02",
-    "date_source": "text",
+    "text_date": null,
+    "date_chosen": "2024-07-17",
+    "date_source": "url",
     "number": "320",
     "section_order": 14,
-    "art": "462"
+    "art": "47H"
   },
   {
     "stem": "2024_06_04_886",
@@ -5128,12 +5128,12 @@
     "img": null,
     "url_date": "2024-06-04",
     "url_nnn": 886,
-    "text_date": "2024-06-02",
-    "date_chosen": "2024-06-02",
-    "date_source": "text",
+    "text_date": null,
+    "date_chosen": "2024-06-04",
+    "date_source": "url",
     "number": "321",
     "section_order": 9,
-    "art": "462A"
+    "art": "464"
   },
   {
     "stem": "2024_07_24_981",
@@ -5144,12 +5144,12 @@
     "img": "2024_07_24_981.jpg",
     "url_date": "2024-07-24",
     "url_nnn": 981,
-    "text_date": "2024-06-02",
-    "date_chosen": "2024-06-02",
-    "date_source": "text",
+    "text_date": null,
+    "date_chosen": "2024-07-24",
+    "date_source": "url",
     "number": "322",
     "section_order": 16,
-    "art": "462B"
+    "art": "47O"
   },
   {
     "stem": "2024_06_03_1273",
@@ -5160,12 +5160,12 @@
     "img": null,
     "url_date": "2024-06-03",
     "url_nnn": 1273,
-    "text_date": "2024-06-02",
-    "date_chosen": "2024-06-02",
-    "date_source": "text",
+    "text_date": null,
+    "date_chosen": "2024-06-03",
+    "date_source": "url",
     "number": "323",
     "section_order": 10,
-    "art": "462C"
+    "art": "463"
   },
   {
     "stem": "2024_06_02_1601",
@@ -5176,12 +5176,12 @@
     "img": null,
     "url_date": "2024-06-02",
     "url_nnn": 1601,
-    "text_date": "2024-06-02",
+    "text_date": null,
     "date_chosen": "2024-06-02",
-    "date_source": "text",
+    "date_source": "url",
     "number": "324",
     "section_order": 11,
-    "art": "462D"
+    "art": "462"
   },
   {
     "stem": "2024_06_21_1665",
@@ -5192,12 +5192,12 @@
     "img": null,
     "url_date": "2024-06-21",
     "url_nnn": 1665,
-    "text_date": "2024-06-02",
-    "date_chosen": "2024-06-02",
-    "date_source": "text",
+    "text_date": null,
+    "date_chosen": "2024-06-21",
+    "date_source": "url",
     "number": "325",
     "section_order": 13,
-    "art": "462E"
+    "art": "46L"
   },
   {
     "stem": "2021_09_12_1252",
@@ -5208,12 +5208,12 @@
     "img": "2021_09_12_1252.jpg",
     "url_date": "2021-09-12",
     "url_nnn": 1252,
-    "text_date": "2024-07-15",
-    "date_chosen": "2024-07-15",
+    "text_date": "2021-05-15",
+    "date_chosen": "2021-05-15",
     "date_source": "text",
     "number": "326",
     "section_order": 33,
-    "art": "47F"
+    "art": "15FA"
   },
   {
     "stem": "2025_02_17_1707",
@@ -5288,7 +5288,7 @@
     "img": null,
     "url_date": "2025-03-20",
     "url_nnn": 1093,
-    "text_date": "2043-05-08",
+    "text_date": null,
     "date_chosen": "2025-03-20",
     "date_source": "url",
     "number": "331",
