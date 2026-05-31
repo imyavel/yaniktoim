@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Новое начало</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --muted:#6b625a;
+    --accent:#9a2b1e;
+    --accent2:#1f5d54;
+    --rule:#ddd4c6;
+    --hl:#fcefb4;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1180px;
+    min-width:0;
+    margin:0 auto;
+    padding:0 28px;
+  }
+  @media(max-width:1100px){.wrap{width:80%;}}
+  @media(max-width:760px){
+    body{font-size:18px;}
+    .wrap{width:100%;padding:0 18px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:26px 0 10px;
+    border-bottom:1px solid var(--rule);
+  }
+  .crumbs a{color:var(--accent2);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 8px;color:var(--rule);}
+
+  header.article{
+    padding:46px 0 18px;
+  }
+  h1{
+    font-size:2.4rem;
+    line-height:1.15;
+    margin:0;
+    font-weight:700;
+    letter-spacing:.01em;
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    color:var(--accent);
+    margin:0 0 14px;
+  }
+
+  .podcast{
+    margin:6px 0 30px;
+    padding:14px 18px;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-left:4px solid var(--accent2);
+    border-radius:4px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .podcast a{color:var(--accent2);text-decoration:none;border-bottom:1px solid rgba(31,93,84,.4);}
+  .podcast a:hover{border-color:var(--accent2);}
+  .podcast .lbl{display:block;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-size:12px;margin-bottom:4px;}
+
+  article{padding-bottom:10px;}
+  article p{margin:0 0 1.25em;}
+  article p:first-of-type{font-size:1.06em;}
+
+  /* footnote marker */
+  .fnref{
+    font-size:.72em;
+    vertical-align:super;
+    line-height:0;
+    text-decoration:none;
+    color:var(--accent);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    padding:0 1px;
+    position:relative;
+  }
+  .fnref:hover{text-decoration:underline;}
+  .fnref .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:140%;
+    width:280px;
+    max-width:72vw;
+    background:#2a241d;
+    color:#f5efe4;
+    font-family:Georgia,serif;
+    font-weight:400;
+    font-size:15px;
+    line-height:1.5;
+    vertical-align:baseline;
+    padding:10px 13px;
+    border-radius:6px;
+    box-shadow:0 8px 26px rgba(0,0,0,.28);
+    z-index:30;
+    text-align:left;
+  }
+  .fnref .pop a{color:#9fd6cb;}
+  .fnref.below .pop{bottom:auto;top:140%;}
+  .fnref:hover .pop{display:block;}
+
+  /* footnotes section */
+  .notes{
+    margin-top:48px;
+    padding-top:22px;
+    border-top:2px solid var(--rule);
+  }
+  .notes h2{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    color:var(--accent);
+    margin:0 0 16px;
+  }
+  .notes ol{margin:0;padding-left:1.4em;}
+  .notes li{
+    font-size:16px;
+    line-height:1.55;
+    margin-bottom:12px;
+    color:var(--ink);
+  }
+  .notes li:target{background:var(--hl);border-radius:4px;padding:4px 8px;margin-left:-8px;}
+  .notes a.back{margin-left:6px;color:var(--accent2);text-decoration:none;font-family:Arial,sans-serif;}
+  .notes a{color:var(--accent2);}
+
+  /* corpus nav */
+  nav.corpus{
+    margin-top:48px;
+    border-top:1px solid var(--rule);
+    padding:24px 0;
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  nav.corpus a{
+    text-decoration:none;
+    color:var(--accent2);
+    max-width:46%;
+  }
+  nav.corpus .lbl{
+    display:block;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--muted);
+    margin-bottom:3px;
+  }
+  nav.corpus .t{font-size:17px;border-bottom:1px solid rgba(31,93,84,.35);}
+  nav.corpus a:hover .t{border-color:var(--accent2);}
+  nav.corpus .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    border-top:1px solid var(--rule);
+    padding:22px 0 60px;
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.6;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  footer.colophon a{color:var(--accent2);}
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>/</span><a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <header class="article">
+    <p class="kicker">Да будет Свет!</p>
+    <h1>Новое начало</h1>
+  </header>
+
+  <div class="podcast">
+    <span class="lbl">Пояснения к статье (подкаст)</span>
+    <a href="https://disk.yandex.com/i/RKKVOK8ylNXXVA" target="_blank" rel="noopener">disk.yandex.com/i/RKKVOK8ylNXXVA ↗</a>
+  </div>
+
+  <article>
+    <p>Этот мир, лишь видимость, и мы в нем испытываем то, что должны по условию задачи. Мы первые, и нам сложнее тех, кто придет после, поскольку нам необходимо преодолевать последствия долгих лет бытия частью старой формы. Новая форма, это любовь к ближнему. Духовная половая любовь. Любовь, не даруемая человеку в виде манны небесной, неожиданно упавшей с неба, и испытываемой им явно как "благословение". Последнее, это любовь рабов, управляемых подачками Господина, о котором они сами путем самозабвения "знают", что Его нет, и никто не правит ими, давая или не давая подачки. А только они сами с усами или без.</p>
+
+    <p>Мы, которые люди, но не те, которые рабы, а те, которые дети Бога, как ИХТИС<a class="fnref" id="ref1" href="#fn1" aria-describedby="fn1">*1<span class="pop">ИХТИС, Википедия — <a href="https://ru.wikipedia.org/wiki/Ихтис" target="_blank" rel="noopener">ru.wikipedia.org/wiki/Ихтис</a></span></a>, чья печальная роль была в том, чтобы вести в море легион свиней, в которых вселился легион бесов, поскольку никто из них не понял, что он сам, лишь форма, образ жизни, который можно попробовать скопировать, но который бесполезно рисовать, почитать или поклоняться, - мы сами пришли к тому, чтобы осознать свою функцию, роль и задачу.</p>
+
+    <p>Любовь, это самое высокое достижение человека, за которое он может и должен бороться с самим собой всю жизнь. Такова реальность нашего поколения. Но чтобы удостоиться получить страстно желаемое в подарок от Высшего, Который ведет человека в двух формах, разделенной и неразделенной, чтобы сам человек соединил в жизни разделённую форму и достиг полноты и вверху и внизу, которая не может быть достигнута в одиночку, - должен закрыть глаза на мир, который явно говорит ему о том, что у него нет этой любви в ответ, более того, что она недостижима. А если достижима, то тленна, эвфемерна и быстротечна. А нередко и смертельно губительна.</p>
+
+    <p>Человек должен сделать выбор, о котором его сердце знает, что он правильный, и повторять этот выбор снова и снова, в то время, как реальность и опыт показывают ему, что он ошибается, что выбор ведет к верной гибели, либо не ведет вообще ни к чему - что его сердце, однажды принявшее этот выбор, было одурачено миражами и серьёзно ошибалось.</p>
+
+    <p>Мир существует для того, чтобы у человека была возможность сделать вышеописанное как полагается, чтобы Дающий Дар убедился, что человек не соблазнен ощущением тепла или надежды, и не ослеплен какой нибудь идеей ума, сулящей тот или иной образ личной выгоды, т.е. чтобы он преодолел своей собственной свободной волей все те инструменты скрытия, посредством которых им самим осуществляется высшее управление, что и будет означать взросление человека, сына Бога. Не называющегося так до того, пока Бог в нем не воссоединится возвратившись на Своё место и вверху и внизу как положено.</p>
+  </article>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1">ИХТИС, Википедия — <a href="https://ru.wikipedia.org/wiki/Ихтис" target="_blank" rel="noopener">https://ru.wikipedia.org/wiki/Ихтис</a><a class="back" href="#ref1" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus">
+    <a class="prev" href="59C.html">
+      <span class="lbl">← Предыдущая</span>
+      <span class="t">И это только начало</span>
+    </a>
+    <a class="next" href="61D.html">
+      <span class="lbl">Следующая →</span>
+      <span class="t">Сказка Хозяйки Ночи</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // flip footnote popup below the marker when there isn't room above
+  document.querySelectorAll('.fnref').forEach(function(m){
+    m.addEventListener('mouseenter',function(){
+      var r=m.getBoundingClientRect();
+      if(r.top<170){m.classList.add('below');}else{m.classList.remove('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — цельное философско-богословское эссе из пяти прозаических абзацев без стихотворных строк, поэтому однозначно выбрана редакторская широкая схема (колонка ~66% ширины окна, на узких экранах — полная ширина). Узкий «манускрипт» был бы неуместен: здесь нет стихов, а длинные развёрнутые периоды лучше читаются журнальной полосой. Палитру взял тёплую кремово-бумажную со сдержанным винным акцентом для китчера/маркеров и приглушённо-зелёным для ссылок — спокойно, контрастно, на светлом фоне.\n\nОглавление не делал: в статье нет нескольких подразделов — только основной текст плюс единственное примечание, поэтому TOC избыточен. Сноска *1 одна: маркер кликабелен, ведёт вниз к телу, есть стрелка возврата и hover-popup с автопереворотом под маркер у верхней границы окна. Ссылка на Яндекс.Диск — это подкаст-пояснение (не музыкальный трек с атрибуцией «Музыка под настроение» и не YouTube), поэтому оформил её плоской врезкой-ссылкой, без раскрывающегося плеера и без сводного музыкального раздела. Голый URL Википедии обёрнут в нормальную гиперссылку."
+,
+  "features": ["footnotes"]
+}
+</script>
+</body>
+</html>
