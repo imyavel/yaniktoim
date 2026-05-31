@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>САМ ТАКОЙ ДНА 3</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1c18;
+    --muted:#6b6256;
+    --accent:#9a3b1e;
+    --accent2:#33506b;
+    --rule:#d8cfbe;
+    --hl:#fbe9b8;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66vw;
+    max-width:1040px;
+    min-width:0;
+    margin:0 auto;
+    padding:34px 0 80px;
+  }
+  @media (max-width:980px){
+    .wrap{width:90%;}
+    body{font-size:18px;}
+  }
+  a{color:var(--accent2);text-decoration:none;border-bottom:1px solid rgba(51,80,107,.35);}
+  a:hover{border-bottom-color:var(--accent2);}
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:12px;
+    margin-bottom:26px;
+  }
+  .crumbs a{border-bottom:none;color:var(--accent);}
+  .crumbs span{margin:0 .5em;color:var(--muted);}
+
+  .lead-img{display:block;max-width:100%;width:auto;height:auto;margin:0 auto 30px;border:1px solid var(--rule);}
+
+  h1{
+    font-size:clamp(34px,5vw,52px);
+    line-height:1.06;
+    letter-spacing:.01em;
+    margin:.1em 0 .15em;
+    font-weight:700;
+  }
+  .subtitle{
+    font-style:italic;
+    color:var(--muted);
+    font-size:22px;
+    margin:0 0 30px;
+  }
+  .subtitle .fnref{font-style:normal;}
+
+  hr.div{
+    border:0;border-top:2px solid var(--rule);
+    width:120px;margin:36px 0;
+  }
+
+  h2{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:48px 0 18px;
+    font-weight:700;
+  }
+
+  blockquote.epigraph{
+    margin:0;
+    padding:6px 0 6px 26px;
+    border-left:3px solid var(--accent);
+    color:#2c2722;
+    font-size:18px;
+  }
+  blockquote.epigraph p{margin:0 0 1em;}
+  .epigraph .src{
+    font-style:italic;
+    color:var(--muted);
+    font-size:16px;
+    text-align:right;
+  }
+  .qmark{display:block;font-size:30px;color:var(--accent);line-height:1;margin:0;}
+
+  p{margin:0 0 1.15em;}
+
+  /* footnote refs */
+  sup.fn{line-height:0;}
+  a.fnref{
+    border-bottom:none;
+    color:var(--accent);
+    font-weight:700;
+    font-size:.72em;
+    padding:0 1px;
+    cursor:pointer;
+  }
+  a.fnref:hover{background:var(--hl);}
+
+  .popup{
+    position:absolute;
+    z-index:50;
+    max-width:360px;
+    background:var(--paper);
+    color:var(--ink);
+    border:1px solid var(--rule);
+    box-shadow:0 8px 26px rgba(0,0,0,.16);
+    padding:12px 14px;
+    font-size:15px;
+    line-height:1.5;
+    border-radius:4px;
+    display:none;
+  }
+  .popup .pn{color:var(--accent);font-weight:700;margin-right:.4em;}
+
+  /* notes */
+  section.notes{margin-top:30px;}
+  ol.notes-list{padding-left:1.4em;}
+  ol.notes-list li{
+    margin:0 0 1em;
+    font-size:16.5px;
+    line-height:1.6;
+  }
+  ol.notes-list li:target{background:var(--hl);border-radius:3px;}
+  .anon-note{font-size:16.5px;line-height:1.6;margin:0 0 1em;list-style:none;}
+  .backref{margin-left:.4em;font-size:.85em;border-bottom:none;color:var(--accent2);}
+  ul.serie{list-style:none;padding-left:0;margin:.4em 0 0;}
+  ul.serie li{margin:.2em 0;}
+
+  /* music */
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin:0 0 10px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    background:var(--paper);
+    border-radius:6px;
+    margin:0 0 12px;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;align-items:center;gap:12px;
+    padding:13px 16px;cursor:pointer;
+  }
+  .track-head:hover{background:#f1ece0;}
+  .tarrow{transition:transform .25s;color:var(--accent);font-size:13px;}
+  .track.open .tarrow{transform:rotate(90deg);}
+  .tname{font-weight:700;}
+  .tartist{color:var(--muted);font-style:italic;}
+  .text-ext{margin-left:auto;border-bottom:none;font-size:18px;}
+  .track-body{display:none;padding:0 16px 16px;}
+  .track.open .track-body{display:block;}
+  .track-body .frame{position:relative;padding-bottom:56.25%;height:0;}
+  .track-body iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:4px;}
+
+  /* footer nav */
+  .corpus-nav{
+    display:flex;justify-content:space-between;gap:18px;
+    margin-top:60px;padding-top:22px;border-top:2px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;font-size:15px;
+  }
+  .corpus-nav a{display:block;max-width:46%;border-bottom:none;}
+  .corpus-nav .dir{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+  .corpus-nav .nxt{text-align:right;margin-left:auto;}
+  footer.colofon{
+    margin-top:40px;padding-top:20px;border-top:1px solid var(--rule);
+    color:var(--muted);font-size:14px;font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  footer.colofon a{color:var(--accent);}
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>/</span><a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <img class="lead-img" src="../img/2CG.jpg" alt="">
+
+  <h1>САМ ТАКОЙ</h1>
+  <p class="subtitle">Диалоги Нипна и Анибе (3)<sup class="fn"><a class="fnref" id="ref1" href="#fn1" data-fn="1">1</a></sup></p>
+
+  <hr class="div">
+
+  <h2>ЭПИГРАФ</h2>
+  <blockquote class="epigraph">
+    <span class="qmark">&laquo;</span>
+    <p>Можно утверждать, что слово обновления каждого человека создает это, даже того, кто не знает, что говорит. Но следует знать, что тот, кто не направил путь свой к тайнам Торы, и обновил слова, не зная их истинного значения, как должно, это обновленное слово поднимается, и к этому слову выходит из расщелины великой бездны &laquo;человек коварный&raquo;, искусный во лжи. И он преодолевает пятьсот парсаот, чтобы получить это слово, и забирает его, и уходит с этим словом в свою расщелину, и создает в ней обманный небосвод, называемый &laquo;хаос&raquo;.</p>
+    <p>Пояснение сказанного. МАН<sup class="fn"><a class="fnref" id="ref3" href="#fn3" data-fn="3">3</a></sup>, который поднимают праведники, чтобы доставить наслаждение Создателю, т.е. во имя высшего блага, называется &laquo;заново открытыми словами Торы&raquo;. Ибо они открываются заново вследствие высшего зивуга, и благодаря им ЗОН получают новые мохин, пока не удостаиваются посредством этого &laquo;устроить небеса и основать землю&raquo;. И становятся сотрудниками Творца, потому что &laquo;небо и земля&raquo; обновляются с помощью их слов.</p>
+    <p>Но &laquo;тот, кто не направил путь свой к тайнам Торы&raquo; – т.е. несведущ в путях Творца и не умеет оберечь себя, чтобы не нанести вред высшим ступеням. И хотя он говорит сам себе<sup class="fn"><a class="fnref" id="ref2" href="#fn2" data-fn="2">2</a></sup>, что намерен действовать во имя высшего блага, однако вводит себя в заблуждение. И он не будет знать, что намеревается получить личную выгоду.</p>
+    <p class="src">&raquo; Книга Зоар, РАШБИ-Бааль Сулам, том 1, п. 68, Со Мной ты в сотрудничестве</p>
+  </blockquote>
+
+  <hr class="div">
+
+  <p>Нипна: Благодарю Тебя, Господь, за молитву Анибе. И благодарю Тебя за все, через что мы проходим. Так красиво "раскрылась" эта тема, с утренним "сном". Да, может быть, она еще "не до конца" раскрылась. А, может быть, мы ее еще "раскрываем". Но, для того, что касается нашей Души, и нашего Пути, она раскрылась, Господь, Твоей Благословенной Милостью. Поскольку Ты показал Твоему рабу, и его возлюбленной, очень важную деталь, часть, аспект, Твоего Благословенного Пути, Господь. Который станет одним из "краеугольных камней", без всякого сомнения, нашей общей, Господь, единой с Тобой, Господь, Твоей Благословенной Милостью, методики "Пути Воина^Исраэль". Образа действия (модус операнди<sup class="fn"><a class="fnref" id="ref4" href="#fn4" data-fn="4">4</a></sup>), образа мышления "духовного воина" третьего тысячелетия. Твоей Благословенной Милостью, да будет так, как хочешь Ты.</p>
+
+  <p>Да случится, по Желанию Святому Твоему, Господь, с Твоим Творением только самое хорошее! Вот. И, вообще говоря, благодарю Тебя, за музыку<sup class="fn"><a class="fnref" href="#music" data-fn="*">*</a></sup>, которую мне Анибе отправила. Я, конечно же, "боялся" читать, читать и слушать ее ответ, потому что... Потому, что мы находимся в таком состоянии "конфронтологичном"<sup class="fn"><a class="fnref" id="ref6" href="#fn6" data-fn="6">6</a></sup>. Но, я не мог этого не делать. Потому, что было бы не правильно, если бы я начал читать ей молитву, говорить ей молитву... Говорить Тебе молитву, Господь, вот. И читать Тебе молитву. При этом, не прочитав, то есть, "проигнорировав", и пренебрегая, "пренебрегя" (смеется). Тем, что она мне пишет, тем, что она мне хочет сказать. Это было бы не правильно, "по любому". Вот. Поэтому, я Тебя благодарю, за то, что мои "опасения" не оправдались.</p>
+
+  <p>Вот. И, не писать ей, не писать Анибе, и не отправлять ей молитву, я не мог, и не могу, и не смогу. Потому, что Анибе - это мой "портал", для общения с Тобой. Это мое Кли для общения с Тобой, Господь. Потому, что у меня нет другого Кли. У меня нет другой любимой Женщины, и нету товарищей, с которыми я бы шел вместе, "открыто и явно". Товарищей, Твоей Благословенной Милостью, по Твоему Кругу, Господь. Вот. А это значит, что любая моя молитва, которую я не отправил в чат с Анибе, она будет... По сути, я буду "общаться сам с собой". А что такое "Сам", мы знаем прекрасно. Сам - это дьявол<sup class="fn"><a class="fnref" id="ref7" href="#fn7" data-fn="7">7</a></sup>. И, все мои молитвы, которые я "поднимал" сам с собой, они оказались общением, немножко, в общем, не с той "инстанцией", с Которой я это "планировал". Да, Ты все слышишь. Но, как говорил Василий Иванович, Петьке, в одном известном анекдоте, "есть маленький ньюанс". И вот этот "маленький ньюанс", он, на самом деле, к сожалению, или к счастью - неизвестно, так сказать. Это человек сам решает. Да, он решает все - этот "маленький ньюанс". Поэтому, я не могу... Я... Ты... Я понимаю, почему Ты не раскрыл (Нипне и Анибе) это раньше. Я это понимаю прекрасно.</p>
+
+  <p>Потому, что, с одной стороны, я должен был научиться молиться, а, с другой стороны, Анибе должна была разучиться молиться. И если бы я ей сказал раньше, о том, что "ты, молясь 'сама с собой' (когда никто из 'товарищей по Кругу' ее не слышит и не услышит) - ты молишься дьяволу на самом деле, не Богу, не Святому Благословенному - Свету Бесконечности, Свят Благословен Он", то ты меня бы, Анибе, "послала" бы "в одно место" (очень далеко "это место" находится, хотя, на самом деле, близко, но кажется, что далеко. Или наоборот: на самом деле далеко, а кажется, что близко). Ну, ты меня поняла.</p>
+
+  <p>Вот. Господь, благодарю Тебя за эту Науку. Благодарю Тебя за "ведение и управление". Благодарю Тебя, Господь, за то, что Ты раскрываешь, Господь, последовательные "вехи" "Пути Воина^Исраэль". За то, что Ты, Господь, нам с Анибе, позволяешь идти вместе по этому Пути, находиться на этом Пути, и, при всей его "конфронтологии", находить, Твоей Благословенной Милостью, каждый раз, "выход в среднюю линию". Я благодарю Тебя, за Твою благословенную помощь, за Твое ведение и управление! Благодарю Тебя за то, что Ты помогаешь, Твоему рабу Нипне и Анибе, двигаться вперед. Вот. И за то, что Ты позволяешь делать этот Путь более ясным, более "раскрытым", более понятным. Более близким к тому, чем он на самом деле должен являться, Господь. И будет являться, Твоей, Господь, Благословенной Милостью. Благослови, Господь, Анибе, в этом вечере, благослови Твою благословенную возлюбленную праведницу, возлюбленную Твоего раба. Благослови Ее пути и дороги, Твои Благословенные Пути и Дороги! Размышления, ощущения, сновидения, работу и отдых, Господь. Благослови, Господь, быть едиными, как Ты Един, выполнять Твою Волю, и содержать Твой Благословенный Высший Бесконечный Свет Любви, как один Человек с одним сердцем! Благослови, Господь, Твоего раба, выполнять работу, "этого Мира", и "будущего Мира", Господь, всех созданных Тобою Твоих благословенных Миров. Благослови, Господь... Просить о "благословеннии" "полетов на Крыльях Намерения" я Тебя не буду, потому что я больше не "летаю на Крыльях Намерения". Независимо от того, приедет (ко мне) Анибе, или нет. Вот. Благослови выполнять Твою Волю, и быть Твоим работником, Господь. Благослови радовать Анибе, Господь, радовать Тебя, и радовать Твое Творение. Да будет так, как хочешь Ты, Господь, чтобы было, вовеки. Амен ве Амен.</p>
+
+  <hr class="div">
+
+  <section id="music">
+    <p class="music-label">Песнь Ступеней<sup class="fn"><a class="fnref" id="ref5" href="#fn5" data-fn="5">5</a></sup></p>
+    <div class="track" data-yt="PisI9l29k4E">
+      <div class="track-head">
+        <span class="tarrow">&#9654;</span>
+        <span><span class="tname">Черное Солнце</span> — <span class="tartist">Би-2</span></span>
+        <a class="text-ext" href="https://youtu.be/PisI9l29k4E" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="track-body"></div>
+    </div>
+  </section>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol class="notes-list">
+      <li id="fn1">В предыдущих «сериях»:
+        <ul class="serie">
+          <li>Один день из жизни дельфинов — <a href="http://proza.ru/2021/08/10/1324" target="_blank" rel="noopener">proza.ru/2021/08/10/1324</a></li>
+          <li>Диалог Нипна к Анибе — <a href="http://proza.ru/2021/12/15/1538" target="_blank" rel="noopener">proza.ru/2021/12/15/1538</a></li>
+          <li>Небесная Дорога — <a href="http://proza.ru/2022/06/04/13" target="_blank" rel="noopener">proza.ru/2022/06/04/13</a></li>
+          <li>Письмо Нипна к Анибе — <a href="http://proza.ru/2022/11/18/1913" target="_blank" rel="noopener">proza.ru/2022/11/18/1913</a></li>
+          <li>ДНА (1): По воле каждого — <a href="http://proza.ru/2022/12/03/1287" target="_blank" rel="noopener">proza.ru/2022/12/03/1287</a></li>
+          <li>ДНА (2): МЕЧТА — <a href="http://proza.ru/2022/12/07/195" target="_blank" rel="noopener">proza.ru/2022/12/07/195</a></li>
+        </ul>
+        <a class="backref" href="#ref1" title="Вернуться к тексту">↩</a>
+      </li>
+      <li id="fn2">Сам с собой <a class="backref" href="#ref2" title="Вернуться к тексту">↩</a></li>
+      <li id="fn3">МАН - это молитва. <a class="backref" href="#ref3" title="Вернуться к тексту">↩</a></li>
+      <li id="fn4">Модус операнди - образ действия (лат.). См. также: Модус Операнди, Зеир Арихович Анпин (далее - Зеир А"А) <a href="http://proza.ru/2022/06/26/486" target="_blank" rel="noopener">proza.ru/2022/06/26/486</a> <a class="backref" href="#ref4" title="Вернуться к тексту">↩</a></li>
+      <li id="fn5">См. также: Песнь Ступеней <a href="https://tier.bneiadam.com" target="_blank" rel="noopener">tier.bneiadam.com</a> <a class="backref" href="#ref5" title="Вернуться к тексту">↩</a></li>
+      <li id="fn6">См. также: Конфронтология самовоспроисхождения человеческого Духа, Зеир А"А <a href="http://proza.ru/2022/05/27/1206" target="_blank" rel="noopener">proza.ru/2022/05/27/1206</a> <a class="backref" href="#ref6" title="Вернуться к тексту">↩</a></li>
+      <li id="fn7">САМ ( ) "Ситра ахра", "злое начало", метод "Высшего управления" человеком и человечеством на начальном "этапе подготовки" его и, в целом, всех нас к "осознанию Себя" "человеком говорящим" (Адам Ришон), т.е. глобальности и интегральности, единства и единственности Высшего начала ("духовного корня") человеческой Души и Духа, которую каббалисты называют "душой Адама Ришон" (Книга Зоар). <a class="backref" href="#ref7" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prv" href="18AA.html"><span class="dir">← Предыдущая</span>Один день из жизни дельфинов</a>
+    <a class="nxt" href="1CF.html"><span class="dir">Следующая →</span>Диалог Нипна к Анибе</a>
+  </nav>
+
+  <footer class="colofon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<div class="popup" id="fnpopup"></div>
+
+<script>
+// lazy music player
+document.querySelectorAll('.track').forEach(function(tr){
+  var head=tr.querySelector('.track-head');
+  var body=tr.querySelector('.track-body');
+  head.addEventListener('click',function(e){
+    if(e.target.closest('.text-ext'))return;
+    var open=tr.classList.toggle('open');
+    if(open && !body.dataset.loaded){
+      var id=tr.dataset.yt;
+      body.innerHTML='<div class="frame"><iframe src="https://www.youtube.com/embed/'+id+'?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>';
+      body.dataset.loaded='1';
+    }
+  });
+});
+
+// footnote popup
+(function(){
+  var popup=document.getElementById('fnpopup');
+  var map={};
+  document.querySelectorAll('.notes-list > li, .anon-note').forEach(function(li){
+    map[li.id]=li;
+  });
+  function bodyFor(ref){
+    var href=ref.getAttribute('href');
+    if(!href||href.charAt(0)!=='#')return null;
+    var t=document.getElementById(href.slice(1));
+    if(!t)return null;
+    var clone=t.cloneNode(true);
+    clone.querySelectorAll('.backref').forEach(function(b){b.remove();});
+    var num=ref.dataset.fn||'';
+    return '<span class="pn">'+num+'.</span>'+clone.innerHTML;
+  }
+  document.querySelectorAll('a.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      var html=bodyFor(ref);
+      if(!html)return;
+      popup.innerHTML=html;
+      popup.style.display='block';
+      var r=ref.getBoundingClientRect();
+      var pw=popup.offsetWidth, ph=popup.offsetHeight;
+      var left=r.left+window.scrollX+r.width/2-pw/2;
+      left=Math.max(8+window.scrollX,Math.min(left,window.scrollX+document.documentElement.clientWidth-pw-8));
+      var top;
+      if(r.top>ph+12){ top=r.top+window.scrollY-ph-10; }
+      else { top=r.bottom+window.scrollY+10; }
+      popup.style.left=left+'px';
+      popup.style.top=top+'px';
+    });
+    ref.addEventListener('mouseleave',function(){popup.style.display='none';});
+  });
+  popup.addEventListener('mouseenter',function(){popup.style.display='block';});
+  popup.addEventListener('mouseleave',function(){popup.style.display='none';});
+})();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст представляет собой молитвенно-исповедальную прозу (диалог-обращение Нипна к Господу) с прозаическим талмудическим эпиграфом из Книги Зоар. Стихотворных строф нет, поэтому выбрана редакторская широкоформатная схема: основная колонка занимает ~2/3 ширины окна (66vw с потолком 1040px), что соответствует журнальному лонгриду. Для книжно-духовного характера взят серифный шрифт основного текста и санс для служебной обвязки; палитра тёплая бумажная со сдержанным кирпичным акцентом и синим для ссылок.",
+    "rationale2": "От оглавления отказался: в тексте лишь один авторский подзаголовок (ЭПИГРАФ), а основная молитва идёт без заголовка — добавлять собственные рубрики запрещено, поэтому TOC не оправдан. Единственный музыкальный трек оформлен как ленивый сворачиваемый YouTube-плеер, сводный раздел музыки не нужен (треков не больше двух). Сноски *1–*7 реализованы с переходами вниз/вверх, подсветкой цели и hover-popup с автоматическим выбором стороны. Авторский лоне-астериск у слова «музыку*» оставлен как маркер, ведущий к блоку «Песнь Ступеней», а глифы вроде «Воина^Исраэль» и «САМ ( )» сохранены дословно.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>

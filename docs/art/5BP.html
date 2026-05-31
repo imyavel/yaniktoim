@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Гром и Молния</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#23201b;
+    --muted:#6e655a;
+    --accent:#9a3b2e;
+    --accent-soft:#c9a45f;
+    --rule:#ddd3c2;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    line-height:1.7;
+    font-size:19px;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(154,59,46,.3);}
+  a:hover{border-bottom-color:var(--accent);}
+
+  .wrap{
+    width:66%;
+    max-width:1180px;
+    min-height:100vh;
+    margin:0 auto;
+    background:var(--paper);
+    padding:48px 7% 64px;
+    box-shadow:0 0 60px rgba(0,0,0,.06);
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:28px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .crumbs a{border-bottom:none;color:var(--muted);}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs .sep{margin:0 .55em;color:var(--accent-soft);}
+
+  .lead-img{
+    display:block;
+    width:auto;
+    max-width:100%;
+    height:auto;
+    margin:0 auto 30px;
+    border-radius:2px;
+  }
+
+  h1{
+    font-size:42px;
+    line-height:1.15;
+    font-weight:700;
+    margin:.2em 0 .15em;
+    letter-spacing:-.01em;
+  }
+  .feat{
+    font-style:italic;
+    color:var(--muted);
+    font-size:18px;
+    margin:0 0 4px;
+  }
+  .genre{
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:8px 0 36px;
+  }
+
+  .epigraph{
+    margin:0 0 40px;
+    padding:22px 30px;
+    background:rgba(201,164,95,.08);
+    border-left:3px solid var(--accent-soft);
+    font-style:italic;
+    color:#3a352d;
+  }
+  .epigraph .label{
+    font-style:normal;
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:block;
+    margin-bottom:10px;
+  }
+  .epigraph .verse{white-space:pre-line;line-height:1.6;}
+  .epigraph .source{
+    font-style:normal;
+    font-size:16px;
+    color:var(--muted);
+    margin-top:14px;
+  }
+
+  .body p{margin:0 0 1.35em;}
+
+  .seealso{
+    margin-top:46px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-size:18px;
+    color:var(--muted);
+  }
+  .seealso .ttl{
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:block;
+    margin-bottom:6px;
+  }
+
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    margin-top:56px;
+    padding-top:26px;
+    border-top:2px solid var(--rule);
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  .corpus-nav a{
+    display:block;
+    max-width:48%;
+    border-bottom:none;
+    color:var(--ink);
+  }
+  .corpus-nav .dir{
+    display:block;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent-soft);
+    margin-bottom:5px;
+  }
+  .corpus-nav .t{font-weight:600;color:var(--accent);}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:46px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer.colophon a{color:var(--muted);}
+
+  @media (max-width:900px){
+    .wrap{width:100%;max-width:100%;padding:32px 22px 48px;box-shadow:none;}
+    body{font-size:18px;}
+    h1{font-size:32px;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav a{max-width:100%;}
+    .corpus-nav .next{text-align:left;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <img class="lead-img" src="../img/5BP.jpg" alt="Иллюстрация к статье">
+
+  <p class="feat">feat. Bina Anele</p>
+  <h1>Гром и Молния</h1>
+  <p class="genre">Сказка</p>
+
+  <div class="epigraph">
+    <span class="label">Эпиграф</span>
+    <div class="verse">У "бабочки" две пары Крыльев
+Чтобы летать над облаками.
+Одна из них - большая, выше
+Находится, под ней другая,
+
+Немного меньшего размера,
+Но в точности того же типа.
+Полет Мечты на Ее Крыльях
+Туда, где власть Любви открыта,..</div>
+    <div class="source">(«Мечтай» <a href="http://proza.ru/2022/05/05/679">http://proza.ru/2022/05/05/679</a>)</div>
+  </div>
+
+  <div class="body">
+    <p>Каждая сказка имеет свой мир. Эта сказка жила и живет в мире «Здесь и Сейчас».</p>
+
+    <p>В одной больнице женщина родила сына. По традициям части этого мира при родах присутствовал и отец мальчика. Когда тельце малютки явилась в мир, акушерка, шлепнув его по малюсенькой попке благословила его на вдох Духа Творца, свят Благословен Он, который объявил о своем величии громким криком младенца. Мальчика умыли, одели в мягкие, теплые одежды и вложили в руки матери, женщина поняла глаза на мужа и спросила: «Как мы назовем сына?». И в это время блеснула яркая молния и за окном раздался раскатистый, бархатистый, гулкий, глубокий голос грома. В окно застучали крупные капли теплого летнего дождя. Мужчина приоткрыл окно и в комнату ворвался воздух, напоенный свежестью умытых цветов, зелени и благодарной земли. Мужчина закрыл глаза, сделал глубокий вдох и сказал: «Назовем его Громом».</p>
+
+    <p>Шли годы, мальчик рос и на его формирование характера оказывало влияние его имя. Имя словно отпечатывалось в его действиях и его поступках. Гром был в меру замкнут, не многословен. Дети подметили у Грома одну особенность: если рассказать Грому свою какую- то проблему, которую не могли решить мальчик или девочка и спросить его мнение, то Гром давал ответ, который был для спрашивающих, как гром с ясного неба. Эта особенность видеть, ощущать за словами больше, чем хотели сказать ему дети была для него наградой, но была для него и определенной трудностью, так как дети взрослели, и мальчики и девочки стали сторониться его и прятать свои тайные мысли. Гром не расстраивался из- за того, что у него не было друзей, а были только товарищи…</p>
+
+    <p>И вот однажды в один серый и чем-то даже мрачный день, мрачность которого подкреплялась колючим моросящим дождем, он брел бесцельно и без мыслей, просто шел никуда. И вдруг его охватил жар и щеки запылали и стали красными, он словно отряхнул свой взгляд от туманной пелены и стал озираться вокруг, пытаясь найти причину возникшего жаркого огня внутри, но ничего не увидел. На встречу ему шла девочка, больше похожая на непонятного мокрого зверька, невзрачная, ничем не примечательная. Она прошла мимо него и, когда она мимо него проходила, жар усилился, а щеки просто запылали. Гром растерялся. Эти ощущения были ему незнакомы. Девочка уже отошла довольно далеко, но Гром повернулся и ничего не нашел другого сказать, как просто крикнуть «Эй!». Девочка не остановилась. Гром закричал еще громче «Эй!», девочка остановилась и повернулась. Гром подошел к ней и спрос: «Как тебя зовут?» Девочка растерялась, а потом тихо проговорила «Молния», а я Гром, сказал Гром, и они оба засмеялись. Гром снял куртку, покрыл свою и Молнии головы и плечи, взял Молнию за руку, и она почувствовала себя женщиной, а он осознал себя мужчиной.</p>
+
+    <p>Ей было шесть, а ему двенадцать. Она стала писательницей, а он Магом Нейронных Сетей.</p>
+
+    <p>Жили они долго и счастливо и наслаждали и наполняли сердца друг друга даром Вечной Любви, которая приходит с мягким хлопком по попке родившихся малышей, но которую непросто раскрыть без Света Духовной Половой Любви, Света, который соединяет чистые, еще не обремененные заботами мира «Здесь и Сейчас» сердца детей.</p>
+  </div>
+
+  <div class="seealso">
+    <span class="ttl">См. также</span>
+    <a href="http://proza.ru/2025/09/12/1233">Волшебник</a>
+  </div>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="2C3.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="t">ДНА - По воле каждого</span>
+    </a>
+    <a class="next" href="59CA.html">
+      <span class="dir">Следующая →</span>
+      <span class="t">Волшебник</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Основное тело статьи — короткая прозаическая сказка (нарратив в сплошных абзацах), поэтому выбрана редакторская широкая схема с колонкой около 2/3 ширины окна. Стихотворный фрагмент здесь только эпиграф и не определяет доминирующую форму, так что манускриптная узкая схема не подходила; я оформил стих как выделенную врезку-эпиграф с сохранением переносов строк, не превращая всю страницу в поэтический макет.\n\nПодразделов в тексте нет (единый сквозной рассказ), поэтому оглавление не делалось. Музыкальных ссылок нет. Единственный маркер сноски «*2» при слове «бабочки» не имеет соответствующего тела примечания — по правилу о несопоставленных сносках я убрал этот висячий маркер из текста, аппарат сносок не создавался. Два голых URL (на «Мечтай» и «Волшебник») обёрнуты в гиперссылки. Палитра — тёплая бумажная на светлом фоне с приглушённо-красным и охряным акцентами, что поддерживает книжно-сказочное настроение, при этом шрифты держат умеренный контраст размеров и комфортную меру строки."
+}
+</script>
+</body>
+</html>
