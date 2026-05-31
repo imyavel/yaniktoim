@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Настоящие сатанисты</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#211d18;
+    --muted:#6f675b;
+    --rule:#ddd4c4;
+    --accent:#8a2d2d;
+    --accent2:#3a4a6b;
+    --hl:#fff1bf;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.66;
+  }
+  .wrap{
+    width:66vw;
+    max-width:1000px;
+    margin:0 auto;
+    padding:40px 28px 80px;
+  }
+  @media (max-width:1000px){ .wrap{ width:92vw; } }
+  @media (max-width:640px){ .wrap{ width:100%; padding:24px 18px 60px; } body{font-size:18px;} }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    margin:0 0 22px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .crumbs a{ color:var(--accent2); text-decoration:none; }
+  .crumbs a:hover{ text-decoration:underline; }
+  .crumbs span.sep{ margin:0 .5em; color:var(--rule); }
+
+  .lead-img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    margin:0 0 26px;
+    border:1px solid var(--rule);
+  }
+
+  h1{
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    font-weight:700;
+    font-size:2.45rem;
+    line-height:1.12;
+    letter-spacing:-.01em;
+    margin:.1em 0 .8em;
+  }
+  h1::after{
+    content:"";
+    display:block;
+    width:84px;
+    height:3px;
+    background:var(--accent);
+    margin-top:.5em;
+  }
+
+  article p{ margin:0 0 1.15em; }
+  .speaker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.92rem;
+    font-weight:700;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:1.6em 0 .55em;
+  }
+  blockquote{
+    margin:0 0 1.4em;
+    padding:.6em 0 .6em 1.5em;
+    border-left:3px solid var(--accent);
+    background:linear-gradient(90deg,rgba(138,45,45,.04),transparent 70%);
+    font-style:italic;
+    color:#2a241d;
+  }
+  blockquote.verse{
+    font-style:italic;
+    white-space:normal;
+    border-left-color:var(--accent2);
+    background:linear-gradient(90deg,rgba(58,74,107,.05),transparent 70%);
+  }
+  blockquote.verse .v{ display:block; }
+
+  /* footnote refs + popup */
+  .fnref{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    position:relative;
+    cursor:pointer;
+  }
+  .fnref sup{ font-size:.7em; }
+  .fnref .fnpop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:130%;
+    width:340px;
+    max-width:78vw;
+    max-height:300px;
+    overflow:auto;
+    background:#2a241d;
+    color:#f4efe5;
+    font-family:Georgia,serif;
+    font-style:normal;
+    font-weight:400;
+    font-size:15px;
+    line-height:1.5;
+    text-align:left;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
+    z-index:50;
+  }
+  .fnref .fnpop.below{ bottom:auto; top:130%; }
+  .fnref:hover .fnpop{ display:block; }
+
+  /* notes */
+  .notes{
+    margin-top:46px;
+    padding-top:18px;
+    border-top:2px solid var(--rule);
+  }
+  .notes h2{
+    font-family:"Iowan Old Style",Georgia,serif;
+    font-size:1.5rem;
+    margin:0 0 .7em;
+  }
+  ol.fnlist{ list-style:none; counter-reset:none; margin:0; padding:0; }
+  ol.fnlist li{
+    font-size:.95rem;
+    line-height:1.6;
+    color:#332e26;
+    margin:0 0 1.1em;
+    padding:.5em .7em;
+    border-left:2px solid transparent;
+    transition:background .4s,border-color .4s;
+  }
+  ol.fnlist li:target{
+    background:var(--hl);
+    border-left-color:var(--accent);
+  }
+  .fnmark{ font-weight:700; color:var(--accent); margin-right:.5em; }
+  .backref{ text-decoration:none; color:var(--accent2); margin-left:.3em; }
+  .backref:hover{ text-decoration:underline; }
+  .notes a[href^="http"]{ color:var(--accent2); word-break:break-word; }
+
+  /* bottom corpus nav */
+  .corpusnav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:54px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.9rem;
+  }
+  .corpusnav a{
+    color:var(--accent2);
+    text-decoration:none;
+    max-width:46%;
+  }
+  .corpusnav a:hover{ text-decoration:underline; }
+  .corpusnav .lab{ display:block; font-size:.74rem; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); }
+  .corpusnav .nx{ text-align:right; margin-left:auto; }
+
+  footer.colophon{
+    margin-top:40px;
+    padding-top:18px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.82rem;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{ color:var(--accent2); }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <img class="lead-img" src="../img/335.jpg" alt="">
+
+  <h1>Настоящие сатанисты</h1>
+
+  <article>
+    <p class="speaker">Зубастег написал(а):</p>
+    <blockquote>
+      Это ненастоящие сатонисты! У настоящих ведьмы на ритуале перед сатоной голые! Скорее, какие-то виккианцы.
+    </blockquote>
+
+    <p class="speaker">Ответ:</p>
+    <p>У настоящих сатанистов ведьминские ритуалы перед зеркалом голые. А зеркальце у них не простое, а говорящее - с самим собой в своей голове.</p>
+
+    <p class="speaker">Наше Мама написал(а):</p>
+    <blockquote class="verse">
+      <span class="v">Свойство зеркальце имело:</span>
+      <span class="v">Говорить оно умело.</span>
+      <span class="v">С ним одним она была</span>
+      <span class="v">Добродушна, весела,</span>
+      <span class="v">С ним приветливо шутила</span>
+      <span class="v">И красуясь говорила:</span>
+      <span class="v">"Свет мой, зеркальце! скажи,<a class="fnref" id="ref-d" href="#fn-d"><sup>****</sup><span class="fnpop">Это Зеркало не светит Светом, Который не отражается в зеркалах «реальных воспринимаемых миров». Оно «Светит» путем mislead-а, то есть направления тебя, [you] по ложному следу, на «жизненном Пути»…</span></a></span>
+      <span class="v">Да всю правду доложи:</span>
+      <span class="v">Я ль на свете всех милее,</span>
+      <span class="v">Всех румяней и белее?"</span>
+      <span class="v">И ей зеркальце в ответ:</span>
+      <span class="v">"Ты, конечно, спору нет;</span>
+      <span class="v">Ты, царица, всех милее,</span>
+      <span class="v">Всех румяней и белее".</span>
+      <span class="v">И царица хохотать,</span>
+      <span class="v">И плечами пожимать,</span>
+      <span class="v">И подмигивать глазами,</span>
+      <span class="v">И прищелкивать перстами,</span>
+      <span class="v">И вертеться подбочась,</span>
+      <span class="v">Гордо в зеркальце глядясь.<a class="fnref" id="ref-a" href="#fn-a"><sup>*</sup><span class="fnpop">А.С. Пушкин. Сказка о мертвой царевне и 7 богатырях (о Нукве Ацилута и формирующих Ее свойствах Бины"… — см. Книга Зоар, том 1, «Роза» и далее…</span></a></span>
+    </blockquote>
+
+    <p class="speaker">Наша Папа написал(а):</p>
+    <blockquote>
+      - Поворот, поворот, поворот, - пропела она, вращаясь как волчок. - Зад, зад, зад, - сказала она, показывая мне свою голую заднюю часть, как это делают в канкане. Эту последовательность она повторяла снова и снова, пока музыка не начала затихать. Пружина виктролы разматывалась. У меня появилось ощущение, что мадам Людмила уходит куда-то вдаль, становясь все меньше, по мере того, как музыка становится тише. Какое-то отчаяние и одиночество - я и не знал, что такие чувства живут во мне - вырвалось из самых глубин моего существа на поверхность и заставило меня вскочить и выбежать из комнаты….<a class="fnref" id="ref-b" href="#fn-b"><sup>**</sup><span class="fnpop">Карлос Кастанеда, Активная сторона Бесконечности.</span></a>
+    </blockquote>
+
+    <section class="notes">
+      <h2>Примечания</h2>
+      <ol class="fnlist">
+
+        <li id="fn-a">
+          <span class="fnmark">*</span>
+          А.С. Пушкин. Сказка о мертвой царевне и 7 богатырях (о Нукве Ацилута и формирующих Ее свойствах Бины"…<a class="fnref" id="ref-c" href="#fn-c"><sup>***</sup><span class="fnpop">Вариант: сказка об закланном Агнце и свете 7 церквей.</span></a> - см. Книга Зоар, том 1, "Роза" и далее… "Сказано: "Роза среди шипов."….
+          <p>Но есть Роза, и есть Роза. И там, где у одной Розы - смерть и разложение (ложь, невежество и разврат), там у другой Розы - Жизнь и Благородство (Истинного Мира, Истинного Знания и Святость взаимной Любви к ближнему, как к самому себе). И нет [у человека] одного без того, чтобы было и другое. Потому что без этого у человека нет свободы выбора, а там, где нет свободы выбора, там нет и воли к тому, чтобы производить его строго "вопреки", а не "благодаря" всему, чего на Свете нет, не было и быть не может. Ведь если бы у него не было этого выбора, то он бы не смог вопреки самому себе найти то "Царство Истины", в котором все является именно тем, чем и должно быть и было всегда "на самом деле". Только его самого "на самом деле" не было, и быть не могло, а сейчас он есть. И Свет есть. И Свет и он - не одно и то же. Потому что иначе не было бы вообще никого, кто мог бы совершать какой-либо выбор, имея по любому поводу свое важное, как водится, "особое мнение"… Вот из этого, дорогой читатель, рекомендую извлечь полезный вывод о том, каково "правильное использование" зеркальца, полученного тобой в наследство от "черных магов", и говорящее в твоей голове о том, что есть "правда" и "реальность", а что есть "ложь" и "пустой вымысел"… Учитывая тот факт, что "во Вселенной нет толп", и все остальные голоса, которые ты слышишь "в объективном внешнем Мире" - это все лишь копии одного и того же "Зеркальце", говорящего "правду, только правду и ничего кроме правды о себе любимом, стоя в голом одиночестве перед перед зеркалом".</p>
+          <a class="backref" href="#ref-a" title="Вернуться к тексту">↩</a>
+        </li>
+
+        <li id="fn-b">
+          <span class="fnmark">**</span>
+          Карлос Кастанеда, Активная сторона Бесконечности.
+          <a class="backref" href="#ref-b" title="Вернуться к тексту">↩</a>
+        </li>
+
+        <li id="fn-c">
+          <span class="fnmark">***</span>
+          Вариант: сказка об закланном Агнце и свете 7 церквей. <a href="http://www.patriarchia.ru/bible/rev/4/" rel="noopener" target="_blank">http://www.patriarchia.ru/bible/rev/4/</a>
+          <a class="backref" href="#ref-c" title="Вернуться к тексту">↩</a>
+        </li>
+
+        <li id="fn-d">
+          <span class="fnmark">****</span>
+          Это Зеркало не светит Светом, Который не отражается в зеркалах "реальных воспринимаемых миров". Оно "Светит" путем mislead-а, то есть направления тебя, [you] по ложному следу, на "жизненном Пути", чтобы ты, опомнившись, осознал "предательство" и повернул назад, на этот раз уже будучи готовым к "правильному ответу" "бдительному цензору реальности и важности вещей, т.е. "тебе самому говорящему с собой в своей голове" - А НЕ ПОШЕЛ БЫ ТЫ ДРУЖОК НА СЕВЕР, НАВЕСТИТЬ ЗАКЛАННОГО АГНЦА, С КОТОРЫМ МОЖНО МИЛО ПОБЕСЕДОВАТЬ НА ТЕМУ "Я НЕ ДОЛЖЕН ЛГАТЬ… САМОМУ СЕБЕ… А ЕСЛИ Я НЕ СУЩЕСТВУЮ, А ЕСТЬ ТОЛЬКО ТЫ, ЗНАЧИТ ЛИ ЭТО ЧТО Я ДОЛЖЕН ЛГАТЬ ПОСТОЯННО?!… А ЕСЛИ МНЕ НЕ КАЖЕТСЯ, ЧТО Я ЛГУ ПОСТОЯННО, КАК ТОЛЬКО ОТКРЫВАЮ РОТ И ГОВОРЮ -.себя.Я.мне.-" и т.д. ТО НЕ ЗНАЧИТ ЛИ ЭТО, ЧТО Я ЛГУ СЕБЕ, КОГДА БЕЗМОЛВНО ВЕРЮ, БУДТО ВЕДУ ДИАЛОГ САМ С СОБОЙ? А ЧЕЙ ЭТО ТОГДА ГОЛОС, И КТО ГОВОРИТ ПОД ВИДОМ МЕНЯ? И ДЛЯ ЧЕГО ЕМУ ЭТО ДЕЛАТЬ? И ДЛЯ ЧЕГО ЕМУ ДЕЛАТЬ ЭТО МНЕ? И ДЛЯ ЧЕГО МНЕ БЫЛО ЕМУ ВЕРИТЬ? И ПОЧЕМУ Я РЕШИЛ ОБО ВСЕМ ЭТОМ НАВСЕГДА ЗАБЫТЬ? - смеясь над ряжеными шутами "сатанистами" из позапрошлого века, вместо того, чтобы задать один простой насущный вопрос своему зеркалу: кто будет отвечать за "мои" слова "самому себе", когда окажется, что они целиком - ложь, от первого до последнего?
+          <a class="backref" href="#ref-d" title="Вернуться к тексту">↩</a>
+        </li>
+
+      </ol>
+    </section>
+  </article>
+
+  <nav class="corpusnav">
+    <a class="pv" href="334.html"><span class="lab">← Предыдущая</span>Трупак Последней Надежды</a>
+    <a class="nx" href="324.html"><span class="lab">Следующая →</span>Мертвые боги</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // Flip footnote popups below the marker when there isn't room above.
+  document.querySelectorAll('.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter', function(){
+      var pop = ref.querySelector('.fnpop');
+      if(!pop) return;
+      pop.classList.remove('below');
+      var r = ref.getBoundingClientRect();
+      // estimate popup height after it is displayed
+      var h = pop.offsetHeight || 200;
+      if(r.top - h - 16 < 0){ pop.classList.add('below'); }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой полемический диалог-комментарий в прозе: реплики собеседников, развёрнутый авторский ответ и обширный, рассуждающий аппарат сносок (включая длинный кабблистический разбор про «Розу» и финальный ALLCAPS-монолог). Несмотря на вставленную цитату из пушкинской сказки, стихи здесь — лишь цитата внутри прозаического рассуждения, а не доминирующая форма, поэтому выбрана широкая редакторская схема (контент ~2/3 ширины окна, до 1000px), а не узкий манускрипт.\n\nРазвилки: цитату Пушкина оформил отдельным verse-блоком с сохранением построчной разбивки, но не дал ей задавать схему. Сноски пронумерованы исходными авторскими метками (*, **, ***, ****), так как одна сноска (***) ссылается из тела другой (*), и звёздная нотация сохраняет эту вложенность вернее, чем перенумерация. Реализовал двунаправленную навигацию и hover-popup с автоматическим переворотом вниз у верхней кромки экрана, подсветку целевой сноски через :target. TOC не делал — формальных озаглавленных подразделов в тексте нет (только «Примечания»), а собственные заголовки добавлять запрещено. Музыки нет. Палитра — тёплый светлый фон, акцентный кармин и индиго, засечный Georgia/Iowan для книжно-журнального характера.",
+  "features": ["footnotes"]
+}
+</script>
+</body>
+</html>
