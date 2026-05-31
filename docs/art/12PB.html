@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сила - это один из врагов Человека Знания</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#22201b;
+    --muted:#6f675a;
+    --accent:#8a5a2b;
+    --accent2:#b9852f;
+    --line:#ddd4c4;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    line-height:1.75;
+    font-size:20px;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(138,90,43,.35);}
+  a:hover{color:var(--accent2);border-bottom-color:var(--accent2);}
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 40px;
+  }
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    padding:28px 0 0;
+  }
+  .breadcrumbs a{border:none;}
+  .breadcrumbs .sep{margin:0 .5em;color:var(--line);}
+  /* header */
+  header.article{
+    border-bottom:2px solid var(--line);
+    padding:20px 0 34px;
+    margin-bottom:40px;
+  }
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--accent2);
+    margin:0 0 18px;
+  }
+  h1{
+    font-size:42px;
+    line-height:1.18;
+    margin:0;
+    font-weight:700;
+    letter-spacing:-.01em;
+    max-width:18em;
+  }
+  /* main column ~2/3 */
+  main{
+    max-width:760px;
+    margin:0 auto 0 0;
+  }
+  @media(min-width:1000px){
+    main{margin-left:6%;}
+  }
+  main p{margin:0 0 1.5em;}
+  main p:first-of-type::first-letter{
+    font-size:3.4em;
+    line-height:.86;
+    float:left;
+    padding:.05em .12em 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+  /* music */
+  .music{
+    margin:48px 0;
+    padding:24px 26px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-left:4px solid var(--accent2);
+    border-radius:4px;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    color:var(--accent2);
+    margin:0 0 14px;
+  }
+  .track{border-top:1px dotted var(--line);}
+  .track:first-of-type{border-top:none;}
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    cursor:pointer;
+    padding:12px 2px;
+    user-select:none;
+  }
+  .track-head .arrow{
+    color:var(--accent);
+    transition:transform .2s ease;
+    font-size:14px;
+    flex:0 0 auto;
+  }
+  .track.open .arrow{transform:rotate(90deg);}
+  .track-title{flex:1 1 auto;}
+  .track-title .artist{color:var(--muted);font-style:italic;}
+  .track-ext{color:var(--muted);border:none;font-size:18px;}
+  .track-player{display:none;margin:6px 0 16px;}
+  .track.open .track-player{display:block;}
+  .track-player .frame{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    overflow:hidden;
+    border-radius:4px;
+  }
+  .track-player iframe{
+    position:absolute;top:0;left:0;width:100%;height:100%;border:0;
+  }
+  /* see-also */
+  .seealso{
+    margin:40px 0;
+    font-size:18px;
+    color:var(--muted);
+  }
+  .seealso p{margin:.3em 0;}
+  /* footer nav */
+  .corpus-nav{
+    margin-top:60px;
+    border-top:2px solid var(--line);
+    padding-top:28px;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+  }
+  .corpus-nav a{
+    display:block;
+    max-width:46%;
+    border:none;
+  }
+  .corpus-nav .lbl{
+    display:block;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--accent2);
+    margin-bottom:4px;
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin:50px 0 70px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer.colophon a{color:var(--accent);}
+  @media(max-width:680px){
+    body{font-size:18px;}
+    .wrap{padding:0 20px;}
+    h1{font-size:30px;}
+    main{margin:0;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav a,.corpus-nav .next{max-width:100%;text-align:left;margin:0;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <header class="article">
+    <p class="dateline">25 февраля 2021 г.</p>
+    <h1>Сила - это один из врагов Человека Знания</h1>
+  </header>
+
+  <main>
+    <p>Сила - это один из врагов Человека Знания. Также, как и само знание (ясность), этих врагов воин может и должен в себе побеждать. С другой стороны, чтобы "победить" врага, нужно сначала с ним столкнуться лично, иначе это будут пустые разговоры. Духовная мощь, если можно так выразиться, это состояние человека, в которое он попадает посредством победы над тремя предыдущими врагами. То есть, это результат своей полной самоотмены человеком перед Волей Высшей Силы, как бы Вы Ее не называли, Орел, Дух, Творец, Свят Благословен Он, или как-либо еще. Поскольку только в этом случае человеку может быть открыта "истина в последней инстанции", о том, что ни сила, ни ясность, приобретаемые человеком, не значат ровным счетом ничего. Поскольку обладать личной силой, не имея тотального смирения перед Высшей Силой, которое и называется "духовная мощь" - это все равно, что быть обезьяной с гранатой, а ясность и знание, если к ним стремиться целенаправленно, и вообще придавать им особое значение - это миражи, ложные огни на Пути, которые уводят человека от Цели, создавая в нем опасную иллюзию, что его знание, понимание и опыт могут вообще что-либо значить, кроме того, чтобы давать ему уверенность в том, что то, что он делает или планирует делать, находится в русле Воли и намерения Духа, о сути которого он знать достоверно не может ничего, кроме того, что касается его текущего, или максимум следующего практического шага.</p>
+
+    <p>Дух раскрывает человеку, идущему по Его Пути, те знания, и дает ему ту силу, которые в точности человеку необходимы для совершения им следующего шага по Пути. Это значит, что человеку никогда не дается большее испытание, чем то, с чем он сможет реально справиться. Но также, это значит и то, что сам человек не определяет, каким знанием ему владеть, а каким нет, какой силой ему обладать, а какой нет, и не должен определять, и не должен стремиться к этому, а должен отменять себя перед Силой и Знанием Высшей непостижимой ступени, в совершенство знания и всемогущество Которой, и Ее тотальное управление, благоприятное как для него лично, так и для каждого живого существа в общем, воин "должен верить выше знания", чтобы не сойти с Пути, и продолжать идти в верном направлении. Только тогда он сможет превратить "шанс иметь шанс" в ясную стелющуюся перед ним дорогу, по которой он сможет с открытыми глазами идти сам "от победы к победе", равно как и помогать идти по ней другим.</p>
+
+    <section class="music" aria-label="Музыка под настроение">
+      <p class="music-label">Музыка под настроение</p>
+      <div class="track" id="track1">
+        <div class="track-head" onclick="toggleTrack('track1')">
+          <span class="arrow">▶</span>
+          <span class="track-title">Самый классный клип !!! <span class="artist">ЭНИГМАТИК — Zoom Tears of Time (Новинка)</span></span>
+          <a class="track-ext" href="https://youtu.be/16ukY5QqHGs" target="_blank" rel="noopener" title="Открыть на YouTube" onclick="event.stopPropagation();">↗</a>
+        </div>
+        <div class="track-player">
+          <div class="frame" data-embed="https://www.youtube.com/embed/16ukY5QqHGs"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="seealso">
+      <p>См. также: <a href="https://bneiadam.com/forum/51-180-1" target="_blank" rel="noopener">bneiadam.com/forum/51-180-1</a></p>
+      <p><a href="https://www.facebook.com/arykhanpin/posts/454890085665093" target="_blank" rel="noopener">facebook.com/arykhanpin/posts/454890085665093</a></p>
+    </div>
+
+    <nav class="corpus-nav" aria-label="Навигация по разделу">
+      <a class="prev" href="14I.html">
+        <span class="lbl">← Предыдущая</span>
+        Что такое первое и второе кольцо Силы
+      </a>
+      <a class="next" href="12PA.html">
+        <span class="lbl">Следующая →</span>
+        Про действие без ожидания награды...
+      </a>
+    </nav>
+
+    <footer class="colophon">
+      <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+      <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+    </footer>
+  </main>
+
+</div>
+
+<script>
+  function toggleTrack(id){
+    var t=document.getElementById(id);
+    var open=t.classList.toggle('open');
+    if(open){
+      var fr=t.querySelector('.frame');
+      if(fr && !fr.dataset.loaded){
+        var src=fr.getAttribute('data-embed');
+        var ifr=document.createElement('iframe');
+        ifr.setAttribute('src',src+'?autoplay=1');
+        ifr.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        ifr.setAttribute('allowfullscreen','');
+        fr.appendChild(ifr);
+        fr.dataset.loaded='1';
+      }
+    }
+  }
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — короткое философско-духовное эссе в прозе (два развёрнутых абзаца рассуждения), без стихотворных строк, поэтому выбрана редакторская широкоформатная схема, а не узкий манускрипт. Контейнер задан широким (≈1180px), а основная колонка текста ограничена комфортной мерой строки (~760px) и смещена влево внутри широкого поля, что соответствует требованию использовать ширину осмысленно и держать 2/3-логику без растягивания строки до нечитаемой длины. Палитра тёплая книжная на светлом фоне, засечный шрифт для тела, гротеск для служебных элементов (крошки, даты, навигация) — контраст без гигантских заголовков.\n\nПодразделов в тексте нет (сплошной текст), поэтому оглавление не делалось; сносок в исходнике нет — аппарат сносок не понадобился. Единственная музыкальная ссылка (YouTube, ЭНИГМАТИК — Zoom Tears of Time) оформлена как свёрнутый ленивый плеер с метом «Музыка под настроение»; так как трек один (меньше трёх), сводный раздел музыки не создавался. Два голых URL из блока «См. также» обёрнуты в гиперссылки дословно. Дата вынесена как надзаголовочная строка-датлайн, само название не дублировалось и не менялось.",
+  "features": ["music"]
+}
+</script>
+</body>
+</html>

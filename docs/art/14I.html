@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Что такое первое и второе кольцо Силы</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#211c16;
+    --muted:#6b6253;
+    --accent:#8a4b2b;
+    --accent-soft:#c9824f;
+    --rule:#ddd3c2;
+    --link:#9a4a22;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(154,74,34,.35);}
+  a:hover{border-bottom-color:var(--link);}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:30px 0 14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .crumbs a{color:var(--muted);border:none;}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs .sep{margin:0 .55em;color:var(--accent-soft);}
+
+  header.head{
+    margin:54px 0 30px;
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:18px;
+  }
+  h1{
+    font-size:clamp(30px,4.4vw,50px);
+    line-height:1.12;
+    font-weight:700;
+    margin:0;
+    letter-spacing:-.01em;
+    max-width:60%;
+  }
+
+  /* main two-thirds column */
+  .layout{
+    display:grid;
+    grid-template-columns:minmax(0,2fr) 1fr;
+    gap:56px;
+    margin:44px 0 60px;
+    align-items:start;
+  }
+  article{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:3px;
+    padding:46px 56px;
+    box-shadow:0 1px 0 rgba(0,0,0,.02);
+  }
+  aside.rail{
+    position:sticky;
+    top:28px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .rail .card{
+    border-left:3px solid var(--accent-soft);
+    padding:6px 0 6px 18px;
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.6;
+  }
+  .rail .card .lbl{
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    font-size:12px;
+    color:var(--accent);
+    margin-bottom:8px;
+  }
+
+  .qline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 6px;
+  }
+  .qtext{
+    font-size:23px;
+    line-height:1.5;
+    font-style:italic;
+    color:var(--ink);
+    margin:0 0 34px;
+    padding-bottom:30px;
+    border-bottom:1px solid var(--rule);
+  }
+  article p{margin:0 0 1.4em;}
+  article p.answer-first::first-letter{
+    float:left;
+    font-size:4.2em;
+    line-height:.82;
+    padding:.05em .12em 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+  .seealso{
+    margin-top:34px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-size:16px;
+    color:var(--muted);
+  }
+
+  /* bottom nav */
+  nav.corpus{
+    border-top:1px solid var(--rule);
+    margin-top:18px;
+    padding:34px 0 10px;
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  nav.corpus a{
+    display:block;
+    max-width:46%;
+    border:none;
+  }
+  nav.corpus .dir{
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:6px;
+  }
+  nav.corpus .t{font-size:18px;color:var(--ink);}
+  nav.corpus a:hover .t{color:var(--accent);}
+  nav.corpus .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    background:#efe9dd;
+    border-top:1px solid var(--rule);
+    margin-top:40px;
+    padding:34px 0;
+    color:var(--muted);
+    font-size:14.5px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    line-height:1.6;
+  }
+  footer.colophon .attrib{margin:0 0 8px;}
+  footer.colophon a{color:var(--accent);}
+
+  @media (max-width:860px){
+    body{font-size:18px;}
+    .wrap{padding:0 20px;}
+    h1{max-width:100%;}
+    .layout{grid-template-columns:1fr;gap:30px;margin:30px 0 40px;}
+    article{padding:30px 24px;}
+    aside.rail{position:static;}
+    nav.corpus{flex-direction:column;}
+    nav.corpus a,nav.corpus .next{max-width:100%;text-align:left;margin:0;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+  <div class="wrap">
+    <div class="crumbs">
+      <a href="../index.html">Главная</a><span class="sep">/</span><a href="../confront/index.html">Конфронтология Духа</a>
+    </div>
+
+    <header class="head">
+      <div class="kicker">Конфронтология Духа</div>
+      <h1>Что такое первое и второе кольцо Силы</h1>
+    </header>
+
+    <div class="layout">
+      <article>
+        <p class="qline">Вопрос 3</p>
+        <p class="qtext">Что такое "первое" и "второе кольцо Силы" в личном духовном опыте человека, и что означают эти же понятия в общем, применительно к Обществу?</p>
+
+        <p class="answer-first"><strong>Ответ:</strong> В терминах Науки Каббала (НК) эти понятия “Пути знания” К.Кастанеды (КК) называются, соответственно, “прямой” и “отраженный” Свет. Принципиальная разница между ними в том, что “прямой” Свет воспринимается человеком индивидуально, а “отраженный” всегда является результатом "групповой" работы. При этом, оба вида Света обязаны присутствовать полноценно (полностью и во всем отражая друг друга, что называется у КК “безупречность”, а в НК “духовный экран”) в завершенном действии восприятия. И они в нем присутствуют, что само по себе является “энергетическим фактом” (КК), свидетельствующим о том, что человек – либо “животное общественное”, либо осознанная часть более общего целого - “когорты магов” / "Круга каббалистов", которые выстроены таким образом, чтобы быть “мини моделью” человеческого общества, с той разницей, что маги вступают в такой союз с себе подобными осознанно и преднамеренно, используя руководства по типу “Правила Нагваля” (КК), или “Образа Всесильного” (Книга Зоар - НК), чтобы слить их сознания и намерения в одно, становясь, в некотором роде, “как один человек с одним сердцем” (НК). Это позволяет им взаимодействовать с Духом “на равных”, как минимум, делая это по своему свободному и осознанному выбору, сохраняя осознание, и полностью отдавая себе отчет в происходящем (хотя и без всякого стремления Его “понять” своим разумом, поскольку это и невозможно, и не нужно практически, для достижения их целей, и реализации Намерений проявляющегося через них Духа).</p>
+
+        <p>Первое и второе Кольца Силы, или “прямой” и “отраженный” Свет включены друг в друга и составляют, по сути, единое и неразделимое Целое. Не существует одного без другого, как не существует человека вне общества, не важно, это обычный человек, или маг, и какова степень его осознанности при взаимодействии с себе подобными, или с Намерением Духа (что одно и тоже в действительности, только не пытайтесь это понять рассудком). Этот факт необходимо учитывать, при составлении “карты” своих путешествий в неведомое (в непостижимое воинам хотеть путешествовать незачем, т.к. они в любом случае, так или иначе, очень скоро там окажутся, независимо от их желания к этому), поскольку неучет этого факта означает намеренный самообман, что недопустимо для воина, и уж, тем более, мага. А это значит, что для того, чтобы предпринять таковое путешествие, воину потребуется два необходимых элемента: 1) группа единомышленников, достаточно смелых и безрассудных, чтобы всерьез решить отправиться вместе с ним; 2) точный план механизма реагирования его “первого внимания” на намерение “первого Кольца Силы”, чтобы предварить Намерение Духа своим собственным намерением (сделать свою команду командой Орла – КК – слово “команда” здесь имеет двоякое смысловое значение не “случайно” – случайностей вообще не существует в Реальности), во всем подобным Ему, делая это согласованно и единообразно, “как один человек с одним сердцем” (НК), и, тем самым, встречая ту же самую Высшую Силу, которая запускает и “вращает” оба Кольца, уже совсем на других условиях, “по своим понятиям”: заблаговременно соглашаясь следовать Ее руслу течения энергии эманаций “внутри кокона” светящегося существа. Разница почти неразличима: приходит Сила к человеку перед тем, как он выразит Ей намерение об этом, или же человек выразит свое намерение следовать Воле этой Силы до того, как Она приходит к нему, но эта разница буквально меняет все. Она определяет, сможет воин, начав действовать по Ее “команде” сохранить осознание и помнить себя, или же он будет “пойман врасплох” и не будет помнить ничего, что реально происходило с ним “до этого”. “Разгадка” очень проста: во “втором внимании” нет времени. Восприятие себя, непрерывно действующего во времени “этого мира” является реальностью сна внутри сна, и когда она нарушается, ТС возвращается в ту позицию, в которой была в момент начала сновидения, чтобы начать сновидеть его заново. С той же самой временной точки, поскольку никакой другой в реальном мире не существует.</p>
+
+        <p class="seealso">См. таже: <a href="https://bneiadam.com/forum/53-196-1" target="_blank" rel="noopener">https://bneiadam.com/forum/53-196-1</a></p>
+      </article>
+
+      <aside class="rail">
+        <div class="card">
+          <div class="lbl">Дата</div>
+          18 апреля 2021 г.
+        </div>
+      </aside>
+    </div>
+
+    <nav class="corpus">
+      <a class="prev" href="14A.html">
+        <div class="dir">← Предыдущая</div>
+        <div class="t">Чистая монета</div>
+      </a>
+      <a class="next" href="12PB.html">
+        <div class="dir">Следующая →</div>
+        <div class="t">Сила-это один из врагов Человека Знания</div>
+      </a>
+    </nav>
+  </div>
+
+  <footer class="colophon">
+    <div class="wrap">
+      <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+    </div>
+  </footer>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой философско-теоретический ответ в формате «Вопрос — Ответ» (диалог-эссе), без стихотворных строк, поэтому выбрана редакторская широкая схема, а не узкий манускрипт. Контент помещён в широкий контейнер (~1180px) с двухколоночной сеткой 2fr/1fr: основная читательская колонка занимает примерно две трети ширины, а правый sticky-рельс несёт служебную метку даты («18 апреля 2021 г.»), которую я не стал выбрасывать как часть текста, но и не превращал в заголовок.\nРазвилки: дату публикации я вынес в боковую карточку, а не в основной поток, чтобы не плодить псевдозаголовков; формулировку вопроса оформил как лид-врезку (italic), а ответ — основным текстом с буквицей, не меняя ни слова. Оглавление не делал — в тексте нет более одного подраздела (один цельный ответ). Музыки и сносок нет. Голый URL в конце («См. таже») обернул в кликабельную ссылку дословно, сохранив авторскую опечатку «таже» и все авторские кавычки/глифы без изменений. От тёмной палитры и крупных заголовков отказался ради спокойного журнального лонгрида на светлом фоне.",
+  "features": []
+}
+</script>
+</body>
+</html>
