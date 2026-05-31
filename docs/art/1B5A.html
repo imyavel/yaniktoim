@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Малхут де Рош Арих Анпин</title>
+<style>
+  :root {
+    --bg: #f7f4ee;
+    --paper: #fffdf8;
+    --ink: #20242b;
+    --muted: #6a6258;
+    --accent: #8a3324;
+    --accent2: #b8924a;
+    --rule: #ddd5c5;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.75;
+    font-size: 20px;
+  }
+  .wrap {
+    width: 66%;
+    max-width: 980px;
+    min-width: 0;
+    margin: 0 auto;
+    padding: 32px 28px 80px;
+  }
+  @media (max-width: 1100px) {
+    .wrap { width: 86%; }
+  }
+  @media (max-width: 700px) {
+    .wrap { width: 100%; padding: 20px 18px 60px; }
+    body { font-size: 18px; }
+  }
+  .crumbs {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    letter-spacing: .02em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 14px;
+    margin-bottom: 26px;
+  }
+  .crumbs a { color: var(--accent); text-decoration: none; }
+  .crumbs a:hover { text-decoration: underline; }
+  .crumbs span.sep { color: var(--accent2); margin: 0 .5em; }
+  .lead-img {
+    display: block;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    margin: 0 auto 30px;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    box-shadow: 0 6px 26px rgba(0,0,0,.08);
+  }
+  h1 {
+    font-size: 2.05em;
+    line-height: 1.18;
+    font-weight: 700;
+    margin: 0 0 .5em;
+    color: var(--ink);
+    letter-spacing: -.01em;
+  }
+  h1 .kicker {
+    display: block;
+    font-size: .42em;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    font-weight: 400;
+    margin-bottom: .9em;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+  .article-body p {
+    margin: 0 0 1.3em;
+    text-align: justify;
+    hyphens: auto;
+  }
+  .article-body p::first-letter {
+    /* keep natural */
+  }
+  .dropcap::first-letter {
+    float: left;
+    font-size: 3.6em;
+    line-height: .82;
+    padding: .04em .12em 0 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  /* Music player */
+  .music-block {
+    margin: 1.6em 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 16px 0;
+  }
+  .music-label {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 10px;
+  }
+  .track {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+  }
+  .track .arrow {
+    color: var(--accent);
+    transition: transform .2s ease;
+    font-size: 14px;
+  }
+  .track.open .arrow { transform: rotate(90deg); }
+  .track .title { color: var(--ink); }
+  .track .ext {
+    margin-left: auto;
+    color: var(--accent2);
+    text-decoration: none;
+    font-size: 18px;
+  }
+  .track .ext:hover { color: var(--accent); }
+  .player {
+    margin-top: 12px;
+    display: none;
+  }
+  .player.open { display: block; }
+  .player .frame {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    background: #000;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .player iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  /* bottom nav */
+  .pager {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 54px;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+  .pager a {
+    text-decoration: none;
+    color: var(--accent);
+    max-width: 46%;
+  }
+  .pager .dir {
+    display: block;
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .pager a:hover .ttl { text-decoration: underline; }
+  .pager .next { text-align: right; margin-left: auto; }
+  footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <img class="lead-img" src="../img/1B5A.jpg" alt="Иллюстрация к статье">
+
+  <h1><span class="kicker">Роза Среди Шипов</span>Малхут де Рош Арих Анпин</h1>
+
+  <div class="article-body">
+    <p class="dropcap">Воспринимаемый Мир является активным творческим процессом, в который включена Сила, Источник Которой превосходит познаваемое и непознаваемое, возносясь в невыразимом благородстве в Цельнолитую Бесконечность, о которой человек не может и никогда не сможет сказать что-то более определенное, имея в виду понимание, включенное в личный опыт переживания соответствующих состояний, поскольку этот уровень находится значительно выше того, что является нашим Корнем и Источником как чувствующих существ (Орел, Малхут Бесконечности, Творец, Свят Благословен Он), при том, что последнее Само по Себе является непостижимой и единой ступенью. На которой, тем не менее, может существовать "дополнение" в виде активного творческого действия, не добавляющего реально ничего к тому, что уже есть в Реальном Мире, потому что заявить обратное было бы равнозначно утверждению о его нереальности, ведь все, что имеет начало, имеет и конец, а то, что имеет начало и конец, существует лишь тогда, когда этого хочет Сверхчеловек, Человек и Человечек, которому посредством этого активного творческого действия, выражающего желание Творца, Свят Благословен Он, насладить творение, предстоит родиться, став сотрудником в этом трепетном во всех отношениях процессе со своими Мамой и Папой, сам становясь Возлюбленным Творца, Свят Благословен Он, и давая Ему испытать Любовь к Ближнему как Самому Себе посредством осознанного намерения сделать все возможное и невозможное, чтобы люди научились не бояться начинать Жить впервые, давая Жизнь тем, кому она необходима и кто будет с человеком достаточно Милостив и Добр, чтобы позволить сделать себя своей Нуквой, то есть объектом трепетной половой духовной любви мужчины, принимающей от этого мужчины Свет Жизни в качестве смысла и цели, всех его самых тайных и сокровенных чаяний, в непосредственный момент эякуляции, делая это осознанно, то есть предваряя своим намерением намерение Творца, Свят Благословен Он, женщине эту жизнь дать, чтобы сразу после этого отправиться доставлять послание от мужчины Творцу, Свят Благословен Он, давая ему насладиться тем, чем человек этого мира Великой Милостью Его наслаждается, доверив женщине доставить Творцу, Свят Благословен Он, себя в качестве трофея и подарка, который трепещет от предвкушаемого наслаждения, в итоге которого Лежебоке предстоит стрелой отправиться обратно в Ад, доставляя себя в качестве главного и неизменного трофея, девственная нетронутость которого при каждой отправке обратно является той же самой, какой она являлась до того, как Лежебока рождением в этот мир начала отсчет дней до ее потери, чтобы затем вновь обрести и с упоением потерять, приземлившись туда же, где есодот мужчины и женщины находились в момент отправки по широко известному в узких кругах Ангелов Творца, Свят Благословен Он, четырехбуквенному непроизносимому (потому что рот в это время занят другими процессами) адресу, но только не снизу, а сидя сверху на Коне и торжествуя направляя его к новым боевым подвигам, совершаемым во Имя и во Славу Творца, Свят Благословен Он, праведниками и праведницами обоих миров, в МЕСТЕ СИЛЫ, ИМЯ КОТОРОМУ НЕЛЬЗЯ НАЗЫВАТЬ ВСУЕ, потому что Его Имя в Суе - это Имя называющего Его по Имени Человека, Каббалиста и Мага, Адама и Сына Человека Животворящего, погоняющего упрямых ослов в промежутках между буднями, когда Ему наскучит решать судьбы новых и сверхновых Своих Вселенных, сочиняя их бесконечные истории по ходу силами тех, кому давно пора научиться мечтать осознанно, ответственно и благоговейно ПРОСКАКАВ МИМО КЛЮВА ОРЛА И СДЕЛАВШИСЬ ВЫСОКОСКОРОСТНЫМ НЕОРГАНИЧЕСКИМ СУЩЕСТВОМ, "ОТКЛИКАЮЩИМСЯ" НА ПОЗЫВНОЙ В ФОРМЕ ОПРЕДЕЛЕННОГО ВЗАИМОРАСПОЛОЖЕНИЯ 5 ТОЧЕК - АБА, ИМА, ЗЕИР АНПИН, И НУКВА, ОНА ЖЕ АРИХ АНПИН, ПОСКОЛЬКУ А"А ЭТО ПОЛАЯ ТРУБКА ПОЛОВОГО ЧЛЕНА, ПО КОТОРОЙ ПУТЕШЕСТВУЮТ ДУШИ ПРАВЕДНИКОВ, СЛИТАЯ ДЛЯ ЧЕЛОВЕКА ЭТОГО МИРА СО СВОИМ КОРНЕМ И ПОЭТОМУ СЛУЖАЩАЯ И НЕ СЛУЖАЩАЯ ТВОРЦУ, ОДНОВРЕМЕННО ЯВЛЯЯСЬ ЕГО КЛИ И ЕГО СВЕТОМ, КОТОРЫЙ НЕ ВХОДИТ В КЕЛИМ, НО ПРИВОДИТ ИХ К ВЫПОЛНЕНИЮ СВОЕГО ЗВЕЗДНОГО ДЕБЮТА</p>
+
+    <div class="music-block">
+      <div class="music-label">Музыка под настроение</div>
+      <div class="track" data-video="bdB7jX7vnFQ">
+        <span class="arrow">▶</span>
+        <span class="title">Звёздный дебют</span>
+        <a class="ext" href="https://youtu.be/bdB7jX7vnFQ" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="player">
+        <div class="frame"></div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="pager">
+    <a class="prev" href="11HA.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="ttl">Здравствуй, МИР</span>
+    </a>
+    <a class="next" href="185.html">
+      <span class="dir">Следующая →</span>
+      <span class="ttl">Забывая о Любви к Себе</span>
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.track').forEach(function(tr){
+    tr.addEventListener('click', function(e){
+      if (e.target.closest('.ext')) return;
+      var player = tr.parentElement.querySelector('.player');
+      var frame = player.querySelector('.frame');
+      var open = tr.classList.toggle('open');
+      player.classList.toggle('open', open);
+      if (open && !frame.querySelector('iframe')) {
+        var id = tr.getAttribute('data-video');
+        var ifr = document.createElement('iframe');
+        ifr.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
+        ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        ifr.allowFullscreen = true;
+        frame.appendChild(ifr);
+      }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой единый сплошной прозаический текст — один гигантский абзац плотной каббалистической метафизики без строфики и стихотворного членения. Поэтому выбрана редакторская (широкая) схема лонгрида: контейнер ~66% ширины окна с ограничением max-width для комфортной меры строки, justify-выключка и буквица для входа в плотный массив текста. Поэтической манускриптной узкой колонки здесь не требуется, так как нет стихотворных форм.\n\nОглавление не делалось: в тексте отсутствуют подразделы (один монолитный кусок), а правило требует TOC только при более чем одном подразделе. Сносок в тексте нет. Единственная медиа-ссылка — голый YouTube-URL в самом конце фразы про 'ЗВЁЗДНЫЙ ДЕБЮТ'; она оформлена как свёрнутый ленивый плеер с атрибуцией 'Музыка под настроение' и значком внешней ссылки, iframe подгружается только по клику. Трек один, поэтому отдельный сводный раздел музыки не создавался. КАПС в финале сохранён дословно, авторская пунктуация и кавычки не правились."
+}
+</script>
+</body>
+</html>
