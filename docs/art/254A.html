@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Правило Трехзубчатого Нагваля</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#211d18;
+    --muted:#6b6356;
+    --accent:#9a3b2e;
+    --accent-soft:#c98a3a;
+    --rule:#ddd4c2;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    line-height:1.7;
+    font-size:19px;
+  }
+  .wrap{
+    width:66%;
+    max-width:1040px;
+    min-width:320px;
+    margin:0 auto;
+    padding:32px 28px 80px;
+  }
+  @media (max-width:980px){
+    .wrap{width:92%;}
+    body{font-size:18px;}
+  }
+  @media (max-width:600px){
+    .wrap{width:100%;padding:20px 18px 60px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:34px;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 .5em;color:#b3a991;}
+
+  h1.title{
+    font-size:2.15rem;
+    line-height:1.2;
+    font-weight:700;
+    margin:0 0 8px;
+    letter-spacing:.01em;
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent-soft);
+    margin:0 0 30px;
+  }
+  .title-rule{
+    width:64px;height:3px;background:var(--accent);
+    margin:0 0 36px;border:0;
+  }
+
+  article p{
+    margin:0 0 1.45em;
+    text-align:justify;
+    hyphens:auto;
+  }
+  .num{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    color:var(--accent);
+    margin-right:.35em;
+  }
+
+  /* footnote marker */
+  .fnref{
+    font-size:.72em;
+    vertical-align:super;
+    line-height:0;
+    text-decoration:none;
+    color:var(--accent);
+    font-weight:700;
+    position:relative;
+    cursor:pointer;
+    padding:0 1px;
+  }
+  .fnref:hover{color:var(--accent-soft);}
+  .fnref .pop{
+    position:absolute;
+    left:50%;
+    bottom:140%;
+    transform:translateX(-50%);
+    width:min(320px,72vw);
+    background:var(--ink);
+    color:#f4efe6;
+    font-family:Georgia,serif;
+    font-size:14px;
+    line-height:1.45;
+    font-weight:400;
+    text-align:left;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 8px 26px rgba(0,0,0,.28);
+    opacity:0;
+    visibility:hidden;
+    transition:opacity .15s ease;
+    z-index:30;
+    vertical-align:baseline;
+  }
+  .fnref .pop::after{
+    content:"";
+    position:absolute;
+    left:50%;top:100%;
+    transform:translateX(-50%);
+    border:7px solid transparent;
+    border-top-color:var(--ink);
+  }
+  .fnref.below .pop{bottom:auto;top:140%;}
+  .fnref.below .pop::after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:var(--ink);}
+  .fnref:hover .pop{opacity:1;visibility:visible;}
+
+  /* notes */
+  .notes{
+    margin-top:54px;
+    padding-top:26px;
+    border-top:2px solid var(--rule);
+  }
+  .notes h2{
+    font-size:1.35rem;
+    color:var(--accent);
+    margin:0 0 18px;
+    letter-spacing:.01em;
+  }
+  .notes ol{
+    list-style:none;
+    margin:0;padding:0;
+  }
+  .notes li{
+    margin:0 0 1em;
+    font-size:.95em;
+    color:#352f27;
+    padding-left:6px;
+  }
+  .notes li:target{
+    background:#fbeecb;
+    border-left:3px solid var(--accent-soft);
+    padding:10px 12px;
+    border-radius:4px;
+    animation:flash 1.4s ease;
+  }
+  @keyframes flash{0%{background:#f4d58c;}100%{background:#fbeecb;}}
+  .notes .fnum{
+    font-weight:700;
+    color:var(--accent);
+    margin-right:.5em;
+  }
+  .backref{
+    text-decoration:none;
+    color:var(--accent);
+    margin-left:.4em;
+    font-weight:700;
+  }
+  .backref:hover{color:var(--accent-soft);}
+
+  .closing{
+    margin-top:34px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    letter-spacing:.06em;
+    color:var(--muted);
+    font-size:.95em;
+  }
+
+  /* corpus nav */
+  .corpusnav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:64px;
+    padding-top:26px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpusnav a{
+    text-decoration:none;
+    color:var(--accent);
+    max-width:46%;
+    font-size:15px;
+  }
+  .corpusnav a:hover{text-decoration:underline;}
+  .corpusnav .dir{
+    display:block;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .corpusnav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:46px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    line-height:1.55;
+    color:var(--muted);
+  }
+  footer.colophon a{color:var(--accent);}
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span>/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <p class="kicker">Конфронтология Духа</p>
+  <h1 class="title">ПРАВИЛО ТРЕХЗУБЧАТОГО НАГВАЛЯ<a href="#fn1" id="fnref1" class="fnref">1<span class="pop">См. также: Сделаем и услышим!, Зеир Арихович Анпин</span></a></h1>
+  <hr class="title-rule">
+
+  <article>
+    <p><span class="num">1.</span>Из того знания, которое полезно практически воинам "здесь и сейчас", могу сказать, что смысл высказывания ДХ "Орел видит все живые существа сразу и совершенно одинаково" следует понимать не в смысле "всех людей Планеты", а, скорее, "всех участников произвольного сообщества", например, вашей личной "группы воинов". Но только чтобы считаться Орлом реальным "сообществом", а не "сборищем насмешников", необходимо, чтобы либо им Сам Орел открыл Правило, в результате чего они объединились в этой форме, либо они собрались под непосредственным руководством другой группы людей, которым Он Сам открыл Правило, чтобы, со временем, стать такими же, как они (принцип линейного наследования толтеков). То есть, опять же, та форма, в которой ДХ рассказывал КК Правило Нагваля, является образным описанием того, как Правило было открыто первому "нагвалю" их линии, перед которым в точно такой же форме не было никого, а не то, как оно открывается каждому последующему. Подтверждением может служить хотя бы то, как сам КК узнал о нем (не от Орла непосредственно, а от своего Учителя в измененном СС). И его Учитель также узнал о нем от своего Учителя, и так далее. Первому рассказал Орел, дав этот Дар для всей последующей Линии сразу, и отправил Нагваля (обратно) в мир делать то, что тот от Него услышал...</p>
+
+    <p><span class="num">2.</span>Правилом Нагваля, как можно понять из вышеприведенного описания, как раз и является Закон организации сообщества реального мира. В точном соответствии с таким же принципом организовано и общество повседневного мира. Если бы оно таковым не было, люди в нем бы не были живыми даже внешне. Все, в ком есть дыхание Жизни, в той или иной форме реализуют заключенный в Правиле принцип взаимодействия "собственных составляющих", чтобы быть "как один Человек с одним сердцем". И этот Человек реально существует, Он создается Орлом в момент получения "нагвалем" Дара Орла (открытия ему Орлом Правила). И ждет всю "партию" у "прохода" столько времени, сколько им потребуется, чтобы вспомнить себя, вспомнить задачу и подготовиться к его прохождению, передав "эстафету" следующему нагвалю и его воинам. В Нагвале, который вне вниманий, времени нет, пространства нет, все существует сразу здесь и сейчас, и это единственное "здесь и сейчас", а не "то же самое", или какое-нибудь "новое". Для жизни человека это состояние не подходит, поскольку все, что он может воспринимать последовательно, происходит от сопоставления "внутренних" и "внешних" эманаций Орла "точкой сборки". Но мы знаем, что само это разделение не является "реальным" в самом строгом смысле, поскольку "эманации в Великом и те, что пойманы внутри - на самом деле одни и те же эманации". Так что "поймано" ими скорее внимание воина, а не сами эманации, которые "неизменные, вечные", как и их Источник...</p>
+
+    <p><span class="num">3.</span>Главный принцип Правила заключается в том, что Группа, осуществляющая маневр Прохода мимо Клюва Орла, должна быть организована по тому же самому принципу "настройки восприятия", по которому точка сборки на "светящемся коконе" производит сопоставление двух категорий эманаций в самом себе, на самом деле являющихся одним и тем же, но, в то же самое время, объективно находящиеся в разных Вселенных в том, что касается их прямого сопряжения, поскольку они существуют таким образом, который исключает таковое насколько, насколько это возможно. Если бы не это обстоятельство, то "сливаясь с Эманациями в Великом" внутренние эманации переставали бы быть внутренними, и возвращались бы к первоначальному (реальному) состоянию существования, вечному и бесконечному потоку "простого", однородного Живого Света. Поскольку этого не происходит, а вместо этого они получают возможность "заметить самих себя", что и является сутью и результатом принципа настройки и восприятия в целом, совершенно очевидно, что препятствует им в этом единственная реальная Сила, которая превосходит их собственную Реальность по качеству - Сам Орел, находясь в точности между ними, поскольку Орел - наше "самое Высшее Я", единое на всех существ, имеющих самосознание, во Вселенной - Сам является принципом, заложенным в самую суть внимания, или принципом "третьего внимания", а первые два типа - суть одно и то же, что и третий, но находящиеся в условиях "двух параллельных линий, не пересекающихся нигде", то есть максимально противоположных одно другому. Не сложно заметить, что сам принцип существования 3 типов внимания построен согласно Правилу Орла.</p>
+
+    <p><span class="num">4.</span>Главным практическим следствием этого Принципа для воинов является то, что их собственная команда "настраивающая восприятие" Прохода мимо Орла, должна быть "дублирующей структурой" такого же порядка, каковым обладает Реальность "эманаций, пойманных внутри кокона", относительно "эманаций в Великом". То есть, быть полной противоположностью не пересекающейся сущностно ни в чем, но при этом являться тем же самым, что и они, в точности. Воинам не нужно ломать голову над решением этой неразрешимой загадки, поскольку она уже решена Орлом, результатом чего стало их собственное существование, в реальности "второго внимания", отдельное от общества "этого мира", частью которого они все являются, как существа "первого внимания". Но к которому, конечно же, не смогут ни при каких условиях "построить мост" по своей инициативе. Если только обычные люди сами не выстроят этот мост - точно такой же, каковым они сами, если посмотреть назад, объективно являются, хронологически по природе своего происхождения... КК для своей "линии видящих" выполнял задачу установления связи со ступенью первого внимания "общества этого мира", без чего никакой "абсолютной свободы" для партии ДХ и для всей их линии не могло бы быть в принципе, поскольку та ступень "первого внимания", с которой эта линия начиналась исторически, давно уже не является таковой, а с новой ступенью, образовавшейся после "конкисты", настоящей внутренней связи установлено не было. Вот и разгадка формулировки "новой" части Правила про "золотой ключик", которым КК закрыл линию передачи знания своего Учителя: ТОЛЬКО ВМЕСТЕ, МЫ - СИЛА!</p>
+  </article>
+
+  <section class="notes">
+    <h2>Ор пашут (пояснения)</h2>
+    <ol>
+      <li id="fn1"><span class="fnum">1</span>См. также: Сделаем и услышим!, Зеир Арихович Анпин <a href="#fnref1" class="backref" title="Вернуться к тексту">↩</a></li>
+    </ol>
+    <p class="closing">ОДНИМ СЛОВОМ ; БУДУЩЕЕ ^ ЗА НАМИ;</p>
+  </section>
+
+  <nav class="corpusnav">
+    <a class="prev" href="254B.html"><span class="dir">← Предыдущая</span>Командное неделание Воинов Исраэль</a>
+    <a class="next" href="254.html"><span class="dir">Следующая →</span>Безмолвное Знание</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // flip footnote popups that would clip the top edge
+  document.querySelectorAll('.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      var r=ref.getBoundingClientRect();
+      if(r.top<170){ref.classList.add('below');}else{ref.classList.remove('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой философско-эзотерический трактат из четырёх пронумерованных абзацев сплошной прозы плюс раздел пояснений — никаких стихотворных форм здесь нет, поэтому однозначно выбрана редакторская широкая схема, а не узкий манускрипт для стихов. Контейнер задан на 66% ширины окна (с max-width ~1040px) и сжимается до полной ширины на мобильных, как требует описание; длинные плотные абзацы выровнены по ширине для журнального лонгрид-вида, нумерация абзацев вынесена акцентным цветом.\n\nОглавление не делалось: содержательно есть лишь один заголовочный раздел «Ор пашут (пояснения)» (примечания), а пронумерованные абзацы 1–4 не являются озаглавленными подразделами, так что условие «более одного подраздела» не выполняется. Музыкальных ссылок в тексте нет — раздел музыки отсутствует. Единственная сноска (маркер ^1 у заголовка) реализована полноценно: кликабельный переход вниз к телу, обратная стрелка наверх, подсветка целевой сноски и hover-popup с автоматическим переворотом вниз у верхней кромки экрана. Финальная строка капсом и глифом «^» сохранена дословно как авторская концовка после пояснений. Палитра — тёплый бумажный фон с терракотовым акцентом, перекликающимся с тольтекско-каббалистической тематикой.",
+  "features": ["footnotes"]
+}
+</script>
+</body>
+</html>
