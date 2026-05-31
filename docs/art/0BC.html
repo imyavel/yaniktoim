@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Маасер</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#23201b;
+    --muted:#6f675a;
+    --accent:#9a5b2e;
+    --accent-soft:#c98a52;
+    --rule:#e0d8c8;
+    --hl:#fbe8c8;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1100px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 48px 80px;
+    background:var(--paper);
+    box-shadow:0 0 60px rgba(60,45,20,.06);
+  }
+  @media(max-width:1100px){.wrap{width:88%;padding:28px 36px 64px;}}
+  @media(max-width:680px){
+    body{font-size:18px;}
+    .wrap{width:100%;padding:20px 18px 56px;box-shadow:none;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.78em;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:34px;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span.sep{margin:0 .5em;color:var(--accent-soft);}
+
+  h1{
+    font-size:2.15em;
+    line-height:1.15;
+    font-weight:700;
+    margin:.1em 0 .15em;
+    letter-spacing:.01em;
+  }
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.8em;
+    color:var(--muted);
+    letter-spacing:.05em;
+    margin:0 0 2em;
+  }
+
+  p{margin:0 0 1.35em;text-align:justify;hyphens:auto;}
+  p.lead{font-size:1.05em;}
+
+  .call{
+    font-size:1.25em;
+    font-style:italic;
+    color:var(--accent);
+    text-align:center;
+    margin:1.6em 0 .8em;
+    letter-spacing:.02em;
+  }
+  .donate{
+    text-align:center;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.95em;
+    background:#f3ead8;
+    border:1px solid var(--rule);
+    border-radius:6px;
+    padding:14px 18px;
+    margin:0 0 2.4em;
+  }
+  .donate a{color:var(--accent);font-weight:700;}
+
+  a{color:var(--accent);}
+
+  h2{
+    font-size:1.35em;
+    margin:2.4em 0 .7em;
+    padding-top:.4em;
+    border-top:2px solid var(--rule);
+    letter-spacing:.02em;
+  }
+
+  /* footnote markers */
+  sup.fnref{
+    font-size:.62em;
+    line-height:0;
+    vertical-align:super;
+    position:relative;
+  }
+  sup.fnref > a{
+    text-decoration:none;
+    color:#fff;
+    background:var(--accent);
+    border-radius:3px;
+    padding:1px 4px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+  }
+  sup.fnref > a:hover{background:var(--accent-soft);}
+
+  .fnpop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:160%;
+    width:340px;
+    max-width:78vw;
+    background:#2a2620;
+    color:#f4efe4;
+    font-family:Georgia,serif;
+    font-size:15px;
+    line-height:1.5;
+    text-align:left;
+    padding:12px 14px;
+    border-radius:8px;
+    box-shadow:0 8px 28px rgba(0,0,0,.28);
+    z-index:50;
+    vertical-align:baseline;
+  }
+  .fnpop a{color:var(--accent-soft);}
+  sup.fnref:hover .fnpop{display:block;}
+  sup.fnref.below .fnpop{bottom:auto;top:160%;}
+
+  /* notes list */
+  ol.notes{
+    list-style:none;
+    counter-reset:none;
+    padding:0;
+    margin:.6em 0 0;
+    font-size:.92em;
+    line-height:1.62;
+  }
+  ol.notes li{
+    margin:0 0 1.1em;
+    padding:8px 12px;
+    border-left:3px solid transparent;
+    border-radius:4px;
+    transition:background .4s,border-color .4s;
+    text-align:left;
+  }
+  ol.notes li:target{
+    background:var(--hl);
+    border-left-color:var(--accent);
+  }
+  .fnnum{
+    font-weight:700;
+    color:var(--accent);
+    margin-right:.5em;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .backref{
+    margin-left:.4em;
+    text-decoration:none;
+    font-size:.95em;
+  }
+
+  .links-foot{
+    margin:2.6em 0 0;
+    font-size:.86em;
+    word-break:break-all;
+  }
+  .links-foot a{display:block;margin:.3em 0;}
+
+  /* corpus nav */
+  nav.pager{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    margin:3em 0 0;
+    padding-top:22px;
+    border-top:2px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.85em;
+  }
+  nav.pager a{
+    text-decoration:none;
+    color:var(--accent);
+    max-width:46%;
+  }
+  nav.pager .lbl{display:block;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-size:.82em;}
+  nav.pager .nx{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:2.4em;
+    padding-top:18px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.78em;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent);}
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <div class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </div>
+
+  <h1>Маасер</h1>
+  <p class="dateline">12 ноября 2020 г.</p>
+
+  <p class="lead">«Из действий Твоих познаю Тебя»<sup class="fnref" id="ref5"><a href="#fn5">5</a><span class="fnpop">По поводу уподобления по форме. РАБАШ. Записки, 332. <a href="https://goo.su/2zRm" target="_blank" rel="noopener">goo.su/2zRm</a></span></sup> и «Свет, содержащийся в Торе, возвращает к Источнику»<sup class="fnref" id="ref6"><a href="#fn6">6</a><span class="fnpop">«И отсюда пойми сказанное в Зоар…» Предисловие к книге Паним Меирот, п. 5, Бааль Сулам. См. также: Шамати 6.</span></sup> - два основных принципа работы в методике и науке Каббала. Это говорит нам о том, что возможно включиться «действием» в действие Творца, чтобы стать подобным Ему по свойствам, и это при том, что природа этих действий Самого Творца, и у творений, отличается, что называется, «как восток от запада», поскольку они противонаправлены относительно друг друга и, казалось бы, не должно быть способа совершить такое же действие, как то, которое совершает Творец, вместе с Ним, если исходить из «нормальной логики». Но Природа<sup class="fnref" id="ref1"><a href="#fn1">1</a><span class="fnpop">Природа=Элоким=Бина=Творец=«желание отдавать»</span></sup> решила для нас эту «проблему и задачу», разделив душу человека на множество частей, существующих в форме свойств «захар и некева», и, таким образом, создав возможность продвигаться путем «частичного подобия», когда достижение «подобия» лишь в какой-то мере своего желания желанию Творца тоже совершает в душе «полезную работу», равную по значению достигнутой мере подобия свойств, благодаря «взаимовключению» наших душ и свойств друг в друга, благодаря сотрудничеству, которое мы называем «объединением». И то же самое касается действия и намерения, поскольку Сама Малхут Бесконечности в результате «исправления на отдачу» совершает действие с намерением, - что-то такое, чего не было раньше (до создания творений, и подъема ими МАН за товарищей в Круге). Ее действие определяется как «получение», и на это свойство мы повлиять никак не можем — оно выше категорий времени, пространства и изменения. Но привнося в это действие «получения» намерение «ради отдачи» в виде МАН, мы в итоге производим то, что казалось абсолютно невозможным — превращение получения в отдачу. И облачение в «этот мир» в результате этого действия «Света Жизни и Любви» Ор Хохма. Это происходит исключительно благодаря доброму объединению между людьми, то есть объединению в «смешанном Круге» мужчин и женщин в форме Заповеди «милосердия»<sup class="fnref" id="ref2"><a href="#fn2">2</a><span class="fnpop">Заповедь девятая, РАШБИ, Книга Зоар, Том 1 (Предисловия), п. 233 <a href="https://goo.su/2ZRm" target="_blank" rel="noopener">goo.su/2ZRm</a></span></sup> и подъему молитвы.</p>
+
+  <p>Точно также каббалисты всегда знали, и использовали другую «Заповедь» для того, чтобы превратить получение в отдачу, то есть, обрести духовное продвижение и опыт, включившись, в какой-то мере, в действие Творца, научившись совершать «отдачу», «выше» и вопреки природе самого творения, которое только «получает» - это заповедь «Маасер» (от слова «маасе — действие»), в котором люди, желающие приблизиться к «духовным свойствам», включившись в действие Творца, но не имеющие пока «ЦЕЛЕМ»<sup class="fnref" id="ref3"><a href="#fn3">3</a><span class="fnpop">Заповедь десятая, РАШБИ, Книга Зоар, Том 1 (Предисловия), п. 237 <a href="https://goo.su/2Zrm" target="_blank" rel="noopener">goo.su/2Zrm</a></span></sup> - необходимой ступени «подобия свойств», чтобы осуществить это автономно и независимо, объединялись посредством осуществления «простого действия» (без требуемого намерения) с теми людьми, у которых необходимая ступень есть, и есть все условия для формирования необходимого намерения, достигая этим включения одного в другое, и, благодаря этому, объединяясь в этом действии «как один человек с одним сердцем», «автоматически», за счет срабатывания «духовного закона подобия свойств», получая возможность совершить это «простое действие» с намерением «ради отдачи», и этим задействуя на себя «Свет Торы», воздействие Высшей управляющей Силы со стороны «добра», то есть позволяя человеку совершить работу, очищающую его душу и приближающую его самого и весь мир к слиянию с Творцом в подобии свойств (поскольку в духовном эта душа все равно всегда «одна», на сколько частей мы бы ее не «делили» своим восприятием «в этом мире», а значит, все, что происходит в ней, происходит только относительно всей совокупности целого, а не «по отдельности» с ее «составными частями»).</p>
+
+  <p>Наш Круг имеет милостью Творца необходимое «подобие свойств», о том, что это такое «на практике» можно узнать из записей наших семинаров и статей на странице «Сделаем и услышим!». Мы предлагаем неравнодушным к нашей работе и эволюции собственной души, к достижению всем человечеством благодаря усилиям каббалистов состояния «конечного исправления» и «подобия свойств», включаться с нами в это действие — имеется в виду, конечно же, «распространение» и «раскрытие» актуальной для всех людей информации (в особенности актуальной на данном этапе для учеников каббалистов, потому что от их подобающего исправления «подобием свойств» в первую очередь зависит исправление всего остального мира) и побуждений совершать действия, направленные на «объединение» в форме Адам Ришон, чтобы стать «как один человек с одним сердцем» и порадовать этим Создателя, включившись осознанно и намеренно в завершение Его Замысла. Распространение — это материальное действие, которое происходит по материальным законам (но совершать его подобающим образом может только кли, имеющее «духовную ступень» и исходя из «духовной» целесообразности в связи с Высшей Силой, которую это Кли раскрывает посредством ежедневной «духовной работы»). Поэтому оно требует материальных затрат. Эта часть формы называется «простое действие», и оно может быть выполнено любым желающим включиться в процесс «конечного исправления» раньше, чем это произойдет со всеми остальными людьми, и, поэтому, быть в этом процессе «дающим», а не «получающим». Это то, что мы данным сообщением предлагаем Вам сделать, проспонсировав на любую удобную Вам сумму наши действия распространения, которые мы производим, на данный момент, регулярно на фейсбуке, популяризируя наиболее «удачные» и значимые посты, статьи и семинары. У нас нет и не предвидится недостатка в идеях и каналах потенциального распространения, «недостаток» в данный момент главным образом в средствах, поскольку наших средств хватает только на очень ограниченный объем возможной популяризации по охвату аудитории и объему распространяемого контента. С нашей стороны «подобие свойств» в этой форме взаимовключения заключается в том, что мы ни копейки из полученных от Вас денег не будем использовать ради личных нужд не только любого из участников Круга, но и самого Круга в целом, как проекта и объединения. Все полученные средства будут расходоваться на распространение Света Творца, облачающегося в производимые Кругом текстовые и аудио-визуальные материалы, написанные с намерением достичь духовного объединения в требуемом «подобии свойств», согласно времени «последнего поколения» и «методики Книги Зоар», Кли «духовного Исраэля», в первую очередь<sup class="fnref" id="ref4"><a href="#fn4">4</a><span class="fnpop">«Сказано о нем: „Если правитель народа не исправляется первым, то не исправляется и народ“…» «Кто создал их», по Элияу, Книга Зоар, РАШБИ, п. 13.</span></sup>, а вслед за этим, и благодаря этому, единой души всего Человечества.</p>
+
+  <p class="call">Сделаем и услышим!</p>
+
+  <p class="donate">Сделать пожертвование: <a href="https://qiwi.com/n/MAASER" target="_blank" rel="noopener">qiwi.com/n/MAASER</a>. В комментарии к переводу пишите «взнос во вклад».</p>
+
+  <h2 id="notes">Примечания</h2>
+  <ol class="notes">
+    <li id="fn1"><span class="fnnum">*1</span>Природа=Элоким=Бина=Творец=«желание отдавать» <a class="backref" href="#ref1" title="Вернуться к тексту">↩</a></li>
+    <li id="fn2"><span class="fnnum">*2</span>Заповедь девятая, РАШБИ, Книга Зоар, Том 1 (Предисловия), п. 233 <a href="https://goo.su/2ZRm" target="_blank" rel="noopener">https://goo.su/2ZRm</a> <a class="backref" href="#ref2" title="Вернуться к тексту">↩</a></li>
+    <li id="fn3"><span class="fnnum">*3</span>Заповедь десятая, РАШБИ, Книга Зоар, Том 1 (Предисловия), п. 237 <a href="https://goo.su/2Zrm" target="_blank" rel="noopener">https://goo.su/2Zrm</a> <a class="backref" href="#ref3" title="Вернуться к тексту">↩</a></li>
+    <li id="fn4"><span class="fnnum">*4</span>«Сказано о нем: «Если правитель народа не исправляется первым, то не исправляется и народ». Где мы это изучаем? В парцуфе Атик Йомин: пока он не совершит свои исправления, не будут исправлены все те, кто должен исправиться; и все миры будут разрушены. В час, когда святой Атик, скрытый более всех скрытых, пожелал совершить исправление, он установил всё в виде захара и нуквы (мужчины и женщины). Он поднял Малхут в Бину, и стала Малхут нуквой во всех сфирот, и каждая сфира [то есть Круг, «десятка» - КЖ] стала включать захара и нукву (мужчину и женщину).» .«Кто создал их», по Элияу, Книга Зоар, РАШБИ, п. 13 <a href="https://goo.su/2zfB" target="_blank" rel="noopener">https://goo.su/2zfB</a> <a class="backref" href="#ref4" title="Вернуться к тексту">↩</a></li>
+    <li id="fn5"><span class="fnnum">*5</span>По поводу уподобления по форме. РАБАШ. Записки, 332. <a href="https://goo.su/2zRm" target="_blank" rel="noopener">https://goo.su/2zRm</a> <a class="backref" href="#ref5" title="Вернуться к тексту">↩</a></li>
+    <li id="fn6"><span class="fnnum">*6</span>«И отсюда пойми сказанное в Зоар: "Благодаря этой книге выйдут сыны Израиля из изгнания". И это встречается также еще во многих источниках, в которых говорится, что только распространением науки Каббала в массах, удостоимся мы полного освобождения. И сказано мудрецами: "Свет ее возвращает к источнику". И разъяснили это с четким намерением показать нам, что только свет, содержащийся в ней, как золотые яблоки в серебряной оправе, является средством, способным возвратить человека к его Источнику. Так что каждый в отдельности и все вместе не смогут выполнить своего предназначения, ради которого были созданы, кроме как постижением внутренней части Торы и ее тайн.» Предисловие к книге Паним Меирот, п. 5, Бааль Сулам. <a href="https://goo.su/2ZRt" target="_blank" rel="noopener">https://goo.su/2ZRt</a> см. также: Шамати 6 <a href="https://goo.su/2ZRu" target="_blank" rel="noopener">https://goo.su/2ZRu</a> <a class="backref" href="#ref6" title="Вернуться к тексту">↩</a></li>
+  </ol>
+
+  <div class="links-foot">
+    <a href="https://bneiadam.com/forum/51-131-1#217" target="_blank" rel="noopener">https://bneiadam.com/forum/51-131-1#217</a>
+    <a href="https://www.facebook.com/naasenishma/posts/204003137910960" target="_blank" rel="noopener">https://www.facebook.com/naasenishma/posts/204003137910960</a>
+  </div>
+
+  <nav class="pager">
+    <a href="15R.html" class="pv"><span class="lbl">← Предыдущая</span>Духовное наслаждение</a>
+    <a href="0B6.html" class="nx"><span class="lbl">Следующая →</span>Монополия на Истину?!</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // popup side decision based on viewport top edge
+  document.querySelectorAll('sup.fnref').forEach(function(s){
+    s.addEventListener('mouseenter',function(){
+      var r=s.getBoundingClientRect();
+      if(r.top<210){s.classList.add('below');}else{s.classList.remove('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза (богословско-публицистическое эссе с призывом к пожертвованию)",
+  "rationale": "Текст — сплошная аналитическая проза без стихотворных строк: каббалистическое рассуждение о заповеди «Маасер», переходящее в обращение-просьбу о поддержке распространения. Это однозначно прозаическая форма, поэтому выбрана редакторская (широкая) схема с основной колонкой ~2/3 ширины окна и комфортной мерой строки для длинных абзацев. Манускрипт отвергнут, так как узкая книжная полоса предназначена для стихов/поэм.\n\nОглавление не делал: в тексте единственный подзаголовок — «Примечания», то есть подразделов меньше двух, условие TOC не выполнено. Музыкальных треков нет — раздел музыки опущен. Реализованы шесть сносок (*1–*6) с двунаправленной навигацией и hover-popup, причём сторона popup переключается на «под маркером» у верхней кромки экрана. Голые URL (qiwi, goo.su, форум, facebook) обёрнуты в ссылки; КАПС («ЦЕЛЕМ»), кавычки и термины сохранены дословно. Палитра — тёплая бумажная на светлом фоне с терракотовым акцентом, перекликающимся с сакральной тематикой, без гигантских заголовков."
+,
+  "features": ["footnotes"]
+}
+</script>
+</body>
+</html>
