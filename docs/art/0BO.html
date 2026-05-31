@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Молитва Господь Великий!</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --panel:#fffdf8;
+    --ink:#23201a;
+    --muted:#6b6256;
+    --accent:#8a3a2c;
+    --accent2:#b5702a;
+    --line:#e0d7c6;
+    --link:#9a3f2f;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--link);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .wrap{
+    max-width:66vw;
+    margin:0 auto;
+    padding:32px 40px 80px;
+  }
+  @media(max-width:1100px){
+    .wrap{max-width:100%;padding:24px 22px 64px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-size:16px;
+    color:var(--muted);
+    letter-spacing:.02em;
+    border-bottom:1px solid var(--line);
+    padding-bottom:14px;
+    margin-bottom:34px;
+  }
+  .crumbs a{color:var(--accent);}
+  .crumbs span.sep{margin:0 .5em;color:#bbab92;}
+
+  /* title */
+  .date{
+    font-size:15px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin-bottom:10px;
+  }
+  h1{
+    font-size:40px;
+    line-height:1.18;
+    font-weight:700;
+    margin:0 0 8px;
+    color:var(--ink);
+    letter-spacing:.005em;
+  }
+  .rule{
+    width:90px;
+    height:3px;
+    background:var(--accent);
+    margin:22px 0 40px;
+  }
+
+  /* body */
+  article p{
+    margin:0 0 1.4em;
+    text-align:justify;
+    hyphens:auto;
+  }
+  article .lead::first-letter{
+    font-size:3.4em;
+    line-height:.82;
+    float:left;
+    margin:.06em .12em 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+
+  /* footnote marker */
+  .fnref{
+    color:var(--accent);
+    font-weight:700;
+    cursor:pointer;
+    position:relative;
+    text-decoration:none;
+    padding:0 1px;
+  }
+  .fnref:hover{text-decoration:none;}
+  .fnref .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:140%;
+    width:300px;
+    max-width:70vw;
+    background:var(--panel);
+    border:1px solid var(--line);
+    box-shadow:0 8px 28px rgba(60,40,20,.18);
+    border-radius:8px;
+    padding:12px 14px;
+    font-size:15px;
+    line-height:1.5;
+    font-weight:400;
+    color:var(--ink);
+    text-align:left;
+    z-index:30;
+    word-break:break-word;
+  }
+  .fnref:hover .pop{display:block;}
+  .fnref.below .pop{bottom:auto;top:140%;}
+
+  /* notes section */
+  .notes{
+    margin-top:54px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+  }
+  .notes h2{
+    font-size:22px;
+    color:var(--accent);
+    margin:0 0 16px;
+  }
+  .notes ol{
+    margin:0;
+    padding-left:1.4em;
+    font-size:16px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+  .notes li{margin-bottom:.6em;word-break:break-word;}
+  .notes li:target{
+    background:#fbeede;
+    outline:3px solid #f0d9b8;
+    border-radius:5px;
+  }
+  .backref{margin-left:.4em;font-weight:700;}
+
+  /* bottom nav */
+  .pager{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    margin-top:60px;
+    padding-top:26px;
+    border-top:1px solid var(--line);
+    font-size:16px;
+  }
+  .pager a{
+    display:block;
+    max-width:46%;
+    color:var(--accent);
+  }
+  .pager .lbl{
+    display:block;
+    font-size:13px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .pager .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:46px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    font-size:14px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+  footer.colophon a{color:var(--accent);}
+  footer.colophon .license{margin-top:8px;font-size:13px;}
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <div class="date">24 ноября 2020 г.</div>
+  <h1>Молитва Господь Великий!</h1>
+  <div class="rule"></div>
+
+  <article>
+    <p class="lead">Господь, Великий, скрытый и вознесенный Царь, Высший бесконечный Свет, творящий все и управляющий всем из места прекрасного Своего, добрый и милосердный, справедливый и милостивый! Благодарим Тебя за путь, который есть у нас Твоей милостью, за единство товарищей, которое мы чувствуем на уроках и семинарах, за Свет, который Ты нам даешь Своей милостью почувствовать в этом объединении, за благословенного Рава Твоего, которого Ты поставил над нами, чтобы учить нас Твоей мудрости и путям раскрытия Твоего совершенства и уподоблению по свойствам Тебе. Просим Тебя помочь нам объединиться еще сильнее, как один человек с одним сердцем, чтобы были мы едиными как Ты Един, чтобы удостоились "стать Светом для народов Мира", раскрыв вначале этот Твой благословенный Свет между товарищами в Круге, подняв молитву к Тебе за товарищей, чтобы был этот Свет у них Твоей милостью. Просим Тебя за нашего брата Сережу К., за Твоего верного работника, и за его маму, которых Ты проводишь путями очищения, необходимого для последующего продвижения к Тебе, но мы просим Тебя, чтобы Ты, объединив нас на новом уровне единства, сделал это единство таким сильным, чтобы Сереже не потребовалось проходить эти исправления путем страданий, а мы смогли бы сами создать внутри себя такое требование к Тебе, чтобы Ты исправлял наши пути "лицом к лицу", Твоим благословенным Светом, соединяющим нас в одно Кли, чтобы соединяться с Твоими творениями и передавать Твое благословение дальше, пока не станет единым все Твое творение в подобие Тебе, и тогда все узнают Тебя от мала до велика, поскольку наполнится Земля знанием Твоим как подобает, и исчезнут с лица Ее жестокие страдания, поскольку человек будет помогать ближнему искупить перед Тобой полагающиеся ему испытания и вознесется к Тебе общая молитва человечества, завершая этим Твой благословенный Замысел Конца Исправления мира во Славу Твою и во Имя Святое Твое. Амен<a id="ref1" class="fnref" href="#fn1">*<span class="pop"><a href="https://bneiadam.com/forum/51-128-1#209">https://bneiadam.com/forum/51-128-1#209</a></span></a></p>
+  </article>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1"><a href="https://bneiadam.com/forum/51-128-1#209">https://bneiadam.com/forum/51-128-1#209</a><a class="backref" href="#ref1" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="pager">
+    <a class="prev" href="0CC.html">
+      <span class="lbl">← Предыдущая</span>
+      Молитва за Товарищей на конгрессе
+    </a>
+    <a class="next" href="1CM.html">
+      <span class="lbl">Следующая →</span>
+      Образ Всесильного Адам Ришон
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // flip popup below marker when not enough space above
+  document.querySelectorAll('.fnref').forEach(function(m){
+    m.addEventListener('mouseenter',function(){
+      var r=m.getBoundingClientRect();
+      if(r.top<170){m.classList.add('below');}else{m.classList.remove('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст представляет собой единую прозаическую молитву — сплошной поток без стихотворных строк, рифмы или членения на стихи, поэтому выбрана редакторская (широкая) схема лонгрида: основная колонка ограничена ~66vw, что на десктопе даёт примерно 2/3 ширины окна, а на мобильных раскрывается на всю ширину. Поскольку молитва — один большой абзац, я разбил его визуально лишь буквицей в начале, не вводя собственных заголовков, врезок или членения текста, чтобы не нарушать верность оригиналу.",
+  "rationale_extra": "Подразделов в статье нет, поэтому оглавление не делалось. Единственная сноска — это голый URL после слова «Амен», помеченный звёздочкой; я оформил его как кликабельный маркер с popup при наведении (с автоматическим переворотом вниз у верхнего края) и аппаратом примечаний внизу с переходами туда-обратно. Музыкальных ссылок нет. Палитра — тёплый светлый пергаментный фон с терракотово-охряными акцентами под молитвенно-каббалистический характер, но в рамках сдержанного редакторского макета.",
+  "features": ["footnotes"]
+}
+</script>
+</body>
+</html>
