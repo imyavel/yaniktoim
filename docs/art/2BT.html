@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Новое Слово на букву К</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf9;
+    --ink:#1f1b16;
+    --muted:#6a6055;
+    --accent:#8a2d2d;
+    --accent2:#1f5e63;
+    --rule:#ddd4c4;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent2);}
+  a:hover{color:var(--accent);}
+
+  .wrap{
+    width:66%;
+    max-width:1180px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 40px 80px;
+  }
+  @media (max-width:1100px){
+    .wrap{width:100%;max-width:760px;}
+  }
+  @media (max-width:680px){
+    body{font-size:18px;}
+    .wrap{padding:20px 18px 60px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:24px;
+  }
+  .crumbs a{color:var(--muted);text-decoration:none;}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs span{margin:0 8px;color:#bbae99;}
+
+  .hero{
+    display:block;
+    width:auto;
+    max-width:100%;
+    height:auto;
+    margin:0 auto 30px;
+    border:1px solid var(--rule);
+  }
+
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 14px;
+  }
+  h1{
+    font-size:40px;
+    line-height:1.18;
+    font-weight:700;
+    margin:0 0 10px;
+    letter-spacing:.01em;
+  }
+  @media (max-width:680px){ h1{font-size:30px;} }
+
+  .worktitle{
+    font-size:19px;
+    letter-spacing:.06em;
+    color:var(--ink);
+    margin:18px 0 2px;
+    font-weight:700;
+  }
+  .byline{
+    font-style:italic;
+    color:var(--muted);
+    margin:0 0 4px;
+    font-size:18px;
+  }
+  .lead-rule{
+    border:0;
+    border-top:2px solid var(--accent);
+    width:64px;
+    margin:26px 0 30px;
+  }
+
+  h2.section{
+    font-size:27px;
+    line-height:1.25;
+    margin:42px 0 18px;
+    font-weight:700;
+  }
+  h2.section a{
+    color:inherit;
+    text-decoration:none;
+  }
+  h2.section a:hover{color:var(--accent);}
+
+  p{margin:0 0 22px;text-align:justify;hyphens:auto;}
+  p:first-of-type::first-letter{
+    /* keep subtle, no fancy drop cap */
+  }
+
+  /* footnote markers */
+  .fn-ref{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.62em;
+    vertical-align:super;
+    line-height:0;
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    padding:0 1px;
+    position:relative;
+    cursor:pointer;
+  }
+  .fn-ref:hover{color:#fff;background:var(--accent);border-radius:2px;}
+  .fn-ref .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    bottom:140%;
+    transform:translateX(-50%);
+    width:280px;
+    max-width:70vw;
+    background:#2a241d;
+    color:#f4efe6;
+    font-family:Georgia,serif;
+    font-size:15px;
+    font-weight:400;
+    line-height:1.5;
+    text-align:left;
+    vertical-align:baseline;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 8px 24px rgba(0,0,0,.28);
+    z-index:40;
+  }
+  .fn-ref.below .pop{bottom:auto;top:140%;}
+  .fn-ref:hover .pop{display:block;}
+
+  /* music player */
+  .music-wrap{
+    margin:34px 0;
+    border-top:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+    padding:18px 0;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin:0 0 12px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    background:var(--paper);
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#f2ecdf;}
+  .track-arrow{
+    font-family:Arial,sans-serif;
+    color:var(--accent);
+    transition:transform .2s;
+    font-size:14px;
+  }
+  .track[open] .track-arrow{transform:rotate(90deg);}
+  .track-title{flex:1;font-size:18px;}
+  .track-title .artist{font-weight:700;}
+  .track-ext{
+    color:var(--muted);
+    text-decoration:none;
+    font-size:17px;
+  }
+  .track-ext:hover{color:var(--accent);}
+  .track-body{padding:0 16px 16px;}
+  .track-body iframe{
+    width:100%;
+    aspect-ratio:16/9;
+    border:0;
+    border-radius:6px;
+  }
+
+  /* notes */
+  .notes{
+    margin-top:54px;
+    padding-top:14px;
+    border-top:2px solid var(--accent);
+  }
+  .notes h2{
+    font-size:22px;
+    margin:0 0 16px;
+  }
+  .notes ol{padding-left:1.2em;margin:0;}
+  .notes li{
+    font-size:17px;
+    line-height:1.55;
+    margin-bottom:14px;
+    color:#332d25;
+  }
+  .notes li:target{
+    background:#fff2c4;
+    box-shadow:0 0 0 6px #fff2c4;
+    border-radius:3px;
+  }
+  .fn-back{
+    text-decoration:none;
+    color:var(--accent);
+    font-family:Arial,sans-serif;
+    margin-left:6px;
+  }
+
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    margin-top:60px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    color:var(--ink);
+    max-width:46%;
+  }
+  .corpus-nav .dir{
+    display:block;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:5px;
+  }
+  .corpus-nav .t{font-size:17px;color:var(--accent2);}
+  .corpus-nav a:hover .t{color:var(--accent);}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer{
+    margin-top:46px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:15px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer a{color:var(--accent2);}
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>/</span><a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <img class="hero" src="../img/2BT.jpg" alt="">
+
+  <p class="kicker">Конфронтология Духа</p>
+  <h1>Новое Слово на букву К</h1>
+
+  <p class="worktitle">ЭВОЛЮЦИОННАЯ КОНФРОНТОЛОГИЯ ЧЕЛОВЕЧЕСКОГО ДУХА</p>
+  <p class="byline">Зеир Арихович Анпин</p>
+  <hr class="lead-rule">
+
+  <h2 class="section" id="sec1"><a href="#top">1. Новое слово на букву К</a></h2>
+
+  <p>Конфронтология - является словом и понятием моего (насколько мне известно), "личного изобретения". Во всяком случае, воспользовавшись обычным "поиском" в интернет-паутине, на момент первого его использования или изобретения весной 2022 г., я не нашел ни одного точного совпадения в опубликованных кем-либо когда-либо письменных источниках.</p>
+
+  <p>Этимология этого слова, достаточно очевидным образом, восходит к словам "онтология" и "конфронтация".  Онтология, согласно Википедии, - философское учение о Сущем, изучающее фундаментальные Принципы Бытия.  Конфронтация (своими словами) - это существование у двух взаимодействующих сторон, существ или явлений, практических интересов, прямо формально противоположных интересам друг друга, таким образом, который не может не проявляться в их взаимодействии характерным образом через соперничество того или иного рода. Также, можно говорить, не боясь ошибиться, что в слове "конфронтология" приставка "конфро-" означает то же самое, что и английское выражение "to be in confront of something...", что означает (судя по сетевому переводчику Google) "быть  с чем-то в противоречии".</p>
+
+  <p>И в то же время, как мы будем выяснять подробно далее, это "противоречие" по сути своей, то есть большому счету, является мнимым, ситуационным и надуманным во всех без исключения случаях (если читатель склонен к философским размышлениям, то сам без труда построит в уме цепочту "доказательства" истинности этого тезиса, даже с использованием исключительно общепринятого экзистенциально-философского дискурса современного образованного среднего человека). С одной стороны - поскольку мы привыкли, накапливая опыт жизни взрослой личности повседневного мира, находиться в противоречии, т.е. "в терках", разборках, выяснениях, в общем, "в движении вперед", не стоя на месте, и не позволяя себя на нем держать никому слишком долго, поскольку остановка на месте в этой жизни - смерть, а чтобы жить, нужно постоянно прилагать сверхусилие, т.е. делать все, что ты можешь, плюс еще немного больше.<a class="fn-ref" id="ref1" href="#fn1" aria-label="Сноска 1">*1<span class="pop">См. эволюционный Принцип Черной Королевы, Википедия</span></a></p>
+
+  <p>Что в этом Слове и подразумеваемом им понятии нового, спросите Вы? Ответить на этот вопрос настолько непросто, но это новое настолько значимо и масштабно, что мне придется написать целую Книгу, только для производства минимально достаточного ответа на него. Могу Вам сказать с уверенностью, что, точно также, как сейчас в Школах изучают обществознание и историографию философских течений человеческой мысли, через несколько веков, от Силы, а может быть и меньше, в них будут преподавать в том или ином виде понятие "конфронтологии" как базового принципа позволяющего человеку быть адекватным имеющейся у него экзистенциальной повседневной человеческой действительности, который лежит в основе самоосознания современного образованного человека, просвещенного и пробужденного к самосовершенствованию, равно как и к включению в процессы развития эволюции единой системы Человечества, и без практического понимания и отражения которого, немыслим тот образ бытия, осознания, стремления и жизни, в конечном итоге, который у этого человека имеется последние несколько веков сознательного духовного развития человека посредством конфронтологического процесса самовоспроисхождения эволюции Единого человеческого Духа.</p>
+
+  <p>Если говорить совсем вкратце, то (если Вы вдруг до сих пор не "в курсе", что маловероятно, как по-моему) "этот, повседневный мир" вовсе не является тем, о чем нам регулярно "сообщают", специально обученные сообщать то, что сообщают все окружающие нас люди себе и друг другу, "физические органы чувств, разум и жизненный опыт". Это базовый "модус вивенди и компрехенди" человеческого существа в любом временном срезе его эволюционной Реальности, т.к. "человек - общественное животное", как говорили "классики", только я бы добавил к этому то, чего классики не говорили, а именно то, что речь о "человеке разумном", то есть, строго о явлении, феномене и внутреннем функциональном и сущностном строении разума как такового, как способности и навыка, отличающего нас как форму жизни от других известных и неизвестных нам жизненных форм.</p>
+
+  <p>Разум "не работает", когда ему "не в ком отразиться", то есть в гипотетической ситуации "Робинзона и Пятницы", Робинзон будет жить в вымышленном мире, где он взаимодействует с себе подобными, используя для этого тот опыт такового взаимодействия, который соответствует наиболее активному и хронологически близкому к "здесь и сейчас" этапу его жизни "до кораблекрушения". И благодаря этому, он будет сохранять формальную разумность, и будет способен, в случае возврата "на материк", продолжить быть полноценным членом "общества себе подобных". А не "потерявшим рассудок дикарем, ведущим себя как безмозглое животное".</p>
+
+  <p>Отражаясь в другом ("в ближнем", как говорят каббалисты, и как часто говорит Ваш покорный слуга), разум, выстраивает "вымышленный" (то есть, рукотворный, создаваемый самим человеком самостоятельно, "своими собственными силами и стремлениями", с помощью тех инструментов и опыта, которые имеются у него самого, разумеется, посредством успешно освоенного процесса социализации в раннем возрасте в том или ином обществе этого мира, являющемся "действительным" и фактическим "поставщиком" "принципиальной схемы" выполняемого действия и создаваемой посредством него "объективной реальности внешнего мира") образ, который обретает реальность в том, кто его поддерживает, посредством заручения круговой молчаливой анонимной поддержкой друг друга в том, чтобы продолжать делать это, не задавая вопросов самому себе, и не подвергая сомнению результат произведенного действия, называемый "чувственное восприятие мира", или "картина мира и идея самого себя" (термин К. Кастанеды). То есть, буквально, обратите внимание (если, как уже говорилось, Вы сами это не до конца понимаете и осознаете, поскольку это принципиально важно для всей Вашей Жизни и всего "Пути Сердца" /термин КК/, который только может в связи с Ней происходить "здесь и сейчас", независимо ни от чего вообще, потому что изменить свою Природу Вы не в состоянии - никто не в состоянии, точно также, как ни один молодой побег яблоневого дерева не способен "захотеть вырасти" не яблоней соответствующего типа, а, например, пальмой или баобабом): ощущаемая "реальность", "плотность" и "настоящесть" внешне-независимого от человека Мира Объектов (как, впрочем, и любого другого, доступного человеку для восприятия регулярным образом, то есть любого "этого Мира" здесь и сейчас) является функционально и сущностно базирующейся на той реальности осознания себя, которая есть у каждого человека, "уникального и неповторимого" посредством содержания незначительной части общей Картины Реальных свойств, присущих Человеку "первообразному" (Адаму Ришон, если говорить языком каббалистов), то есть, можно сказать, совокупно сочетающему в себе по принципу "суперпозиции" все те свойства, которые были, есть, или будут когда либо в ком-либо из живых людей, как неделимую единосущную собственную Природу и Облик Самого Себя, существующий на этом, достаточно "приподнятом" от нас, относительно уровня "экзистенциальной повседневной действительности" среднего человека современного Вашему покорному слуге времени, "уровне сознания и восприятия", "по линейке абстрактной интенсивности осознания", как Ваш покорный слуга любил говорить когда-то, указывая на любые явления или феномены, которые "принципиально не вписываются" в светлый, ясный, логичный и последовательный образ "разумной современной просвещенной мысли", который будущему "человеку разумному" прививается в школах и прочих общесоциальных Альма-Матер любого общества этого Мира. И являющийся, на этом Своем "возвышенном и отделенном" от создаваемых нами коллективно "по образу и подобию" повседневных будничных "материалистических" реалий, Одним, Единственным и Единым "настоящим Мальчиком" во всей Действительности (которой, на этом уровне, не являющемся, по большому счету, "областью или сферой интересов" человека ни в каком смысле, кроме чисто общепросветительского и познавательского, поскольку не обладает необходимым характерным набором свойств, для поддержания такого явления как "жизнь" или "чувственное восприятие внешнего объективного", равно как и какого угодно другого, "этого мира" человека в принципе), а все остальные "мальчики и девочки" являются лишь его "поддельной копией", "комиками-пародистами", пытающимися подражать Ему Одному в Его "настоящести" (или, как говорят в этом мире "четкости и конкретности реальности своего бытия "живым и самостоятельным" по любым понятиям").</p>
+
+  <p>Продолжение следует</p>
+
+  <div class="music-wrap">
+    <p class="music-label">Песнь Ступеней:</p>
+    <div class="track" id="track1">
+      <div class="track-head" onclick="toggleTrack(this)">
+        <span class="track-arrow">▶</span>
+        <span class="track-title"><span class="artist">Eminem</span> — The Real Slim Shady</span>
+        <a class="track-ext" href="https://www.youtube.com/watch?v=FA2j9qlFyDU" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="track-body" hidden data-embed="https://www.youtube-nocookie.com/embed/FA2j9qlFyDU"></div>
+    </div>
+  </div>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1">См. эволюционный Принцип Черной Королевы, Википедия <a class="fn-back" href="#ref1" aria-label="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="186.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="t">Правило духовной работы в левой линии</span>
+    </a>
+    <a class="next" href="2AFA.html">
+      <span class="dir">Следующая →</span>
+      <span class="t">Искусство читать между строк Бесконечности</span>
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggleTrack(head){
+    var track = head.parentElement;
+    var body = track.querySelector('.track-body');
+    var open = track.hasAttribute('open');
+    if(open){
+      track.removeAttribute('open');
+      body.hidden = true;
+    } else {
+      track.setAttribute('open','');
+      if(!body.dataset.loaded){
+        var f = document.createElement('iframe');
+        f.src = body.dataset.embed;
+        f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        f.allowFullscreen = true;
+        f.loading = "lazy";
+        body.appendChild(f);
+        body.dataset.loaded = "1";
+      }
+      body.hidden = false;
+    }
+  }
+
+  // footnote popup side flip
+  document.querySelectorAll('.fn-ref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      ref.classList.remove('below');
+      var pop = ref.querySelector('.pop');
+      if(!pop) return;
+      pop.style.display='block';
+      var r = pop.getBoundingClientRect();
+      if(r.top < 8){ ref.classList.add('below'); }
+      pop.style.display='';
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — философско-эссеистическая проза (введение в авторское понятие \"конфронтология\"), без каких-либо стихотворных форм, поэтому выбрана редакторская широкоформатная схема с колонкой примерно 2/3 ширины окна и засечной гарнитурой для длинного вдумчивого чтения. Текст состоит из крупных тяжёлых абзацев с обилием кавычек и вставных конструкций — для них важнее комфортная мера строки и спокойный фон, чем книжная узкая полоса манускрипта.\n\nПограничные решения: оглавление не делал, так как содержательный подраздел всего один (\"1. Новое слово на букву К\"), а правило требует TOC лишь при более чем одном подразделе; при этом сам заголовок раздела всё равно сделан ссылкой наверх. Единственная сноска *1 оформлена с переходами вниз/вверх, подсветкой цели и popup с флипом стороны у края экрана. Музыкальный трек один (YouTube, метка \"Песнь Ступеней:\") — оформлен как сворачиваемый плеер с ленивой подгрузкой iframe только при раскрытии; сводный раздел музыки не создавался, поскольку распознан лишь один трек (порог — более двух). КАПС в заголовке работы и авторские кавычки сохранены дословно.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>
