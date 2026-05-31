@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Переписка с умным читателем</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#22201c;
+    --muted:#6a6357;
+    --accent:#8a3324;
+    --accent2:#2e5266;
+    --rule:#ddd6c6;
+    --reader-bg:#f0ece0;
+    --ebm-bg:#fbf7ee;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Georgia","Iowan Old Style","Times New Roman",serif;
+    line-height:1.68;
+    font-size:19px;
+  }
+  .wrap{
+    width:66%;
+    max-width:920px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 28px 80px;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(138,51,36,.3);}
+  a:hover{border-bottom-color:var(--accent);}
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:22px;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:12px;
+  }
+  .crumbs a{color:var(--muted);border:none;}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs span{margin:0 8px;opacity:.6;}
+  .lead-img{display:block;width:auto;max-width:100%;height:auto;margin:0 auto 26px;border-radius:3px;box-shadow:0 2px 16px rgba(0,0,0,.12);}
+  h1{
+    font-size:34px;
+    line-height:1.18;
+    font-weight:700;
+    margin:0 0 6px;
+    letter-spacing:-.01em;
+  }
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    margin:0 0 30px;
+    letter-spacing:.01em;
+  }
+  .epigraph{
+    background:var(--paper);
+    border-left:4px solid var(--accent2);
+    padding:20px 24px;
+    margin:0 0 34px;
+    font-style:italic;
+    color:#34302a;
+    font-size:18px;
+    box-shadow:0 1px 8px rgba(0,0,0,.04);
+  }
+  .epigraph p{margin:0 0 12px;}
+  .epigraph .source{
+    font-style:normal;
+    font-size:14.5px;
+    color:var(--muted);
+    margin-top:14px;
+    line-height:1.5;
+  }
+  .epi-tag{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-style:normal;
+    font-size:12px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    display:block;
+    margin-bottom:10px;
+  }
+  /* music */
+  .music{margin:30px 0 34px;}
+  .music .mlabel{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:12px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:8px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:6px;
+    background:var(--paper);
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#f3eee3;}
+  .track-arrow{
+    transition:transform .25s;
+    color:var(--accent2);
+    font-size:13px;
+    flex:0 0 auto;
+  }
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-title{flex:1 1 auto;font-size:17px;}
+  .track-title .perf{color:var(--muted);}
+  .track-ext{flex:0 0 auto;color:var(--muted);font-size:15px;border:none;}
+  .track-body{display:none;padding:0 16px 16px;}
+  .track.open .track-body{display:block;}
+  .track-body .frame{position:relative;padding-bottom:56.25%;height:0;border-radius:4px;overflow:hidden;}
+  .track-body iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+  /* dialogue */
+  .turn{
+    margin:0 0 18px;
+    padding:16px 20px;
+    border-radius:7px;
+    position:relative;
+  }
+  .turn .who{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    font-weight:700;
+    margin-bottom:7px;
+    display:block;
+  }
+  .turn p{margin:0 0 12px;}
+  .turn p:last-child{margin-bottom:0;}
+  .reader{background:var(--reader-bg);border-left:4px solid #9a9482;}
+  .reader .who{color:#5d574a;}
+  .ebm{background:var(--ebm-bg);border-left:4px solid var(--accent);}
+  .ebm .who{color:var(--accent);}
+  .turn hr{border:none;border-top:1px dashed #b9b29e;margin:14px 0;}
+  .caps-blessing{font-variant:normal;}
+  /* footer nav */
+  .corpus-nav{
+    margin-top:54px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .corpus-nav a{display:block;max-width:46%;border:none;}
+  .corpus-nav .dir{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+  .corpus-nav .nx{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--muted);}
+  @media(max-width:880px){
+    .wrap{width:100%;padding:20px 18px 60px;}
+    body{font-size:18px;}
+    h1{font-size:28px;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav a{max-width:100%;}
+    .corpus-nav .nx{text-align:left;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>/</span><a href="../other/index.html">Без категории</a>
+  </nav>
+
+  <img class="lead-img" src="../img/591.jpg" alt="">
+
+  <h1>Переписка с умным читателем</h1>
+  <p class="dateline">Переписка с умным читателем (и писателем). ~01.09.2025</p>
+
+  <div class="epigraph">
+    <span class="epi-tag">Эпиграф</span>
+    <p>«89) „Но место проживания моего отца было в великом море, и он был одной-единственной рыбой, пересекавшей это море во всех направлениях, от края до края. Он был большим и величественным, „и состарился и насытился днями (Атик Йомин)“, пока не проглотил всех остальных рыб моря. А затем выпустил их из себя живых и невредимых, наполненных всеми благами мира. Благодаря своей силе он проплывал всё море в одно мгновение. И произвел он меня, выпустив словно стрелу, направленную рукой воина. И доставил он меня в то место, о котором я рассказал вам, – в башню, парящую в воздухе. И вернувшись на место свое, он скрылся в этом море“».</p>
+    <p class="source">Книга Зоар, РАШБИ, том 1, Предисловия Бааля Сулама. Погонщик ослов, п. 89<br>
+    <a href="https://w.wiki/_sMLr" target="_blank" rel="noopener">https://w.wiki/_sMLr</a></p>
+  </div>
+
+  <div class="music">
+    <div class="mlabel">Музыка под настроение</div>
+    <div class="track" id="track1">
+      <div class="track-head" onclick="toggleTrack(this)">
+        <span class="track-arrow">▶</span>
+        <span class="track-title"><span class="perf">Ария</span> — Не хочешь, не верь мне</span>
+        <a class="track-ext" href="https://www.youtube.com/watch?v=p7qO2Ix1Oig" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a>
+      </div>
+      <div class="track-body">
+        <div class="frame" data-embed="https://www.youtube-nocookie.com/embed/p7qO2Ix1Oig"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="turn reader">
+    <span class="who">Читатель</span>
+    <p>«А вот как создать общество, мнение которого догматично и направлено на сохранение Гармонии Мироздания и отдачу плодов добрых для нужд ближнего?</p>
+    <p>Это задачка для потрясающего аналитика при переходе от анализа к синтезу. Потрясающему синтезу. :)»</p>
+  </div>
+
+  <div class="turn ebm">
+    <span class="who">ЭБМ</span>
+    <p>«Догматические формы — они были, есть и будут. Но все они не существуют сами по себе, и являются методом управления одних групп людей, другими группами, которые гораздо более общирны по численности, и называются „массами“, а те, которые управляют, ну, например, у Бааля Сулама они называются „мудрецами“. Не важно, как что называть, но суть в том, что человечество всегда подразделено, было, есть и будет, на данные группы, которые мы, то есть, я, называю „уровнями авиюта“ — как каббалист, последователь истинного течения РАШБИ-АРИ-Бааль Сулам, а не различных псевдо-эзотерических и „оккультных“ деятелей и литераторов, которые в социуме принято называть „каббалой“, хотя они ими не являются ни разу. И низшая (по хронологическому расположению и по численности, а не по значимости, не дай Бог), которая называется „массами“, всегда будет требовать наличия догм над собой, причем эти догмы обязаны будут придумывать не они сами, „массы“, поскольку они ничего не придумывают по своей природе, а всегда пользуются тем, что уже придумано ДЛЯ НИХ — другими группами, которые на данный момент без вариантов являются скрытыми от общества, то есть от этих самых „масс“. Как будет в дальнейшем, я не знаю, чтобы не быть Гадалкой, и не строить предположений о том, к чему у меня на данный момент нет никакого „инсайда“ или „инсайта“. :)»</p>
+  </div>
+
+  <div class="turn reader">
+    <span class="who">Читатель</span>
+    <p>«Если у Человечества происходит „эволюция“ ДОГМАТОВ жертвенности, милосердия, прощения, правды, гармонии насущного, достоинства, любви к Мирозданию и ближнему по нему, то результат такой „эволюции“ — стадо неких сучностей, произошедших от Человека. Стадо занимается самосохранением себя от суеты-сует и адаптацией к самосозданным проблемам „чилавека-разумнаго“, полоумно гробящего Гармонию в гламур под салюты в честь своего тщеславия.»</p>
+  </div>
+
+  <div class="turn ebm">
+    <span class="who">ЭБМ</span>
+    <p>«То, что не эволюционирует, стагнирует, деградирует и в итоге саморазрушается (либо просто разрушается), под действием внешних и внутренних факторов. Это следствие второго закона термодинамики (если по науке этого мира), то есть следствие наличия во всех существующих процессах явления энтропии. Что мы и наблюдаем с тем же христианством, которое находится на последней стадии такового процесса, т.к. его догмы никак не эволюционируют, то же самое мы будем наблюдать с чем угодно. Наука этого мира не деградирует, именно потому, что она развивается, и духовные/магические учения тоже должны двигаться в этом направлении, и прочие управленческие формы этого мира, если они хотят оставаться таковыми, должны эволюционировать и развиваться. Все они состоят из набора тех или иных догм, принимаемых их адептами за безусловную реальность в каждый конкретный момент времени. Отрицание этого глупо, в течение жизни человеческой личности оно может казаться действующим, но лишь в силу временности и переходящести такого явления как человеческая личность и ее жизнь в конкретном социально-историческом контексте…»</p>
+  </div>
+
+  <div class="turn reader">
+    <span class="who">Читатель</span>
+    <p>«Бла-бла.</p>
+    <p>Ещё раз задумайтесь над СЛОВАМИ и попробуйте за ними увидеть МЫСЛИ.</p>
+    <p>Если у Человечества происходит „эволюция“ ДОГМАТОВ жертвенности, милосердия, прощения, правды, гармонии насущного, достоинства, любви к Мирозданию и ближнему по нему, то результат такой „эволюции“ — стадо неких сучностей, произошедших от Человека. Стадо занимается самосохранением себя от суеты-сует и адаптацией к самосозданным проблемам „чилавека-разумнаго“, полоумно гробящего Гармонию в гламур под салюты в честь своего тщеславия.</p>
+    <p>Законы Мироздания вечны, неизменны и НЕИЗБЕЖНЫ. А Вы суету-сует диалектических выборов путаете с „эволюцией“, „развитием“, „прогрессом“.</p>
+    <p>Как-то сомневаюсь я, что Вы что-то поняли в Каббале.»</p>
+  </div>
+
+  <div class="turn ebm">
+    <span class="who">ЭБМ</span>
+    <p>«Спасибо, что подняли эту тему. Мне она очень нравится. Разумеется, я ничего не понял в Каббале. В ней вообще ничего здравомыслящему человеку невозможно понять, потому что она — сплошная абракадабра. Она вещь в себе; множество людей думает, что изучая названия миров, сфирот и парцуфов, и зазубривая предполагаемые отношения между ними, последовательность их происхождения друг из друга и так далее, они изучают каббалу, и начинают в ней чего-то понимать. Мне этих людей жалко, они тратят время своей жизни впустую. В каббале есть базовое понятие, одно из основополагающих: „нет мудреца, который бы сравнялся с имеющим опыт“. То есть, опыт ощущения, опыт восприятия духовных миров и явлений, происходящих с ним самим, на его собственном жизненном опыте. Чувственном опыте и восприятии в органах чувств этого мира, поскольку других у нас нет. И быть не может, поскольку мы люди, а не ангелы, или кто-либо еще. Все ощущения, происходящие с нами, либо отображаются в нашем восприятии „здесь и сейчас“, либо являются фикцией, выдумкой и самообманом. Далее делайте выводы сами, не мне Вас учить»</p>
+  </div>
+
+  <div class="turn reader">
+    <span class="who">Читатель</span>
+    <p>«Все ощущения, происходящие с нами, либо отображаются в нашем восприятии „здесь и сейчас“</p>
+    <hr>
+    <p>А это не фикция? Ащушения, инстинкты, страсти, эмоции? — это наши кукловоды. Не испытав „на опыте“ свободу от них, ничего понять невозможно. Раб может мечтать стать рабовладельцем. Иного ему не дано. Увы.»</p>
+  </div>
+
+  <div class="turn ebm">
+    <span class="who">ЭБМ</span>
+    <p>«Свобода от чувств, ощущений, эмоций — это смерть, иное, это не свобода, а красивый самообман. Всякая свобода либо существует в Ваших ощущениях в этом мире здесь и сейчас, либо она является фикцией, которой Вы обманываете себя, и заодно всех окружающих. Потому что Мир — это зеркало, и никого кроме Вас самого здесь нет. А Вы сами — это Бог, который создал мир, точнее создает его здесь и сейчас. Или создавал за мгновение до того, как с Вами произошло Это. Это — необратимо, „от-туда“ не возвращаются, существа, которые перешли через этот барьер, по-разному называемый в разных традициях, никогда больше не будут теми, кто был ими за мгновение до начала получения ими этого опыта. Разница только в том, что „пробужденные“, по версии ИхТис-а это называется „воскрешением из мертвых“, — почему именно „из мертвых“, узнаете, когда воскреснете, или не узнаете никогда, — они сохраняют свое осознание, и жизненную энергию, опыт, личность и т.д. и помнят себя, становясь по сути чем-то совершенно другим. Им больше нет дела до людей, до того, кто они, как они живут. Стадо они или не стадо, потому что они знают, что они, люди, которыми они сами были за мгновение до этого — они стадо. Они мертвецы, и их восемь миллиардов. Поэтому любовь к ближнему перестает их беспокоить в какой-либо мере. Просто они перестали им быть ближними, они другой вид, другая форма существования разумной материи, лишь внешне остающаяся похожей на окружающих. Такие дела, Здоровья Вам и Вашим близким. Да прибудет с Вами <span class="caps-blessing">СВЕТ ХОХМА, ВЫСШИЙ БЕСКОНЕЧНЫЙ СВЕТ ДУХОВНОЙ ПОЛОВОЙ ЛЮБВИ МУЖЧИНЫ И ЖЕНЩИНЫ ЭТОГО МИРА, И АТИК ЙОМИН, ТВОРЕЦ, СВЯТ БЛАГОСЛОВЕН ОН, ВЫСШИЙ ОБРАЗ МУЖСКОГО ПОЛОВОГО ЧЛЕНА, ЯВЛЯЮЩИЙСЯ ВЫСШИМ КОРНЕМ ВСЕХ ОСТАЛЬНЫХ МУЖСКИХ ОРГАНОВ, ПОРОЖДАЮЩИХ, СОЗДАЮЩИХ ЖИЗНЬ, КОТОРЫЕ ЯВЛЯЮТСЯ НИЗШИМИ ВЕТВЯМИ ЕГО ПРОЯВЛЕНИЯ В ЭТОМ МИРЕ МАТЕРИАЛЬНЫХ ФОРМ, СОЗДАННЫХ ИМ ПОСРЕДСТВОМ ЭВОЛЮЦИИ, ЦЕЛЬ КОТОРОЙ — ДОСТАВИТЬ НАСЛАЖДЕНИЕ ТВОРЕНИЯМ, НАСЛАЖДЕНИЯ ЕГО СВЕТА ЖИЗНИ, ЛЮБВИ И МУДРОСТИ.</span> Я ничего не понял в Науке Каббала, я все это выдумал сам. Точнее, Он через меня все это выдумал, потому что миру давно пора раскрыть Его, узнать Его в лицо, принять и признать Его и принять себя. И осуществить вместе с Ним Его Цель Творения…»</p>
+  </div>
+
+  <nav class="corpus-nav">
+    <a href="1BI.html"><span class="dir">← Предыдущая</span>Бина Анеле</a>
+    <a class="nx" href="53KA.html"><span class="dir">Следующая →</span>3. 14</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggleTrack(head){
+    var track=head.parentElement;
+    var open=track.classList.toggle('open');
+    if(open){
+      var frame=track.querySelector('.frame');
+      if(frame && !frame.querySelector('iframe')){
+        var ifr=document.createElement('iframe');
+        ifr.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        ifr.setAttribute('allowfullscreen','');
+        ifr.src=frame.getAttribute('data-embed')+'?autoplay=1';
+        frame.appendChild(ifr);
+      }
+    }
+  }
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой эпистолярную прозу — переписку-диалог между читателем и автором (ЭБМ) с прозаическим эпиграфом из Книги Зоар. Никаких стихотворных форм нет, поэтому однозначно выбрана редакторская широкоформатная схема (~2/3 ширины окна, контейнер до 920px). Главная развилка вёрстки была в подаче диалога: я визуально развёл две стороны переписки цветовыми карточками с боковой линейкой (читатель — холодная серо-оливковая, ЭБМ — тёплая терракотовая под акцент), чтобы реплики не сливались, сохранив при этом весь текст дословно, включая капс-благословение в финале (оставлено КАК ЕСТЬ, без занижения регистра) и авторские смайлы :).\n\nОглавление не делал — в тексте нет выделенных подразделов с собственными заголовками, только последовательность реплик. Музыка: единственный распознанный трек (Ария — «Не хочешь, не верь мне») с YouTube оформлен свёрнутым ленивым плеером с меткой «Музыка под настроение»; сводный раздел не создавался, так как трек один (порог >2 не достигнут). Маркер сноски [37] в эпиграфе удалён, поскольку в статье отсутствует соответствующее тело примечания (нет раздела «Примечания»), что соответствует правилу об удалении несопоставленных сносок. Голый URL w.wiki и ссылка на YouTube обёрнуты в нормальные гиперссылки. Разделитель из знаков '=' внутри реплики читателя передан тонким штриховым <hr>, сохраняя смысл цитирования.",
+  "features": ["music"]
+}
+</script>
+</body>
+</html>

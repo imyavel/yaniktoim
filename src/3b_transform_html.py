@@ -197,27 +197,37 @@ FOOTER_HTML = (
 )
 
 
-def publish_image(rec: dict) -> str | None:
-    """Скопировать иллюстрацию raw/<stem>.jpg → docs/img/<art>.jpg и вернуть
-    путь для HTML (относительно docs/art/<art>.html → ../img/<art>.jpg).
-    Если у статьи нет картинки или файла нет на диске — None."""
-    art = rec.get("art")
-    img_name = rec.get("img")  # напр. "2022_05_05_670.jpg"
-    if not art or not img_name:
+def image_source(rec: dict) -> Path | None:
+    """Найти ИСХОДНЫЙ jpg статьи в raw/ — БЕЗ копирования. None, если нет.
+    Раздельно с публикацией: href для промпта знаем заранее, а файл копируем
+    только после успешной вёрстки (иначе упавшие статьи плодят сирот в img/)."""
+    if not rec.get("art"):
         return None
-    srcs = [RAW / img_name]
+    srcs = []
+    img_name = rec.get("img")  # напр. "2022_05_05_670.jpg"
+    if img_name:
+        srcs.append(RAW / img_name)
     stem = rec.get("stem")
     if stem:  # подстраховка, если поле img пустое, но stem-картинка есть
         srcs.append(RAW / f"{stem}.jpg")
-    src = next((p for p in srcs if p.exists()), None)
-    if src is None:
+    return next((p for p in srcs if p.exists()), None)
+
+
+def image_href(rec: dict, src: Path | None) -> str | None:
+    """Путь картинки для HTML (../img/<art>.jpg) — если исходник есть."""
+    if src is None or not rec.get("art"):
         return None
-    ext = src.suffix.lower() or ".jpg"
+    return f"../img/{rec['art']}{src.suffix.lower() or '.jpg'}"
+
+
+def publish_image(rec: dict, src: Path | None) -> None:
+    """Скопировать найденный исходник → docs/img/<art>.jpg. Зовётся ТОЛЬКО
+    после успешной вёрстки страницы."""
+    if src is None or not rec.get("art"):
+        return
     dst_dir = SITE / "img"
     dst_dir.mkdir(parents=True, exist_ok=True)
-    dst = dst_dir / f"{art}{ext}"
-    shutil.copy2(src, dst)
-    return f"../img/{art}{ext}"
+    shutil.copy2(src, dst_dir / f"{rec['art']}{src.suffix.lower() or '.jpg'}")
 
 
 def build_nav(rec: dict, manifest: list[dict], image: str | None = None) -> dict:
@@ -418,13 +428,17 @@ def transform_one(rec: dict, base_prompt: str, manifest: list[dict],
         return ArtResult(art, "fail", "empty body")
     (LOGS / f"html_{art}.body.txt").write_text(body, encoding="utf-8")
 
-    image = publish_image(rec)
-    nav = build_nav(rec, manifest, image=image)
+    # Картинку НЕ копируем до вёрстки — только узнаём её будущий href для
+    # промпта/навигации. Файл публикуем после успеха (см. ниже), чтобы упавшие
+    # статьи не оставляли сирот в docs/img/.
+    src_img = image_source(rec)
+    nav = build_nav(rec, manifest, image=image_href(rec, src_img))
     full_prompt = build_prompt(base_prompt, rec, body, nav)
     res = call_claude(full_prompt, art)
     if res.kind != "ok" or res.html is None:
         return ArtResult(art, res.kind, res.detail)
 
+    publish_image(rec, src_img)  # успех → теперь публикуем иллюстрацию
     ART_DIR.mkdir(parents=True, exist_ok=True)
     out_path.write_text(res.html + "\n", encoding="utf-8")
     print(f"  ✓ saved → art/{art}.html", flush=True)

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Башня, парящая в воздухе</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#23201b;
+    --muted:#6f6759;
+    --accent:#9a5b2c;
+    --accent-soft:#c98a52;
+    --line:#e0d8c7;
+    --hl:#fbe6c4;
+    --maxw:1280px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(154,91,44,.35);}
+  a:hover{color:var(--accent-soft);border-bottom-color:var(--accent-soft);}
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 clamp(16px,4vw,48px);
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:26px 0 8px;
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs a{border:none;color:var(--accent);}
+  .crumbs .sep{color:var(--accent-soft);margin:0 .5em;}
+
+  /* header layout: wide */
+  header.lead{
+    display:grid;
+    grid-template-columns:minmax(0,2fr) minmax(0,1fr);
+    gap:clamp(24px,4vw,56px);
+    align-items:start;
+    padding:42px 0 12px;
+  }
+  .lead-main{min-width:0;}
+  .lead-aside{min-width:0;}
+  .hero img{
+    display:block;
+    width:auto;
+    max-width:100%;
+    height:auto;
+    border:1px solid var(--line);
+    border-radius:3px;
+    box-shadow:0 8px 26px rgba(60,45,20,.12);
+  }
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--accent);
+    margin:0 0 .6em;
+  }
+  h1{
+    font-size:clamp(34px,5vw,52px);
+    line-height:1.08;
+    font-weight:600;
+    margin:.1em 0 .35em;
+    letter-spacing:-.01em;
+  }
+  .standfirst{
+    font-size:20px;
+    color:var(--muted);
+    font-style:italic;
+    margin:0;
+    max-width:36ch;
+  }
+
+  /* main content column ~2/3 */
+  main{
+    max-width:60ch;
+    margin:0;
+    padding:8px 0 0;
+  }
+  @media(min-width:1000px){
+    main{margin-left:0;}
+  }
+
+  p{margin:0 0 1.15em;}
+
+  section{scroll-margin-top:14px;}
+  h2{
+    font-size:clamp(23px,3vw,30px);
+    font-weight:600;
+    margin:2.2em 0 .7em;
+    padding-bottom:.25em;
+    border-bottom:2px solid var(--accent-soft);
+    color:var(--accent);
+    cursor:pointer;
+    position:relative;
+  }
+  h2 .anchor-note{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:11px;
+    font-weight:400;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    opacity:0;
+    transition:opacity .2s;
+    margin-left:.7em;
+    vertical-align:middle;
+  }
+  h2:hover .anchor-note{opacity:.7;}
+
+  /* numbered paragraphs */
+  .num{
+    counter-reset:none;
+  }
+  .para{
+    display:flex;
+    gap:.9em;
+    margin:0 0 1.3em;
+  }
+  .para .n{
+    flex:0 0 auto;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    font-size:15px;
+    color:#fff;
+    background:var(--accent);
+    width:1.85em;
+    height:1.85em;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:.2em;
+  }
+  .para .t{flex:1 1 auto;min-width:0;}
+  .para .t p:last-child{margin-bottom:0;}
+
+  /* epigraph */
+  .epigraph{
+    font-style:italic;
+    font-size:20px;
+    color:#3a352c;
+    border-left:4px solid var(--accent-soft);
+    padding:.2em 0 .2em 1.1em;
+    margin:0 0 1em;
+  }
+  .epigraph-src{
+    font-style:normal;
+    font-size:15px;
+    color:var(--muted);
+    text-align:right;
+    letter-spacing:.02em;
+  }
+
+  .forum{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:1.1em 1.3em;
+    font-size:18px;
+  }
+  .forum .who{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--accent);
+    font-weight:600;
+    margin-bottom:.4em;
+  }
+
+  /* TOC */
+  .toc{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:5px;
+    margin:30px 0 10px;
+    max-width:60ch;
+    overflow:hidden;
+  }
+  .toc summary{
+    cursor:pointer;
+    list-style:none;
+    padding:14px 20px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:700;
+    user-select:none;
+  }
+  .toc summary::-webkit-details-marker{display:none;}
+  .toc summary::after{content:"▾";float:right;transition:transform .2s;}
+  .toc[open] summary::after{transform:rotate(180deg);}
+  .toc ol{
+    margin:0;
+    padding:0 24px 16px 44px;
+  }
+  .toc li{margin:.35em 0;}
+  .toc a{border:none;color:var(--ink);}
+  .toc a:hover{color:var(--accent);}
+
+  /* music */
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:700;
+    margin:1.5em 0 .6em;
+  }
+  .track{
+    border:1px solid var(--line);
+    border-radius:5px;
+    background:var(--paper);
+    overflow:hidden;
+    max-width:60ch;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:.7em;
+    padding:14px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head .play{
+    flex:0 0 auto;
+    width:34px;height:34px;
+    border-radius:50%;
+    background:var(--accent);
+    color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:14px;
+    transition:transform .2s;
+  }
+  .track.open .track-head .play{transform:rotate(90deg);}
+  .track-title{flex:1 1 auto;min-width:0;}
+  .track-title b{font-weight:600;}
+  .track-title span{color:var(--muted);font-size:.92em;}
+  .track-ext{flex:0 0 auto;color:var(--accent);font-size:18px;border:none;}
+  .track-body{display:none;background:#000;}
+  .track.open .track-body{display:block;}
+  .track-body .ratio{position:relative;width:100%;padding-top:56.25%;}
+  .track-body iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+  .tag{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    color:var(--muted);
+    letter-spacing:.12em;
+    font-size:14px;
+    margin:2.4em 0 0;
+  }
+
+  /* bottom nav */
+  .corpus-nav{
+    border-top:1px solid var(--line);
+    margin-top:48px;
+    padding:28px 0;
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    flex-wrap:wrap;
+  }
+  .corpus-nav a{
+    border:1px solid var(--line);
+    border-radius:5px;
+    padding:12px 16px;
+    background:var(--paper);
+    max-width:46%;
+    display:block;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a:hover{border-color:var(--accent-soft);}
+  .corpus-nav .dir{
+    display:block;font-size:12px;text-transform:uppercase;letter-spacing:.1em;
+    color:var(--accent);margin-bottom:.3em;
+  }
+  .corpus-nav .ttl{color:var(--ink);font-size:15px;}
+  .corpus-nav .next{margin-left:auto;text-align:right;}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:26px 0 60px;
+    font-size:15px;
+    color:var(--muted);
+  }
+  footer a{color:var(--accent);}
+  footer .attrib{margin:0 0 .5em;}
+
+  @media(max-width:900px){
+    header.lead{grid-template-columns:1fr;}
+    .lead-aside{order:-1;}
+    main,.toc,.track{max-width:none;}
+    body{font-size:18px;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span class="sep">/</span><a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <header class="lead" id="top">
+    <div class="lead-main">
+      <p class="dateline">17 апреля 2022 г.</p>
+      <h1>Башня, парящая в воздухе</h1>
+      <p class="standfirst">Об Учителе-Духе, Башне над мирами сновидения и о том, что только вместе мы — Сила.</p>
+    </div>
+    <div class="lead-aside">
+      <div class="hero">
+        <img src="../img/24H.jpg" alt="Иллюстрация к статье «Башня, парящая в воздухе»">
+      </div>
+    </div>
+  </header>
+
+  <details class="toc" open>
+    <summary>Содержание</summary>
+    <ol>
+      <li><a href="#epigraph">Эпиграф</a></li>
+      <li><a href="#predystoria">Предыстория</a></li>
+      <li><a href="#bashnya">Башня, парящая в воздухе</a></li>
+      <li><a href="#music">Музыка под настроение</a></li>
+    </ol>
+  </details>
+
+  <main>
+
+    <section id="epigraph">
+      <h2 onclick="location.hash='top'">ЭПИГРАФ<span class="anchor-note">↑ наверх</span></h2>
+      <p class="epigraph">«Но место проживания моего Отца было в великом море, и Он был одной-единственной рыбой, пересекавшей это море во всех направлениях, от края до края. Он был большим и величественным, "и состарился (Атик) и насытился днями (Йомин), пока не проглотил всех остальных рыб моря. А затем выпустил их из Себя живых и невредимых, наполненных всеми благами Мира. Благодаря Своей Силе, Он проплывал всё море в одно мгновение. И произвел Он меня, выпустив словно стрелу, направленную рукой Воина. И доставил Он меня в то место, о котором я рассказал вам, – в башню, парящую в воздухе. И вернувшись на место Свое, Он скрылся в этом море».</p>
+      <p class="epigraph-src">Погонщик ослов, Книга Зоар, РАШБИ - Бааль Сулам</p>
+    </section>
+
+    <section id="predystoria">
+      <h2 onclick="location.hash='top'">ПРЕДЫСТОРИЯ <span class="anchor-note">↑ наверх</span></h2>
+      <p style="color:var(--muted);font-size:16px;margin-top:-.4em;">(форум учения "левой линии" <a href="https://ccastaneda.ru" target="_blank" rel="noopener">ccastaneda.ru</a>)</p>
+      <div class="forum">
+        <div class="who">простоНагваль написал(а)::</div>
+        <p>"Эго, чсв - до определенного момента нужные как инструменты. Они не могут быть отброшены раньше чем будут доступны другие.  а раз так, то с эго и чсв нужно уметь правильно обращаться. этому никто не учит. ошибки в обращении с ними - чреваты сильными искажениями. Для меня учитель тот, кто может, умеет просчитывать - реакции, и с их учетом действует прицельно, четко, понимая, зная последствия."</p>
+      </div>
+    </section>
+
+    <section id="bashnya">
+      <h2 onclick="location.hash='top'">БАШНЯ, ПАРЯЩАЯ В ВОЗДУХЕ<span class="anchor-note">↑ наверх</span></h2>
+
+      <div class="num">
+        <div class="para"><div class="n">1</div><div class="t"><p>Для меня Учитель - это Дух. Только Он Сам, лично и непосредственно. Он - это Свет Жизни, воспринимаемый человеком осознанно посредством "магического" опыта и личного Пути Сердца. Учит Учитель посредством передачи опыта. Все остальные учителя (с маленькой буквы) - лишь инструменты в Его руках, в которые Он "одевается", чтобы быть чем-то понятным человеку этого мира. Учит самым конкретным и прямым образом - т.е. позволяя человеку этот опыт приобрести, "перепросмотреть" (совсем не обязательно посредством мотания головой в деревянном ящике, более естественно делать это сразу же "не отходя от кассы", т.к. "ящик" - это только "катнут") и передать дальше, превратив в инструмент увековечивания Орлом жизни и осознания.</p></div></div>
+
+        <div class="para"><div class="n">2</div><div class="t"><p>В принципе кроме этого мы ничего и не делаем. Все остальное делает посредством тех же самых наших действий Орел, невидимым для глаза образом "прошивая" и "перепрошивая" "светящимися нитями" всю Вселенную в мыслимых и немыслимых направлениях, каждое из которых, при определенном взятом ракурсе настройки восприятия "вторым вниманием", может "рассказать" "магу-читателю Бесконечности" свою собственную уникальную и неповторимую единственно реальную в данном расположении точки сборки историю о том, что такое этот мир на самом деле, что в нем происходило и будет происходить, как он появился, кто его создал, кто им управляет и зачем вообще это нужно, кто мы такие сами, каков характер и цель нашего существования, к чему лежит и к чему не лежит наш Путь Сердца, и так далее и тому подобное, давая этим человеку, или тому существу, которое в этой конкретной позиции ТС является тем же самым, чем является в знакомой всем нам обычной позиции ТС человек этого мира, получить и осознать реальный опыт, основанный на пройденном долгом и личном Пути "проб и ошибок", подъемов и падений, чего бы то ни было еще.</p></div></div>
+
+        <div class="para"><div class="n">3</div><div class="t"><p>Пути, который становится всем и ничем для нас в тот самый момент, когда Знающий Тайны Голос Видения, это собственный Голос Души, поскольку суть Души это определенный объем Света Жизни, опосредующий жизнь и осознание человека, создаваемого Им посредством облачения в тело этого мира, в точности также, как сновидящий маг создает тело сновидения, оказываясь во сне, (а Видение - это свойство этого Света "анимировать" все, с чем Он соприкасается, т.е. оживлять, самый очевидный пример - ты и я, менее тривиальный - "говорящая собака" из мемуаров КК), облаченной Намерением Духа нести и раскрывать Его Свет Жизни, "облачая" его чувственным восприятием мира и этим увековечивая в той форме, в которой соответствующий опыт и объем восприятия будет получен, "перепросмотрен", и передан дальше - передан нам самим, но уже созданным в других "GPS-координатах реального мира сновидения" - "Мир-Год-Душа", абсолютно иной уникальной личностью, существующей впервые, единственный раз здесь и сейчас, чтобы пройти свой собственный уникальный жизненный путь и исчезнуть, словно ее никогда не было, поскольку вне контекста происходящего с ней восприятия "здесь и сейчас" это действительно так, и поэтому, не являясь реальным объемом "памяти", о котором кто либо, реально существующий как выше говорилось, мог бы вспоминать как о "самом себе", не понимая при этом ни то, чем является он сам, посредством собственной жизни этого мира, ни чем является та форма, отпечаток которой остается в "келим этого мира" в результате прошлых "кругооборотов" своей единой высшей духовной сущности, не являющейся человеком этого мира, но "являющей" его посредством сна внутри сна, исполняя команду Орла забыть себя и вспомнить себя, чтобы проснуться и продолжить бесконечный Путь Восходящей Звезды, который никогда не прерывался и не прервется, потому что то, что не имеет начала, не может иметь и конца.</p></div></div>
+
+        <div class="para"><div class="n">4</div><div class="t"><p>Ведь тот, кто проходит Путь, и та реальность, посредством которой этот Путь является, это два разных, не имеющих ничего общего абсолютно, реальных явления, реальность которых взаимообусловлена выполняемым ими общим действием, называемым жизнь человека этого мира, получающим опыт этого мира и опыт стремления стать субъектом реального мира, "получив", осознав и передав дальше полученный опыт "как полагается" (см. Правило Нагваля, Дар Орла), чтобы следующий созданный тем же самым действием той же самой сущности, делающей человека чувствующим воспринимающим существом, человек этого мира, начал и продолжил свой Путь не с той исходной точки, в которой человек, живший когда-то в том же самом объеме реальности, т.е. имевший как минимум две совпадающие координаты из "Мир Год Душа", т.е. "Мир" и "Душа", поскольку год, очевидно, обязан быть отличающимся, т.к. один подготавливает "хупу невесты" ("взрослый" путь мага и человека знания - осознанное слияние с Духом посредством использования "этого мира" как инструмента и сцены действия) для другого, а другой в нее облачается, продолжая выполнять ту же самую работу, которую человек этого мира делает "не ради себя" и не как то, чему она служит на самом деле, поскольку он себя не помнит и не знает в объеме, хоть сколько нибудь превосходящем личность этого мира с ее уникальным опытом и судьбой, которая обязательно имеет начало и имеет конец, имеет длительность, очень незначительную по меркам Вечности Реального мира, в котором нет ни времени, ни места, ни разницы между вещами.</p></div></div>
+
+        <div class="para"><div class="n">5</div><div class="t"><p>Но в Нем есть одна Башня, парящая в воздухе, в которой обитает Творец, называемый Орлом, Свят Благословен Он, Один, Единственный и Единый навеки и воистину, Сын Человека Живого, Он же - Праведник, Оживляющий Миры, Святой и скрытый все "6000 лет подготовительного периода" (см. Книга Зоар, том 1, Погонщик ослов), и кроме Него - один бедняк. (Спойлер::"бедняк" сидит на осле задом наперед и дудит в дудку про то, что пора просыпаться, объединяться и начинать работать вместе и по настоящему, но прохожие над ним смеются и его никто не слушает. Другой вариант описан в Возвращении в Икстлан как Хенаро искал путь домой в стране Олли. Маги живут в Мифе, события которого происходят там же и также, как и где живут люди этого мира, точнее, думают, что живут, потому что назойливый говорящий осел, называемый ими по ошибке "мои мысли", не дает им забыть об этом).</p></div></div>
+
+        <div class="para"><div class="n">6</div><div class="t"><p>Башня, вознесенная над всеми "реальными мирами" сновидения и являющейся совершенно отдельной "особой областью", опосредующей настройку восприятия Мира как настройщик и Мастер настенных часов обуславливает и налаживает их точную и ровную беспрерывную слаженную работу, посредством подведения всех шестеренок, пружинок и прочих цепей, маятников и колокольчиков в правильное состояние и говорящий им ДЫШИ. Заодно сдувая пыль с поверхности древнего антикварного механизма и придавая ему блеск абсолютной новизны - все это целое искусство, которое человеку и человечеству пока еще неведомо, либо нами давно забыто, что на самом деле в точности одно и то же, но с которым мы познакомимся достаточно скоро, потому что Настройка Восприятия - это наше прошлое, настоящее и будущее, как единого и единственного Целостного и Живого Человека, единственного во Вселенной обладающего Голосом и Видением одновременно, а значит, способного находиться на ступени Дающего Дар Свободы чувствующим существам.</p></div></div>
+
+        <div class="para"><div class="n">7</div><div class="t"><p>Находиться, воспринимая и создавая этот мир вместе с теми, кто его воспринимает, "получая" в нем опыт всех опытов, поднимаясь и поднимая со ступени на ступень с Ним в сотрудничестве и взаимной Любви, приводя к слиянию с Духом Жизни и продолжению Своей собственной, вечной и совершенной, посредством Видения Духа и Восприятия Мира, бесконечной Жизни, даруемой Светом Любви, распространяющимся сквозь все миры из самого Мира Бесконечности (Эйн Соф) и до "действительности (Асия) этого мира" сновидения наяву. Света, являющегося единственной, уникальной и неповторимой, неограниченно могущественной, непостижимо совершенной, но в то же самое время глубоко личной и сакральной для каждого и каждой, не созданных по отдельности, а создающих друг друга вместе и одновременно, мужчины и женщины, Творца и творения, Воли и Разума, Магов и Социума, Души и Духа посредством Жизни и Мира, Летунов и Дырявых Горшков, прости Господи, меня и тебя как одного целого, осознавшего самое главное, о чем следует знать каждому и каждой, кто всерьез решил осмелиться и дерзнуть всерьез мечтать, стремиться и намереваться, достигая этого по настоящему, "сохранить осознание и память о себе", переступая через ступень собственного праха и восставая из него, как птица Феникс ("ибо прах ты и в прах возвратишься" - Берешит), чтобы продолжать жить дальше и выполнять Волю Орла и Намерение Духа как свои собственные, свободные волю и стремление Пути Сердца (чем Она на самом деле и являются, но об этом тсс! Я тебе этого не говорил), поскольку все остальное, что ему или ей следует и будет следовать знать, является частью этого, и нет ничего, что бы частью этого не являлось или не было этим опосредовано, для того кто получает это "знание тела" посредством личного опыта жизни на Пути Сердца: ТОЛЬКО ВМЕСТЕ МЫ ^ СИЛА!!</p></div></div>
+      </div>
+    </section>
+
+    <section id="music">
+      <h2 onclick="location.hash='top'">Музыка под настроение<span class="anchor-note">↑ наверх</span></h2>
+      <div class="track" id="trk1">
+        <div class="track-head" onclick="toggleTrack('trk1','KbmYHDbaE-o')">
+          <span class="play">▶</span>
+          <span class="track-title"><b>ДЫШИ</b> <span>— СЕРЕБРО</span></span>
+          <a class="track-ext" href="https://youtu.be/KbmYHDbaE-o" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+        </div>
+        <div class="track-body"><div class="ratio" data-slot></div></div>
+      </div>
+
+      <p class="tag">#AA24H</p>
+    </section>
+
+  </main>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="462D.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="ttl">Стенограмма 1 Урока 2 по статье Шамати 3</span>
+    </a>
+    <a class="next" href="462E.html">
+      <span class="dir">Следующая →</span>
+      <span class="ttl">Стенограмма 4 Урока 2 по статье Шамати 3</span>
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggleTrack(id, vid){
+    var el = document.getElementById(id);
+    var open = el.classList.toggle('open');
+    var slot = el.querySelector('[data-slot]');
+    if(open && !slot.dataset.loaded){
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube.com/embed/'+vid+'?rel=0';
+      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen = true;
+      f.setAttribute('loading','lazy');
+      slot.appendChild(f);
+      slot.dataset.loaded = '1';
+    }
+  }
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — мистико-философская проза в форме нумерованных тезисов (1–7) с эпиграфом из Книги Зоар и форумной цитатой-предысторией; стихотворных форм нет, поэтому выбрана редакторская широкоформатная схема, а не узкий манускрипт. Контент я держу в читаемой мере (~60ch) внутри широкого контейнера 1280px, а свободную треть справа использовал под крупную иллюстрацию-героя в шапке — так ширина окна осмысленно работает на десктопе, а на мобильном всё сворачивается в одну колонку.\n\nРазделов более одного (Эпиграф, Предыстория, Башня, Музыка), поэтому сделал сворачиваемое оглавление с возвратом к началу по клику на заголовок раздела. Нумерованные абзацы оформил кружками-номерами, сохранив авторский регистр (КАПС «ТОЛЬКО ВМЕСТЕ МЫ ^ СИЛА!!», «ДЫШИ») и глифы дословно. Сносок-маркеров в тексте нет — встроенные «(см. ...)» это часть авторского текста, не аппарат сносок, поэтому footnotes не делал. Музыкальный трек один (меньше трёх), поэтому сводный раздел не нужен — оставил единственный ленивый раскрывающийся YouTube-плеер с меткой «Музыка под настроение» и иконкой внешней ссылки. Голые URL (ccastaneda.ru, youtu.be) обернул в ссылки.",
+  "features": ["music", "toc"]
+}
+</script>
+</body>
+</html>
