@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сделаем и услышим!</title>
+<style>
+  :root{
+    --bg:#fbfaf6;
+    --paper:#ffffff;
+    --ink:#1c1a17;
+    --soft:#4a463f;
+    --rule:#e3ddd0;
+    --accent:#8a2b22;
+    --accent2:#1f5a55;
+    --gold:#9c7a2c;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .wrap{
+    width:66%;
+    max-width:1120px;
+    min-width:0;
+    margin:0 auto;
+    padding:34px 26px 90px;
+  }
+  @media (max-width:1024px){ .wrap{width:88%;} }
+  @media (max-width:680px){
+    .wrap{width:100%;padding:20px 18px 70px;}
+    body{font-size:18px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.82rem;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--soft);
+    padding-bottom:18px;
+    border-bottom:1px solid var(--rule);
+    margin-bottom:24px;
+  }
+  .crumbs a{color:var(--soft);}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs .sep{margin:0 .5em;color:var(--gold);}
+
+  .hero{margin:0 0 26px;text-align:center;}
+  .hero img{max-width:100%;width:auto;height:auto;border:1px solid var(--rule);}
+
+  h1{
+    font-size:2.45rem;
+    line-height:1.18;
+    font-weight:700;
+    letter-spacing:.005em;
+    margin:.2em 0 .15em;
+    text-align:center;
+  }
+  .kicker{
+    text-align:center;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.8rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin-bottom:6px;
+  }
+  .titlerule{
+    width:70px;height:3px;background:var(--accent);
+    margin:18px auto 30px;border:0;
+  }
+
+  /* TOC */
+  .toc{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-left:3px solid var(--accent);
+    padding:8px 22px 14px;
+    margin:0 0 38px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .toc summary{
+    cursor:pointer;
+    font-size:.82rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    font-weight:600;
+    padding:8px 0;
+    list-style:none;
+  }
+  .toc summary::-webkit-details-marker{display:none;}
+  .toc summary::before{content:"▾ ";color:var(--gold);}
+  .toc[open] summary::before{content:"▾ ";}
+  .toc:not([open]) summary::before{content:"▸ ";}
+  .toc ol{margin:6px 0 4px;padding-left:1.3em;}
+  .toc li{margin:.32em 0;font-size:.98rem;}
+  .toc a{color:var(--ink);}
+  .toc a:hover{color:var(--accent);}
+
+  h2{
+    font-size:1.5rem;
+    margin:2.1em 0 .5em;
+    line-height:1.25;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:.22em;
+  }
+  h2 a, h2 a:hover{color:var(--ink);text-decoration:none;}
+  h2 a:hover{color:var(--accent);}
+  .center-title{
+    text-align:center;border:0;
+    font-size:1.9rem;letter-spacing:.05em;
+    margin:1.8em 0 .3em;
+  }
+
+  p{margin:0 0 1.15em;}
+  .lead{font-size:1.04em;}
+
+  .dialogue{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    padding:18px 26px;
+    margin:0 0 30px;
+  }
+  .dialogue p{margin:0 0 .8em;}
+  .dialogue p:last-child{margin-bottom:0;}
+  .role{font-weight:700;color:var(--accent2);}
+
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.82rem;letter-spacing:.05em;
+    color:var(--soft);margin-bottom:16px;
+  }
+
+  blockquote.epigraph{
+    margin:0;
+    font-style:italic;
+    color:var(--soft);
+    border-left:3px solid var(--gold);
+    padding:.2em 0 .2em 24px;
+  }
+  blockquote.epigraph cite{
+    display:block;
+    font-style:normal;
+    font-size:.86em;
+    color:var(--soft);
+    margin-top:.8em;
+    letter-spacing:.01em;
+  }
+
+  /* footnote refs */
+  a.fnref{
+    position:relative;
+    color:var(--accent);
+    font-weight:700;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  a.fnref sup{font-size:.72em;}
+  a.fnref:hover{text-decoration:none;}
+  .fnpop{
+    position:absolute;
+    bottom:135%;
+    left:50%;
+    transform:translateX(-50%);
+    width:340px;
+    max-width:78vw;
+    max-height:300px;
+    overflow:auto;
+    background:#2a2723;
+    color:#f3eee2;
+    font-family:Georgia,serif;
+    font-size:.84rem;
+    font-weight:400;
+    font-style:normal;
+    line-height:1.55;
+    text-align:left;
+    padding:12px 15px;
+    border-radius:5px;
+    box-shadow:0 8px 26px rgba(0,0,0,.32);
+    visibility:hidden;
+    opacity:0;
+    transition:opacity .14s ease;
+    z-index:50;
+    pointer-events:none;
+  }
+  .fnpop.below{bottom:auto;top:135%;}
+  .fnpop a{color:#e6b98f;}
+  a.fnref:hover .fnpop{visibility:visible;opacity:1;}
+
+  /* footnotes list */
+  .footnotes{
+    margin-top:1em;
+    font-size:.96rem;
+    color:var(--soft);
+  }
+  .footnotes .fn{
+    padding:12px 14px;
+    border-bottom:1px solid var(--rule);
+    transition:background .3s;
+  }
+  .footnotes .fn:target{
+    background:#fdف2d6;
+    background:#fbf1cf;
+    box-shadow:inset 3px 0 0 var(--accent);
+  }
+  .fnnum{font-weight:700;color:var(--accent);margin-right:.5em;}
+  .fnback{margin-left:.4em;font-weight:700;text-decoration:none;}
+
+  /* music */
+  .track{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-left:3px solid var(--accent2);
+    margin:.4em 0;
+  }
+  .track summary{
+    cursor:pointer;
+    list-style:none;
+    display:flex;
+    align-items:center;
+    gap:.6em;
+    padding:13px 16px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .tr-arrow{color:var(--accent2);transition:transform .2s;font-size:.9em;}
+  .track[open] .tr-arrow{transform:rotate(180deg);}
+  .tr-name{flex:1;}
+  .tr-artist{font-weight:700;}
+  .tr-ext{
+    font-weight:700;color:var(--accent2);
+    padding:0 .3em;
+  }
+  .tr-embed{padding:0 16px 16px;}
+  .tr-embed iframe{width:100%;aspect-ratio:16/9;border:0;display:block;}
+
+  /* footer nav */
+  .seriesnav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin:54px 0 30px;
+    padding-top:22px;
+    border-top:2px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .seriesnav a{
+    display:block;
+    max-width:46%;
+    font-size:.95rem;
+  }
+  .seriesnav .lbl{
+    display:block;
+    font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:.25em;
+  }
+  .seriesnav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:30px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:.82rem;
+    color:var(--soft);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent2);}
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap" id="top">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/18MA.jpg" alt="Иллюстрация к статье">
+  </div>
+
+  <div class="kicker">Конфронтология Духа</div>
+  <h1>Сделаем и услышим!</h1>
+  <hr class="titlerule">
+
+  <details class="toc" open>
+    <summary>Содержание</summary>
+    <ol>
+      <li><a href="#sec-title">Сделаем и услышим</a></li>
+      <li><a href="#sec-epigraph">Эпиграф</a></li>
+      <li><a href="#sec-music">Музыка под настроение</a></li>
+      <li><a href="#sec-notes">Ор пашут (пояснения)</a></li>
+    </ol>
+  </details>
+
+  <p class="dateline">22 августа 2021 г.<a class="fnref" id="ref-star" href="#fn-star"><sup>*</sup></a></p>
+
+  <div class="dialogue">
+    <p><span class="role">Ответ</span><a class="fnref" id="ref-6" href="#fn-6"><sup>6</sup></a>: А функцией КК в масштабах человечества было, по всей видимости (кроме нас с вами конечно) — «подготовить почву» к адекватному принятию идеи неизбежности собственной смерти. Без этого принятия и осознания по-жизни человек не сможет преодолеть стоящий перед ним рубеж масштабной трансформации всего мира людей...</p>
+    <p><span class="role">Реплика</span>: ты прав бесконечно, но социализация людей в любой форме требует прав на незнание истин. И это дает тебе иллюзорную силу и власть, просто пользуйся этим премиум имуществом желательно в мирных целях :)</p>
+    <p><span class="role">Ответ</span>: Воинам еще предстоит собственная масштабная трансформация в рамках вышеуказанного процесса :)<br>
+    В итоге которой они поймут, что «право на незнание истин» у человека требуется для того, чтобы быть живым в принципе. Именно этот факт «оставил за скобками» ДХ, рассказывая КК про то, что «воин должен верить», чтобы сохранить жизнь и рассудок в тот момент, когда выяснится, что Мир не является ни миром Разума, ни миром Воли<a class="fnref" id="ref-7" href="#fn-7"><sup>7</sup></a>...</p>
+  </div>
+
+  <h2 id="sec-title" class="center-title"><a href="#top">СДЕЛАЕМ И УСЛЫШИМ</a></h2>
+
+  <h2 id="sec-epigraph"><a href="#top">Эпиграф</a></h2>
+  <blockquote class="epigraph">
+    <p>Ибо в каждом противоречии заложена удивительная возможность раскрыть особую ступень постижения Его. И те, кто заслужил удостоиться этого, обращают тьму в свет, а горькое в сладкое, так как все силы разделения, вызывавшие затмение разума и горечь тела, стали для них вратами постижения возвышенных ступеней, и преобразилась тогда тьма в огромный свет, а горечь стала сладостью.</p>
+    <cite>Книга Зоар, РАШБИ-Бааль Сулам, том 1, Две Точки, п. 121, перевод с иврита Каббала ла Ам</cite>
+  </blockquote>
+
+  <p class="lead">Согласно К.Кастанеде (КК), у Человека Знания имеется 4 главных врага на Пути. Он назвал их страх<a class="fnref" id="ref-2" href="#fn-2"><sup>2</sup></a>, ясность<a class="fnref" id="ref-3" href="#fn-3"><sup>3</sup></a>, сила<a class="fnref" id="ref-4" href="#fn-4"><sup>4</sup></a> и старость<a class="fnref" id="ref-5" href="#fn-5"><sup>5</sup></a>. И добавил, что первых трех победить можно, а в случае последнего, можно только оттянуть собственное поражение. Я не согласен с такой формулировкой, поскольку, в этом случае, весь Путь для человека оказался бы лишенным смысла и Цели. Ведь пройдя какой-либо Путь, человек его видит таким, какой он есть на самом деле, без иллюзии времени его прохождения, сразу «здесь и сейчас». А человек, который прошел Путь в сражениях с могущественными врагами и победил, только для того, чтобы подняв лапки вверх, сдаться последнему, даже не начиная битву, видит свой Путь лишенным какого-либо смысла. Ведь можно было сдаться первому же врагу, или вообще не вступать в с ними битву, с тем же самым результатом...</p>
+
+  <p>Тем не менее, вольно или невольно, этим «парадоксом», КК (точнее, его Учитель — Нагваль дон Хуан Матус — ДХ) указал своим будущим последователям на немаловажную, хоть и нелицеприятную, деталь их истинного Пути. Точнее, поставил перед фактом, «предложив» сделать выводы из него самостоятельно. В моем опыте Пути сошлись две далекие друг от друга, что называется, «как запад от востока», системы Знания и опыта — кроме «магического» Учения Дона Хуана, я серьезно работал с «духовной» Наукой Каббала (НК). Они смотрят на Путь Человека с диаметрально противоположных сторон (хватит для примера того, что сам этот Путь одни называют Путем Человека Знания «сила зависит от того, какого рода знанием владеет человек», а другие — Путем (слепой) Веры: «праведник верой своей жить будет», и так, что называется, «далее везде»), при этом говорят удивительно об одном и том же, но насколько разными словами и формулировками, что, оставаясь внешним наблюдателем, понять их тождественность невозможно. Зато, имея их обе в своем арсенале успешного «опыта самореализации», можно увидеть пути объяснения «универсального» Пути, проходимого единообразно любым человеком, независимо от названия развивающей его конкретной Школы, поскольку они, как, например, Физика и Химия этого мира, хоть и не похожи совершенно друг на друга, но в действительности не противоречат, а взаимодополняют друг друга до гораздо более целостной «научной» парадигмы и «магической» Картины Мира.</p>
+
+  <p>Свой Путь, контуры которого стали постепенно вырисовываться через некоторое время после того, как пришло понимание возможности (и неизбежности) их совмещения (на этапе практического освоения каждого из них по-отдельности, разумеется, не могло быть никакой речи о том, чтобы продолжать всерьез смотреть на другие «ценностные системы»), я назвал Путем Воина^Исраэль, то есть Путем Воина (КК), идущего по пути Исраэль (восходящий, Яшар — прямо, Эль — ввысь), или Путем<a class="fnref" id="ref-8" href="#fn-8"><sup>8</sup></a> «Знания вопреки» — веры выше знания (еще одно удачное название «Путь (достижения) Свободы от Ангела Смерти»). Поскольку, при том, что Каббала в традиционной интерпретации направлена строго против того, чтобы человек стремился к «духовным знаниям» напрямую, она же утверждает, что для выполнения маневра духовной веры, человек должен понимать, что он поступает «вопреки» неоспоримым точным знаниям, которые у него в этот момент есть («глаза их не увидят, уши их не услышат»), а не «закрывать глаза», отказываясь видеть и признавать правду. Это представление удивительно точно согласуется с представлением Кастанеды о том, что «воин должен верить», если он хочет сохранить на месте свои «шарики» в тот непростой, но неизбежный час, когда «вдруг» окажется, что реальный мир не является ни миром разума, ни миром воли, а то, чем он является «на самом деле» воин никогда понять не сможет, хотя и будет всю жизнь к этому стремиться. Но, при этом, «каждый раз, связывая себя с верой, воин делает это по собственному выбору», и, поскольку «простая вера устранила бы его от всестороннего анализа», «воину недостаточно сказать, что он верит, и на этом успокоиться». И так далее везде оказывается, при серьезном рассмотрении («только великая трезвость соединяет противоречия» — КК, «нет мудрости, более той, которая приходит с /личным духовным/ опытом» — НК), что они находятся не на одной «координатной прямой» против друг друга сущностно, а на двух различных, очень близких, но в то же время бесконечно далеких, прямых, информированное и объективное совмещение которых в любой отдельно взятой точке приведет к нетривиальным, и глубоким по сути своей, относительно любого отдельно взятого ракурса, практическим выводам.</p>
+
+  <p>Главное же, что их, на мой личный взгляд, объединяет, и что, одновременно, лежит в фундаменте всего дальнейшего Пути, это формула «Сделаем и услышим!», которую я «открыл» для себя во время освоения Каббалистической методики, чтобы потом, когда пришло время объединения опыта, «внезапно обнаружить», что этот же самый «позывной» имеет вполне четкий и определенный смысл у КК в не меньшей степени<a class="fnref" id="ref-1" href="#fn-1"><sup>1</sup></a>, чем в первоисточнике, где он является кульминационным высказываемым Исраэль (т.е. группой практикующих методику НК) «и собрались тогда Исраэль вокруг горы как один Человек с одним Сердцем, и все сказали: СДЕЛАЕМ и УСЛЫШИМ!». Смысл в том, что Исраэль не потребовалось сначала услышать (от Творца), что им нужно делать, но они согласились сделать то, что нужно, чтобы лишь затем услышать (подтверждение того, что выполняли именно Его Волю). В том же Источнике, но в совершенно другой книге и главе, эту тему сказано: «В мире Асия невозможно отличить между служащим Творцу, и не служащим Ему, кроме как посредством благословения», то есть пост-фактум, а не до совершения практической «духовной работы», которая «благословляется» Творцом, Свят Благословен Он. Сделаем и услышим!</p>
+
+  <h2 id="sec-music"><a href="#top">Музыка под настроение</a></h2>
+  <details class="track" data-yt="C3lWwBslWqg">
+    <summary>
+      <span class="tr-arrow">▾</span>
+      <span class="tr-name"><span class="tr-artist">Sting</span> — Desert Rose</span>
+      <a class="tr-ext" href="https://youtu.be/C3lWwBslWqg" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </summary>
+    <div class="tr-embed"></div>
+  </details>
+
+  <h2 id="sec-notes"><a href="#top">Ор пашут (пояснения)</a></h2>
+  <div class="footnotes">
+
+    <div class="fn" id="fn-star">
+      <span class="fnnum">*</span> Статья #AA18M Школы Ацилут по нумерации <a href="https://bneiadam.com" target="_blank" rel="noopener">bneiadam.com</a>.
+      <a class="fnback" href="#ref-star" title="Вернуться к тексту">↩</a>
+    </div>
+
+    <div class="fn" id="fn-1">
+      <span class="fnnum">1.</span> «Безупречность начинается с какого-нибудь простого действия, которое должно быть целенаправленным, точным и осуществляемым с непреклонностью. Повторяя такое действие достаточно долго, человек обретает несгибаемое намерение. А несгибаемое намерение может быть приложено к чему угодно. И как только оно достигнуто — путь свободен. Каждый шаг повлечет за собой следующий, и так будет до тех пор, пока весь потенциал воина не будет полностью реализован» СДЕЛАЕМ и УСЛЫШИМ «Когда видящие видят, что-то объясняет по мере того, как возникает новая настройка... голос говорит им в их уши, что есть что... было бы безумием говорить, что видение — это слышание, поскольку это бесконечно больше, однако видящие вынуждены избрать звук в качестве знака новой настройки... голос видения присущ только человеку... это может быть так, потому что речь — это нечто такое, чего не имеет никто другой, кроме человека... для новых видящих голос видения — это что-то совершенно непостижимое. Они говорят, что свет сознания играет на эманациях Орла, как арфист играет на струнах.» — КК, Книги 7 и 10
+      <a class="fnback" href="#ref-1" title="Вернуться к тексту">↩</a>
+    </div>
+
+    <div class="fn" id="fn-2">
+      <span class="fnnum">2.</span> Барьер страха является барьером социализации, когда человек не может заставить себя думать или делать то, за что полагается немедленная Божья кара, не дают родственные узы, или самосуд угрызений совести.<br>
+      Преодолевая первые Врата, человек оказывается способным «не мешать» точке сборки сдвигаться дальше после минимального сдвига из ТС повседневности
+      <a class="fnback" href="#ref-2" title="Вернуться к тексту">↩</a>
+    </div>
+
+    <div class="fn" id="fn-3">
+      <span class="fnnum">3.</span> Барьер ясности является барьером человеческой формы. Человек должен перестать думать как все люди, со всем комплексом шор и стереотипов<br>
+      Преодолевая вторые Врата, человек начинает думать как маг, вследствие чего звено связи Духа с ним начинает очищаться на порядок быстрее (ПЧФ это спираль, а не какое-то одно событие, по КК)
+      <a class="fnback" href="#ref-3" title="Вернуться к тексту">↩</a>
+    </div>
+
+    <div class="fn" id="fn-4">
+      <span class="fnnum">4.</span> Барьер Силы является барьером индивидуального (высшего) эго. Человек должен перестать всерьез быть озабоченным собственной судьбой, состоянием сознания, формой Пути, и т.п.<br>
+      Преодолевая третьи Врата, человек окончательно отдает себя во власть Силы, Которая правит его судьбой и становится Человеком знания. И готовится под Ее же монопольным руководством принимать все, что его Путь предложит ему в будущем. Или он этого не делает, и тогда он заканчивает ступенью мага, связанного частично с этим миром и имеющим конкретный потолок способностей и опыта.
+      <a class="fnback" href="#ref-4" title="Вернуться к тексту">↩</a>
+    </div>
+
+    <div class="fn" id="fn-5">
+      <span class="fnnum">5.</span> Барьер Смерти является барьером физического тела. Человек знания должен вместе с единомышленниками детально проработать свою стратегию неизбежной скорой встречи с Непостижимым, которая не закончится возвратом души в то же тело этого мира.<br>
+      Преодолевая четвертые Врата, человек знания сливается с Духом и начинает рассматривать два первых типа внимания как небольшой этап гораздо более масштабного проекта Пути, «вспоминает» обстоятельства своих кругооборотов, и реализует основной объем имеющихся у него в этой жизни практических задач вместе с другими воинами своей магической группы.
+      <a class="fnback" href="#ref-5" title="Вернуться к тексту">↩</a>
+    </div>
+
+    <div class="fn" id="fn-6">
+      <span class="fnnum">6.</span> См. также: Орлята учатся летать <a href="http://proza.ru/2021/08/22/301" target="_blank" rel="noopener">http://proza.ru/2021/08/22/301</a>
+      <a class="fnback" href="#ref-6" title="Вернуться к тексту">↩</a>
+    </div>
+
+    <div class="fn" id="fn-7">
+      <span class="fnnum">7.</span> «Воин должен быть текучим и изменяться в гармонии с окружающим миром, будь это мир разума или мир воли. Реальная опасность для воина возникает тогда, когда выясняется, что мир — это ни то и ни другое. Считается, что единственный выход из этой критической ситуации — продолжать действовать так, как если бы ты верил. Секрет воина в том, что он верит, не веря. Разумеется, воин не может просто сказать, что он верит, и на этом успокоиться. Это было бы слишком легко. Простая вера устранила бы его от анализа ситуации. Во всех случаях, когда воин должен связать себя с верой, он делает это по собственному выбору. Воин не верит, воин должен верить» КК, Колесо Времени
+      <a class="fnback" href="#ref-7" title="Вернуться к тексту">↩</a>
+    </div>
+
+    <div class="fn" id="fn-8">
+      <span class="fnnum">8.</span> См. также: 22 буквы Кли Средней линии <a href="http://proza.ru/2021/08/05/77" target="_blank" rel="noopener">http://proza.ru/2021/08/05/77</a><br>
+      См. также: <a href="https://www.facebook.com/arykhanpin/posts/558744755279625" target="_blank" rel="noopener">https://www.facebook.com/arykhanpin/posts/558744755279625</a>
+      <a class="fnback" href="#ref-8" title="Вернуться к тексту">↩</a>
+    </div>
+
+  </div>
+
+  <nav class="seriesnav">
+    <a class="prev" href="1BP.html">
+      <span class="lbl">← Предыдущая</span>
+      Ни там, ни тут
+    </a>
+    <a class="next" href="16C.html">
+      <span class="lbl">Следующая →</span>
+      Вечное сияние чистого разума
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // Lazy YouTube players
+  document.querySelectorAll('details.track').forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if(d.open){
+        var box = d.querySelector('.tr-embed');
+        if(box && !box.querySelector('iframe')){
+          var id = d.getAttribute('data-yt');
+          var f = document.createElement('iframe');
+          f.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+          f.setAttribute('allowfullscreen','');
+          f.src = 'https://www.youtube-nocookie.com/embed/'+id+'?rel=0';
+          box.appendChild(f);
+        }
+      }
+    });
+  });
+
+  // Footnote popups generated from notes
+  document.querySelectorAll('a.fnref').forEach(function(ref){
+    var id = ref.getAttribute('href').slice(1);
+    var fn = document.getElementById(id);
+    if(!fn) return;
+    var clone = fn.cloneNode(true);
+    var b = clone.querySelector('.fnback'); if(b) b.remove();
+    var n = clone.querySelector('.fnnum'); if(n) n.remove();
+    var pop = document.createElement('span');
+    pop.className = 'fnpop';
+    pop.innerHTML = clone.innerHTML.trim();
+    ref.appendChild(pop);
+    ref.addEventListener('mouseenter', function(){
+      pop.classList.remove('below');
+      var r = ref.getBoundingClientRect();
+      if(r.top - pop.offsetHeight - 18 < 0){ pop.classList.add('below'); }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — философско-эссеистическая проза: разбор тезисов Кастанеды и каббалистической методики, с диалоговой преамбулой, эпиграфом, развёрнутыми абзацами-рассуждениями и обширным аппаратом сносок. Стихотворных форм нет, поэтому однозначно выбрана редакторская (широкая) схема журнального лонгрида: контейнер ~66% ширины окна с потолком 1120px, крупный читаемый засечный шрифт и сдержанная палитра кремового фона с бордовым и тёмно-бирюзовым акцентами. Развилки: заголовок 'СДЕЛАЕМ И УСЛЫШИМ' дублирует имя статьи — я оставил H1 из метаданных вверху, а внутритекстовый вариант сохранил как центрированный заголовок-секцию (контент не выброшен), он же служит первым пунктом оглавления. Диалог 'Ответ/Реплика/Ответ' идёт до названия, поэтому подан как преамбула во врезке, а не в TOC отдельным своим заголовком, чтобы не выдумывать чужих названий.",
+  "rationale_extra": "Сносок девять (звёздочка-датировка плюс 1–8), все имеют и маркер, и тело, анонимных/висячих нет; реализованы переходы вниз/вверх, подсветка :target и hover-popup с авто-флипом над/под маркером. Музыкальный трек один (Desert Rose, Sting, YouTube) — сделан ленивым раскрывающимся плеером без сводного раздела, так как порог >2 трека не достигнут.",
+  "features": ["music", "footnotes", "toc"]
+}
+</script>
+</body>
+</html>

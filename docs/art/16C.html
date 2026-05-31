@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Вечное сияние чистого разума</title>
+<style>
+  :root{
+    --bg:#f6f4ef;
+    --paper:#fffdf9;
+    --ink:#1d1c1a;
+    --muted:#6c655b;
+    --rule:#ddd6c8;
+    --accent:#7a2230;
+    --accent-soft:#b9495a;
+    --link:#7a2230;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.72;
+  }
+  a{color:var(--link);text-decoration:underline;text-underline-offset:2px;}
+  a:hover{color:var(--accent-soft);}
+
+  /* WIDE editorial frame: content column ~2/3 of viewport */
+  .frame{
+    width:100%;
+    max-width:1500px;
+    margin:0 auto;
+    padding:0 4vw;
+  }
+  .wrap{
+    width:66%;
+    max-width:880px;
+    margin:0 auto;
+  }
+  @media(max-width:1100px){
+    .wrap{width:82%;}
+  }
+  @media(max-width:760px){
+    body{font-size:18px;}
+    .wrap{width:100%;}
+    .frame{padding:0 18px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.78rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:26px 0 0;
+  }
+  .crumbs a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule);}
+  .crumbs a:hover{color:var(--accent);border-color:var(--accent);}
+  .crumbs span{margin:0 .5em;color:var(--accent-soft);}
+
+  figure.lead{margin:30px 0 10px;}
+  figure.lead img{display:block;max-width:100%;width:auto;height:auto;margin:0 auto;}
+
+  header.masthead{
+    padding:18px 0 34px;
+    border-bottom:3px double var(--rule);
+    margin-bottom:40px;
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.72rem;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:18px 0 14px;
+  }
+  h1{
+    font-size:2.55rem;
+    line-height:1.12;
+    font-weight:600;
+    margin:.1em 0 .35em;
+    letter-spacing:-.01em;
+  }
+  .alt-title{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:600;
+    font-size:1.0rem;
+    letter-spacing:.14em;
+    color:var(--accent);
+    margin:.4em 0 .2em;
+  }
+  .dateline{
+    color:var(--muted);
+    font-style:italic;
+    font-size:.95rem;
+    margin:.2em 0 0;
+  }
+
+  article p{margin:0 0 1.4em;}
+  article .num{
+    color:var(--accent);
+    font-weight:600;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    margin-right:.15em;
+  }
+  /* drop-flow first paragraph subtle */
+  article p:first-of-type::first-letter{}
+
+  /* music */
+  .music{
+    margin:46px 0;
+    padding:22px 26px 26px;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-left:4px solid var(--accent);
+    border-radius:4px;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.72rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:14px;
+  }
+  details.player{border-top:1px solid var(--rule);}
+  details.player:first-of-type{border-top:none;}
+  details.player>summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:.6em;
+    padding:12px 2px;
+    font-size:1.05rem;
+  }
+  details.player>summary::-webkit-details-marker{display:none;}
+  .disc{
+    flex:0 0 auto;
+    transition:transform .25s ease;
+    color:var(--accent);
+    font-size:.85em;
+  }
+  details.player[open] .disc{transform:rotate(90deg);}
+  .track-name{font-weight:600;}
+  .track-by{color:var(--muted);}
+  .ext{
+    margin-left:auto;
+    text-decoration:none;
+    color:var(--muted);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    border:1px solid var(--rule);
+    border-radius:50%;
+    width:1.9em;height:1.9em;
+    display:inline-flex;align-items:center;justify-content:center;
+    font-size:.8rem;
+  }
+  .ext:hover{color:var(--accent);border-color:var(--accent);}
+  .embed{position:relative;width:100%;padding-top:56.25%;margin:6px 0 16px;background:#000;border-radius:4px;overflow:hidden;}
+  .embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+  /* notes */
+  .notes{
+    margin:54px 0 10px;
+    padding-top:26px;
+    border-top:3px double var(--rule);
+  }
+  .notes h2{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.8rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 18px;
+  }
+  .notes ol,.notes ul{margin:0;padding-left:1.4em;}
+  .notes li{font-size:.96rem;line-height:1.6;color:#2a2825;margin-bottom:.8em;}
+  .notes .anon{list-style:none;margin-left:-1.4em;}
+
+  /* corpus nav */
+  nav.pager{
+    margin-top:60px;
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    border-top:1px solid var(--rule);
+    padding-top:26px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  nav.pager a{
+    text-decoration:none;
+    max-width:48%;
+    display:block;
+  }
+  nav.pager .dir{
+    display:block;
+    font-size:.68rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:5px;
+  }
+  nav.pager .ttl{font-size:1rem;color:var(--accent);font-weight:600;}
+  nav.pager .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin:48px 0 70px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    color:var(--muted);
+    font-size:.85rem;
+    line-height:1.6;
+  }
+  footer.colophon a{color:var(--muted);}
+  footer.colophon .attrib{margin:0 0 .5em;}
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="frame">
+<div class="wrap">
+
+  <nav class="crumbs" aria-label="Хлебные крошки">
+    <a href="../index.html">Главная</a><span>/</span><a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <figure class="lead">
+    <img src="../img/16C.jpg" alt="">
+  </figure>
+
+  <header class="masthead">
+    <div class="kicker">Конфронтология Духа</div>
+    <h1>Вечное сияние чистого разума</h1>
+    <div class="alt-title">ТОЛЬКО ТЫ БУДЕШЬ ЖИТЬ ВЕЧНО</div>
+    <p class="dateline">Написано: 12 июня 2021 г. в личном Фейсбуке</p>
+  </header>
+
+  <article>
+    <p><span class="num">1.</span>Каждому разумному человеческому существу, сумевшему в малейшей степени трезво оценить собственную способность мыслить разумно, должно быть понятно, что в своей сути эта способность – разумно мыслить – наделена гораздо более совершенной, вечной, бесконечной, природой, нежели природа бренного чередования свойств, неизбежно включающих в себя упадок и смерть, которым предано на заклание от рождения и до смерти человека его физическое тело. Следующий ход мысли этого человека, по всей видимости, будет направлен на поиск способа восстановить главенство “истинной” природы собственного разума, над “бренной” природой этого мира. Все, что на этом этапе может придти человеку в голову, хорошо описывается одним определением: “богатая игра воображения, не имеющая ничего общего с реальностью”. Следующий за этим ход мысли к человеку приходит уже через много и много лет, фактически, в другой жизни, в которой от нынешней остается очень мало – практически ничего, кроме привычки называть словом “я” все, что ассоциируется с образами прошлых событий, сохранившихся в памяти (даже если эта память – простой каталог снимков сомнительной достоверности, значимости и качества, с общесетевым произвольным доступом). Этот ход мысли приходит к человеку уже тогда, когда он находится совсем близко к непосредственному достижению поставленной цели – “помнить себя и жить вечно” (если оставить в стороне дискуссионный вопрос о том, можно ли считать вечной жизнью состояние сознания, в котором отсутствует категория времени и пространства как таковая). И он, как подло и предательски это ни выглядит, не имеет даже отдаленного отношения к разуму и его “настоящей природе”.</p>
+
+    <p><span class="num">2.</span>Природа разума – подобна природе цветного попугая, с торчащими во все стороны перьями, непойми откуда и зачем растущими, в общем создающими впечатление чего-то нафуфыренного и напыщенного от осознания собственного особого места и “особенной природы”, предполагающей происхождение из мест отдаленных от окружающих его реалий унылого и грязного осеннего подмосковья настолько, насколько в этой Вселенной только возможно. Чтобы подтвердить впечатление, он начинает тебе говорить “совсем по человечьи” какую-нибудь чушь, как только ты на него уставишься, создавая впечатление осведомленности обо всем, о чем ты только мог подумать, но постеснялся сказать вслух в присутствии столь благородной и умной птицы. В действительности его природа – это скорый на выдумки, когда в этом чувствуется потенциал быстрой наживы на доверчивых наивных туристах, охотно верящих во что угодно, в силу изнеженности и пресыщенности благами западной цивилизации, неведомо каким ветром занесенных в здешний центральный магистральный суппозиторий самой пятой точки пятого мира, местной, не просыхающей и не выглядывающей из-под завесов своих лотков, чтобы не распугать туристов, “маститой бизнес-элиты” – наследников, преемников и продолжателей древнего как тысячелетний высохший дуб, дела Остапа Ибрагимовича Бендера, и его ближайших соратников из широко известной в исчезающе узких кругах чистокровной российской интеллигенции, самообличительной, во всех смыслах, дилогии Ильфа и Петрова, посредством которой эта самая интеллигенция, стыдливо пряча бегающие глаза под обложкой книги, с упоением теряет позднюю девственность неомраченного прямолинейной природой сермяжной действительности, чистого, как слеза младенца, которому давно “за”, вгрызающегося в мозг собеседника посредством совести, за неимением зубов, социально ответственного, уточненного аристократического ума.</p>
+
+    <p><span class="num">3.</span>Как это ни печально, особенное место, или “свойство” “чистого разума”, представляющееся человеком не менее, чем “святым граалем”, обладателю которого бессмертие вечности гарантировано просто по праву рождения, является подлым и нехитрым, рассчитанным на отсутствие привычки подвергать приходящие в голову “собственные мысли и идеи” критическому разбору на подлинность происхождения из собственной головы, напыщенным и пустым самообманом, от которого человеку в последствии придется избавляться долго и болезненно, методически наступая на все заботливо разложенные на его пути провидением, дарующие мудрость и бесценный, неопосредованный неусыпным ревизорским надзором “смотрящего” от мира “чистых идей” бдительного цензора “универсальных истин и высших принципов”, житейский опыт “прямого действия”, безошибочно указывающий “ревизору от ума” направление его немедленной и безусловной передислокации раньше, чем тот успевает открыть рот. А после этого к человеку постепенно приходит понимание того, что в действительности в окружающей его “объективной реальности” достойно занимать место, подобное тому, на которое, громко и шумно махая разноцветными перьями и разбрасываясь во все стороны интеллигентскими дезодорированными (и от этого еще более мерзкими) какашками, претендовал “поддельный” поверенный “высшей человеческой природы” всего разумного, доброго и вечного. И тогда человек обнаруживает, как это ни странно, свою полную сущностную противоположность (если не антагонистичность) этой “высшей природе”, ведь сам человек этой природой ни в малейшей степени не обладает по определению, являясь порождением мира, являющегося одним большим скоплением отбросов и нечистот, эдакой “вселенской помойкой” (на которой в действительности и был “рожден” наш пестрый говорливый приятель – мыслящий разум, и выше которой ему никогда не подняться – во-первых, потому что нечем, а во-вторых, потому, что незачем). А “выше” этой помойки – существует Высший Разум, если можно так выразиться, но, что более важно для человека – не просто “существует”, а никого, кроме Него, выше хорошо знакомой нам по опыту, “помойки ума эго-личности”, которую мы гордо называем “объективной реальностью, данной нам в ощущениях”, не понимая, что это лишь зеркало нашего ложного ума, за пределами порождений которого нет ничего “настоящего” вообще, включая нас самих, поскольку все, что мы называем “реальным” – есть лишь идея внутри чуждого нам в действительности ума, причем, за которую он сам не даст и ломаного гроша, когда запахнет “жареным”, и наступит время спасать собственную шкуру, оставив человека “у разбитого корыта”, один на один с такой “конкретной” и “объективно-независимой” от мыслей, когда-то находившихся в его голове, и хозяйничавших в ней под видом абсолютной, легитимной,  единственной и естественной власти над человеком, “реальностью”, что посыпать голову пеплом будет непоправимо поздно (а самого “виновника” – попугая, к этому моменту уже след надежно простынет, как будто его никогда здесь и не было – а был только сам человек, несущий откровенный бред истерическим тоном и с напыщенным выражением глупого пустого лица). В происходящем на этой “остановке” есть одна безусловно положительная черта: обратно наш “цветной попугай” уже не вернется ни за какие коврижки. Сделаем и услышим!</p>
+
+    <section class="music" aria-label="Рекомендуемая музыка">
+      <div class="music-label">Рекомендуемая музыка</div>
+      <details class="player" data-yt="B7UmUX68KtE">
+        <summary>
+          <span class="disc">▶</span>
+          <span><span class="track-name">Popcorn</span> <span class="track-by">— The Muppets</span></span>
+          <a class="ext" href="https://youtu.be/B7UmUX68KtE" target="_blank" rel="noopener" title="Открыть на YouTube" aria-label="Открыть на YouTube">↗</a>
+        </summary>
+      </details>
+    </section>
+
+    <section class="notes" aria-label="Пояснения">
+      <h2>Пояснения</h2>
+      <ul>
+        <li class="anon">*1&nbsp;&nbsp;См. также: Только Ты будешь жить вечно <a href="http://proza.ru/2021/08/28/1406" target="_blank" rel="noopener">http://proza.ru/2021/08/28/1406</a></li>
+      </ul>
+    </section>
+
+  </article>
+
+  <nav class="pager" aria-label="Навигация по разделу">
+    <a class="prev" href="18MA.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="ttl">Сделаем и услышим!</span>
+    </a>
+    <a class="next" href="186.html">
+      <span class="dir">Следующая →</span>
+      <span class="ttl">Правило духовной работы в левой линии</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+</div>
+
+<script>
+  document.querySelectorAll('details.player').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open && !d.querySelector('.embed')){
+        var id=d.getAttribute('data-yt');
+        var box=document.createElement('div');
+        box.className='embed';
+        var f=document.createElement('iframe');
+        f.src='https://www.youtube.com/embed/'+id+'?autoplay=1';
+        f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        f.allowFullscreen=true;
+        box.appendChild(f);
+        d.appendChild(box);
+      }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — цельное прозаическое эссе из трёх длинных пронумерованных абзацев, без стихотворных строк, поэтому выбрана редакторская широкая схема: основная колонка занимает примерно 2/3 ширины окна (66% с потолком 880px для комфортной меры строки), на мобильных — полная ширина. Развилка с заголовком: метаданные дают название 'Вечное сияние чистого разума', а в самом тексте стоит другой заголовок 'ТОЛЬКО ТЫ БУДЕШЬ ЖИТЬ ВЕЧНО' — это не дубль, поэтому метаданное название я вынес в H1 и <title>, а авторский внутритекстовый заголовок сохранил дословно как подзаголовок-альт под H1 (капс не занижал). Оглавление не делал: в тексте нет озаглавленных подразделов — только нумерованные абзацы единого потока, а TOC из двух пунктов (музыка/пояснения) без основных секций смысла не имеет.",
+  "rationale2": "",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>
