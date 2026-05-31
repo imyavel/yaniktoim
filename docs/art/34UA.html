@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Джва штопанных баяна</title>
+<style>
+  :root{
+    --bg:#f4f1ea;
+    --paper:#fbfaf6;
+    --ink:#1f1c17;
+    --muted:#6a6256;
+    --accent:#9c3b2e;
+    --accent2:#2f5d63;
+    --line:#d8d1c2;
+    --maxw:1180px;
+    --colw:66%;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 32px;
+  }
+  .col{
+    width:var(--colw);
+    max-width:760px;
+  }
+
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:28px 0 18px;
+    border-bottom:1px solid var(--line);
+  }
+  .breadcrumbs a{color:var(--accent2);}
+  .breadcrumbs .sep{color:var(--line);margin:0 .5em;}
+
+  header.article{
+    padding:42px 0 10px;
+  }
+  .lead-image{
+    margin:0 0 34px;
+  }
+  .lead-image img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border:1px solid var(--line);
+    box-shadow:0 14px 40px rgba(31,28,23,.16);
+  }
+  h1{
+    font-size:clamp(34px,4.4vw,52px);
+    line-height:1.1;
+    font-weight:700;
+    margin:0 0 14px;
+    letter-spacing:-.01em;
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:18px;
+  }
+
+  main{
+    padding:18px 0 10px;
+  }
+  .article-body p{
+    margin:0 0 1.5em;
+    text-align:justify;
+    hyphens:auto;
+  }
+  .article-body p.intro{
+    font-size:1.06em;
+    color:#3a352c;
+    border-left:3px solid var(--accent);
+    padding-left:22px;
+    font-style:italic;
+    text-align:left;
+  }
+  .article-body p.cue{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.8em;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    text-align:left;
+  }
+
+  /* music */
+  .music{
+    margin:40px 0 10px;
+    border-top:1px solid var(--line);
+    padding-top:26px;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:14px;
+  }
+  .track{
+    border:1px solid var(--line);
+    background:var(--paper);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:14px 18px;
+    cursor:pointer;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .track-head:hover{background:#f0ece2;}
+  .track-arrow{
+    flex:0 0 auto;
+    transition:transform .25s ease;
+    color:var(--accent2);
+    font-size:14px;
+  }
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-text{flex:1 1 auto;line-height:1.35;}
+  .track-title{font-weight:700;font-size:16px;}
+  .track-artist{font-size:14px;color:var(--muted);}
+  .track-ext{
+    flex:0 0 auto;
+    color:var(--accent);
+    font-size:18px;
+    text-decoration:none;
+  }
+  .player{
+    display:none;
+    border-top:1px solid var(--line);
+    background:#000;
+  }
+  .track.open .player{display:block;}
+  .player .frame{
+    position:relative;
+    width:100%;
+    padding-bottom:56.25%;
+    height:0;
+  }
+  .player iframe{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    border:0;
+  }
+
+  /* bottom nav */
+  .corpus-nav{
+    margin-top:54px;
+    border-top:1px solid var(--line);
+    padding:26px 0;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    display:block;
+    max-width:48%;
+  }
+  .corpus-nav .dir{
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .corpus-nav .ttl{font-size:17px;color:var(--accent2);}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    border-top:1px solid var(--line);
+    padding:26px 0 60px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer.colophon a{color:var(--accent2);}
+  footer.colophon .attrib{margin:0 0 8px;}
+
+  @media(max-width:900px){
+    body{font-size:18px;}
+    .wrap{padding:0 18px;}
+    .col{width:100%;max-width:100%;}
+    .breadcrumbs{font-size:12px;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="breadcrumbs col">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <header class="article col">
+    <div class="lead-image">
+      <img src="../img/34UA.jpg" alt="Иллюстрация к статье «Джва штопанных баяна»">
+    </div>
+    <h1>Джва штопанных баяна</h1>
+  </header>
+
+  <main class="col">
+    <div class="article-body">
+      <p class="intro">О "прерванном путешествии" во Вселенной хищников, объективно существующей в пространственно-временном континнуме "реального мира", в котором происходит трагические мытарства человеческой расы, порабощенной кем-то, у которого больше, глубже и с витой резьбой по периметру горизонта событий.</p>
+
+      <p>Картина Мира реальности наблюдателя формируется посредством задания точки (координат пространства-времени) происхождения целевого искомого состояния по прямой линии между наблюдаемым отсутствием в этой точке того, кто производит нахождение наикратчайшего маршрута из будущего через удар и отражение подъемом в будущее точки "здесь и сейчас", и жесткой фиксации ее там, с последующей отправкой наблюдателя назад во времени из Реального Мира, где все уже произошло во всем совершенстве, в созданную из ничего зияющую пустоту, в которой все только начинается, но уже все закончилось и ничего нет, кроме чувства потери чего-то очень важного и настоящего, будто исчезнувшего вместе с пробуждением из волшебного сна, который неожиданно был прерван пробуждением первыми петухами в реальность этого мира. Ролик пошел!</p>
+
+      <p class="cue">Ролик пошел!</p>
+    </div>
+
+    <section class="music">
+      <div class="music-label">Музыка под настроение</div>
+      <div class="track" data-embed="https://www.youtube-nocookie.com/embed/xat1GVnl8-k?autoplay=1">
+        <div class="track-head" onclick="toggleTrack(this)">
+          <span class="track-arrow">▶</span>
+          <span class="track-text">
+            <span class="track-title">The Bad Touch</span><br>
+            <span class="track-artist">The Bloodhound Gang</span>
+          </span>
+          <a class="track-ext" href="https://www.youtube.com/watch?v=xat1GVnl8-k" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+        </div>
+        <div class="player"></div>
+      </div>
+    </section>
+
+    <nav class="corpus-nav">
+      <a class="prev" href="34U.html">
+        <span class="dir">← Предыдущая</span>
+        <span class="ttl">Крылья Шхины ч. 1</span>
+      </a>
+      <a class="next" href="3A7.html">
+        <span class="dir">Следующая →</span>
+        <span class="ttl">В духовном все наоборот</span>
+      </a>
+    </nav>
+  </main>
+
+  <footer class="colophon col">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+function toggleTrack(head){
+  var track=head.parentElement;
+  var player=track.querySelector('.player');
+  var open=track.classList.toggle('open');
+  if(open && !player.dataset.loaded){
+    var src=track.getAttribute('data-embed');
+    player.innerHTML='<div class="frame"><iframe src="'+src+'" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
+    player.dataset.loaded='1';
+  }
+}
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — короткий прозаический текст (псевдонаучно-ироничное философское эссе из двух плотных абзацев плюс реплика «Ролик пошел!»). Стихотворных строф нет, поэтому по правилу выбора схемы это редакторский широкий стиль, а не узкий манускрипт. Контейнер сделан широким (max-width 1180px), а колонка контента занимает ~2/3 ширины (66%, с разумным потолком меры строки ~760px), чтобы текст оставался читабельным, но макет был широкоформатным. Первый абзац подан как лид-врезка курсивом с акцентной линейкой — это типографское выделение, а не добавленный заголовок; названия и текст не менялись.",
+  "rationale2": "",
+  "features": ["music"]
+}
+</script>
+</body>
+</html>
