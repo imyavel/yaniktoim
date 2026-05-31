@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Монополия на Истину?!</title>
+<style>
+  :root{
+    --ink:#1c1a17;
+    --muted:#6a625a;
+    --accent:#9a3b27;
+    --accent-soft:#c9684f;
+    --rule:#dcd4c8;
+    --paper:#faf7f1;
+    --paper-2:#f1ece2;
+    --hl:#fcefc4;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:920px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 24px 80px;
+  }
+  @media(max-width:1100px){.wrap{width:78%;}}
+  @media(max-width:760px){
+    .wrap{width:100%;padding:20px 18px 60px;}
+    body{font-size:18px;}
+  }
+
+  /* breadcrumbs */
+  nav.crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:30px;
+  }
+  nav.crumbs a{color:var(--accent);text-decoration:none;}
+  nav.crumbs a:hover{text-decoration:underline;}
+  nav.crumbs span.sep{margin:0 .5em;color:var(--rule);}
+
+  .eyebrow{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent-soft);
+    margin:0 0 14px;
+  }
+  h1{
+    font-size:2.5rem;
+    line-height:1.12;
+    margin:0 0 26px;
+    font-weight:700;
+    letter-spacing:-.01em;
+  }
+  @media(max-width:760px){h1{font-size:2rem;}}
+
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    margin:0 0 8px;
+  }
+  .ornament{
+    text-align:center;
+    color:var(--accent-soft);
+    font-size:24px;
+    margin:6px 0 30px;
+    line-height:1;
+  }
+
+  article p{margin:0 0 1.4em;}
+  article p.lead::first-letter{
+    font-size:3.6rem;
+    float:left;
+    line-height:.82;
+    padding:6px 12px 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+  article a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft);}
+  article a:hover{background:var(--hl);}
+
+  .source-link{
+    margin:1.8em 0 0;
+    padding:14px 18px;
+    background:var(--paper-2);
+    border-left:3px solid var(--accent-soft);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    word-break:break-word;
+  }
+
+  /* footnote marker */
+  .fnref{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    cursor:pointer;
+    position:relative;
+  }
+  .fnref:hover .fnpop{visibility:visible;opacity:1;}
+  .fnpop{
+    visibility:hidden;opacity:0;
+    transition:opacity .15s;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:140%;
+    width:300px;
+    max-width:78vw;
+    background:#2a2622;
+    color:#f4efe6;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:400;
+    font-size:14px;
+    line-height:1.5;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 8px 26px rgba(0,0,0,.28);
+    z-index:20;
+    text-align:left;
+    word-break:break-word;
+  }
+  .fnpop.below{bottom:auto;top:140%;}
+  .fnpop a{color:#f0b9a8;border:none;text-decoration:underline;}
+  .fnpop a:hover{background:none;}
+
+  /* footnotes section */
+  .notes{
+    margin-top:54px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+  }
+  .notes h2{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 16px;
+  }
+  .notes ol{margin:0;padding-left:1.4em;}
+  .notes li{
+    font-size:16px;
+    line-height:1.6;
+    margin-bottom:12px;
+    word-break:break-word;
+  }
+  .notes li:target{background:var(--hl);border-radius:4px;padding:4px 8px;}
+  .notes .backref{margin-left:6px;color:var(--accent);text-decoration:none;font-weight:700;}
+
+  /* corpus nav */
+  .corpusnav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:60px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpusnav a{
+    text-decoration:none;
+    color:var(--accent);
+    max-width:46%;
+  }
+  .corpusnav a:hover .ttl{text-decoration:underline;}
+  .corpusnav .dir{
+    display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;
+  }
+  .corpusnav .ttl{font-size:18px;}
+  .corpusnav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:48px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+  footer.colophon a{color:var(--accent);}
+  footer.colophon .attrib{margin:0 0 8px;}
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <p class="eyebrow">Роза Среди Шипов</p>
+  <h1>Монополия на Истину?!</h1>
+
+  <p class="dateline">6 ноября 2020 г.<a href="#fn1" id="fnref1" class="fnref">*<span class="fnpop"><a href="https://www.facebook.com/arykhanpin/posts/386725182481584" target="_blank" rel="noopener">facebook.com/arykhanpin…</a><br><a href="https://bneiadam.com/forum/52-126-1" target="_blank" rel="noopener">bneiadam.com/forum/52-126-1</a></span></a></p>
+
+  <div class="ornament">·</div>
+
+  <article>
+    <p class="lead">"Духовный Исраэль" - общность учеников мудрецов-каббалистов, Бааль Сулама, Рашби, АРИ, Рабаш, благословенны их Имена во все времена, и прочих светил Тайной Науки, не обладает "монополией на Истину", и связанного с этим Права учить весь остальной "эгоистический" мир, показывать ему "как надо" и смотреть на своих ближних (включая женщин) как "на женщин и детей, которым не открывают Тору лишма, пока не научатся и не поумнеют". Этой реальности нет, потому что ее никогда не было, а была реальность такая, что должна была возникнуть особая общность людей, особая душа "Святого Народа", который пронес через поколения "изгнания" и общей подготовки Единой Души человечества к тому, чтобы мы сами смогли своими усилиями ее создать "из ничего", включившись в действие Творца благодаря "подобию по свойствам" Его "отдачи ради отдачи", которая как форма и как интенция чужда и этому миру и всякой жизни в мирах в принципе, хоть и является их Высшей духовной сутью и высшим Корнем Жизни и Любви. Но Жизнь и Любовь существуют в "получении ради получения", то есть в Жизни ради Самой Жизни и Любви, Которая есть Творец, Малхут, Святая Шхина (вместилище, Обитель) Света Бесконечности, Свят Благословен Он Один вовеки. И это свойство, противоположное свойству "Исраэля", которое нужно было на этапе построения души для поднятия МАН о Ее создании, чтобы включиться в действие Творца, выводящее весь Свет этой Души в духовном мире "снизу вверх", в "голове парцуфа", "ЗАТ мира Адам Кадмон", создавая этим МА Хадаш, рош Мира Исправления, включающего в Себя все остальные миры. А дальше они, то есть мы, должны работать в свойствах "этого мира" как "Аба-ве-Има", поскольку при нашем участии и в наших свойствах эта ступень получила реальность, и должна быть раскрыта людям как Свет Любви и Жизни, вся суть которого в том, что люди вместе, соединяя свои намерения раскрыть этот Свет, почувствовать, понять, ощутить, дать другим почувствовать, понять и ощутить, получают Его "сверху вниз", от Творца к творениям, желания Которого насладить творения и наполнить этим Светом, распространить этот Свет и Жизнь в мирах, раскрыв этим совершенство Своих действий и единство Своего Святого Имени - "добрый, творящий только добро, Один, Единственный, Единый", и в этом распространении, в этом действии, в этом Свете, существующем и совершаемом на всех ступенях от Самого Творца до человека "этого мира" вместе, одинаково, "в едином соединении и единой связи", чтобы утвердить превосходство Силы Любви к ближнему над страхом смерти, личной выгодой и бренностью существования, вытекающего из существования времени и неизбежности перемены состояний, творения уподабливаются свойствам Творца, то есть находят "эликсир бессмертия и формулу вечного счастья" для всего человечества "как одного Человека с одним сердцем", становясь едиными как Он Един и поэтому сливаясь с Ним в непостижимой любви на Его уровне, да будет так по Воле Его и "удостоимся" приблизить благословенный час божественного триумфа человеческой души над силами невежества и разделения, все еще властвующими в нас и вокруг нас, но скорее "по инерции", чем реально являясь "королями бала", задающими тон и диктующими логику всего происходящего.</p>
+
+    <p class="source-link"><a href="https://kabbalahmedia.info/ru/sources/lgUtBujx" target="_blank" rel="noopener">https://kabbalahmedia.info/ru/sources/lgUtBujx</a></p>
+  </article>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1">
+        <a href="https://www.facebook.com/arykhanpin/posts/386725182481584" target="_blank" rel="noopener">https://www.facebook.com/arykhanpin/posts/386725182481584</a><br>
+        <a href="https://bneiadam.com/forum/52-126-1" target="_blank" rel="noopener">https://bneiadam.com/forum/52-126-1</a>
+        <a href="#fnref1" class="backref" title="Вернуться к тексту">↑</a>
+      </li>
+    </ol>
+  </section>
+
+  <nav class="corpusnav">
+    <a class="prev" href="0BC.html"><span class="dir">← Предыдущая</span><span class="ttl">Маасер</span></a>
+    <a class="next" href="05D.html"><span class="dir">Следующая →</span><span class="ttl">Абе ве Има, Зеир Анпин и Нуква</span></a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // adjust footnote popup side based on viewport
+  document.querySelectorAll('.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      var pop=ref.querySelector('.fnpop');
+      if(!pop)return;
+      var r=ref.getBoundingClientRect();
+      if(r.top<170){pop.classList.add('below');}else{pop.classList.remove('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой единый философско-каббалистический прозаический текст — фактически одно длинное рассуждение-период без стихотворной формы, поэтому однозначно выбрана редакторская (широкая) схема журнального лонгрида с колонкой примерно в 2/3 ширины окна. Развилок по схеме не было: стихов нет. Поскольку структурно текст содержит лишь один смысловой блок (нет нескольких подразделов), оглавление не делалось согласно правилу «более одного подраздела».",
+  "rationale2": "По типографике взял засечный книжный шрифт на тёплом светлом фоне с терракотовым акцентом, буквицу для единственного абзаца-периода, чтобы оживить монолитный текст. Звёздочка после даты — это сноска, тело которой составляют две ссылки (facebook и bneiadam) внизу страницы; реализованы переход вниз/вверх, подсветка цели и hover-popup с выбором стороны по краю экрана. Ссылка на kabbalahmedia оформлена как обычная ссылка-источник, а не музыкальный плеер, так как метки атрибуции музыки нет и это явно ссылка на текстовый источник. Голые URL обёрнуты в анкоры.",
+  "features": ["footnotes"]
+}
+</script>
+</body>
+</html>
