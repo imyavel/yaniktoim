@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Выбери Жизнь</title>
+<style>
+  :root{
+    --bg:#f5f1e8;
+    --paper:#fbf8f1;
+    --ink:#23211c;
+    --muted:#6c6557;
+    --accent:#9a3b2e;
+    --accent2:#2f5d50;
+    --line:#ddd4c2;
+    --rep:#3a4a5c;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    font-size:19px;
+    line-height:1.7;
+  }
+  .wrap{
+    width:66%;
+    max-width:920px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 28px 80px;
+  }
+  @media(max-width:1100px){.wrap{width:80%;}}
+  @media(max-width:760px){
+    body{font-size:18px;}
+    .wrap{width:100%;padding:20px 18px 60px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    border-bottom:1px solid var(--line);
+    padding-bottom:10px;
+    margin-bottom:26px;
+  }
+  .crumbs a{color:var(--accent2);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 .5em;color:#b3a98f;}
+
+  h1{
+    font-size:2.05em;
+    line-height:1.15;
+    margin:.2em 0 .15em;
+    letter-spacing:.01em;
+    font-weight:700;
+  }
+  .subtitle{
+    color:var(--muted);
+    font-style:italic;
+    font-size:1.05em;
+    margin:0 0 28px;
+  }
+
+  /* TOC */
+  .toc{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-left:4px solid var(--accent);
+    border-radius:4px;
+    padding:14px 20px;
+    margin:0 0 34px;
+  }
+  .toc summary{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+    cursor:pointer;
+    font-weight:600;
+  }
+  .toc ol{margin:12px 0 4px;padding-left:1.4em;}
+  .toc li{margin:.3em 0;}
+  .toc a{color:var(--ink);text-decoration:none;border-bottom:1px dotted #bbb1a0;}
+  .toc a:hover{color:var(--accent);}
+
+  h2{
+    font-size:1.5em;
+    margin:1.9em 0 .5em;
+    padding-bottom:.15em;
+    border-bottom:1px solid var(--line);
+    color:var(--accent);
+    scroll-margin-top:14px;
+  }
+  h2 a{color:inherit;text-decoration:none;}
+  h2 a:hover{opacity:.75;}
+
+  p{margin:.85em 0;}
+
+  .epigraph{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:18px 26px;
+    margin:0 0 10px;
+    font-size:.98em;
+  }
+  .verse{
+    white-space:pre-line;
+    font-style:italic;
+    color:var(--rep);
+    line-height:1.55;
+  }
+  .epigraph .src{
+    font-style:normal;
+    color:var(--muted);
+    font-size:.9em;
+    margin-top:.6em;
+  }
+  .quoteblock{
+    font-style:italic;
+    border-left:3px solid var(--accent2);
+    padding:.2em 0 .2em 18px;
+    margin:1.2em 0;
+    color:var(--rep);
+  }
+
+  .turn{margin:1.1em 0;}
+  .lbl{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.7em;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    font-weight:700;
+    display:inline-block;
+    padding:1px 8px;
+    border-radius:3px;
+    margin-right:.4em;
+    vertical-align:.12em;
+  }
+  .reply .lbl{background:#e7eef0;color:var(--rep);}
+  .answer .lbl{background:#f3e4df;color:var(--accent);}
+  .reply{color:var(--rep);}
+
+  .caps{font-weight:600;}
+
+  /* footnote markers */
+  sup.fnref{font-size:.7em;line-height:0;}
+  sup.fnref a{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    padding:0 1px;
+  }
+  .fnpop{
+    position:fixed;
+    z-index:50;
+    max-width:340px;
+    background:#2b2922;
+    color:#f3eee2;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    line-height:1.45;
+    padding:10px 13px;
+    border-radius:6px;
+    box-shadow:0 8px 26px rgba(0,0,0,.3);
+    display:none;
+  }
+  .fnpop a{color:#f0b9ac;}
+
+  /* music */
+  .music-group{margin:1.4em 0;}
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:6px;
+  }
+  .track{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .track summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 16px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .track .arrow{transition:transform .2s;color:var(--accent);font-size:.8em;}
+  .track[open] .arrow{transform:rotate(90deg);}
+  .track .tname{font-weight:600;}
+  .track .tartist{color:var(--muted);}
+  .track .ext{margin-left:auto;color:var(--accent2);text-decoration:none;font-size:1.05em;}
+  .track .player{padding:0 16px 16px;}
+  .track .player .ratio{position:relative;padding-top:56.25%;}
+  .track iframe{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:4px;}
+
+  /* notes */
+  .notes ol{padding-left:0;list-style:none;}
+  .notes li{
+    margin:.7em 0;
+    font-size:.95em;
+    padding-left:2.2em;
+    text-indent:-2.2em;
+  }
+  .notes .bk{color:var(--accent);text-decoration:none;font-weight:700;margin-right:.3em;}
+  .notes li:target{
+    background:#fbeede;
+    border-radius:4px;
+    text-indent:0;padding:.4em .6em .4em 2.2em;
+  }
+  .notes a{color:var(--accent2);}
+
+  /* corpus nav */
+  .corpusnav{
+    display:flex;
+    justify-content:space-between;
+    gap:14px;
+    margin-top:50px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpusnav a{
+    color:var(--accent2);
+    text-decoration:none;
+    max-width:46%;
+  }
+  .corpusnav a:hover{text-decoration:underline;}
+  .corpusnav .dir{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+  .corpusnav .nx{text-align:right;margin-left:auto;}
+
+  footer{
+    margin-top:40px;
+    padding-top:18px;
+    border-top:1px solid var(--line);
+    font-size:13.5px;
+    color:var(--muted);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    line-height:1.5;
+  }
+  footer a{color:var(--accent2);}
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>›</span><a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <h1>ВЫБЕРИ ЖИЗНЬ<sup class="fnref"><a id="r-star" href="#fn-star" data-fn="fn-star">*</a></sup></h1>
+  <p class="subtitle">(из диалога на форуме ccastaneda.ru<sup class="fnref"><a id="r-3" href="#fn-3" data-fn="fn-3">*3</a></sup>)</p>
+
+  <details class="toc" open>
+    <summary>Оглавление</summary>
+    <ol>
+      <li><a href="#epigraph">Эпиграф</a></li>
+      <li><a href="#dialog">Диалог</a></li>
+      <li><a href="#ps">П.С.</a></li>
+      <li><a href="#music">Музыка под настроение</a></li>
+      <li><a href="#notes">Примечания</a></li>
+    </ol>
+  </details>
+
+  <h2 id="epigraph"><a href="#top">Эпиграф</a></h2>
+  <div class="epigraph">
+    <div class="verse">Много неясного в странной стране -
+Можно запутаться и заблудиться...
+Даже мурашки бегут по спине,
+Если представить, что может случиться:
+
+Вдруг будет пропасть - и нужен прыжок?
+Струсишь ли сразу? Прыгнешь ли смело?
+А? Э-э! Так-то, дружок,
+В этом-то все и дело.
+
+Добро и Зло в Стране Чудес, как и везде, встречаются,
+Но только здесь они живут на разных берегах,
+Здесь по дорогам разные истории скитаются,
+И бегают фантазии на тоненьких ногах.</div>
+    <p class="src">Алиса в Стране Чудес (Л. Кэррол - В. Высоцкий)</p>
+  </div>
+
+  <h2 id="dialog"><a href="#top">Диалог</a></h2>
+
+  <p class="quoteblock">"Путь является двунаправленной спиралью: спираль "эволюции", где каждый подъем выше предыдущего, и спираль "инволюции", где каждое падение ниже предыдущего, и это одна и та же спираль."</p>
+
+  <div class="turn reply"><p><span class="lbl">Реплика</span>Раньше думала почти так же. И это была ошибка. Потому что такой взгляд подразумевает, что мир делится на хорошее и плохое, верное и неверное, верх и низ. А делить может только эго: что оно считает правильным, а что - нет...</p></div>
+
+  <div class="turn answer"><p><span class="lbl">Ответ</span>Мир делится или не делится на добро и зло в наших головах исключительно (хотя и с достаточно плачевными, временами последствиями, но тем не менее). А двунаправленная Спираль - это базовая Высшая форма существования Жизни и осознания, точнее, получения опыта жизни, как процесса, а еще более точно, формы существования Времени (помнишь, КК говорил, что время от людей убегает, а к магам приближается? Вот это и есть два "конца" этой единой Спирали. Время в Реальности течет двунаправлено, причем, одно из "направлений" "скрыто" от человека, а другое "открыто"). Вообще, в Пути нет ничего "произвольного". Все, что в Нем есть, "отпечатано" (совпадает по форме в точности, и является следствием) от строения Макрокосма (Кокона), о Котором КК нам сообщил очень мало реальной информации...</p>
+
+  <p>Путь "этого мира" не перестает быть "двунаправленной спиралью" в тот момент, когда воин раскрывает ее сущностную единонаправленность "только вверх" (в "духовном" только поднимают, а не "опускают", как говорят каббалисты). Поскольку это не освобождает его от следования командам Орла в той же самой степени, как и все остальные существа (в частности, команде "забыть" про то, что "знает" Кокон, когда фонарик "точки сборки" "светит" в другом направлении). Хотя "на самом деле" никакого "зла" в Реальности нет ("это мир счастья"), - его нет только в отношении Высшей Силы, и всего остального (кроме самого воина) Реального Мира. А в отношении самого воина еще как "есть", и будет всегда, пока он получает жизненный опыт, т.е. осознает Мир восприятием точкой сборки того или иного "этого мира". И воинам, так или иначе, приходится учитывать это, выстраивая свою стратегию таким образом, чтобы не позволить себе принимать желаемое за действительное и "витать в облаках". В частности, решению вопроса "синусоиды" у меня посвящена целиком и полностью основная форма<sup class="fnref"><a id="r-1" href="#fn-1" data-fn="fn-1">*1</a></sup> "Пути Воина Исраэль", это "Кли средней линии", которое позволяет воину обрести целостность и в "обычном" и в "повышенном" состоянии сознания за счет активного использования главной (и единственной, наверное) "Заповеди" КК - "воин должен верить". А иначе будет бо-бо.</p>
+
+  <p>Если тебе интересно (мне лично интересно), именно деление Мира на "добро и зло" является истинной сутью "первородного греха", которым Адам и Ева "согрешили" против Творца, Свят Благословен Он, за что и были "изгнаны" из Райского Сада. Поскольку "глаза говорят", а также опыт, чувства, органы, и т.п., что в Мире существует добро и зло. А "на самом деле" Истиной является только добро, а зло создано "из ничего" Творцом, Свят Благословен Он, чтобы у человека в этом "добре" могла сформироваться подобающим образом "свободная воля". Свободная от Творца, разумеется. Чтобы он сам смог, пройдя весь этот долгий и непростой Путь на собственной шкуре, стать Творцом, и давать Дар Орла чувствующим существам, "сменив" на посту своего Родителя... Так вот, в Мире существует добро и добро, но форма существования одного из них явная, т.е. то, что КК называет "безмолвным знанием", осознанием, видением, и т.п. А форма другого в восприятии человека претерпевает за весь период его личной "эволюции" от капли семени до Творца, Свят Благословен Он, "этого мира", множество этапов и изменений, и лишь в самом конце этого Пути ему открывается "истинная форма" - по сути, тогда, когда ее открытие не имеет никакого "личного" значения для воина (забывая о любви к Себе). И чтобы придти к этому, воин должен верить, буквально, он должен сделать эту Реальность, Которая "истинна", своей убежденностью на 146%, без сомнений и колебаний, тогда ему немного приоткроется (причем, не "открыто и явно", как можно подумать, а, особенно по началу, только в форме "Сделаем и услышим", то есть позволит совершать действия, как если бы окружающая его Реальность была абсолютным Добром, хоть он и не воспринимает это на 100% в "органах чувств", у него бывают и взлеты и падения, и т.п.) истинная форма "жизни этого мира". В общем, здесь можно говорить долго, а я знаю, что ты любишь краткость (хотя, похоже, с этой "задачей" я уже не справился :D), поэтому заканчиваю: <span class="caps">ТОЛЬКО ВМЕСТЕ, МЫ - СИЛА, В КОТОРОЙ НЕТ И НИКОГДА НЕ БЫЛО НИКАКОГО "ЗЛА", А ТОЛЬКО ОДНО СОВЕРШЕННОЕ И АБСОЛЮТНОЕ "ДОБРО" ВО ВСЕ ВРЕМЕНА ДЛЯ ВСЕХ ТВОРЕНИЙ</span>, независимо от их "особого мнения" по этому поводу.</p></div>
+
+  <div class="turn reply"><p><span class="lbl">Реплика</span>Человек ничего не выбирает. Выбор сделан за секунду до того, как человек выбрал. И ему кажется, что это он решил жить безупречно, а на самом деле энергии сплелись так, что он просто не мог решить иначе.</p></div>
+
+  <div class="turn answer"><p><span class="lbl">Ответ</span>Человек выбирает. Поскольку, хотя он ничего не выбирает, Творец, Свят Благословен Он, создал Реальность такой, что этот "энергетический факт" (что "нет никого, кроме Него") не мешает человеку производить Выбор, от корректности, безупречности и своевременности которого в дальнейшем будет зависеть (для него конкретно в жизни, судьбе и опыте "этого мира") очень и очень многое. Но это происходит только с теми, кто принимает на себя этим<sup class="fnref"><a id="r-2" href="#fn-2" data-fn="fn-2">*2</a></sup> выбором осознанно и по собственному желанию и воле полное Высшее управление самим собой Высшей Единой, единовластной и непостижимой, не являющейся тем же самым, чем он сам является (поэтому, в рамках нашего синтаксиса, не будет ошибкой сказать, что "внешней"), сверхсознательной абсолютной Силы, являющейся, к слову сказать, Источником этого самого выбора, являющегося Заповедью №1 всех духовных учений: <span class="caps">ВОТ, КЛАДУ Я ТВОЮ РУКУ НА ДОБРУЮ СУДЬБУ, ИДИ ЖЕ И ВЫБЕРИ ЖИЗНЬ, ЧТОБЫ БЫТЬ ЗАПИСАННЫМ В КНИГУ ЖИЗНИ.</span> Или "выбери смерть, и будь записан в книгу мертвых" (человеков этого мира, у которых звено связи с Духом считается мертвым в виду полной неспособности действовать самостоятельно, читай действовать по собственной воле, которой пока еще у человека просто нет). Большинство, при том, что у всех есть вся необходимая информация, и все хорошо знают, как ей пользоваться, и каждый знает, что конкретно ему лично нужно делать, чтобы совершить "правильный" выбор, день за днем и год за годом продолжают находить себя у того же самого разбитого корыта "питающимися отбросами", и ощущающими себя не в силах что либо изменить.</p></div>
+
+  <div class="turn reply"><p><span class="lbl">Реплика</span>Краткий вывод: париться на тему откатов (падений) - это тоже элемент игры. Делить мир на эволюцию и деградацию - тоже игра. В зачёт идёт осознавание себя в этих процессах (играх). Только это может сдвинуть осознание с привычного места.</p></div>
+
+  <div class="turn answer"><p><span class="lbl">Ответ</span>Ну и (не хочется затягивать пост, но эта тема "игры", в ней есть у тебя особенный "пунктик", мимо которого соблазн не велит пройти) "игра" начинается там, где появляется точка сборки и восприятие. Все существование чувствующих существ - это "игра". Свет Сознания - это Игра. Видение, Безмолвное знание - тоже Игра. Дар Свободы... Ладно, так можно наломать дров, которые потом самому расхлебывать придется : )))))) Сделаем и услышим то, что позволит нам в эту игру не просто пассивно играть, а принять вызов Орла и победить, во Имя Намерения Абсолютной Свободы и во Славу Света Любви и Духа Жизни!</p></div>
+
+  <div class="turn reply"><p><span class="lbl">Реплика</span>Сила - это и есть ты. Настоящий ты, без ограничений. Поэтому всё принадлежит тебе. Только надо перестать укладывать себя в маленькую коробочку эго (личности, я, самости... Думаю, понятно)))</p></div>
+
+  <div class="turn answer"><p><span class="lbl">Ответ</span>Сила, которая вовне (эманации в Великом), хоть они и те же, что внутри, но категория "есть" к ним (к тем, что внутри) не применима, и уж тем более, не применима категория "Я есть". Поверь старому Нагвалю, который говорил, что, хотя мир счастья - это мир, где между вещами нет различия, поскольку в Нем некому спрашивать о нем, но это не мир людей, а те люди, которые думают, что могут выбирать между мирами, слишком много на себя берут, и не понимают чем на самом деле являются, хотя и говорят, что являются "всем и ничем", которое находится "везде и нигде". Мы - люди, и наше предназначение, наш единственный мир - это мир людей, который, без сомнения, не является "миром счастья" в данный конкретный субъективный отрезок "тонального времени". Но это не значит, что мы не можем никак повлиять на это, делая это из любви к свободе, то есть делая этим, Милостью Творца, Свят Благословен Он, посильный вклад в человеческий Дух (то есть в собственную "копилку" осознания и безупречности, пока что находящуюся якобы "в чужих руках").</p></div>
+
+  <h2 id="ps"><a href="#top">П.С.</a></h2>
+
+  <div class="turn reply"><p><span class="lbl">Реплика</span>Ой, это очень большая тема. Ни один человек не знает, что он такое... Не будет победы. Игра никогда не закончится сама. Игрок должен ее закончить. Отпустить. Для этого должно исчезнуть само желание победы, само достигаторство.</p></div>
+
+  <div class="turn answer"><p><span class="lbl">Ответ</span>Факт, что я знаю, что я чего-то не знаю, не доказывает, что этого не знает ни один человек. Победа будет. Иначе не стоило бы и начинать. Нафига, если не ради победы? Зачем "отпускать" то, что имеет начало, логику развития, цель развития, конкретное "живое" намерение и конечный результат, достигаемый контролируемо и осознанно? Да, и если говорить в контексте принятого тобой ракурса, то "отпустить", в этом случае - означает перестать существовать, ничего этим не добившись (у Орла "и так" "все есть", мы выстраиваем Реальность "будущего мира" и "нового цикла" исключительно ради (исходя из) "человеческих" смыслов, значений и целей. Мы - люди, и если спуститься с небес на Землю (я знаю, как это временами бывает чертовски сложно :D ), мир людей (усовершенствованная версия 2.0 - новый цикл "видящих", "более справедливый", чем предыдущие) - это наша судьба, наше предназначение, наше прошлое, настоящее и будущее, а Мир Бесконечности и "Жизнь сама по себе" (как говорят каббалисты "Свет без Кли") для нас не являются жизненной опцией, целью или намерением, если мы конечно не хотим оставаться в рабстве у своих или чужих иллюзий, оправдывая это тем, что якобы "никто не знает что он такое" (а значит - откуда и куда направляется, почему, какую цель преследует, как достигает ее, зачем ему это, и т.п.). Все это "хождение вслепую" осталось в прошлом тысячелетии, Милостью Творца, Свят Благословен Он, мы имеем возможность (имеющий уши и глаза - услышит и увидит) действовать и идти по Пути на порядок более осознанно и осведомленно, чем наши учителя и предшественники. Сделаем и услышим!</p></div>
+
+  <h2 id="music"><a href="#top">Музыка под настроение</a></h2>
+  <div class="music-group">
+    <div class="music-label">Музыка под настроение</div>
+    <details class="track" data-embed="https://www.youtube.com/embed/878xizG_-js">
+      <summary>
+        <span class="arrow">▶</span>
+        <span><span class="tname">Тебе Дадут Знак</span> — <span class="tartist">Ария</span></span>
+        <a class="ext" href="https://youtu.be/878xizG_-js" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </summary>
+      <div class="player"><div class="ratio"></div></div>
+    </details>
+  </div>
+
+  <h2 id="notes" class="notes-h"><a href="#top">Примечания</a></h2>
+  <div class="notes">
+    <ol>
+      <li id="fn-star"><a class="bk" href="#r-star" title="Вернуться к тексту">↩</a><b>*</b> Статья #AA186 bneiadam.com (Зеир Арихович Анпин)</li>
+      <li id="fn-1"><a class="bk" href="#r-1" title="Вернуться к тексту">↩</a><b>*1</b> 22 буквы Пути Воина-Исраэль <a href="http://proza.ru/2021/08/05/77" target="_blank" rel="noopener">proza.ru/2021/08/05/77</a></li>
+      <li id="fn-2"><a class="bk" href="#r-2" title="Вернуться к тексту">↩</a><b>*2</b> Катнут свойства ЦЕЛЕМ Элоким <a href="http://proza.ru/2021/08/05/67" target="_blank" rel="noopener">proza.ru/2021/08/05/67</a></li>
+      <li id="fn-3"><a class="bk" href="#r-3" title="Вернуться к тексту">↩</a><b>*3</b> Источник:: <a href="http://ccastaneda.ru/viewtopic.php?id=2290#p63255" target="_blank" rel="noopener">ccastaneda.ru/viewtopic.php?id=2290#p63255</a></li>
+    </ol>
+  </div>
+
+  <nav class="corpusnav">
+    <a href="186C.html"><span class="dir">← Предыдущая</span>Несущий Свет</a>
+    <a class="nx" href="0BH.html"><span class="dir">Следующая →</span>Кто Она</a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<div class="fnpop" id="fnpop"></div>
+
+<script>
+  // lazy music player
+  document.querySelectorAll('.track').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open){
+        var r=d.querySelector('.ratio');
+        if(r && !r.querySelector('iframe')){
+          var f=document.createElement('iframe');
+          f.src=d.dataset.embed+'?autoplay=1&rel=0';
+          f.allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+          f.setAttribute('allowfullscreen','');
+          r.appendChild(f);
+        }
+      }
+    });
+  });
+
+  // footnote popups
+  var pop=document.getElementById('fnpop');
+  function bodyOf(id){
+    var li=document.getElementById(id);
+    if(!li)return'';
+    var c=li.cloneNode(true);
+    var bk=c.querySelector('.bk'); if(bk)bk.remove();
+    return c.innerHTML.trim();
+  }
+  document.querySelectorAll('sup.fnref a').forEach(function(a){
+    a.addEventListener('mouseenter',function(){
+      pop.innerHTML=bodyOf(a.dataset.fn);
+      pop.style.display='block';
+      var r=a.getBoundingClientRect();
+      var pw=pop.offsetWidth, ph=pop.offsetHeight;
+      var left=r.left+r.width/2-pw/2;
+      left=Math.max(8,Math.min(left,window.innerWidth-pw-8));
+      var top=r.top-ph-8;
+      if(top<8) top=r.bottom+8;
+      pop.style.left=left+'px';
+      pop.style.top=top+'px';
+    });
+    a.addEventListener('mouseleave',function(){pop.style.display='none';});
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — форумный диалог (реплика/ответ) с теоретическими рассуждениями: доминирует проза, поэтому выбрана редакторская широкая схема, а не узкий манускрипт, несмотря на стихотворный эпиграф (Высоцкий) — он лишь обрамление, а не основная форма. Контейнер задан в ~66% ширины окна (с потолком 920px) для лонгрида; реплики и ответы визуально разведены цветными ярлыками-метками, чтобы читателю была видна структура спора. Цитата-тезис о спирали вынесена в отдельный блок-цитату. Палитра тёплая кремовая со сдержанным кирпичным акцентом и сине-зелёным для реплик — спокойный книжно-журнальный контраст на светлом фоне.\n\nСносок четыре (*, *1, *2, *3), все с телами и якорными ссылками вверх/вниз плюс fixed-popup с авто-выбором стороны. Музыкальный трек один (Ария — YouTube), оформлен сворачиваемым плеером с ленивой загрузкой iframe; сводный раздел не делался, так как треков не больше двух — но раздел отражён в TOC как помеченный блок. Оглавление сворачиваемое, заголовки кликабельны назад к началу. Голые URL обёрнуты в ссылки, КАПС-фрагменты и авторские смайлы (:D, : )))))) ) сохранены дословно."
+,
+  "features": ["music", "footnotes", "toc"]
+}
+</script>
+</body>
+</html>

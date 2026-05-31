@@ -11,7 +11,7 @@ TPL = ROOT / "templates"
 SITE = ROOT / "docs"
 MANIFEST = ROOT / "manifest.json"
 
-CSS_VERSION = "20260529-05"
+CSS_VERSION = "20260531-01"
 # АВТОРСКИЕ названия разделов (сборники proza.ru). НЕ переименовывать и НЕ
 # «адаптировать» — только переносить как есть. Канон сверен с первым деплоем.
 # Должно совпадать с SECTION_HUMAN в docs/editor/render.js.
@@ -65,9 +65,28 @@ def main():
 
     # ----- section indexes -----
     tpl_s = (TPL / "section_index.html").read_text(encoding="utf-8")
+    # Непустые разделы в каноническом порядке — для prev/next между разделами.
+    present = [x for x in ORDER if by_sec[x]]
     for s in ORDER:
         rows = by_sec[s]
         if not rows: continue
+        # prev/next раздел (по аналогии со статьями): ссылки на соседние индексы.
+        pos = present.index(s)
+        nav_parts = []
+        if pos > 0:
+            ps = present[pos - 1]
+            nav_parts.append(
+                f'<a class="prev" href="../{ps}/index.html">'
+                f'<span class="dir">← Предыдущий раздел</span>'
+                f'<span class="title">{html_mod.escape(SECTION_NAMES[ps])}</span></a>')
+        if pos < len(present) - 1:
+            ns = present[pos + 1]
+            nav_parts.append(
+                f'<a class="next" href="../{ns}/index.html">'
+                f'<span class="dir">Следующий раздел →</span>'
+                f'<span class="title">{html_mod.escape(SECTION_NAMES[ns])}</span></a>')
+        section_nav = (f'<nav class="section-nav">\n'
+                       + "\n".join(nav_parts) + "\n</nav>") if nav_parts else ""
         sec_dir = SITE / s
         sec_dir.mkdir(parents=True, exist_ok=True)
         lis = []
@@ -92,6 +111,7 @@ def main():
             .replace("{{SECTION_NAME}}", html_mod.escape(SECTION_NAMES[s]))
             .replace("{{COUNT}}", str(len(rows)))
             .replace("{{ARTICLES_LIST}}", "\n".join(lis))
+            .replace("{{SECTION_NAV}}", section_nav)
             .replace("{{BUILD_DATE}}", today)
             .replace("{{CSS_VERSION}}", CSS_VERSION))
         (sec_dir / "index.html").write_text(out, encoding="utf-8")

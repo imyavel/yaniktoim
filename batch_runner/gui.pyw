@@ -36,6 +36,7 @@ HERE = Path(__file__).resolve().parent
 RUN_BATCH = HERE / "run_batch_html.py"
 STATE_FILE = HERE / "state_html.json"
 LOCK_FILE = HERE / "run_html.lock"
+STOP_FILE = HERE / "run_html.stop"  # кооперативный graceful-stop (читает раннер)
 LOG_FILE_FMT = HERE / "gui_{}.log"
 MANIFEST = PROJECT_ROOT / "manifest.json"
 
@@ -113,6 +114,12 @@ class BatchProcess:
     def start(self, args: list[str]) -> None:
         if self.is_running():
             return
+        # Снять возможный устаревший стоп-флаг (если прошлый раннер упал, не
+        # сняв его) — иначе новый прогон остановится на первом же батче.
+        try:
+            STOP_FILE.unlink(missing_ok=True)
+        except OSError:
+            pass
         env = os.environ.copy()
         env["PYTHONIOENCODING"] = "utf-8"
         env["PYTHONUNBUFFERED"] = "1"
@@ -152,12 +159,15 @@ class BatchProcess:
             self.log_queue.put(None)
 
     def stop_graceful(self) -> bool:
+        """Кооперативный graceful-stop: пишем флаг-файл, раннер увидит его
+        МЕЖДУ батчами, доведёт текущий батч (с пушем) и выйдет сам. Консольные
+        сигналы (Ctrl-Break) под pythonw не доставляются — потому флаг."""
         if not self.is_running():
             return False
         try:
-            self.proc.send_signal(signal.CTRL_BREAK_EVENT)
+            STOP_FILE.write_text("stop", encoding="utf-8")
             return True
-        except (ValueError, OSError):
+        except OSError:
             return False
 
     def stop_force(self) -> None:
@@ -489,9 +499,13 @@ class App:
 
     def _on_stop(self) -> None:
         if not self.batch.is_running(): return
-        self._append_log("[gui] Stop → Ctrl-Break (graceful)\n")
-        if not self.batch.stop_graceful():
-            self._append_log("[gui] Ctrl-Break не доставлен → force kill\n")
+        # Graceful: ставим флаг и НЕ убиваем. Раннер доведёт текущий батч до
+        # конца (с пушем) и выйдет сам — reader-поток это увидит и закроет.
+        if self.batch.stop_graceful():
+            self._append_log("[gui] Stop (graceful) → флаг поставлен; "
+                             "раннер завершит текущий батч и выйдет\n")
+        else:
+            self._append_log("[gui] Stop: не удалось поставить флаг → force kill\n")
             self.batch.stop_force()
         self._refresh_buttons()
 

@@ -32,8 +32,11 @@ import shutil
 import html as html_mod
 import subprocess
 from pathlib import Path
+from typing import NamedTuple
 
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", line_buffering=True)
+# ВНИМАНИЕ: stdout НЕ оборачиваем на уровне модуля — этот файл импортируется
+# раннером (batch_runner/run_batch_html.py) как библиотека воркеров, и переписать
+# sys.stdout импортёру было бы вторжением. Обёртку ставит только CLI-main().
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "raw"
@@ -84,10 +87,34 @@ def _resolve_claude_exe() -> str:
 CLAUDE_EXE = _resolve_claude_exe()
 
 # Транзиентные сбои headless-вызова (пустой ответ, обрыв API) — повторяем.
-# Жёсткие лимиты подписки («hit your limit») ловит уже родитель run_batch,
-# здесь мы просто пробрасываем его вывод наверх.
+# Лимит (429) НЕ ретраим здесь — возвращаем kind="limit" наверх, раннер сам
+# решает (спать до сброса / спам-защита).
 RETRIES = 2
 RETRY_BACKOFF_S = 10
+CLAUDE_TIMEOUT_S = 1800  # потолок на одну статью (claude headless, 30 мин), затем — fail
+
+# Лимит подписки = HTTP 429 (и session, и weekly). Детектим по коду, а не по
+# нестабильной формулировке. Текст сброса («resets …») разбирает раннер.
+_ERR_429_RX = re.compile(
+    r'"api_error_status"\s*:\s*429|too\s+many\s+requests', re.IGNORECASE)
+
+
+class CallResult(NamedTuple):
+    """Итог одного headless-вызова claude."""
+    html: str | None
+    kind: str    # "ok" | "limit" | "fail"
+    detail: str  # текст ответа/ошибки (для parse_reset и диагностики)
+
+
+class ArtResult(NamedTuple):
+    """Итог вёрстки одной статьи (то, что воркер возвращает раннеру)."""
+    art: str
+    kind: str    # "ok" | "limit" | "fail"
+    detail: str  # причина/хвост лимита
+
+    @property
+    def ok(self) -> bool:
+        return self.kind == "ok"
 
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -139,6 +166,24 @@ SECTION_NAMES = {
     "shoshana": "Роза Среди Шипов",
     "other":    "Без категории",
 }
+
+# Канонический порядок разделов (зеркалит src/5_index.py ORDER и
+# batch_runner/run_batch.py SECTION_ORDER). Нужен, чтобы prev/next на стыке
+# разделов уводили в соседний раздел (последняя/первая статья соседа).
+SECTION_ORDER = ["best", "dreamon", "cyberson", "dabudet",
+                 "confront", "shoshana", "other"]
+
+
+def _section_articles(manifest: list[dict]) -> dict[str, list[dict]]:
+    """section → статьи, отсортированные по section_order (как индексы/рендер)."""
+    buckets: dict[str, list[dict]] = {}
+    for r in manifest:
+        sec = r.get("section")
+        if sec and isinstance(r.get("section_order"), int) and r.get("art"):
+            buckets.setdefault(sec, []).append(r)
+    for sec in buckets:
+        buckets[sec].sort(key=lambda r: r["section_order"])
+    return buckets
 
 # Колофон корпуса — дословно из templates/article.html (общий для всех страниц
 # текст об авторстве и лицензии). Вставляется в каждую сгенерированную страницу,
@@ -196,24 +241,30 @@ def build_nav(rec: dict, manifest: list[dict], image: str | None = None) -> dict
         "next": None,
         "footer_html": FOOTER_HTML,
     }
-    order = rec.get("section_order")
-    if section and isinstance(order, int):
-        sibs = sorted(
-            (r for r in manifest
-             if r.get("section") == section
-             and isinstance(r.get("section_order"), int)),
-            key=lambda r: r["section_order"],
-        )
-        idx = next((i for i, r in enumerate(sibs)
-                    if r.get("art") == rec.get("art")), -1)
-        if idx > 0:
-            p = sibs[idx - 1]
-            nav["prev"] = {"href": f"{p['art']}.html",
-                           "title": p.get("title") or p["art"]}
-        if 0 <= idx < len(sibs) - 1:
-            nx = sibs[idx + 1]
-            nav["next"] = {"href": f"{nx['art']}.html",
-                           "title": nx.get("title") or nx["art"]}
+    buckets = _section_articles(manifest)
+    sibs = buckets.get(section, [])
+    idx = next((i for i, r in enumerate(sibs)
+                if r.get("art") == rec.get("art")), -1)
+
+    def _link(r: dict) -> dict:
+        return {"href": f"{r['art']}.html", "title": r.get("title") or r["art"]}
+
+    # Непустые разделы в каноническом порядке — для переходов на стыке.
+    present = [s for s in SECTION_ORDER if buckets.get(s)]
+    pos = present.index(section) if section in present else -1
+
+    # prev: предыдущая в разделе, иначе — ПОСЛЕДНЯЯ статья предыдущего раздела.
+    if idx > 0:
+        nav["prev"] = _link(sibs[idx - 1])
+    elif idx == 0 and pos > 0:
+        nav["prev"] = _link(buckets[present[pos - 1]][-1])
+
+    # next: следующая в разделе, иначе — ПЕРВАЯ статья следующего раздела.
+    if 0 <= idx < len(sibs) - 1:
+        nav["next"] = _link(sibs[idx + 1])
+    elif idx == len(sibs) - 1 and 0 <= pos < len(present) - 1:
+        nav["next"] = _link(buckets[present[pos + 1]][0])
+
     return nav
 
 
@@ -265,8 +316,8 @@ def extract_html(raw: str) -> str | None:
     return None
 
 
-def call_claude(full_prompt: str, art: str) -> str | None:
-    """Headless claude -p → готовый самодостаточный HTML (stdout)."""
+def call_claude(full_prompt: str, art: str) -> CallResult:
+    """Headless claude -p → CallResult. Лимит (429) не ретраим: сразу наверх."""
     LOGS.mkdir(parents=True, exist_ok=True)
     (LOGS / f"html_prompt_{art}.txt").write_text(full_prompt, encoding="utf-8")
     print(f"  [{art}] prompt: {len(full_prompt)} chars", flush=True)
@@ -282,20 +333,38 @@ def call_claude(full_prompt: str, art: str) -> str | None:
     last_err = ""
     for attempt in range(1, RETRIES + 1):
         t0 = time.time()
-        proc = subprocess.run(
-            cmd, input=full_prompt, capture_output=True, text=True,
-            encoding="utf-8", errors="replace",
-        )
+        try:
+            # Захват в БАЙТАХ + ручной decode(errors="replace"): claude иногда
+            # пишет в stderr не-UTF-8 байты (особенно при убийстве процесса), и
+            # текстовый reader-поток subprocess на них падает (UnicodeDecodeError),
+            # теряя stdout. Бинарный режим это исключает.
+            proc = subprocess.run(
+                cmd, input=full_prompt.encode("utf-8"),
+                capture_output=True, timeout=CLAUDE_TIMEOUT_S,
+            )
+        except subprocess.TimeoutExpired:
+            dur = time.time() - t0
+            # Fail-fast: не уложился в потолок → почти наверняка слишком долгая/
+            # зависшая генерация; ретрай тем же промптом лишь удвоит простой
+            # воркера. Статья остаётся непостроенной и попадёт в очередь
+            # следующего прогона.
+            print(f"  ! [{art}] claude TIMEOUT {dur:.0f}s — fail (без ретрая)",
+                  flush=True)
+            return CallResult(None, "fail", f"timeout after {CLAUDE_TIMEOUT_S}s")
         dur = time.time() - t0
-        out = proc.stdout or ""
-        err = proc.stderr or ""
+        out = (proc.stdout or b"").decode("utf-8", "replace")
+        err = (proc.stderr or b"").decode("utf-8", "replace")
         print(f"  [{art}] claude exit={proc.returncode} in {dur:.1f}s "
               f"(attempt {attempt}/{RETRIES})", flush=True)
-        # Всегда сохраняем сырой stdout+stderr — для диагностики И чтобы
-        # run_batch мог найти «hit your limit» в нашем выводе (мы его echo-им).
+        # Всегда сохраняем сырой stdout+stderr — для диагностики.
         (LOGS / f"html_{art}.stdout.json").write_text(out, encoding="utf-8")
         if err.strip():
             (LOGS / f"html_{art}.stderr.txt").write_text(err, encoding="utf-8")
+
+        # Лимит подписки (429)? Не ретраим — наверх, пусть раннер ждёт сброса.
+        if _ERR_429_RX.search(out):
+            print(f"  ! [{art}] лимит (429) — отдаю наверх", flush=True)
+            return CallResult(None, "limit", out)
 
         # Достаём текст ответа из json-обёртки {"result": "..."}.
         inner = out.strip()
@@ -309,18 +378,14 @@ def call_claude(full_prompt: str, art: str) -> str | None:
         html_doc = extract_html(inner)
         if proc.returncode == 0 and html_doc:
             (LOGS / f"html_{art}.raw.txt").write_text(inner, encoding="utf-8")
-            return html_doc
+            return CallResult(html_doc, "ok", "")
 
-        # Неуспех. Пробрасываем диагностику в наш stdout, чтобы родитель
-        # (run_batch) увидел лимит/ошибку и принял решение (sleep/abort).
         last_err = (out + "\n" + err).strip()
-        print(f"  ! [{art}] нет валидного HTML "
-              f"(exit={proc.returncode}); echo claude output ↓", flush=True)
-        # Печатаем хвост — этого достаточно для regex «hit your limit» в родителе.
-        print(last_err[-2000:], flush=True)
+        print(f"  ! [{art}] нет валидного HTML (exit={proc.returncode}), "
+              f"attempt {attempt}/{RETRIES}", flush=True)
         if attempt < RETRIES:
             time.sleep(RETRY_BACKOFF_S)
-    return None
+    return CallResult(None, "fail", last_err[-2000:])
 
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -328,38 +393,42 @@ def call_claude(full_prompt: str, art: str) -> str | None:
 # ═════════════════════════════════════════════════════════════════════════════
 
 def transform_one(rec: dict, base_prompt: str, manifest: list[dict],
-                  force: bool = False) -> bool:
-    art = rec.get("art")
+                  force: bool = False) -> ArtResult:
+    """Сверстать одну статью. Возвращает ArtResult (ok/limit/fail). Безопасна
+    для параллельного вызова из потоков: пишет только в свои пути
+    (docs/art/<art>.html, docs/img/<art>.jpg, _logs/html_<art>.*)."""
+    art = rec.get("art") or rec.get("number") or "?"
     stem = rec.get("stem")
-    if not art or not stem:
+    if not rec.get("art") or not stem:
         print(f"  ! record missing art/stem: {rec.get('number')}", flush=True)
-        return False
+        return ArtResult(art, "fail", "missing art/stem")
+    art = rec["art"]
     out_path = ART_DIR / f"{art}.html"
     if out_path.exists() and not force:
-        print(f"  skip {art} (html уже есть, --force чтобы перезаписать)", flush=True)
-        return True
+        print(f"  skip {art} (html уже есть)", flush=True)
+        return ArtResult(art, "ok", "skip")
     src = RAW / f"{stem}.html"
     if not src.exists():
         print(f"  ! {art} ({stem}): raw html not found", flush=True)
-        return False
+        return ArtResult(art, "fail", "raw not found")
 
     body = extract_body(src.read_text(encoding="utf-8"))
     if not body.strip():
         print(f"  ! {art} ({stem}): пустое тело после извлечения", flush=True)
-        return False
+        return ArtResult(art, "fail", "empty body")
     (LOGS / f"html_{art}.body.txt").write_text(body, encoding="utf-8")
 
     image = publish_image(rec)
     nav = build_nav(rec, manifest, image=image)
     full_prompt = build_prompt(base_prompt, rec, body, nav)
-    html_doc = call_claude(full_prompt, art)
-    if html_doc is None:
-        return False
+    res = call_claude(full_prompt, art)
+    if res.kind != "ok" or res.html is None:
+        return ArtResult(art, res.kind, res.detail)
 
     ART_DIR.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(html_doc + "\n", encoding="utf-8")
-    print(f"  ✓ saved → {out_path}", flush=True)
-    return True
+    out_path.write_text(res.html + "\n", encoding="utf-8")
+    print(f"  ✓ saved → art/{art}.html", flush=True)
+    return ArtResult(art, "ok", "")
 
 
 def _lookups(manifest: list[dict]) -> tuple[dict, dict, dict]:
@@ -377,6 +446,9 @@ def _lookups(manifest: list[dict]) -> tuple[dict, dict, dict]:
 
 
 def main(argv: list[str]) -> int:
+    # CLI-режим: оборачиваем stdout в utf-8 (при импорте раннером — не трогаем).
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8",
+                                  line_buffering=True)
     if not MANIFEST.exists():
         print(f"manifest not found: {MANIFEST}")
         return 2
@@ -411,10 +483,11 @@ def main(argv: list[str]) -> int:
 
     ok = 0
     for rec in targets:
-        if transform_one(rec, base_prompt, manifest, force=force):
+        res = transform_one(rec, base_prompt, manifest, force=force)
+        if res.ok:
             ok += 1
         else:
-            print(f"  ✗ failed art={rec.get('art')} stem={rec.get('stem')}",
+            print(f"  ✗ {res.kind} art={rec.get('art')} stem={rec.get('stem')}",
                   flush=True)
     print(f"\nDone: {ok}/{len(targets)} transformed", flush=True)
     return 0 if ok == len(targets) else 3

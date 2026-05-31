@@ -18,6 +18,7 @@ manifest_pre_art.json
 # batch_runner runtime artefacts — регенерируются, в репозитории не нужны
 batch_runner/*.log
 batch_runner/*.lock
+batch_runner/*.stop
 batch_runner/state.json
 batch_runner/state_html.json
 # локальные заметки по багам пайплайна

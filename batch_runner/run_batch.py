@@ -57,21 +57,36 @@ GIT_USER_EMAIL = "imyavel@gmail.com"
 # reset clause may be on a separate stderr line. Mirrors ZoharTGBatch/
 # orchestrator.py. Both session (5h) AND weekly (Max-plan, dated) formats
 # are handled — see parse_reset / HIT_LIMIT_WEEKLY_RX.
-HIT_LIMIT_RX = re.compile(r"hit your limit", re.IGNORECASE)
+# HIT_LIMIT_RX — фраза-сигнал лимита. Формулировка у Claude НЕСТАБИЛЬНА:
+# встречались «hit your limit», «hit your session limit», «hit your usage
+# limit» → допускаем необязательное слово между «your» и «limit». В новом
+# HTML-раннере первичный сигнал — код 429 (ERR_429_RX), а эта фраза остаётся
+# запасной для ZML-раннера.
+HIT_LIMIT_RX = re.compile(r"hit your (?:\w+\s+)?limit", re.IGNORECASE)
+# 429 = Too Many Requests — Anthropic отдаёт его и на 5-часовой (session), и на
+# недельный (Max) лимит; различаются они ТОЛЬКО текстом клаузы сброса, не кодом.
+# Привязка к коду не зависит от формулировки; время/дату сброса достаёт
+# parse_reset из тех же reset-регэкспов ниже.
+ERR_429_RX = re.compile(
+    r'"api_error_status"\s*:\s*429|too\s+many\s+requests', re.IGNORECASE)
+# Reset-клаузы БОЛЬШЕ НЕ якорятся к «hit your limit» — их зовут уже после того,
+# как лимит распознан (по 429 или по фразе), поэтому «resets …» в этом контексте
+# и есть искомый сброс. Это и чинит корневой баг: «hit your session limit ·
+# resets 8:20pm» раньше не парсился из-за жёсткого якоря на старую фразу.
 HIT_LIMIT_RESET_RX = re.compile(
-    r"hit your limit.*?resets?\s*(?:at\s*)?"
+    r"resets?\s*(?:at\s*)?"
     r"(\d{1,2})(?::(\d{2}))?\s*(am|pm)?"
     r"\s*(?:\(([^)]+)\))?",
     re.IGNORECASE | re.DOTALL,
 )
 HIT_LIMIT_IN_RX = re.compile(
-    r"hit your limit.*?in\s+(\d+)\s+hour", re.IGNORECASE | re.DOTALL,
+    r"resets?\s+in\s+(\d+)\s+hour", re.IGNORECASE | re.DOTALL,
 )
 # Weekly (Max-plan) limit carries a DATE: "resets Feb 4, 9pm (Africa/Johannesburg)".
 # Tried BEFORE the session regex (it's more specific — month + day + time).
 # Ported from zohar-translator/corpus_tools/process_results.py (HIT_LIMIT_RX_WEEKLY).
 HIT_LIMIT_WEEKLY_RX = re.compile(
-    r"hit your limit.*?resets?\s+([A-Za-z]{3,9})\s+(\d{1,2}),?\s+"
+    r"resets?\s+([A-Za-z]{3,9})\s+(\d{1,2}),?\s+"
     r"(\d{1,2})(?::(\d{2}))?\s*(am|pm)?"
     r"\s*(?:\(([^)]+)\))?",
     re.IGNORECASE | re.DOTALL,
@@ -135,6 +150,7 @@ def _pid_alive(pid: int) -> bool:
             out = subprocess.run(
                 ["tasklist", "/FI", f"PID eq {pid}", "/NH"],
                 capture_output=True, text=True, check=False,
+                encoding="utf-8", errors="replace",
             ).stdout
             return str(pid) in out
         else:

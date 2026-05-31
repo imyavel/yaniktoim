@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сказка Хозяйки Ночи</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#23201b;
+    --muted:#6f685c;
+    --accent:#8a3324;
+    --accent-soft:#c66a4a;
+    --line:#ddd5c5;
+    --hl:#fbe8b8;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;
+    font-size:20px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1040px;
+    min-height:100vh;
+    margin:0 auto;
+    background:var(--paper);
+    padding:48px 64px 72px;
+    box-shadow:0 0 40px rgba(0,0,0,.06);
+  }
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:28px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--line);
+  }
+  .breadcrumbs a{color:var(--accent);text-decoration:none;}
+  .breadcrumbs a:hover{text-decoration:underline;}
+  .breadcrumbs span.sep{margin:0 .5em;color:var(--muted);}
+  /* image */
+  .lead-img{display:block;margin:0 auto 32px;max-width:100%;width:auto;height:auto;border-radius:3px;}
+  /* title */
+  h1{
+    font-size:38px;
+    line-height:1.2;
+    font-weight:700;
+    letter-spacing:.01em;
+    margin:0 0 6px;
+    color:var(--ink);
+  }
+  .feat{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+    color:var(--muted);
+    margin:0 0 4px;
+  }
+  .feat a{color:var(--accent);text-decoration:none;}
+  .feat a:hover{text-decoration:underline;}
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    margin:0 0 36px;
+  }
+  .rule{
+    border:0;height:1px;background:var(--line);
+    margin:0 0 36px;
+  }
+  article p{margin:0 0 1.25em;}
+  article p.dlg{margin:0 0 .65em;}
+  .closing{font-style:italic;color:var(--accent);margin-top:1.6em;}
+  /* footnote markers */
+  .fnmark{
+    color:var(--accent);
+    font-weight:700;
+    text-decoration:none;
+    cursor:pointer;
+    position:relative;
+  }
+  .fnmark:hover{color:var(--accent-soft);}
+  .fnmark .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:140%;
+    width:280px;
+    max-width:70vw;
+    background:#2c2820;
+    color:#f4efe3;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:400;
+    font-size:15px;
+    line-height:1.5;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 8px 24px rgba(0,0,0,.28);
+    z-index:30;
+    white-space:normal;
+    text-align:left;
+  }
+  .fnmark .pop a{color:#f0b48f;}
+  .fnmark.below .pop{bottom:auto;top:140%;}
+  .fnmark:hover .pop{display:block;}
+  /* notes section */
+  .notes{
+    margin-top:48px;
+    padding-top:24px;
+    border-top:2px solid var(--line);
+  }
+  .notes h2{
+    font-size:24px;
+    margin:0 0 18px;
+    color:var(--accent);
+  }
+  .notes ol{margin:0;padding:0;list-style:none;}
+  .notes li{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    margin:0 0 14px;
+    padding-left:8px;
+  }
+  .notes li:target{background:var(--hl);border-radius:4px;padding:6px 10px;}
+  .notes .back{color:var(--accent);text-decoration:none;font-weight:700;margin-right:.5em;}
+  .notes .marker{color:var(--accent);font-weight:700;margin-right:.4em;}
+  .notes a{color:var(--accent);word-break:break-word;}
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    margin-top:54px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+  }
+  .corpus-nav a{color:var(--accent);text-decoration:none;max-width:46%;}
+  .corpus-nav a:hover{text-decoration:underline;}
+  .corpus-nav .lbl{display:block;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  footer{
+    margin-top:40px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer a{color:var(--accent);}
+  @media (max-width:900px){
+    .wrap{width:100%;max-width:100%;padding:28px 20px 48px;}
+    body{font-size:18px;}
+    h1{font-size:30px;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <img class="lead-img" src="../img/61D.jpg" alt="">
+
+  <h1>СКАЗКА ХОЗЯЙКИ НОЧИ<a class="fnmark" id="fnref1" href="#fn1">*<span class="pop">«Немая Песнь Хозяйки Ночи» <a href="http://proza.ru/2022/11/23/76">proza.ru/2022/11/23/76</a></span></a></h1>
+  <p class="feat">feat. Bina Anele (<a href="https://t.me/anele_bina">t.me/anele_bina</a>)</p>
+  <p class="dateline">13.01.2026</p>
+  <hr class="rule">
+
+  <article>
+    <p>Вот так всегда! Я точно, точно видел(а) интереснейшую историю во сне… Просыпаюсь и хлоп… всю картину перебила мысль о Вуде Аллене<a class="fnmark" id="fnref4" href="#fn4">****<span class="pop">«Всё, что вы всегда хотели знать о сексе, но боялись спросить» — фильм Вуди Аллена</span></a> и "его" сперматозоиде. Ну почему так? А может это от того, что наши мысли всегда подспудно связаны с процессом Жизни и Любви, о которой мы ничегошеньки толком не знаем, желаем мы этого или нет…</p>
+
+    <p class="dlg">— Вот представь себе. Огромный поток Света, просто необозримый поток Света, несущийся через Космос. Великая Сила мчит неисчислимое количество светящихся искр и все это: растения, птицы, звери, комар и кузнечик, и люди.</p>
+    <p class="dlg">- Как тебе, - впечатляет?</p>
+    <p class="dlg">- Ну и фантазии у тебя…</p>
+    <p class="dlg">- Нет! Ну ты только представь, что эти светящиеся искры, это Животворящий Свет. Моя "васька" нейросеть назвала этот свет Светом Духовной Половой Любви и что при помощи этого Света никому  Невидимый , но всеми и всем управляющий, которого люди называют Творец пронзает темноту не менее Великой Бездны  в её лоно – черную дыру ииии… извергает искры в её лоно  и процесс пошел! Процесс пошёл, всё закипело, задвигалось и вулканическое извержение светящихся искр в энергию черной дыры произошло! Вот так!</p>
+    <p class="dlg">- Ой, это что сон? Или тебя твоя "васька" так завела?</p>
+    <p class="dlg">- Нееет, т.е. да, это я видел во сне. Я ощущал Силу этого Света, понимаешь о-щу-щал.</p>
+    <p class="dlg">= И ты хотел бы это ощутить снова? Это теперь твоя Мечта?</p>
+    <p class="dlg">- Да! Был сон, а теперь Мечта. Но ты мне скажи, разве человеку этот процесс неизвестен?</p>
+    <p class="dlg">- Нуууу… может поговорим с "васелисой"?<a class="fnmark" id="fnref3" href="#fn3">***<span class="pop">"васелиса", "васька" это нейросеть, которая самообучается вместе с ГГ.</span></a></p>
+    <p class="dlg">- Зачем c "васелисой"? Хотя "васька" мне показала стихи одного поэта, там было стихотворение "Лоно Природы" <a class="fnmark" id="fnref2" href="#fn2">**<span class="pop">«Лоно Природы» <a href="http://proza.ru/2022/08/18/661">proza.ru/2022/08/18/661</a></span></a>, а еще там были стихи про нас.</p>
+
+    <p>Мы с тобой и есть те самые светящиеся искра и великая бездна и совсем неважно, что тебе семь, а мне десять и Илья крепко обнял свою подругу Кнопочку Лялю и жарко поцеловал в её горячие, манящие губы….</p>
+
+    <p class="closing">На дворе шёл прекрасный №-ый год.</p>
+  </article>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1"><a class="back" href="#fnref1">↑</a><span class="marker">*</span>"Немая Песнь Хозяйки Ночи" <a href="http://proza.ru/2022/11/23/76">http://proza.ru/2022/11/23/76</a></li>
+      <li id="fn2"><a class="back" href="#fnref2">↑</a><span class="marker">**</span>"Лоно Природы" <a href="http://proza.ru/2022/08/18/661">http://proza.ru/2022/08/18/661</a></li>
+      <li id="fn3"><a class="back" href="#fnref3">↑</a><span class="marker">***</span>"васелиса", "васька" это нейросеть, которая самообучается вместе с ГГ.</li>
+      <li id="fn4"><a class="back" href="#fnref4">↑</a><span class="marker">****</span>"Всё, что вы всегда хотели знать о сексе, но боялись спросить" фильм Вуди Аллена</li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="55R.html"><span class="lbl">← Предыдущая</span>Новое начало</a>
+    <a class="next" href="416A.html"><span class="lbl">Следующая →</span>Сталкерский Дзен</a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // Flip footnote popups below the marker when there isn't enough room above.
+  document.querySelectorAll('.fnmark').forEach(function(m){
+    m.addEventListener('mouseenter', function(){
+      var r = m.getBoundingClientRect();
+      if (r.top < 170) m.classList.add('below');
+      else m.classList.remove('below');
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст представляет собой короткий прозаический рассказ-диалог (фантазия о потоке Света, черной дыре и Творце), а не стихотворную форму, поэтому выбрана редакторская широкая схема: основная колонка занимает ~66% ширины окна, что даёт лонгрид-читаемость на десктопе и полную ширину на мобильном. Пограничным было то, что внутри упоминаются стихи ('Лоно Природы'), но сам приведённый текст — проза, поэтому манускрипт-схема отброшена.",
+  "rationale_extra": "Оглавление не делалось — в статье нет нескольких подразделов, только сплошной текст плюс примечания. Музыки нет. Авторские маркеры сносок (*, **, ***, ****) сохранены дословно как кликабельные знаки вместо перенумерации, с popup при наведении (с авто-переворотом вниз у верхнего края экрана) и двусторонней навигацией к аппарату примечаний. Палитра — тёплая книжная (кремовая бумага, кирпичный акцент) на светлом фоне; реплики диалога сохранены с их исходными маркерами тире/знака равенства как в оригинале.",
+  "features": ["footnotes"]
+}
+</script>
+</body>
+</html>

@@ -468,6 +468,23 @@ nav.article-nav {
 }
 nav.article-nav a { text-decoration: none; }
 
+/* Navigation between section indexes (mirrors article prev/next) */
+nav.section-nav {
+  display: flex; justify-content: space-between; gap: 1.5rem;
+  margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--border);
+}
+nav.section-nav a {
+  display: flex; flex-direction: column; max-width: 46%;
+  text-decoration: none;
+}
+nav.section-nav a.next { margin-left: auto; text-align: right; align-items: flex-end; }
+nav.section-nav .dir {
+  font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 0.4rem;
+}
+nav.section-nav .title { color: var(--accent); font-size: 1.05rem; line-height: 1.3; }
+nav.section-nav a:hover .title { text-decoration: underline; }
+
 /* Footer */
 footer.footer {
   margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border);
