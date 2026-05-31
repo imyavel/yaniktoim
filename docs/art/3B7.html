@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Прыжок</title>
+<style>
+  :root{
+    --bg:#fbfaf7;
+    --ink:#23201c;
+    --muted:#6b645b;
+    --accent:#8a1c2b;
+    --accent2:#1f5b6e;
+    --rule:#e2ddd3;
+    --paper:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{
+    width:min(66vw,1080px);
+    margin:0 auto;
+    padding:28px 0 80px;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:30px;
+  }
+  .crumbs a{color:var(--accent2);}
+  .crumbs span.sep{margin:0 .5em;color:#b9b2a6;}
+
+  h1{
+    font-size:46px;
+    line-height:1.1;
+    margin:.2em 0 .15em;
+    font-weight:700;
+    letter-spacing:-.01em;
+  }
+  .dedication{
+    font-style:italic;
+    color:var(--muted);
+    font-size:18px;
+    margin:0 0 26px;
+  }
+  h2.part{
+    font-size:27px;
+    margin:48px 0 18px;
+    padding-bottom:6px;
+    border-bottom:2px solid var(--accent);
+    display:inline-block;
+  }
+  p{margin:0 0 1.15em;}
+  .closing{
+    font-weight:700;
+    letter-spacing:.06em;
+    margin-top:1.6em;
+  }
+
+  /* footnote refs */
+  sup.fnref{
+    position:relative;
+    font-size:.7em;
+    line-height:0;
+    white-space:nowrap;
+  }
+  sup.fnref > a{
+    color:var(--accent);
+    font-weight:700;
+    padding:0 1px;
+  }
+  sup.fnref .fnpop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:1.6em;
+    width:300px;
+    max-width:78vw;
+    background:#2a2620;
+    color:#f3eee4;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    line-height:1.5;
+    font-weight:400;
+    letter-spacing:0;
+    white-space:normal;
+    text-align:left;
+    padding:11px 13px;
+    border-radius:7px;
+    box-shadow:0 8px 26px rgba(0,0,0,.28);
+    z-index:40;
+  }
+  sup.fnref .fnpop a{color:#f0b8bf;}
+  sup.fnref .fnpop.below{bottom:auto;top:1.6em;}
+  sup.fnref:hover .fnpop{display:block;}
+
+  /* music inline ref */
+  sup.mref{font-size:.72em;line-height:0;}
+  sup.mref a{color:var(--accent2);font-weight:700;}
+
+  /* music block */
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--muted);
+    margin:0 0 8px;
+  }
+  .track{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-left:3px solid var(--accent);
+    border-radius:6px;
+    margin:0 0 10px;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:11px 14px;
+  }
+  .track-toggle{
+    flex:1;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:none;
+    border:none;
+    text-align:left;
+    cursor:pointer;
+    font-family:Georgia,serif;
+    font-size:17px;
+    color:var(--ink);
+    padding:0;
+  }
+  .track-toggle .arrow{
+    color:var(--accent);
+    font-size:13px;
+    transition:transform .2s;
+    display:inline-block;
+  }
+  .track.open .track-toggle .arrow{transform:rotate(90deg);}
+  .track-toggle .tname{font-weight:700;}
+  .track-toggle .tartist{color:var(--muted);font-style:italic;font-size:15px;}
+  .track-ext{
+    font-size:18px;
+    color:var(--accent2);
+    text-decoration:none;
+    line-height:1;
+  }
+  .player{display:none;background:#000;}
+  .track.open .player{display:block;}
+  .player .frame{
+    position:relative;
+    width:100%;
+    padding-top:56.25%;
+  }
+  .player iframe{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    border:0;
+  }
+  .topmusic{margin:0 0 30px;}
+
+  /* sections */
+  h2.section{
+    font-size:25px;
+    margin:54px 0 18px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--rule);
+  }
+  .music-section .track{border-left-color:var(--accent2);}
+
+  ol.notes{
+    list-style:none;
+    counter-reset:n;
+    padding:0;
+    margin:0;
+    font-size:16.5px;
+    line-height:1.6;
+  }
+  ol.notes li{
+    counter-increment:n;
+    position:relative;
+    padding:8px 0 8px 40px;
+    border-bottom:1px dotted var(--rule);
+  }
+  ol.notes li::before{
+    content:counter(n);
+    position:absolute;
+    left:0;top:8px;
+    width:28px;
+    text-align:right;
+    color:var(--accent);
+    font-weight:700;
+  }
+  ol.notes li.anon::before{content:"•";font-size:20px;}
+  ol.notes li:target{background:#fdf3d6;border-radius:5px;}
+  .backref{color:var(--accent);font-weight:700;margin-left:6px;text-decoration:none;}
+
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin:56px 0 0;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{display:block;max-width:46%;}
+  .corpus-nav .lbl{
+    display:block;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--muted);
+  }
+  .corpus-nav .ttl{font-size:17px;font-family:Georgia,serif;}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:46px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent2);}
+
+  @media(max-width:900px){
+    body{font-size:18px;}
+    .wrap{width:92%;}
+    h1{font-size:34px;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <h1>Прыжок</h1>
+  <p class="dedication">Праведнице Л. и ее способному ученику М., посвящается</p>
+
+  <div class="topmusic">
+    <p class="music-label">Музыка под настроение:</p>
+    <div class="track" id="music-2" data-yt="PgsfVJMWL0E">
+      <div class="track-head">
+        <button class="track-toggle" type="button">
+          <span class="arrow">▸</span>
+          <span><span class="tname">Choose Life. Trainspotting</span></span>
+        </button>
+        <a class="track-ext" href="https://www.youtube.com/watch?v=PgsfVJMWL0E" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="player"><div class="frame"></div></div>
+    </div>
+  </div>
+
+  <h2 class="part">Часть 1</h2>
+
+  <p>Благодарю Тебя, Господь, за динамичный урок сегодняшнего утра у нас с Л. Я, вкратце, попробую его записать сюда. Мы выясняли, что такое "Жить Вопреки"<sup class="mref"><a href="#music-1" title="Музыка">♪1</a></sup>. Это краеугольное, основное понятие Пути Воина ^ Исраэль<sup class="fnref" id="ref1-a"><a href="#fn1">1</a><span class="fnpop">См. также: 22 буквы Пути Воина ^ Исраэль. Зеир Арихович Анпин <a href="http://proza.ru/2021/08/05/77" target="_blank" rel="noopener">proza.ru/2021/08/05/77</a></span></sup>. И, традиционно, наша с Л. форма такая, что Л. делает вид, что она не понимает, вообще говоря, каких-то очевидных, для меня, вещей. И я ужасно злюсь из-за этого. ЗЛЮСЬ!!!11111 весь. (смеется). И обвиняю ее во лжи. "Ты врешь! Ты врешь, что ты не понимаешь. Потому, что ты все понимаешь."... Ну... Господь. (смеется). Мне нечего сказать в свое оправдание.</p>
+
+  <p>Вот. Но, я точно могу сказать, что... В наше (с Л.) оправдание, "как одного человека с одним сердем", что мы, таким образом, находимся в создаваемом Тобой образе и форме (духовной) работы, потому что это (как бы, вот) "от обратного", создает во мне силу, чтобы я, как бы "пинка от рывка", как (от) "погонщика ослов"<sup class="fnref" id="ref2-a"><a href="#fn2">2</a><span class="fnpop">См. также: Погонщик ослов. Том 1, Книга Зоар, РАШБИ - Бааль Сулам</span></sup>, роль которого выполняет в нашей паре Л.,...</p>
+
+  <p>Ну, я надеюсь, что М. помнит, немножко, эту статью Книги Зоар. Если нет, то мы ее потом обязательно почитаем. Потому, что она - одна из основных. Хотя, на самом деле, статья (в Зоар) это большая, а само понятие (погонщика ослов), оно достаточно компактное. Его можно объяснить, и не читая статью. Ну, можно было бы почитать. Я думаю, что М. интересно было бы ее почитать. Потому, что он любит Зоар. Мне это тоже нравится. Что он любит Зоар. Потому, что я тоже люблю Зоар. И Ты его любишь, Господь, потому, что Ты его написал. (смеется).</p>
+
+  <p>Но, я думаю, что я не "просто так" говорю это в молитве, потому, что нет ничего, без Твоего ведения и управления. Конечно, мы не будем читать на уроке эту мою огроменную статью<sup class="fnref" id="ref3-a"><a href="#fn3">3</a><span class="fnpop">См. также: Пролетая над гнездом Кукушки, Зеир Арихович Анпин <a href="http://proza.ru/2022/12/26/6" target="_blank" rel="noopener">proza.ru/2022/12/26/6</a></span></sup>, а будем читать Зоар, "погонщик ослов"<sup class="fnref" id="ref2-b"><a href="#fn2">2</a><span class="fnpop">См. также: Погонщик ослов. Том 1, Книга Зоар, РАШБИ - Бааль Сулам</span></sup>. Потому, что Ты, Господь, сейчас, посредством вот этой моей (поднимаемой) молитвы, на это указал.</p>
+
+  <p>Так вот. Что я хочу сказать. Погонщик ослов. Это Сила, которая "от обратного" побуждает человека, то есть, сподвигает его, двигает его, к совершению тех действий, которые ему, на самом деле, нужны. (Самому) Человеку. Но, у него нет сил на то, чтобы их совершить. И/или, нет понимания того, что именно, или как именно, он должен делать. А эта Сила, то есть, Ты, посредством обстоятельств, посредством, в том числе, и главным образом, его "ближних", да? Тех людей, с которыми он (в повседневности) взаимодействует, тех людей, которые находятся с ним рядом<sup class="fnref" id="ref4-a"><a href="#fn4">4</a><span class="fnpop">а если их там нет, то Ты их "выдумываешь", то есть, "выдумываешь" - это значит, что они начинают с ним рядом находиться, потому что Ты - "писатель Гудвин" на самом деле, а мы, так сказать, все - Твои персонажи, в Твоем Благословенном, "романе"... Ну, в общем, это все еще мы будем выяснять, т.к. это совсем другая тема</span></sup>.</p>
+
+  <p>Ну, вот. Говорили там, про ступень "Жизни Вопреки". Что это такое. Да? И вот, в процессе нашего вот этого "перформанса" с Л., выяснилось то, чего раньше мы не выясняли - то, что это, в точности, ступень, которая в Зоаре написана, (сейчас скажу, где...) в Ночи Невесты<sup class="fnref" id="ref5-a"><a href="#fn5">5</a><span class="fnpop">Ночь Невесты. п. 126. Книга Зоар, Том 1, РАШБИ - Бааль Сулам.</span></sup>. И там цитата: "...и устроились делающие нечестие, испытали Творца, Свят Благословен Он, и спаслись...". "...И была написана памятная Книга перед Ним...". "...и сказал Творец, - они, для Меня, в будущем Мире" (не дословно). Последнюю часть цитаты, я не до конца помню... Суть в чем: в том, что "и устроились делающие нечестие". "испытали Творца, и спаслись". И там, Бааль Сулам, приводит цитату, или слова (пророка Малахии), каббалиста. Который говорит, мол как же это так, вот, "грешники", еще и, как бы, намеренные грешники, они не уважают Творца, Свят Благословен Он, и так далее,..</p>
+
+  <p>Ну, ты понимаешь, что, в среде иудаизма, это была такая жесткая тема. :) Хотя, вообще говоря, в среде каббалистов, она "жесткая" в любом случае, поскольку, Свет Жизни<sup class="fnref" id="ref6-a"><a href="#fn6">6</a><span class="fnpop">Творец, Свят Благословен Он, это абстрактное понятие, хотя и ощущаемое "духовными идущими" по Пути Воина^Исраэль, начиная с Царя Давида, и до наших дней, вполне себе конкретно и осязаемо</span></sup> - это "наше все". Поэтому, вопрос (Бааля Сулама и пророка Малахии) конечно же, уместен. "А как же это так?". И он пишет там дальше... Ну, он пишет общими словами, которые не понять без личного опыта. Что "в конечном исправлении, намеренные прегрешения обернутся заслугами". То есть, имеются в виду прошлые прегрешения, да? По контексту понятно. А я к этому добавил, в свое время, в стихе "Мечтай!!"<sup class="fnref" id="ref7-a"><a href="#fn7">7</a><span class="fnpop">Мечтай!!. Зеир Арихович Анпин. <a href="http://proza.ru/avtor/agent017&book=17#17" target="_blank" rel="noopener">proza.ru/avtor/agent017&book=17#17</a></span></sup>, что "...окончательная форма Конечного Исправления::"БУДУЩИЕ преступления обернутся заслугами". И это та "ступень", которую "раскрываем" мы.</p>
+
+  <p>Что значит "будущие"? Это означает, что это становится частью МЕТОДИКИ. А что означает "прегрешения"? Это то, что человек рассчитывает, планирует делать. Намеренно. Как, собственно, то, что он должен делать. На Пути Воина^Исраэль<sup class="fnref" id="ref1-b"><a href="#fn1">1</a><span class="fnpop">См. также: 22 буквы Пути Воина ^ Исраэль. Зеир Арихович Анпин <a href="http://proza.ru/2021/08/05/77" target="_blank" rel="noopener">proza.ru/2021/08/05/77</a></span></sup>.  Что значит "намеренные прегрешения"? Это и есть "вопреки". А что значит "вопреки"? Это, буквально, как у<sup class="fnref" id="ref8-a"><a href="#fn8">8</a><span class="fnpop">Сначала сказал: "как у Пелевина. Ой, что это я :) Это, наверное, оговорка "по Фрейду".". У Пелевина, кстати, тоже много чего интересного. Тот же самый роман "Числа", он, буквально, "списан с натуры" :))) (смеется). Это, не про все. На самом деле, хорошо, что М. его не читал. (смеется). Ни за что, М., не читай роман В.Пелевина "Числа"...</span></sup> Кипелова<sup class="mref"><a href="#music-1" title="Музыка">♪1</a></sup>: "Дух мятежный, непокорный, дай мне знать, что впереди, чтобы ЖИТЬ ВОПРЕКИ".</p>
+
+  <p>"Вопреки" чему, или кому? Вопреки Тебе. То есть, Господь, Свят Благословен Он. Дух Жизни (каким бы словом ты, [you], не привык называть в своей "картине мира" это понятие, которое в ней, вне всякого сомнения, имеется, и занимает не последнее место, иначе бы ты этот мой пост не читал). Да? Тот, Намерение Которого управляет всеми... Покажи мне, что впереди. Что меня ожидает. Да? И, вместо того, чтобы бояться, и "заползать под коврик", да? Я иду, и делаю ВОПРЕКИ. Показываю "средний палец", всем и всему, включая Творца, Свят Благословен Он, и делаю, вот, как в этой песне - Кабриолет<sup class="mref"><a href="#music-4" title="Музыка">♪4</a></sup>.</p>
+
+  <p>"Стой! Дура! Туда нельзя! Там обрыв..." Я иду, ПРЫГАЮ, и достигаю своей Цели. И спасаюсь. "...и устроились делающие нечестие..." "и спаслись". "и написал Творец, Свят Благословен Он, памятную Книгу...". Книгу... "и будут они Мне, в тот день, когда Я совершу..." Конечное Исправление (Зоар) - это "прыжок в пропасть" (КК). Прыжок в пропасть - (т.е. вот, "испытали, и спаслись). Что такое, "конечное исправление"? Это когда, вот это - неминуемая гибель, когда ты прыгаешь в пропасть, и ты спасаешься. Это у К.Кастанеды (про него) написано. О той же самой ступени.</p>
+
+  <p>Эта ступень - называется "49 врата". А за ними следуют 50 врата. И это и есть "конечное исправление". И, по сути, эта последовательность в жизни Мага, и Воина ^ Исраэль, который уже готов переступить через эту черту, которая называется "страх", да? И победить свой страх, и стать "воином", и стать Магом.</p>
+
+  <p>И, короче говоря, войти в Круг. Потому, что Круг - это самое страшное. Мы за последние годы, с Л., это уже очень хорошо уяснили. Потому, что - делают все, что угодно, кроме этого. И, соответственно,.. Ну, вот, я думаю, что я немного описал. Об остальном, мы поговорим с тобой, [you] в Круге. Если не убоишься. Пиши мне в ЛС.<sup class="fnref" id="ref9-a"><a href="#fn9">9</a><span class="fnpop"><a href="https://t.me/arykhanpin" target="_blank" rel="noopener">t.me/arykhanpin</a></span></sup></p>
+
+  <p class="closing">ПРОДОЛЖЕНИЕ СЛЕДУЕТ</p>
+
+  <!-- Consolidated music -->
+  <section class="music-section">
+    <h2 class="section">Музыка под настроение</h2>
+
+    <div class="track" id="music-1" data-yt="cLlhdsT5Mko">
+      <div class="track-head">
+        <button class="track-toggle" type="button">
+          <span class="arrow">▸</span>
+          <span><span class="tname">Жизнь Вопреки</span> — <span class="tartist">Валерий Кипелов</span></span>
+        </button>
+        <a class="track-ext" href="https://m.youtube.com/watch?v=cLlhdsT5Mko" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="player"><div class="frame"></div></div>
+    </div>
+
+    <div class="track" id="music-2-sec" data-yt="PgsfVJMWL0E">
+      <div class="track-head">
+        <button class="track-toggle" type="button">
+          <span class="arrow">▸</span>
+          <span><span class="tname">Choose life</span> — <span class="tartist">Trainspotting</span></span>
+        </button>
+        <a class="track-ext" href="https://www.youtube.com/watch?v=PgsfVJMWL0E" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="player"><div class="frame"></div></div>
+    </div>
+
+    <div class="track" id="music-3" data-yt="HZSFCAQ7eWA">
+      <div class="track-head">
+        <button class="track-toggle" type="button">
+          <span class="arrow">▸</span>
+          <span><span class="tname">Писатель Гудвин</span> — <span class="tartist">Король и Шут</span></span>
+        </button>
+        <a class="track-ext" href="https://www.youtube.com/watch?v=HZSFCAQ7eWA" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="player"><div class="frame"></div></div>
+    </div>
+
+    <div class="track" id="music-4" data-yt="Z8qU0GdW88Q">
+      <div class="track-head">
+        <button class="track-toggle" type="button">
+          <span class="arrow">▸</span>
+          <span><span class="tname">Кабриолет</span> — <span class="tartist">Сергей Шнуров</span></span>
+        </button>
+        <a class="track-ext" href="https://www.youtube.com/watch?v=Z8qU0GdW88Q" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="player"><div class="frame"></div></div>
+    </div>
+  </section>
+
+  <!-- Notes -->
+  <section>
+    <h2 class="section">Примечания</h2>
+    <ol class="notes">
+      <li id="fn1">См. также: 22 буквы Пути Воина ^ Исраэль. Зеир Арихович Анпин <a href="http://proza.ru/2021/08/05/77" target="_blank" rel="noopener">http://proza.ru/2021/08/05/77</a> <a class="backref" href="#ref1-a" title="Вернуться к тексту">↩</a></li>
+      <li id="fn2">См. также: Погонщик ослов. Том 1, Книга Зоар, РАШБИ - Бааль Сулам <a class="backref" href="#ref2-a" title="Вернуться к тексту">↩</a></li>
+      <li id="fn3">См. также: Пролетая над гнездом Кукушки, Зеир Арихович Анпин <a href="http://proza.ru/2022/12/26/6" target="_blank" rel="noopener">http://proza.ru/2022/12/26/6</a> <a class="backref" href="#ref3-a" title="Вернуться к тексту">↩</a></li>
+      <li id="fn4">а если их там нет, то Ты их "выдумываешь", то есть, "выдумываешь" - это значит, что они начинают с ним рядом находиться, потому что Ты - "писатель Гудвин"<sup class="mref"><a href="#music-3" title="Музыка">♪3</a></sup> на самом деле, а мы, так сказать, все - Твои персонажи, в Твоем Благословенном, "романе"... Ну, в общем, это все еще мы будем выяснять, т.к. это совсем другая тема <a class="backref" href="#ref4-a" title="Вернуться к тексту">↩</a></li>
+      <li id="fn5">Ночь Невесты. п. 126. Книга Зоар, Том 1, РАШБИ - Бааль Сулам. <a class="backref" href="#ref5-a" title="Вернуться к тексту">↩</a></li>
+      <li id="fn6">Творец, Свят Благословен Он, это абстрактное понятие, хотя и ощущаемое "духовными идущими" по Пути Воина^Исраэль, начиная с Царя Давида, и до наших дней, вполне себе конкретно и осязаемо <a class="backref" href="#ref6-a" title="Вернуться к тексту">↩</a></li>
+      <li id="fn7">Мечтай!!. Зеир Арихович Анпин. <a href="http://proza.ru/avtor/agent017&book=17#17" target="_blank" rel="noopener">http://proza.ru/avtor/agent017&book=17#17</a> <a class="backref" href="#ref7-a" title="Вернуться к тексту">↩</a></li>
+      <li id="fn8">Сначала сказал: "как у Пелевина. Ой, что это я :) Это, наверное, оговорка "по Фрейду".". У Пелевина, кстати, тоже много чего интересного. Тот же самый роман "Числа", он, буквально, "списан с натуры" :))) (смеется). Это, не про все. На самом деле, хорошо, что М. его не читал. (смеется). Ни за что, М., не читай роман В.Пелевина "Числа"... <a class="backref" href="#ref8-a" title="Вернуться к тексту">↩</a></li>
+      <li id="fn9"><a href="https://t.me/arykhanpin" target="_blank" rel="noopener">https://t.me/arykhanpin</a> <a class="backref" href="#ref9-a" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <!-- corpus prev/next -->
+  <nav class="corpus-nav">
+    <a class="prev" href="365.html">
+      <span class="lbl">← Предыдущая</span>
+      <span class="ttl">Мудрость Рабби Абба</span>
+    </a>
+    <a class="next" href="138A.html">
+      <span class="lbl">Следующая →</span>
+      <span class="ttl">В Добрый Путь</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // Lazy YouTube players
+  document.querySelectorAll('.track').forEach(function(t){
+    var btn = t.querySelector('.track-toggle');
+    btn.addEventListener('click', function(){
+      var opening = !t.classList.contains('open');
+      t.classList.toggle('open');
+      if(opening){
+        var frame = t.querySelector('.frame');
+        if(frame && !frame.querySelector('iframe')){
+          var id = t.getAttribute('data-yt');
+          var f = document.createElement('iframe');
+          f.src = 'https://www.youtube.com/embed/' + id;
+          f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          f.setAttribute('allowfullscreen','');
+          f.loading = 'lazy';
+          frame.appendChild(f);
+        }
+      }
+    });
+  });
+
+  // Footnote popup flip
+  document.querySelectorAll('sup.fnref').forEach(function(el){
+    el.addEventListener('mouseenter', function(){
+      var pop = el.querySelector('.fnpop');
+      if(!pop) return;
+      pop.classList.remove('below');
+      var r = el.getBoundingClientRect();
+      if(r.top < 180){ pop.classList.add('below'); }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — это записанная молитва-эссе в прозе (поток размышлений автора об уроке каббалы), без стихотворной строфики, поэтому выбрана редакторская широкая схема, а не узкий манускрипт для стихов. Колонку задал примерно в 2/3 ширины окна (min(66vw,1080px)) с засечным телом текста для лонгрида и санс-навигацией; палитра светлая с бордовым акцентом для ссылок и сносок и сине-зелёным для музыкальных отсылок, чтобы визуально различать два типа маркеров.\n\nГлавная развилка — двойная система маркеров: звёздочки (*1–*9) это сноски, а решётки (#1–#4) указывают на музыкальные треки. Я развёл их: сноски получили всплывающие popup с переворотом у верхнего края и аппарат «Примечания» с обратными ссылками, а музыкальные #-маркеры стали ссылками на ленивые сворачиваемые YouTube-плееры. Поскольку треков четыре (>2), помимо плеера на месте (Trainspotting в шапке) собран сводный раздел «Музыка под настроение» со всеми треками. Оглавление не делал: фактический подраздел в тексте один («Часть 1»), условие «более одного» не выполнено. Заголовок ПРЫЖРОК в теле — опечаточный дубль названия, поэтому как H1 взято каноничное «Прыжок» из метаданных, дубликат не выводил отдельной строкой.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>

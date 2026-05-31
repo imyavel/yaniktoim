@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>В Добрый Путь</title>
+<style>
+  :root{
+    --bg:#fbfaf6;
+    --ink:#1c1b18;
+    --muted:#6b6459;
+    --accent:#7a2230;
+    --accent-soft:#a8485520;
+    --rule:#d9d2c4;
+    --paper:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66vw;
+    max-width:1060px;
+    margin:0 auto;
+    padding:34px 24px 90px;
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:26px;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 .5em;color:#bbb;}
+  .dateline{
+    font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    margin-bottom:8px;
+  }
+  h1{
+    font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    font-weight:800;
+    font-size:42px;
+    line-height:1.12;
+    letter-spacing:.01em;
+    margin:.1em 0 .55em;
+    color:var(--ink);
+  }
+  h2{
+    font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    font-weight:700;
+    font-size:27px;
+    letter-spacing:.01em;
+    margin:2.1em 0 .7em;
+    padding-top:.2em;
+    color:var(--accent);
+    border-top:2px solid var(--rule);
+  }
+  h2 a{color:inherit;text-decoration:none;}
+  h2 a:hover{color:var(--ink);}
+  p{margin:0 0 1.25em;}
+  a{color:var(--accent);}
+  /* ToC */
+  details.toc{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-left:4px solid var(--accent);
+    border-radius:4px;
+    padding:14px 22px;
+    margin:0 0 34px;
+  }
+  details.toc summary{
+    font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    font-weight:700;
+    font-size:16px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--muted);
+    cursor:pointer;
+    list-style:none;
+  }
+  details.toc summary::-webkit-details-marker{display:none;}
+  details.toc summary::before{content:"▾ ";color:var(--accent);}
+  details.toc[open] summary::before{content:"▴ ";}
+  details.toc ol{
+    font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    font-size:16px;
+    margin:.8em 0 .2em;
+    padding-left:1.4em;
+  }
+  details.toc li{margin:.34em 0;}
+  details.toc a{color:var(--ink);text-decoration:none;}
+  details.toc a:hover{color:var(--accent);text-decoration:underline;}
+  /* epigraph */
+  .epigraph{
+    font-style:italic;
+    color:#3a352d;
+    background:linear-gradient(var(--accent-soft),var(--accent-soft));
+    border-left:3px solid var(--accent);
+    padding:18px 26px 6px;
+    margin-bottom:8px;
+    font-size:18.5px;
+  }
+  .slogan{
+    text-align:center;
+    font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    font-weight:800;
+    letter-spacing:.06em;
+    font-size:22px;
+    color:var(--accent);
+    margin:1.6em 0;
+  }
+  .closing{
+    text-align:center;
+    font-style:italic;
+    font-size:21px;
+    margin:1.4em 0 .6em;
+  }
+  /* music */
+  .music-label{
+    font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:1.8em 0 .5em;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:6px;
+    background:var(--paper);
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 16px;
+    cursor:pointer;
+    font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    font-size:16px;
+  }
+  .track-head .arrow{color:var(--accent);transition:transform .2s;font-size:13px;}
+  .track.open .track-head .arrow{transform:rotate(90deg);}
+  .track-title{flex:1;}
+  .track-title b{font-weight:700;}
+  .track-title span{color:var(--muted);}
+  .track-head .ext{color:var(--muted);text-decoration:none;font-size:15px;}
+  .track-head .ext:hover{color:var(--accent);}
+  .track-body{display:none;padding:0 16px 16px;}
+  .track.open .track-body{display:block;}
+  .track-body .frame{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .track-body iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+  /* footnotes */
+  sup.fn-ref{font-size:.72em;line-height:0;}
+  sup.fn-ref a{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    padding:0 1px;
+  }
+  sup.fn-ref a:hover{text-decoration:underline;}
+  .notes{font-size:17px;}
+  .note{
+    margin:0 0 1.3em;
+    padding:6px 10px;
+    border-left:2px solid transparent;
+    transition:background .4s,border-color .4s;
+  }
+  .note:target{
+    background:var(--accent-soft);
+    border-left-color:var(--accent);
+  }
+  .note .lbl{font-weight:700;color:var(--accent);margin-right:.4em;}
+  .note .back{text-decoration:none;color:var(--accent);font-weight:700;margin-left:.3em;}
+  /* popup */
+  #fnpop{
+    position:absolute;
+    z-index:50;
+    max-width:380px;
+    background:#262019;
+    color:#f3ecde;
+    font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    font-size:14.5px;
+    line-height:1.5;
+    padding:12px 15px;
+    border-radius:7px;
+    box-shadow:0 8px 28px rgba(0,0,0,.32);
+    display:none;
+  }
+  #fnpop::after{
+    content:"";
+    position:absolute;
+    left:var(--ax,20px);
+    width:0;height:0;
+    border-left:7px solid transparent;
+    border-right:7px solid transparent;
+  }
+  #fnpop.above::after{bottom:-8px;border-top:8px solid #262019;}
+  #fnpop.below::after{top:-8px;border-bottom:8px solid #262019;}
+  /* bottom nav */
+  .pager{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:48px;
+    padding-top:22px;
+    border-top:2px solid var(--rule);
+    font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  }
+  .pager a{
+    display:block;
+    text-decoration:none;
+    color:var(--ink);
+    max-width:46%;
+  }
+  .pager .dir{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+  .pager .t{color:var(--accent);font-size:18px;}
+  .pager .next{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer.colophon a{color:var(--accent);}
+  .seealso{font-size:16px;margin-top:1.4em;}
+  @media(max-width:860px){
+    .wrap{width:100%;padding:22px 18px 64px;}
+    body{font-size:18px;}
+    h1{font-size:32px;}
+    h2{font-size:23px;}
+    #fnpop{max-width:84vw;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<a id="top"></a>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span>›</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <div class="dateline">8 марта 2021 г.</div>
+  <h1>В ДОБРЫЙ ПУТЬ</h1>
+
+  <details class="toc" open>
+    <summary>Содержание</summary>
+    <ol>
+      <li><a href="#epigraph">Эпиграф</a></li>
+      <li><a href="#way">В добрый Путь</a></li>
+      <li><a href="#ps">Пост скриптум (Примечания)</a></li>
+    </ol>
+  </details>
+
+  <h2 id="epigraph"><a href="#top">Эпиграф</a></h2>
+  <div class="epigraph">
+    <p>Дух Воина-Исраэль не привязан ни к эгоизму, ни к альтруизму, как не привязан он ни к подъемам, ни к падениям. Единственная привязанность Воина-Исраэль — это молитва, и каждая молитва, которую он поднимает, — словно его последняя молитва на этой земле. Поэтому ответ на нее для него практически не имеет значения. В этой последней молитве воин позволяет своей речи течь свободно и ясно. И когда он высказывает свое сердце Творцу, он знает, что вера его безупречна. И поэтому он радуется сам и радует Творца, поднимая молитву в Круге.<sup class="fn-ref"><a id="ref5" href="#fn5" data-note="fn5">*5</a></sup></p>
+    <p>Любовь — это наиболее пугающая вещь, особенно для воина. Но если воин однажды принимает пугающую природу любви, то он отбрасывает саму возможность ужасаться. Любовь для Воина-Исраэль является чем-то таким, что приходит сразу, поглощает его и проходит. Любовь приходит, летя, как крупицы золотой пыли, той самой пыльцы, которая покрывает крылья бабочек. Так что для Воина-Исраэль Любовь похожа на ливень, на пребывание под дождем из крупиц темно-золотой пыли.<sup class="fn-ref"><a id="ref4b" href="#fn4b" data-note="fn4b">*4</a></sup></p>
+  </div>
+
+  <h2 id="way"><a href="#top">В добрый Путь</a></h2>
+  <p>Для чего необходима эта брошюра. Задача “Воина-Исраэль”, то есть человека, имеющего твердое намерение “удостоиться” того, о чем пишут в книгах и статьях каббалисты – практическое раскрытие Книги Зоар, осуществляемое путем серьезного, методического и глубокого переосмысления и практического изменения человеком всей своей жизни и судьбы, совершаемое в строго очерченном порядке и по незыблемой логике, заключившей в себе мудрость поколений духовных практиков прошлого, настоящего и будущего – как со стороны самой Науки Каббала (учение РАШБИ-АРИ-Бааля Сулама), так и со стороны, совершенно никак не связанного с ними в прошлом, но неразрывно связанного “Намерением Духа” в настоящем и будущем, Пути Знания “новых видящих” Карлоса Кастанеды. Оба обширных и величественных “духовных”/”магических” течения Милостью Творца, Свят Благословен Он, - то есть, в результате событий, созданных “Намерением Орла” практически передать Свой “Дар”, делающему первые, робкие шаги, к подлинному осознанию себя и Мира, Единому Человеку и Человечеству, - стали слитыми в единый Путь взаимовключением их как “правой” и “левой” составляющих, объединившей их и взаимно обогатившей и возвысившей на новый уровень мощности, и практической духовной Силы, “средней линии”: “гадлут” которой называется “Учением Истины” (Тора мира Ацилут), а “катнут” – Путь Воина-Исраэль (адепта духовного пути, прямо стремящегося (Исраэль = яшар-прямо, к эль-ввысь) к практическому раскрытию Высшей (настоящей) Реальности – Света Творца, Свят Благословен Он, или “Орла”, “Правила Нагваля”, Намерения Духа = Замысла Творения). Этот синтез является результатом практического слияния в Круге Жизни наследия “новых видящих” (главным образом, в методике “катнута” мы будем работать с высказываниями из книги КК “Колесо Времени”), и тех смыслов и целей, которые насущно необходимы каждому человеку для начала практического раскрытия Книги Зоар, независимо от особенностей его или ее личной истории, опыта и прочих индивидуальных особенностей развития и существования, до принятия им или ей твердого, осознанного решения стать работником или работницей Творца, то есть,  подчинить свою жизнь и судьбу Его Воле, удостоившись Его “личного управления” и ведения.</p>
+
+  <p>В предыдущие века, сложившееся среди практикующих внутреннюю Тору/Каббалу понимание ступени “личного управления”, было, главным образом, таково, что эта высокая “духовная ступень” является результатом завершения “периода подготовки”, на котором ученик оставался “предоставлен сам себе”, практически также, как и прочие “внешние”, по отношению к духовной методике, люди “повседневного мира”.  Кастанеда, в свою очередь, это назвал “шансом иметь шанс”, то есть, то “преимущество” перед остальной “неосознанной” массой себе подобных, на “этапе подготовки” представлялось каббалистам, как нечто довольно “эфемерное” и  несерьезное, пока человек не приложит известную долю усилий и не “удостоится” “жить в Мифе и быть частью Правила” (КК), причем, наступление этого события считалось находящимся в единоличном ведении Творца, не происходящем в соответствии с нашим, “земным” пониманием и разумом, желаниями и логикой “нижних”. Не смотря на всю убедительность кажущейся незыблемости этого порядка вещей, в настоящем и грядущем времени, ступень “личного управления” стремящимся к практическому раскрытию Книги Зоар и Света Творца, человеком,  следует рассматривать несколько иначе. Тот факт, что Вы держите в руках эту книгу, и дочитали, не отбросив, ее до этого места, само по себе говорит о том, что Вы “удостоились” стать частью “системы исправленных душ”, являющейся областью “личного управления” каждым и каждой Творца. Другими словами, отныне и навсегда Вы вовлечены в “ускоренное”, несравнимо более благоприятное и желательное, чем “общее”, которому подлежат все люди по факту своего рождения в этот мир (как и все остальные живые существа и все творение в целом), управление Творца Вашим развитием и ростом во Имя и Во Славу Его Святого Имени<sup class="fn-ref"><a id="ref1" href="#fn1" data-note="fn1">*1</a></sup>, происходящее путем Его “личного”, то есть раскрытого и свободного, предваряемого желанием самого человека, и радующего его сердце, которое при этом и благодаря этому “управлению собой Свыше”, с каждым днем (а то и с каждым часом), проведенным в усилии по направлению к Цели раскрытия и наслаждения Творца, чувствует себя, как пробуждающийся от летаргического сна, пребывавший до этого в анабиозе, тяжелый больной, который уже до такой степени смирился с неизбежной,  и единственно реальной, реальностью медленной, и мучительной смерти, что успел попрощаться с жизнью, и забыл даже, что это такое. Это ощущение с Вами останется еще очень долго, как минимум при жизни в этом мире: уровень восхищения, удивления и благодарности Высшей Силе за Жизнь, Путь и Ее невыразимое благородство и Величие, будут с каждым днем и с каждым часом только прибавляться, ускоряться и углубляться. Это тот самый момент, который в Торе описан словами “Творец кладет руку человека на добрую судьбу, и говорит ему: выбери Жизнь и будь вписан в Книгу Жизни”. Свободу Воли никто не отменял, личное право выбора каждого благословенно и священно, просто Вы этот выбор уже сделали, присоединив свое намерение к намерениям участников Круга Жизни, объединения учеников Творца, первой экспериментальной практической ступени уровня “Розы” “гадлута”, созданной и существующей благодаря раскрытию Книги Зоар Творцом “в момент наступления начала Конечного Исправления” – период 2020 г. н.э. по р.х., именно ради того, чтобы Вы смогли этот выбор принять и совершить. Даже если по внутреннему самоощущению Вам пока еще кажется, что Вы далеки от описываемых состояний, можно быть уверенными на все 100%, что Вы их достигнете, более того,  достигнете очень быстро, и достигнете гораздо большего, чем “удостоились” достичь Милостью Творца Ваши предшественники, поскольку это общий Закон периода Конца Исправления Творцом “этого мира” в “подобии по свойствам “ Его Свету Бесконечности: “в духовном только поднимают вверх, а не опускают вниз”. Тот, кто только находится в начале Пути, гораздо важнее тех, кто идет по нему давно, и пусть даже идет объективно успешно. Весь “духовный мир”, все души “праведников” и весь Свет Творца, Свят Благословен Он, созданы и существуют Его Милостью только ради наполнения и немыслимого возвышения на Пути Творца конкретно Вас, и Ваших “ближних” единомышленников – “товарищей и подруг в Круге”<sup class="fn-ref"><a id="ref3" href="#fn3" data-note="fn3">*3</a></sup> учеников Творца<sup class="fn-ref"><a id="ref4a" href="#fn4a" data-note="fn4a">*4</a></sup>, являющихся, как Вам предстоит раскрыть практически, реальными Ангелами Творца “во плоти”, посланными Им на Землю в “этот мир” именно ради того, чтобы Вы через них смогли научиться у Него быть подобным Ему по свойствам, любимым и любящим Творением Творца, Величие и совершенство Бесконечной и вечной, неизменной, возносящей и возносящейся, существовавшей всегда и пребудущей вечно,  “суперреальности” Которого Вам предстоит раскрыть, чтобы стать Ее живым свидетелем и участником, причем в течение этой жизни и достаточно скоро, по меркам человеческого времени. Участники первой ступени Круга Жизни искренне, и от всего сердца желают Вам удачи и взаимного наслаждения, получаемого и доставляемого Вами Творцу и товарищам в Круге “своей следующей, более совершенной и исправленной” ступени Бесконечного Пути, как Один Человек с Единым Сердцем.</p>
+
+  <p class="closing">Доброго Вам Пути!</p>
+
+  <div class="music-label">Музыка под настроение</div>
+  <div class="track" data-embed="https://www.youtube.com/embed/MQpTyHJ6pKQ?autoplay=1">
+    <div class="track-head">
+      <span class="arrow">▶</span>
+      <span class="track-title"><b>АРИЯ</b> <span>— Игра с Огнем</span></span>
+      <a class="ext" href="https://www.youtube.com/watch?v=MQpTyHJ6pKQ" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </div>
+    <div class="track-body"></div>
+  </div>
+
+  <p class="slogan">ТОЛЬКО ВМЕСТЕ, МЫ - СИЛА!</p>
+
+  <h2 id="ps"><a href="#top">Пост скриптум</a></h2>
+  <div class="notes">
+    <p class="note" id="fn1"><span class="lbl">*1</span>Имя Творца - “Добрый, творящий только добро Своим творениям, не важно, “плохим” или “хорошим” это представляется не находящемуся пока еще в полном “подобии свойств” глазу наблюдателя”, Один, Единственный, Единый, Высший, Простой, совершенный и вечный, неизменный, Свет Бесконечности, Свят Благословен Он”, и “Нет никого кроме Него, Кто совершал, совершает, и будет совершать все действия в Своей Единой и Единственной Реальности, скрытой, во время формирования и взросления, от “нижних”, ради того, чтобы привести созданные Им создания к раскрытию Своего совершенства, уподобившись по свойствам (намерениям и образу действий) Творцу, и к наполнению их, по мере достижения нами единства в подобии свойств “как один человек с одним сердцем” Тому, Кто нас создал, Его благословенным и величественным, благим и живительным в непередаваемой мере ощущения Его значения и важности для любого живого существа, Светом Жизни и Любви, “Ор Хохма 32 путей Мира Ацилут” (Книга Зоар). Да свершится Воля Благословенного в “этом мире” Его Милостью уже в нашем с Вами “последнем поколении”, при жизни в “этом мире”, во всей полноте и величии Его Начального Замысла, как и было заповедано Им от начала времен благословенным божественным мудрецам и древним пророкам. Амен ве Амен. <a class="back" href="#ref1" title="Вернуться к тексту">↩</a></p>
+
+    <p class="note" id="fn3"><span class="lbl">*3</span>Раньше это было принято называть “десяткой” . На наш взгляд, название “Круг” адекватнее и удачнее отражает “объективную” духовную Реальность и особенности времени. <a class="back" href="#ref3" title="Вернуться к тексту">↩</a></p>
+
+    <p class="note" id="fn4a"><span class="lbl">*4</span>“Ученики каббалистов” – эта форма получения и передачи знания и методики осталась навсегда в прошлом. Практическое освоение методики раскрытия Творца сейчас и в грядущем будущем, будет производится группой единомышленников, стремящихся к этому раскрытию, благодаря личному ведению и управлению Силы, раскрыть Которую они намереваются, без посредничества (кроме как поддержки и напутствия в ключевых моментах, особенно “на первых парах”, со стороны “предыдущей ступени” “старших товарищей”) каких бы то ни было Равов и Учителей, вплоть до самого Мира Бесконечности. Этот порядок (институт Равов и Учителей), главным образом (не уменьшая их духовную величину и практическую неоценимую ценность вклада в человеческий Дух, каждого на своей ступени и в соответствии с реальностью их времени), приводил к потворствованию губительной нерешительности учеников принимать на себя ответственность за свои поступки и совершать деятельные изменение в самих себе, маскируя это почитанием и возвышением мудрости Рава, находящегося “на недостижимом для них духовном уровне”. Такое отношение – одна из самых “мерзостных” клипот (духовных нечистот), которые существуют объективно и представляют опасность для человека на Пути Творца. Об этом сказано в Торе “не сотвори иных богов (изображений) перед ликом Моим”, и именно по этой причине, Моисей, впервые даровавший человечеству Тору Творца, “разбил первые скрижали”, на которых были записаны Его Заповеди, увидев, что “Исраэль поклоняются золотому идолу”. Берегитесь удобной, приятной и коварной, врожденной в инертность человека, естественной склонности следовать за кем-то, “кто показывает другим Путь к Творцу”, чтобы не стать жертвой самообмана! Только Сам Творец может показать человеку и его товарищам в Круге Путь к Себе, и только Он обладает Силой, добротой и мудростью, чтобы провести по этому, тонкому, как волос, и острому, как лезвие бритвы, Пути “средней линии” между всем и ничем, человека, желающего удостоиться доставить наслаждение Творцу, раскрывая Его совершенство и благословение Светом Любви, самому себе, товарищам и подругам, работающим вместе с ним ежедневно в Круге, чтобы затем удостоиться быть теми, кому предначертано и позволено раскрыть это невыразимое и немыслимое совершенство и благословение всем людям, Единому Духовному Человечеству, общей душе Адама Ришон, Одной и Единственной, подобно Тому, Кто ее создал, и Кто великой Милостью и Мудростью Своей, помогал и помогает ей расти и развиваться, достигая желаемой Единым Сердцем Единственной настоящей Цели Жизни: доставить ответное наслаждение Тому, Кто сделал ей все это. <a class="back" href="#ref4a" title="Вернуться к тексту">↩</a></p>
+
+    <p class="note" id="fn4b"><span class="lbl">*4</span>Оригинальное высказывание из Книги "Колесо Времени" К.Кастанеды звучит так: "Знание — это наиболее пугающая вещь, особенно для воина. Но если воин однажды принимает пугающую природу знания, то он отбрасывает саму возможность ужасаться. Знание для воина является чем-то таким, что приходит сразу, поглощает его и проходит... Знание приходит, летя, как крупицы золотой пыли, той самой пыльцы, которая покрывает крылья бабочек. Так что для воина знание похоже на ливень, на пребывание под дождем из крупиц темно-золотой пыли." <a class="back" href="#ref4b" title="Вернуться к тексту">↩</a></p>
+
+    <p class="note" id="fn5"><span class="lbl">*5</span>У К.Кастанеды в "Колесе Времени": "Дух воина не привязан ни к индульгированию, ни к жалобам, как не привязан он ни к победам, ни к поражениям. Единственная привязанность воина — битва, и каждая битва, которую он ведет, — его последняя битва на этой земле. Поэтому исход ее для него практически не имеет значения. В этой последней битве воин позволяет своему духу течь свободно и ясно. И когда он ведет эту битву, он знает, что воля его безупречна. И поэтому он смеется и смеется." <a class="back" href="#ref5" title="Вернуться к тексту">↩</a></p>
+
+    <p class="seealso">См. также: <a href="https://bneiadam.com/forum/66-184-1" target="_blank" rel="noopener">https://bneiadam.com/forum/66-184-1</a></p>
+  </div>
+
+  <nav class="pager">
+    <a class="prev" href="3B7.html">
+      <div class="dir">← Предыдущая</div>
+      <div class="t">Прыжок</div>
+    </a>
+    <a class="next" href="12L.html">
+      <div class="dir">Следующая →</div>
+      <div class="t">Воззвание к Воинам Духа</div>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<div id="fnpop"></div>
+
+<script>
+  // lazy music player
+  document.querySelectorAll('.track').forEach(function(t){
+    var head=t.querySelector('.track-head');
+    var body=t.querySelector('.track-body');
+    head.addEventListener('click',function(e){
+      if(e.target.closest('.ext'))return;
+      var open=t.classList.toggle('open');
+      if(open && !body.dataset.loaded){
+        var fr=document.createElement('div');fr.className='frame';
+        var ifr=document.createElement('iframe');
+        ifr.src=t.dataset.embed;
+        ifr.allow='accelerated-data; autoplay; encrypted-media; picture-in-picture';
+        ifr.allowFullscreen=true;
+        fr.appendChild(ifr);body.appendChild(fr);
+        body.dataset.loaded='1';
+      }
+    });
+  });
+
+  // footnote popups
+  var pop=document.getElementById('fnpop');
+  function noteText(id){
+    var n=document.getElementById(id);
+    if(!n)return'';
+    var c=n.cloneNode(true);
+    var b=c.querySelector('.back');if(b)b.remove();
+    return c.innerHTML;
+  }
+  document.querySelectorAll('sup.fn-ref a').forEach(function(a){
+    a.addEventListener('mouseenter',function(){
+      pop.innerHTML=noteText(a.dataset.note);
+      pop.style.display='block';
+      var r=a.getBoundingClientRect();
+      var pr=pop.getBoundingClientRect();
+      var sx=window.scrollX,sy=window.scrollY;
+      var left=r.left+sx+r.width/2-pr.width/2;
+      left=Math.max(8+sx,Math.min(left,sx+document.documentElement.clientWidth-pr.width-8));
+      var arrow=r.left+sx+r.width/2-left;
+      pop.style.setProperty('--ax',arrow+'px');
+      if(r.top>pr.height+14){
+        pop.classList.add('above');pop.classList.remove('below');
+        pop.style.top=(r.top+sy-pr.height-10)+'px';
+      }else{
+        pop.classList.add('below');pop.classList.remove('above');
+        pop.style.top=(r.bottom+sy+10)+'px';
+      }
+      pop.style.left=left+'px';
+    });
+    a.addEventListener('mouseleave',function(){pop.style.display='none';});
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — программная вступительная брошюра («В Добрый Путь») в прозе: длинные аналитические абзацы, эпиграф-цитата, обширный аппарат примечаний. Стихотворных форм нет, поэтому выбран редакторский широкоформатный лонгрид, а не узкий манускрипт. Колонку задал относительно окна (66vw, max 1060px) с переходом в полную ширину на мобильных; для прозы такой ширины я держу комфортную меру строки за счёт умеренного кегля и межстрочного интервала.\n\nПограничные решения: эпиграф вынесен во врезку и помечен как отдельный раздел оглавления наряду с основным текстом и «Пост скриптум» (он же блок примечаний). Сноски нетривиальны — два маркера *4 и два тела *4: маркер в эпиграфе («темно-золотой пыли») ведёт к цитате из «Колеса Времени» (fn4b), а маркер «учеников Творца» — к заметке про учеников каббалистов (fn4a); подписи сохранил как *4/*4 дословно. Единственный музыкальный трек (АРИЯ — Игра с Огнём, YouTube) оформлен ленивым раскрывающимся плеером без сводного раздела, поскольку трек один (порог >2 не достигнут). Слоган капсом и «Доброго Вам Пути!» сохранены как есть. Палитра: тёплый светлый фон, бордовый акцент — спокойный книжно-журнальный тон без гигантских заголовков."
+  ,
+  "features": ["music", "footnotes", "toc"]
+}
+</script>
+</body>
+</html>
