@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Зеркало, которое не светит</title>
+<style>
+  :root{
+    --bg:#f6f4ef;
+    --paper:#fffdf8;
+    --ink:#1f1c17;
+    --muted:#6b655a;
+    --accent:#9a3b1f;
+    --accent2:#c9742a;
+    --line:#e0dace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    line-height:1.72;
+    font-size:20px;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{
+    width:66%;
+    max-width:980px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 28px 80px;
+  }
+  @media(max-width:1100px){.wrap{width:80%;}}
+  @media(max-width:760px){
+    body{font-size:18px;}
+    .wrap{width:100%;padding:20px 18px 60px;}
+  }
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--line);
+    padding-bottom:14px;
+    margin-bottom:26px;
+  }
+  .crumbs a{color:var(--muted);}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs span{margin:0 8px;color:var(--accent2);}
+  .lead-img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    margin:0 auto 30px;
+    border:1px solid var(--line);
+    border-radius:3px;
+  }
+  h1{
+    font-size:42px;
+    line-height:1.18;
+    font-weight:700;
+    margin:0 0 6px;
+    letter-spacing:-.01em;
+  }
+  @media(max-width:760px){h1{font-size:32px;}}
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    font-style:italic;
+    margin:0 0 36px;
+    padding-bottom:18px;
+    border-bottom:2px solid var(--accent);
+    display:inline-block;
+  }
+  .article p{
+    margin:0 0 1.5em;
+    text-align:justify;
+    hyphens:auto;
+  }
+  .article p:first-of-type::first-letter{
+    font-size:3.4em;
+    line-height:.82;
+    float:left;
+    padding:.05em .12em 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+  /* music */
+  .music{
+    margin:42px 0 10px;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:10px;
+  }
+  .track{
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:var(--paper);
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#f1ece1;}
+  .track-arrow{
+    color:var(--accent2);
+    transition:transform .25s;
+    font-size:14px;
+  }
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-title{
+    flex:1;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+  }
+  .track-ext{color:var(--muted);font-size:15px;}
+  .track-body{display:none;background:#000;}
+  .track.open .track-body{display:block;}
+  .track-body .ratio{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+  }
+  .track-body iframe{
+    position:absolute;inset:0;
+    width:100%;height:100%;border:0;
+  }
+  /* footer nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:60px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .corpus-nav a{display:block;max-width:46%;}
+  .corpus-nav .lbl{
+    display:block;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:46px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer.colophon a{color:var(--accent);}
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>/</span><a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <img class="lead-img" src="../img/1AP.jpg" alt="">
+
+  <h1>Зеркало, которое не светит</h1>
+  <div class="dateline">Написано: 25.10.21 на форуме Левой линии</div>
+
+  <div class="article">
+    <p>Реальный Мир и этот мир созданы в полном "подобии свойств", то есть копируют друг друга во всех деталях, отличие только в "знаке", или, как говорят каббалисты, в "материале желания получать", из которого "состоят" миры, то есть восприятие чувствующих существ и их осознание. Материал этого мира - не реален в том же самом смысле, в котором реально то, что он отражает, а поскольку "зеркалом" служит Разум, который на всех один, но будучи единственным, не отражает "реальность" своего фрагментированного временем носителя, реальность и нереальность мы видим с точностью от обратного, но, при этом, таким образом, что "отразить" "назад", сделав как бы проекцию, можем только тогда, когда вместо "прямого Света", отражаемого нашим зеркалом вовне, меняя источник отражения, возьмем Свет, уже "отраженный", и "отразив" его второй раз, получим "оригинал" в точности (ведь детали не меняются). Попробовав проделать это действие с зеркалами, Вы получите "дурную бесконечность". Но зеркальная поверхность - лишь подобие реального явления, свойства которого описаны выше. И мы сами являемся источниками отраженного Света, а не мир, который нам вокруг в этом Свете открывается. Мы сами состоим из времени. Каждый из нас является тем или иным набором связанных определенным образом свойств времени. Кастанеда называл это явление эманациями Орла.</p>
+
+    <p>Поэтому для достижения обратного эффекта, т.е. чтобы "отразить реальность нереальности", "открыть глаза", научившись "видеть", поняв, кто мы такие, где мы находимся, куда мы идем, откуда, зачем и так, зачем все это нужно, и что из этого следует, мы должны взять другое зеркало реального мира, и использовать его вместо "прямого Света", "заменив линзы" в своем собственном "отражательном приборе" таким образом, чтобы они отражали отраженный Свет другого зеркала вовне таким же образом, каким они до этого отражали прямой Свет "эманаций", делая из него "этот мир" и называя это Реальностью. Интересно?</p>
+  </div>
+
+  <div class="music">
+    <div class="music-label">Музыка под настроение:</div>
+    <div class="track" id="track1">
+      <div class="track-head" onclick="toggleTrack('track1','XS088Opj9o0')">
+        <span class="track-arrow">▶</span>
+        <span class="track-title">YouTube</span>
+        <a class="track-ext" href="https://youtu.be/XS088Opj9o0" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="track-body"><div class="ratio"></div></div>
+    </div>
+  </div>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="21L.html"><span class="lbl">← Предыдущая</span>Вход в Поручительство</a>
+    <a class="next" href="26Q.html"><span class="lbl">Следующая →</span>Дальше действовать будем Мы</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+function toggleTrack(id,vid){
+  var t=document.getElementById(id);
+  var body=t.querySelector('.track-body .ratio');
+  var opening=!t.classList.contains('open');
+  if(opening && !body.querySelector('iframe')){
+    var f=document.createElement('iframe');
+    f.src='https://www.youtube.com/embed/'+vid+'?rel=0';
+    f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    f.allowFullscreen=true;
+    body.appendChild(f);
+  }
+  t.classList.toggle('open');
+}
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — короткое философско-каббалистическое эссе из двух плотных абзацев прозы, без стихотворных строк, поэтому выбрана редакторская широкоформатная схема с колонкой около 2/3 ширины окна и читаемым засечным шрифтом. Доминирующая форма — рассуждающая проза, что однозначно исключает узкий манускрипт.\nПодразделов в тексте нет, поэтому оглавление не строилось; сносок тоже нет. Единственная медиа-ссылка — голый YouTube-URL без указанного названия/исполнителя; по правилам это сворачиваемый ленивый плеер (iframe подгружается только при раскрытии). Так как трек один (меньше трёх), сводный раздел музыки не создавался — плеер стоит на своём месте в конце текста под меткой по умолчанию «Музыка под настроение:». Буквица в первом абзаце и тёплая бумажная палитра поддерживают журнальный лонгрид-характер."
+}
+</script>
+</body>
+</html>
