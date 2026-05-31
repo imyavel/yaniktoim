@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Яврем Дети Вперде!</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --muted:#6f6555;
+    --accent:#9a3412;
+    --accent2:#b45309;
+    --rule:#d8cfbd;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    line-height:1.7;
+    font-size:20px;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 28px 80px;
+  }
+  /* editorial: content column ~2/3 of wide page */
+  .col{
+    max-width:760px;
+    margin:0 auto;
+  }
+  .wide{max-width:var(--maxw);}
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:30px 0 18px;
+    border-bottom:1px solid var(--rule);
+    margin-bottom:26px;
+  }
+  .crumbs a{color:var(--muted);}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs span.sep{margin:0 .5em;color:var(--rule);}
+
+  .hero{
+    margin:0 auto 30px;
+    text-align:center;
+  }
+  .hero img{
+    max-width:100%;
+    width:auto;
+    height:auto;
+    display:inline-block;
+    border:1px solid var(--rule);
+  }
+
+  h1.title{
+    font-size:42px;
+    line-height:1.12;
+    font-weight:700;
+    margin:10px 0 6px;
+    letter-spacing:-.01em;
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:34px;
+  }
+
+  h2.section{
+    font-size:24px;
+    letter-spacing:.16em;
+    text-align:center;
+    margin:14px 0 30px;
+    color:var(--ink);
+    font-weight:700;
+  }
+
+  .glossolalia{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-left:4px solid var(--accent2);
+    padding:26px 30px;
+    margin:0 0 36px;
+    font-size:18px;
+    line-height:1.85;
+    letter-spacing:.02em;
+    color:#2a241c;
+  }
+  .glossolalia p{margin:0 0 1.1em;}
+  .glossolalia p:last-child{margin-bottom:0;}
+  .glossolalia .lead{
+    font-style:normal;
+    color:#3a3024;
+  }
+  .glossolalia .verse{
+    color:var(--accent);
+    font-weight:600;
+  }
+
+  p{margin:0 0 1.35em;}
+  .prose p:first-of-type::first-letter{
+    font-size:3.4em;
+    float:left;
+    line-height:.78;
+    padding:.04em .12em 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+
+  /* music */
+  .music{
+    margin:46px auto 10px;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:18px 20px;
+  }
+  .music .label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin-bottom:12px;
+  }
+  .track{
+    border-top:1px dashed var(--rule);
+    padding-top:12px;
+  }
+  .track:first-of-type{border-top:none;padding-top:0;}
+  .track .head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track .arrow{
+    color:var(--accent);
+    transition:transform .2s;
+    font-size:15px;
+  }
+  .track.open .arrow{transform:rotate(90deg);}
+  .track .name{font-weight:600;}
+  .track .by{color:var(--muted);font-size:.9em;}
+  .track .ext{
+    margin-left:auto;
+    color:var(--muted);
+    font-size:.95em;
+  }
+  .track .player{
+    margin-top:14px;
+    display:none;
+  }
+  .track.open .player{display:block;}
+  .track .player .ratio{
+    position:relative;
+    width:100%;
+    padding-top:56.25%;
+  }
+  .track .player iframe{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    border:0;border-radius:6px;
+  }
+
+  /* footer nav */
+  .pager{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:60px;
+    padding-top:26px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .pager a{
+    max-width:46%;
+    font-size:16px;
+  }
+  .pager .lbl{
+    display:block;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .pager .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:50px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    font-size:15px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent);}
+
+  @media(max-width:820px){
+    body{font-size:18px;}
+    .wrap{padding:0 18px 60px;}
+    .col,.wide{max-width:100%;}
+    h1.title{font-size:32px;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+  <div class="wrap">
+    <nav class="crumbs col">
+      <a href="../index.html">Главная</a>
+      <span class="sep">/</span>
+      <a href="../confront/index.html">Конфронтология Духа</a>
+    </nav>
+
+    <div class="hero col">
+      <img src="../img/33G.jpg" alt="">
+    </div>
+
+    <div class="col">
+      <div class="kicker">Конфронтология Духа</div>
+      <h1 class="title">Яврем Дети Вперде!</h1>
+
+      <h2 class="section">ГОСТЬ И ХОЗЯИН</h2>
+
+      <div class="glossolalia">
+        <p class="lead">Ghost Окно Сознания Янки Узнай Тихо<br>
+        Хоти Yoni Oznaim Zone Ozon Oz Noah Znaki<br>
+        Итог Гудок Доказать Сказать Указать Стать Стоит<br>
+        Агада Когда Да Зона Она На А Но Он Ни Не Ну НИИ<br>
+        НОС СОН СЫН САН С НАМИ МИНА МИНУС СИНУС<br>
+        КОСИНУС ТУТ УСТНО СНОСНО СНОСИТЬ ОСЕНИТЬ<br>
+        ОСОЗНАТЬ ЗНАТЬ ЗЯТЬ ЗАЧАТЬ ЗАЧЕТ СЧЕТ ЧЕСТЬ<br>
+        ЕСТЬ СЕСТЬ ТОНУС НОТА У/ТОНУТЬ ТИКУН ( )<br>
+        УТКИ ТКНИ К/У/НИ/С КУНИЦА КУСТ КОЗА<br>
+        ОКО КОКОН ЗАКОН С ТИХО</p>
+
+        <p class="verse">КОГДА УТИХНЕТ СТИХИЯ ОГНЯ, СТАНУТ ЯСНЫМИ ТАЙНЫ СОЗНАНИЯ ЯКИ<br>
+        ЗАКОН СКАЗАННЫЙ СУТЬ СОН РАЗУМА<br>
+        КОКОН СНА МИРА ОДИН, КАК СИНУС-КОСИНУС (ТИК-ТАК)<br>
+        КОГДА КИНО СТИХАЕТ - НОТЫ ХОДА СНА НИКТО ИДУТ ОДЕТЬСЯ НАЗАД В ДЕТСТВО ДО ЗАЧАТИЯ</p>
+      </div>
+
+      <div class="prose">
+        <p>Время в реальности не существует так, как мы себе его рисуем в первом внимании. Поэтому, "проблема" наша не в том, что мы "забываем" или "не помним" о предыдущих жизнях (в самом общем смысле), и не контролируем момент "перерождения" посредством смерти своей старой формы и создания и формирования новой. Так в целом это видит рассудок и разум. Они являются продуктами настройки мира, который является ШТУЧНЫМ ЯВЛЕНИЕМ СУЩЕСТВУЮЩИМ ЗДЕСЬ И СЕЙЧАС. Не человек и его жизнь, а "оболочка", в которой он находится и "осознает себя мыслящим" - этот мир, является "штучным явлением", смерть которого абсолютна и неотвратима, но это явление не есть суть человек, который в него "облачается" и воспринимает осознает и чувствует жизненный опыт. "Штучность" явления заключается в том, что оно, хотя и состоит из огромного числа "дублей" (мотор-стоп-снято), которые повторяются внешне независимо один от другого, но эти "дубли" происходят в реальности, в которой "повторение" одного и того же "начала", т.е. начало получения того же самого по сути и смыслу опыта, что ты уже полностью отработал в предыдущих "дублях", - это "новое время" не "находится", как мы привыкли автоматически себе мысленно визуализировать, даже не замечая этого, "на прямой линии тянущейся из конца прошлого дубля в начало нового". Поскольку вне сознания, спящего сном разума в этих "дублях", времени, как линейного непрерывного явления, нет вообще. Время в "магической картине мира" может означать все что угодно, кроме того, что оно означает для среднего человека или ученого.</p>
+
+        <p>Мы "функционируем" по очень примитивным "программам" восприятия, которые пишем сами "на коленке", причем, практически не накапливая опыта в этом как средние люди в течение всей жизни, поскольку этот факт нам самим ни разу не становится в точности очевиден и понятен до самой смерти, когда этому миру будет поставлен шах и мат и должна будет начаться новая партия, с переменой "белых на черные и наоборот". Наша память работает точно также, как работает то, что она "запоминает", то есть переживания и опыт последовательных событий этого мира, приводящих к некоторому результату по определенной логике и т.д. - то есть последовательно линейно выстроенное описание чего-то, что, предположительно (если у вас еще осталось минимальное желание верить самому себе на слово, то поверите и тут, что это так и есть) - происходило "таким же" образом в "такое же" время реального мира, в реальном мире, но только в "другом времени" (в прошлом, разумеется). Как этот клубок из гремучих змей работает в нашем сознании и не ломается по пустякам - для меня, наверное, загадка. Но факт в том, что явление реального мира, в котором отсутствует необходимое свойство вышеописанного линейного происхождения - не является механически (функционально) возможной целью для протоколирования посредством механизма памяти, и поэтому, не может стать частью воспоминаний человека до того, как он осваивает новые механизмы восприятия посредством тренировки "второго внимания" и процесса его "взаимовключения" (хитколелут) в осознанную работу первого и второго как единого целого (третьего, а точнее, среднего между ними).</p>
+
+        <p>У "взрослых магов", если говорить в общем и целом, для обхода этого ограничения есть специальный механизм в реальном мире, который включается и опосредует собой дальнейший процесс, который у КК отражен вскользь через описание "абстрактных ядер" и главной целевой задачи практики перепросмотра. Решение находится в том месте, в котором происходит "сшивание" непрерывной и целостной "картины этого мира" по рисунку "швов", шитых белыми нитками. Ну да ладно, это не та в точности тема. ЯВРЕМ ДЕТИ ВПЕРДЕ!!</p>
+      </div>
+
+      <div class="music">
+        <div class="label">Музыка</div>
+        <div class="track" data-embed="https://www.youtube.com/embed/_xRN_Ndl-A8">
+          <div class="head" onclick="toggleTrack(this)">
+            <span class="arrow">▶</span>
+            <span class="name">Голубой Вагон</span>
+            <a class="ext" href="https://www.youtube.com/watch?v=_xRN_Ndl-A8" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a>
+          </div>
+          <div class="player"></div>
+        </div>
+      </div>
+
+      <nav class="pager">
+        <a class="prev" href="324.html">
+          <span class="lbl">← Предыдущая</span>
+          Мертвые боги
+        </a>
+        <a class="next" href="34TA.html">
+          <span class="lbl">Следующая →</span>
+          По чем стоит Мир
+        </a>
+      </nav>
+
+      <footer class="colophon">
+        <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+        <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    function toggleTrack(head){
+      var t=head.closest('.track');
+      var open=t.classList.toggle('open');
+      var p=t.querySelector('.player');
+      if(open && !p.dataset.loaded){
+        var src=t.getAttribute('data-embed');
+        p.innerHTML='<div class="ratio"><iframe src="'+src+'?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>';
+        p.dataset.loaded='1';
+      }
+    }
+  </script>
+
+  <script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "смешанное",
+  "rationale": "Статья открывается двумя блоками капс-глоссолалии (звуко-словесная игра, формально близкая к стихам), но основной объём — три плотных прозаических абзаца философско-эзотерического рассуждения о времени, памяти и 'дублях'. По доминирующей форме это проза, поэтому выбрана редакторская широкая схема: вводный словесный блок я подал не как поэму на узкой книжной полосе, а как выделенную врезку-эпиграф внутри лонгрида, что честнее отражает структуру текста. Колонка контента ~760px по центру широкого 1180px контейнера даёт журнальную пропорцию; капс сохранён дословно, авторские глифы '( )' и слэши не тронуты.",
+  "rationale_note": "",
+  "features": ["music"]
+}
+  </script>
+</body>
+</html>
