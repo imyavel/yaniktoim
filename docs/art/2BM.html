@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Популярная онтогастраномия</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#24201a;
+    --muted:#6e655a;
+    --accent:#8a5a2b;
+    --accent-dark:#5e3c18;
+    --rule:#d8cfbf;
+    --hl:#fbe7b8;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    font-size:20px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:980px;
+    min-height:100vh;
+    margin:0 auto;
+    background:var(--paper);
+    padding:48px 64px 64px;
+    border-left:1px solid var(--rule);
+    border-right:1px solid var(--rule);
+    box-shadow:0 0 40px rgba(60,45,20,.06);
+  }
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    margin-bottom:24px;
+    text-transform:uppercase;
+  }
+  .breadcrumbs a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;}
+  .breadcrumbs a:hover{border-bottom-color:var(--accent);}
+  .breadcrumbs .sep{margin:0 .5em;color:var(--rule);}
+  /* image */
+  .lead-img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    margin:0 auto 32px;
+    border:1px solid var(--rule);
+    border-radius:2px;
+  }
+  h1{
+    font-size:38px;
+    line-height:1.2;
+    font-weight:700;
+    margin:0 0 8px;
+    color:var(--accent-dark);
+    letter-spacing:-.01em;
+  }
+  .titlerule{
+    width:80px;height:3px;background:var(--accent);
+    border:0;margin:18px 0 30px;
+  }
+  .meta-intro{
+    font-style:italic;
+    color:var(--muted);
+    font-size:18px;
+    margin:0 0 28px;
+  }
+  blockquote{
+    margin:0 0 32px;
+    padding:18px 26px;
+    background:#f0ead d;
+    background:#f1ebdd;
+    border-left:4px solid var(--accent);
+    border-radius:2px;
+    font-style:italic;
+    color:#3b342a;
+  }
+  blockquote .who{
+    display:block;
+    font-style:normal;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:10px;
+  }
+  p{margin:0 0 22px;}
+  .num{
+    color:var(--accent-dark);
+    font-weight:700;
+    margin-right:.15em;
+  }
+  /* footnote marker */
+  .fnref{
+    position:relative;
+    font-size:.78em;
+    vertical-align:super;
+    line-height:0;
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .fnref:hover{color:var(--accent-dark);}
+  .fnref .pop{
+    visibility:hidden;
+    opacity:0;
+    position:absolute;
+    left:50%;
+    bottom:150%;
+    transform:translateX(-50%);
+    width:240px;
+    background:var(--accent-dark);
+    color:#fff;
+    font-size:15px;
+    font-weight:400;
+    font-style:normal;
+    line-height:1.5;
+    padding:10px 12px;
+    border-radius:6px;
+    box-shadow:0 6px 18px rgba(0,0,0,.25);
+    z-index:20;
+    transition:opacity .15s;
+    pointer-events:none;
+  }
+  .fnref.below .pop{bottom:auto;top:150%;}
+  .fnref .pop a{color:#ffe6c2;}
+  .fnref:hover .pop{visibility:visible;opacity:1;}
+  /* notes section */
+  .notes{
+    margin-top:48px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+  }
+  .notes h2{
+    font-size:22px;
+    color:var(--accent-dark);
+    margin:0 0 16px;
+  }
+  .notes ol{padding-left:1.3em;margin:0;}
+  .notes li{
+    font-size:17px;
+    color:#3b342a;
+    margin-bottom:10px;
+  }
+  .notes li:target{
+    background:var(--hl);
+    border-radius:3px;
+    padding:4px 8px;
+    transition:background .4s;
+  }
+  .backref{
+    margin-left:.4em;
+    color:var(--accent);
+    text-decoration:none;
+    font-size:.9em;
+  }
+  .backref:hover{color:var(--accent-dark);}
+  a.inline{color:var(--accent);}
+  /* bottom corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    margin-top:56px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .corpus-nav a{
+    color:var(--accent);
+    text-decoration:none;
+    max-width:46%;
+  }
+  .corpus-nav a:hover{color:var(--accent-dark);}
+  .corpus-nav .dir{
+    display:block;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  footer{
+    margin-top:44px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-size:15px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer a{color:var(--accent);}
+  footer .attrib{margin:0 0 8px;font-style:italic;}
+  footer .license{margin:0;font-size:14px;}
+  @media (max-width:880px){
+    body{font-size:18px;}
+    .wrap{width:100%;max-width:100%;padding:28px 20px 44px;border:0;}
+    h1{font-size:30px;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav .next{text-align:left;margin-left:0;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../other/index.html">Без категории</a>
+  </nav>
+
+  <img class="lead-img" src="../img/2BM.jpg" alt="Иллюстрация к статье">
+
+  <h1>Популярная онтогастраномия</h1>
+  <hr class="titlerule">
+
+  <p class="meta-intro">Из диалогов о смысле и цели Жизни на форуме ККО<a href="#fn1" id="fnref1" class="fnref">*<span class="pop">ccastaneda.ru</span></a>.<br>Написано 22.11.22 г.</p>
+
+  <blockquote>
+    <span class="who">*** написал(а):</span>
+    По-моему, смысл – это такое же чувство, то оно есть, то его нет. Поэтому, оно тоже может быть инструментом неоргаников. Например, оказался в их мире, и всё наполнилось смыслом, тогда зачем возвращаться? В повседневной жизни, бывает, наступает скукота, вот где начинается настоящая практика (безупречность), действовать без смысла, через «пустоту».
+  </blockquote>
+
+  <p><span class="num">1.</span> "Проблемка", с данным ходом мыслей, только в том, что "реальный повседневный Мир" - это и есть самый настоящий Мир неоргаников. Просто мы являемся его "потребителями", а они "обслуживающим персоналом" "компании-изготовителя". У этого факта есть несколько интересных следствий. Но главное - это то, что чтобы не быть инструментом неоргаников, нужно их самих использовать как инструмент, четко понимая их роль и функцию в "настройке собственного восприятия", равно как и в здании той "объективной повседневной реальности", которая имеется у любого общества себе подобных. Роль, без которой ни "чувственное восприятие", ни "социальный договор" не были бы последовательно возможными в принципе.</p>
+
+  <p><span class="num">2.</span> Но смысл - как явление, является более "универсальным" и "абстрактным", чем неорганики, как явление. Если брать именно понятные и подразумеваемые нами "формы" "подобных нам" существ, только не имеющих физического тела в этом мире. Пока, кстати, не имеющих. Это к слову. Поскольку один из основополагающих "энергетических фактов" Реального Мира, может быть высказан как "Нет действующего без Цели", то есть без Намерения, предпосылаемого этому "действию", каким бы оно ни было, или ни казалось нам "слепым природным", "случайным", "неосознанным" и так далее. Поскольку в Реале нет времени, точнее оно есть, только происходит все "здесь и сейчас" сразу и одновременно (для простоты можно представить себе модель, в которой время является "простым" пространственным измерением, наподобие 3 других, что, собственно, и сделали физики уже давно "с подачи Эйнштейна"), то и понятие "Цели и Намерения" в Нем не означает привычных нам по "сну разума" этого мира форм, при которых строго выражено различие между "хотелками" и "имелками", то есть между "желаемым" и "возможным на самом деле". Это часть "игровой формы", которая лежит в основе этого мира как эволюционного явления, и у нее нет "собственной" реальности. То есть эта конструкция существует только у нас в головах.</p>
+
+  <p><span class="num">3.</span> В Реальном Мире Цель - это "праобразный" вид функции, производящей в будущем данную "цепочку событий", от начала и до конца (т.е. до момента наблюдения здесь и сейчас) на том уровне сознания, на котором находится человек, перед сознанием которого данная цель открывается здесь и сейчас в результате того, что определенный объем целостности в некоторой цепочке происходивших с ним непосредственно самим событий реального мира на данный момент может быть обобщен несократимым образом в той конкретной мере и качестве, в котором ему открывается имевшаяся между этими событиями, скрытая в прошлом от него самого непреодолимым "барьером времени" и уровней сознания, сущностная взаимосвязь и единонаправленность происхождения, которая не является конструкцией разума и логики, и поэтому не обладает качествами, которыми обладают они: множественности собственных составляющих элементов, связанных между собой произвольным образом, который может оказаться "истинным" или "ложным", в зависимости от обстоятельств, поскольку является результатом и продуктом накопленного человеком, производящим данное "связывание", практического опыта в соответствующей предметной области, полученного им образования, состояния сознания, здоровья и настроения, и т.д. и т.п.</p>
+
+  <p><span class="num">4.</span> Но Цель в Реальном Мире - это то, что открывается "видящему", когда несколько, казавшихся абсолютно разрозненными и ничем не связанными сущностно ему самому раньше (и действительно таковыми являвшихся) событий, явлений и феноменов его чувственного восприятия, посредством процесса повышения Духом "здесь и сейчас" уровня его собственного осознания их реальности (т.е. не просто сдвига ТС, а ее сдвига "вглубь кокона", как сказал бы КК), соединяются в "безмолвное знания" порядка вещей, который не является продуктом ума, и который не опосредуется намерением, желанием, отношением или мнением человека к данным событиям или явлениям, но опосредует их, поскольку посредством них, а также посредством выполненного их "перепросмотра" воином, таковой "порядок вещей", существующий имманентно во Вселенной Эманаций Орла, Которая, как известно, состоит "из Времени", также, как "этот повседневный Мир" состоит из "элементарных частиц", получил "дополнительную формальную копию" самого себя, которая может быть в дальнейшем использована для управляемой настройки восприятия "сновидения наяву", в котором данная Цель сможет быть ощущаемо (т.е. чувственно) достигнута, включая все свои следствия в виде повышения общего "качества осознания", которое, как известно из КК, является "пищей Орла" (правда, гастрономические "коннотации" я бы оставил в стороне, это уводит от сути и путает, не принося никакой пользы при этом для трезвости и понимания), или, просто-напросто, является той "полезной работой", которую выполняют все "светящиеся коконы", "точки сборки" которых когда-либо были, есть или будут задействованы Орлом в "чувственном восприятии" человеком того или иного "этого Мира" в том или ином пространстве-времени, определяющих особенности происхождения это восприятия с теми, кто "трудится на плантациях" Орла над Его "главным онтогастрономическим проектом"...</p>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1">ККО — <a class="inline" href="https://ccastaneda.ru" rel="noopener" target="_blank">ccastaneda.ru</a><a href="#fnref1" class="backref" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="32K.html"><span class="dir">← Предыдущая</span>Высший Свет, Время...</a>
+    <a class="next" href="2BB.html"><span class="dir">Следующая →</span>Только не выходи из Круга</a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // flip footnote popup below marker if not enough room above
+  document.querySelectorAll('.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      var r=ref.getBoundingClientRect();
+      if(r.top<170){ref.classList.add('below');}else{ref.classList.remove('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — фрагмент форумной дискуссии в форме философской прозы: вводная ремарка, цитата собеседника и четыре пронумерованных абзаца плотного рассуждения. Стихотворных форм нет, поэтому однозначно выбрана редакторская (широкая) схема — журнальный лонгрид с колонкой около 2/3 ширины окна и читаемой длинной строкой для тяжёлых, длинных периодов автора.\n\nОглавление не делал: нумерованные пункты 1–4 не являются озаглавленными разделами, а единственный реальный подраздел — «Примечания», так что TOC был бы искусственным. Цитату собеседника оформил блоком blockquote с пометкой «*** написал(а):» (три звёздочки — это анонимизированный ник, не сноска, сохранил дословно). Единственная сноска — маркер «*» после «ККО», тело которой дано в конце как «* ccastaneda.ru»; реализовал её как кликабельный надстрочный маркер с переходом вниз, обратной стрелкой и hover-popup, переворачивающимся под маркер у верхнего края экрана. Голый адрес ccastaneda.ru обернул в ссылку. Музыкальных треков в тексте нет, поэтому music-функционал не применялся. Палитра — тёплая книжно-кремовая на светлом фоне с коричневым акцентом, что поддерживает «рукописно-эзотерический» тон материала, оставаясь в рамках редакторской схемы.",
+  "features": ["footnotes"]
+}
+</script>
+</body>
+</html>

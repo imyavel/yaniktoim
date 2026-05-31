@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Высший Свет, Время...</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1c17;
+    --muted:#6d6457;
+    --accent:#8a3b2e;
+    --accent2:#3f5a4e;
+    --rule:#d9d0bf;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    line-height:1.66;
+    font-size:19px;
+  }
+  .wrap{
+    width:66%;
+    max-width:920px;
+    margin:0 auto;
+    padding:0 24px 64px;
+  }
+  @media(max-width:1100px){.wrap{width:82%;}}
+  @media(max-width:760px){
+    .wrap{width:100%;padding:0 18px 48px;}
+    body{font-size:18px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.82rem;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:26px 0 0;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;}
+  .crumbs a:hover{border-bottom-color:var(--accent);}
+  .crumbs span.sep{margin:0 .5em;color:var(--rule);}
+
+  header.head{
+    margin:34px 0 8px;
+    padding-bottom:22px;
+    border-bottom:3px double var(--rule);
+  }
+  h1{
+    font-family:"Palatino Linotype",Palatino,Georgia,serif;
+    font-size:2.35rem;
+    line-height:1.16;
+    font-weight:700;
+    margin:0;
+    color:var(--ink);
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.8rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin:0 0 14px;
+  }
+
+  article{
+    background:var(--paper);
+    margin-top:30px;
+    padding:38px 46px;
+    border:1px solid var(--rule);
+    box-shadow:0 1px 0 #fff inset, 0 14px 34px -28px rgba(0,0,0,.4);
+  }
+  @media(max-width:760px){article{padding:26px 20px;}}
+
+  article p{margin:0 0 1.15em;}
+
+  .date{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.82rem;
+    letter-spacing:.08em;
+    color:var(--muted);
+    text-transform:uppercase;
+  }
+
+  /* speaker name */
+  .who{
+    color:var(--accent2);
+    font-style:italic;
+    font-weight:700;
+  }
+  .ans{
+    color:var(--accent);
+    font-weight:700;
+  }
+
+  .quote{
+    margin:0 0 1.15em;
+    padding:.2em 0 .2em 18px;
+    border-left:3px solid var(--rule);
+    color:var(--muted);
+    font-style:italic;
+  }
+  .quote .who{color:var(--muted);}
+
+  .divider{
+    border:0;
+    text-align:center;
+    margin:1.8em 0;
+    color:var(--accent);
+    overflow:visible;
+  }
+  .divider::before{
+    content:attr(data-mark);
+    letter-spacing:.4em;
+    font-size:1rem;
+    color:var(--accent);
+  }
+
+  /* footer nav */
+  nav.corpus{
+    margin-top:46px;
+    padding-top:26px;
+    border-top:3px double var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  nav.corpus a{
+    text-decoration:none;
+    color:var(--accent);
+    display:block;
+    max-width:46%;
+  }
+  nav.corpus .lbl{
+    display:block;
+    font-size:.72rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  nav.corpus .t{border-bottom:1px solid transparent;}
+  nav.corpus a:hover .t{border-bottom-color:var(--accent);}
+  nav.corpus .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:40px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.82rem;
+    line-height:1.55;
+    color:var(--muted);
+  }
+  footer.colophon a{color:var(--accent);}
+  footer.colophon .attrib{margin:0 0 .5em;font-weight:700;}
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <div class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../other/index.html">Без категории</a>
+  </div>
+
+  <header class="head">
+    <p class="kicker">Диалоги-посты с форума ccastaneda.ru</p>
+    <h1>Высший Свет, Время...</h1>
+  </header>
+
+  <article>
+    <p class="date">20.02.23.</p>
+
+    <p><span class="who">PaulK написал(а):</span> Какая самозабвенная тирада.&nbsp; Ты о себе говоришь и про себя. Сказанное тобой характеризует исключительно тебя и ко мне не имеет абсолютно никакого отношения. У каждого тела свой мир. Этот свет - это тысячные доли процента излучения того света. Попробуй не фиксировать, не настраивать и не собирать, быть может, сможешь сделать хоть один "шаг" там...</p>
+
+    <p><span class="ans">Ответ (Сам такой):</span> К твоему сведению, Высший Свет не меняет Своих свойств, они всегда одинаковы. И самое небольшое Его "свечение", ощущаемое человеком "здесь и сейчас", равно всему Свету Бесконечности. Постоянное "собственное" свечение, т.е. А не отраженное в бездонном колодце Его еле слышное Эхо от эха...</p>
+
+    <p>А знаешь, почему? Потому что все твои измерения долей процента существуют только в твоей дурной голове. Чтобы не мешала Свету выполнять твоими ногами и руками полезную Ему работу, культивирующую Его осознание, которое тебе не принадлежит, чтобы сдать результат, о котором ты ничего не узнаешь, вернув полученный "взаймы" рабочий инструмент работодателю, вспомнить, что ты дырявое деревянное чучело, а не настоящий мальчик, и отправится бодро шагать, насвистывая старые песни о тлене и пустоте, в Вечность...</p>
+
+    <hr class="divider" data-mark="*****">
+
+    <p><span class="who">exorcist написал(а):</span></p>
+    <div class="quote">
+      <span class="who">PaulK написал(а):</span><br>
+      Тратишь время и силы на ерунду. Много у тебя их?<br>
+      Морма )))
+    </div>
+    <p>мы все тратим его на ерунду, только ерунда у всех разная.</p>
+
+    <p><span class="ans">Ответ (Сам такой):</span> Это лишь только половина правды, самая безобидная.
+    Другая половина, основная, заключается в том, что мы сначала его создаем, время т.е., выдумыванием из пальца того, чего быть не может, посредством измерения его "затрат" на то, "производство" того, на что оно должно "тратиться", делая т.о. факт о его "объективном происхождении" включенным в выдумываемое занятие "по умолчанию". А над всем этим гордо реет идея самого себя, вокруг которого вся эта чертовщина вертится, как б..дь вокруг пилона в заплеванном кабаке перед пьяными матросами.</p>
+
+    <hr class="divider" data-mark="***">
+
+    <p><span class="who">exorcist написал (а):</span> В свете темы депрессии, я вот тут с утра задумался, а что же происходит?
+    И понял, что чужеродное устройство причиняет нам физическую или психологическую боль.
+    А в результате практик мы начинаем осознавать это, обращать на это внимание, так сказать усиливать в некотором роде воздействие. До того момента, пока не избавимся от соответствующий включений. Или не сможем получить опыт и осознать полностью. Тут следует сказать, что боль находится именно в физическом теле. И психологические приемы мало эффекты по воздействию, и не всегда годятся для борьбы с этим.</p>
+
+    <p>Что же еще причиняет нам боль? Походы к работодателю как вариант, лень. Ну точнее лень ограничивает нас в соприкосновении с тем, что причиняет боль.
+    Интересно что на другую чашу весов можно поставить мотивацию, то есть по сути то же самое ЧСВ, самомнение.
+    А можно и не ставить.</p>
+
+    <p>И тогда.... А вот тогда, что по вашему должно прийти заместо ЧСВ? Советую подумать об этом самостоятельно. ЧСВ то мы уничтожаем. :)</p>
+
+    <p><span class="ans">Ответ:</span> По большому счету, боль сигнализирует наличие проблемы с тем, чтобы принять себя как есть. Если поработать с этим чуток, повысить самомнение (как неделание!) Тогда чужеродность превратится в естественность, и мотивация появится сама собой, и ЧСВ перестанет требовать столько внимания своей малюсенькой солонке. И депрессия уйдет, и лень улетучится. И понимание придет того, что на самом деле важно а что не то, чтобы очень.</p>
+
+    <p>Кстати, важно не то, что доставляет чувственный дискомфорт. Важно то, что при его появлении забывается навсегда. Что боль мы причиняем себе сами, чтобы это дало нам забыть, что именно в ЧСВ заставляет воина с ней бороться. Не то, что важным быть плохо, а не важным быть хорошо. Это ответ двоечника. Воины борятся с ЧСВ потому что объект этого чувства в природе начисто отсутствует.</p>
+
+    <p><span class="who">exorcist написал (а):</span> тайна не раскрыта.</p>
+
+    <p><span class="ans">ответ:</span> Тайна никогда не будет раскрыта тем, кто так старался чтобы скрыть ее по глубже, припорошив морокой "обстоятельств объективной реальности", за которыми она остается похоронена навсегда. Тайна в том, что надо размахнуться по-сильнее, и разбить зеркало.</p>
+  </article>
+
+  <nav class="corpus">
+    <a class="prev" href="3C7.html">
+      <span class="lbl">← Предыдущая</span>
+      <span class="t">Из переписки двух воинов</span>
+    </a>
+    <a class="next" href="2BM.html">
+      <span class="lbl">Следующая →</span>
+      <span class="t">Популярная онтогастраномия</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой подборку форумных диалогов-постов (проза, реплики и ответы), без стихотворных форм, поэтому выбрана редакторская широкая схема: основная колонка ~66% ширины окна на десктопе и полная ширина на мобильных. Текст коротковат, но прозаический характер однозначно склоняет к лонгрид-подаче, а не к узкому манускрипту.\n\nПодразделов с заголовками в тексте нет — это сплошной поток реплик, разделённых авторскими маркерами (*****, ***), поэтому оглавление не делалось (правило требует TOC только при более чем одном подразделе). Музыкальных ссылок и сносок в тексте нет, аппарат примечаний не нужен. Реплики участников (PaulK, exorcist) и ответы автора выделил цветом и курсивом для читаемости диалога, вложенную цитату внутри поста exorcist оформил блок-цитатой; авторские разделители сохранены как декоративные центрированные линии с теми же звёздочками. Глиф ':)' и пунктуация оставлены дословно, регистр и формулировки не менялись."
+}
+</script>
+</body>
+</html>

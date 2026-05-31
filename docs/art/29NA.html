@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Путь Одиночки</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --muted:#6b6256;
+    --accent:#9a3412;
+    --accent2:#3b5b6b;
+    --rule:#d9d0bf;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    line-height:1.72;
+    font-size:19px;
+  }
+  .wrap{
+    width:66%;
+    max-width:980px;
+    min-height:100vh;
+    margin:0 auto;
+    background:var(--paper);
+    padding:38px 64px 70px;
+    box-shadow:0 0 40px rgba(0,0,0,.06);
+  }
+  .breadcrumbs{
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:26px;
+  }
+  .breadcrumbs a{color:var(--accent2);text-decoration:none;}
+  .breadcrumbs a:hover{text-decoration:underline;}
+  .breadcrumbs span.sep{margin:0 8px;color:var(--rule);}
+  .lead-image{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    margin:0 auto 30px;
+  }
+  h1{
+    font-size:42px;
+    line-height:1.15;
+    font-weight:600;
+    margin:0 0 6px;
+    letter-spacing:-.01em;
+  }
+  .meta-source{
+    font-size:15px;
+    color:var(--muted);
+    margin:0 0 36px;
+    padding-bottom:18px;
+    border-bottom:2px solid var(--ink);
+  }
+  .meta-source a{color:var(--accent2);}
+  p{margin:0 0 1.35em;}
+  .article p{text-align:justify;hyphens:auto;}
+  a{color:var(--accent);}
+  /* music player */
+  .music-block{margin:40px 0;}
+  .music-label{
+    font-variant:small-caps;
+    letter-spacing:.06em;
+    font-size:16px;
+    color:var(--muted);
+    margin-bottom:10px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    background:#fbf7ee;
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#f4eddd;}
+  .track-arrow{
+    transition:transform .25s;
+    color:var(--accent);
+    font-size:14px;
+  }
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-title{flex:1;font-size:18px;}
+  .track-title .by{color:var(--muted);font-size:15px;}
+  .track-ext{
+    color:var(--accent2);
+    text-decoration:none;
+    font-size:18px;
+  }
+  .track-body{display:none;padding:0 18px 18px;}
+  .track.open .track-body{display:block;}
+  .track-body .frame{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .track-body iframe{
+    position:absolute;
+    top:0;left:0;
+    width:100%;height:100%;
+    border:0;
+  }
+  /* footer nav */
+  .corpus-nav{
+    margin-top:60px;
+    padding-top:24px;
+    border-top:2px solid var(--ink);
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
+    font-size:16px;
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    color:var(--accent2);
+    max-width:46%;
+  }
+  .corpus-nav .lbl{
+    display:block;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:var(--muted);
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer.colophon a{color:var(--accent2);}
+  @media(max-width:900px){
+    .wrap{width:100%;max-width:100%;padding:24px 20px 50px;}
+    body{font-size:18px;}
+    h1{font-size:32px;}
+    .article p{text-align:left;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../other/index.html">Без категории</a>
+  </nav>
+
+  <img class="lead-image" src="../img/29NA.jpg" alt="Иллюстрация к статье">
+
+  <h1>Путь Одиночки</h1>
+
+  <p class="meta-source">По мотивам: <a href="http://ccastaneda.ru/viewtopic.php?id=3244#p70230" target="_blank" rel="noopener">ccastaneda.ru/viewtopic.php?id=3244#p70230</a><br>23.09.22</p>
+
+  <div class="article">
+    <p>Путь Одиночки - это самый Высший, Абстрактный, "реальный" Путь. Поскольку он соответствует таковой "ступени" Реальности, т.е. "уровня осознания", находящегося НАД реальностью точек сборки и воспринимаемых ими разделенных и населенных миров "первого" и "второго" типов внимания чувствующих существ. Как и вообще любого восприятия как я-вления. Не сложно догадаться, сложив 2+2, и снова получив 11, что это не случай нашего брата, воспринимающего Мир объектов или эманаций, или чего бы то ни было еще, осознавая в нем себя, продвигаясь во времени, получая и совершенствуя опыт всех опытов, и т.д. и т.п., что уже подчеркнуто не является тем "изначальным" состоянием, в котором Жизнь, подразделившаяся затем на "капли", имеющиеся у каждого из нас, равно как и у всех, кто когда либо жил и будет жить в человеческой истории, - была Жизнью Одного Объекта - если хотите, "энерготела", Кокон Которого был тем же самым, что и его "точка сборки". Впрочем, он и есть, т.к. в Реальном Мире ничто никуда не "девается" в результате несчастного (или счастливого, кому как) случая, типа "шел, подскользнулся, упал, потерял сознание, нашел встроенку, не заметил разницы, поскольку Зеркало, в которое я смотрелся, в результате удара о Землю разбилось на много-много осколков, каждый из которых чем-то отличается от любого другого такого же, и поэтому, бесспорно и без тени сомнения, является неповторимым, уникальным и единственным в своем роде во всей, образовавшейся по этому случаю "из ничего" посредством "большого взрыва", безжизненной громадности наблюдаемой Вселенной. Знакомый "базар", не правда ли?</p>
+
+    <p>Но из описанной модели ясно без тени сомнения, на самом деле, совсем другое, а именно, то, что иллюзорной является эта самая "уникальность" и "неповторимость", равно как и сущностная отделенность и самостоятельность (да и, чего уж греха таить, собственное "обособленное и самостоятельное" существование отдельно от Целого, которое больше не наблюдается явно, а значит, вовсе не обязательно является "объективной реальностью", особенно если это наносит очевидный ущерб идее собственной уникальной неповторимости, т.е. больно кусает за ЧСВ в его самом базовом и внутреннем аспекте и сути, ощутимо лишая человека смысла жизни, в которой отродясь им не прослеживалось никакого смысла, да и жизнью, откровенно говоря, называлось это явление только формально, потому что так принято у "мертвяков" говорить на все, что "мыслит" и движется, с точки зрения внешнего наблюдателя, "объективно самостоятельно" от всего, что не наблюдается с точки зрения внешнего наблюдателя, а следовательно, не существует во внешне объективной наблюдаемой им вселенной реальности). Ведь каждый осколок Зеркала, являющегося единым Целым (спойлер: в традиции толтеков его называют Орел) "уникален" лишь в особенностях собственной поломанности, несовершенства, поскольку является результатом разбиения целостного объекта вдребезги при столкновении объекта с твердой Землей...</p>
+  </div>
+
+  <div class="music-block">
+    <div class="music-label">Взгляд очевидца:</div>
+    <div class="track" data-embed="https://www.youtube.com/embed/FyubQByktHo">
+      <div class="track-head">
+        <span class="track-arrow">▶</span>
+        <span class="track-title">Взгляд очевидца <span class="by">— YouTube</span></span>
+        <a class="track-ext" href="https://www.youtube.com/watch?v=FyubQByktHo" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="track-body"></div>
+    </div>
+  </div>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="2AB.html"><span class="lbl">← Предыдущая</span>Я уже отдан Силе</a>
+    <a class="next" href="2AA.html"><span class="lbl">Следующая →</span>Этапы Путей Воинов</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.track').forEach(function(t){
+    var head=t.querySelector('.track-head');
+    var body=t.querySelector('.track-body');
+    head.addEventListener('click',function(e){
+      if(e.target.closest('.track-ext'))return;
+      var open=t.classList.toggle('open');
+      if(open && !body.querySelector('iframe')){
+        var f=document.createElement('div');
+        f.className='frame';
+        f.innerHTML='<iframe src="'+t.dataset.embed+'?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+        body.appendChild(f);
+      }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой плотную философско-эссеистическую прозу (два длинных абзаца-размышления о Пути Одиночки в толтекской традиции), без стихотворных форм, поэтому выбрана редакторская широкая схема: контейнер занимает ~2/3 ширины окна, юстированный текст с книжной засечной гарнитурой создаёт ощущение лонгрида. Манускриптная узкая колонка отвергнута, так как она предназначена для стихов и поэм, а здесь нет ни одной стихотворной строки.\n\nВ тексте один распознанный медиа- link с кастомной атрибуцией «Взгляд очевидца:» (YouTube) — оформлен как свёрнутый ленивый плеер с iframe, подгружаемым только при раскрытии; метка сохранена дословно. Поскольку аудио-ссылка одна (меньше трёх), сводный раздел музыки не создавался. Первая строка «По мотивам: <url>» отнесена к источнику и обёрнута в гиперссылку без сырого адреса в виде текста. Подразделов в статье нет, поэтому оглавление не делалось; сносок в тексте также нет. КАПС (НАД, ЧСВ) и кавычки сохранены как в оригинале.",
+  "features": ["music"]
+}
+</script>
+</body>
+</html>

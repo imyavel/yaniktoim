@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Группа и Практика</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#23201c;
+    --muted:#6b6359;
+    --accent:#8a4a2f;
+    --accent2:#b9744a;
+    --rule:#d9d1c2;
+    --quote-bg:#efe9dc;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(138,74,47,.35);}
+  a:hover{color:var(--accent2);border-bottom-color:var(--accent2);}
+
+  .wrap{
+    width:66%;
+    max-width:1100px;
+    min-height:100vh;
+    margin:0 auto;
+    background:var(--paper);
+    padding:48px 64px 64px;
+    box-shadow:0 0 40px rgba(0,0,0,.06);
+  }
+
+  /* Breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:28px;
+  }
+  .breadcrumbs a{border:none;color:var(--accent);}
+  .breadcrumbs .sep{margin:0 .5em;color:var(--rule);}
+
+  .hero{
+    margin:0 0 32px;
+    text-align:center;
+  }
+  .hero img{
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border-radius:3px;
+  }
+
+  h1{
+    font-size:42px;
+    line-height:1.15;
+    margin:0 0 6px;
+    font-weight:700;
+    letter-spacing:-.01em;
+  }
+  .subtitle{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:17px;
+    color:var(--muted);
+    font-style:normal;
+    margin:0 0 40px;
+    letter-spacing:.03em;
+  }
+  .title-rule{
+    border:none;
+    border-top:2px solid var(--accent);
+    width:80px;
+    margin:0 0 38px;
+  }
+
+  article p{margin:0 0 1.35em;}
+
+  .speaker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 .5em;
+  }
+  blockquote{
+    margin:0 0 1.6em;
+    padding:18px 26px;
+    background:var(--quote-bg);
+    border-left:4px solid var(--accent2);
+    font-style:italic;
+    color:#3a352d;
+  }
+  blockquote p{margin:0;}
+  .answer-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:700;
+    margin:0 0 .5em;
+  }
+
+  /* Music player */
+  .music-section{
+    margin:48px 0 8px;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 12px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:6px;
+    background:#fbf8f1;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#f3eee2;}
+  .track-arrow{
+    font-size:13px;
+    color:var(--accent);
+    transition:transform .2s ease;
+    flex:0 0 auto;
+  }
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-title{flex:1 1 auto;font-size:18px;}
+  .track-title .by{color:var(--muted);font-style:italic;}
+  .track-ext{
+    flex:0 0 auto;
+    font-size:16px;
+    border:none;
+  }
+  .track-body{display:none;padding:0 18px 18px;}
+  .track.open .track-body{display:block;}
+  .track-frame{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .track-frame iframe{
+    position:absolute;
+    top:0;left:0;
+    width:100%;height:100%;
+    border:0;
+  }
+
+  /* Footer nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    margin-top:56px;
+    padding-top:28px;
+    border-top:2px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+  }
+  .corpus-nav a{border:none;display:block;}
+  .corpus-nav .label{
+    display:block;
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .corpus-nav .next{text-align:right;}
+  .colophon{
+    margin-top:40px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  .colophon a{color:var(--accent);border:none;}
+
+  @media(max-width:900px){
+    .wrap{width:100%;max-width:100%;padding:28px 20px 44px;}
+    body{font-size:18px;}
+    h1{font-size:32px;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav .next{text-align:left;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../other/index.html">Без категории</a>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/2BA.jpg" alt="">
+  </div>
+
+  <h1>Группа и Практика</h1>
+  <p class="subtitle">диалоги форума ККО</p>
+  <hr class="title-rule">
+
+  <article>
+    <p class="speaker">*** написал(а):</p>
+    <blockquote>
+      <p>Ты хотел свой провести, но не горел этим! Если бы горел, то до сих пор бы его проводил, не зависимо от количества людей. Сам бы шёл!</p>
+    </blockquote>
+
+    <p class="answer-label">Ответ:</p>
+    <p>Уважаемая сестра, моя практика - это Жизнь, моя Группа - это моя Семья, и весь этот Мир по-маленьку включается. Пусть не сразу, но все начнут осознавать наступившие перемены в "магической Реальности", то есть в реальности Настоящей, от которой не скрыться, не убежать, не отбрехаться ни самой себе, ни тем более "пиплу", который тоже все больше начинает слушать Сердце и все меньш доверять доводам рассудка и "авторитетного мнения" многочисленных санитаров и санитарчиков Духа, оставшися пока что "в наследие" от отжившей себя и навсегда ушедшей в прошлое эпохе -, по мере того, как новая Реальность "укрепляется" в реальности "этого Мира" здесь и сейчас, пускает глубокие Корни в сердцах и душах людей (это на самом деле смешной парадокс, т.к. настоящие "Корни" - это То, Откуда приходит и распространяется к нам в "этот Мир" "новая Реальность", а то, что произрастает в результате опосредуемое этим распространением "здесь" - это ветви, а вовсе не Корни. Это если "раскладывать" по тем понятиям, которые бытовали, в частности, среди "серьезных практикующих", не важно что именно, потому что все мы - одно, и никому никуда от этого не деться при всем желании и "крутости").</p>
+
+    <p>Я не делю Реальность на "духовное, годное", и "повседневное/материальное, не годное", людей на ЧСВ/летунов и "безупречных воинов", я на всех смотрю одинаково, потому что Дух на всех нас смотрит одинаково, а мне по жизни интересен только Его ракурс, а не любой известный человеческий, пусть даже самый "безупречный, трезвый и реально практикующий". Сила зависит лишь от того, какого рода Знанием обладает человек, а не тем, сколько этого Знания вошло в его "безмолвные, трезвые и безупречно чистые" "магические" органы ощущений этого Мира, которые он реально полагает чем-то особенным, выделенным по статусу из всего остального Мира, "с которым ему не по Пути", потому что он безупречнее, безмолвнее, чище, трезвее и лучше. Заблуждение абсолютно такое же, как и у всего остального человечества. Называется "невозможность отстраненного взгляда на самого себя", особенно если ты - в "мощной практикующей Группе". Это болото еще по-хлеще, чем простое сидение на заднице и "диванное" ничего не делание. Потому что задницу легко поднять с дивана, когда действительно придет твое время и тихий голос Сердца тебе скажет "вот оно - вперед!". А находясь в такой "группе" ты этого голоса даже услышать не сможешь - его забьют другие голоса, которые сильнее, "правильнее", важнее, актуальнее и весомее, чем еле неслышный  внутренний голос Духа, слушание которого и так человеком атрофируется в результате целой жизни самоцензуры путем подчинения чужим "авторитетным и важным" точкам зрения, принимаемым на веру сходу, даже без формального подвергания настоящему критическому анализу.</p>
+
+    <p>Я тебе скажу, что вообще все Группы, участники которых "реально горят" - они не предназначены функционально для того, чтобы позволить тебе вытряхнуть саму себя, используя их как инструмент данного действа, из зоны личного комфорта, сделав это таким образом, чтобы это действие производилось тобой непрерывно и ощутимо полноценно и плодотворно в течение значимого периода времени, хотя бы нескольких месяцев. А кроме этого ничего не приведет тебя к Цели по-настоящему, все остальное это тот или иной самообран, более или менее красиво разукрашенный и сопровождаемый "острыми и сильными духовными ощущениями". По итогу ты оказываешься у того же самого "разбитого корыта", где всегда и была, без какого-либо реального представления о том, что с этим всем делать (т.е. с самой собой, топчущейся на месте, как самой кажется, а значит - бодро шагающей назад, поскольку с каждой минутой кажущегося "топтания" теряется наиболее драгоценный ресурс, которого критически недостает каждому - отведенное время). Эти группы нацелены в реальности на то, чтобы создать для тебя новую зону комфорта, кошерную, духовную, чистую и "годную", и максимально закрепится к ней, даже не думая ее покидать когда-либо по настоящему. Это кладбище домашних животных, а не настоящий Круг практикующих. Я продолжаю настаивать на том, что обладаю ключами от Практики, которая качественно отличается от описанного выше и по сути, и по форме, и по результату. Но, как ты правильно заметила - никому нет дела, потому что всем интересен поиск уютного "высокодуховного, безупречного и трезвого" теплого места, чтобы на нем закрепить свою задницу на ближайший десяток-другой лет, ну а там уж, ничего не поделаешь, продолжить свой путь в никуда, посредством сдавания отработавшей свое тушки на кладбище белых тапочек.</p>
+
+    <p>Спасибо тебе за ответ, на вопрос, который я задавал в ЛС. Хоть и не в ЛС, и с плохо скрываемым раздражением, но ответила. Это все мне известно. Но мне еще много чего известно. Все эти разговоры про "горишь - не горишь", я недоумеваю что для тебя означает "гореть" - назови мне кого-то, кто больше текста написал на этом форуме за последние два года, чем я, причем практически все написано по теме, хотя никому и нет до нее никакого дела, по большому счету, потому что систематическим выбиванием себя из зоны комфорта летунца не накормишь, и ЧСВ не подпитаешь трезвыми безупречными "мощными потоками энергии, меняющимися каждую минуту", а наоборот - того и гляди, опечалится и подохнет с голоду. А этого трезвые безупречные воины допустить никак не готовы. Ведь если оно подохнет, с кем они будут изо дня в день героически бороться, протирая штаны и чеша языки на трезвых безупречных форумах?</p>
+
+    <section class="music-section">
+      <p class="music-label">В пандан</p>
+      <div class="track" id="track1">
+        <div class="track-head" onclick="toggleTrack('track1','ngH0fkiNo-g')">
+          <span class="track-arrow">▶</span>
+          <span class="track-title">YouTube <span class="by">— видео-пандан</span></span>
+          <a class="track-ext" href="https://www.youtube.com/watch?v=ngH0fkiNo-g" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+        </div>
+        <div class="track-body"><div class="track-frame" data-frame></div></div>
+      </div>
+    </section>
+  </article>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="2BB.html">
+      <span class="label">← Предыдущая</span>
+      Только не выходи из Круга
+    </a>
+    <a class="next" href="2AFB.html">
+      <span class="label">Следующая →</span>
+      Про чувственное восприятие
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+function toggleTrack(id,videoId){
+  var el=document.getElementById(id);
+  var open=el.classList.toggle('open');
+  if(open){
+    var frame=el.querySelector('[data-frame]');
+    if(frame && !frame.dataset.loaded){
+      var ifr=document.createElement('iframe');
+      ifr.src='https://www.youtube.com/embed/'+videoId;
+      ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      ifr.allowFullscreen=true;
+      frame.appendChild(ifr);
+      frame.dataset.loaded='1';
+    }
+  }
+}
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — полемический форумный диалог (реплика оппонента + развёрнутый прозаический ответ), это сплошная проза без стихотворных строф, поэтому выбрана редакторская широкоформатная схема, а не узкий манускрипт. Контейнер задан на ~66% ширины окна с ограничением max-width, чтобы сохранить комфортную меру строки при использовании всей ширины экрана; на мобильном — полная ширина. Цитату оппонента я оформил как blockquote с фоновой плашкой, а метку «Ответ:» — как акцентный лейбл, чтобы визуально развести два голоса диалога, не добавляя своих заголовков.\nПодразделов в тексте нет, поэтому оглавление и сноски не понадобились (features ограничен музыкой). Единственная аудио-ссылка идёт в конце под авторской меткой «В пандан» — её я сохранил дословно как атрибуцию и сделал свёрнутый YouTube-плеер с ленивой подгрузкой iframe только при раскрытии; сводный музыкальный раздел не создавал, так как трек всего один (порог — более двух). Палитра тёплая «бумажная» на светлом фоне, засечный шрифт для тела и гротеск для служебных элементов — спокойный лонгрид-контраст без гигантских заголовков.",
+  "features": ["music"]
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Этапы Путей Воинов</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --muted:#6b6256;
+    --accent:#8a5a2b;
+    --accent-soft:#b98a4e;
+    --rule:#e0d6c4;
+    --quote-bg:#f0ead d;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Georgia","Times New Roman",serif;
+    line-height:1.72;
+    font-size:19px;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .wrap{
+    width:66%;
+    max-width:1080px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 28px 72px;
+  }
+
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:34px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .breadcrumbs a{color:var(--muted);}
+  .breadcrumbs a:hover{color:var(--accent);}
+  .breadcrumbs .sep{margin:0 .55em;color:var(--accent-soft);}
+
+  header.article-head{margin-bottom:40px;}
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    font-size:13px;
+    color:var(--accent);
+    margin-bottom:14px;
+  }
+  h1{
+    font-size:40px;
+    line-height:1.14;
+    font-weight:700;
+    margin:0;
+    letter-spacing:-.01em;
+  }
+  h1 .rule{
+    display:block;
+    width:84px;
+    height:3px;
+    background:var(--accent);
+    margin-top:22px;
+  }
+
+  .lead-src{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+    color:var(--muted);
+    margin:0 0 18px;
+  }
+
+  /* quoted forum block */
+  blockquote.forum{
+    margin:0 0 38px;
+    padding:24px 30px;
+    background:var(--paper);
+    border-left:4px solid var(--accent-soft);
+    box-shadow:0 1px 0 var(--rule);
+    border-radius:2px;
+  }
+  blockquote.forum p{margin:0 0 1em;}
+  blockquote.forum p:last-child{margin-bottom:0;}
+  blockquote.forum ol{margin:.2em 0 1em;padding-left:1.4em;}
+  blockquote.forum li{margin:.15em 0;}
+
+  .answer-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:13px;
+    color:var(--accent);
+    margin:0 0 8px;
+  }
+
+  article p{margin:0 0 1.35em;}
+  article > p:first-of-type::first-letter{
+    font-size:3.4em;
+    line-height:.82;
+    float:left;
+    padding:6px 12px 2px 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+
+  .signoff{
+    font-style:italic;
+    color:var(--muted);
+    margin-top:32px;
+    padding-top:16px;
+    border-top:1px solid var(--rule);
+  }
+
+  /* corpus nav */
+  nav.corpus{
+    margin-top:56px;
+    padding-top:24px;
+    border-top:2px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  nav.corpus a{
+    display:block;
+    max-width:48%;
+  }
+  nav.corpus .dir{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  nav.corpus .ttl{font-size:17px;color:var(--accent);font-weight:600;}
+  nav.corpus .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:48px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer.colophon a{color:var(--accent);}
+
+  @media (max-width:900px){
+    .wrap{width:100%;max-width:680px;padding:22px 18px 56px;}
+    body{font-size:18px;}
+    h1{font-size:31px;}
+    nav.corpus{flex-direction:column;}
+    nav.corpus a{max-width:100%;}
+    nav.corpus .next{text-align:left;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../other/index.html">Без категории</a>
+  </nav>
+
+  <header class="article-head">
+    <div class="kicker">Диалоги · сталкинг</div>
+    <h1>Этапы Путей Воинов<span class="rule"></span></h1>
+  </header>
+
+  <p class="lead-src">Диалог на форуме <a href="https://ccastaneda.ru" rel="noopener">ccastaneda.ru</a>:</p>
+
+  <blockquote class="forum">
+    <p>Обычный чел-воин-маг-человек знания.</p>
+    <p>Чтобы стать войном нужно побороть свои страсти, он же чужеродный разум. Избавиться от него и стать свободным. Поэтому и называется путь воина, так как человек начинает войну с самим собой, с другим я.</p>
+    <p>Чтобы стать магом нужно пройти 3моста моста.</p>
+    <ol>
+      <li>Избавиться от идеи секса</li>
+      <li>Научиться смещать Тс по собственному желанию</li>
+      <li>Обрести союзника</li>
+    </ol>
+    <p>А человеком знания становятся наверно, пройдя все врата сновидения.</p>
+    <p>Как то так. Поэтому нужно соблюдать последовательность пути.</p>
+  </blockquote>
+
+  <p class="answer-label">Ответ</p>
+
+  <article>
+    <p>К сожалению, все мимо. Кроме, может быть, последнего пункта. Но только союзника придется искать среди людей. Главным образом, противоположного пола. А потом уже, по факту нахождения, появятся и союзники. Союзник&nbsp;- это связующий элемент, он служит взаимосвязи нескольких разнородных по типу энергий в одну энергию более высокого порядка, в которой они взаимодополняют друг друга. Обрести союзника для связи с самим собой любимым (равно как и со всевозможными фантазийными умозрительными сущностями, на которые богато наше воображение)&nbsp;- это оксюморон и бессмыслица. Такой "союзник" может оказаться лишь "летуном", пользующимся глупостью и наивностью "донора" в интересах своих реальных "хозяев", рассматривающих такого "воина" как питательный планктон, дрейфующий без тени осознания себя и не проявляющий признаков собственной жизни, в отрыве от тех "собственных мыслей, стремлений и чувств", которые они прокручивают на его внутреннем теле-радио, услужливо подстраиваемыми теми самыми "обретенными союзниками".</p>
+
+    <p>Человеком знания становятся тогда, когда ни знания, ни способности, ни желания "собственные" человека, т.е. "воина" и "мага", уже не волнуют от слова "совсем". Но это совсем не означает, что у него не остается таковых желаний, стремлений, и всего прочего. Просто, он больше ими не ограничен также, как любой другой человек этого мира, включая магов и воинов, просто потому, что не считает их собой, и реально действует исходя из этого понимания, давая им прийти и уйти естественно, под управлением и по воле Намерения Духа. У КК это называется бесконечным совершенствованием способностей сталкера к импровизации, являющимся следствием освоения им, на собственном ежедневном практическом опыте, первых 7 формальных принципов сталкинга, суть которых лишь в том, чтобы позволить воину быть тем, кем он сам не является и никогда не являлся, потому что он и то, чем он является или не является, ведя свою "последнюю битву на этой Земле"&nbsp;- две вещи существующие одновременно, но не являющиеся одним и тем же, поскольку то, чем он является, чего он желает, что он имеет или не имеет, делает или не делает&nbsp;- это приходит и уходит как ветер на берегу моря, рядом с которым он живет и на которое он смотрит по жизни, и в которое он неизбежно войдет, когда придет его время отправляться в дальнейший Путь, также, как когда-то вышел из него на берег, родившись в этот мир, чтобы быть человеческой личностью.</p>
+
+    <p>Со сдвигом ТС "по собственному желанию" есть еще одна принципиальная "проблема". Твоя ТС уже является зафиксированной в конкретных свойствах "личности этого мира" по твоей собственной свободной воле, причем, ты сделал это не "просто так, чтобы было", а ради вполне конкретной цели и задачи, которые никуда не делись и находятся перед тобой здесь и сейчас точно также, как это было в момент осуществления тобой первоначальной "фиксации". Точнее, в момент осуществления Орлом наделения посредством Своих эманаций Жизнью некоторой формы целеполагания и связанного с ним образа действия, которые в последствии ты стал называть "собой". Чтобы что-либо сущностно изменить в вышеописанном положении вещей, требуется для начала как следует разобраться, т.е. осознать, понять и принять, природу и сущность тех имеющихся у нынешней формы "фиксации" целей и задач, выполняемых тобой независимо от желания и степени осознания, имея в виду при этом, что настоящая цель&nbsp;- посредством данного опыта прийти к тому, чтобы переопределить для самого себя (читай точки сборки) новый набор таковых целей и задач, сущностно подобных уже имеющимся, но только поставленных тобой самим перед Духом непосредственно перед тем, как Он поставит их перед тобой и скомандует тебе "забыть" чтобы начать выполнять их, оказавшись в том объеме реального мира, который им сущностно соответствует посредством настройки восприятия. Искренне желаю удачи!</p>
+
+    <p class="signoff">Написано 10.10.22 г.</p>
+  </article>
+
+  <nav class="corpus" aria-label="Навигация по разделу">
+    <a class="prev" href="29NA.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="ttl">Путь Одиночки</span>
+    </a>
+    <a class="next" href="165A.html">
+      <span class="dir">Следующая →</span>
+      <span class="ttl">Вопросы и Ответы</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой прозаический диалог с форума: короткая цитата вопроса и развёрнутый ответ из трёх плотных абзацев рассуждений. Стихотворных форм нет, поэтому выбрана редакторская широкоформатная схема с основной колонкой примерно в 2/3 ширины окна (66%, max-width 1080px) — длинные сложноподчинённые предложения комфортнее читаются в широкой мере с увеличенным межстрочным интервалом.\n\nПограничное решение касалось подачи реплики форума и подписи 'Ответ:': исходный текст содержит явное разделение на чужую реплику (в кавычках-блоке) и авторский ответ, поэтому реплика оформлена как blockquote с сохранением её нумерованного списка и опечаток дословно ('войном', '3моста моста', 'Тс'), а 'Ответ:' вынесен надстрочной меткой — без добавления собственных заголовков. Оглавление не делалось: смысловых подразделов в тексте нет (единый ответ). Музыки и сносок в тексте нет, поэтому соответствующие функции не применялись. Кавычки и КАПС оставлены как есть; единственная типографская правка — неразрывные пробелы вокруг тире для опрятных строк.",
+  "features": []
+}
+</script>
+</body>
+</html>
