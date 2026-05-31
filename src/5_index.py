@@ -11,7 +11,7 @@ TPL = ROOT / "templates"
 SITE = ROOT / "docs"
 MANIFEST = ROOT / "manifest.json"
 
-CSS_VERSION = "20260531-01"
+CSS_VERSION = "20260531-02"
 # АВТОРСКИЕ названия разделов (сборники proza.ru). НЕ переименовывать и НЕ
 # «адаптировать» — только переносить как есть. Канон сверен с первым деплоем.
 # Должно совпадать с SECTION_HUMAN в docs/editor/render.js.

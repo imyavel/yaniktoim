@@ -29,6 +29,36 @@ body {
 }
 .wrap.wide { max-width: 1200px; }
 
+/* Главная: картинка слева + поле со стихом справа на её высоту */
+.hero {
+  display: flex;
+  align-items: stretch;
+  gap: 1.5rem;
+  margin: 0 0 20px;
+}
+.hero-img {
+  display: block;
+  width: auto; height: auto;
+  max-width: 100%;
+  flex: 0 0 auto;
+  margin: 0;
+}
+.hero-text {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* по центру вертикально */
+  align-items: flex-end;     /* прижато к правому краю */
+  text-align: right;
+}
+.hero-text p { margin: 0 0 0.9rem; }
+.hero-text p:last-child { margin-bottom: 0; }
+@media (max-width: 560px) {
+  .hero { flex-direction: column; align-items: flex-start; }
+  .hero-text { align-items: flex-start; text-align: left; }
+}
+
 header.breadcrumbs {
   font-size: 0.9rem;
   color: var(--muted);
