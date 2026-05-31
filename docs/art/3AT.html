@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Я вернусь</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --muted:#6b6358;
+    --accent:#9a2b1f;
+    --accent2:#34607a;
+    --rule:#ddd5c6;
+    --quote-bg:#efe9dc;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.72;
+  }
+  a{color:var(--accent2);text-decoration:none;border-bottom:1px solid rgba(52,96,122,.35);}
+  a:hover{border-bottom-color:var(--accent2);}
+  .wrap{
+    width:66%;
+    max-width:920px;
+    min-width:0;
+    margin:0 auto;
+    padding:34px 28px 80px;
+  }
+  /* Breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:30px;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--rule);
+  }
+  .breadcrumbs a{color:var(--muted);border:none;}
+  .breadcrumbs a:hover{color:var(--accent);}
+  .breadcrumbs .sep{margin:0 .5em;opacity:.6;}
+  h1{
+    font-family:Georgia,serif;
+    font-weight:700;
+    font-size:2.45rem;
+    line-height:1.15;
+    margin:.2em 0 .8em;
+    color:var(--ink);
+  }
+  h1::after{
+    content:"";
+    display:block;
+    width:72px;
+    height:3px;
+    background:var(--accent);
+    margin-top:.5rem;
+  }
+  .source{
+    font-style:italic;
+    color:var(--muted);
+    font-size:.95rem;
+    margin-bottom:1.6em;
+  }
+  .speaker{
+    font-weight:700;
+    font-size:1.05rem;
+    margin:1.4em 0 .4em;
+    color:var(--accent);
+    letter-spacing:.01em;
+  }
+  blockquote.velena{
+    margin:0 0 1.2em;
+    padding:.8em 1.4em;
+    background:var(--quote-bg);
+    border-left:4px solid var(--accent);
+    border-radius:0 6px 6px 0;
+  }
+  blockquote.velena p{margin:.7em 0;}
+  hr.divider{
+    border:none;
+    text-align:center;
+    margin:2em 0;
+    overflow:visible;
+    height:auto;
+  }
+  hr.divider::before{
+    content:"·····";
+    letter-spacing:.6em;
+    color:var(--muted);
+    font-size:1.2rem;
+  }
+  p{margin:1.05em 0;}
+  .caps-line{
+    font-weight:700;
+    color:var(--accent);
+    letter-spacing:.01em;
+    font-size:1.12rem;
+    line-height:1.5;
+    margin:1.6em 0;
+    padding:.6em 0;
+    border-top:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+  }
+  /* Footnote marker + popup */
+  .fnref{
+    font-size:.72em;
+    vertical-align:super;
+    line-height:0;
+    color:var(--accent);
+    font-weight:700;
+    text-decoration:none;
+    border:none;
+    cursor:pointer;
+    position:relative;
+  }
+  .fnref:hover{color:var(--accent2);}
+  .fnref .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:1.6em;
+    width:340px;
+    max-width:78vw;
+    background:#2b2620;
+    color:#f4efe4;
+    font-size:13.5px;
+    line-height:1.5;
+    font-weight:400;
+    text-align:left;
+    padding:12px 14px;
+    border-radius:8px;
+    box-shadow:0 8px 26px rgba(0,0,0,.35);
+    z-index:30;
+    letter-spacing:0;
+    vertical-align:baseline;
+  }
+  .fnref.below .pop{bottom:auto;top:1.6em;}
+  .fnref:hover .pop{display:block;}
+  /* Footnotes section */
+  .notes{
+    margin-top:3em;
+    padding-top:1em;
+    border-top:2px solid var(--rule);
+  }
+  .notes h2{
+    font-size:1.25rem;
+    color:var(--accent);
+    margin-bottom:.6em;
+  }
+  .notes ol{padding-left:1.4em;}
+  .fnitem{
+    font-size:.92rem;
+    line-height:1.6;
+    color:#2b261f;
+    scroll-margin-top:20px;
+    padding:.4em .5em;
+    border-radius:6px;
+    transition:background .8s ease;
+  }
+  .fnitem:target{background:#fbe9c8;}
+  .fnitem .back{font-size:.9em;margin-left:.3em;}
+  .cit-meta{color:var(--muted);font-style:italic;}
+  /* Music */
+  .music{
+    margin:2.4em 0 0;
+    padding:1.1em 1.3em;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+  }
+  .music .label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:.7em;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    overflow:hidden;
+    background:#fff;
+  }
+  .track summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:.6em;
+    padding:.7em .9em;
+    font-size:1rem;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .track .arrow{
+    transition:transform .2s ease;
+    color:var(--accent);
+    font-size:.9em;
+  }
+  .track[open] .arrow{transform:rotate(90deg);}
+  .track .tname{font-weight:700;}
+  .track .tartist{color:var(--muted);}
+  .track .ext{margin-left:auto;color:var(--accent2);border:none;font-size:1.05em;}
+  .track .frame{padding:0 .9em .9em;}
+  .track .frame .ratio{
+    position:relative;
+    width:100%;
+    padding-top:56.25%;
+    background:#000;
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .track .frame iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+  }
+  /* Bottom corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:1em;
+    margin-top:3.4em;
+    padding-top:1.2em;
+    border-top:1px solid var(--rule);
+    font-size:.95rem;
+  }
+  .corpus-nav a{display:block;max-width:46%;}
+  .corpus-nav .lbl{
+    display:block;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--muted);
+    margin-bottom:.2em;
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:2.6em;
+    padding-top:1.2em;
+    border-top:1px solid var(--rule);
+    font-size:.86rem;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--muted);}
+  @media (max-width:860px){
+    body{font-size:18px;}
+    .wrap{width:100%;max-width:100%;padding:22px 18px 60px;}
+    h1{font-size:2rem;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+  <div class="wrap">
+
+    <nav class="breadcrumbs">
+      <a href="../index.html">Главная</a>
+      <span class="sep">/</span>
+      <a href="../confront/index.html">Конфронтология Духа</a>
+    </nav>
+
+    <h1>Я вернусь</h1>
+
+    <p class="source">С форума ККО (<a href="http://ccastaneda.ru" target="_blank" rel="noopener">http://ccastaneda.ru</a>)</p>
+
+    <p class="speaker">Велена написал(а):</p>
+
+    <blockquote class="velena">
+      <p>Ну так да. Поэтому у КК была группа. Поэтому у монахов есть монастыри. Поэтому у ведьм есть ковены, у йогов — секты, а у бонцев — кланы.</p>
+      <p>Однако путь одиночки тоже имеет место быть. Когда идёт собирание практик из разных традиций, переосмысление их, и создание внутренней санги, общины, ковена.... Где есть практик и его «воображаемые друзья» — духи, божества, святые — которые ощутимо так тащат. Есть люди, которые опираясь на внутреннюю общину, вышли на хорошие высоты, и в принципе не желают входить в какой-то внешний клан, ковен и пр.</p>
+      <p>Но выше говорила про другое единство)) от слова «единый».</p>
+    </blockquote>
+
+    <hr class="divider">
+
+    <p class="speaker">Реплика:</p>
+
+    <p>Да, правильно. Ведь умирает каждый в одиночестве. Пока у «продвинутых практиков», — как говорил Дон Хуан, выдающийся представитель уходящей навсегда в прошлое волны «второго тысячелетия» в секторе Магов всевозможных мастей и направленностей, — которых довольно много, причем, типовой представитель каждый из них (этих направленностей и секторов) привык называть Магами (заменить на слово которое он использует — просветленный, святой, пробужденный, т.п.) только представителей своей закрытой линии, — «бесконечность настолько привлекательна, что мало кто из воинов выбирает возвращаться после встречи с Ней в этот мир хаоса, невежества и беспорядка»<a class="fnref" id="ref1" href="#fn1">*<span class="pop">«Когда ты войдешь в Бесконечность, — сказал дон Хуан, — мы уже не сможем вернуть тебя обратно…» — К. Кастанеда, «Активная Сторона Бесконечности». Полную цитату см. в примечании.</span></a> (не дословно) — пока у продвинутых, в виду их разобщенности в том числе не в малой степени, хотя они этого и не понимают по большей части, — сохраняется в головах такая визия формы, причины и реальности существования и природы и цели (точнее, бесцельности) «этого повседневного мира», то им незачем это свое «просветленное одиночество» нарушать и при жизни в этом мире. Но они не понимают, в чем в действительности состоит и заключается Намерение Духа. И они, по факту в начавшейся Новой эпохе (новом цикле по КК) и включенной в него реальности третьего тысячелетия — вымирающие динозавры. А мы, которые солидаризируемся с ними на форумах и в своих личных «гордых одиноких» визиях своих Путей Воинов — диназаврята. И с этим ничего не поделаешь, пока мы сами не заходим это изменить. Или не уйдем в прошлое вполне естественным путем. Старым, испытанным нами неоднократно и не двукратно, однонаправленным путем. А не новым. Который никому из нас практически и фактически в деталях неизвестен, потому что никем не испытан и не описан подробно, но уже открыт и достижим со стороны Орла и Его Правила. Хотя и принадлежит пока, главным образом, будущему, а не настоящему.</p>
+
+    <p class="caps-line">НОВЫМ ПУТЕМ, В КОТОРОМ У НАС БУДЕТ ЯВНОЕ, ЯСНОЕ И СИЛЬНОЕ НАМЕРЕНИЕ ВОЗВРАЩАТЬСЯ</p>
+
+    <section class="music">
+      <div class="label">Музыка</div>
+      <details class="track">
+        <summary>
+          <span class="arrow">▶</span>
+          <span><span class="tname">Я вернусь</span> — <span class="tartist">Игорь Тальков</span></span>
+          <a class="ext" href="https://youtu.be/DFtOELd5pEI" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+        </summary>
+        <div class="frame">
+          <div class="ratio">
+            <iframe loading="lazy" data-src="https://www.youtube.com/embed/DFtOELd5pEI" title="Игорь Тальков — Я вернусь" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="notes">
+      <h2>Примечания</h2>
+      <ol>
+        <li class="fnitem" id="fn1">
+          Цитата: «— Когда ты войдешь в Бесконечность, — сказал дон Хуан, — мы уже не сможем вернуть тебя обратно. От тебя потребуется решимость. Лишь ты сможешь решить, возвращаться или нет. Должен также предупредить тебя, что немногие из воинов-путешественников оставались в этой жизни после такой встречи с Бесконечностью. Бесконечность невероятно привлекательна. Воин-путешественник обнаруживает, что возвращение в мир беспорядка, принуждения, шума и боли не слишком его прельщает. Ты должен знать, что твое РЕШЕНИЕ остаться или ВЕРНУТЬСЯ — это не предмет разумного выбора, а ПРЕДМЕТ НАМЕРЕВАНИЯ». <span class="cit-meta">«Прыжок в Бездну» :: «Активная Сторона Бесконечности» :: Карлос Кастанеда</span>
+          <a class="back" href="#ref1" title="Вернуться к тексту">↩</a>
+        </li>
+      </ol>
+    </section>
+
+    <nav class="corpus-nav">
+      <a class="prev" href="39L.html">
+        <span class="lbl">← Предыдущая</span>
+        Моё — твое, а Твоё — моё
+      </a>
+      <a class="next" href="2C5.html">
+        <span class="lbl">Следующая →</span>
+        АЯ нашествие Духа
+      </a>
+    </nav>
+
+    <footer class="colophon">
+      <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+      <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+    </footer>
+
+  </div>
+
+  <script>
+    // Lazy-load YouTube iframe only on first expand
+    document.querySelectorAll('details.track').forEach(function(d){
+      d.addEventListener('toggle', function(){
+        if(d.open){
+          var f=d.querySelector('iframe[data-src]');
+          if(f && !f.src){ f.src=f.getAttribute('data-src'); }
+        }
+      });
+    });
+    // Footnote popup: flip below if not enough room above
+    document.querySelectorAll('.fnref').forEach(function(ref){
+      ref.addEventListener('mouseenter', function(){
+        var r=ref.getBoundingClientRect();
+        if(r.top < 170){ ref.classList.add('below'); }
+        else { ref.classList.remove('below'); }
+      });
+    });
+  </script>
+
+  <script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — это форумная реплика-эссе: цитата собеседницы (Велена) и развёрнутый прозаический ответ автора, плюс длинная книжная цитата в примечании. Стихотворных форм нет вовсе, поэтому однозначно выбрана редакторская (широкая) схема — основная колонка ~66% ширины окна с разумным максимумом, чтобы длинные плотные абзацы дышали, а не сжимались в узкую полосу манускрипта. Развилка была только с подачей вступительной атрибуции и реплики собеседницы: я отделил блок Велены в blockquote с акцентной полосой, а разделитель '-----' оформил декоративным правилом, не добавляя своих заголовков.",
+  "rationale_note": "",
+  "features": ["music", "footnotes"]
+}
+  </script>
+</body>
+</html>
