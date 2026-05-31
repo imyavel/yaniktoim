@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Завершающая молитва Адама</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf9;
+    --ink:#23201b;
+    --muted:#6f675b;
+    --accent:#8a5a2b;
+    --accent-soft:#c8a36a;
+    --rule:#e3dccd;
+    --hl:#fbeec2;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Georgia","Iowan Old Style",serif;
+    line-height:1.72;
+    font-size:19px;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{
+    width:66%;
+    max-width:1000px;
+    min-height:100vh;
+    margin:0 auto;
+    background:var(--paper);
+    padding:40px 64px 64px;
+    border-left:1px solid var(--rule);
+    border-right:1px solid var(--rule);
+  }
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding-bottom:18px;
+    margin-bottom:24px;
+    border-bottom:1px solid var(--rule);
+  }
+  .crumbs a{color:var(--muted);}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs span.sep{margin:0 .5em;color:var(--accent-soft);}
+  .lead-img{
+    display:block;
+    margin:0 auto 28px;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border:1px solid var(--rule);
+  }
+  h1{
+    font-size:38px;
+    line-height:1.2;
+    font-weight:700;
+    margin:.2em 0 .1em;
+    color:var(--ink);
+  }
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:36px;
+  }
+  .titlerule{
+    width:90px;
+    height:3px;
+    background:var(--accent-soft);
+    margin:0 0 36px;
+  }
+  article p{
+    margin:0 0 1.35em;
+    text-align:justify;
+    hyphens:auto;
+  }
+  .prayer{
+    position:relative;
+    padding-left:46px;
+    margin-bottom:2.1em;
+  }
+  .prayer .num{
+    position:absolute;
+    left:0;
+    top:-2px;
+    font-size:26px;
+    font-weight:700;
+    color:var(--accent-soft);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .amen-solo{
+    text-align:center;
+    font-variant:small-caps;
+    letter-spacing:.12em;
+    color:var(--accent);
+    font-size:22px;
+    margin:1.6em 0 2em;
+  }
+  /* footnotes */
+  sup.fnref{font-size:.7em;line-height:0;}
+  sup.fnref a{
+    font-weight:700;
+    color:var(--accent);
+    padding:0 1px;
+  }
+  .fn-marker{position:relative;}
+  .fn-popup{
+    visibility:hidden;
+    opacity:0;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:1.6em;
+    width:320px;
+    max-width:80vw;
+    background:#2c2620;
+    color:#f3ecdd;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    line-height:1.5;
+    text-align:left;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 6px 22px rgba(0,0,0,.28);
+    z-index:30;
+    transition:opacity .15s ease;
+    pointer-events:none;
+  }
+  .fn-popup.below{bottom:auto;top:1.6em;}
+  .fn-popup a{color:var(--accent-soft);}
+  .fn-marker:hover .fn-popup{visibility:visible;opacity:1;}
+  .notes{
+    margin-top:48px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+  }
+  .notes h2{
+    font-size:22px;
+    letter-spacing:.04em;
+    color:var(--accent);
+    margin-bottom:18px;
+  }
+  .notes ol{padding-left:1.4em;}
+  .notes li{
+    margin-bottom:1em;
+    font-size:16px;
+    line-height:1.55;
+    color:var(--muted);
+  }
+  .notes li:target,.note-anon:target{
+    background:var(--hl);
+    border-radius:4px;
+    padding:4px 8px;
+    transition:background .4s ease;
+  }
+  .note-anon{
+    list-style:none;
+    margin-bottom:1em;
+    font-size:16px;
+    line-height:1.55;
+    color:var(--muted);
+  }
+  .note-anon .glyph{color:var(--accent-soft);font-weight:700;margin-right:.4em;}
+  .backref{
+    margin-left:.5em;
+    font-size:.85em;
+    color:var(--accent-soft);
+  }
+  /* bottom nav */
+  .corpus-nav{
+    margin-top:56px;
+    padding-top:26px;
+    border-top:2px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    display:block;
+    max-width:46%;
+    font-size:15px;
+  }
+  .corpus-nav .dir{
+    display:block;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .corpus-nav .nx{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:44px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+  footer.colophon a{color:var(--accent);}
+  @media(max-width:900px){
+    .wrap{width:100%;padding:24px 20px 40px;border:none;}
+    body{font-size:18px;}
+    h1{font-size:30px;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav a,.corpus-nav .nx{max-width:100%;text-align:left;margin-left:0;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <img class="lead-img" src="../img/184.jpg" alt="">
+
+  <h1>Завершающая молитва Адама</h1>
+  <div class="dateline">4 августа 2021 г.</div>
+  <div class="titlerule"></div>
+
+  <article>
+    <p style="text-align:center;font-style:italic;color:var(--muted);margin-bottom:2.2em;">Завершающая (урок, совместная) молитва Адама</p>
+
+    <div class="prayer">
+      <span class="num">1</span>
+      <p>Благодарим и просим Господа за наших дорогих товарищей и подруг, с кем Ты, Господь, соединял нас, с кем мы были вместе, и кто находится на той ступени, из которой Ты, Господь, удостоил нас "родиться" в Круге Жизни. Просим, чтобы наши друзья удостоились, все, Господь, стремящиеся к Тебе, чтобы они на самом деле достигли Тебя, достигли Твоей благословенной Цели, и включились, Господь, в тот величественный процесс "Конечного Исправления", который Ты, Господь, удостаиваешь раскрывать, посредством соединения в "смешанном" Круге служащих Тебе мужчин и женщин. Удостаиваешь посредством возможности придти к ступени "Я, а не посланник", когда человек действительно соизмеряет весь свой Путь, и свои намерения, стремления, которые есть в его жизни, с Тобой, Господь, а не с Твоими посланниками, и не с тем, что он выучил, что ему сказал кто-то, или что он прочитал где-то. То есть во что он верит не сам, не по собственному решению выбрать это, а во что он верит, используя для этого Силу "духовного общества". Поскольку этот период относится к "подготовке". Необходимой, разумеется, без которой никуда, но который включается в более совершенную уже ступень, Господь, Твоего служения посредством Круга Жизни. Когда и эта "ступень подготовки" включается в Круг, в котором циркулирует Твой, Господь, Свет (Хохма) открыто и явно, поскольку он связан со своей "предыдущей ступенью" - через которую Ты, Господь, проводишь в этот мир Свой благословенный Свет.</p>
+      <p>Свет, соединяющий Твое творение, и удостаивающий человека быть в сотрудничестве с Тобой в Твоем величественном действии "создания человека", Господь. Да будет так, как хочешь Ты, и удостой, Господь, раба Твоего, и его возлюбленную сестру, и Твой Круг Жизни, приближать, Господь, благословенный час Твоего великого "Конца Исправления". Да будет так, как хочешь Ты вовеки, Амен.</p>
+    </div>
+
+    <div class="prayer">
+      <span class="num">2</span>
+      <p>Амен ве Амен, Господь, благодарю Тебя за молитву, благодарю, Господь, за вдохновение, и за слова молитвы, Господь, которые Ты проводишь через наше единое Сердце. И его молитва звучит, Господь, наполненная Твоим вдохновением, Твоим Светом. Ибо, Господь, мы пребываем пред ликом Твоим, в Твоей благословенной форме, которой Ты создал Мир, в двух свойствах "Мужчиной и Женщиной"<sup class="fnref"><span class="fn-marker"><a id="ref2" href="#fn2">2</a><span class="fn-popup">См. Также: Заповедь девятая, Том 1, Книга Зоар. См. также: <a href="https://bneiadam.com/forum/51-238-1">bneiadam.com/forum/51-238-1</a></span></span></sup>. Благодарим Тебя, Господь, за то, что мы осознаем это Твое взаимодействие в "Конечном Исправлении". И, Господь, благодарим Тебя за то, что Ты удостоил нас всех сил этого мира, которые помогают нам. Всех сил, которые являются, Господь, служителями Твоими в Свете Мудрости и Любви, и в Духе Жизни, удостоил этих сил, которые помогают нам, производить все те действия, и быть, Господь, в Твоем намерении, в отношении раскрытия Твоего Света творению, в Келим мира, нашим товарищам и подругам. Всем тем людям, которых мы знаем, и которых не знаем, Господь, и которые "дальние", и которые "ближние". Но которых касается Твой великий глагол, наполненный Твоим Светом Любви. Который возбуждает и пробуждает. И будоражит, Господь, и волнует сердце человека, Господь, ибо в каждое Твое творение, в каждую частичку Сердца Ты, Господь, вложил Свою Искру. Искру Жизни, искру, Господь, веры, искру любви, искру, Господь, которая стремится, наполняемая Тобой желанием быть в единстве, Господь, к единству, как одно Твое творение, которое, Господь, творит "по Твоему Образу и подобию". И совершенно, Господь, в своем единстве. И Сила, Господь, которая способна проявиться - Твоя Сила, Твоя Жизнь и Твоя Любовь, все то, чем Ты наполнил Свое творение, ведь Оно находится именно в Едином Человеке с Одним Сердцем. В Едином (которым не называется мужчина или женщина в отдельности) Адаме. Даруй это осознание нашим товарищам и подругам, дабы направлялись они, Господь, Твоей благословенной Любовью к Твоему творению, в Круги Жизни, Господь, которые являются, и будут являться, Господь, тем (местом), где будет происходить вот это великое (соединение), великий зивуг, позволяющий, Господь, (человеку) овладевать "средней линией" - линией Света, Жизни, и Веры во Имя и во Славу Твою.</p>
+      <p>Благодарю Тебя, Господь, благослови, предстоящий вечер, моих товарищей, моих подруг, всех тех, Господь, кто сегодня будет читать и размышлять, и поднимать, Господь, желания в намерениях своих, Господь, в молитвах, которые, Господь, идут пока в скрытии, но тот, кто стремится (к Тебе), Господь, он направляет свое Сердце, а Ты видишь сердце каждого, Господь, стремящегося к Тебе. Да будем мы пред Тобой, Господь, едины, да будем мы, Господь, в служении Тебе, верном, чистом, Господь, в любви, и желании насладить Тебя, дабы наслаждалось Твое Творение. Благодарю Тебя, Господь, Амен.</p>
+    </div>
+
+    <div class="prayer">
+      <span class="num">3</span>
+      <p>Благодарю Тебя, Господь, за молитву, которую Ты даруешь Твоему рабу, и его возлюбленной сестре, Господь. И прошу Тебя о том, чтобы Ты, Господь, помогал всем стремящимся к Тебе, и всем, выполняющим Твою Волю, и стремящимся выполнять ее открыто и по собственному желанию, предваряя своим намерением, Господь, Твое Намерение. Молясь Тебе, Господь, в соответствии с (каббалистической) методикой, Господь, которую Ты, благословением Своим, даруешь людям, которые стремятся раскрыть и насладить Тебя, чтобы они могли придти к этому - чтобы они могли достичь Твоей благословенной Цели. Даруй им возможность, и помощь, чтобы они могли придти к этой ступени, к пониманию важности этой ступени - к тому, чтобы молиться, Господь, Тебе, Господь, и, благодаря этому, удостаиваться именно связи с Тобой, связи, которая происходит непосредственно и явно. Которая происходит через совместную молитву Мужчины и Женщины в Круге Жизни. Помогай, Господь, желанием молиться "не ради себя", и словами молитвы, и, Господь, Своим добрым ведением, бесконечно мудрым, и непостижимым, Господь, ведением, в результате которого человек достигает безупречности собственной веры в себя, молящегося Тебе, Господь, и (этим) подчиняющего Тебе, Господь, свою волю, свою судьбу, и свою Жизнь, Господь. Милостью Твоей благословенной да случиться по Желанию Святому Твоему, вовеки и воистину. Амен ве Амен.</p>
+    </div>
+
+    <div class="prayer">
+      <span class="num">4</span>
+      <p>Амен ве Амен, Господь. Благодарю Тебя, Господи, за то, что Ты даровал нам молитву за духовное общество, за наших товарищей и подруг, за Твое Творение. Благодарю, Господи, искренне благодарю, и прошу, Господь, благословения всем тем словам, которые Ты высказал за Твое творение, дабы оно, Господь, легло в сердца Твоего творения, в Келим мира, Господь. И, Господь, соделало то великое действие, пробуждение, во Имя и во Славу Твою. Благодарю Тебя, Господь, Амен.</p>
+    </div>
+
+    <p class="amen-solo">Амен.</p>
+  </article>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <div class="note-anon" id="fn1">
+      <span class="glyph">*1</span>См. также: Катнут свойства "ЦЕЛЕМ Элоким". <a href="http://proza.ru/2021/08/05/67">proza.ru/2021/08/05/67</a>
+    </div>
+    <ol start="2">
+      <li id="fn2">
+        См. Также: Заповедь девятая, Том 1, Книга Зоар. См. также: <a href="https://bneiadam.com/forum/51-238-1">bneiadam.com/forum/51-238-1</a>
+        <a class="backref" href="#ref2" title="Вернуться к тексту">↩</a>
+      </li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a href="07I.html"><span class="dir">← Предыдущая</span>В чем разница между материальной любовью...</a>
+    <a class="nx" href="138.html"><span class="dir">Следующая →</span>Скрытая наука ОБ МАН</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // выбор стороны popup в зависимости от границы экрана
+  document.querySelectorAll('.fn-marker').forEach(function(m){
+    m.addEventListener('mouseenter',function(){
+      var pop=m.querySelector('.fn-popup');
+      if(!pop)return;
+      pop.classList.remove('below');
+      var r=m.getBoundingClientRect();
+      if(r.top<180){pop.classList.add('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст представляет собой прозаическую молитву из четырёх пронумерованных частей со сплошными длинными абзацами и риторическими повторами — это проза, а не стихотворная форма, поэтому выбрана редакторская широкая схема (контейнер ~66% ширины окна, центрированная книжная полоса на светлом бумажном фоне). Узкий манускрипт отвергнут, так как длинные периоды молитвы лучше дышат в журнальной мере строки.\n\nРазвилки: оглавление не делал — именованных подразделов нет, есть лишь нумерованные молитвы и единственный аппарат «Примечания», так что TOC был бы избыточен; вместо этого номера молитв оформлены крупными акцентными цифрами на полях. Сноска *2 имеет маркер в тексте — оформлена как кликабельная с popup при наведении и обратной ссылкой; сноска *1 не имеет маркера в тексте (анонимная) — выведена в аппарате без номера, как требуют правила. Музыки в тексте нет. Палитра — тёплая охра/сепия по светлой бумаге для медитативного,書овного характера молитвы."
+,
+  "features": ["footnotes"]
+}
+</script>
+</body>
+</html>
