@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Нихт Ферштейн</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#241f1a;
+    --muted:#6f655a;
+    --accent:#9a4a2e;
+    --accent-soft:#c9763f;
+    --line:#ddd3c4;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    line-height:1.75;
+    font-size:20px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1000px;
+    min-height:100vh;
+    margin:0 auto;
+    background:var(--paper);
+    padding:48px 64px 72px;
+    box-shadow:0 0 40px rgba(0,0,0,.06);
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:28px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:14px;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 .5em;color:var(--line);}
+  /* image */
+  .lead-img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    margin:0 auto 36px;
+    border:1px solid var(--line);
+  }
+  h1{
+    font-size:46px;
+    line-height:1.12;
+    font-weight:700;
+    margin:0 0 8px;
+    letter-spacing:-.01em;
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent-soft);
+    margin-bottom:34px;
+  }
+  .rule{
+    width:64px;height:3px;background:var(--accent);
+    margin:0 0 34px;border:0;
+  }
+  article p{
+    margin:0 0 1.35em;
+    max-width:40em;
+  }
+  article p .q{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:700;
+    margin-right:.4em;
+  }
+  article a{color:var(--accent);}
+  /* music player */
+  .player{
+    margin:30px 0 36px;
+    max-width:40em;
+    border:1px solid var(--line);
+    border-radius:8px;
+    overflow:hidden;
+    background:#fbf7ef;
+  }
+  .player-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .player-head:hover{background:#f4ece0;}
+  .player-arrow{
+    font-size:14px;color:var(--accent);
+    transition:transform .2s ease;
+  }
+  .player.open .player-arrow{transform:rotate(90deg);}
+  .player-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);display:block;margin-bottom:2px;
+  }
+  .player-title{font-style:italic;font-size:18px;}
+  .player-meta{flex:1;}
+  .player-ext{margin-left:auto;color:var(--accent);text-decoration:none;font-size:18px;}
+  .player-body{display:none;padding:0 18px 18px;}
+  .player.open .player-body{display:block;}
+  .player-frame{
+    position:relative;width:100%;padding-top:56.25%;
+    background:#000;border-radius:4px;overflow:hidden;
+  }
+  .player-frame iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+  }
+  /* bottom nav */
+  .corpus-nav{
+    display:flex;justify-content:space-between;gap:20px;
+    margin-top:56px;padding-top:24px;
+    border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    text-decoration:none;color:var(--accent);
+    max-width:48%;
+  }
+  .corpus-nav .dir{
+    display:block;font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:4px;
+  }
+  .corpus-nav .ttl{font-size:18px;}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  footer{
+    margin-top:48px;padding-top:22px;
+    border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;color:var(--muted);line-height:1.6;
+  }
+  footer a{color:var(--accent);}
+  @media(max-width:900px){
+    .wrap{width:100%;max-width:none;padding:28px 20px 48px;}
+    body{font-size:18px;}
+    h1{font-size:34px;}
+    article p{max-width:none;}
+  }
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span>/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <img class="lead-img" src="../img/1AQ.jpg" alt="">
+
+  <div class="kicker">Конфронтология Духа</div>
+  <h1>Нихт Ферштейн</h1>
+  <hr class="rule">
+
+  <article>
+    <p><span class="q">Вопрос:</span>А кто по-Вашему решит за Аллаха, чему Он рад, а чему не рад, если не Вы?</p>
+
+    <p><span class="q">Вопрос:</span>Пусть сам решает. Как я могу сделать это за него?</p>
+
+    <p><span class="q">Вопрос:</span>Он-то решит. Им все уже решено. Я бы даже сказал предрешено. Но пока Вы сами Ему не выскажете искреннее пожелание, чтобы было так, как хочет не Он, а Вы хотите, чтобы все было в Реальном Мире, при этом, сделав это в точном соответствии с тем, как и Он хочет, чтобы было, но только это Его желание было скрыто от Вас "завесой из пугающей скани бытия, скрывающей тайну", но не то, чтобы Вам не было, в принципе, понятно, по совокупности фактов и опыта, чего именно Он хочет, с Вами этого (того, что Он хочет) не случиться, а будет происходить снова и снова в точности обратное тому, что Он хочет. И Мир вокруг тоже будет казаться обратным тому, который есть в Реальности. Нихт Ферштейн?</p>
+
+    <div class="player" id="player1">
+      <div class="player-head" onclick="togglePlayer('player1')">
+        <span class="player-arrow">▶</span>
+        <span class="player-meta">
+          <span class="player-label">Музыка под настроение</span>
+          <span class="player-title">Nicht verstehen</span>
+        </span>
+        <a class="player-ext" href="https://www.youtube.com/watch?v=X-jdl9hcCeg" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a>
+      </div>
+      <div class="player-body">
+        <div class="player-frame" data-src="https://www.youtube.com/embed/X-jdl9hcCeg"></div>
+      </div>
+    </div>
+  </article>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="217.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="ttl">Буревестник</span>
+    </a>
+    <a class="next" href="1AS.html">
+      <span class="dir">Следующая →</span>
+      <span class="ttl">Аль Таасе часть 1</span>
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  function togglePlayer(id){
+    var p=document.getElementById(id);
+    var open=p.classList.toggle('open');
+    if(open){
+      var f=p.querySelector('.player-frame');
+      if(f && !f.querySelector('iframe')){
+        var ifr=document.createElement('iframe');
+        ifr.src=f.getAttribute('data-src')+'?autoplay=1';
+        ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        ifr.allowFullscreen=true;
+        f.appendChild(ifr);
+      }
+    }
+  }
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — короткий философско-богословский диалог в прозе (последовательность реплик «Вопрос:»), стихотворной формы нет, поэтому выбрана редакторская широкоформатная схема, а не узкий манускрипт. Контейнер задан на 66% ширины окна (две трети) с ограничением меры строки в самой колонке текста до ~40em ради читабельности длинного третьего абзаца; на мобильном — полная ширина. Палитра тёплая книжная на светлом фоне с терракотовым акцентом, чтобы поддержать восточно-суфийскую тональность темы (Аллах, завеса бытия). Единственная YouTube-ссылка в конце текста («Нихт Ферштейн? https://...») трактована как музыкальная отсылка и оформлена свёрнутым ленивым плеером с меткой «Музыка под настроение» и значком внешней ссылки; iframe подгружается только при раскрытии. Подразделов нет — оглавление и сноски не нужны, поэтому features содержит только music.",
+  "features": ["music"]
+}
+</script>
+</body>
+</html>
