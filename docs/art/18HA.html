@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Командный Голос Нагваля</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf9;
+    --ink:#1f1b17;
+    --muted:#6b6258;
+    --accent:#8a2f25;
+    --accent2:#b8763a;
+    --rule:#e0d8c9;
+    --hl:#fdeccb;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1000px;
+    min-width:0;
+    margin:0 auto;
+    background:var(--paper);
+    padding:40px 56px 64px;
+    box-shadow:0 1px 40px rgba(60,45,25,.08);
+  }
+  @media(max-width:1100px){.wrap{width:82%;}}
+  @media(max-width:760px){
+    body{font-size:17.5px;}
+    .wrap{width:100%;padding:24px 18px 44px;box-shadow:none;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:22px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs .sep{margin:0 .5em;color:var(--accent2);}
+
+  .lead-img{display:block;margin:0 auto 30px;width:auto;max-width:100%;height:auto;}
+
+  h1{
+    font-size:2.15rem;
+    line-height:1.18;
+    font-weight:700;
+    letter-spacing:.01em;
+    margin:.2em 0 .35em;
+    color:var(--ink);
+  }
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    font-style:normal;
+    margin:0 0 34px;
+    padding-bottom:20px;
+    border-bottom:2px solid var(--accent);
+  }
+
+  h2{
+    font-size:1.05rem;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--accent);
+    margin:42px 0 18px;
+    font-weight:700;
+  }
+
+  .epigraph{
+    margin:0 0 38px;
+    padding:18px 26px;
+    border-left:3px solid var(--accent2);
+    background:#faf5ec;
+    font-style:italic;
+    color:#3a332b;
+    font-size:1.02rem;
+  }
+  .epigraph p{margin:0 0 1em;white-space:pre-line;line-height:1.6;}
+  .epigraph .cite{
+    font-style:normal;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    color:var(--muted);
+    text-align:right;
+    margin:0;
+  }
+
+  .body p{margin:0 0 1.4em;text-align:justify;hyphens:auto;}
+  .body .num{
+    font-variant-numeric:lining-nums;
+    color:var(--accent);
+    font-weight:700;
+    margin-right:.15em;
+  }
+  .exclaim{
+    text-align:center;
+    font-size:1.25rem;
+    font-weight:700;
+    letter-spacing:.03em;
+    color:var(--accent);
+    margin:34px 0;
+  }
+
+  a.body-link{color:var(--accent);}
+
+  /* footnote markers */
+  sup.fnmark{font-size:.72em;line-height:0;}
+  sup.fnmark a{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    padding:0 1px;
+  }
+  sup.fnmark a:hover{text-decoration:underline;}
+
+  /* popup */
+  #fnpop{
+    position:absolute;
+    z-index:50;
+    max-width:380px;
+    background:#2a241d;
+    color:#f4ead6;
+    font-family:Georgia,serif;
+    font-size:15px;
+    line-height:1.5;
+    font-style:normal;
+    padding:12px 15px;
+    border-radius:6px;
+    box-shadow:0 6px 24px rgba(0,0,0,.3);
+    display:none;
+    white-space:pre-line;
+  }
+
+  /* music */
+  .music{margin:30px 0;}
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    font-size:13.5px;
+    color:var(--muted);
+    margin-bottom:8px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    background:#fbf6ed;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:13px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#f5ecdc;}
+  .track-arrow{color:var(--accent2);transition:transform .2s;font-size:13px;}
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-title{flex:1;font-weight:700;}
+  .track-sub{color:var(--muted);font-weight:400;font-style:italic;}
+  .track-ext{color:var(--accent);text-decoration:none;font-size:1.1em;}
+  .track-body{display:none;padding:0 16px 16px;}
+  .track.open .track-body{display:block;}
+  .track-body .frame{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .track-body iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+
+  /* notes */
+  .notes{margin-top:48px;padding-top:18px;border-top:2px solid var(--accent);}
+  .notes ol{padding-left:1.4em;margin:0;}
+  .notes li{margin:0 0 1.1em;font-size:16.5px;line-height:1.6;color:#3a332b;white-space:pre-line;}
+  .notes li:target{background:var(--hl);transition:background 1s;}
+  .fn-back{color:var(--accent);text-decoration:none;font-weight:700;margin-left:.4em;}
+  .fn-back:hover{text-decoration:underline;}
+
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:50px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    color:var(--accent);
+    text-decoration:none;
+    font-size:15px;
+    max-width:46%;
+  }
+  .corpus-nav a:hover{text-decoration:underline;}
+  .corpus-nav .lbl{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:3px;}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer{
+    margin-top:40px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    line-height:1.55;
+    color:var(--muted);
+  }
+  footer a{color:var(--accent);}
+</style>
+</head>
+<body data-scheme="editorial">
+<article class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <img class="lead-img" src="../img/18HA.jpg" alt="">
+
+  <h1>КОМАНДНЫЙ ГОЛОС НАГВАЛЯ</h1>
+  <p class="dateline">Записано 17.08.21 на форуме «левой линии»</p>
+
+  <h2>Эпиграф</h2>
+  <div class="epigraph">
+    <p>And in the naked light I saw
+Ten thousand people, maybe more.
+People talking without speaking,
+People hearing without listening,
+People writing songs that voices never share,
+And no one dared to stir the sound of silence.</p>
+    <p>"Fools", said I, "You don't know,
+Silence like a cancer grows.
+Hear my words that I might teach you,
+Take my arms that I might reach you"
+But my words like silent raindrops fell,
+And echoed in the wells of silence.<sup class="fnmark"><a id="ref-1" href="#fn-1" data-fn="1">*1</a></sup></p>
+    <p class="cite">Sound of Silence, Simon and Garfunkel</p>
+  </div>
+
+  <div class="body">
+    <p><span class="num">1.</span>Третье внимание является вниманием Мифа, в котором оказывается "нагваль" М+Ж вскоре после того, как он "вспоминает" себя, Орла, Правило, и задачу, умирает "символической смертью этого мира", и на вот этом базовом разложившемся субстрате, эксгумированном при помощи страшного колдунства под названием "перепросмотр", или "пересамоосознавание", он оказывается в определенном объеме Реальности, суть которой не в том, что происходит с ним самим, и даже не в том, что происходит с воинами его группы непосредственно сейчас, а то, что будет происходить со всеми людьми в общем на протяжении определенного отрезка исторического времени в будущем, с которым его собственная "магическая ступень" и группа связана непосредственной задачей собственного распространения и формирования во времени.</p>
+
+    <p><span class="num">2.</span>В этом состоянии для него перестает быть решающим обстоятельством вещи наподобие того, что "в действительности" происходит "реально", в отношении того или иного положения дел, которое существует в его сфере интересов, а становится важным то, что он сам чувствует как суть происходящего, и в этих чувствах, которые ни с "первым", ни со "вторым" вниманием "актуальными здесь и сейчас" коррелировать совсем не обязано, оставаясь в не меньшей степени Реальным, а зачастую даже в большей, так как сила ощущений настройки "пространства между параллельных линий" как моста между "этим миром" и миром будущего, создаваемого самим человеком из любви к свободе именно таким, каким оно, вне всякого сомнения, и должно являться, и будет являться, а для него лично - уже является, вне всякого сомнения, поскольку ему об этом говорят его "магические" и "физические" чувства вполне однозначно, хотя глаза и уши находятся в это время в состоянии перцептуальной затемненности.</p>
+
+    <p><span class="num">3.</span>Из будущего можно достать любую информацию, в будущее можно поместить любую информацию, в пространстве между параллельных линий происходит только то, о чем "нагваль" (М+Ж) и Дух договариваются между собой лично и открыто друг другу об этом сообщают, поскольку это же самое пространство становится областью, в которой реально происходит их активное взаимодействие, явное и открытое, благодаря проецируемым в эту область из обеих огромных областей "предрасположения восприятия" эманаций, сущностно, т.е. "на своем месте", как известно, не пересекающихся нигде абсолютно, и являющиеся разными мирами.</p>
+
+    <p><span class="num">4.</span>Это состояние не является "настоящим" третьим вниманием, в связи с тем, что третье внимание не является в принципе достижением одного отдельно взятого человека или линии магов. Оно является реальностью интегральной, и ее распространение во времени происходит последовательно на протяжении долгого времени этого мира. Само третье внимание, по аналогии с высказыванием ДХ, "во Вселенной нет толп" - о том, что кокон Человека, на котором имеется точка повышенной яркости, нанося удар по которой, Нагваль меняет реальность своих учеников, существует в единственном экземпляре во всей Вселенной. Поскольку реальность "этого мира", который является результатом выполнения настройки физической способностью восприятия, связанной с особой Силой, источником Которой являются сами эманации, "высвечивание" которых происходит совместным намерением группы воинов, которые сами же и являются этими настраиваемыми Орлом с помощью "нагваля" Своими эманациями и Своей Командой - Силой Настройки, или "осознанием себя из любви к свободе". Воины, применяющие целенаправленную волю синхронно одинаковым способом к тому, чтобы достигать определенной заранее согласованной Цели, обуславливают возникновение "особой реальности", которая воспринимается ими как реальность "здесь и сейчас" посредством Команды Орла, сделанной своей собственной командой воинов. В этой особой Реальности начинают действовать Законы и принципы, которые сами воинами были положены за основу своего совместного намерения осознанной настройки. Команда Орла не создается Орлом для самой себя. Они ее выполняют первыми, конечно же, но распространяется она посредством них на тот объем реальности, в котором они существовали и существуют и как люди этого мира, и как "светящиеся существа", то есть как маги и как люди, которым только предстоит начать свой Путь к осознанию себя в будущем. Это распространение делает исходную мини модель Реальности прототипом, нового "более справедливого", т.е. менее далекого от свободы и осознанности сущностно, "человеческого шаблона", являющегося источником человеческой формы, которая появляется у человека этого мира определенным характерным образом вследствие того, что он получает свои Жизнь и Создание от Отла в заранее заданной пре-форматированной форме, которая вследствие этого автоматически "отпечатывается" в получающем субьекте, формируя "его собственную" форму и определяя этим самым всю его последующую жизнь и судьбу, поскольку, когда человек посредством этого начинает стремиться осознанно к тому, чтобы получать Жизнь и Сознание определенным образом, он уже не может ни при каких условиях повлиять на этот способ, захотев получать их каким-то другим образом, не связанным с первым. Единственная оставшаяся возможность - это перепросмотр полученного им таким образом жизненного опыта с целью продолжения бесконечного распространения Жизни посредством осознания себя. Тогда он начнет этим же самым способом не получать Жизнь и Осознание от Орла, а эманировать их, сам становясь "точкой сборки" второго внимания, и обуславливая определенный объем восприятия и реальности для чувствующих существ "первого внимания", равно как и "второго", поскольку они сущностно неразделимы, одно является Источником, другое - тем, что осознает себя, посредством распространения Эманаций из Своего Источника через точку сборки, закрепленную многократным практическим использованием живыми существами, выполняющими работу Кокона как единого целого, наподобие муравейника, являясь обычными "трутнями", обслуживающими "матку" и выполняющими команды, не имея ни малейшего представления о том, чем они являются на самом деле, до того, как их собственная команда не станет Командой Орла, с намерением достижения Свободы всеми людьми, поскольку Свобода - коллективная форма взаимной ответственности каждого за "безупречность" и "трезвость" каждого, это состояние поручительства между людьми, в котором каждый человек заботится о том, чтобы кто-то другой, кто угодно, "ближний" или "дальний", смог придти к осознанию себя, совершить перепросмотр и остановить ВД, а не сам человек смог всего этого добиться. Это - новый Цикл, более совершенный и справедливый, поскольку в нем никто не говорит и не делает того, что его сердце не ощущает искренне на самом деле. Этот Цикл уже начался. Поскольку именно так человек этого мира и действует, но только у него нет намерения помогать кому-то, зато у него есть намерение искать собственную выгоду, и поэтому жизнь ему приносит только боль и страдания, ведь она полностью происходит из любви к свободе ради совершения вклада в человеческий Дух. Все что требуется магам, чтобы люди сами выстроили мост, соединяющий два мира воедино - это поменять намерение, с которым они сами встречают человека этого мира, поскольку именно и только Сила их Намерений влияет на то, чем этот мир будет после того, как они достигнут своих целей, и исчезнут из этого мира навсегда, чтобы находиться по ту сторону Экрана, где разворачивается драма восприятия нового мира.</p>
+
+    <p class="exclaim">Сделаем и услышим!</p>
+  </div>
+
+  <div class="music">
+    <div class="music-label">Музыка:</div>
+    <div class="track" id="track1">
+      <div class="track-head" onclick="toggleTrack('track1','NAEppFUWLfc')">
+        <span class="track-arrow">▶</span>
+        <span class="track-title">Sound of Silence <span class="track-sub">— Simon &amp; Garfunkel</span></span>
+        <a class="track-ext" href="https://www.youtube.com/watch?v=NAEppFUWLfc" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="track-body"><div class="frame" data-id="NAEppFUWLfc"></div></div>
+    </div>
+  </div>
+
+  <section class="notes">
+    <h2 style="border:none;margin-top:0;">Примечания</h2>
+    <ol>
+      <li id="fn-1">И при свете я увидел
+Десять тысяч людей, быть может, больше.
+Они говорили без слов,
+Они слышали без слуха,
+Они сочиняли песни, которые никто не споёт,
+И никто не пытался помешать тишине.
+
+«Глупцы, — сказал я, — вы не знаете,
+Тишина растет, как раковая опухоль.
+Послушайте меня, и я объясню вам,
+Возьмите меня за руки, и я выведу вас».
+Но мои слова падали, как дождевые капли,
+И отдавались эхом в колодцах тишины.
+
+перевод Copyright: <a class="body-link" href="https://lyrsense.com" target="_blank" rel="noopener">https://lyrsense.com</a> ©<a class="fn-back" href="#ref-1" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="18I.html"><span class="lbl">← Предыдущая</span>Нет Нагваля в своем Отечестве</a>
+    <a class="next" href="18HB.html"><span class="lbl">Следующая →</span>Получение Дара Орла</a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</article>
+
+<div id="fnpop"></div>
+
+<script>
+function toggleTrack(id,vid){
+  var t=document.getElementById(id);
+  var frame=t.querySelector('.frame');
+  if(!t.classList.contains('open') && !frame.querySelector('iframe')){
+    var f=document.createElement('iframe');
+    f.src='https://www.youtube.com/embed/'+vid+'?rel=0';
+    f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    f.allowFullscreen=true;
+    frame.appendChild(f);
+  }
+  t.classList.toggle('open');
+}
+
+// footnote popup
+(function(){
+  var pop=document.getElementById('fnpop');
+  document.querySelectorAll('sup.fnmark a[data-fn]').forEach(function(a){
+    a.addEventListener('mouseenter',function(){
+      var li=document.getElementById('fn-'+a.getAttribute('data-fn'));
+      if(!li)return;
+      var txt=li.cloneNode(true);
+      var bk=txt.querySelector('.fn-back'); if(bk)bk.remove();
+      pop.textContent=txt.textContent.trim();
+      pop.style.display='block';
+      var r=a.getBoundingClientRect();
+      var sx=window.scrollX,sy=window.scrollY;
+      var pw=pop.offsetWidth,ph=pop.offsetHeight;
+      var left=r.left+sx+r.width/2-pw/2;
+      if(left<8)left=8;
+      if(left+pw>window.innerWidth-8)left=window.innerWidth-pw-8;
+      var top=r.top+sy-ph-10;
+      if(r.top-ph-10<0){top=r.bottom+sy+10;}
+      pop.style.left=left+'px';
+      pop.style.top=top+'px';
+    });
+    a.addEventListener('mouseleave',function(){pop.style.display='none';});
+  });
+})();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Основное тело статьи — плотная эзотерическая проза (четыре длинных нумерованных абзаца рассуждений о третьем внимании, Команде Орла и т.п.), а стихотворная часть присутствует лишь как эпиграф-цитата песни Simon & Garfunkel. По доминирующей форме это проза/эссе, поэтому выбрана редакторская широкая схема с основной колонкой ~2/3 ширины окна на десктопе и полной шириной на мобильном.\n\nРазвилки: эпиграф можно было бы счесть поводом для манускрипта, но он вторичен относительно прозы — отверг. Оглавление не делал: в тексте нет нескольких озаглавленных подразделов (есть лишь 'Эпиграф' и безымянные нумерованные пункты), поэтому TOC избыточен. Сводный музыкальный раздел не создавал — распознан лишь один трек (порог >2 не достигнут), он подан как свёрнутый ленивый YouTube-плеер с меткой 'Музыка:' дословно из текста. Сноска *1 (перевод песни) реализована с переходом вниз/вверх, подсветкой цели и hover-popup, выбирающим сторону в зависимости от границы окна. Палитра — тёплая бумажная со сдержанным винно-красным акцентом, засечный шрифт для комфортного длинного чтения."
+,
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>

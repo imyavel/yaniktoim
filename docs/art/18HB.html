@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Получение Дара Орла</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f2421;
+    --muted:#6b6256;
+    --accent:#8a5a2b;
+    --accent2:#3b6b63;
+    --rule:#d8cfbe;
+    --hl:#fbe8c0;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Georgia","Times New Roman",serif;
+    font-size:19px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1100px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 40px 80px;
+  }
+  @media(max-width:900px){
+    .wrap{width:100%;padding:20px 18px 60px;}
+    body{font-size:18px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:26px;
+  }
+  .crumbs a{color:var(--accent2);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 8px;color:#b7ad9c;}
+
+  .lead-img{display:block;max-width:100%;width:auto;height:auto;margin:0 auto 26px;border:1px solid var(--rule);border-radius:3px;}
+
+  h1{
+    font-size:34px;
+    line-height:1.2;
+    margin:.2em 0 .15em;
+    color:var(--ink);
+    letter-spacing:.01em;
+  }
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    margin-bottom:30px;
+    font-style:italic;
+  }
+
+  .epigraph{
+    border-left:3px solid var(--accent);
+    background:var(--paper);
+    padding:16px 22px;
+    margin:30px 0;
+    font-style:italic;
+    color:#473f33;
+  }
+  .epigraph .q{display:block;}
+  .epigraph .a{display:block;margin-top:8px;font-style:normal;color:var(--muted);font-size:.95em;}
+
+  .frommotif{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    margin:34px 0 24px;
+  }
+
+  p{margin:0 0 1.1em;}
+  .num{
+    margin:0 0 1.15em;
+    padding-left:2.4em;
+    position:relative;
+  }
+  .num .n{
+    position:absolute;
+    left:0;
+    top:0;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    color:var(--accent);
+    font-size:.95em;
+  }
+
+  .closing{margin-top:30px;font-style:italic;}
+
+  a{color:var(--accent2);}
+
+  /* footnote markers */
+  sup.fnref{font-size:.72em;line-height:0;}
+  sup.fnref a{
+    text-decoration:none;
+    color:#fff;
+    background:var(--accent);
+    border-radius:3px;
+    padding:1px 5px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+  }
+  .fn-pop{position:relative;display:inline-block;}
+  .fn-pop .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    bottom:140%;
+    transform:translateX(-50%);
+    width:320px;
+    max-width:78vw;
+    background:#2b2620;
+    color:#f3ecdd;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    font-weight:400;
+    line-height:1.5;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 8px 26px rgba(0,0,0,.3);
+    z-index:40;
+  }
+  .fn-pop .pop a{color:#e9c98a;}
+  .fn-pop.below .pop{bottom:auto;top:140%;}
+  .fn-pop:hover .pop{display:block;}
+
+  /* music */
+  .music{margin:38px 0;}
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--accent);
+    margin-bottom:10px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    background:var(--paper);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:14px 18px;
+    cursor:pointer;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .track-head .tt{flex:1;}
+  .track-head .tt b{color:var(--ink);}
+  .track-head .tt span{color:var(--muted);}
+  .track-head .arr{transition:transform .2s;color:var(--accent2);font-size:13px;}
+  .track.open .arr{transform:rotate(180deg);}
+  .track-head .ext{color:var(--accent2);text-decoration:none;font-size:16px;}
+  .player{display:none;border-top:1px solid var(--rule);}
+  .track.open .player{display:block;}
+  .player .ratio{position:relative;width:100%;padding-bottom:56.25%;}
+  .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+  /* notes */
+  .notes{margin-top:50px;border-top:1px solid var(--rule);padding-top:20px;}
+  .notes h2{
+    font-size:20px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    letter-spacing:.04em;
+    color:var(--accent);
+    margin:0 0 16px;
+  }
+  .notes ol{padding-left:1.3em;margin:0;}
+  .notes li{
+    font-size:16px;
+    line-height:1.6;
+    color:#433c30;
+    margin-bottom:14px;
+  }
+  .notes li:target{background:var(--hl);transition:background .3s;border-radius:4px;}
+  .notes .back{text-decoration:none;color:var(--accent2);margin-left:6px;}
+
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    margin-top:54px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    color:var(--accent2);
+    max-width:46%;
+    font-size:16px;
+  }
+  .corpus-nav a:hover{text-decoration:underline;}
+  .corpus-nav .lbl{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px;}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer.colophon a{color:var(--accent2);}
+</style>
+</head>
+<body data-scheme="editorial">
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>›</span><a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <img class="lead-img" src="../img/18HB.jpg" alt="">
+
+  <h1>ПОЛУЧЕНИЕ ДАРА ОРЛА</h1>
+  <div class="dateline">Записано: 17.08.21 на форуме «левой линии»</div>
+
+  <div class="epigraph">
+    <span class="q">Эпиграф. А и Б сидели на трубе. А упало, Б пропало. КТО ОСТАЛСЯ НА ТРУБЕ?</span>
+    <span class="a">— Неразрешимый экзистенциальный парадокс, решаемый детьми простым совместным действием.</span>
+  </div>
+
+  <div class="frommotif">По мотивам: Второй Враг<sup class="fnref"><span class="fn-pop"><a id="ref1" href="#fn1">1</a><span class="pop">Второй Враг (человека Знания — это «ясность» по версии КК, ака Разум) — ветка на форуме «левой линии», находившаяся по адресу <a href="http://ccastaneda.ru/viewtopic.php?id=3237#p63428" target="_blank" rel="noopener">ccastaneda.ru/viewtopic.php?id=3237#p63428</a>. См. также: <a href="https://bneiadam.com/forum/53-42-1" target="_blank" rel="noopener">bneiadam.com/forum/53-42-1</a></span></span></sup></div>
+
+  <p>Разумно понять достоверно, как победить врага Разум не получится, конечно же. Он будет вам подсовывать один красивый фуфел за другим, чтобы вы не думали, что он вас в это самое время нещадно эксплуатирует в головной мозг.</p>
+
+  <p>Враг Разум только в том, что он не дает понять про себя, что он не является «первоисточником» того смысла, который постулирует о том, или ином положении дел. Особенно это актуально, когда речь идет о том, чтобы поднимать собственную пятую точку со стула, и начинать что-то делать для Духа. Во всем остальном, он — друг. Вынужденный, но друг.</p>
+
+  <p>Несамостоятельность разума, конечно же, тоже происходит не от разума. Сознание является органическим качеством сути Эманаций Орла, являющихся, в свою очередь, абсолютно непостижимым явлением (в связи с принципиальным отсутствием постигающих). Однако, есть некоторые косвенные приметы, которые могут помочь воину «проникнуть» умом в тайну ума в требуемой для практических выводов степени.</p>
+
+  <p>Речь о том, какова «история» этого явления (разум) в Реальном мире (не в иллюзии пространственно-временного восприятия, которая является единственной опытной данностью для 99.(9)% людей). А корень разума находится именно там. Это очень возвышенное свойство. Корень безмолвного знания тоже находится там. Человек включает в себя их оба.</p>
+
+  <p class="num"><span class="n">1)</span>Массив Эманаций Орла, так или иначе, связан с понятием Разума. То есть, он принципиально постигаем. В нем мы определяем область, восприятие которой предваряем собственным намерением, и это — известное. Область, восприятие которой всегда происходит неожиданным способом — неведомое.</p>
+
+  <p class="num"><span class="n">2)</span>Орел связан со Своими Эманациями также, как поверхность Зеркала, отражающая человека, связана с самим этим человеком. Орел находится «ниже» всех своих эманаций по важности (это связано с определенным фокусом при формулировке намерения человеком)</p>
+
+  <p class="num"><span class="n">3)</span>Орел Сам является корнем безмолвного знания, второго внимания, и чувственной сферы человека.</p>
+
+  <p class="num"><span class="n">4)</span>Эманации являются корнем понятия Разум, первого внимания, и ментальной сферы человека. А также неоргаников.</p>
+
+  <p class="num"><span class="n">5)</span>Орел не является чем-либо, кроме «отпечатка от печати» Своих Эманаций. То есть Он является своеобразным Зеркалом, отражающим Намерения Духа по направлению к Их Источнику. То есть, к Эманациям...</p>
+
+  <p class="num"><span class="n">6)</span>В том, что касается нашего восприятия, Сам Орел является корнем нашего ощущения «я». Он Сам является непосредственно этим самым ощущением. Наше интуитивное ощущение того, что «я» это «я», а не «он», «она» и т.д., является следствием социализации. Хотя и очень глубоким (представить, что Жизнь является свойством Самих Эманаций, и не принадлежит «мне», оказывается гораздо проще, чем почувствовать (понять), что «я» это что-то вроде большой непостижимой Эманации Орла, существующей во Вселенной, а не что-либо «мое». Но непостижимое, оно на то и непостижимое, чтобы долго воин такими вещами не заморачивался. Помочь при неожиданной встрече с неведомым они точно не помогут).</p>
+
+  <p class="num"><span class="n">7)</span>Дар Орла является простым действием, в котором содержатся все действия Мира. Когда в его совершение Орлом включается человек этого мира (маг) — возможно, что именно это является настоящим «даром», т.к. «находиться» в этом «месте» человеческие типы вниманий явно не приспособлены, и это «включение», хотя и меняет дело, но довольно незначительно. Непостижимое не сделается известным никогда.</p>
+
+  <p class="num"><span class="n">8)</span>Эманации Орла являются одним цельным массивом, который имеет свойство «бесконечного множества». Дар Орла является «человеческой полосой» и расположен в виде вертикальной линии снизу вверх (от Орла в направлении Его Эманаций). Эта полоса занимает незначительный процент от всего массива эманаций, однако достаточный, чтобы человек в нем был способен найти/построить целую Вселенную (если не гнаться за знаниями ради знаний, что нам известно, к чему приводит — см. Древних, то его вполне достаточно для любых практических жизненных целей, включая магические, и включая все типы вниманий)</p>
+
+  <p class="num"><span class="n">9)</span>В Реальности «Дара Орла» (действия, в котором человек делает свою команду Командой Орла) все (и Сам Орел, и весь массив Его Эманаций) являются ОДНИМ ПРОСТЫМ НЕДЕЛИМЫМ ЦЕЛЫМ ОБЪЕКТОМ. В этом объекте заключена суть всего, что может иметь смысл для воспринимающих. Поскольку Сама эта Реальность не может быть воспринята человеком. Человек в ней присутствует только в виде пассивного наблюдателя, «специально приглашенного» Духом, чтобы открыть ему Правило и позволить впоследствии выстроить Миф, в который заменит «реальный объективный мир», поскольку последний явно существует не таким образом, каким должны человеку открываться чудеса Реальности. Тайной Дара Орла является то, что тот, кто дает его и тот, кто получает (это один и тот же субъект, т.к. на этом уровне Реальности еще нет разделения на внутреннее и внешнее — а как может существовать понятие получения и отдачи отдельно друг от друга, когда их нет?) сами говорят Реальному Миру, как он существует и что в нем является «правдой», а не он им в виде «объективных физических законов». Разумеется, человек, получая Дар, не становится «всесильным» в примитивном понимании этого слова. Всесильным является только Дух, но воин реально становится Его Тенью, и ему Духом обеспечивается всегда обладание тем объемом знаний, умений и сил, которые объективно необходимы воину для совершения настоящего действия, совершаемого по Воле Духа (стратегии Бенефактора). Таким образом, воин потенциально всесилен, всезнающ и всемогущ, если это зачем-то вдруг понадобится Духу. Сам он точно не против. Не за тем всю жизнь к этому месту приходил : ))</p>
+
+  <p class="num"><span class="n">10)</span>Главное следствие совершения действия, отдачи/получения Дара Орла, заключается в том, что для его завершения воин должен вернуться в этот мир и начать делать это (получение) вместе с теми, для кого этот Дар в действительности был предназначен. Вот тут то и включается в работу Разум на полную. Впрочем, уже как однозначный Друг. «Враждовать» с воином, способным выстоять в присутствии непостижимого, Разуму было бы ссыкотно : )</p>
+
+  <p class="num"><span class="n">11)</span>Посредством изменения уровня сознания с «третьего внимания» на «первое» (условно — «нагваль» на самом деле находится вне вниманий вообще, поскольку в нем невозможно восприятие и обособленное от Орла существование, как, впрочем, и везде) вышеупомянутый массив «бесконечное множество» однородного свойства «Эманаций Орла» РАЗБИВАЕТСЯ, т.е. делится, становится, плюс начинает реально ощущаться внешняя обособленность восприятия и осознание себя, как и можно было предположить, на БЕСКОНЕЧНОЕ МНОЖЕСТВО. То есть на очень много простых элементарных, «уникальных и неповторимых», похожих друг на друга практически всем, с точки зрения внешнего наблюдателя, равно как и не похожих практически ни в чем, с точки зрения внутреннего. Вы еще не догадались? :D У того, что нас так много «размножилось» на планете Земля (к настоящему моменту 7.5 млрд, если мне память не изменяет), есть конкретная причина, не имеющая ничего даже отдаленно общего ни со случайностью, ни со «случайной закономерностью», ни с прочими очень правильными формулами и представлениями среднего человека. Во всем массиве человеков отражен цельнолитый объект, который был, есть, и будет единым в «третьем внимании», то есть, когда мы придем практически К ЦЕЛОСТНОСТИ САМОГО СЕБЯ, а до этого мы вынуждены так или иначе помогать друг другу идти к ней. Я в курсе, что не мало «просветленных» заявляли, что уходили в Нирвану и т.п. Но я лично думаю, что хрен они куда уходили. Точнее, понежились там пару вечных мгновений и как шарик на резинке возвращены обратно — ишь нашлись тут желающие откосить от призыва. Нет уж, добро пожаловать обратно в ад, you are in the army now, pal :D )</p>
+
+  <p class="num"><span class="n">12)</span>У этого «энергетического факта» есть несколько важных практических следствий для воинов, игнорировать которые — значит быть хуже, чем, зашоренная лошадь. Хуже тем, что лошадь сама себя не зашоривала. Она подверглась неспровоцированному насилию со стороны черных магов : )) Первый, самый очевидный, — что целостность самого себя не обретается человеком в одиночку. Также в одиночку не достигается и цель Пути, да и любая другая цель тоже, в виду того, что явления, о которых идет речь, носят глобальный характер и отражены каждой деталью во Вселенной так или иначе. Как это отражение выглядит для человека, мы поняли.</p>
+
+  <p class="num"><span class="n">13)</span>У нас есть бесценный подарок Духа — целый мир людей, являющихся практическим полем для экспериментального (эмпирического и интуитивного) познания законов Вселенной (Эманаций Орла) по методу аналогии (те же законы и принципы будут действовать в обществе людей, проявляясь в особенностях их взаимодействия)</p>
+
+  <p class="num"><span class="n">14)</span>Главное, что интересует воина в Эманациях — это Сила Настройки, Которая связывает их, делая миры воспринимаемыми упорядоченно, а значит, намеренно и осознанно. Эта Сила затем будет воином заново открыта как «третье внимание». В ней воля и разум используются совместно. По вышеописанной аналогии, процессу и явлению «настройки восприятия» является организация совместного взаимодействия ради некоторой общей цели определенной Группы людей, собранных по особому принципу. К счастью, принцип особенно высасывать из пальца не потребуется, т.к. Дух с этой задачей замечательно справляется без нашего чрезвычайно важного ЦУ и контроля. Так вот, главное в данном случае — то, чем является Сила Настройки в этом полном подобии процесса настройки восприятия. Эта Сила называется в человеческом обществе ЛЮБОВЬ</p>
+
+  <p class="closing">Надеюсь, что вышеописанное в достаточной мере обосновывает и раскрывает тезис: Только Вместе, Мы — СИЛА! Продолжение следует (если понадобится)...</p>
+
+  <div class="music">
+    <div class="music-label">Музыка:</div>
+    <div class="track" id="track1">
+      <div class="track-head" onclick="toggleTrack('track1')">
+        <span class="tt"><b>Can you feel the love tonight</b> <span>— Elton John</span></span>
+        <span class="arr">▾</span>
+        <a class="ext" href="https://youtu.be/KjgWWjkNbhU" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="player">
+        <div class="ratio"></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1">Второй Враг (человека Знания — это «ясность» по версии КК, ака Разум) — ветка на форуме «левой линии», находившаяся по адресу <a href="http://ccastaneda.ru/viewtopic.php?id=3237#p63428" target="_blank" rel="noopener">http://ccastaneda.ru/viewtopic.php?id=3237#p63428</a><br>См. также: <a href="https://bneiadam.com/forum/53-42-1" target="_blank" rel="noopener">https://bneiadam.com/forum/53-42-1</a><a class="back" href="#ref1" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="18HA.html"><span class="lbl">← Предыдущая</span>Командный Голос Нагваля</a>
+    <a class="next" href="18FA.html"><span class="lbl">Следующая →</span>Бросившие Вызов Любви</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggleTrack(id){
+    var t=document.getElementById(id);
+    var opening=!t.classList.contains('open');
+    t.classList.toggle('open');
+    if(opening){
+      var ratio=t.querySelector('.ratio');
+      if(!ratio.querySelector('iframe')){
+        var f=document.createElement('iframe');
+        f.src='https://www.youtube.com/embed/KjgWWjkNbhU?autoplay=1';
+        f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        f.allowFullscreen=true;
+        ratio.appendChild(f);
+      }
+    }
+  }
+  // footnote popup side flip
+  document.querySelectorAll('.fn-pop').forEach(function(el){
+    el.addEventListener('mouseenter',function(){
+      var r=el.getBoundingClientRect();
+      if(r.top<170){el.classList.add('below');}else{el.classList.remove('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — философско-эзотерическое эссе с эпиграфом, развёрнутыми абзацами и пронумерованным списком тезисов (1–14); никаких стихотворных форм нет, поэтому однозначно выбрана редакторская широкая схема (колонка ~66% ширины окна, до 1100px). Развилка была вокруг оглавления: формально есть эпиграф, основной корпус, музыка и примечания, но это не полноценные именованные подразделы статьи, а единый поток мысли, поэтому TOC не вводил, чтобы не плодить искусственных заголовков и не нарушать запрет на добавление своих названий. Нумерованные пункты оформлены как абзацы с выносным номером, а не как заголовки, сохраняя авторскую структуру.",
+    "rationale_extra": "Музыкальный трек один (меньше трёх), поэтому сводный раздел музыки не создавался — только ленивый раскрывающийся YouTube-плеер на своём месте с меткой «Музыка:» дословно. Сноска *1 имеет тело, реализована с переходами вниз/вверх, подсветкой цели и popup при наведении (с переключением стороны у верхнего края). КАПС (ОДНИМ ПРОСТЫМ НЕДЕЛИМЫМ ЦЕЛЫМ ОБЪЕКТОМ, ЛЮБОВЬ и др.) и авторские смайлы (: )), :D) сохранены как есть; голые URL обёрнуты в ссылки. Палитра — тёплый бумажный фон с коричнево-зелёными акцентами под спокойный лонгрид.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>
