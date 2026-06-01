@@ -24,6 +24,7 @@ Usage (из корня yaniktoim/):
 """
 from __future__ import annotations
 import io
+import os
 import re
 import sys
 import json
@@ -44,7 +45,7 @@ SITE = ROOT / "docs"
 ART_DIR = SITE / "art"
 LOGS = ROOT / "_logs"
 MANIFEST = ROOT / "manifest.json"
-PROMPT_MD = ROOT / "batch_runner" / "convert_prompt_004.md"
+PROMPT_MD = ROOT / "batch_runner" / "convert_prompt_005.md"
 
 # Системный промпт для headless-вызова. ЗАМЕНЯЕТ дефолтный системный промпт
 # Claude Code и тем самым ИЗОЛИРУЕТ верстальщика от глобального CLAUDE.md /
@@ -53,8 +54,13 @@ PROMPT_MD = ROOT / "batch_runner" / "convert_prompt_004.md"
 # --system-prompt сохраняет вход и убирает примеси CLAUDE.md. См. roadmap3.
 HTML_SYSTEM_PROMPT = (
     "You are a meticulous web typesetter. You convert one article's raw text "
-    "into a single self-contained HTML page per the user's instructions. "
-    "Output ONLY the HTML document and nothing else."
+    "into a single self-contained HTML page per the user's instructions, and "
+    "you WRITE that page to the destination file path given in the user "
+    "message using the Write tool. For a large document, create the file with "
+    "the Write tool (first portion), then append the rest with the Edit tool "
+    "in parts, so that no single tool call carries too much text. Do NOT print "
+    "the HTML in your reply — your final message must be a single short "
+    "confirmation line."
 )
 
 # Path into the Claude MSIX-package container — обходим symlink в
@@ -91,7 +97,17 @@ CLAUDE_EXE = _resolve_claude_exe()
 # решает (спать до сброса / спам-защита).
 RETRIES = 2
 RETRY_BACKOFF_S = 10
-CLAUDE_TIMEOUT_S = 1800  # потолок на одну статью (claude headless, 30 мин), затем — fail
+CLAUDE_TIMEOUT_S = 3600  # потолок на одну статью (claude headless, 60 мин), затем — fail.
+# Инкрементальная запись большого документа (Write+Edit за несколько ходов)
+# идёт дольше single-shot — потому потолок поднят с 30 до 60 мин.
+
+# Потолок вывода на ОДНО сообщение модели. По умолчанию Claude Code шлёт 64000
+# для opus-4-8 и НЕ зажимает значение к максимуму модели (>потолка → HTTP 400).
+# Серверный максимум opus-4-8 на Messages API = 128000 — ставим его, чтобы
+# реже упираться и дробить файл на меньшее число кусков. Инжектим в окружение
+# headless-процесса (env-блок settings.json сабпроцессом claude -p НЕ
+# наследуется — только реальное окружение процесса).
+MAX_OUTPUT_TOKENS = "128000"
 
 # Лимит подписки = HTTP 429 (и session, и weekly). Детектим по коду, а не по
 # нестабильной формулировке. Текст сброса («resets …») разбирает раннер.
@@ -282,10 +298,11 @@ def build_nav(rec: dict, manifest: list[dict], image: str | None = None) -> dict
 # 3. LLM CALL
 # ═════════════════════════════════════════════════════════════════════════════
 
-def build_prompt(base_prompt: str, rec: dict, body: str, nav: dict) -> str:
+def build_prompt(base_prompt: str, rec: dict, body: str, nav: dict,
+                 out_path: Path) -> str:
     """Собрать полный промпт: указание верстальщику + метаблок proza
     (url + название — ВНЕ текста статьи) + навигация корпуса (JSON) +
-    сырое тело статьи."""
+    путь файла назначения (агент пишет туда Write/Edit) + сырое тело статьи."""
     url = rec.get("url", "")
     title = rec.get("title", "")
     meta = (
@@ -304,10 +321,18 @@ def build_prompt(base_prompt: str, rec: dict, body: str, nav: dict) -> str:
         + json.dumps(nav, ensure_ascii=False, indent=2)
         + "\n```\n"
     )
+    dest_block = (
+        "## Файл назначения\n\n"
+        "Сохрани готовую HTML-страницу ИМЕННО в этот файл (инструментом Write; "
+        "большой документ дописывай инструментом Edit по частям). Путь дан "
+        "дословно — не меняй его, ничего больше не создавай:\n\n"
+        f"`{out_path}`\n"
+    )
     return (
         base_prompt
         + "\n\n" + meta
         + "\n" + nav_block
+        + "\n" + dest_block
         + "\n## Текст статьи к вёрстке\n\n"
         + "```\n" + body + "\n```\n"
     )
@@ -326,22 +351,58 @@ def extract_html(raw: str) -> str | None:
     return None
 
 
-def call_claude(full_prompt: str, art: str) -> CallResult:
-    """Headless claude -p → CallResult. Лимит (429) не ретраим: сразу наверх."""
+def _read_valid_html(path: Path) -> str | None:
+    """Содержимое out_path, если это валидный HTML-документ (от
+    <!DOCTYPE html>/<html> до </html>); иначе None — файла нет либо агент
+    записал обрывок/мусор. Это и есть критерий успеха новой схемы: страницу
+    пишет сам агент на диск, а не возвращает текстом."""
+    if not path.exists():
+        return None
+    try:
+        txt = path.read_text(encoding="utf-8")
+    except OSError:
+        return None
+    return txt if _HTML_SPAN_RX.search(txt) else None
+
+
+def call_claude(full_prompt: str, art: str, out_path: Path) -> CallResult:
+    """Headless claude -p: агент САМ пишет страницу в out_path инструментами
+    Write/Edit (большой документ — инкрементально, за несколько ходов). Успех
+    определяем по наличию ВАЛИДНОГО файла на диске, а не по тексту ответа:
+    раньше весь HTML возвращался в `result` и терял «голову» при авто-continue
+    на выводе сверх потолка сообщения — теперь документ собирается на диске
+    мимо этого лимита. Лимит (429) не ретраим: сразу наверх."""
     LOGS.mkdir(parents=True, exist_ok=True)
     (LOGS / f"html_prompt_{art}.txt").write_text(full_prompt, encoding="utf-8")
     print(f"  [{art}] prompt: {len(full_prompt)} chars", flush=True)
-    # --tools "" → single-shot text-only (без инструментов, многоходовость не
-    #   нужна: HTML-генерация атомарна). --system-prompt → изоляция от CLAUDE.md.
+    # Только файловые инструменты (без bash/web); bypassPermissions — headless
+    # не может отвечать на запросы доступа; --add-dir — право писать в каталог
+    # статей; --max-turns 60 — запас ходов на инкрементальную дописку большого
+    # документа; --system-prompt → изоляция от CLAUDE.md.
     cmd = [
         CLAUDE_EXE, "-p",
         "--model", "claude-opus-4-8",
         "--output-format", "json",
-        "--tools", "",
+        "--allowedTools", "Write,Edit,Read",
+        "--permission-mode", "bypassPermissions",
+        "--add-dir", str(out_path.parent),
+        "--max-turns", "60",
         "--system-prompt", HTML_SYSTEM_PROMPT,
     ]
+    # Потолок вывода на сообщение → серверный максимум модели. Отдаём через
+    # РЕАЛЬНОЕ окружение процесса (env-блок settings.json сабпроцессом claude -p
+    # НЕ наследуется — проверено).
+    env = os.environ.copy()
+    env["CLAUDE_CODE_MAX_OUTPUT_TOKENS"] = MAX_OUTPUT_TOKENS
     last_err = ""
     for attempt in range(1, RETRIES + 1):
+        # Файл пишет сам агент — начинаем с чистого листа, чтобы успех
+        # проверялся по СВЕЖЕ записанному файлу (важно и для --force поверх
+        # существующего, и для ретрая после обрывка прошлой попытки).
+        try:
+            out_path.unlink(missing_ok=True)
+        except OSError:
+            pass
         t0 = time.time()
         try:
             # Захват в БАЙТАХ + ручной decode(errors="replace"): claude иногда
@@ -351,13 +412,17 @@ def call_claude(full_prompt: str, art: str) -> CallResult:
             proc = subprocess.run(
                 cmd, input=full_prompt.encode("utf-8"),
                 capture_output=True, timeout=CLAUDE_TIMEOUT_S,
+                env=env, cwd=str(ROOT),
             )
         except subprocess.TimeoutExpired:
             dur = time.time() - t0
-            # Fail-fast: не уложился в потолок → почти наверняка слишком долгая/
-            # зависшая генерация; ретрай тем же промптом лишь удвоит простой
-            # воркера. Статья остаётся непостроенной и попадёт в очередь
-            # следующего прогона.
+            # Fail-fast: не уложился в потолок → почти наверняка зависшая
+            # генерация; обрывок-файл убираем, чтобы не отравить очередь, и не
+            # ретраим (ретрай тем же промптом лишь удвоит простой воркера).
+            try:
+                out_path.unlink(missing_ok=True)
+            except OSError:
+                pass
             print(f"  ! [{art}] claude TIMEOUT {dur:.0f}s — fail (без ретрая)",
                   flush=True)
             return CallResult(None, "fail", f"timeout after {CLAUDE_TIMEOUT_S}s")
@@ -376,22 +441,20 @@ def call_claude(full_prompt: str, art: str) -> CallResult:
             print(f"  ! [{art}] лимит (429) — отдаю наверх", flush=True)
             return CallResult(None, "limit", out)
 
-        # Достаём текст ответа из json-обёртки {"result": "..."}.
-        inner = out.strip()
-        try:
-            env = json.loads(inner)
-            if isinstance(env, dict):
-                inner = env.get("result") or ""
-        except Exception:
-            pass  # не json — пробуем как есть
-
-        html_doc = extract_html(inner)
+        # Успех = агент завершился без ошибки И на диске лежит валидный
+        # HTML-документ (от <!DOCTYPE/<html> до </html>).
+        html_doc = _read_valid_html(out_path)
         if proc.returncode == 0 and html_doc:
-            (LOGS / f"html_{art}.raw.txt").write_text(inner, encoding="utf-8")
             return CallResult(html_doc, "ok", "")
 
+        # Неуспех: убираем возможный обрывок, чтобы _is_built не счёл статью
+        # готовой и не выкинул её из очереди следующего прогона.
+        try:
+            out_path.unlink(missing_ok=True)
+        except OSError:
+            pass
         last_err = (out + "\n" + err).strip()
-        print(f"  ! [{art}] нет валидного HTML (exit={proc.returncode}), "
+        print(f"  ! [{art}] нет валидного HTML-файла (exit={proc.returncode}), "
               f"attempt {attempt}/{RETRIES}", flush=True)
         if attempt < RETRIES:
             time.sleep(RETRY_BACKOFF_S)
@@ -433,14 +496,14 @@ def transform_one(rec: dict, base_prompt: str, manifest: list[dict],
     # статьи не оставляли сирот в docs/img/.
     src_img = image_source(rec)
     nav = build_nav(rec, manifest, image=image_href(rec, src_img))
-    full_prompt = build_prompt(base_prompt, rec, body, nav)
-    res = call_claude(full_prompt, art)
+    ART_DIR.mkdir(parents=True, exist_ok=True)  # агент будет писать сюда сам
+    full_prompt = build_prompt(base_prompt, rec, body, nav, out_path)
+    res = call_claude(full_prompt, art, out_path)
     if res.kind != "ok" or res.html is None:
         return ArtResult(art, res.kind, res.detail)
 
+    # Страницу уже записал на диск сам агент (call_claude проверил валидность).
     publish_image(rec, src_img)  # успех → теперь публикуем иллюстрацию
-    ART_DIR.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(res.html + "\n", encoding="utf-8")
     print(f"  ✓ saved → art/{art}.html", flush=True)
     return ArtResult(art, "ok", "")
 
