@@ -27,3 +27,6 @@ problems.md
 # redate backups/intermediates — в репозитории не нужны
 manifest_pre_redate.json
 manifest_redated.json
+
+# локальный пуш-скрипт оператора (в репо не нужен)
+push.bat
