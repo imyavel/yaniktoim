@@ -465,6 +465,29 @@ def call_claude(full_prompt: str, art: str, out_path: Path) -> CallResult:
 # 4. ORCHESTRATION
 # ═════════════════════════════════════════════════════════════════════════════
 
+_FAVICON_LINKS = (
+    '<link rel="icon" href="../favicon.ico" sizes="any">\n'
+    '<link rel="icon" type="image/png" href="../img/favicon.png">\n'
+    '<link rel="apple-touch-icon" href="../img/favicon.png">'
+)
+
+
+def _ensure_favicon(path: Path) -> None:
+    """Гарантировать favicon на странице статьи (docs/art/<art>.html). Агент
+    верстает <head> свободно и иконку не ставит — дописываем её сами сразу
+    после <head>. Пути относительные (../), т.к. статьи лежат на один уровень
+    глубже корня docs/. Идемпотентно: повтор не дублирует."""
+    try:
+        txt = path.read_text(encoding="utf-8")
+    except OSError:
+        return
+    if 'rel="icon"' in txt:
+        return
+    new = re.sub(r"(<head[^>]*>)", r"\1\n" + _FAVICON_LINKS, txt, count=1)
+    if new != txt:
+        path.write_text(new, encoding="utf-8")
+
+
 def transform_one(rec: dict, base_prompt: str, manifest: list[dict],
                   force: bool = False) -> ArtResult:
     """Сверстать одну статью. Возвращает ArtResult (ok/limit/fail). Безопасна
@@ -503,6 +526,7 @@ def transform_one(rec: dict, base_prompt: str, manifest: list[dict],
         return ArtResult(art, res.kind, res.detail)
 
     # Страницу уже записал на диск сам агент (call_claude проверил валидность).
+    _ensure_favicon(out_path)  # агент favicon не ставит — дописываем сами
     publish_image(rec, src_img)  # успех → теперь публикуем иллюстрацию
     print(f"  ✓ saved → art/{art}.html", flush=True)
     return ArtResult(art, "ok", "")

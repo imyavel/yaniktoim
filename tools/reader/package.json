@@ -1,0 +1,2 @@
+{ "name":"reader-coverage","private":true,"type":"module","version":"1.0.0",
+  "dependencies":{"@mozilla/readability":"^0.5.0","linkedom":"^0.18.0"} }
