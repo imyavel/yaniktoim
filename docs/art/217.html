@@ -8,366 +8,366 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Буревестник</title>
 <style>
-  :root{
-    --bg:#f6f3ec;
-    --paper:#fffdf8;
-    --ink:#1f1b16;
-    --muted:#6c6358;
-    --accent:#9a2f1e;
-    --accent2:#2f5d50;
-    --rule:#ddd3c4;
-    --shadow:rgba(40,30,20,.12);
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--ink);
-    font-family:"Iowan Old Style","Palatino Linotype","Georgia",serif;
-    font-size:19px;
-    line-height:1.7;
-    -webkit-font-smoothing:antialiased;
-  }
-  a{color:var(--accent);text-decoration:none;}
-  a:hover{text-decoration:underline;}
+ :root{
+ --bg:#f6f3ec;
+ --paper:#fffdf8;
+ --ink:#1f1b16;
+ --muted:#6c6358;
+ --accent:#9a2f1e;
+ --accent2:#2f5d50;
+ --rule:#ddd3c4;
+ --shadow:rgba(40,30,20,.12);
+ }
+ *{box-sizing:border-box;}
+ html{scroll-behavior:smooth;}
+ body{
+ margin:0;
+ background:var(--bg);
+ color:var(--ink);
+ font-family:"Iowan Old Style","Palatino Linotype","Georgia",serif;
+ font-size:19px;
+ line-height:1.7;
+ -webkit-font-smoothing:antialiased;
+ }
+ a{color:var(--accent);text-decoration:none;}
+ a:hover{text-decoration:underline;}
 
-  .wrap{
-    width:66%;
-    max-width:1000px;
-    min-height:100vh;
-    margin:0 auto;
-    background:var(--paper);
-    padding:40px 70px 70px;
-    box-shadow:0 0 60px var(--shadow);
-  }
+ .wrap{
+ width:66%;
+ max-width:1000px;
+ min-height:100vh;
+ margin:0 auto;
+ background:var(--paper);
+ padding:40px 70px 70px;
+ box-shadow:0 0 60px var(--shadow);
+ }
 
-  /* breadcrumbs */
-  .crumbs{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:14.5px;
-    letter-spacing:.02em;
-    color:var(--muted);
-    text-transform:uppercase;
-    border-bottom:1px solid var(--rule);
-    padding-bottom:14px;
-    margin-bottom:26px;
-  }
-  .crumbs a{color:var(--accent2);}
-  .crumbs span{margin:0 8px;color:#b7ad9c;}
+ /* breadcrumbs */
+ .crumbs{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:14.5px;
+ letter-spacing:.02em;
+ color:var(--muted);
+ text-transform:uppercase;
+ border-bottom:1px solid var(--rule);
+ padding-bottom:14px;
+ margin-bottom:26px;
+ }
+ .crumbs a{color:var(--accent2);}
+ .crumbs span{margin:0 8px;color:#b7ad9c;}
 
-  .lead-img{
-    display:block;
-    max-width:100%;
-    width:auto;
-    height:auto;
-    margin:0 auto 30px;
-    border-radius:3px;
-    box-shadow:0 6px 24px var(--shadow);
-  }
+ .lead-img{
+ display:block;
+ max-width:100%;
+ width:auto;
+ height:auto;
+ margin:0 auto 30px;
+ border-radius:3px;
+ box-shadow:0 6px 24px var(--shadow);
+ }
 
-  h1{
-    font-size:42px;
-    line-height:1.1;
-    margin:.2em 0 .15em;
-    letter-spacing:.04em;
-    font-weight:700;
-  }
-  .artmeta{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:14.5px;
-    color:var(--muted);
-    letter-spacing:.03em;
-    margin-bottom:40px;
-    padding-bottom:24px;
-    border-bottom:2px solid var(--ink);
-  }
+ h1{
+ font-size:42px;
+ line-height:1.1;
+ margin:.2em 0 .15em;
+ letter-spacing:.04em;
+ font-weight:700;
+ }
+ .artmeta{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:14.5px;
+ color:var(--muted);
+ letter-spacing:.03em;
+ margin-bottom:40px;
+ padding-bottom:24px;
+ border-bottom:2px solid var(--ink);
+ }
 
-  h2.section{
-    font-size:27px;
-    letter-spacing:.03em;
-    margin:10px 0 26px;
-    color:var(--accent);
-  }
-  p{margin:0 0 1.25em;}
-  .body p{text-align:justify;hyphens:auto;}
+ h2.section{
+ font-size:27px;
+ letter-spacing:.03em;
+ margin:10px 0 26px;
+ color:var(--accent);
+ }
+ p{margin:0 0 1.25em;}
+ .body p{text-align:justify;hyphens:auto;}
 
-  .exhort{
-    font-size:23px;
-    text-align:center;
-    font-style:italic;
-    color:var(--accent2);
-    margin:1.6em 0;
-  }
+ .exhort{
+ font-size:23px;
+ text-align:center;
+ font-style:italic;
+ color:var(--accent2);
+ margin:1.6em 0;
+ }
 
-  .seealso{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:16.5px;
-    color:var(--muted);
-    border-left:3px solid var(--rule);
-    padding:4px 0 4px 18px;
-    margin:1.2em 0;
-    line-height:1.5;
-  }
+ .seealso{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:16.5px;
+ color:var(--muted);
+ border-left:3px solid var(--rule);
+ padding:4px 0 4px 18px;
+ margin:1.2em 0;
+ line-height:1.5;
+ }
 
-  /* footnote markers */
-  sup.fn{font-size:.7em;line-height:0;}
-  .fn-ref{
-    color:var(--accent);
-    font-weight:700;
-    padding:0 1px;
-    cursor:pointer;
-  }
-  .fn-pop{
-    position:absolute;
-    z-index:60;
-    max-width:340px;
-    background:var(--ink);
-    color:#f4ede0;
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:15px;
-    line-height:1.5;
-    padding:12px 15px;
-    border-radius:6px;
-    box-shadow:0 8px 26px rgba(0,0,0,.35);
-    pointer-events:none;
-    opacity:0;
-    transition:opacity .12s;
-  }
-  .fn-pop.show{opacity:1;}
-  .fn-pop a{color:#ffd9a0;}
+ /* footnote markers */
+ sup.fn{font-size:.7em;line-height:0;}
+ .fn-ref{
+ color:var(--accent);
+ font-weight:700;
+ padding:0 1px;
+ cursor:pointer;
+ }
+ .fn-pop{
+ position:absolute;
+ z-index:60;
+ max-width:340px;
+ background:var(--ink);
+ color:#f4ede0;
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:15px;
+ line-height:1.5;
+ padding:12px 15px;
+ border-radius:6px;
+ box-shadow:0 8px 26px rgba(0,0,0,.35);
+ pointer-events:none;
+ opacity:0;
+ transition:opacity .12s;
+ }
+ .fn-pop.show{opacity:1;}
+ .fn-pop a{color:#ffd9a0;}
 
-  /* music */
-  .music{
-    margin:2.4em 0;
-    border-top:1px solid var(--rule);
-    border-bottom:1px solid var(--rule);
-    padding:20px 0;
-  }
-  .music-label{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:13.5px;
-    text-transform:uppercase;
-    letter-spacing:.12em;
-    color:var(--accent2);
-    margin-bottom:12px;
-  }
-  .track{border:1px solid var(--rule);border-radius:7px;overflow:hidden;background:#fbf7ef;}
-  .track-head{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:13px 16px;
-    cursor:pointer;
-    user-select:none;
-  }
-  .track-arrow{
-    transition:transform .2s;
-    color:var(--accent);
-    font-size:15px;
-  }
-  .track.open .track-arrow{transform:rotate(180deg);}
-  .track-title{font-weight:700;}
-  .track-artist{color:var(--muted);font-style:italic;}
-  .track-sep{color:#c3b9a7;}
-  .track-ext{margin-left:auto;font-size:17px;color:var(--accent2);}
-  .track-player{display:none;background:#000;}
-  .track.open .track-player{display:block;}
-  .track-player iframe{display:block;width:100%;height:360px;border:0;}
+ /* music */
+ .music{
+ margin:2.4em 0;
+ border-top:1px solid var(--rule);
+ border-bottom:1px solid var(--rule);
+ padding:20px 0;
+ }
+ .music-label{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:13.5px;
+ text-transform:uppercase;
+ letter-spacing:.12em;
+ color:var(--accent2);
+ margin-bottom:12px;
+ }
+ .track{border:1px solid var(--rule);border-radius:7px;overflow:hidden;background:#fbf7ef;}
+ .track-head{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ padding:13px 16px;
+ cursor:pointer;
+ user-select:none;
+ }
+ .track-arrow{
+ transition:transform .2s;
+ color:var(--accent);
+ font-size:15px;
+ }
+ .track.open .track-arrow{transform:rotate(180deg);}
+ .track-title{font-weight:700;}
+ .track-artist{color:var(--muted);font-style:italic;}
+ .track-sep{color:#c3b9a7;}
+ .track-ext{margin-left:auto;font-size:17px;color:var(--accent2);}
+ .track-player{display:none;background:#000;}
+ .track.open .track-player{display:block;}
+ .track-player iframe{display:block;width:100%;height:360px;border:0;}
 
-  /* notes section */
-  h2.notes{
-    font-size:22px;
-    color:var(--accent);
-    margin:2.6em 0 .8em;
-    padding-top:18px;
-    border-top:2px solid var(--ink);
-    letter-spacing:.03em;
-  }
-  ol.notes{
-    font-size:16.5px;
-    color:#3a342c;
-    line-height:1.6;
-    padding-left:1.4em;
-  }
-  ol.notes li{margin-bottom:.7em;}
-  ol.notes li:target{
-    background:#fbe9c8;
-    border-radius:4px;
-    box-shadow:0 0 0 6px #fbe9c8;
-  }
-  .fn-back{margin-left:6px;color:var(--accent2);font-weight:700;text-decoration:none;}
+ /* notes section */
+ h2.notes{
+ font-size:22px;
+ color:var(--accent);
+ margin:2.6em 0 .8em;
+ padding-top:18px;
+ border-top:2px solid var(--ink);
+ letter-spacing:.03em;
+ }
+ ol.notes{
+ font-size:16.5px;
+ color:#3a342c;
+ line-height:1.6;
+ padding-left:1.4em;
+ }
+ ol.notes li{margin-bottom:.7em;}
+ ol.notes li:target{
+ background:#fbe9c8;
+ border-radius:4px;
+ box-shadow:0 0 0 6px #fbe9c8;
+ }
+ .fn-back{margin-left:6px;color:var(--accent2);font-weight:700;text-decoration:none;}
 
-  /* corpus nav */
-  .corpusnav{
-    display:flex;
-    justify-content:space-between;
-    gap:20px;
-    margin:3em 0 0;
-    padding-top:24px;
-    border-top:1px solid var(--rule);
-    font-family:"Helvetica Neue",Arial,sans-serif;
-  }
-  .corpusnav a{
-    display:block;
-    max-width:46%;
-    font-size:16px;
-  }
-  .corpusnav .lbl{
-    display:block;
-    font-size:12px;
-    text-transform:uppercase;
-    letter-spacing:.1em;
-    color:var(--muted);
-    margin-bottom:3px;
-  }
-  .corpusnav .nxt{text-align:right;margin-left:auto;}
+ /* corpus nav */
+ .corpusnav{
+ display:flex;
+ justify-content:space-between;
+ gap:20px;
+ margin:3em 0 0;
+ padding-top:24px;
+ border-top:1px solid var(--rule);
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ }
+ .corpusnav a{
+ display:block;
+ max-width:46%;
+ font-size:16px;
+ }
+ .corpusnav .lbl{
+ display:block;
+ font-size:12px;
+ text-transform:uppercase;
+ letter-spacing:.1em;
+ color:var(--muted);
+ margin-bottom:3px;
+ }
+ .corpusnav .nxt{text-align:right;margin-left:auto;}
 
-  footer.colophon{
-    margin-top:2.4em;
-    padding-top:20px;
-    border-top:1px solid var(--rule);
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:13.5px;
-    color:var(--muted);
-    line-height:1.55;
-  }
-  footer.colophon a{color:var(--accent2);}
+ footer.colophon{
+ margin-top:2.4em;
+ padding-top:20px;
+ border-top:1px solid var(--rule);
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:13.5px;
+ color:var(--muted);
+ line-height:1.55;
+ }
+ footer.colophon a{color:var(--accent2);}
 
-  @media(max-width:900px){
-    .wrap{width:100%;padding:26px 20px 50px;}
-    body{font-size:17.5px;}
-    h1{font-size:32px;}
-    .corpusnav{flex-direction:column;}
-    .corpusnav a,.corpusnav .nxt{max-width:100%;text-align:left;margin-left:0;}
-  }
+ @media(max-width:900px){
+ .wrap{width:100%;padding:26px 20px 50px;}
+ body{font-size:17.5px;}
+ h1{font-size:32px;}
+ .corpusnav{flex-direction:column;}
+ .corpusnav a,.corpusnav .nxt{max-width:100%;text-align:left;margin-left:0;}
+ }
 </style>
 </head>
 <body data-scheme="editorial">
 <div class="wrap">
 
-  <nav class="crumbs">
-    <a href="../index.html">Главная</a><span>/</span><a href="../confront/index.html">Конфронтология Духа</a>
-  </nav>
+ <nav class="crumbs">
+ <a href="../index.html">Главная</a><span>/</span><a href="../confront/index.html">Конфронтология Духа</a>
+ </nav>
 
-  <img class="lead-img" src="../img/217.jpg" alt="Буревестник">
+ <img class="lead-img" src="../img/217.jpg" alt="Буревестник">
 
-  <h1>БУРЕВЕСТНИК<a class="audio-link" href="https://t.me/art_017_tracks/406" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
-  <div class="artmeta">Арт. #AA217, написано 7 Января 2022 г.</div>
+ <h1>БУРЕВЕСТНИК<a class="audio-link" href="https://t.me/art_017_tracks/406" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+ <div class="artmeta">Арт. #AA217, написано 7 Января 2022 г.</div>
 
-  <h2 class="section">Послесловие<sup class="fn"><a class="fn-ref" id="fnref1" href="#fn1" data-fn="fn1">1</a></sup></h2>
+ <h2 class="section">Послесловие<sup class="fn"><a class="fn-ref" id="fnref1" href="#fn1" data-fn="fn1">1</a></sup></h2>
 
-  <div class="body">
-    <p>"Нагваль" не приходит к чувствующим существам для весенней прогулки к Орлу за какими-то там "магическими плюшками", он всегда приходит и уходит также, как приходит Дух — внезапно, с целью образовать прерывание в непрерывной устоявшейся и удобной своим молчаливым одобрением со стороны окружающих человека "безупречных воинов", но таком привычном и понятным, вплоть до будоражащего воображение "завесы неведомого", повседневном образе самого себя и мира. Такое прерывание, которое воин не сможет игнорировать, об этом говорят все "Абстрактные Ядра" у Кастанеды. И будет вынужден отправиться в Путь вместе с Ним, как один человек с одним сердцем, понимая и желая, или не понимая и не желая этого.</p>
+ <div class="body">
+ <p>"Нагваль" не приходит к чувствующим существам для весенней прогулки к Орлу за какими-то там "магическими плюшками", он всегда приходит и уходит также, как приходит Дух — внезапно, с целью образовать прерывание в непрерывной устоявшейся и удобной своим молчаливым одобрением со стороны окружающих человека "безупречных воинов", но таком привычном и понятным, вплоть до будоражащего воображение "завесы неведомого", повседневном образе самого себя и мира. Такое прерывание, которое воин не сможет игнорировать, об этом говорят все "Абстрактные Ядра" у Кастанеды. И будет вынужден отправиться в Путь вместе с Ним, как один человек с одним сердцем, понимая и желая, или не понимая и не желая этого.</p>
 
-    <p>Нагваль — это буревестник, опасный сумасшедший, которому нет дела до устоявшихся в умах "правильных, авторитетных товарищей" образов того, что истинно, годно и нужно, ему есть дело только до того, что он сам, Милостью Творца, Свят Благословен Он, знает, что есть правда и Истина, не потому, что она "существует или не существует", а просто потому, что он создан Орлом, чтобы раскрыть и распространить ее себе подобным, как это описано в Правиле, и занимается этим независимо от чьего бы то ни было, включая его собственное в первую очередь, очень важного и ценного, как водится, "особого мнения" по этому поводу, как и "по поводу" формы и характера распространяемой им информации и образа действия, как его воспринимают окружающие, с которыми он таким образом соединяется, потому что до этого всего нет дела Тому, Кто дает им этот Дар стремиться "принять" и "передать дальше", как один человек с одним сердцем, и он знает, без слов или мыслей об этом, что Воля Дающего будет реализована так, как Ему и человеку требуется, независимо от того, насколько это кажется "вероятным" или "невероятным" человеку этого мира, насколько успешно или неуспешно, как ему кажется, "нагваль" действует, передавая Ее, правильно ли он понимает то, что делает, и так далее, и тому подобное.</p>
+ <p>Нагваль — это буревестник, опасный сумасшедший, которому нет дела до устоявшихся в умах "правильных, авторитетных товарищей" образов того, что истинно, годно и нужно, ему есть дело только до того, что он сам, Милостью Творца, Свят Благословен Он, знает, что есть правда и Истина, не потому, что она "существует или не существует", а просто потому, что он создан Орлом, чтобы раскрыть и распространить ее себе подобным, как это описано в Правиле, и занимается этим независимо от чьего бы то ни было, включая его собственное в первую очередь, очень важного и ценного, как водится, "особого мнения" по этому поводу, как и "по поводу" формы и характера распространяемой им информации и образа действия, как его воспринимают окружающие, с которыми он таким образом соединяется, потому что до этого всего нет дела Тому, Кто дает им этот Дар стремиться "принять" и "передать дальше", как один человек с одним сердцем, и он знает, без слов или мыслей об этом, что Воля Дающего будет реализована так, как Ему и человеку требуется, независимо от того, насколько это кажется "вероятным" или "невероятным" человеку этого мира, насколько успешно или неуспешно, как ему кажется, "нагваль" действует, передавая Ее, правильно ли он понимает то, что делает, и так далее, и тому подобное.</p>
 
-    <p>"Вафелька" с форума ушел, не потому, что его "забанили" или "изгнали" "нехорошие админы и модераторы", а потому, что в этом, на данный момент, заключается Воля Творца, Свят Благословен Он, Которую они выполняют безупречно и трепетно, как и все Его создания, "свободный осознанный выбор" которых заключается только в том, чтобы стремиться при этом сохранить осознание и помнить себя, или не стремиться, стремясь понимать и контролировать своим собственным умом то, что в их жизни и в окружающем их мире происходит, давая этому имена и названия в соответствии с собственным желанием или нежеланием принимать объективную реальность Дара Орла и его получения человеком и другим человеком вместе, "как один человек с одним сердцем", Мужчиной и Женщиной Он создал их. Приложив максимальные усилия, и выполнив задачу Бенефактора в своей "последней битве на этой Земле", воин спокойно, с чувством удовлетворения и выполненного долга, отступает "за сцену", позволяя действовать Духу, который завершит "раскрытие" Своей Воли и Своего Дара "творениям" явно и во всем требуемом совершенстве Сам, лично, без посредников и надоедливых "санитаров и санитарчиков Духа".</p>
+ <p>"Вафелька" с форума ушел, не потому, что его "забанили" или "изгнали" "нехорошие админы и модераторы", а потому, что в этом, на данный момент, заключается Воля Творца, Свят Благословен Он, Которую они выполняют безупречно и трепетно, как и все Его создания, "свободный осознанный выбор" которых заключается только в том, чтобы стремиться при этом сохранить осознание и помнить себя, или не стремиться, стремясь понимать и контролировать своим собственным умом то, что в их жизни и в окружающем их мире происходит, давая этому имена и названия в соответствии с собственным желанием или нежеланием принимать объективную реальность Дара Орла и его получения человеком и другим человеком вместе, "как один человек с одним сердцем", Мужчиной и Женщиной Он создал их. Приложив максимальные усилия, и выполнив задачу Бенефактора в своей "последней битве на этой Земле", воин спокойно, с чувством удовлетворения и выполненного долга, отступает "за сцену", позволяя действовать Духу, который завершит "раскрытие" Своей Воли и Своего Дара "творениям" явно и во всем требуемом совершенстве Сам, лично, без посредников и надоедливых "санитаров и санитарчиков Духа".</p>
 
-    <p class="exhort">Сделаем и услышим!</p>
-  </div>
+ <p class="exhort">Сделаем и услышим!</p>
+ </div>
 
-  <div class="music">
-    <div class="music-label">Музыка под настроение</div>
-    <div class="track" id="track1">
-      <div class="track-head" role="button" tabindex="0" aria-expanded="false">
-        <span class="track-arrow">▾</span>
-        <span class="track-title">Sanitarium (Leave Me Be)</span>
-        <span class="track-sep">—</span>
-        <span class="track-artist">Metallica</span>
-        <a class="track-ext" href="https://youtu.be/oAycSf8COQo" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
-      </div>
-      <div class="track-player" data-embed="https://www.youtube.com/embed/oAycSf8COQo"></div>
-    </div>
-  </div>
+ <div class="music">
+ <div class="music-label">Музыка под настроение</div>
+ <div class="track" id="track1">
+ <div class="track-head" role="button" tabindex="0" aria-expanded="false">
+ <span class="track-arrow">▾</span>
+ <span class="track-title">Sanitarium (Leave Me Be)</span>
+ <span class="track-sep">—</span>
+ <span class="track-artist">Metallica</span>
+ <a class="track-ext" href="https://youtu.be/oAycSf8COQo" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+ </div>
+ <div class="track-player" data-embed="https://www.youtube.com/embed/oAycSf8COQo"></div>
+ </div>
+ </div>
 
-  <p class="seealso">См. также: Буревестник, М. Горький.<br>
-    <a href="https://www.culture.ru/poems/33298/pesnya-o-burevestnike" target="_blank" rel="noopener">culture.ru — Песня о Буревестнике</a></p>
+ <p class="seealso">См. также: Буревестник, М. Горький.<br>
+ <a href="https://www.culture.ru/poems/33298/pesnya-o-burevestnike" target="_blank" rel="noopener">culture.ru — Песня о Буревестнике</a></p>
 
-  <p class="seealso">Зеркало на сайте Будущий Мир<br>
-    <a href="https://bneiadam.com/forum/53-272-1" target="_blank" rel="noopener">bneiadam.com/forum/53-272-1</a></p>
+ <p class="seealso">Зеркало на сайте Будущий Мир<br>
+ </p>
 
-  <h2 class="notes">Примечания</h2>
-  <ol class="notes">
-    <li id="fn1">Из диалогов на форуме Учения К.К. <a href="https://ccastaneda.ru/viewtopic.php?pid=65839#p65839" target="_blank" rel="noopener">ccastaneda.ru/viewtopic.php?pid=65839#p65839</a><a class="fn-back" href="#fnref1" title="Вернуться к тексту">↩</a></li>
-  </ol>
+ <h2 class="notes">Примечания</h2>
+ <ol class="notes">
+ <li id="fn1">Из диалогов на форуме Учения К.К. <a href="https://ccastaneda.ru/viewtopic.php?pid=65839#p65839" target="_blank" rel="noopener">ccastaneda.ru/viewtopic.php?pid=65839#p65839</a><a class="fn-back" href="#fnref1" title="Вернуться к тексту">↩</a></li>
+ </ol>
 
-  <nav class="corpusnav">
-    <a class="prv" href="1C8B.html"><span class="lbl">← Предыдущая</span>Моя ТьМа</a>
-    <a class="nxt" href="1AQ.html"><span class="lbl">Следующая →</span>Нихт Ферштейн</a>
-  </nav>
+ <nav class="corpusnav">
+ <a class="prv" href="1C8B.html"><span class="lbl">← Предыдущая</span>Моя ТьМа</a>
+ <a class="nxt" href="1AQ.html"><span class="lbl">Следующая →</span>Нихт Ферштейн</a>
+ </nav>
 
-  <footer class="colophon">
-    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
-  </footer>
+ <footer class="colophon">
+ <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+ </footer>
 
 </div>
 
 <script>
-  /* collapsible lazy music player */
-  document.querySelectorAll('.track').forEach(function(tr){
-    var head=tr.querySelector('.track-head');
-    var player=tr.querySelector('.track-player');
-    function toggle(){
-      var open=tr.classList.toggle('open');
-      head.setAttribute('aria-expanded',open?'true':'false');
-      if(open && !player.dataset.loaded){
-        var ifr=document.createElement('iframe');
-        ifr.src=player.dataset.embed+'?autoplay=1';
-        ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-        ifr.allowFullscreen=true;
-        player.appendChild(ifr);
-        player.dataset.loaded='1';
-      }
-    }
-    head.addEventListener('click',function(e){
-      if(e.target.closest('.track-ext'))return;
-      toggle();
-    });
-    head.addEventListener('keydown',function(e){
-      if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}
-    });
-  });
+ /* collapsible lazy music player */
+ document.querySelectorAll('.track').forEach(function(tr){
+ var head=tr.querySelector('.track-head');
+ var player=tr.querySelector('.track-player');
+ function toggle{
+ var open=tr.classList.toggle('open');
+ head.setAttribute('aria-expanded',open?'true':'false');
+ if(open && !player.dataset.loaded){
+ var ifr=document.createElement('iframe');
+ ifr.src=player.dataset.embed+'?autoplay=1';
+ ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+ ifr.allowFullscreen=true;
+ player.appendChild(ifr);
+ player.dataset.loaded='1';
+ }
+ }
+ head.addEventListener('click',function(e){
+ if(e.target.closest('.track-ext'))return;
+ toggle;
+ });
+ head.addEventListener('keydown',function(e){
+ if(e.key==='Enter'||e.key===' '){e.preventDefault;toggle;}
+ });
+ });
 
-  /* footnote hover popup */
-  (function(){
-    var pop=null;
-    function makePop(){
-      if(!pop){pop=document.createElement('div');pop.className='fn-pop';document.body.appendChild(pop);}
-      return pop;
-    }
-    document.querySelectorAll('.fn-ref').forEach(function(ref){
-      ref.addEventListener('mouseenter',function(){
-        var tgt=document.getElementById(ref.dataset.fn);
-        if(!tgt)return;
-        var p=makePop();
-        var clone=tgt.cloneNode(true);
-        var back=clone.querySelector('.fn-back'); if(back)back.remove();
-        p.innerHTML=clone.innerHTML;
-        p.classList.add('show');
-        var r=ref.getBoundingClientRect();
-        var pr=p.getBoundingClientRect();
-        var top=r.top+window.scrollY-pr.height-10;
-        if(r.top-pr.height-10<0){ top=r.bottom+window.scrollY+10; }
-        var left=r.left+window.scrollX-pr.width/2+r.width/2;
-        left=Math.max(10,Math.min(left,window.innerWidth-pr.width-10));
-        p.style.top=top+'px';
-        p.style.left=left+'px';
-      });
-      ref.addEventListener('mouseleave',function(){
-        if(pop)pop.classList.remove('show');
-      });
-    });
-  })();
+ /* footnote hover popup */
+ (function{
+ var pop=null;
+ function makePop{
+ if(!pop){pop=document.createElement('div');pop.className='fn-pop';document.body.appendChild(pop);}
+ return pop;
+ }
+ document.querySelectorAll('.fn-ref').forEach(function(ref){
+ ref.addEventListener('mouseenter',function{
+ var tgt=document.getElementById(ref.dataset.fn);
+ if(!tgt)return;
+ var p=makePop;
+ var clone=tgt.cloneNode(true);
+ var back=clone.querySelector('.fn-back'); if(back)back.remove;
+ p.innerHTML=clone.innerHTML;
+ p.classList.add('show');
+ var r=ref.getBoundingClientRect;
+ var pr=p.getBoundingClientRect;
+ var top=r.top+window.scrollY-pr.height-10;
+ if(r.top-pr.height-10<0){ top=r.bottom+window.scrollY+10; }
+ var left=r.left+window.scrollX-pr.width/2+r.width/2;
+ left=Math.max(10,Math.min(left,window.innerWidth-pr.width-10));
+ p.style.top=top+'px';
+ p.style.left=left+'px';
+ });
+ ref.addEventListener('mouseleave',function{
+ if(pop)pop.classList.remove('show');
+ });
+ });
+ });
 </script>
 
 <script type="application/json" id="yanik-meta">
 {
-  "scheme": "editorial",
-  "form": "проза",
-  "rationale": "Статья «Буревестник» — это прозаическое послесловие-эссе с длинными плотными абзацами и риторическими периодами, без какой-либо стихотворной формы, поэтому выбрана редакторская широкая схема (контейнер ~66% ширины окна, на мобильных — на всю ширину). Развилка была в сносках: в тексте два маркера-звёздочки (у «Послесловие*» и у «Вафелька с форума*»), но в аппарате лишь одно тело сноски — «Из диалогов на форуме Учения К.К.». Я связал единственную сноску с заголовком «Послесловие», как наиболее естественную атрибуцию источника всего текста, а второй висячий маркер без сопоставленного тела убрал согласно правилу; голый адрес ccastaneda.ru в теле сноски обёрнут в ссылку.",
-  "comment": "Музыкальный трек один (Metallica — Sanitarium), поэтому сводный раздел музыки не создавался — оставлен лениво-раскрывающийся YouTube-плеер на своём месте. Ссылки culture.ru и bneiadam — справочные строки текста, оформлены как «см. также». Оглавление не делалось: содержательный раздел один (Послесловие), множественных подразделов нет. Палитра — тёплый бумажный фон с винно-красным акцентом и приглушённой зеленью, засечный шрифт для чтения и гротеск для служебных элементов.",
-  "features": ["music", "footnotes"]
+ "scheme": "editorial",
+ "form": "проза",
+ "rationale": "Статья «Буревестник» — это прозаическое послесловие-эссе с длинными плотными абзацами и риторическими периодами, без какой-либо стихотворной формы, поэтому выбрана редакторская широкая схема (контейнер ~66% ширины окна, на мобильных — на всю ширину). Развилка была в сносках: в тексте два маркера-звёздочки (у «Послесловие*» и у «Вафелька с форума*»), но в аппарате лишь одно тело сноски — «Из диалогов на форуме Учения К.К.». Я связал единственную сноску с заголовком «Послесловие», как наиболее естественную атрибуцию источника всего текста, а второй висячий маркер без сопоставленного тела убрал согласно правилу; голый адрес ccastaneda.ru в теле сноски обёрнут в ссылку.",
+ "comment": "Музыкальный трек один (Metallica — Sanitarium), поэтому сводный раздел музыки не создавался — оставлен лениво-раскрывающийся YouTube-плеер на своём месте. Ссылки culture.ru и bneiadam — справочные строки текста, оформлены как «см. также». Оглавление не делалось: содержательный раздел один (Послесловие), множественных подразделов нет. Палитра — тёплый бумажный фон с винно-красным акцентом и приглушённой зеленью, засечный шрифт для чтения и гротеск для служебных элементов.",
+ "features": ["music", "footnotes"]
 }
 </script>
 </body>

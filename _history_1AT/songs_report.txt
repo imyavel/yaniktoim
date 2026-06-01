@@ -1,0 +1,112 @@
+Плиток в Песни Ступеней: 218
+
+=== 1. Один и тот же YouTube ID в нескольких плитках ===
+  нет — каждый ID уникален
+
+=== 2. Плитка ссылается на статью, где НЕТ её трека (по YouTube ID) ===
+  [mpLE30Nadfs] Моя Звезда — Вячеслав Бутусов
+     -> art/1AS.html: ID отсутствует; в статье есть: 9OydVHXO4CM
+  [IwH9YvhPN7c] Circle of Life — Elton John
+     -> art/16K.html: ID отсутствует; в статье есть: iXk8QXhr7Fk
+  [GCQ0ndJdYNc] Blue Cafe — Chris Rea
+     -> art/165A.html: ID отсутствует; в статье есть: t8Lb14kRRBc
+  [CJI7_-3PVCM] Far Above the Clouds — Mike Oldfield
+     -> art/1B7.html: ID отсутствует; в статье есть: sSRJvq4Wd48
+  [CJI7_-3PVCM] Far Above the Clouds — Mike Oldfield
+     -> art/33F.html: ID отсутствует; в статье есть: -8UAlSpIpgI, IwH9YvhPN7c, tL25rbnvM4o
+  [16ukY5QqHGs] Tears of Time — Zoom
+     -> art/16E.html: ID отсутствует; в статье есть: 6pHik_RkGlg
+  [16ukY5QqHGs] Tears of Time — Zoom
+     -> art/185.html: ID отсутствует; в статье есть: KbJ8MbxVjVY
+  [16ukY5QqHGs] Tears of Time — Zoom
+     -> art/32J.html: ID отсутствует; в статье есть: 6pHik_RkGlg
+  [ngH0fkiNo-g] You Don&#x27;t Know — Eminem
+     -> art/2C3.html: ID отсутствует; в статье есть: _zlVnbM4xFA
+  [TLGWQfK-6DY] It&#x27;s Like That — Run-D.M.C.
+     -> art/11U.html: ID отсутствует; в статье есть: KgW0tSoggBk
+  [5njp0jlu72E] The Riddler — Nightwish
+     -> art/23TA.html: ID отсутствует; в статье есть: eTsH1NcoFa8
+  [n3KhG_FUGHE] Мусорный ветер — Крематорий
+     -> art/17B.html: ID отсутствует; в статье есть: lYjpd-FJGfc
+  [iFKOVZ8cfFs] Не думай о секундах свысока — Иосиф Кобзон
+     -> art/1BH.html: ID отсутствует; в статье есть: XkptwawfnJQ
+  [iFKOVZ8cfFs] Не думай о секундах свысока — Иосиф Кобзон
+     -> art/28MA.html: ID отсутствует; в статье есть: IwH9YvhPN7c, L31_wqA3Nm4, MQpTyHJ6pKQ, U52aAa9VkEk, XkptwawfnJQ, hz4YfY4agT8, sybxMdW6kSY, tL25rbnvM4o
+  [PisI9l29k4E] Чёрное солнце — Би-2
+     -> art/324.html: ID отсутствует; в статье есть: jVjTFdK3T7s
+  [PisI9l29k4E] Чёрное солнце — Би-2
+     -> art/32F.html: ID отсутствует; в статье есть: u7qyqtP4Yl4
+  [AMD2TwRvuoU] Kiss From A Rose — Seal
+     -> art/18T.html: ID отсутствует; в статье есть: yivLt9cTaio
+  [ftI_p44xGWU] Magnetic Fields, Pt. 2 — Jean-Michel Jarre
+     -> art/14R.html: ID отсутствует; в статье есть: bTBVd_m75oY
+  [8sLL5Uggb9g] Mea Culpa — Enigma
+     -> art/22S.html: ID отсутствует; в статье есть: KG7Bs_BCC5w
+  [3JoP4e6Syxk] Апрель — Виктор Цой
+     -> art/336.html: ID отсутствует; в статье есть: 1V_xRb0x9aw, G4jvU6eDk9E, HZSFCAQ7eWA, KbmYHDbaE-o, aM56CgSR340, hz4YfY4agT8, xdzBf7xzqeI
+  [NSNUcKritNw] Чёрная луна — Агата Кристи
+     -> art/42D.html: ID отсутствует; в статье есть: 0VHZN6g8etQ, CduA0TULnow, CxV0sReQOTA, N9PNCCW7hvo, PezxCBnVt9c, T5IdKd8Ka3o, ZWHgeMX4RcA, lX7LkEjWW_I, w9vjuj1t1IU
+
+=== 3. В статье есть трек, который Песнь Ступеней НЕ связывает с этой статьёй ===
+  art/0CP.html [l-G2DdK1ffE]: ID вообще отсутствует на странице Песни Ступеней
+  art/0CP.html [IwH9YvhPN7c]: ID есть на странице, но статья не указана в его плитке
+  art/11U.html [KgW0tSoggBk]: ID вообще отсутствует на странице Песни Ступеней
+  art/12P.html [_WbFR-weSLA]: ID вообще отсутствует на странице Песни Ступеней
+  art/12P.html [cWGE9Gi0bB0]: ID есть на странице, но статья не указана в его плитке
+  art/14R.html [bTBVd_m75oY]: ID вообще отсутствует на странице Песни Ступеней
+  art/158A.html [-6Xl9tBWt54]: ID есть на странице, но статья не указана в его плитке
+  art/163A.html [zxKrBSHKO-0]: ID есть на странице, но статья не указана в его плитке
+  art/163A.html [TLGWQfK-6DY]: ID есть на странице, но статья не указана в его плитке
+  art/163A.html [IwH9YvhPN7c]: ID есть на странице, но статья не указана в его плитке
+  art/165A.html [t8Lb14kRRBc]: ID вообще отсутствует на странице Песни Ступеней
+  art/16C.html [B7UmUX68KtE]: ID вообще отсутствует на странице Песни Ступеней
+  art/16E.html [6pHik_RkGlg]: ID вообще отсутствует на странице Песни Ступеней
+  art/16K.html [iXk8QXhr7Fk]: ID вообще отсутствует на странице Песни Ступеней
+  art/17B.html [lYjpd-FJGfc]: ID вообще отсутствует на странице Песни Ступеней
+  art/17U.html [6hi0etcrqO8]: ID вообще отсутствует на странице Песни Ступеней
+  art/185.html [KbJ8MbxVjVY]: ID вообще отсутствует на странице Песни Ступеней
+  art/18T.html [yivLt9cTaio]: ID вообще отсутствует на странице Песни Ступеней
+  art/191.html [20466845169]: ID вообще отсутствует на странице Песни Ступеней
+  art/1AA.html [gNoE2fHYe8E]: ID вообще отсутствует на странице Песни Ступеней
+  art/1AN.html [oAycSf8COQo]: ID есть на странице, но статья не указана в его плитке
+  art/1AQ.html [X-jdl9hcCeg]: ID вообще отсутствует на странице Песни Ступеней
+  art/1AS.html [9OydVHXO4CM]: ID вообще отсутствует на странице Песни Ступеней
+  art/1ATA.html [pQ6r80lfIsw]: ID вообще отсутствует на странице Песни Ступеней
+  art/1ATA.html [fQqhRHucLHE]: ID есть на странице, но статья не указана в его плитке
+  art/1B7.html [sSRJvq4Wd48]: ID вообще отсутствует на странице Песни Ступеней
+  art/1BH.html [XkptwawfnJQ]: ID вообще отсутствует на странице Песни Ступеней
+  art/1C8B.html [ngH0fkiNo-g]: ID есть на странице, но статья не указана в его плитке
+  art/1CIA.html [claKl5gUL6w]: ID вообще отсутствует на странице Песни Ступеней
+  art/1CIA.html [NeQM1c-XCDc]: ID вообще отсутствует на странице Песни Ступеней
+  art/1CM.html [F2RnxZnubCM]: ID вообще отсутствует на странице Песни Ступеней
+  art/21L.html [NSNUcKritNw]: ID есть на странице, но статья не указана в его плитке
+  art/21L.html [x2Uv0vHav4w]: ID есть на странице, но статья не указана в его плитке
+  art/22S.html [KG7Bs_BCC5w]: ID вообще отсутствует на странице Песни Ступеней
+  art/237.html [Way4s-FMI6w]: ID вообще отсутствует на странице Песни Ступеней
+  art/23TA.html [eTsH1NcoFa8]: ID вообще отсутствует на странице Песни Ступеней
+  art/251.html [mpLE30Nadfs]: ID есть на странице, но статья не указана в его плитке
+  art/251.html [cLlhdsT5Mko]: ID есть на странице, но статья не указана в его плитке
+  art/27H.html [GCQ0ndJdYNc]: ID есть на странице, но статья не указана в его плитке
+  art/28MA.html [XkptwawfnJQ]: ID вообще отсутствует на странице Песни Ступеней
+  art/28MA.html [sybxMdW6kSY]: ID есть на странице, но статья не указана в его плитке
+  art/2AB.html [B7UmUX68KtE]: ID вообще отсутствует на странице Песни Ступеней
+  art/2C3.html [_zlVnbM4xFA]: ID вообще отсутствует на странице Песни Ступеней
+  art/323.html [TLGWQfK-6DY]: ID есть на странице, но статья не указана в его плитке
+  art/324.html [jVjTFdK3T7s]: ID вообще отсутствует на странице Песни Ступеней
+  art/32F.html [u7qyqtP4Yl4]: ID вообще отсутствует на странице Песни Ступеней
+  art/32J.html [6pHik_RkGlg]: ID вообще отсутствует на странице Песни Ступеней
+  art/336.html [xdzBf7xzqeI]: ID вообще отсутствует на странице Песни Ступеней
+  art/33F.html [-8UAlSpIpgI]: ID вообще отсутствует на странице Песни Ступеней
+  art/341.html [zinzvs86qNA]: ID вообще отсутствует на странице Песни Ступеней
+  art/341.html [N9PNCCW7hvo]: ID есть на странице, но статья не указана в его плитке
+  art/42D.html [w9vjuj1t1IU]: ID вообще отсутствует на странице Песни Ступеней
+  art/53K.html [GMQ4nYWPCaE]: ID есть на странице, но статья не указана в его плитке
+  art/55D.html [1b9gH-OlozU]: ID есть на странице, но статья не указана в его плитке
+  art/61H.html [Eqilin4Cv08]: ID есть на странице, но статья не указана в его плитке
+  art/61H.html [Rejx0CPxRS0]: ID вообще отсутствует на странице Песни Ступеней
+
+=== ИТОГ ===
+  плиток: 218, уникальных ID: 218
+  проблем тип2 (битые ссылки): 21
+  проблем тип3 (несвязанные треки): 56
+  дубль-ID: 0

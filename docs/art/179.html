@@ -8,237 +8,237 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Опусти глаза вниз, и не смотри</title>
 <style>
-  :root{
-    --bg:#f6f3ec;
-    --paper:#fffdf8;
-    --ink:#23201b;
-    --muted:#6d665a;
-    --accent:#8a5a2b;
-    --accent-soft:#c9a06a;
-    --rule:#ddd4c2;
-    --quote-bg:#efe9dc;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--ink);
-    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
-    font-size:19px;
-    line-height:1.7;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{
-    width:66%;
-    max-width:1080px;
-    min-width:0;
-    margin:0 auto;
-    padding:48px 40px 80px;
-    background:var(--paper);
-    box-shadow:0 0 40px rgba(60,45,25,.06);
-  }
-  a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft);}
-  a:hover{color:#5e3b16;border-bottom-color:var(--accent);}
+ :root{
+ --bg:#f6f3ec;
+ --paper:#fffdf8;
+ --ink:#23201b;
+ --muted:#6d665a;
+ --accent:#8a5a2b;
+ --accent-soft:#c9a06a;
+ --rule:#ddd4c2;
+ --quote-bg:#efe9dc;
+ }
+ *{box-sizing:border-box;}
+ html{scroll-behavior:smooth;}
+ body{
+ margin:0;
+ background:var(--bg);
+ color:var(--ink);
+ font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+ font-size:19px;
+ line-height:1.7;
+ -webkit-font-smoothing:antialiased;
+ }
+ .wrap{
+ width:66%;
+ max-width:1080px;
+ min-width:0;
+ margin:0 auto;
+ padding:48px 40px 80px;
+ background:var(--paper);
+ box-shadow:0 0 40px rgba(60,45,25,.06);
+ }
+ a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft);}
+ a:hover{color:#5e3b16;border-bottom-color:var(--accent);}
 
-  /* breadcrumbs */
-  .breadcrumbs{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:14.5px;
-    letter-spacing:.04em;
-    text-transform:uppercase;
-    color:var(--muted);
-    margin-bottom:34px;
-    border-bottom:1px solid var(--rule);
-    padding-bottom:14px;
-  }
-  .breadcrumbs a{border-bottom:none;color:var(--muted);}
-  .breadcrumbs a:hover{color:var(--accent);}
-  .breadcrumbs .sep{margin:0 .55em;color:var(--accent-soft);}
+ /* breadcrumbs */
+ .breadcrumbs{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:14.5px;
+ letter-spacing:.04em;
+ text-transform:uppercase;
+ color:var(--muted);
+ margin-bottom:34px;
+ border-bottom:1px solid var(--rule);
+ padding-bottom:14px;
+ }
+ .breadcrumbs a{border-bottom:none;color:var(--muted);}
+ .breadcrumbs a:hover{color:var(--accent);}
+ .breadcrumbs .sep{margin:0 .55em;color:var(--accent-soft);}
 
-  .dateline{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:14px;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    color:var(--accent);
-    margin-bottom:10px;
-  }
-  h1{
-    font-size:38px;
-    line-height:1.2;
-    font-weight:700;
-    margin:0 0 8px;
-    letter-spacing:.01em;
-  }
-  .title-rule{
-    width:90px;height:3px;background:var(--accent-soft);
-    margin:22px 0 40px;border:none;
-  }
+ .dateline{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:14px;
+ letter-spacing:.12em;
+ text-transform:uppercase;
+ color:var(--accent);
+ margin-bottom:10px;
+ }
+ h1{
+ font-size:38px;
+ line-height:1.2;
+ font-weight:700;
+ margin:0 0 8px;
+ letter-spacing:.01em;
+ }
+ .title-rule{
+ width:90px;height:3px;background:var(--accent-soft);
+ margin:22px 0 40px;border:none;
+ }
 
-  .epigraph-label{
-    font-style:italic;
-    font-size:16px;
-    color:var(--muted);
-    letter-spacing:.05em;
-    margin:38px 0 10px;
-  }
-  blockquote.epigraph{
-    margin:0 0 30px;
-    padding:18px 26px;
-    background:var(--quote-bg);
-    border-left:4px solid var(--accent-soft);
-    font-size:18px;
-    line-height:1.66;
-    color:#3a342b;
-  }
-  blockquote.epigraph p{margin:0 0 .8em;}
-  blockquote.epigraph p:last-child{margin-bottom:0;}
-  blockquote.epigraph .scripture{display:block;}
-  .source{
-    display:block;
-    margin-top:14px;
-    font-style:italic;
-    font-size:15.5px;
-    color:var(--muted);
-    text-align:right;
-  }
+ .epigraph-label{
+ font-style:italic;
+ font-size:16px;
+ color:var(--muted);
+ letter-spacing:.05em;
+ margin:38px 0 10px;
+ }
+ blockquote.epigraph{
+ margin:0 0 30px;
+ padding:18px 26px;
+ background:var(--quote-bg);
+ border-left:4px solid var(--accent-soft);
+ font-size:18px;
+ line-height:1.66;
+ color:#3a342b;
+ }
+ blockquote.epigraph p{margin:0 0 .8em;}
+ blockquote.epigraph p:last-child{margin-bottom:0;}
+ blockquote.epigraph .scripture{display:block;}
+ .source{
+ display:block;
+ margin-top:14px;
+ font-style:italic;
+ font-size:15.5px;
+ color:var(--muted);
+ text-align:right;
+ }
 
-  p{margin:0 0 1.25em;}
-  .qa{margin-top:36px;}
-  .q, .a{margin-bottom:1.4em;}
-  .lead-word{
-    font-weight:700;
-    color:var(--accent);
-  }
-  .exclaim{
-    font-size:23px;
-    font-weight:700;
-    text-align:center;
-    margin:46px 0;
-    letter-spacing:.02em;
-    color:var(--accent);
-  }
-  .seealso{
-    margin-top:30px;
-    padding-top:18px;
-    border-top:1px solid var(--rule);
-    font-size:17px;
-    color:var(--muted);
-  }
+ p{margin:0 0 1.25em;}
+ .qa{margin-top:36px;}
+ .q, .a{margin-bottom:1.4em;}
+ .lead-word{
+ font-weight:700;
+ color:var(--accent);
+ }
+ .exclaim{
+ font-size:23px;
+ font-weight:700;
+ text-align:center;
+ margin:46px 0;
+ letter-spacing:.02em;
+ color:var(--accent);
+ }
+ .seealso{
+ margin-top:30px;
+ padding-top:18px;
+ border-top:1px solid var(--rule);
+ font-size:17px;
+ color:var(--muted);
+ }
 
-  /* bottom nav */
-  .corpus-nav{
-    margin-top:60px;
-    padding-top:26px;
-    border-top:2px solid var(--rule);
-    display:flex;
-    justify-content:space-between;
-    gap:20px;
-    font-family:"Helvetica Neue",Arial,sans-serif;
-  }
-  .corpus-nav a{
-    display:block;
-    border-bottom:none;
-    max-width:46%;
-  }
-  .corpus-nav .nav-dir{
-    font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;
-    color:var(--muted);display:block;margin-bottom:4px;
-  }
-  .corpus-nav .nav-title{font-size:16px;color:var(--accent);}
-  .corpus-nav .next{text-align:right;margin-left:auto;}
+ /* bottom nav */
+ .corpus-nav{
+ margin-top:60px;
+ padding-top:26px;
+ border-top:2px solid var(--rule);
+ display:flex;
+ justify-content:space-between;
+ gap:20px;
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ }
+ .corpus-nav a{
+ display:block;
+ border-bottom:none;
+ max-width:46%;
+ }
+ .corpus-nav .nav-dir{
+ font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;
+ color:var(--muted);display:block;margin-bottom:4px;
+ }
+ .corpus-nav .nav-title{font-size:16px;color:var(--accent);}
+ .corpus-nav .next{text-align:right;margin-left:auto;}
 
-  footer{
-    margin-top:50px;
-    padding-top:22px;
-    border-top:1px solid var(--rule);
-    font-size:14.5px;
-    line-height:1.6;
-    color:var(--muted);
-  }
-  footer a{color:var(--muted);}
-  footer .attrib{margin:0 0 .5em;}
-  footer .license{margin:0;}
+ footer{
+ margin-top:50px;
+ padding-top:22px;
+ border-top:1px solid var(--rule);
+ font-size:14.5px;
+ line-height:1.6;
+ color:var(--muted);
+ }
+ footer a{color:var(--muted);}
+ footer .attrib{margin:0 0 .5em;}
+ footer .license{margin:0;}
 
-  @media (max-width:900px){
-    .wrap{width:100%;max-width:100%;padding:30px 20px 60px;box-shadow:none;}
-    body{font-size:18px;}
-    h1{font-size:30px;}
-    .corpus-nav{flex-direction:column;}
-    .corpus-nav a{max-width:100%;}
-    .corpus-nav .next{text-align:left;}
-  }
+ @media (max-width:900px){
+ .wrap{width:100%;max-width:100%;padding:30px 20px 60px;box-shadow:none;}
+ body{font-size:18px;}
+ h1{font-size:30px;}
+ .corpus-nav{flex-direction:column;}
+ .corpus-nav a{max-width:100%;}
+ .corpus-nav .next{text-align:left;}
+ }
 </style>
 </head>
 <body data-scheme="editorial">
 <div class="wrap">
 
-  <nav class="breadcrumbs">
-    <a href="../index.html">Главная</a>
-    <span class="sep">›</span>
-    <a href="../confront/index.html">Конфронтология Духа</a>
-  </nav>
+ <nav class="breadcrumbs">
+ <a href="../index.html">Главная</a>
+ <span class="sep">›</span>
+ <a href="../confront/index.html">Конфронтология Духа</a>
+ </nav>
 
-  <div class="dateline">9 июля 2021 г.</div>
-  <h1>ОПУСТИ ГЛАЗА ВНИЗ, И НЕ СМОТРИ.<a class="audio-link" href="https://t.me/art_017_tracks/421" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
-  <hr class="title-rule">
+ <div class="dateline">9 июля 2021 г.</div>
+ <h1>ОПУСТИ ГЛАЗА ВНИЗ, И НЕ СМОТРИ.<a class="audio-link" href="https://t.me/art_017_tracks/421" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+ <hr class="title-rule">
 
-  <div class="epigraph-label">Эпиграф.</div>
+ <div class="epigraph-label">Эпиграф.</div>
 
-  <blockquote class="epigraph">
-    <p>Возник голос и сказал: «Опусти глаза, не поднимай головы своей и не смотри». Опустил он глаза и увидел свет, светивший издали. Прежний голос снова сказал: «Высшие, скрытые и недоступные, глаза которых зорко следят за всем миром, всмотритесь и увидите! Нижние, спящие, свет ваших глаз не проходит через зрачки ваши, пробудитесь!» После того, как послушался опустить глаза вниз и не поднимать головы, удостоился услышать это воззвание, благодаря которому постиг всё желаемое.</p>
-    <span class="source">Видение Рабби Хия, п. 53, том 1, Книга Зоар</span>
-  </blockquote>
+ <blockquote class="epigraph">
+ <p>Возник голос и сказал: «Опусти глаза, не поднимай головы своей и не смотри». Опустил он глаза и увидел свет, светивший издали. Прежний голос снова сказал: «Высшие, скрытые и недоступные, глаза которых зорко следят за всем миром, всмотритесь и увидите! Нижние, спящие, свет ваших глаз не проходит через зрачки ваши, пробудитесь!» После того, как послушался опустить глаза вниз и не поднимать головы, удостоился услышать это воззвание, благодаря которому постиг всё желаемое.</p>
+ <span class="source">Видение Рабби Хия, п. 53, том 1, Книга Зоар</span>
+ </blockquote>
 
-  <blockquote class="epigraph">
-    <p class="scripture">Тогда Иисус возведен был Духом в пустыню, для искушения от диавола,</p>
-    <p class="scripture">и, постившись сорок дней и сорок ночей, напоследок взалкал.</p>
-    <p class="scripture">И приступил к Нему искуситель и сказал: если Ты Сын Божий, скажи, чтобы камни сии сделались хлебами.</p>
-    <p class="scripture">Он же сказал ему в ответ: написано: не хлебом одним будет жить человек, но всяким словом, исходящим из уст Божиих.</p>
-    <p class="scripture">Потом берет Его диавол в святой город и поставляет Его на крыле храма,</p>
-    <p class="scripture">и говорит Ему: если Ты Сын Божий, бросься вниз, ибо написано: Ангелам Своим заповедает о Тебе, и на руках понесут Тебя, да не преткнешься о камень ногою Твоею.</p>
-    <p class="scripture">Иисус сказал ему: написано также: не искушай Господа Бога твоего.</p>
-    <p class="scripture">Опять берет Его диавол на весьма высокую гору и показывает Ему все царства мира и славу их,</p>
-    <p class="scripture">и говорит Ему: все это дам Тебе, если, пав, поклонишься мне.</p>
-    <p class="scripture">Тогда Иисус говорит ему: отойди от Меня, сатана, ибо написано: Господу Богу твоему поклоняйся и Ему одному служи.</p>
-    <p class="scripture">Тогда оставляет Его диавол, и се, Ангелы приступили и служили Ему.</p>
-    <span class="source">Библия | От Матфея 4 (Синодальный перевод)</span>
-  </blockquote>
+ <blockquote class="epigraph">
+ <p class="scripture">Тогда Иисус возведен был Духом в пустыню, для искушения от диавола,</p>
+ <p class="scripture">и, постившись сорок дней и сорок ночей, напоследок взалкал.</p>
+ <p class="scripture">И приступил к Нему искуситель и сказал: если Ты Сын Божий, скажи, чтобы камни сии сделались хлебами.</p>
+ <p class="scripture">Он же сказал ему в ответ: написано: не хлебом одним будет жить человек, но всяким словом, исходящим из уст Божиих.</p>
+ <p class="scripture">Потом берет Его диавол в святой город и поставляет Его на крыле храма,</p>
+ <p class="scripture">и говорит Ему: если Ты Сын Божий, бросься вниз, ибо написано: Ангелам Своим заповедает о Тебе, и на руках понесут Тебя, да не преткнешься о камень ногою Твоею.</p>
+ <p class="scripture">Иисус сказал ему: написано также: не искушай Господа Бога твоего.</p>
+ <p class="scripture">Опять берет Его диавол на весьма высокую гору и показывает Ему все царства мира и славу их,</p>
+ <p class="scripture">и говорит Ему: все это дам Тебе, если, пав, поклонишься мне.</p>
+ <p class="scripture">Тогда Иисус говорит ему: отойди от Меня, сатана, ибо написано: Господу Богу твоему поклоняйся и Ему одному служи.</p>
+ <p class="scripture">Тогда оставляет Его диавол, и се, Ангелы приступили и служили Ему.</p>
+ <span class="source">Библия | От Матфея 4 (Синодальный перевод)</span>
+ </blockquote>
 
-  <div class="qa">
-    <p class="q"><span class="lead-word">Вопрос:</span> Если ты закрываешь глаза в страхе или понурил взор из-за уныния, то как ты обретешь видение красоты и гармонии мира?</p>
+ <div class="qa">
+ <p class="q"><span class="lead-word">Вопрос:</span> Если ты закрываешь глаза в страхе или понурил взор из-за уныния, то как ты обретешь видение красоты и гармонии мира?</p>
 
-    <p class="a"><span class="lead-word">Ответ:</span> Не в страхе, а в трепете, благоговении, перед Абстрактным. Страх это нормальная реакция личности на неведомое. Она происходит из чувства собственной важности или неважности. А я исхожу из чувства важности Абстрактного перед всем остальным, и стараюсь провести через себя в Мир Его Волю, а не обрести то-то или то-то. Он Один управляет всем, мы созданы чтобы свидетельствовать красоту, которая есть в Нем, а не ту красоту, которая видна или не видна нам в данный момент времени, в результате того, что мы находимся или не находимся в гармонии с Ним. Разумеется, я не люблю уныния, и люблю видеть красоту и гармонию Мира. Но у меня нет мнения на счет того, что для меня хорошо в этот или следующий момент - быть в этой гармонии, или быть в унынии, или испытывать что-то третье. Здесь необходим этот существенный "гэп" между намерением и действием, чтобы прекратить связь личности/"первого внимания" с мотивацией воина. Иначе ты как был управляемым "зеркальным" законом существования "этого мира", который я описал выше, так и будешь продолжать быть управляемым им. Этот Закон характерен тем, что часто в его реализации сначала бывает "сладко" (т.е. чувствуешь гармонию, красоту, и т.п.), а в конце оказывается "горько". То есть по итогу ты сидишь у того же "разбитого корыта", что и раньше, и продолжаешь грызть гранит стены, отделяющей тебя от Свободы восприятия, годами, вместо того, чтобы "взять эту стену", как и предписывает кодекс Пути Воина. Когда ты прерываешь свою связь с "зеркальной сферой", и начинаешь действовать "от обратного", то в результате ты получаешь обратный эффект: в начале бывает "горько" (нет гармонии, красоты, и т.п.), но в итоге ты непременно достигаешь того, что было заложено "Автором сценария" в этой ситуации изначально: получаешь все, что мог бы хотеть видеть, или к чему мог стремиться как воин, "в подарок" от Высшей Силы, не намереваясь достичь этого напрямую. И тогда уже это действительно становится твоим достоянием как воина, "трофеем", вынесенным тобой из Ада, в который ты спустился в процессе, следуя предустановленным правилам игры, и проявляя таким образом свою непоколебимую приверженность Абстрактному.</p>
-  </div>
+ <p class="a"><span class="lead-word">Ответ:</span> Не в страхе, а в трепете, благоговении, перед Абстрактным. Страх это нормальная реакция личности на неведомое. Она происходит из чувства собственной важности или неважности. А я исхожу из чувства важности Абстрактного перед всем остальным, и стараюсь провести через себя в Мир Его Волю, а не обрести то-то или то-то. Он Один управляет всем, мы созданы чтобы свидетельствовать красоту, которая есть в Нем, а не ту красоту, которая видна или не видна нам в данный момент времени, в результате того, что мы находимся или не находимся в гармонии с Ним. Разумеется, я не люблю уныния, и люблю видеть красоту и гармонию Мира. Но у меня нет мнения на счет того, что для меня хорошо в этот или следующий момент - быть в этой гармонии, или быть в унынии, или испытывать что-то третье. Здесь необходим этот существенный "гэп" между намерением и действием, чтобы прекратить связь личности/"первого внимания" с мотивацией воина. Иначе ты как был управляемым "зеркальным" законом существования "этого мира", который я описал выше, так и будешь продолжать быть управляемым им. Этот Закон характерен тем, что часто в его реализации сначала бывает "сладко" (т.е. чувствуешь гармонию, красоту, и т.п.), а в конце оказывается "горько". То есть по итогу ты сидишь у того же "разбитого корыта", что и раньше, и продолжаешь грызть гранит стены, отделяющей тебя от Свободы восприятия, годами, вместо того, чтобы "взять эту стену", как и предписывает кодекс Пути Воина. Когда ты прерываешь свою связь с "зеркальной сферой", и начинаешь действовать "от обратного", то в результате ты получаешь обратный эффект: в начале бывает "горько" (нет гармонии, красоты, и т.п.), но в итоге ты непременно достигаешь того, что было заложено "Автором сценария" в этой ситуации изначально: получаешь все, что мог бы хотеть видеть, или к чему мог стремиться как воин, "в подарок" от Высшей Силы, не намереваясь достичь этого напрямую. И тогда уже это действительно становится твоим достоянием как воина, "трофеем", вынесенным тобой из Ада, в который ты спустился в процессе, следуя предустановленным правилам игры, и проявляя таким образом свою непоколебимую приверженность Абстрактному.</p>
+ </div>
 
-  <p class="exclaim">Сделаем и услышим!</p>
+ <p class="exclaim">Сделаем и услышим!</p>
 
-  <p class="seealso">Смс. также: <a href="https://bneiadam.com/forum/53" target="_blank" rel="noopener">https://bneiadam.com/forum/53</a></p>
+ <p class="seealso">Смс. также: </p>
 
-  <nav class="corpus-nav">
-    <a class="prev" href="2B6.html">
-      <span class="nav-dir">← Предыдущая</span>
-      <span class="nav-title">Наасе ве Нишма</span>
-    </a>
-    <a class="next" href="16D.html">
-      <span class="nav-dir">Следующая →</span>
-      <span class="nav-title">Почему мы называем ситра ахра злым началом, если..</span>
-    </a>
-  </nav>
+ <nav class="corpus-nav">
+ <a class="prev" href="2B6.html">
+ <span class="nav-dir">← Предыдущая</span>
+ <span class="nav-title">Наасе ве Нишма</span>
+ </a>
+ <a class="next" href="16D.html">
+ <span class="nav-dir">Следующая →</span>
+ <span class="nav-title">Почему мы называем ситра ахра злым началом, если..</span>
+ </a>
+ </nav>
 
-  <footer>
-    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
-  </footer>
+ <footer>
+ <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+ </footer>
 
 </div>
 
 <script type="application/json" id="yanik-meta">
 {
-  "scheme": "editorial",
-  "form": "проза",
-  "rationale": "Статья — прозаический текст в форме «Вопрос/Ответ» с двумя эпиграфами (отрывок из Книги Зоар и из Евангелия от Матфея). Стихотворных форм нет, поэтому выбрана редакторская широкая схема: основная колонка ~66% ширины окна на десктопе и полная ширина на мобильных. Эпиграфы оформлены как выделенные блоки-цитаты с атрибуцией источника справа, чтобы визуально отделить их от авторского рассуждения; строки евангельского отрывка сохранены построчно, как в исходнике. Заголовок и капс оставлены дословно.\n\nОглавление не делалось: в тексте нет более одного выраженного подраздела (есть лишь эпиграф, блок Q/A и финальная отсылка). Музыкальных YouTube-ссылок нет, сносок нет — единственная внешняя ссылка bneiadam.com обёрнута в гиперссылку в строке «Смс. также». Палитра тёплая «бумажная» (кремовый фон, коричнево-охристый акцент) под медитативно-духовный характер текста; от тёмной темы и крупных заголовков отказался ради спокойного длинного чтения.",
-  "features": []
+ "scheme": "editorial",
+ "form": "проза",
+ "rationale": "Статья — прозаический текст в форме «Вопрос/Ответ» с двумя эпиграфами (отрывок из Книги Зоар и из Евангелия от Матфея). Стихотворных форм нет, поэтому выбрана редакторская широкая схема: основная колонка ~66% ширины окна на десктопе и полная ширина на мобильных. Эпиграфы оформлены как выделенные блоки-цитаты с атрибуцией источника справа, чтобы визуально отделить их от авторского рассуждения; строки евангельского отрывка сохранены построчно, как в исходнике. Заголовок и капс оставлены дословно.\n\nОглавление не делалось: в тексте нет более одного выраженного подраздела (есть лишь эпиграф, блок Q/A и финальная отсылка). Музыкальных YouTube-ссылок нет, сносок нет — единственная внешняя ссылка обёрнута в гиперссылку в строке «Смс. также». Палитра тёплая «бумажная» (кремовый фон, коричнево-охристый акцент) под медитативно-духовный характер текста; от тёмной темы и крупных заголовков отказался ради спокойного длинного чтения.",
+ "features": []
 }
 </script>
 </body>

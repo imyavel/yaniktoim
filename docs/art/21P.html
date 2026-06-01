@@ -8,296 +8,296 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Кто-нибудь из Вас видел Бога?</title>
 <style>
-  :root{
-    --bg:#f7f4ee;
-    --paper:#fffdf8;
-    --ink:#24211c;
-    --muted:#6f685c;
-    --accent:#8a5a2b;
-    --accent2:#b8843c;
-    --line:#e1d9c8;
-    --hl:#fdeecb;
-  }
-  *{box-sizing:border-box;}
-  html{-webkit-text-size-adjust:100%;}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--ink);
-    font-family:Georgia,"Times New Roman",serif;
-    font-size:20px;
-    line-height:1.72;
-    letter-spacing:.1px;
-  }
-  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(138,90,43,.35);}
-  a:hover{color:var(--accent2);border-bottom-color:var(--accent2);}
-  .wrap{
-    max-width:1180px;
-    margin:0 auto;
-    padding:0 32px;
-  }
-  .stage{
-    width:66%;
-    max-width:820px;
-    margin:0 auto;
-  }
-  @media(max-width:900px){
-    .stage{width:100%;max-width:100%;}
-    body{font-size:18px;}
-    .wrap{padding:0 18px;}
-  }
+ :root{
+ --bg:#f7f4ee;
+ --paper:#fffdf8;
+ --ink:#24211c;
+ --muted:#6f685c;
+ --accent:#8a5a2b;
+ --accent2:#b8843c;
+ --line:#e1d9c8;
+ --hl:#fdeecb;
+ }
+ *{box-sizing:border-box;}
+ html{-webkit-text-size-adjust:100%;}
+ body{
+ margin:0;
+ background:var(--bg);
+ color:var(--ink);
+ font-family:Georgia,"Times New Roman",serif;
+ font-size:20px;
+ line-height:1.72;
+ letter-spacing:.1px;
+ }
+ a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(138,90,43,.35);}
+ a:hover{color:var(--accent2);border-bottom-color:var(--accent2);}
+ .wrap{
+ max-width:1180px;
+ margin:0 auto;
+ padding:0 32px;
+ }
+ .stage{
+ width:66%;
+ max-width:820px;
+ margin:0 auto;
+ }
+ @media(max-width:900px){
+ .stage{width:100%;max-width:100%;}
+ body{font-size:18px;}
+ .wrap{padding:0 18px;}
+ }
 
-  /* breadcrumbs */
-  .crumbs{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:14px;
-    letter-spacing:.4px;
-    text-transform:uppercase;
-    color:var(--muted);
-    padding:26px 0 0;
-    border-bottom:1px solid var(--line);
-    padding-bottom:14px;
-  }
-  .crumbs a{border:none;color:var(--muted);}
-  .crumbs a:hover{color:var(--accent);}
-  .crumbs span.sep{margin:0 .5em;color:#c3b8a3;}
+ /* breadcrumbs */
+ .crumbs{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:14px;
+ letter-spacing:.4px;
+ text-transform:uppercase;
+ color:var(--muted);
+ padding:26px 0 0;
+ border-bottom:1px solid var(--line);
+ padding-bottom:14px;
+ }
+ .crumbs a{border:none;color:var(--muted);}
+ .crumbs a:hover{color:var(--accent);}
+ .crumbs span.sep{margin:0 .5em;color:#c3b8a3;}
 
-  /* header */
-  header.art{padding:40px 0 26px;}
-  .date{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:13px;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    color:var(--accent2);
-    margin-bottom:18px;
-  }
-  h1{
-    font-family:Georgia,serif;
-    font-weight:700;
-    font-size:2.55rem;
-    line-height:1.18;
-    margin:0;
-    color:#1d1a15;
-  }
-  .rule{
-    width:72px;height:3px;
-    background:var(--accent);
-    margin:24px 0 6px;
-  }
+ /* header */
+ header.art{padding:40px 0 26px;}
+ .date{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:13px;
+ letter-spacing:2px;
+ text-transform:uppercase;
+ color:var(--accent2);
+ margin-bottom:18px;
+ }
+ h1{
+ font-family:Georgia,serif;
+ font-weight:700;
+ font-size:2.55rem;
+ line-height:1.18;
+ margin:0;
+ color:#1d1a15;
+ }
+ .rule{
+ width:72px;height:3px;
+ background:var(--accent);
+ margin:24px 0 6px;
+ }
 
-  /* body */
-  .content{padding-bottom:20px;}
-  .content p{margin:0 0 1.35em;}
+ /* body */
+ .content{padding-bottom:20px;}
+ .content p{margin:0 0 1.35em;}
 
-  .quotelabel{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:14px;
-    letter-spacing:1px;
-    text-transform:uppercase;
-    color:var(--muted);
-    margin:0 0 .4em;
-  }
-  blockquote.comment{
-    margin:0 0 2.4em;
-    padding:18px 26px;
-    background:var(--paper);
-    border-left:4px solid var(--accent2);
-    border-radius:0 6px 6px 0;
-    box-shadow:0 1px 2px rgba(0,0,0,.04);
-    color:#3c382f;
-    font-style:italic;
-  }
-  blockquote.comment p{margin:0 0 .9em;}
-  blockquote.comment p:last-child{margin-bottom:0;}
+ .quotelabel{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:14px;
+ letter-spacing:1px;
+ text-transform:uppercase;
+ color:var(--muted);
+ margin:0 0 .4em;
+ }
+ blockquote.comment{
+ margin:0 0 2.4em;
+ padding:18px 26px;
+ background:var(--paper);
+ border-left:4px solid var(--accent2);
+ border-radius:0 6px 6px 0;
+ box-shadow:0 1px 2px rgba(0,0,0,.04);
+ color:#3c382f;
+ font-style:italic;
+ }
+ blockquote.comment p{margin:0 0 .9em;}
+ blockquote.comment p:last-child{margin-bottom:0;}
 
-  .answer-head{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:14px;
-    letter-spacing:1px;
-    text-transform:uppercase;
-    color:var(--accent);
-    margin:0 0 .9em;
-    font-weight:700;
-  }
+ .answer-head{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:14px;
+ letter-spacing:1px;
+ text-transform:uppercase;
+ color:var(--accent);
+ margin:0 0 .9em;
+ font-weight:700;
+ }
 
-  .seealso{
-    margin:2.2em 0 1.4em;
-    font-size:.95em;
-    color:var(--muted);
-  }
-  .code{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    letter-spacing:2px;
-    color:var(--accent2);
-    font-size:15px;
-    margin-top:1.6em;
-  }
+ .seealso{
+ margin:2.2em 0 1.4em;
+ font-size:.95em;
+ color:var(--muted);
+ }
+ .code{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ letter-spacing:2px;
+ color:var(--accent2);
+ font-size:15px;
+ margin-top:1.6em;
+ }
 
-  /* music */
-  .music{
-    margin:2.4em 0;
-    border:1px solid var(--line);
-    border-radius:8px;
-    background:var(--paper);
-    overflow:hidden;
-  }
-  .music .m-label{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:12px;
-    letter-spacing:1.6px;
-    text-transform:uppercase;
-    color:var(--muted);
-    padding:12px 18px 0;
-  }
-  .track{padding:8px 18px 14px;}
-  .track-head{
-    display:flex;align-items:center;gap:10px;
-    cursor:pointer;
-    user-select:none;
-  }
-  .track-head .arrow{
-    color:var(--accent);transition:transform .2s;font-size:14px;
-    flex:0 0 auto;
-  }
-  .track.open .arrow{transform:rotate(90deg);}
-  .track-title{flex:1 1 auto;font-size:1.02em;}
-  .track-title .perf{color:var(--accent);}
-  .track-ext{flex:0 0 auto;color:var(--muted);border:none;font-size:1.05em;}
-  .track-ext:hover{color:var(--accent);}
-  .player{
-    display:none;
-    margin-top:12px;
-    position:relative;
-    padding-bottom:56.25%;
-    height:0;
-    border-radius:6px;
-    overflow:hidden;
-    background:#000;
-  }
-  .track.open .player{display:block;}
-  .player iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+ /* music */
+ .music{
+ margin:2.4em 0;
+ border:1px solid var(--line);
+ border-radius:8px;
+ background:var(--paper);
+ overflow:hidden;
+ }
+ .music .m-label{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:12px;
+ letter-spacing:1.6px;
+ text-transform:uppercase;
+ color:var(--muted);
+ padding:12px 18px 0;
+ }
+ .track{padding:8px 18px 14px;}
+ .track-head{
+ display:flex;align-items:center;gap:10px;
+ cursor:pointer;
+ user-select:none;
+ }
+ .track-head .arrow{
+ color:var(--accent);transition:transform .2s;font-size:14px;
+ flex:0 0 auto;
+ }
+ .track.open .arrow{transform:rotate(90deg);}
+ .track-title{flex:1 1 auto;font-size:1.02em;}
+ .track-title .perf{color:var(--accent);}
+ .track-ext{flex:0 0 auto;color:var(--muted);border:none;font-size:1.05em;}
+ .track-ext:hover{color:var(--accent);}
+ .player{
+ display:none;
+ margin-top:12px;
+ position:relative;
+ padding-bottom:56.25%;
+ height:0;
+ border-radius:6px;
+ overflow:hidden;
+ background:#000;
+ }
+ .track.open .player{display:block;}
+ .player iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
 
-  /* footer nav */
-  .corpusnav{
-    border-top:1px solid var(--line);
-    margin-top:36px;
-    padding:26px 0;
-    display:flex;
-    justify-content:space-between;
-    gap:18px;
-    font-family:"Helvetica Neue",Arial,sans-serif;
-  }
-  .corpusnav a{
-    display:block;
-    max-width:48%;
-    border:none;
-    font-size:15px;
-    line-height:1.35;
-  }
-  .corpusnav .dir{
-    display:block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;
-    color:var(--muted);margin-bottom:4px;
-  }
-  .corpusnav .next{text-align:right;margin-left:auto;}
-  footer.colophon{
-    border-top:1px solid var(--line);
-    padding:24px 0 60px;
-    color:var(--muted);
-    font-size:14px;
-    line-height:1.6;
-  }
-  footer.colophon a{color:var(--muted);}
-  footer.colophon .attrib{margin:0 0 .6em;}
+ /* footer nav */
+ .corpusnav{
+ border-top:1px solid var(--line);
+ margin-top:36px;
+ padding:26px 0;
+ display:flex;
+ justify-content:space-between;
+ gap:18px;
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ }
+ .corpusnav a{
+ display:block;
+ max-width:48%;
+ border:none;
+ font-size:15px;
+ line-height:1.35;
+ }
+ .corpusnav .dir{
+ display:block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;
+ color:var(--muted);margin-bottom:4px;
+ }
+ .corpusnav .next{text-align:right;margin-left:auto;}
+ footer.colophon{
+ border-top:1px solid var(--line);
+ padding:24px 0 60px;
+ color:var(--muted);
+ font-size:14px;
+ line-height:1.6;
+ }
+ footer.colophon a{color:var(--muted);}
+ footer.colophon .attrib{margin:0 0 .6em;}
 </style>
 </head>
 <body data-scheme="editorial">
 <div class="wrap">
-  <div class="stage">
+ <div class="stage">
 
-    <nav class="crumbs">
-      <a href="../index.html">Главная</a><span class="sep">/</span><a href="../confront/index.html">Конфронтология Духа</a>
-    </nav>
+ <nav class="crumbs">
+ <a href="../index.html">Главная</a><span class="sep">/</span><a href="../confront/index.html">Конфронтология Духа</a>
+ </nav>
 
-    <header class="art">
-      <div class="date">25 января 2022 г.</div>
-      <h1>Кто-нибудь из Вас видел Бога?<a class="audio-link" href="https://t.me/art_017_tracks/466" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
-      <div class="rule"></div>
-    </header>
+ <header class="art">
+ <div class="date">25 января 2022 г.</div>
+ <h1>Кто-нибудь из Вас видел Бога?<a class="audio-link" href="https://t.me/art_017_tracks/466" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+ <div class="rule"></div>
+ </header>
 
-    <div class="content">
+ <div class="content">
 
-      <p class="quotelabel">d**** написал(а):</p>
-      <blockquote class="comment">
-        <p>Красиво написано.</p>
-        <p>Не сказали только, что тонкая грань находится там, где она меньше всего ожидается. Что человек должен быть в постоянной готовности. Возможно он, человек, начнёт контролировать не контролируя свою внутреннюю природу? Ту, которой когда-то вообще не было.</p>
-        <p>То, что заставляет быть жертвой во всех жизненных ситуациях. Жить в потоке каждодневных дел и забот. А потом оказаться старым и неподвижным существом.</p>
-      </blockquote>
+ <p class="quotelabel">d**** написал(а):</p>
+ <blockquote class="comment">
+ <p>Красиво написано.</p>
+ <p>Не сказали только, что тонкая грань находится там, где она меньше всего ожидается. Что человек должен быть в постоянной готовности. Возможно он, человек, начнёт контролировать не контролируя свою внутреннюю природу? Ту, которой когда-то вообще не было.</p>
+ <p>То, что заставляет быть жертвой во всех жизненных ситуациях. Жить в потоке каждодневных дел и забот. А потом оказаться старым и неподвижным существом.</p>
+ </blockquote>
 
-      <p class="answer-head">Ответ:</p>
+ <p class="answer-head">Ответ:</p>
 
-      <p>Человек не может, по определению, «сам-сусам» «контролировать» то, чем он же сам и является. Эта природа — это Вы и есть, тут уже, что называется, или шашечки, или ехать.</p>
+ <p>Человек не может, по определению, «сам-сусам» «контролировать» то, чем он же сам и является. Эта природа — это Вы и есть, тут уже, что называется, или шашечки, или ехать.</p>
 
-      <p>Зато, эту самую природу в человеке вполне может контролировать Дух, и «лайфхак» безупречных воинов как раз и заключается в том, чтобы давать Ему контролировать в себе то, что сам контролировать не в состоянии. И никогда не будет в состоянии, пока живет и получает «опыт всех опытов».</p>
+ <p>Зато, эту самую природу в человеке вполне может контролировать Дух, и «лайфхак» безупречных воинов как раз и заключается в том, чтобы давать Ему контролировать в себе то, что сам контролировать не в состоянии. И никогда не будет в состоянии, пока живет и получает «опыт всех опытов».</p>
 
-      <p>Но и тут все не так просто, как кажется. Потому что Дух и воин никогда не взаимодействуют друг с другом «напрямую». Если Вы посмотрите любой из рассказов ДХ у КК о том, как Он действует, проявляя себя в жизни воинов и магов, то неизменно увидите, что то или иное «проявление» всегда связано с включением воина, которому Дух проявляется, в жизни и судьбы других людей, и, фактически, это действие Духом производится не «ради» самого воина, а «ради» них.</p>
+ <p>Но и тут все не так просто, как кажется. Потому что Дух и воин никогда не взаимодействуют друг с другом «напрямую». Если Вы посмотрите любой из рассказов ДХ у КК о том, как Он действует, проявляя себя в жизни воинов и магов, то неизменно увидите, что то или иное «проявление» всегда связано с включением воина, которому Дух проявляется, в жизни и судьбы других людей, и, фактически, это действие Духом производится не «ради» самого воина, а «ради» них.</p>
 
-      <p>«Нагваль», или воин, который потерял человеческую форму, обучается тому, как использовать этот факт «в своих собственных интересах», если можно так выразиться, и постепенно начинает жить и идти по тому же Пути Сердца, по которому его ведет Дух, 100% «не ради себя», то есть не имея никаких «собственных» всамделишных желаний и амбиций, хотя со стороны он выглядит как человек, амбициозный и чувствительный до предела, но только это не «он», а это Зеркало Мира, которое светит через него, отражая для каждого его собственные внутренние «обстоятельства», как будто бы они «на самом деле» имели отношение к воину, а не к тому, с кем он взаимодействует, и в ком вызывает такую реакцию «отражения». Точнее не он «вызывает», потому что ему нет никакого дела до того, что он сам делает, кроме безупречности и стремления предложить Абстрактному все самое лучшее в себе, а вызывает Дух, который «облачается», одевается, буквально, в такого «воина», что и делает его, со временем, «нагвалем» и «бенефактором» для других идущих по тому же Пути, по которому Дух ведет его самого. Потому что именно Дух является Нагвалем и Бенефактором, а не человек, каким бы «безупречным», «целостным», «трезвым» и т.д. и т.п. он кому-либо не казался. Единственное достижение, которое действительно может быть достигнуто на этом удивительном Пути человеком, и которое, без всяких сомнений, стоит того, чтобы за один шанс прикоснуться к нему, целую жизнь бороться, находясь в любых ситуациях, а то и не одну, это сделать себя «перчаткой», послушной марионеткой, в руках Силы, Которая абсолютно и всецело правит его собственной судьбой, равно как и судьбами всех существ и миров, в которых они обитают, поскольку Сама же эти миры и этих существ из Себя Самой и создала, чтобы увековечивать величие и вечное совершенство Своего осознания посредством Огня Изнутри, являющегося Силой Жизни, наполняющей все и управляющей всем, что есть в нас, было и будет когда-либо, из Которой мы появились когда-то, за Которую мы боремся все дни наших жизней, не покладая рук, умов и сердец, и в Которую мы вернемся очень скоро, поскольку наша судьба, наше предназначение — послужить этой Силе службу ради других людей, становясь ее «инструментами» и «сотрудниками», в том, что Она приготовила для других людей, существ и миров, которые будут в будущем идти по тем же Ее удивительным дорогам, под Ее осознанным и явным управлением и ведением, по котором сейчас идем мы, главным образом «вслепую» и против своего желания, не понимая, где мы, кто мы, зачем мы и как, и догадываясь, что ничем хорошим это закончиться не может, хотя на самом деле все в точности наоборот, потому что думать так нас заставляет чудовищная смесь глупости и невежества, и именно она отравляет нашу жизнь, а не какие-то выдуманные нами и муссируемые «внешние факторы» враждебной Вселенной. Это невежество заставляет нас забыть о том, что нет никакой другой Силы, у которой была бы хоть на мгновение власть на что либо влиять в Мире кроме Намерения Духа, проявляющего себя чувствующим существам через Дар Орла, сутью Которого Оно Само непосредственно является, поскольку вечным и абсолютным может быть только то осознание и та жизнь, в которых ты даешь осознавать и жить другим, и радуешься сам тому, как у них это получается, и помогаешь им идти по этому Пути, давая луч надежды в самые трудные минуты и едва заметно «помогая» сделать правильный важный выбор, цепочка из которых неизбежно приводит любое живое существо к «получению» Дара Орла лично, осознанно, по своей собственной воле и желанию, и не ради самого себя, потому что ДАР ОРЛА и НЕ РАДИ СЕБЯ это синонимы, и только такая жизнь, которая происходит не в себе и не со «своими» целями, смыслами и образами, но очень близкими по Духу, поскольку воин сам способствовал их зарождению, развитию и успеху, может быть увековечена, и только такое восприятие может быть абсолютно свободным, которое является доброй волей к тому, чтобы свобода восприятия была у другого, а не в самом себе, потому что в самом себе есть только жизнь, полная боли и бессмысленности, с неизбежным скорым старением, дряхлением и бесславной смертью, будучи старым, неподвижным существом, переполненным сожалений об утраченных шансах и ушедшей сквозь пальцы жизни, как будто бы ее никогда не было.</p>
+ <p>«Нагваль», или воин, который потерял человеческую форму, обучается тому, как использовать этот факт «в своих собственных интересах», если можно так выразиться, и постепенно начинает жить и идти по тому же Пути Сердца, по которому его ведет Дух, 100% «не ради себя», то есть не имея никаких «собственных» всамделишных желаний и амбиций, хотя со стороны он выглядит как человек, амбициозный и чувствительный до предела, но только это не «он», а это Зеркало Мира, которое светит через него, отражая для каждого его собственные внутренние «обстоятельства», как будто бы они «на самом деле» имели отношение к воину, а не к тому, с кем он взаимодействует, и в ком вызывает такую реакцию «отражения». Точнее не он «вызывает», потому что ему нет никакого дела до того, что он сам делает, кроме безупречности и стремления предложить Абстрактному все самое лучшее в себе, а вызывает Дух, который «облачается», одевается, буквально, в такого «воина», что и делает его, со временем, «нагвалем» и «бенефактором» для других идущих по тому же Пути, по которому Дух ведет его самого. Потому что именно Дух является Нагвалем и Бенефактором, а не человек, каким бы «безупречным», «целостным», «трезвым» и т.д. и т.п. он кому-либо не казался. Единственное достижение, которое действительно может быть достигнуто на этом удивительном Пути человеком, и которое, без всяких сомнений, стоит того, чтобы за один шанс прикоснуться к нему, целую жизнь бороться, находясь в любых ситуациях, а то и не одну, это сделать себя «перчаткой», послушной марионеткой, в руках Силы, Которая абсолютно и всецело правит его собственной судьбой, равно как и судьбами всех существ и миров, в которых они обитают, поскольку Сама же эти миры и этих существ из Себя Самой и создала, чтобы увековечивать величие и вечное совершенство Своего осознания посредством Огня Изнутри, являющегося Силой Жизни, наполняющей все и управляющей всем, что есть в нас, было и будет когда-либо, из Которой мы появились когда-то, за Которую мы боремся все дни наших жизней, не покладая рук, умов и сердец, и в Которую мы вернемся очень скоро, поскольку наша судьба, наше предназначение — послужить этой Силе службу ради других людей, становясь ее «инструментами» и «сотрудниками», в том, что Она приготовила для других людей, существ и миров, которые будут в будущем идти по тем же Ее удивительным дорогам, под Ее осознанным и явным управлением и ведением, по котором сейчас идем мы, главным образом «вслепую» и против своего желания, не понимая, где мы, кто мы, зачем мы и как, и догадываясь, что ничем хорошим это закончиться не может, хотя на самом деле все в точности наоборот, потому что думать так нас заставляет чудовищная смесь глупости и невежества, и именно она отравляет нашу жизнь, а не какие-то выдуманные нами и муссируемые «внешние факторы» враждебной Вселенной. Это невежество заставляет нас забыть о том, что нет никакой другой Силы, у которой была бы хоть на мгновение власть на что либо влиять в Мире кроме Намерения Духа, проявляющего себя чувствующим существам через Дар Орла, сутью Которого Оно Само непосредственно является, поскольку вечным и абсолютным может быть только то осознание и та жизнь, в которых ты даешь осознавать и жить другим, и радуешься сам тому, как у них это получается, и помогаешь им идти по этому Пути, давая луч надежды в самые трудные минуты и едва заметно «помогая» сделать правильный важный выбор, цепочка из которых неизбежно приводит любое живое существо к «получению» Дара Орла лично, осознанно, по своей собственной воле и желанию, и не ради самого себя, потому что ДАР ОРЛА и НЕ РАДИ СЕБЯ это синонимы, и только такая жизнь, которая происходит не в себе и не со «своими» целями, смыслами и образами, но очень близкими по Духу, поскольку воин сам способствовал их зарождению, развитию и успеху, может быть увековечена, и только такое восприятие может быть абсолютно свободным, которое является доброй волей к тому, чтобы свобода восприятия была у другого, а не в самом себе, потому что в самом себе есть только жизнь, полная боли и бессмысленности, с неизбежным скорым старением, дряхлением и бесславной смертью, будучи старым, неподвижным существом, переполненным сожалений об утраченных шансах и ушедшей сквозь пальцы жизни, как будто бы ее никогда не было.</p>
 
-      <div class="music">
-        <div class="m-label">Музыка под настроение</div>
-        <div class="track" id="track1">
-          <div class="track-head" onclick="toggleTrack('track1','_DOAHSUfM1o')">
-            <span class="arrow">▶</span>
-            <span class="track-title"><span class="perf">гр. ГороД</span> — Звезды святят, но не греют..</span>
-            <a class="track-ext" href="https://youtu.be/_DOAHSUfM1o" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
-          </div>
-          <div class="player"></div>
-        </div>
-      </div>
+ <div class="music">
+ <div class="m-label">Музыка под настроение</div>
+ <div class="track" id="track1">
+ <div class="track-head" onclick="toggleTrack('track1','_DOAHSUfM1o')">
+ <span class="arrow">▶</span>
+ <span class="track-title"><span class="perf">гр. ГороД</span> — Звезды святят, но не греют..</span>
+ <a class="track-ext" href="https://youtu.be/_DOAHSUfM1o" target="_blank" rel="noopener" onclick="event.stopPropagation" title="Открыть на YouTube">↗</a>
+ </div>
+ <div class="player"></div>
+ </div>
+ </div>
 
-      <p class="seealso">См. также: <a href="https://bneiadam.com/forum/53-297-1" target="_blank" rel="noopener">https://bneiadam.com/forum/53-297-1</a></p>
+ <p class="seealso">См. также: </p>
 
-      <p class="code">АА21Р</p>
+ <p class="code">АА21Р</p>
 
-    </div>
+ </div>
 
-    <nav class="corpusnav">
-      <a class="prev" href="215A.html"><span class="dir">← Предыдущая</span>Ресурсность АВАЯ 2</a>
-      <a class="next" href="221B.html"><span class="dir">Следующая →</span>Неудобная реальность</a>
-    </nav>
+ <nav class="corpusnav">
+ <a class="prev" href="215A.html"><span class="dir">← Предыдущая</span>Ресурсность АВАЯ 2</a>
+ <a class="next" href="221B.html"><span class="dir">Следующая →</span>Неудобная реальность</a>
+ </nav>
 
-    <footer class="colophon">
-      <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
-      <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
-    </footer>
+ <footer class="colophon">
+ <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+ <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+ </footer>
 
-  </div>
+ </div>
 </div>
 
 <script>
-  function toggleTrack(id, vid){
-    var el=document.getElementById(id);
-    var open=el.classList.toggle('open');
-    var p=el.querySelector('.player');
-    if(open && !p.dataset.loaded){
-      var f=document.createElement('iframe');
-      f.src='https://www.youtube.com/embed/'+vid+'?rel=0';
-      f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-      f.allowFullscreen=true;
-      p.appendChild(f);
-      p.dataset.loaded='1';
-    }
-  }
+ function toggleTrack(id, vid){
+ var el=document.getElementById(id);
+ var open=el.classList.toggle('open');
+ var p=el.querySelector('.player');
+ if(open && !p.dataset.loaded){
+ var f=document.createElement('iframe');
+ f.src='https://www.youtube.com/embed/'+vid+'?rel=0';
+ f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+ f.allowFullscreen=true;
+ p.appendChild(f);
+ p.dataset.loaded='1';
+ }
+ }
 </script>
 
 <script type="application/json" id="yanik-meta">
 {
-  "scheme": "editorial",
-  "form": "проза",
-  "rationale": "Статья представляет собой прозаический диалогический текст: цитата читателя d**** и развёрнутый философско-эзотерический ответ автора одним монолитным абзацем. Стихотворных форм нет вовсе, поэтому однозначно выбрана редакторская (широкая) схема — лонгрид на светлом фоне с колонкой около 2/3 ширины окна (ограниченной 820px для комфортной меры строки сверхдлинного абзаца). Комментарий читателя я выделил в курсивный блок-цитату с акцентной полосой, отделив его от ответа метками-рубриками, не добавляя при этом собственных заголовков. Кавычки-ёлочки и КАПС (ДАР ОРЛА, НЕ РАДИ СЕБЯ) оставлены как есть.",
-  "rationale_continued": "Единственный музыкальный трек оформлен как ленивый раскрывающийся YouTube-плеер с меткой «Музыка под настроение» и значком внешней ссылки; сводный раздел музыки не создавался, так как трек один (порог — более двух). Сносок и подразделов нет, поэтому оглавление и аппарат сносок не понадобились. Голые URL (форум bneiadam) обёрнуты в ссылки. Палитра — тёплая бумажная, коричнево-охристые акценты под журнальный спокойный лонгрид.",
-  "features": ["music"]
+ "scheme": "editorial",
+ "form": "проза",
+ "rationale": "Статья представляет собой прозаический диалогический текст: цитата читателя d**** и развёрнутый философско-эзотерический ответ автора одним монолитным абзацем. Стихотворных форм нет вовсе, поэтому однозначно выбрана редакторская (широкая) схема — лонгрид на светлом фоне с колонкой около 2/3 ширины окна (ограниченной 820px для комфортной меры строки сверхдлинного абзаца). Комментарий читателя я выделил в курсивный блок-цитату с акцентной полосой, отделив его от ответа метками-рубриками, не добавляя при этом собственных заголовков. Кавычки-ёлочки и КАПС (ДАР ОРЛА, НЕ РАДИ СЕБЯ) оставлены как есть.",
+ "rationale_continued": "Единственный музыкальный трек оформлен как ленивый раскрывающийся YouTube-плеер с меткой «Музыка под настроение» и значком внешней ссылки; сводный раздел музыки не создавался, так как трек один (порог — более двух). Сносок и подразделов нет, поэтому оглавление и аппарат сносок не понадобились. Голые URL (форум bneiadam) обёрнуты в ссылки. Палитра — тёплая бумажная, коричнево-охристые акценты под журнальный спокойный лонгрид.",
+ "features": ["music"]
 }
 </script>
 </body>
