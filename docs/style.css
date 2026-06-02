@@ -69,6 +69,72 @@ header.breadcrumbs {
 header.breadcrumbs a { color: var(--muted); text-decoration: none; }
 header.breadcrumbs a:hover { color: var(--accent); text-decoration: underline; }
 header.breadcrumbs .sep { margin: 0 0.4rem; }
+/* главная: крошки слева + поле поиска справа */
+header.breadcrumbs.has-search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  margin: 0;
+}
+.search-form input[type="search"] {
+  width: 200px;
+  padding: 0.35rem 0.6rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: normal;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--card);
+  color: var(--fg);
+}
+.search-form input[type="search"]::-webkit-search-cancel-button { display: none; }
+.search-form input[type="search"]:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.search-form input[type="search"]::placeholder { color: var(--muted); font-weight: normal; }
+.search-form .search-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.search-form .search-btn:hover { color: var(--accent); border-color: var(--accent); }
+.search-form .search-btn svg { display: block; }
+@media (max-width: 560px) {
+  header.breadcrumbs.has-search { flex-direction: column; align-items: stretch; gap: 0.6rem; }
+  .search-form input[type="search"] { width: 100%; }
+}
+/* страница поиска */
+.search-page #search-results {
+  --pagefind-ui-scale: 1;
+  --pagefind-ui-primary: var(--accent);
+  --pagefind-ui-text: var(--fg);
+  --pagefind-ui-background: var(--card);
+  --pagefind-ui-border: var(--border);
+  --pagefind-ui-tag: var(--bg);
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 4px;
+  --pagefind-ui-font: Georgia, 'Times New Roman', Times, serif;
+}
+.search-page #search-results .pagefind-ui__search-input {
+  font-weight: normal;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  padding-right: calc(20px * var(--pagefind-ui-scale)) !important;
+}
+.search-page #search-results .pagefind-ui__search-clear { display: none !important; }
 
 .site-logo {
   display: block;

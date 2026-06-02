@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Поиск — Путь Восходящей Звезды</title>
+<meta name="description" content="Поиск по корпусу произведений Элиягу Бар Малей.">
+<meta property="og:title" content="Поиск — Путь Восходящей Звезды">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:description" content="Поиск по корпусу произведений Элиягу Бар Малей.">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/favicon.png">
+<link rel="stylesheet" href="style.css?v=20260531-02">
+<link rel="stylesheet" href="./pagefind/pagefind-ui.css">
+</head>
+<body class="search-page" data-pagefind-ignore>
+<div class="wrap">
+<header class="breadcrumbs has-search"><span><a href="index.html">Главная</a><span class="sep">›</span>Поиск</span><form class="search-form" action="search.html" method="get" role="search"><input type="search" name="q" placeholder="Поиск" aria-label="Поиск" autocomplete="off"><button type="submit" class="search-btn" aria-label="Найти"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button></form></header>
+<h1>Поиск</h1>
+<div id="search-results"></div>
+
+<footer class="footer">
+<p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+<p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — свободное копирование, распространение и адаптация при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+</footer>
+</div>
+<script src="./pagefind/pagefind-ui.js"></script>
+<script>
+window.addEventListener("DOMContentLoaded",function(){
+  const params = new URLSearchParams(location.search);
+  const q = params.get("q") || "";
+  const ui = new PagefindUI({
+    element: "#search-results",
+    showImages: false,
+    showSubResults: true,
+    excerptLength: 30,
+    resetStyles: false,
+    autofocus: true,
+    translations: {
+      placeholder: "Поиск по сайту",
+      clear_search: "×",
+      load_more: "Показать ещё",
+      search_label: "Поиск",
+      filters_label: "Фильтры",
+      zero_results: "Ничего не найдено по запросу [SEARCH_TERM]",
+      many_results: "Найдено [COUNT] совпадений по [SEARCH_TERM]",
+      one_result: "Найдено [COUNT] совпадение по [SEARCH_TERM]",
+      alt_search: "Ничего по [SEARCH_TERM]. Возможно, имели в виду [DIFFERENT_TERM]",
+      search_suggestion: "Ничего по [SEARCH_TERM]. Попробуйте [DIFFERENT_TERM]",
+      searching: "Поиск по [SEARCH_TERM]…"
+    }
+  });
+  if (q) { ui.triggerSearch(q); }
+});
+</script>
+</body>
+</html>
