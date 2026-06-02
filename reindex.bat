@@ -9,5 +9,9 @@ echo === Pagefind: rebuilding search index over docs\ ===
 call pagefind --site docs
 
 echo.
+echo === Sitemap + robots.txt ===
+python -X utf8 tools\build_sitemap.py
+
+echo.
 echo === Done. Now run push.bat to publish. ===
 pause
