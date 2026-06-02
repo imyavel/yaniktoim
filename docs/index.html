@@ -13,6 +13,7 @@
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="apple-touch-icon" href="img/favicon.png">
 <link rel="stylesheet" href="style.css?v=20260531-02">
+<script data-goatcounter="https://yaniktoim.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -47,6 +48,30 @@
 <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — свободное копирование, распространение и адаптация при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 <p class="build-date">Последняя сборка: <time datetime="2026-06-01">2026-06-01</time></p>
+<p class="stats-inline">Сегодня <span class="num" id="gc-today">—</span><span class="sep">·</span>за 30 дней <span class="num" id="gc-month">—</span><span class="sep">·</span>всего <span class="num" id="gc-total">—</span> просмотров</p>
+<script>
+(function(){
+  var b="https://yaniktoim.goatcounter.com/counter/TOTAL.json";
+  var now=new Date();
+  var iso=function(d){return d.toISOString().slice(0,10);};
+  var today=iso(now);
+  var monthAgo=iso(new Date(now.getTime()-30*86400000));
+  function fmt(n){return Number(n).toLocaleString("ru-RU");}
+  function set(id,url){
+    fetch(url,{credentials:"omit"})
+      .then(function(r){return r.ok?r.json():null;})
+      .then(function(d){
+        if(!d) return;
+        var el=document.getElementById(id);
+        if(el) el.textContent=fmt(d.count);
+      })
+      .catch(function(){});
+  }
+  set("gc-today",b+"?start="+today);
+  set("gc-month",b+"?start="+monthAgo);
+  set("gc-total",b);
+})();
+</script>
 </footer>
 </div>
 </body>
