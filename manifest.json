@@ -5598,5 +5598,21 @@
     "number": "350",
     "section_order": 0,
     "art": "654"
+  },
+  {
+    "stem": "2026_06_06_409",
+    "url": "https://proza.ru/2026/06/06/409",
+    "section": "dabudet",
+    "title": "Кто видел Икара?",
+    "html": "2026_06_06_409.html",
+    "img": "2026_06_06_409.jpg",
+    "url_date": "2026-06-06",
+    "url_nnn": 409,
+    "text_date": null,
+    "date_chosen": "2026-06-06",
+    "date_source": "url",
+    "number": "351",
+    "section_order": 51,
+    "art": "666"
   }
 ]
