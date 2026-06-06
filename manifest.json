@@ -5614,5 +5614,21 @@
     "number": "351",
     "section_order": 51,
     "art": "666"
+  },
+  {
+    "stem": "2026_06_06_roza_mira",
+    "url": "https://lib.rmvoz.ru/bigzal/rozamira",
+    "section": "other",
+    "title": "Роза Мира Даниила Андреева — основные идеи",
+    "html": "roza_mira.html",
+    "img": null,
+    "url_date": "2026-06-06",
+    "url_nnn": null,
+    "text_date": "1958",
+    "date_chosen": "2026-06-06",
+    "date_source": "manual",
+    "number": "352",
+    "section_order": 27,
+    "art": "roza_mira"
   }
 ]
