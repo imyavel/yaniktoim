@@ -168,9 +168,10 @@ claude.exe -p \
 - [x] E3. Pagefind переиндексирован + `docs/sitemap.xml` (372 стр., 666A есть).
         NB: `reindex.bat` заканчивается `pause` — под `cmd /c` зависает; шаги
         выполнены напрямую (`pagefind --site docs` + `tools/build_sitemap.py`).
-- [ ] E4. **ОЖИДАЕТ «GO» ОПЕРАТОРА:** `push.bat add art roza_mira — Роза Мира Даниила
-        Андреева — основные идеи`. После пуша вернуть CLAUDE.md:
-        `mv C:\Users\admin\CLAUDE.md.bak C:\Users\admin\CLAUDE.md`.
+- [x] E4. ОПУБЛИКОВАНО: точечный коммит (от imyavel) + push origin main
+        (`75061c1..e49195d`). Не через push.bat (в нём `pause` + `add -A` тянет
+        посторонние `descriptions_full.*`) — staged адресно: docs/, manifest.json,
+        descriptions.json, add_art_roza.md, .batch/roza/*.py. CLAUDE.md возвращён.
 
 ### Поля записи manifest (D1)
 ```json

@@ -32,3 +32,14 @@ manifest_redated.json
 push.bat
 
 SEO_HANDOFF.md
+
+# .batch/roza run-выхлоп — регенерируется драйверами (assemble/gloss_gen/roza_*.py); в репо не нужен
+.batch/roza/_logs/
+.batch/roza/batch.log
+.batch/roza/glossary.html
+.batch/roza/preview.html
+.batch/roza/vol_*.html
+.batch/roza/vol_*_notes.md
+
+# descriptions_full.* — отчёт-экспорт (html/json/pdf), «посторонний»; канон = descriptions.json
+/descriptions_full.*
