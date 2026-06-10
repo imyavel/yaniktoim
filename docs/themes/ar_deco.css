@@ -1,0 +1,146 @@
+/* ===========================================================================
+   Тема AR-DECO  (геометрический люкс)
+   Глубокий тёплый фон · золото · геометрический sans-заголовок верхним регистром
+   с широким трекингом · тонкие двойные линейки · симметрия · serif-тело.
+   Form-agnostic: весь контракт render.js. Системные шрифты.
+   =========================================================================== */
+:root{
+  --bg:#14110b; --paper:#1c1810; --ink:#ece2cc; --muted:#9c906f;
+  --accent:#c9a24b; --accent-soft:#e0c074; --rule:#4a3d24; --hl:#5a4a22;
+  --serif:"Iowan Old Style",Georgia,"Times New Roman",serif;
+  --geo:"Century Gothic","Futura","Twentieth Century",            /* deco geometric */
+        "Gill Sans","Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--serif); font-size:19px; line-height:1.72; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:760px; margin:0 auto; padding:2.6rem 1.6rem 4.5rem;}
+.wrap.wide{max-width:1000px;}
+
+header.breadcrumbs{font-family:var(--geo); font-size:.74rem; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--muted); text-align:center; margin-bottom:1.8rem; padding-bottom:.8rem; border-bottom:1px solid var(--rule);}
+header.breadcrumbs a{color:var(--accent); text-decoration:none;}
+header.breadcrumbs a:hover{color:var(--accent-soft);}
+header.breadcrumbs .sep{margin:0 .5rem; color:var(--rule);}
+
+img.cover{display:block; max-width:100%; height:auto; margin:0 auto 1.6rem; border:1px solid var(--accent);}
+
+h1#article-title{font-family:var(--geo); font-weight:700; font-size:1.95rem; line-height:1.3;
+  text-transform:uppercase; letter-spacing:.14em; color:var(--accent); text-align:center;
+  margin:1rem 0 .8rem; padding:.7rem 0; border-top:1px solid var(--accent); border-bottom:1px solid var(--accent);
+  box-shadow:0 -4px 0 -3px var(--accent), 0 4px 0 -3px var(--accent);}
+p.byline{font-family:var(--geo); font-size:.74rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--muted); text-align:center; margin:0 0 2rem;}
+p.byline a{color:var(--accent);}
+
+article{margin:0;}
+article p{margin:0 0 1.1rem; text-align:justify; hyphens:auto;}
+article p:first-of-type{margin-top:0;}
+article p.attribution{font-style:italic; color:var(--muted); text-align:center; margin:0 0 1.8rem;}
+article p.colophon{font-family:var(--geo); text-align:center; color:var(--muted); font-size:.74rem;
+  letter-spacing:.12em; text-transform:uppercase; margin:2.8rem 0 0; padding-top:1rem; border-top:1px solid var(--rule);}
+
+article h2,article h3{font-family:var(--geo); color:var(--accent); text-align:center; font-weight:700;
+  text-transform:uppercase; letter-spacing:.12em;}
+article h2{font-size:1.2rem; margin:2.8rem 0 1.1rem; padding-bottom:.7rem; border-bottom:1px solid var(--rule);}
+article h2::after{content:"◆"; display:block; color:var(--accent); font-size:.7rem; letter-spacing:0; margin-top:.5rem;}
+article h3{font-size:1rem; margin:2rem 0 .7rem;}
+article h2.subtitle{font-family:var(--serif); text-transform:none; letter-spacing:0; color:var(--muted);
+  font-style:italic; font-weight:400; font-size:1.15rem; border:none; margin:.4rem 0 1.6rem;}
+article h2.subtitle::after{display:none;}
+article .sec-sub{text-align:center;}  /* follow this theme's centered headings */
+article h2 .back-to-toc,article h3 .back-to-toc{font-family:var(--geo); text-decoration:none; font-size:.6em; color:var(--muted); margin-left:.6rem; letter-spacing:0;}
+article h2 .back-to-toc:hover,article h3 .back-to-toc:hover{color:var(--accent-soft);}
+
+details.article-toc{display:block; margin:1.8rem auto 2.4rem; max-width:30rem; background:var(--paper);
+  border-top:3px double var(--accent); border-bottom:3px double var(--accent); padding:1rem 1.6rem 1.2rem;}
+details.article-toc:first-child{margin-top:0;}
+details.article-toc summary{cursor:pointer; list-style:none; color:var(--accent); text-align:center;
+  font-family:var(--geo); font-size:.76rem; letter-spacing:.2em; text-transform:uppercase; font-weight:700;}
+details.article-toc summary::-webkit-details-marker{display:none;}
+details.article-toc ol{margin:.9rem 0 0; padding-left:1.8rem; font-size:.95rem;}
+details.article-toc ol li{margin:.32rem 0;}
+details.article-toc ol li::marker{color:var(--accent);}
+details.article-toc a{color:var(--ink); text-decoration:none;}
+details.article-toc a:hover{color:var(--accent-soft);}
+
+.poem{font-family:var(--serif); font-size:1.08rem; line-height:1.55; white-space:pre-wrap;
+  width:fit-content; max-width:80%; margin:1.9rem auto; color:#e6dcc4;}
+.poem .poem-title{display:block; font-family:var(--geo); font-weight:700; text-transform:uppercase; letter-spacing:.1em;
+  text-align:center; color:var(--accent); margin-bottom:.7rem; font-size:.95rem;}
+
+/* ЭКСПЕРИМЕНТ: блок центрирован/узкий, ТЕКСТ СПРАВА + правая золотая полоса (деко-асимметрия). */
+.epigraph,.epilogue,blockquote.q{font-style:italic; background:transparent; position:relative;
+  padding:.4rem 0 .4rem 1.3rem; margin:1.8rem auto; max-width:80%; text-align:right;
+  border-right:2px solid var(--accent); padding:.4rem 1.3rem .4rem 0;}
+.epigraph::before,.epilogue::before,blockquote.q::before{content:attr(data-label); display:block;
+  font-family:var(--geo); font-style:normal; font-size:.64rem; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--accent); text-align:right; margin-bottom:.6rem;}
+.epigraph::after,.epilogue::after,blockquote.q::after{content:none;}
+.epigraph .cite,.epilogue .cite,blockquote.q .cite{display:block; text-align:left; font-style:normal; color:var(--muted); font-size:.86rem; margin-top:.5rem;}
+.epigraph p,.epilogue p,blockquote.q p{text-align:right; text-indent:0;}
+
+ol.num{margin:1.3rem 0; padding-left:2.4rem;}
+ol.num li{margin-bottom:.8rem;}
+ol.num li::marker{color:var(--accent); font-weight:700;}
+ol.num li p{text-indent:0; text-align:justify;}
+
+.music-group{background:var(--paper); border-top:3px double var(--accent); border-bottom:1px solid var(--rule);
+  padding:1.9rem 1.4rem .8rem; margin:1.8rem auto; max-width:80%; position:relative; text-align:center;}
+.music-group::before{content:attr(data-label); position:absolute; top:.6rem; left:0; right:0;
+  font-family:var(--geo); font-size:.64rem; letter-spacing:.24em; text-transform:uppercase; color:var(--muted);}
+.music-group.has-heading::before{display:none;}
+.music-group>details.music,.music-group>.music-noplayer{margin:0 0 .3rem; background:transparent; border:none;}
+.music-group>:last-child{margin-bottom:0;}
+.music-group .label{display:none;}
+details.music summary,.music-noplayer .summary{padding:.4rem 0; cursor:pointer; list-style:none; font-family:var(--geo); font-size:.84rem; letter-spacing:.04em;}
+details.music summary::-webkit-details-marker{display:none;}
+.music-noplayer{background:transparent;}
+details.music summary .title,.music-noplayer .summary .title{color:var(--accent); font-style:normal;}
+details.music summary .caret{color:var(--accent); margin-left:.4rem; display:inline-block; transition:transform .15s;}
+details.music[open] summary .caret{transform:rotate(90deg);}
+details.music summary .ext{color:var(--muted); text-decoration:none; margin-left:.6rem; font-size:.9em;}
+details.music summary .ext:hover{color:var(--accent-soft);}
+details.music .player{padding:.5rem 0 .6rem;}
+details.music .player iframe{display:block; width:100%; aspect-ratio:16/9; border:0;}
+
+a{color:var(--accent);}
+a:hover{color:var(--accent-soft);}
+em{font-style:italic;} strong{font-weight:700; color:var(--accent-soft);}
+a.internal{color:var(--accent); text-decoration:none; border-bottom:1px dotted var(--accent);}
+a.internal:hover{border-bottom-style:solid;}
+a.zohar{color:var(--accent-soft); text-decoration:none; border-bottom:1px dotted var(--accent-soft);}
+a.zohar:hover{border-bottom-style:solid;}
+a.broken{color:#d98; text-decoration:line-through dotted;}
+
+.sb{font-variant:small-caps; letter-spacing:.06em; font-weight:600; color:var(--accent-soft);}
+
+sup a{text-decoration:none; color:var(--accent);}
+sup a:hover{text-decoration:underline;}
+ol.notes{margin:0; padding-left:1.7rem; font-size:.9rem; color:var(--muted);}
+ol.notes li{margin-bottom:.55rem;}
+ol.notes a{color:var(--muted); text-decoration:underline;}
+ol.notes a.backref{text-decoration:none; margin-right:.3rem; color:var(--accent);}
+ol.notes li.anon{list-style:none; margin-left:-1.7rem;}
+ol.notes li.anon:first-of-type{margin-top:.85rem;}
+ol.notes li:target,sup:target a{background:var(--hl);}
+
+.footnote-bubble{position:absolute; z-index:1000; max-width:28rem; background:var(--paper); color:var(--ink);
+  border:1px solid var(--accent); box-shadow:0 6px 22px rgba(0,0,0,.5);
+  padding:.7rem .9rem; font-size:.88rem; line-height:1.5; opacity:0;
+  transform:translateY(4px) scale(.96); transform-origin:bottom center; pointer-events:none;
+  transition:opacity .15s ease, transform .15s ease;}
+.footnote-bubble.show{opacity:1; transform:translateY(0) scale(1); pointer-events:auto;}
+.footnote-bubble.below{transform-origin:top center;}
+.footnote-bubble::after{content:""; position:absolute; left:50%; margin-left:-7px; width:0; height:0;
+  border:7px solid transparent; border-top-color:var(--accent); bottom:-14px;}
+.footnote-bubble.below::after{bottom:auto; top:-14px; border-top-color:transparent; border-bottom-color:var(--accent);}
+.footnote-bubble a{color:var(--accent);}
+
+nav.article-nav{display:flex; justify-content:space-between; gap:1rem; margin-top:2.6rem;
+  padding-top:1rem; border-top:3px double var(--accent); font-family:var(--geo); font-size:.78rem; letter-spacing:.06em;}
+nav.article-nav a{text-decoration:none;}
+footer.footer{margin-top:3rem; padding-top:1rem; border-top:1px solid var(--rule);
+  color:var(--muted); font-family:var(--geo); font-size:.72rem; letter-spacing:.08em; text-align:center;}
+footer.footer p{margin:.4rem 0; line-height:1.6;}
+footer.footer a{color:var(--muted); text-decoration:underline;}

@@ -60,6 +60,8 @@ def collect(docs: Path) -> list[tuple[str, str]]:
             continue
         if parts[-1] in EXCLUDE_FILES:
             continue
+        if parts[-1].endswith(".view.html"):
+            continue  # ZML-предпросмотр (noindex, интерим) — не в sitemap
         rel = "/".join(parts)
         lastmod = dt.date.fromtimestamp(p.stat().st_mtime).isoformat()
         items.append((rel, lastmod))
