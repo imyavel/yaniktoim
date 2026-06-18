@@ -99,7 +99,8 @@ details.music[open] .trk-play{transform:rotate(90deg);}
    Сидит в одной строке с крошками (крошки слева, управление справа).
    Здесь только структура; типографика/цвета — у темы (.viewbar в THEME_CONTRACT). */
 header.breadcrumbs{display:flex;gap:1.2em;row-gap:.3em;align-items:baseline;flex-wrap:wrap;}
-header.breadcrumbs .crumbs{flex:1 1 auto;}
+/* крошки ВСЕГДА слева — перебиваем темы, центрирующие шапку (B_manuscript/ar_deco). */
+header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar{display:flex;gap:1.1em;row-gap:.3em;align-items:center;flex-wrap:wrap;
   font-size:.78rem;margin:0 0 0 auto;}
 .viewbar label{display:inline-flex;gap:.35em;align-items:center;white-space:nowrap;}
