@@ -82,6 +82,44 @@
 </script>
 </footer>
 </div>
+<script>
+/* Счётчик «Песни Ступеней» на главной = АКТУАЛЬНОЕ число плиток в ZML-версии
+   (docs/songs/index.zml), а не статичная подпись. Считаем валидные строки блока
+   [shir] (как рендер: обязательны ≥2 поля — ytID + Композиция). Так число всегда
+   соответствует реальному содержимому, без ручного обновления. */
+(function () {
+  var link = document.querySelector('.toc a[href="songs/index.html"]');
+  if (!link) return;
+  var meta = link.parentNode && link.parentNode.querySelector(".meta");
+  if (!meta) return;
+  function ruPlural(n, one, few, many) {
+    var a = n % 10, b = n % 100;
+    if (a === 1 && b !== 11) return one;
+    if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return few;
+    return many;
+  }
+  function countShir(zml) {
+    var m = zml.match(/\[shir\b[^\]]*\]([\s\S]*?)\[\/shir\]/);
+    if (!m) return 0;
+    var lines = m[1].split("\n"), c = 0;
+    for (var i = 0; i < lines.length; i++) {
+      var ln = lines[i].trim();
+      if (!ln || ln.charAt(0) === "#") continue;        // пусто/комментарий
+      var f = ln.split("|");
+      if (f.length >= 2 && f[0].trim() && f[1].trim()) c++;
+    }
+    return c;
+  }
+  fetch("songs/index.zml", { cache: "no-cache" })
+    .then(function (r) { return r.ok ? r.text() : null; })
+    .then(function (zml) {
+      if (!zml) return;
+      var n = countShir(zml);
+      if (n > 0) meta.textContent = n + " " + ruPlural(n, "композиция", "композиции", "композиций");
+    })
+    .catch(function () {});
+})();
+</script>
 <script src="ya-auth.js"></script>
 <script>(function(){var b=document.getElementById("ya-login");if(b&&window.YaAuth)YaAuth.renderAuthInto(b);})();</script>
 </body>

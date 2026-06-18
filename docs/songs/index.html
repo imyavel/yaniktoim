@@ -3,6 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+/* Ф8(d) — редирект-шим спец-страницы «Песнь Ступеней» (аналог ya-switch.js для статей).
+   forced_views.json["songs"] (его ставит правка через ya-songs.js → Worker) или общий
+   default_view решают, показывать ли сразу ZML-вид (index.view.html). Гард ?orig=1
+   (приход по «Оригинал» из вью) — не редиректить. Раньше песни редиректа не имели вовсе. */
+(function () {
+  "use strict";
+  if (/[?&]orig=1\b/.test(location.search || "")) return;     // пришли по «Оригинал»
+  var WORKER = "https://yaniktoim-auth.imyavel.workers.dev";
+  var viewUrl = "index.view.html";
+  function session() { try { return JSON.parse(localStorage.getItem("ya_session") || "null"); } catch (e) { return null; } }
+  function byDefault() {
+    var s = session();
+    if (s && s.token) {
+      fetch(WORKER + "/api/settings", { headers: { Authorization: "Bearer " + s.token } })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (c) { if (c && c.default_view === "new") location.replace(viewUrl); })
+        .catch(function () {});
+    } else {
+      fetch("../config/display.json", { cache: "no-cache" })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (c) { if (c && c.default_view === "new") location.replace(viewUrl); })
+        .catch(function () {});
+    }
+  }
+  fetch("../config/forced_views.json", { cache: "no-cache" })
+    .then(function (r) { return r.ok ? r.json() : {}; })
+    .then(function (f) {
+      var v = f && f.songs;
+      if (v === "zml") { location.replace(viewUrl); return; }
+      if (v === "html") return;
+      byDefault();
+    })
+    .catch(byDefault);
+})();
+</script>
 <title>Песнь Ступеней — Путь Восходящей Звезды</title>
 <meta name="description" content="Песнь Ступеней — вся музыка корпуса «Путь Восходящей Звезды»: 220 композиций со ссылками на статьи.">
 <meta property="og:title" content="Песнь Ступеней">

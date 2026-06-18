@@ -88,7 +88,7 @@
         return import(modUrl("ze-core.js")).then(function (mod) {
           mod.mountZmlEditor({
             label: "Правка ZML · Песнь Ступеней",
-            initialZml: zml,
+            initialZml: ensureViewZml(zml),
             renderView: renderView,
             save: saveSongs,
             savedPrimaryLabel: "На страницу",
@@ -100,6 +100,23 @@
         btn.disabled = false;
         alert("Не удалось открыть редактор: " + (e.message || e));
       });
+  }
+
+  // Ф8(d): правка «Песни Ступеней» делает её ZML-приоритетной — при открытии в
+  // frontmatter дописывается `view: zml` (если строки `view:` ещё нет; видна в
+  // textarea). На сайт это попадает по «Сохранить»: Worker (page:"songs") отражает
+  // `view:` в docs/config/forced_views.json под ключом "songs", а шим в
+  // songs/index.html по этому ключу редиректит на index.view.html. Оператор может
+  // удалить строку (вернётся к общему дефолту) или поставить `view: html`. Идентично
+  // ya-edit.js (статьи). Вход CRLF→LF (как ze-core baseline), иначе `^---\n` не сматчит.
+  function ensureViewZml(zml) {
+    var text = String(zml == null ? "" : zml).replace(/\r\n/g, "\n");
+    var m = /^---\n([\s\S]*?)\n---\n?/.exec(text);
+    if (!m) return "---\nview: zml\n---\n" + text.replace(/^\n+/, "");
+    var inner = m[1];
+    if (/^[ \t]*view[ \t]*:/m.test(inner)) return text;
+    inner = inner.replace(/\s+$/, "") + "\nview: zml";
+    return "---\n" + inner + "\n---\n" + text.slice(m[0].length);
   }
 
   function saveSongs(zml, html) {

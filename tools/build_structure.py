@@ -35,11 +35,49 @@ SECTION_NAMES = {
     "other": "Без категории",
 }
 # Спец-страница (не обычный раздел): своя плитка на главной, не редактируется как
-# раздел. href/meta фиксированы; порядок — в самом конце списка главной.
-SPECIALS = [
-    {"slug": "songs", "name": "Песнь Ступеней",
-     "href": "songs/index.html", "meta": "220 композиций"},
-]
+# раздел. href фиксирован; meta («N композиций») СЧИТАЕТСЯ из реального числа плиток
+# в ZML-версии (docs/songs/index.zml), а не хардкодится — синхронно с динамическим
+# скриптом главной (template_index.html). NB: build_structure.py перезатирает весь
+# structure.json, поэтому в live-режиме его НЕ запускают (структуру правит UI); meta
+# здесь — корректный сид/фолбэк для no-JS.
+SONGS_ZML = ROOT / "docs" / "songs" / "index.zml"
+
+
+def ru_plural(n, one, few, many):
+    a, b = n % 10, n % 100
+    if a == 1 and b != 11:
+        return one
+    if 2 <= a <= 4 and not (12 <= b <= 14):
+        return few
+    return many
+
+
+def count_shir_tiles(zml_path):
+    """Число валидных плиток в блоке [shir] (как рендер: ≥2 поля — ytID+Композиция)."""
+    import re
+    try:
+        zml = zml_path.read_text(encoding="utf-8")
+    except OSError:
+        return 0
+    m = re.search(r"\[shir\b[^\]]*\]([\s\S]*?)\[/shir\]", zml)
+    if not m:
+        return 0
+    n = 0
+    for ln in m.group(1).split("\n"):
+        ln = ln.strip()
+        if not ln or ln.startswith("#"):
+            continue
+        f = ln.split("|")
+        if len(f) >= 2 and f[0].strip() and f[1].strip():
+            n += 1
+    return n
+
+
+def specials():
+    n = count_shir_tiles(SONGS_ZML)
+    meta = f"{n} {ru_plural(n, 'композиция', 'композиции', 'композиций')}" if n else "220 композиций"
+    return [{"slug": "songs", "name": "Песнь Ступеней",
+             "href": "songs/index.html", "meta": meta}]
 
 
 def num_overrides():
@@ -79,7 +117,7 @@ def build():
     # стабильный порядок в файле: раздел (по ORDER), затем order
     sec_rank = {s: i for i, s in enumerate(ORDER)}
     articles.sort(key=lambda a: (sec_rank.get(a["section"], 999), a["order"], a["art"]))
-    return {"version": 1, "sections": sections, "specials": SPECIALS, "articles": articles}
+    return {"version": 1, "sections": sections, "specials": specials(), "articles": articles}
 
 
 def main():

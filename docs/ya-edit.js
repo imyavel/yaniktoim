@@ -20,11 +20,20 @@
   var modUrl = function (p) { return new URL(p, SELF_SRC).href; };
   var body = document.body;
   if (!body || !body.classList.contains("article-page")) return;
-  var btn = document.querySelector(".viewbar .vb-edit");
-  if (!btn) return;
 
   var ART = body.getAttribute("data-art") || "";
   var WORKER = (body.getAttribute("data-worker") || "").replace(/\/+$/, "");
+
+  // Ф10: prev/next в подвале ZML-вида пересчитываем из ЖИВОГО structure.json — для
+  // ВСЕХ читателей (запускаем до гейта прав). Подвал запекается на сборке из manifest
+  // (render.js::siblings), но структуру правят на сайте (вставка/удаление/перемещение/
+  // reorder), и manifest при этом не меняется → запечённые ссылки устаревают. Здесь
+  // берём раздел+порядок из structure.json (только не-archived), заголовки — из
+  // manifest (фолбэк: запись structure / art-id). Касается только .view.html.
+  refreshSiblings();
+
+  var btn = document.querySelector(".viewbar .vb-edit");
+  if (!btn) return;
 
   function getSession() {
     try { return JSON.parse(localStorage.getItem("ya_session") || "null"); }
@@ -120,6 +129,39 @@
     if (/^[ \t]*view[ \t]*:/m.test(inner)) return text;   // уже задано — уважаем выбор
     inner = inner.replace(/\s+$/, "") + "\nview: zml";
     return "---\n" + inner + "\n---\n" + text.slice(m[0].length);
+  }
+
+  // Пересчёт prev/next из живого structure.json (см. вызов выше). Read-only, без прав.
+  function refreshSiblings() {
+    var navPrev = document.querySelector(".article-nav .prev");
+    var navNext = document.querySelector(".article-nav .next");
+    if (!navPrev && !navNext) return;
+    if (!ART) return;
+    Promise.all([
+      fetch("../config/structure.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }),
+      fetch("../editor/data/manifest.json").then(function (r) { return r.ok ? r.json() : null; })
+    ]).then(function (a) {
+      var st = a[0]; if (!st || !Array.isArray(st.articles)) return;
+      var titleByArt = {};
+      (a[1] || []).forEach(function (r) { titleByArt[r.art] = r.title || ""; });
+      var me = st.articles.find(function (x) { return x.art === ART && x.status !== "archived"; });
+      if (!me) return;                       // статья архивирована/не в structure — не трогаем запечённое
+      var sibs = st.articles
+        .filter(function (x) { return x.section === me.section && x.status !== "archived"; })
+        .sort(function (x, y) { return (x.order - y.order) || (x.art < y.art ? -1 : 1); });
+      var idx = sibs.findIndex(function (x) { return x.art === ART; });
+      if (idx < 0) return;
+      function esc(s) { return String(s).replace(/[&<>]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]; }); }
+      function ttl(rec) { return titleByArt[rec.art] || rec.title || rec.art; }
+      function fill(span, rec, dir) {
+        if (!span) return;
+        if (!rec) { span.innerHTML = ""; return; }
+        var t = esc(ttl(rec));
+        span.innerHTML = '<a href="' + rec.art + '.view.html">' + (dir < 0 ? "← " + t : t + " →") + "</a>";
+      }
+      fill(navPrev, idx > 0 ? sibs[idx - 1] : null, -1);
+      fill(navNext, idx < sibs.length - 1 ? sibs[idx + 1] : null, 1);
+    }).catch(function () { /* офлайн/ошибка → остаётся запечённый prev/next */ });
   }
 
   function saveToWorker(zml, html, extras) {
