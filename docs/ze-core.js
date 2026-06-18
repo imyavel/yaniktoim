@@ -79,6 +79,7 @@ export function mountZmlEditor(opts) {
     try { html = opts.renderView(ta.value); }
     catch (e) { status("Ошибка рендера: " + (e.message || e), true); return; }
     html = swapPreviewImage(html); // невыложённую картинку показываем как data:-URL
+    html = injectPreviewNav(html); // якоря #… скроллят ВНУТРИ превью, не уводят на боевой файл
     iframe.srcdoc = html;          // srcdoc → относительные ../themes, ../img от родителя
     iframe.classList.remove("ze-hidden");
     ta.classList.add("ze-hidden");
@@ -252,6 +253,22 @@ export function mountZmlEditor(opts) {
   }
 
   return { close: close };
+}
+
+// В srcdoc-превью базовый URL = URL родительской (боевой) страницы, поэтому ссылка
+// «#foo» резолвится в «<реальный .view.html>#foo» и КЛИК уводит iframe на боевой
+// (старый) файл — оглавление/сноски/«↑ наверх» показывали бы СТАРУЮ версию вместо
+// правки. Вшиваем в превью перехватчик: клик по a[href^="#"] → скролл ВНУТРИ превью.
+var PREVIEW_NAV_SCRIPT =
+  '<script>(function(){document.addEventListener("click",function(e){' +
+  'var a=e.target.closest?e.target.closest(\'a[href^="#"]\'):null;if(!a)return;' +
+  'e.preventDefault();var id=decodeURIComponent((a.getAttribute("href")||"").slice(1));' +
+  'var t=id?document.getElementById(id):null;' +
+  'if(t)t.scrollIntoView();else window.scrollTo(0,0);},true);})();<\/script>';
+function injectPreviewNav(html) {
+  return html.indexOf("</body>") >= 0
+    ? html.replace("</body>", PREVIEW_NAV_SCRIPT + "</body>")
+    : html + PREVIEW_NAV_SCRIPT;
 }
 
 // ── frontmatter image: чтение/установка/удаление строки (чистые функции) ───────
