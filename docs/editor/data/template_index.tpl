@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="8nlKgiZDC4MobktGqgJ3Jm8HYywJA9F0SDy-ZAMNUhw">
 <title>Путь Восходящей Звезды — Элиягу Бар Малей</title>
-<meta name="description" content="Корпус произведений Элиягу Бар Малей. 352 статьи, 7 разделов.">
+<meta name="description" content="Корпус произведений Элиягу Бар Малей. {{TOTAL_FULL}}, {{SECTIONS_FULL}}.">
 <meta property="og:title" content="Путь Восходящей Звезды">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
-<meta property="og:description" content="Корпус произведений Элиягу Бар Малей. 352 статьи.">
+<meta property="og:description" content="Корпус произведений Элиягу Бар Малей. {{TOTAL_FULL}}.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="apple-touch-icon" href="img/favicon.png">
-<link rel="stylesheet" href="style.css?v=20260618-01">
+<link rel="stylesheet" href="style.css?v={{CSS_VERSION}}">
 <script data-goatcounter="https://yaniktoim.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
 <link rel="canonical" href="https://imyavel.github.io/yaniktoim/">
@@ -21,7 +21,7 @@
 <meta property="og:site_name" content="Путь Восходящей Звезды">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Путь Восходящей Звезды — Элиягу Бар Малей">
-<meta name="twitter:description" content="Корпус произведений Элиягу Бар Малей. 352 статьи, 7 разделов.">
+<meta name="twitter:description" content="Корпус произведений Элиягу Бар Малей. {{TOTAL_FULL}}, {{SECTIONS_FULL}}.">
 </head>
 <body>
 <div class="wrap">
@@ -40,22 +40,15 @@
 </div>
 </div>
 <h1>Путь Восходящей Звезды</h1>
-<p class="meta">Корпус произведений <a href="https://proza.ru/avtor/agent017" rel="author">Элиягу Бар Малей</a>. 352 статьи в 7 разделах.</p>
+<p class="meta">Корпус произведений <a href="https://proza.ru/avtor/agent017" rel="author">Элиягу Бар Малей</a>. {{TOTAL_FULL}} в {{SECTIONS_LOC}}.</p>
 <ul class="toc">
-<li><a href="best/index.html">Избранное</a><span class="meta">32 статьи</span></li>
-<li><a href="dreamon/index.html">Мечтай!!</a><span class="meta">35 статей</span></li>
-<li><a href="cyberson/index.html">Киберсон</a><span class="meta">21 статья</span></li>
-<li><a href="dabudet/index.html">Да будет Свет!</a><span class="meta">52 статьи</span></li>
-<li><a href="confront/index.html">Конфронтология Духа</a><span class="meta">100 статей</span></li>
-<li><a href="shoshana/index.html">Роза Среди Шипов</a><span class="meta">84 статьи</span></li>
-<li><a href="other/index.html">Без категории</a><span class="meta">28 статей</span></li>
-<li><a href="songs/index.html">Песнь Ступеней</a><span class="meta">220 композиций</span></li>
+{{SECTIONS_LIST}}
 </ul>
 
 <footer class="footer">
 <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — свободное копирование, распространение и адаптация при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
-<p class="build-date">Последняя сборка: <time datetime="2026-06-18">2026-06-18</time> · <a href="privacy.html">Приватность</a></p>
+<p class="build-date">Последняя сборка: <time datetime="{{BUILD_DATE}}">{{BUILD_DATE}}</time> · <a href="privacy.html">Приватность</a></p>
 <p class="stats-inline" style="display:flex;justify-content:space-between;align-items:baseline;gap:1em;flex-wrap:wrap;"><span>Сегодня <span class="num" id="gc-today">—</span><span class="sep">·</span>за 30 дней <span class="num" id="gc-month">—</span><span class="sep">·</span>всего <span class="num" id="gc-total">—</span> просмотров</span><span id="ya-login" style="opacity:.6;font-size:.82rem;"></span></p>
 <script>
 (function(){

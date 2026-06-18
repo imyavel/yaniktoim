@@ -1564,3 +1564,102 @@ export function renderArticleHtml(ctx) {
   html = replaceAllLiteral(html, "{{LAST_EDIT}}", lastEdit);
   return html;
 }
+
+// ════════════════════════════════════════════════════════════════════════════
+// Ф10: главная + страницы разделов из structure.json (browser + Node — один код).
+// Заголовки/даты статей берём из manifest (join по art) → нет дрейфа названий.
+// ════════════════════════════════════════════════════════════════════════════
+
+// Русское согласование числительного: one=«статья», few=«статьи», many=«статей».
+function ruPlural(n, one, few, many) {
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return one;
+  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+  return many;
+}
+function fmtDateRu(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || "");
+  return m ? `${m[3]}.${m[2]}.${m[1]}` : (iso || "");
+}
+function activeSections(structure) {
+  return (structure.sections || [])
+    .filter((s) => !s.archived)
+    .slice()
+    .sort((a, b) => a.order - b.order);
+}
+
+// ctx: { structure, manifestByArt, template, buildDate, cssVersion? }
+export function renderIndexHtml(ctx) {
+  const { structure, template, buildDate } = ctx;
+  const cssV = ctx.cssVersion || CSS_VERSION;
+  const secs = activeSections(structure);
+  const live = (structure.articles || []).filter((a) => a.status !== "archived");
+  const counts = {};
+  for (const a of live) counts[a.section] = (counts[a.section] || 0) + 1;
+  const total = live.length;
+  const sc = secs.length;
+  const lis = [];
+  for (const s of secs) {
+    const c = counts[s.slug] || 0;
+    lis.push(`<li><a href="${s.slug}/index.html">${htmlEscape(s.name)}</a>` +
+      `<span class="meta">${c} ${ruPlural(c, "статья", "статьи", "статей")}</span></li>`);
+  }
+  for (const sp of (structure.specials || [])) {
+    lis.push(`<li><a href="${sp.href}">${htmlEscape(sp.name)}</a>` +
+      `<span class="meta">${htmlEscape(sp.meta)}</span></li>`);
+  }
+  let html = template;
+  html = replaceAllLiteral(html, "{{TOTAL_FULL}}", `${total} ${ruPlural(total, "статья", "статьи", "статей")}`);
+  html = replaceAllLiteral(html, "{{SECTIONS_FULL}}", `${sc} ${ruPlural(sc, "раздел", "раздела", "разделов")}`);
+  html = replaceAllLiteral(html, "{{SECTIONS_LOC}}", `${sc} ${(sc % 10 === 1 && sc % 100 !== 11) ? "разделе" : "разделах"}`);
+  html = replaceAllLiteral(html, "{{SECTIONS_LIST}}", lis.join("\n"));
+  html = replaceAllLiteral(html, "{{BUILD_DATE}}", buildDate);
+  html = replaceAllLiteral(html, "{{CSS_VERSION}}", cssV);
+  return html;
+}
+
+// ctx: { slug, structure, manifestByArt, template, buildDate, cssVersion? }
+export function renderSectionIndexHtml(ctx) {
+  const { slug, structure, manifestByArt, template, buildDate } = ctx;
+  const cssV = ctx.cssVersion || CSS_VERSION;
+  const secs = activeSections(structure);
+  const pos = secs.findIndex((s) => s.slug === slug);
+  if (pos < 0) return null;
+  const sec = secs[pos];
+  const arts = (structure.articles || [])
+    .filter((a) => a.section === slug && a.status !== "archived")
+    .sort((a, b) => (a.order - b.order) || (a.art < b.art ? -1 : 1));
+  const lis = arts.map((a) => {
+    const rec = manifestByArt[a.art] || {};
+    const title = htmlEscape(rec.title || a.art);
+    const date = fmtDateRu(rec.date_chosen || rec.date || "");
+    return `<li><span class="num">#${htmlEscape(a.num || a.art)}</span>` +
+      `<a href="../art/${a.art}.html">${title}</a>` +
+      `<span class="meta">${date}</span></li>`;
+  });
+  const parts = [];
+  if (pos > 0) {
+    const p = secs[pos - 1];
+    parts.push(`<a class="prev" href="../${p.slug}/index.html">` +
+      `<span class="dir">← Предыдущий раздел</span>` +
+      `<span class="title">${htmlEscape(p.name)}</span></a>`);
+  }
+  if (pos < secs.length - 1) {
+    const n = secs[pos + 1];
+    parts.push(`<a class="next" href="../${n.slug}/index.html">` +
+      `<span class="dir">Следующий раздел →</span>` +
+      `<span class="title">${htmlEscape(n.name)}</span></a>`);
+  }
+  const nav = parts.length ? `<nav class="section-nav">\n${parts.join("\n")}\n</nav>` : "";
+  const count = arts.length;
+  let html = template;
+  html = replaceAllLiteral(html, "{{SECTION_NAME}}", htmlEscape(sec.name));
+  html = replaceAllLiteral(html, "{{SLUG}}", slug);
+  html = replaceAllLiteral(html, "{{COUNT}}", String(count));
+  html = replaceAllLiteral(html, "{{COUNT_FULL}}", `${count} ${ruPlural(count, "статья", "статьи", "статей")}`);
+  html = replaceAllLiteral(html, "{{ARTICLES_LIST}}", lis.join("\n"));
+  html = replaceAllLiteral(html, "{{SECTION_NAV}}", nav);
+  html = replaceAllLiteral(html, "{{BUILD_DATE}}", buildDate);
+  html = replaceAllLiteral(html, "{{CSS_VERSION}}", cssV);
+  return html;
+}
