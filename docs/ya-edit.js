@@ -79,6 +79,7 @@
             initialZml: zml,
             renderView: renderView,
             save: saveToWorker,
+            image: { artId: ART },     // Ф8(b): блок «Иллюстрация» (image: + бинарь)
             savedPrimaryLabel: "На статью",
             onClosed: function () { btn.disabled = false; }
           });
@@ -90,12 +91,15 @@
       });
   }
 
-  function saveToWorker(zml, html) {
+  function saveToWorker(zml, html, extras) {
     if (!WORKER) return Promise.reject(new Error("не задан адрес Worker (data-worker)"));
+    var payload = { art: ART, zml: zml, html: html, branch: "main" };
+    // Ф8(b): если выбрана новая/заменённая картинка — кладём её бинарь в тот же коммит.
+    if (extras && extras.image) payload.image = { name: extras.image.name, content: extras.image.content };
     return fetch(WORKER + "/api/save", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: "Bearer " + sess.token },
-      body: JSON.stringify({ art: ART, zml: zml, html: html, branch: "main" })
+      body: JSON.stringify(payload)
     })
       .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
       .then(function (res) { if (!res.ok || !res.d.ok) throw new Error((res.d && res.d.error) || "HTTP-ошибка"); });

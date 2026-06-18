@@ -32,6 +32,12 @@ export function mountZmlEditor(opts) {
   // иначе CRLF-исходник всегда «грязный» (ложное «несохранённые изменения»).
   const baselineGet = () => baseline;
   let baseline = (opts.initialZml || "").replace(/\r\n/g, "\n");
+  // Ф8(b): иллюстрация. imgOpt={artId} включает блок «Иллюстрация»; pendingImage —
+  // выбранный, но ещё не сохранённый файл {name, mime, b64}. Источник истины «какая
+  // картинка» — строка `image:` во frontmatter textarea (её и правят кнопки блока);
+  // байты уходят в save() только при загрузке/замене (удаление = отвязка строки).
+  const imgOpt = opts.image && typeof opts.image === "object" ? opts.image : null;
+  let pendingImage = null;
 
   const ui = document.createElement("div");
   ui.id = "ze-root";
@@ -56,6 +62,7 @@ export function mountZmlEditor(opts) {
   const iframe = ui.querySelector(".ze-prev");
   ta.value = baseline;
   ta.focus();
+  if (imgOpt) setupImageBar();
 
   ui.addEventListener("click", function (ev) {
     const b = ev.target.closest("[data-act]"); if (!b) return;
@@ -71,6 +78,7 @@ export function mountZmlEditor(opts) {
     let html;
     try { html = opts.renderView(ta.value); }
     catch (e) { status("Ошибка рендера: " + (e.message || e), true); return; }
+    html = swapPreviewImage(html); // невыложённую картинку показываем как data:-URL
     iframe.srcdoc = html;          // srcdoc → относительные ../themes, ../img от родителя
     iframe.classList.remove("ze-hidden");
     ta.classList.add("ze-hidden");
@@ -92,21 +100,26 @@ export function mountZmlEditor(opts) {
     status("Сохранение…");
     setBusy(true);
     Promise.resolve()
-      .then(function () { return opts.save(zml, html); })
+      .then(function () {
+        return opts.save(zml, html,
+          { image: pendingImage ? { name: pendingImage.name, content: pendingImage.b64 } : null });
+      })
       .then(function () {
         setBusy(false);
         baseline = zml;            // сохранено → нет «несохранённых правок»
+        pendingImage = null;       // картинка закоммичена
         savedPopup();
       })
       .catch(function (e) { setBusy(false); status("Сохранение не удалось: " + (e.message || e), true); });
   }
 
+  function isDirty() { return ta.value !== baselineGet() || !!pendingImage; }
   function doCancel() {
-    if (ta.value !== baselineGet()) { confirmModal("Отменить несохранённые изменения?", close); return; }
+    if (isDirty()) { confirmModal("Отменить несохранённые изменения?", close); return; }
     close();
   }
   function escClose(ev) {
-    if (ev.key === "Escape" && ui.parentNode && ta.value === baselineGet()) close();
+    if (ev.key === "Escape" && ui.parentNode && !isDirty()) close();
   }
 
   function close() {
@@ -175,7 +188,110 @@ export function mountZmlEditor(opts) {
     s.classList.toggle("ze-err", !!err);
   }
 
+  // ── Ф8(b) блок «Иллюстрация» (монтируется только при opts.image) ─────────────
+  function setupImageBar() {
+    const bar = document.createElement("div");
+    bar.className = "ze-imgbar";
+    bar.innerHTML =
+      '<span class="ze-imglabel">Иллюстрация:</span>' +
+      '<span class="ze-imgname"></span>' +
+      '<span class="ze-spacer"></span>' +
+      '<button type="button" class="ze-btn ze-imgpick">Загрузить…</button>' +
+      '<button type="button" class="ze-btn ze-imgdel ze-hidden">Удалить</button>' +
+      '<input type="file" class="ze-imgfile ze-hidden" accept="image/jpeg,image/png,image/gif,image/webp">';
+    ui.querySelector(".ze-bar").insertAdjacentElement("afterend", bar);
+    const nameEl = bar.querySelector(".ze-imgname");
+    const pickBtn = bar.querySelector(".ze-imgpick");
+    const delBtn = bar.querySelector(".ze-imgdel");
+    const fileInp = bar.querySelector(".ze-imgfile");
+
+    function refresh() {
+      const cur = getFmImage(ta.value);
+      nameEl.textContent = cur ? (cur + (pendingImage ? "  (новая — не сохранена)" : "")) : "— нет —";
+      delBtn.classList.toggle("ze-hidden", !cur);
+      pickBtn.textContent = cur ? "Заменить…" : "Загрузить…";
+    }
+    refresh();
+
+    pickBtn.addEventListener("click", function () { fileInp.click(); });
+    fileInp.addEventListener("change", function () {
+      const f = fileInp.files && fileInp.files[0];
+      fileInp.value = "";                 // позволить повторно выбрать тот же файл
+      if (!f) return;
+      const ext = pickExt(f);
+      if (!ext) { status("Формат не поддержан (нужно jpg/png/gif/webp).", true); return; }
+      if (f.size > 8 * 1024 * 1024) { status("Файл больше 8 МБ — слишком крупно для коммита.", true); return; }
+      const reader = new FileReader();
+      reader.onerror = function () { status("Не удалось прочитать файл.", true); };
+      reader.onload = function () {
+        const res = String(reader.result || "");
+        const b64 = res.slice(res.indexOf(",") + 1);
+        if (!b64) { status("Пустой файл.", true); return; }
+        const name = (imgOpt.artId || "image") + "." + ext;
+        pendingImage = { name: name, mime: mimeOf(ext), b64: b64 };
+        ta.value = setFmImage(ta.value, name);   // прописать строку image: во frontmatter
+        refresh();
+        status("Картинка выбрана: " + name + ". «Просмотр» покажет её, «Сохранить» — выложит.");
+      };
+      reader.readAsDataURL(f);
+    });
+    delBtn.addEventListener("click", function () {
+      ta.value = removeFmImage(ta.value);
+      pendingImage = null;
+      refresh();
+      status("Иллюстрация отвязана (файл в репозитории остаётся — «рукописи не горят»).");
+    });
+  }
+
+  // невыложённую картинку рендер выдаёт как src="../img/<name>" (файла ещё нет) →
+  // в превью подменяем на data:-URL выбранных байтов.
+  function swapPreviewImage(html) {
+    if (!pendingImage) return html;
+    const dataUrl = "data:" + pendingImage.mime + ";base64," + pendingImage.b64;
+    return html.split('"../img/' + pendingImage.name + '"').join('"' + dataUrl + '"');
+  }
+
   return { close: close };
+}
+
+// ── frontmatter image: чтение/установка/удаление строки (чистые функции) ───────
+function fmBounds(text) {
+  const m = /^---\n([\s\S]*?)\n---\n?/.exec(text);
+  return m ? { inner: m[1], end: m[0].length } : null;
+}
+function getFmImage(text) {
+  const b = fmBounds(text); if (!b) return "";
+  const lm = /^[ \t]*image[ \t]*:[ \t]*(.*?)[ \t]*$/m.exec(b.inner);
+  if (!lm) return "";
+  let v = lm[1].trim();
+  if ((v[0] === '"' && v.slice(-1) === '"') || (v[0] === "'" && v.slice(-1) === "'")) v = v.slice(1, -1);
+  return v;
+}
+function setFmImage(text, name) {
+  const b = fmBounds(text);
+  if (!b) return "---\nimage: " + name + "\n---\n" + text.replace(/^\n+/, "");
+  let inner = b.inner;
+  if (/^[ \t]*image[ \t]*:.*$/m.test(inner)) inner = inner.replace(/^[ \t]*image[ \t]*:.*$/m, "image: " + name);
+  else inner = inner.replace(/\s+$/, "") + "\nimage: " + name;
+  return "---\n" + inner + "\n---\n" + text.slice(b.end);
+}
+function removeFmImage(text) {
+  const b = fmBounds(text); if (!b) return text;
+  const inner = b.inner.replace(/^[ \t]*image[ \t]*:.*\n?/m, "").replace(/\s+$/, "");
+  return "---\n" + inner + "\n---\n" + text.slice(b.end);
+}
+function pickExt(file) {
+  const t = (file.type || "").toLowerCase();
+  if (t === "image/jpeg") return "jpg";
+  if (t === "image/png") return "png";
+  if (t === "image/gif") return "gif";
+  if (t === "image/webp") return "webp";
+  const m = /\.(jpe?g|png|gif|webp)$/i.exec(file.name || "");
+  return m ? m[1].toLowerCase().replace("jpeg", "jpg") : "";
+}
+function mimeOf(ext) {
+  return ext === "jpg" ? "image/jpeg" : ext === "png" ? "image/png"
+    : ext === "gif" ? "image/gif" : ext === "webp" ? "image/webp" : "application/octet-stream";
 }
 
 function esc(s) {
@@ -196,6 +312,10 @@ function injectStyles() {
       "background:#2a2a2a;border-bottom:1px solid #000;flex:0 0 auto;}" +
     "#ze-root .ze-title{font-weight:600;letter-spacing:.02em;}" +
     "#ze-root .ze-spacer{flex:1 1 auto;}" +
+    "#ze-root .ze-imgbar{display:flex;align-items:center;gap:.5em;padding:.45em .8em;" +
+      "background:#242424;border-bottom:1px solid #000;flex:0 0 auto;font-size:.92em;}" +
+    "#ze-root .ze-imglabel{color:#9a9a9a;}" +
+    "#ze-root .ze-imgname{color:#d8d8a0;font-family:ui-monospace,Consolas,monospace;}" +
     "#ze-root .ze-btn{font:inherit;color:#e6e6e6;background:#3a3a3a;border:1px solid #555;" +
       "border-radius:5px;padding:.35em .9em;cursor:pointer;}" +
     "#ze-root .ze-btn:hover{background:#454545;}" +
