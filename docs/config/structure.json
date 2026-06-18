@@ -4,13 +4,13 @@
     {
       "slug": "best",
       "name": "Избранное",
-      "order": 0,
+      "order": 1,
       "archived": false
     },
     {
       "slug": "dreamon",
       "name": "Мечтай!!",
-      "order": 1,
+      "order": 0,
       "archived": false
     },
     {
