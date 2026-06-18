@@ -1557,6 +1557,12 @@ export function renderArticleHtml(ctx) {
   html = replaceAllLiteral(html, "{{DATE_DISPLAY}}", htmlEscape(dateDisplay));
   html = replaceAllLiteral(html, "{{ORIGIN_URL}}", originUrl);
   html = replaceAllLiteral(html, "{{ORIGIN_LABEL}}", htmlEscape(originLabel));
+  // Источник-фрагмент byline целиком — пусто, если url нет (новые оригинальные
+  // статьи без proza.ru). У 352 корпусных url есть → фрагмент байт-в-байт прежний.
+  const originByline = originUrl
+    ? ` · Источник: <a href="${htmlEscape(originUrl)}" target="_blank" rel="noopener">${htmlEscape(originLabel)}</a>`
+    : "";
+  html = replaceAllLiteral(html, "{{ORIGIN_BYLINE}}", originByline);
   html = replaceAllLiteral(html, "{{ARTICLE_TOC}}", tocHtml);
   html = replaceAllLiteral(html, "{{ARTICLE_BODY}}", articleInner);
   html = replaceAllLiteral(html, "{{PREV_LINK}}", prevLink);
@@ -1622,6 +1628,8 @@ export function renderIndexHtml(ctx) {
 export function renderSectionIndexHtml(ctx) {
   const { slug, structure, manifestByArt, template, buildDate } = ctx;
   const cssV = ctx.cssVersion || CSS_VERSION;
+  const forced = ctx.forced || {};            // art → "zml"|"html" (forced_views.json)
+  const defNew = ctx.defaultView === "new";   // глобальный default_view (display.json)
   const secs = activeSections(structure);
   const pos = secs.findIndex((s) => s.slug === slug);
   if (pos < 0) return null;
@@ -1631,10 +1639,18 @@ export function renderSectionIndexHtml(ctx) {
     .sort((a, b) => (a.order - b.order) || (a.art < b.art ? -1 : 1));
   const lis = arts.map((a) => {
     const rec = manifestByArt[a.art] || {};
-    const title = htmlEscape(rec.title || a.art);
-    const date = fmtDateRu(rec.date_chosen || rec.date || "");
+    // title/date: manifest приоритетно; для НОВОЙ (zml-only) статьи её в manifest
+    // ещё нет → фолбэк на поля самой записи structure (a.title/a.date).
+    const title = htmlEscape(rec.title || a.title || a.art);
+    const date = fmtDateRu(rec.date_chosen || rec.date || a.date || "");
+    // ссылка: forced (zml→.view.html / html→.html) перебивает default_view; та же
+    // логика, что и build_views.targetFor → браузерная пересборка не «теряет»
+    // форс и не ведёт на отсутствующий .html у zml-only статей.
+    const f = forced[a.art];
+    const useView = f ? f === "zml" : defNew;
+    const href = useView ? `../art/${a.art}.view.html` : `../art/${a.art}.html`;
     return `<li><span class="num">#${htmlEscape(a.num || a.art)}</span>` +
-      `<a href="../art/${a.art}.html">${title}</a>` +
+      `<a href="${href}">${title}</a>` +
       `<span class="meta">${date}</span></li>`;
   });
   const parts = [];

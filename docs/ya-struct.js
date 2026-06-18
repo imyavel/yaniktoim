@@ -25,6 +25,7 @@
   }
 
   var deps = {}, structure = null, byArt = {}, WORKER = "", expanded = {};
+  var forced = {}, defaultView = "old", artDeps = null;
 
   Promise.all([
     import("./editor/render.js"),
@@ -32,15 +33,23 @@
     fetch("editor/data/manifest.json").then(j),
     fetch("editor/data/template_index.tpl").then(t),
     fetch("editor/data/template_section.tpl").then(t),
-    fetch("editor/data/site.json").then(j).catch(function () { return {}; })
+    fetch("editor/data/site.json").then(j).catch(function () { return {}; }),
+    fetch("config/display.json").then(j).catch(function () { return { default_view: "old" }; }),
+    fetch("config/forced_views.json").then(j).catch(function () { return {}; })
   ]).then(function (a) {
     deps.renderIndexHtml = a[0].renderIndexHtml;
     deps.renderSectionIndexHtml = a[0].renderSectionIndexHtml;
+    deps.renderArticle = a[0].renderArticleHtml;
     structure = a[1];
+    deps.manifestArr = a[2];
     a[2].forEach(function (r) { byArt[r.art] = r; });
     deps.tplIndex = a[3];
     deps.tplSection = a[4];
     WORKER = ((a[5] && a[5].workerUrl) || "").replace(/\/+$/, "");
+    deps.siteConfig = a[5] || {};
+    deps.displayConfig = a[6] || { default_view: "old" };
+    defaultView = (a[6] && a[6].default_view) || "old";
+    forced = a[7] || {};
     render();
   }).catch(function (e) { root.innerHTML = '<p class="err">Ошибка загрузки: ' + esc(String(e.message || e)) + "</p>"; });
 
@@ -152,6 +161,7 @@
         arrows("sec", s.slug) +
         '<span class="nm">' + esc(s.name) + '</span>' +
         '<span class="cnt">' + arts.length + '</span>' +
+        '<button class="st-mini" data-act="art-add" data-id="' + esc(s.slug) + '">+ статья</button>' +
         '<button class="st-mini" data-act="sec-rename" data-id="' + esc(s.slug) + '">переименовать</button>' +
         '<button class="st-mini" data-act="sec-del" data-id="' + esc(s.slug) + '">удалить</button>' +
         '</div>';
@@ -195,6 +205,7 @@
       case "sec-rename": renameSection(id); break;
       case "sec-del": deleteSection(id); break;
       case "add-sec": addSection(); break;
+      case "art-add": createArticle(id); break;
       case "sec-toggle": expanded[id] = !expanded[id]; render(); break;
       case "art-up": moveArticle(id, -1); break;
       case "art-down": moveArticle(id, 1); break;
@@ -218,7 +229,7 @@
     files.push({ path: "docs/index.html", content: deps.renderIndexHtml({ structure: structure, manifestByArt: byArt, template: deps.tplIndex, buildDate: buildDate }) });
     activeSecs().forEach(function (s) {
       files.push({ path: "docs/" + s.slug + "/index.html",
-        content: deps.renderSectionIndexHtml({ slug: s.slug, structure: structure, manifestByArt: byArt, template: deps.tplSection, buildDate: buildDate }) });
+        content: deps.renderSectionIndexHtml({ slug: s.slug, structure: structure, manifestByArt: byArt, template: deps.tplSection, buildDate: buildDate, forced: forced, defaultView: defaultView }) });
     });
     status("Сохранение… (" + files.length + " файлов)");
     setBusy(true);
@@ -248,5 +259,164 @@
       '<div style="text-align:right"><button class="st-btn st-primary" id="st-pop-ok">Ок</button></div></div>';
     document.body.appendChild(p);
     p.querySelector("#st-pop-ok").addEventListener("click", function () { p.remove(); status("Сохранено. Обновите через ~минуту."); });
+  }
+
+  // ── Ф10E: создание новой статьи ───────────────────────────────────────────────
+  // Статья «рождается» в оверлей-редакторе (ze-core) из шаблона; на сайт попадает
+  // ТОЛЬКО по «Сохранить» (тогда и становится «не горящей рукописью»). Отмена/
+  // закрытие — ничего не коммитит. Новая статья zml-only (старого .html нет) →
+  // forced=zml + ссылка списка на .view.html; заголовок/дата живут в записи
+  // structure (manifest её ещё не знает) до следующей полной пересборки.
+  var artDepsLoaded = null;
+  function loadArtDeps() {
+    if (artDepsLoaded) return Promise.resolve(artDepsLoaded);
+    return Promise.all([
+      fetch("editor/data/zohar_index.json").then(j),
+      fetch("editor/data/proper-nouns.txt").then(t),
+      // шаблон вью — всегда свежий (нельзя «запечь» устаревший после деплоя).
+      fetch("editor/data/template_view.html", { cache: "no-store" }).then(t)
+    ]).then(function (a) {
+      artDepsLoaded = { zoharIndex: a[0], properNouns: a[1], templateView: a[2] };
+      return artDepsLoaded;
+    });
+  }
+
+  function isoToday() {
+    var d = new Date(), p = function (n) { return (n < 10 ? "0" : "") + n; };
+    return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate());
+  }
+  // ── кодек art-id (SPEC §2.3 — побайтно как legacy build_art_ids.py) ──
+  function encYear(y) {
+    if (y >= 2020 && y <= 2029) return String(y - 2020);
+    if (y >= 1994 && y <= 2019) return String.fromCharCode(90 - (2019 - y));
+    throw new Error("год вне диапазона art-id: " + y);
+  }
+  function encMonth(m) { return m <= 9 ? String(m) : String.fromCharCode(65 + m - 10); }
+  function encDay(d) { return d <= 9 ? String(d) : String.fromCharCode(65 + d - 10); }
+  function encSuffix(n) {
+    if (n === 0) return "";
+    if (n <= 26) return String.fromCharCode(64 + n);
+    if (n <= 52) return String.fromCharCode(97 + n - 27);
+    throw new Error("за сегодня уже >53 статей");
+  }
+  function mintArtId() {
+    var d = new Date();
+    var base = encYear(d.getFullYear()) + encMonth(d.getMonth() + 1) + encDay(d.getDate());
+    var taken = {};
+    structure.articles.forEach(function (a) { taken[a.art] = 1; });
+    Object.keys(byArt).forEach(function (k) { taken[k] = 1; });
+    for (var p = 0; p <= 52; p++) { var id = base + encSuffix(p); if (!taken[id]) return id; }
+    throw new Error("исчерпан суффикс art-id на сегодня");
+  }
+
+  function templateZml(art, today) {
+    return [
+      "---",
+      "title: Новая статья",
+      'art: "' + art + '"',
+      "date: " + today,
+      "type: prose",
+      "view: zml",
+      "---",
+      "[epi kind=prose]",
+      "Эпиграф или вводная цитата — по желанию. Удалите весь блок, если не нужен.",
+      "[/epi]",
+      "",
+      "[sub]Подзаголовок — необязательный, удалите строку, если не нужен[/sub]",
+      "",
+      "Это первый абзац новой статьи. Замените текст своим. Слова можно выделить",
+      "_курсивом_, поставить [https://example.com|ссылку] или сноску.[^1]",
+      "",
+      "[poem]",
+      "Здесь строка стихотворения,",
+      "за ней — вторая,",
+      "а пустая строка ниже разделяет строфы.",
+      "",
+      "Так начинается вторая строфа.",
+      "[/poem]",
+      "",
+      "[^1]: Текст сноски — номера проставляются автоматически.",
+      ""
+    ].join("\n");
+  }
+
+  function parseTitle(zml) {
+    var fm = zml.match(/^---([\s\S]*?)---/);
+    if (!fm) return "";
+    var m = fm[1].match(/^title:[ \t]*(.+?)[ \t]*$/m);
+    if (!m) return "";
+    return m[1].replace(/^["']|["']$/g, "").trim();
+  }
+
+  function secName(slug) {
+    var s = structure.sections.find(function (x) { return x.slug === slug; });
+    return s ? s.name : slug;
+  }
+
+  function renderNewView(zml, art, slug, today) {
+    var rec = { art: art, section: slug, title: parseTitle(zml), date_chosen: today, url: "" };
+    return deps.renderArticle({
+      zml: zml, rec: rec, manifest: deps.manifestArr, manifestByArt: byArt,
+      zoharIndex: artDepsLoaded.zoharIndex, template: artDepsLoaded.templateView,
+      properNouns: artDepsLoaded.properNouns, displayConfig: deps.displayConfig, siteConfig: deps.siteConfig
+    });
+  }
+
+  function commitNewArticle(art, slug, zml, html, today) {
+    if (!WORKER) return Promise.reject(new Error("не задан Worker URL (site.json)"));
+    var title = parseTitle(zml) || "Новая статья";
+    // Клон structure+forced; живые не трогаем до успеха коммита (Отмена = ничего).
+    var st = JSON.parse(JSON.stringify(structure));
+    var ex = st.articles.find(function (a) { return a.art === art; });
+    var maxO = st.articles.filter(function (a) { return a.section === slug && a.status !== "archived"; })
+      .reduce(function (m, a) { return Math.max(m, a.order); }, -1);
+    if (ex) { ex.section = slug; ex.status = "published"; ex.title = title; ex.date = today; }
+    else st.articles.push({ art: art, section: slug, order: maxO + 1, status: "published", title: title, date: today });
+    var fc = {}; Object.keys(forced).forEach(function (k) { fc[k] = forced[k]; }); fc[art] = "zml";
+    var bd = isoToday();
+    var files = [
+      { path: "docs/config/structure.json", content: JSON.stringify(st, null, 2) + "\n" },
+      { path: "docs/config/forced_views.json", content: JSON.stringify(fc) + "\n" },
+      { path: "docs/art/" + art + ".zml", content: zml },
+      { path: "docs/art/" + art + ".view.html", content: html },
+      { path: "docs/index.html",
+        content: deps.renderIndexHtml({ structure: st, manifestByArt: byArt, template: deps.tplIndex, buildDate: bd }) },
+      { path: "docs/" + slug + "/index.html",
+        content: deps.renderSectionIndexHtml({ slug: slug, structure: st, manifestByArt: byArt, template: deps.tplSection, buildDate: bd, forced: fc, defaultView: defaultView }) }
+    ];
+    return fetch(WORKER + "/api/commit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: "Bearer " + sess.token },
+      body: JSON.stringify({ files: files, message: "cms: новая статья " + art + " (" + slug + ") — " + sess.nick })
+    }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (res) {
+        if (!res.ok || !res.d.ok) throw new Error((res.d && res.d.error) || "HTTP");
+        // успех → отражаем в живой структуре, чтобы дерево показало статью без reload
+        structure = st; forced = fc;
+        if (!byArt[art]) byArt[art] = { art: art, title: title, section: slug, date_chosen: today };
+        expanded[slug] = true;
+        render();
+      });
+  }
+
+  function createArticle(slug) {
+    status("Готовлю редактор новой статьи…");
+    loadArtDeps().then(function () {
+      var today = isoToday(), art;
+      try { art = mintArtId(); } catch (e) { status(e.message, true); return; }
+      var zml = templateZml(art, today);
+      import("./ze-core.js").then(function (mod) {
+        status("");
+        mod.mountZmlEditor({
+          label: "Новая статья · #" + art + " → " + secName(slug),
+          initialZml: zml,
+          renderView: function (z) { return renderNewView(z, art, slug, today); },
+          save: function (z, html) { return commitNewArticle(art, slug, z, html, today); },
+          savedMessage: "Статья создана. Обновление сайта — 30–90 сек, затем Ctrl+R. Откройте её, чтобы продолжить правку тела.",
+          savedPrimaryLabel: "Открыть статью",
+          onSavedPrimary: function () { location.href = "art/" + art + ".view.html"; }
+        });
+      }).catch(function (e) { status("ze-core: " + (e.message || e), true); });
+    }).catch(function (e) { status("Загрузка движка статьи: " + (e.message || e), true); });
   }
 })();
