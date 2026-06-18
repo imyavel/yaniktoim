@@ -1572,6 +1572,34 @@ export function renderArticleHtml(ctx) {
 }
 
 // ════════════════════════════════════════════════════════════════════════════
+// Спец-страница «Песнь Ступеней» (ZML3 §6.8): renderArticleParts + СВОЙ шаблон
+// template_songs.html (без byline/TOC/prev-next; грид [shir], lazy-YouTube).
+// ОБЩИЙ код для build_songs.mjs (Node) и docs/ya-songs.js (браузер) → паритет
+// байт-в-байт (как renderArticleHtml ↔ ya-edit). ctx: { zml, rec, manifest,
+//   manifestByArt, zoharIndex, properNouns, template, artHrefBase, siteConfig }.
+export function renderSongsHtml(ctx) {
+  const p = renderArticleParts(ctx); // ctx.artHrefBase="../art/" → art-ссылки [shir]
+  const theme = (p.fm.theme || "A_editorial").trim();
+  const widthRaw = (p.fm.width || "wide").trim().toLowerCase();
+  const wrapClass = /narrow|820/.test(widthRaw) ? "w-narrow" : "w-wide";
+  // p.title/p.description приходят RAW → экранируем здесь (как в исходном
+  // build_songs: &<>" — для <title> и meta[content]). p.titleH1/p.articleInner — уже HTML.
+  const esc = (s) => (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  let html = ctx.template;
+  html = replaceAllLiteral(html, "{{THEME}}", theme);
+  html = replaceAllLiteral(html, "{{WRAP_CLASS}}", wrapClass);
+  html = replaceAllLiteral(html, "{{CSS_VERSION}}", CSS_VERSION);
+  html = replaceAllLiteral(html, "{{TITLE_H1}}", p.titleH1);
+  html = replaceAllLiteral(html, "{{TITLE}}", esc(p.title));
+  html = replaceAllLiteral(html, "{{DESCRIPTION}}", esc(p.description));
+  html = replaceAllLiteral(html, "{{ARTICLE_BODY}}", p.articleInner);
+  html = replaceAllLiteral(html, "{{WORKER_URL}}",
+    esc((ctx.siteConfig && ctx.siteConfig.workerUrl) || ""));
+  return html;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
 // Ф10: главная + страницы разделов из structure.json (browser + Node — один код).
 // Заголовки/даты статей берём из manifest (join по art) → нет дрейфа названий.
 // ════════════════════════════════════════════════════════════════════════════

@@ -9,7 +9,7 @@
 <title>Песнь Ступеней</title>
 <meta name="description" content="Песнь Ступеней — вся музыка корпуса «Путь Восходящей Звезды»: 220 композиций со ссылками на статьи.">
 <meta name="robots" content="noindex">
-<link id="theme-css" rel="stylesheet" href="../themes/A_editorial.css?v=20260613-01">
+<link id="theme-css" rel="stylesheet" href="../themes/A_editorial.css?v=20260618-01">
 <style id="shir-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
 .wrap.w-narrow{max-width:820px;}
@@ -90,9 +90,11 @@ header.breadcrumbs .crumbs{flex:1 1 auto;}
 .viewbar select{font:inherit; color:inherit; background:transparent; border:none;
   border-bottom:1px solid currentColor; padding:0 1px 1px; cursor:pointer;}
 .viewbar select option{color:#222; background:#fff;}
+.viewbar .vb-edit{font:inherit; color:inherit; background:none; border:none; padding:0; white-space:nowrap; cursor:pointer;}
+.viewbar .vb-edit:disabled{opacity:.45; cursor:default;}
 </style>
 </head>
-<body class="songs-page-body" data-theme="A_editorial" data-pagefind-ignore="all">
+<body class="songs-page-body" data-theme="A_editorial" data-worker="https://yaniktoim-auth.imyavel.workers.dev" data-pagefind-ignore="all">
 <div class="wrap songs-page w-wide">
 <header class="breadcrumbs">
 <span class="crumbs"><a href="../index.html">Главная</a><span class="sep">›</span>Песнь Ступеней</span>
@@ -112,6 +114,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;}
       <option value="narrow">узкая</option>
     </select>
   </label>
+  <button class="vb-edit" type="button" disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
 <h1 id="article-title">Песнь Ступеней</h1>
@@ -856,5 +859,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;}
   });
 })();
 </script>
+<script src="../ya-songs.js" defer></script>
 </body>
 </html>
