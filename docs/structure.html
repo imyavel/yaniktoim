@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Структура — управление (admin)</title>
+<link rel="stylesheet" href="style.css?v=20260618-01">
+<style>
+  .wrap{max-width:900px;}
+  #struct-root{font:15px/1.5 -apple-system,Segoe UI,Roboto,sans-serif;}
+  .st-bar{position:sticky;top:0;background:var(--bg,#fff);padding:.6em 0;border-bottom:1px solid #ddd;
+    display:flex;gap:.6em;align-items:center;z-index:5;margin-bottom:1em;}
+  .st-bar .sp{flex:1;}
+  .st-btn{font:inherit;border:1px solid #bbb;background:#f3f3f3;border-radius:6px;padding:.3em .9em;cursor:pointer;}
+  .st-btn:hover{background:#e9e9e9;}
+  .st-btn:disabled{opacity:.5;cursor:default;}
+  .st-primary{background:#2d6cdf;border-color:#2d6cdf;color:#fff;}
+  .st-primary:hover{background:#3a78ea;}
+  .st-status{font-size:.88em;color:#3a7;min-height:1.2em;}
+  .st-status.err{color:#c33;}
+  .st-sec{border:1px solid #ddd;border-radius:8px;margin:.6em 0;overflow:hidden;}
+  .st-sec-hd{display:flex;align-items:center;gap:.4em;padding:.45em .6em;background:#f7f7f7;}
+  .st-toggle{font:inherit;border:none;background:none;cursor:pointer;width:1.5em;padding:0;opacity:.7;}
+  .st-toggle:hover{opacity:1;}
+  .st-sec-hd .nm{font-weight:600;flex:1;}
+  .st-sec-hd .cnt{opacity:.6;font-size:.85em;}
+  .st-mini{font:inherit;border:1px solid #ccc;background:#fff;border-radius:5px;padding:.05em .5em;cursor:pointer;line-height:1.4;}
+  .st-mini:hover{background:#eee;}
+  .st-arts{list-style:none;margin:0;padding:.2em .4em;}
+  /* компактная строка статьи — НЕ растим межстрочье/ширину (инвариант оператора):
+     контролы маленькие, строка одна. */
+  .st-art{display:flex;align-items:center;gap:.35em;padding:.12em .3em;font-size:.92em;border-radius:4px;}
+  .st-art:hover{background:#f3f6fb;}
+  .st-art .num{opacity:.5;font-variant-numeric:tabular-nums;min-width:3.2em;}
+  .st-art .ttl{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .st-art select{font:inherit;font-size:.9em;}
+  .st-arrows{display:inline-flex;gap:.1em;}
+  .st-arrows button{font:inherit;border:1px solid #ccc;background:#fff;border-radius:4px;cursor:pointer;
+    width:1.6em;height:1.5em;line-height:1;padding:0;}
+  .st-arrows button:hover{background:#eee;}
+  .st-archived{opacity:.6;}
+  details.st-archive{margin-top:1.2em;border-top:1px solid #ddd;padding-top:.6em;}
+  details.st-archive summary{cursor:pointer;font-weight:600;}
+</style>
+</head>
+<body data-pagefind-ignore="all">
+<div class="wrap">
+<header class="breadcrumbs"><a href="index.html">Главная</a><span class="sep">›</span>Структура</header>
+<h1>Управление структурой</h1>
+<div id="struct-root">Загрузка…</div>
+</div>
+<script src="ya-auth.js"></script>
+<script src="ya-struct.js?v=20260618-03" defer></script>
+</body>
+</html>

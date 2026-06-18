@@ -27,6 +27,7 @@ BASE = "https://imyavel.github.io/yaniktoim/"
 #  404.html — страница ошибки.
 EXCLUDE_FILES = frozenset({
     "search.html", "sitemap.xml", "robots.txt", "404.html",
+    "admin.html", "structure.html",   # admin-инструменты — не в SEO/sitemap
 })
 # Каталоги, которые целиком исключаются (индекс поиска и git).
 #  proza-design — дизайн-эксперименты, нигде не слинкованы (и исключены из
