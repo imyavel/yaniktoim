@@ -29,7 +29,9 @@ EXCLUDE_FILES = frozenset({
     "search.html", "sitemap.xml", "robots.txt", "404.html",
 })
 # Каталоги, которые целиком исключаются (индекс поиска и git).
-EXCLUDE_DIRS = frozenset({"pagefind", ".git", "img"})
+#  proza-design — дизайн-эксперименты, нигде не слинкованы (и исключены из
+#  поискового индекса) → в sitemap/SEO им не место.
+EXCLUDE_DIRS = frozenset({"pagefind", ".git", "img", "proza-design"})
 
 
 def path_to_url(rel: str) -> str:
