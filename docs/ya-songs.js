@@ -53,13 +53,14 @@
       fetch(base + "data/zohar_index.json").then(j),
       fetch(base + "data/proper-nouns.txt").then(t),
       fetch(base + "data/template_songs.html", { cache: "no-store" }).then(t),
-      fetch(base + "data/site.json").then(j)
+      fetch(base + "data/site.json").then(j),
+      fetch("../config/display.json").then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
     ]).then(function (a) {
       var manifest = a[1], byArt = {};
       manifest.forEach(function (r) { byArt[r.art] = r; });
       deps = {
         renderSongs: a[0].renderSongsHtml, manifest: manifest, byArt: byArt,
-        zoharIndex: a[2], properNouns: a[3], template: a[4], siteConfig: a[5]
+        zoharIndex: a[2], properNouns: a[3], template: a[4], siteConfig: a[5], displayConfig: a[6]
       };
       return deps;
     });
@@ -72,7 +73,8 @@
     return deps.renderSongs({
       zml: zml, rec: rec, manifest: deps.manifest, manifestByArt: deps.byArt,
       zoharIndex: deps.zoharIndex, properNouns: deps.properNouns,
-      template: deps.template, artHrefBase: "../art/", siteConfig: deps.siteConfig
+      template: deps.template, artHrefBase: "../art/", siteConfig: deps.siteConfig,
+      displayConfig: deps.displayConfig
     });
   }
 

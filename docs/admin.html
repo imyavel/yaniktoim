@@ -85,7 +85,8 @@
   "use strict";
   var SECTIONS = [["best","Избранное"],["dreamon","Мечтай!!"],["cyberson","Киберсон"],
     ["dabudet","Да будет Свет!"],["confront","Конфронтология Духа"],
-    ["shoshana","Роза Среди Шипов"],["other","Без категории"]];
+    ["shoshana","Роза Среди Шипов"],["other","Без категории"],
+    ["songs","Песнь Ступеней"]];
   var TYPES = [["verse","Обычный стих"],["poem","Поэма"],["prose","Проза"],
     ["dialog","Диалоги"],["prose_num","Проза с нумер. абзацами"]];
   var DESIGNS = [["A_editorial","editorial"],["B_manuscript","manuscript"],
@@ -210,9 +211,10 @@
     if (box) YaAuth.renderAuthInto(box);
     var s = YaAuth.session();
     if (!s) { document.getElementById("gate").hidden = false; return; }
-    document.getElementById("scope").textContent = s.role === "admin"
+    var isMaster = (s.nick || "").trim().toLowerCase() === "admin";
+    document.getElementById("scope").textContent = isMaster
       ? "Вы — Admin: изменения глобальные, их видят все читатели без логина."
-      : "Личные настройки: применяются только когда вы залогинены.";
+      : "Личные настройки: применяются только когда вы залогинены (глобальный дефолт задаёт только Admin).";
     document.getElementById("editor").hidden = false;
     fetch(YaAuth.WORKER + "/api/settings", { headers: { Authorization: "Bearer " + s.token } })
       .then(function (r) { return r.ok ? r.json() : null; })

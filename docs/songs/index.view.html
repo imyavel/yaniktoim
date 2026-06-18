@@ -90,11 +90,14 @@ header.breadcrumbs .crumbs{flex:1 1 auto;}
 .viewbar select{font:inherit; color:inherit; background:transparent; border:none;
   border-bottom:1px solid currentColor; padding:0 1px 1px; cursor:pointer;}
 .viewbar select option{color:#222; background:#fff;}
+.viewbar a{text-decoration:none; white-space:nowrap;}
 .viewbar .vb-edit{font:inherit; color:inherit; background:none; border:none; padding:0; white-space:nowrap; cursor:pointer;}
 .viewbar .vb-edit:disabled{opacity:.45; cursor:default;}
 </style>
 </head>
-<body class="songs-page-body" data-theme="A_editorial" data-worker="https://yaniktoim-auth.imyavel.workers.dev" data-pagefind-ignore="all">
+<body class="songs-page-body" data-theme="A_editorial" data-worker="https://yaniktoim-auth.imyavel.workers.dev"
+  data-art-section="songs" data-art-type="" data-fm-theme="" data-fm-width=""
+  data-pagefind-ignore="all">
 <div class="wrap songs-page w-wide">
 <header class="breadcrumbs">
 <span class="crumbs"><a href="../index.html">Главная</a><span class="sep">›</span>Песнь Ступеней</span>
@@ -114,6 +117,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;}
       <option value="narrow">узкая</option>
     </select>
   </label>
+  <a class="vb-orig" href="index.html">Оригинал</a>
   <button class="vb-edit" type="button" disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -857,6 +861,36 @@ header.breadcrumbs .crumbs{flex:1 1 auto;}
     wrap.classList.toggle('w-narrow', wsel.value === 'narrow');
     wrap.classList.toggle('w-wide', wsel.value === 'wide');
   });
+
+  // Ф8′ ре-резолвинг вида для ЗАЛОГИНЕННОГО (аноним уже получил запечённый дефолт).
+  // «Песнь Ступеней» = раздел "songs": тянем личные/глобальные правила воркера и
+  // применяем через те же селекты темы/ширины (зеркало resolveDisplay в render.js).
+  (function(){
+    var b = document.body;
+    var section = b.getAttribute('data-art-section') || 'songs';
+    var type = b.getAttribute('data-art-type') || '';
+    var fmTheme = b.getAttribute('data-fm-theme') || '';
+    var fmWidth = b.getAttribute('data-fm-width') || '';
+    var wk = (b.getAttribute('data-worker') || '').replace(/\/+$/, '');
+    var sess; try { sess = JSON.parse(localStorage.getItem('ya_session') || 'null'); } catch(e){}
+    if (!sess || !sess.token || !wk) return;
+    function resolve(cfg){
+      var g=(cfg&&cfg.global)||{}, rules=(cfg&&cfg.rules)||[], rd='', rw='';
+      for (var i=0;i<rules.length;i++){ var m=rules[i]&&rules[i].match; if(!m) continue;
+        if ((m.kind==='section'&&m.value===section)||(m.kind==='type'&&m.value===type)){
+          rd=rules[i].design||''; rw=rules[i].width||''; break; } }
+      return { design:(fmTheme||rd||g.design||'A_editorial'), width:(fmWidth||rw||g.width||'wide') };
+    }
+    function apply(d){
+      if (sel && sel.value!==d.design){ sel.value=d.design; sel.dispatchEvent(new Event('change')); }
+      var w = /narrow|820/.test(d.width)?'narrow':'wide';
+      if (wsel && wsel.value!==w){ wsel.value=w; wsel.dispatchEvent(new Event('change')); }
+    }
+    fetch(wk+'/api/settings',{headers:{Authorization:'Bearer '+sess.token}})
+      .then(function(r){ return r.ok?r.json():null; })
+      .then(function(cfg){ if(cfg) apply(resolve(cfg)); })
+      .catch(function(){});
+  })();
 })();
 </script>
 <script src="../ya-songs.js" defer></script>

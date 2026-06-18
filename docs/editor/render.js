@@ -1579,8 +1579,13 @@ export function renderArticleHtml(ctx) {
 //   manifestByArt, zoharIndex, properNouns, template, artHrefBase, siteConfig }.
 export function renderSongsHtml(ctx) {
   const p = renderArticleParts(ctx); // ctx.artHrefBase="../art/" → art-ссылки [shir]
-  const theme = (p.fm.theme || "A_editorial").trim();
-  const widthRaw = (p.fm.width || "wide").trim().toLowerCase();
+  // Ф8′: «Песнь Ступеней» — раздел "songs" в правилах admin (дизайн/ширина). fm.theme/
+  // fm.width (если заданы вручную) перебивают пер-полем; иначе правило раздела/global.
+  const fmTheme = (p.fm.theme || "").trim();
+  const fmWidth = (p.fm.width || "").trim();
+  const resolved = resolveDisplay(ctx.displayConfig || null, "songs", "", fmTheme, fmWidth);
+  const theme = resolved.design;
+  const widthRaw = resolved.width.toLowerCase();
   const wrapClass = /narrow|820/.test(widthRaw) ? "w-narrow" : "w-wide";
   // p.title/p.description приходят RAW → экранируем здесь (как в исходном
   // build_songs: &<>" — для <title> и meta[content]). p.titleH1/p.articleInner — уже HTML.
@@ -1596,6 +1601,9 @@ export function renderSongsHtml(ctx) {
   html = replaceAllLiteral(html, "{{ARTICLE_BODY}}", p.articleInner);
   html = replaceAllLiteral(html, "{{WORKER_URL}}",
     esc((ctx.siteConfig && ctx.siteConfig.workerUrl) || ""));
+  // для клиентского ре-резолвинга у залогиненных (зеркало template_view).
+  html = replaceAllLiteral(html, "{{FM_THEME}}", esc(fmTheme));
+  html = replaceAllLiteral(html, "{{FM_WIDTH}}", esc(fmWidth));
   return html;
 }
 
