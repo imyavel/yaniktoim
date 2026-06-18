@@ -9,6 +9,15 @@
  */
 (function () {
   "use strict";
+  // Динамический import() в классическом скрипте резолвится от URL САМОГО скрипта
+  // (ya-edit.js лежит в docs/ → на проде это /yaniktoim/ya-edit.js), НЕ от документа.
+  // Поэтому модули (editor/render.js, ze-core.js) резолвим абсолютно от src этого
+  // скрипта — иначе на под-пути «../» вылетает из /yaniktoim/ в корень (Failed to
+  // fetch .../editor/render.js). fetch() ниже остаётся document-relative — он верно
+  // резолвится от страницы в docs/art/.
+  var SELF = document.currentScript || document.querySelector('script[src*="ya-edit.js"]');
+  var SELF_SRC = SELF ? SELF.src : new URL("ya-edit.js", document.baseURI).href;
+  var modUrl = function (p) { return new URL(p, SELF_SRC).href; };
   var body = document.body;
   if (!body || !body.classList.contains("article-page")) return;
   var btn = document.querySelector(".viewbar .vb-edit");
@@ -36,7 +45,7 @@
     if (deps) return Promise.resolve(deps);
     var base = "../editor/";
     return Promise.all([
-      import(base + "render.js"),
+      import(modUrl("editor/render.js")),
       fetch(base + "data/manifest.json").then(j),
       fetch(base + "data/zohar_index.json").then(j),
       fetch(base + "data/proper-nouns.txt").then(t),
@@ -73,7 +82,7 @@
       .then(function (r) { if (!r.ok) throw new Error("ZML " + r.status); return r.text(); })
       .then(function (zml) { return loadDeps().then(function () { return zml; }); })
       .then(function (zml) {
-        return import("../ze-core.js").then(function (mod) {
+        return import(modUrl("ze-core.js")).then(function (mod) {
           mod.mountZmlEditor({
             label: "Правка ZML · #" + ART,
             initialZml: zml,
