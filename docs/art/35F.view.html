@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Теилим Псалмы Царя Давида 119</title>
+<meta name="description" content="">
+<meta name="robots" content="noindex">
+<link id="theme-css" rel="stylesheet" href="../themes/A_editorial.css?v=20260618-01">
+<style id="spl-base">
+/* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
+.wrap.w-narrow{max-width:820px;}
+.wrap.w-wide{max-width:1080px;}
+/* [spl] spoiler — structural, theme-agnostic. Themes may tune --spl-cover. */
+.spoiler{position:relative;display:inline-block;cursor:pointer;border-radius:3px;vertical-align:baseline;}
+.spoiler:not(.revealed) .spoiler-content{visibility:hidden;}
+.spoiler:not(.revealed)::before{content:"";position:absolute;inset:-1px;border-radius:3px;
+  background:var(--spl-cover,repeating-linear-gradient(45deg,#4a4a4a 0 7px,#2f2f2f 7px 14px));
+  background-size:auto;animation:spl-shimmer 1.4s linear infinite;}
+.spoiler.revealed{cursor:auto;}
+.spoiler:focus-visible{outline:2px solid currentColor;outline-offset:2px;}
+@keyframes spl-shimmer{from{background-position:0 0;}to{background-position:20px 0;}}
+@media (prefers-reduced-motion:reduce){.spoiler:not(.revealed)::before{animation:none;}}
+/* audio narration 🎧 by H1 — structural, theme-agnostic (themes may refine). */
+.audio-link{font-size:.62em;vertical-align:middle;margin-left:.4em;text-decoration:none;white-space:nowrap;}
+/* [subsec] section subtitle — base (themes refine): muted italic, tight to ## heading. */
+.sec-sub{margin:.15em 0 1.3em;font-style:italic;font-size:.95em;opacity:.7;line-height:1.45;text-indent:0;text-align:left;}
+h2 + .sec-sub, h2.subtitle + .sec-sub{margin-top:-.5em;}
+/* fn-ревью (2026-06-12) — структурная база новых конструкций; темы уточняют. */
+/* [^N] в H1: sup-маркер на глаз отличим от текста заголовка (THEME_CONTRACT). */
+h1#article-title sup{font-size:.42em;font-weight:400;line-height:0;letter-spacing:normal;vertical-align:super;}
+/* [line kind=tags|dateline] — служебная роль-строка; буквицы тем её пропускают. */
+p.line{font-size:.88em;opacity:.72;letter-spacing:.02em;text-indent:0;}
+/* [ul] — маркированный список; значок через --marker → li::marker. */
+ul.ul{margin:1em 0;padding-left:1.6em;}
+ul.ul li::marker{content:var(--marker, initial);}
+/* [num] со скобко-стилем «1)» (авторские номера держит li[value]). */
+ol.num.num-paren li::marker{content:counter(list-item) ") ";}
+/* [epi kind=dedi] — посвящение. */
+article .epigraph.dedication, article .epilogue.dedication{text-align:right;font-style:italic;}
+/* TOC: вложенный 2-й уровень (###). */
+details.article-toc ol ol{margin:.15em 0 .15em 1.1em;}
+/* [toc nonum]: заголовки сами нумерованы (1 / 1.1 / 1.1.1) → гасим авто-числа <ol>
+   (две класса-метки → перебивает per-theme `.article-toc ol{padding-left}` по специфичности) */
+details.article-toc.nonum ol{list-style:none; padding-left:0;}
+details.article-toc.nonum ol ol{margin-left:1.1em;}
+/* [sig] подпись / [cry] возглас (ZML3 C11) — base, themes refine. */
+.sig{text-align:right;font-style:italic;margin:1.4rem 0;}
+.cry{text-align:center;font-weight:700;letter-spacing:.05em;margin:1.6rem 0;}
+/* глифы (C13) + inline term/leit (C10) — base no-op-ish; themes colour or ignore. */
+.glyph{white-space:nowrap;}
+.term{text-decoration:underline dotted;text-underline-offset:3px;}
+.leit{font-style:italic;}
+/* музыка Б2: inter-track заметка (1AQA «Слушать вместе…») — base, themes refine. */
+.music-note{text-align:center;font-style:italic;opacity:.72;font-size:.92em;
+  margin:.2rem 0 .5rem;}
+/* музыка-плашка (канон оригинала): ▶ N) **Название** — *Автор* — название жирным,
+   автор обычным-курсивом, ► играбел-индикатор (крутится при раскрытии). Специфичность
+   `.music-group .title …` перебивает курсив `.title` темы. */
+.music-group .trk-play{display:inline-block;font-size:.82em;opacity:.65;margin-right:.1em;
+  transition:transform .18s ease;}
+details.music[open] .trk-play{transform:rotate(90deg);}
+.music-group .title .trk-num{opacity:.55;font-style:normal;font-variant-numeric:tabular-nums;}
+.music-group .title .trk-ttl{font-weight:600;font-style:normal;}
+.music-group .title .trk-sep{opacity:.5;font-weight:400;}
+.music-group .title .trk-art{font-weight:400;font-style:italic;opacity:.78;}
+/* трек-строка = flex: текст слева ВО ВСЕХ темах (перебивает theme text-align:center
+   у B_manuscript/ar_deco — флекс-айтемы паковка слева), динамик-mute прижат вправо
+   (2026-06-18). */
+.music-group details.music>summary,.music-group .music-noplayer>.summary{
+  display:flex; align-items:center; flex-wrap:wrap; gap:.12em; text-align:left;}
+.music-group .title{min-width:0;}
+/* кнопка-динамик (mute рекламы YouTube) — справа на строчке */
+.music-group .trk-mute{margin-left:auto; flex:0 0 auto; align-self:center;
+  cursor:pointer; opacity:.5; color:inherit; line-height:0; padding:.1em .2em;
+  border-radius:4px; transition:opacity .15s,color .15s;
+  -webkit-tap-highlight-color:transparent;}
+.music-group .trk-mute:hover,.music-group .trk-mute:focus-visible{opacity:1; outline:none;}
+.music-group .trk-mute svg{width:1.2em; height:1.2em; display:block;}
+.music-group .trk-mute .spk-slash{display:none;}
+.music-group .trk-mute[aria-pressed="true"]{opacity:.95; color:var(--accent,currentColor);}
+.music-group .trk-mute[aria-pressed="true"] .spk-wave{display:none;}
+.music-group .trk-mute[aria-pressed="true"] .spk-slash{display:inline;}
+/* [dlg] форум-стиль (№2, по образцу форума ccastaneda.ru): пост-в-рамке + метка
+   спикера small-caps. base — themes refine (--accent2 = акцент темы). */
+.dialog .post{border-left:3px solid var(--accent2,currentColor);
+  background:color-mix(in srgb, currentColor 4%, transparent);
+  padding:.55rem .95rem;margin:.7rem 0;border-radius:0 4px 4px 0;}
+.dialog .post-by{display:block;font-variant:small-caps;letter-spacing:.05em;
+  font-weight:700;font-style:normal;font-size:.9em;color:var(--accent2,inherit);
+  opacity:.95;margin-bottom:.25em;}
+.dialog .post-text{display:block;}
+.dialog .post-text + .post-text{margin-top:.55em;}/* многоабзацная реплика */
+.dialog .dlg-line{margin:.45rem 0;}
+/* viewbar — управление видом статьи (тема/ширина/оригинал/править).
+   Сидит в одной строке с крошками (крошки слева, управление справа).
+   Здесь только структура; типографика/цвета — у темы (.viewbar в THEME_CONTRACT). */
+header.breadcrumbs{display:flex;gap:1.2em;row-gap:.3em;align-items:baseline;flex-wrap:wrap;}
+header.breadcrumbs .crumbs{flex:1 1 auto;}
+.viewbar{display:flex;gap:1.1em;row-gap:.3em;align-items:center;flex-wrap:wrap;
+  font-size:.78rem;margin:0 0 0 auto;}
+.viewbar label{display:inline-flex;gap:.35em;align-items:center;white-space:nowrap;}
+.viewbar select{font:inherit;color:inherit;background:transparent;border:none;
+  border-bottom:1px solid currentColor;padding:0 1px 1px;cursor:pointer;}
+.viewbar select option{color:#222;background:#fff;}
+.viewbar a{text-decoration:none;white-space:nowrap;}
+.viewbar .vb-edit{font:inherit;color:inherit;background:none;border:none;padding:0;white-space:nowrap;}
+.viewbar .vb-edit:disabled{opacity:.45;cursor:default;}
+</style>
+</head>
+<body class="article-page" data-art="35F" data-theme="A_editorial" data-pagefind-ignore="all"
+  data-art-section="best" data-art-type="prose"
+  data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
+<div class="wrap w-wide">
+<header class="breadcrumbs">
+<span class="crumbs"><a href="../index.html">Главная</a><span class="sep">›</span><a href="../best/index.html">Избранное</a></span>
+<nav class="viewbar" aria-label="Вид статьи">
+  <label>Тема
+    <select id="zml-theme">
+      <option value="A_editorial">editorial</option>
+      <option value="B_manuscript">manuscript</option>
+      <option value="cyberpunk">cyberpunk</option>
+      <option value="swiss">swiss</option>
+      <option value="ar_deco">ar-deco</option>
+    </select>
+  </label>
+  <label>Ширина
+    <select id="zml-width">
+      <option value="wide">широкая</option>
+      <option value="narrow">узкая</option>
+    </select>
+  </label>
+  <a class="vb-orig" href="35F.html?orig=1">Оригинал</a>
+  <button class="vb-edit" type="button" disabled aria-disabled="true" title="Редактирование появится позже">✎ Править</button>
+</nav>
+</header>
+
+<h1 id="article-title">Теилим Псалмы Царя Давида 119⁠<a class="audio-link" href="https://t.me/art_017_tracks/568" target="_blank" rel="noopener" title="Слушать аудио-озвучку" aria-label="Слушать аудио-озвучку">🎧</a>⁠<a class="audio-link" href="https://t.me/binazone/648" target="_blank" rel="noopener" title="Аудио-озвучка" aria-label="Аудио-озвучка">🎧</a></h1>
+<p class="byline">Элиягу Бар Малей · #35F · 2023-05-15 · Источник: <a href="https://proza.ru/2023/05/15/970" target="_blank" rel="noopener">proza.ru/2023/05/15/970</a></p>
+<article>
+
+<p>Счастливы те, чей путь непорочен, следующие Торе Господней. Счастливы хранящие заповеди Его, всем сердцем они ищут Его. Не творят они нечестия, ходят путями Его. Ты заповедовал твердо хранить повеления Твои. Молю, пусть направлены будут пути мои к соблюдению законов Твоих. Тогда не устыжусь, всматриваясь во все заповеди Твои. Славить буду Тебя прямотою сердца, изучая справедливые законы Твои. Законы Твои хранить буду, – не оставь меня совсем! Как очистит юноша путь свой? Сохраняя себя по слову Твоему! Всем сердцем своим я искал Тебя, не дай мне ошибиться, отступить от заповедей Твоих. В сердце моем заключил я слово Твое, чтобы не грешить пред Тобой. Благословен Ты, Господи, – научи меня уставам Твоим! Устами своими возвещал я все решения уст Твоих. Следуя по пути заповедей Твоих, радовался я, как другие – всякому богатству. О повелениях Твоих размышляю и всматриваюсь в пути Твои. Установлениями Твоими утешаюсь, не забуду слова Твоего! Облагодетельствуй раба Твоего, чтобы жил я и хранил слово Твое. Открой глаза мои, чтобы я увидел чудесное из Торы Твоей. Чужеземец я на земле, – не скрывай от меня заповедей Твоих! Сокрушена душа моя от жажды законов Твоих, во всякое время. Пригрозил Ты злодеям, проклятым, отступающим от заповедей Твоих. Сними с меня позор и поношение, ибо заповеди Твои сохранил я. И сидели вельможи, обо мне сговаривались, а раб Твой размышлял о законах Твоих. И заповеди Твои – утешение мое, советники мои. Прильнула к праху душа моя, оживи меня по слову Твоему! Рассказал я о пути своем, и Ты ответил мне – научи меня законам Твоим. Путь повелений Твоих дай мне уразуметь, и размышлять буду о чудесах Твоих. Истаивает от грусти душа моя, укрепи меня по слову Твоему. Путь лжи устрани от меня и Тору Твою даруй мне. Путь веры избрал я, законы Твои поставил пред собой. Прильнул я к заповедям Твоим, Господи, – не пристыди меня! Путем заповедей Твоих поспешу, когда Ты дашь простор сердцу моему.</p>
+
+<p>Укажи мне. Господи, путь законов Твоих, и я буду придерживаться его до конца. Вразуми меня, и я буду придерживаться Торы Твоей и хранить ее всем сердцем. Веди меня по пути заповедей Твоих, ибо его возжелал я. Склони сердце мое к заповедям Твоим, а не к корысти. Отврати глаза мои от созерцания суеты, путем Твоим оживи меня. Утверди для раба Твоего слово Твое о благоговении пред Тобой. Отврати позор мой, которого страшусь я, ибо решения Твои благи. Вот, возжелал я повелений Твоих, правдой Твоей оживи меня! И да придет ко мне милость Твоя, Господи, спасение от Тебя – по слову Твоему. И я дам ответ поносящему меня, ибо уповаю я на слово Твое. Не отнимай совсем от уст моих слова правды, ибо правосудия Твоего ожидаю я. И хранить буду Тору Твою всегда, во веки веков. И ходить буду на просторе, ибо повелении Твоих искал я. И говорить буду по заповедям Твоим пред царями и не устыжусь. И утешаться буду заповедями Твоими, которые люблю я. И вознесу руки свои к заповедям Твоим, которые люблю я, и размышлять буду о законах Твоих. Вспомни слово Твое к рабу Твоему, которым Ты поддерживал меня. Это утешение мое в бедствии моем, потому что слово Твое оживляет меня. Злодеи осмеивали меня чрезвычайно – от Торы Твоей не уклонился я. Вспоминаю я установления Твои древние, Господи, и утешаюсь. Дрожь охватила меня из-за нечестивых, оставляющих Тору Твою. Песнями были мне законы Твои в доме, где обитал я. Вспоминал я ночью имя Твое, Господи, и сохранял Тору Твою. Это сталось со мной, потому что сохранял я Тору Твою. Удел мой, Господи, сказал я, – соблюдать слова Твои. Умоляю Тебя всем сердцем – помилуй меня по слову Твоему. Размышлял я о путях своих и обращал стопы свои к заповедям Твоим. Спешил я и не медлил хранить заповеди Твои. Банды нечестивых окружили меня – Тору Твою не забыл я. В полночь встаю я благодарить Тебя за суды Твои праведные. Товарищ я всякому, кто благоговеет пред Тобой и хранит повеления Твои.</p>
+
+<p>Милости Твоей, Господи, полна земля, – научи меня законам Твоим. Благо сотворил Ты рабу Твоему, Господи, по слову Твоему. Доброму разумению и ведению научи меня, ибо в заповеди Твои верю я. До того, как страдал я, заблуждался я, а ныне слово Твое храню. Добр Ты и творишь благо, научи меня законам Твоим. Возвели на меня ложь злодеи, – а я всем сердцем соблюдаю повеления Твои. Отупело, стало как тук, сердце их, – а я Торой Твоей утешался. Благо мне, что страдал я, чтобы научиться законам Твоим. Лучше для меня Тора из уст Твоих, чем тысячи золотых и серебряников. Руки Твои сотворили меня и утвердили меня, вразуми меня, и изучу я заповеди Твои. Боящиеся Тебя увидят меня и возрадуются, ибо на слово Твое полагался я. Знаю я, Господи, что праведны решения Твои и наказал Ты меня по справедливости. Пусть будет милость Твоя утешением моим, по слову Твоему к рабу Твоему. Пусть придет ко мне милосердие Твое, а я жить буду, потому что Тора Твоя – отрада моя. Пусть пристыжены будут злодеи, потому что ложно, несправедливо судили меня, – а я размышлять буду о повелениях Твоих. Пусть возвратятся ко мне боящиеся Тебя и знающие наставления Твои. Да будет целостно сердце мое в законах Твоих, чтобы не устыдился я. Жаждет душа моя помощи Твоей, на слово Твое уповаю я. Жаждут глаза мои слова Твоего, говоря: когда Ты утешишь меня? Хоть стал я, как мех прокопченный, – не забыл законов Твоих. Сколько дней у раба Твоего? Когда устроишь Ты суд над преследователями моими? Вырыли мне яму злодеи, вопреки Торе Твоей. Все заповеди Твои – истина, несправедливо они преследовали меня – помоги мне! Едва не погубили меня на земле, но я не оставил повелений Твоих. По милости Твоей оживи меня, и я буду хранить повеления уст Твоих. Навсегда, Господи, слово Твое установлено в небесах. Во веки веков верность Твоя. Утвердил Ты землю – и стоит она. По законам Твоим стоят они до сего дня, ибо все подчинено Тебе. Если бы не Тора Твоя – отрада моя, – пропал бы я в бедствии моем. Никогда не забуду повелений Твоих, потому что ими Ты оживил меня. Твой я, помоги мне, потому что повелений Твоих – их ищу я. Надеялись нечестивые погубить меня, а я всматриваюсь в заповеди Твои. Всему совершенному я видел предел, но заповедь Твоя пространна безмерно.</p>
+
+<p>Как люблю я Тору Твою! Весь день она – предмет размышлений моих. Мудрее врагов моих делает меня заповедь Твоя, ибо вовеки – моя она. От всех учивших меня умудрялся я, ибо заповеди Твои – помысел мой. От старцев вразумлялся я, потому что повеления Твои соблюдал я. От всякого дурного пути удерживал я ноги мои, чтобы хранить слово Твое. От законов Твоих не отступал я, потому что Ты обучал меня. Как сладки для неба моего слова Твои, более, чем мед для уст моих. Повелениями Твоими вразумлен я, оттого ненавижу всякий путь лжи. Слово Твое – светильник ноге моей и свет стезе моей. Клялся я – и исполню! – хранить законы справедливые Твои. Удручен я очень, Господи, оживи меня по слову Твоему. К молитве уст моих благоволи, прошу, Господи, и законам Твоим научи меня. Душа моя в руке моей всегда в смертельной опасности, но Тору Твою не забыл я. Поставили нечестивые сеть мне, а я не уклонился от повелений Твоих. Унаследовал я заповеди Твои навеки, ибо они – радость сердца моего. Склонил я сердце мое к исполнению законов Твоих навек, до конца. Злонамеренных ненавижу я, а Тору Твою люблю. Убежище мое и щит мой Ты, слова Твоего жду я. Удалитесь от меня, нечестивые, и хранить буду заповеди Бога моего. Поддержи меня, по слову Твоему, чтобы жить мне, и не посрами меня в надежде моей. Укрепи меня, и спасен буду и заниматься буду законами Твоими всегда.</p>
+
+<p>Попираешь Ты всех отступающих от законов Твоих, потому что тщетна ложь их. Как шлак, устранил Ты всех нечестивых земли, поэтому люблю я заповеди Твои. Содрогнулась от страха пред Тобой плоть моя, и судов Твоих боюсь я. Творил я суд и справедливость, не оставь меня в руках притеснителей моих. Поручись за раба Твоего – ко благу его, пусть не притесняют меня злодеи. Глаза мои истомились, ожидая помощи Твоей и слова справедливости Твоей. Поступай с рабом Твоим по милосердию Твоему и законам Твоим научи меня. Раб Твой я, вразуми меня, и узнаю заповеди Твои. Время действовать ради Господа: они нарушили Тору Твою! Посему люблю заповеди Твои больше золота и чистого золота. Посему все повеления Твои – все справедливыми признаю, всякий путь ложный ненавижу я. Дивны заповеди Твои, поэтому хранит их душа моя. Откровение слов Твоих просветляет, вразумляет простаков. Уста свои разверзаю и глотаю слова Торы, потому что заповедей Твоих жажду я. Обратись ко мне и помилуй меня – по праву любящих имя Твое. Шаги мои утверди словом Твоим и не дай нечестию властвовать надо мной. Избавь меня от притеснения человеческого, и хранить буду повеления Твои. Лицом Твоим освети раба Твоего и научи меня законам Твоим. Потоки вод исторгают глаза мои, за то, что не хранили они Тору Твою. Праведен Ты, Господи, и справедливы законы Твои. Установления Твои, которые заповедал Ты, справедливы и верны совершенно. Изнурило меня рвение мое, потому что забыли слова Твои притеснители мои. Очень чисто слово Твое, и раб Твой любит его. Мал я и презрен, но повелений Твоих не забыл. Справедливость Твоя – справедливость вечная, и Тора Твоя – истина. Беда и нужда настигли меня, но заповеди Твои – отрада моя. Справедливость установлений Твоих вечна – вразуми меня, и я буду жив! Воззвал я всем сердцем – ответь мне, Господи, хранить буду законы Твои. Призвал я Тебя – помоги мне, и хранить буду заповеди Твои. Рано, во тьме, встал я и возопил, на слово Твое уповал я. Опередили глаза мои утреннюю стражу, чтобы размышлять мне о слове Твоем. Голос мой услышь по милости Твоей, Господи, по суду Твоему оживи меня. Приближаются стремящиеся к лукавству; от Торы Твоей удалились они. Близок Ты, Господи, и все заповеди Твои – истина.</p>
+
+<p>Издавна знал я из заповедей Твоих, что навеки Ты основал их. Взгляни на страдание мое и избавь меня, ибо Тору Твою не забыл я. Заступись за меня в распре моей и искупи меня, по слову Твоему оживи меня. Далеко от нечестивых спасение, ибо законов Твоих не искали они. Велико милосердие Твое, Господи, по обычаю Твоему оживи меня. Многочисленны гонители мои и притеснители мои, но от заповедей Твоих не уклонился я. Видел я вероломных и ссорился с ними, потому что не хранили они слова Твоего. Посмотри, как люблю я повеления Твои, Господи, по милости Твоей оживи меня. Основа слова Твоего – истина, и навеки всякий праведный суд Твой. Вельможи преследуют меня напрасно, но слова Твоего испугалось сердце мое. Радуюсь я словам Твоим, как нашедший великую добычу. Ложь ненавижу я и гнушаюсь ею; Тору Твою люблю я. Семь раз в день я восхваляю Тебя за законы справедливые Твои. Велико благополучие любящих Тору Твою, и нет у них препятствий. Уповал я на помощь Твою, Господи, и заповеди Твои исполнял. Хранила душа моя заповеди Твои, и полюбил я их весьма. Хранил я повеления Твои и заповеди Твои, ибо все пути мои пред Тобой. Пусть дойдет до Тебя, Господи, молитва моя, по слову Твоему вразуми меня. Да придет к Тебе моление мое, по слову Твоему спаси меня. Изрекут уста мои хвалу, когда Ты научишь меня законам Твоим. Изрекать будет язык мой слово Твое, потому что справедливы все заповеди Твои. Да будет рука Твоя в помощь мне, потому что повеления Твои избрал я. Жажду помощи Твоей, Господи, и Тора Твоя – отрада моя. Да живет душа моя и славит Тебя, и помогут мне суды Твои. Заблудился я, как овца потерянная, ищи раба Твоего, потому что заповеди Твои не забыл я.</p>
+</article>
+
+<nav class="article-nav">
+  <span class="prev"><a href="384.view.html">← Катехизис Детей Вечной Весны</a></span>
+  <span class="next"><a href="06I.view.html">Воззвание к друзьям-каббалистам →</a></span>
+</nav>
+
+<footer class="footer">
+<p class="editinfo">Редакция: Иван Иванович</p>
+<p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+<p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+</footer>
+</div>
+<script>
+// Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
+// no editor/login module is loaded.
+(function(){
+  var bubble = null, hideTimer = null;
+  function ensureBubble(){
+    if (bubble) return bubble;
+    bubble = document.createElement('div');
+    bubble.className = 'footnote-bubble';
+    bubble.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); });
+    bubble.addEventListener('mouseleave', scheduleHide);
+    document.body.appendChild(bubble);
+    return bubble;
+  }
+  function scheduleHide(){
+    if (hideTimer) clearTimeout(hideTimer);
+    hideTimer = setTimeout(function(){ if (bubble) bubble.classList.remove('show'); }, 180);
+  }
+  function show(link){
+    var href = link.getAttribute('href') || '';
+    if (!href.startsWith('#')) return;
+    var target = document.getElementById(href.slice(1));
+    if (!target) return;
+    var b = ensureBubble();
+    var clone = target.cloneNode(true);
+    var back = clone.querySelector('a.backref');
+    if (back) back.remove();
+    // муз-трек как цель сноски: во всплывашке — ТОЛЬКО название трека (+ ↗),
+    // БЕЗ плеера/iframe-фрейма и дубль-этикетки (вердикт оператора 14:46)
+    if ((clone.className || '').indexOf('music') >= 0 || clone.querySelector('iframe, .player')) {
+      Array.prototype.forEach.call(clone.querySelectorAll('.player, .caret, .label, .trk-play'),
+        function(e){ e.remove(); });
+    }
+    b.innerHTML = clone.innerHTML;
+    b.classList.add('show');
+    var r = link.getBoundingClientRect();
+    var sx = window.pageXOffset, sy = window.pageYOffset;
+    b.style.left = '0px'; b.style.top = '0px';
+    var bw = b.offsetWidth, bh = b.offsetHeight;
+    var left = sx + r.left + r.width/2 - bw/2;
+    var maxLeft = sx + document.documentElement.clientWidth - bw - 8;
+    if (left > maxLeft) left = maxLeft;
+    if (left < sx + 8) left = sx + 8;
+    var top = sy + r.top - bh - 10;
+    var placeBelow = (top - sy) < 8;
+    if (placeBelow) top = sy + r.bottom + 10;
+    b.style.left = left + 'px';
+    b.style.top  = top  + 'px';
+    b.classList.toggle('below', placeBelow);
+  }
+  function ytPost(f, func){
+    if (!f) return;
+    try { f.contentWindow.postMessage('{"event":"command","func":"'+func+'","args":[]}', '*'); } catch(e){}
+  }
+  function applyMute(d){
+    var btn = d.querySelector('.trk-mute'); if (!btn) return;
+    var f = d.querySelector('iframe');
+    if (!f || f.getAttribute('data-src')) return;   // плеер ещё не впрыснут
+    var func = btn.getAttribute('aria-pressed') === 'true' ? 'mute' : 'unMute';
+    ytPost(f, func);                                 // плеер готов (играет рекламу) → срабатывает сразу
+    setTimeout(function(){ ytPost(f, func); }, 700); // ретраи на случай «только что открыли»
+    setTimeout(function(){ ytPost(f, func); }, 1800);
+  }
+  function bindMusic(){
+    document.querySelectorAll('details.music').forEach(function(d){
+      if (d.dataset.musicBound) return; d.dataset.musicBound = '1';
+      d.addEventListener('toggle', function(){
+        if (!d.open) return;
+        var f = d.querySelector('iframe[data-src]');
+        if (f) {
+          var src = f.getAttribute('data-src');
+          src += (src.indexOf('?') >= 0 ? '&' : '?') + 'origin=' + encodeURIComponent(location.origin);
+          f.src = src; f.removeAttribute('data-src');
+        }
+        applyMute(d);                                // применить запомненное mute-состояние
+      });
+      var btn = d.querySelector('.trk-mute');
+      if (btn) {
+        var toggle = function(ev){
+          ev.preventDefault(); ev.stopPropagation();  // не дёргать details.open
+          var on = btn.getAttribute('aria-pressed') !== 'true';
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+          btn.setAttribute('aria-label', on ? 'Включить звук' : 'Заглушить звук');
+          btn.title = on ? 'Включить звук' : 'Заглушить звук (реклама YouTube)';
+          applyMute(d);
+        };
+        btn.addEventListener('click', toggle);
+        btn.addEventListener('keydown', function(ev){
+          if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') toggle(ev);
+        });
+      }
+    });
+  }
+  function bindFootnotes(){
+    document.querySelectorAll('sup a[href^="#cite_note-"]').forEach(function(a){
+      if (a.dataset.fnBound) return; a.dataset.fnBound = '1';
+      a.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); show(a); });
+      a.addEventListener('mouseleave', scheduleHide);
+      a.addEventListener('focus', function(){ show(a); });
+      a.addEventListener('blur',  scheduleHide);
+    });
+  }
+  function bindSpoilers(){
+    document.querySelectorAll('.spoiler').forEach(function(sp){
+      if (sp.dataset.splBound) return; sp.dataset.splBound = '1';
+      function reveal(){ sp.classList.add('revealed'); }
+      sp.addEventListener('click', reveal);
+      sp.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); reveal(); }
+      });
+    });
+  }
+  bindMusic(); bindFootnotes(); bindSpoilers();
+
+  // Общая левая рейка стихов: все .poem статьи ровняются по краю, который
+  // центрирует САМЫЙ ШИРОКИЙ из них (классическая осевая выключка, но единая
+  // на статью — края не скачут от блока к блоку). Пересчёт при смене
+  // темы/ширины/размера окна: метрики шрифта и мера меняются.
+  function alignPoems(){
+    var art = document.querySelector('article'); if (!art) return;
+    var poems = Array.prototype.slice.call(art.querySelectorAll('.poem'));
+    if (!poems.length) return;
+    poems.forEach(function(p){ p.style.marginLeft = ''; p.style.marginRight = ''; });
+    if (poems.length < 2) return; // одиночный стих — родное центрирование темы
+    var maxW = 0;
+    poems.forEach(function(p){ maxW = Math.max(maxW, p.getBoundingClientRect().width); });
+    var cs = getComputedStyle(art);
+    var artRect = art.getBoundingClientRect();
+    var contentLeft = artRect.left + parseFloat(cs.paddingLeft || 0) + parseFloat(cs.borderLeftWidth || 0);
+    var contentWidth = art.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+    var targetX = contentLeft + Math.max(0, (contentWidth - maxW) / 2);
+    poems.forEach(function(p){
+      p.style.marginLeft = '0px'; p.style.marginRight = 'auto';
+      var x = p.getBoundingClientRect().left;
+      p.style.marginLeft = (targetX - x) + 'px';
+    });
+  }
+  var alignTimer = null;
+  function alignPoemsSoon(){ if (alignTimer) clearTimeout(alignTimer); alignTimer = setTimeout(alignPoems, 60); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignPoemsSoon);
+  window.addEventListener('load', alignPoemsSoon);
+  window.addEventListener('resize', alignPoemsSoon);
+  alignPoemsSoon();
+
+  // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  var sel = document.getElementById('zml-theme');
+  var wsel = document.getElementById('zml-width');
+  var link = document.getElementById('theme-css');
+  var wrap = document.querySelector('.wrap');
+  var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+  if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
+  if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
+  if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
+  if (sel) sel.addEventListener('change', function(){
+    var t = sel.value;
+    document.body.setAttribute('data-theme', t);
+    if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
+  });
+  if (wsel) wsel.addEventListener('change', function(){
+    if (!wrap) return;
+    wrap.classList.toggle('w-narrow', wsel.value==='narrow');
+    wrap.classList.toggle('w-wide', wsel.value==='wide');
+    alignPoemsSoon();
+  });
+
+  // Ф8′ ре-резолвинг вида для ЗАЛОГИНЕННОГО пользователя. Аноним уже получил
+  // запечённый Admin-вид (display.json на сборке) — здесь ничего не делаем. Залогинен
+  // → тянем личные правила из worker KV и применяем (зеркало resolveDisplay в render.js).
+  (function(){
+    var body = document.body;
+    var section = body.getAttribute('data-art-section') || '';
+    var type    = body.getAttribute('data-art-type') || '';
+    var fmTheme = body.getAttribute('data-fm-theme') || '';
+    var fmWidth = body.getAttribute('data-fm-width') || '';
+    var worker  = (body.getAttribute('data-worker') || '').replace(/\/+$/, '');
+    var sess; try { sess = JSON.parse(localStorage.getItem('ya_session')||'null'); } catch(e){}
+    if (!sess || !sess.token || !worker) return;
+    function resolve(cfg){
+      var g=(cfg&&cfg.global)||{}, rules=(cfg&&cfg.rules)||[], rd='', rw='';
+      for (var i=0;i<rules.length;i++){ var m=rules[i]&&rules[i].match; if(!m) continue;
+        if ((m.kind==='section'&&m.value===section)||(m.kind==='type'&&m.value===type)){
+          rd=rules[i].design||''; rw=rules[i].width||''; break; } }
+      return { design:(fmTheme||rd||g.design||'A_editorial'),
+               width:(fmWidth||rw||g.width||'wide') };
+    }
+    function apply(d){
+      if (sel && sel.value!==d.design){ sel.value=d.design; sel.dispatchEvent(new Event('change')); }
+      var w = /narrow|820/.test(d.width)?'narrow':'wide';
+      if (wsel && wsel.value!==w){ wsel.value=w; wsel.dispatchEvent(new Event('change')); }
+    }
+    fetch(worker+'/api/settings',{headers:{Authorization:'Bearer '+sess.token}})
+      .then(function(r){ return r.ok?r.json():null; })
+      .then(function(cfg){ if(cfg) apply(resolve(cfg)); })
+      .catch(function(){});
+  })();
+})();
+</script>
+</body>
+</html>

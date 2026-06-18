@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ЗОЛУШКА</title>
+<meta name="description" content="">
+<meta name="robots" content="noindex">
+<link id="theme-css" rel="stylesheet" href="../themes/A_editorial.css?v=20260618-01">
+<style id="spl-base">
+/* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
+.wrap.w-narrow{max-width:820px;}
+.wrap.w-wide{max-width:1080px;}
+/* [spl] spoiler — structural, theme-agnostic. Themes may tune --spl-cover. */
+.spoiler{position:relative;display:inline-block;cursor:pointer;border-radius:3px;vertical-align:baseline;}
+.spoiler:not(.revealed) .spoiler-content{visibility:hidden;}
+.spoiler:not(.revealed)::before{content:"";position:absolute;inset:-1px;border-radius:3px;
+  background:var(--spl-cover,repeating-linear-gradient(45deg,#4a4a4a 0 7px,#2f2f2f 7px 14px));
+  background-size:auto;animation:spl-shimmer 1.4s linear infinite;}
+.spoiler.revealed{cursor:auto;}
+.spoiler:focus-visible{outline:2px solid currentColor;outline-offset:2px;}
+@keyframes spl-shimmer{from{background-position:0 0;}to{background-position:20px 0;}}
+@media (prefers-reduced-motion:reduce){.spoiler:not(.revealed)::before{animation:none;}}
+/* audio narration 🎧 by H1 — structural, theme-agnostic (themes may refine). */
+.audio-link{font-size:.62em;vertical-align:middle;margin-left:.4em;text-decoration:none;white-space:nowrap;}
+/* [subsec] section subtitle — base (themes refine): muted italic, tight to ## heading. */
+.sec-sub{margin:.15em 0 1.3em;font-style:italic;font-size:.95em;opacity:.7;line-height:1.45;text-indent:0;text-align:left;}
+h2 + .sec-sub, h2.subtitle + .sec-sub{margin-top:-.5em;}
+/* fn-ревью (2026-06-12) — структурная база новых конструкций; темы уточняют. */
+/* [^N] в H1: sup-маркер на глаз отличим от текста заголовка (THEME_CONTRACT). */
+h1#article-title sup{font-size:.42em;font-weight:400;line-height:0;letter-spacing:normal;vertical-align:super;}
+/* [line kind=tags|dateline] — служебная роль-строка; буквицы тем её пропускают. */
+p.line{font-size:.88em;opacity:.72;letter-spacing:.02em;text-indent:0;}
+/* [ul] — маркированный список; значок через --marker → li::marker. */
+ul.ul{margin:1em 0;padding-left:1.6em;}
+ul.ul li::marker{content:var(--marker, initial);}
+/* [num] со скобко-стилем «1)» (авторские номера держит li[value]). */
+ol.num.num-paren li::marker{content:counter(list-item) ") ";}
+/* [epi kind=dedi] — посвящение. */
+article .epigraph.dedication, article .epilogue.dedication{text-align:right;font-style:italic;}
+/* TOC: вложенный 2-й уровень (###). */
+details.article-toc ol ol{margin:.15em 0 .15em 1.1em;}
+/* [toc nonum]: заголовки сами нумерованы (1 / 1.1 / 1.1.1) → гасим авто-числа <ol>
+   (две класса-метки → перебивает per-theme `.article-toc ol{padding-left}` по специфичности) */
+details.article-toc.nonum ol{list-style:none; padding-left:0;}
+details.article-toc.nonum ol ol{margin-left:1.1em;}
+/* [sig] подпись / [cry] возглас (ZML3 C11) — base, themes refine. */
+.sig{text-align:right;font-style:italic;margin:1.4rem 0;}
+.cry{text-align:center;font-weight:700;letter-spacing:.05em;margin:1.6rem 0;}
+/* глифы (C13) + inline term/leit (C10) — base no-op-ish; themes colour or ignore. */
+.glyph{white-space:nowrap;}
+.term{text-decoration:underline dotted;text-underline-offset:3px;}
+.leit{font-style:italic;}
+/* музыка Б2: inter-track заметка (1AQA «Слушать вместе…») — base, themes refine. */
+.music-note{text-align:center;font-style:italic;opacity:.72;font-size:.92em;
+  margin:.2rem 0 .5rem;}
+/* музыка-плашка (канон оригинала): ▶ N) **Название** — *Автор* — название жирным,
+   автор обычным-курсивом, ► играбел-индикатор (крутится при раскрытии). Специфичность
+   `.music-group .title …` перебивает курсив `.title` темы. */
+.music-group .trk-play{display:inline-block;font-size:.82em;opacity:.65;margin-right:.1em;
+  transition:transform .18s ease;}
+details.music[open] .trk-play{transform:rotate(90deg);}
+.music-group .title .trk-num{opacity:.55;font-style:normal;font-variant-numeric:tabular-nums;}
+.music-group .title .trk-ttl{font-weight:600;font-style:normal;}
+.music-group .title .trk-sep{opacity:.5;font-weight:400;}
+.music-group .title .trk-art{font-weight:400;font-style:italic;opacity:.78;}
+/* трек-строка = flex: текст слева ВО ВСЕХ темах (перебивает theme text-align:center
+   у B_manuscript/ar_deco — флекс-айтемы паковка слева), динамик-mute прижат вправо
+   (2026-06-18). */
+.music-group details.music>summary,.music-group .music-noplayer>.summary{
+  display:flex; align-items:center; flex-wrap:wrap; gap:.12em; text-align:left;}
+.music-group .title{min-width:0;}
+/* кнопка-динамик (mute рекламы YouTube) — справа на строчке */
+.music-group .trk-mute{margin-left:auto; flex:0 0 auto; align-self:center;
+  cursor:pointer; opacity:.5; color:inherit; line-height:0; padding:.1em .2em;
+  border-radius:4px; transition:opacity .15s,color .15s;
+  -webkit-tap-highlight-color:transparent;}
+.music-group .trk-mute:hover,.music-group .trk-mute:focus-visible{opacity:1; outline:none;}
+.music-group .trk-mute svg{width:1.2em; height:1.2em; display:block;}
+.music-group .trk-mute .spk-slash{display:none;}
+.music-group .trk-mute[aria-pressed="true"]{opacity:.95; color:var(--accent,currentColor);}
+.music-group .trk-mute[aria-pressed="true"] .spk-wave{display:none;}
+.music-group .trk-mute[aria-pressed="true"] .spk-slash{display:inline;}
+/* [dlg] форум-стиль (№2, по образцу форума ccastaneda.ru): пост-в-рамке + метка
+   спикера small-caps. base — themes refine (--accent2 = акцент темы). */
+.dialog .post{border-left:3px solid var(--accent2,currentColor);
+  background:color-mix(in srgb, currentColor 4%, transparent);
+  padding:.55rem .95rem;margin:.7rem 0;border-radius:0 4px 4px 0;}
+.dialog .post-by{display:block;font-variant:small-caps;letter-spacing:.05em;
+  font-weight:700;font-style:normal;font-size:.9em;color:var(--accent2,inherit);
+  opacity:.95;margin-bottom:.25em;}
+.dialog .post-text{display:block;}
+.dialog .post-text + .post-text{margin-top:.55em;}/* многоабзацная реплика */
+.dialog .dlg-line{margin:.45rem 0;}
+/* viewbar — управление видом статьи (тема/ширина/оригинал/править).
+   Сидит в одной строке с крошками (крошки слева, управление справа).
+   Здесь только структура; типографика/цвета — у темы (.viewbar в THEME_CONTRACT). */
+header.breadcrumbs{display:flex;gap:1.2em;row-gap:.3em;align-items:baseline;flex-wrap:wrap;}
+header.breadcrumbs .crumbs{flex:1 1 auto;}
+.viewbar{display:flex;gap:1.1em;row-gap:.3em;align-items:center;flex-wrap:wrap;
+  font-size:.78rem;margin:0 0 0 auto;}
+.viewbar label{display:inline-flex;gap:.35em;align-items:center;white-space:nowrap;}
+.viewbar select{font:inherit;color:inherit;background:transparent;border:none;
+  border-bottom:1px solid currentColor;padding:0 1px 1px;cursor:pointer;}
+.viewbar select option{color:#222;background:#fff;}
+.viewbar a{text-decoration:none;white-space:nowrap;}
+.viewbar .vb-edit{font:inherit;color:inherit;background:none;border:none;padding:0;white-space:nowrap;}
+.viewbar .vb-edit:disabled{opacity:.45;cursor:default;}
+</style>
+</head>
+<body class="article-page" data-art="15E" data-theme="A_editorial" data-pagefind-ignore="all"
+  data-art-section="dabudet" data-art-type="prose"
+  data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
+<div class="wrap w-wide">
+<header class="breadcrumbs">
+<span class="crumbs"><a href="../index.html">Главная</a><span class="sep">›</span><a href="../dabudet/index.html">Да будет Свет!</a></span>
+<nav class="viewbar" aria-label="Вид статьи">
+  <label>Тема
+    <select id="zml-theme">
+      <option value="A_editorial">editorial</option>
+      <option value="B_manuscript">manuscript</option>
+      <option value="cyberpunk">cyberpunk</option>
+      <option value="swiss">swiss</option>
+      <option value="ar_deco">ar-deco</option>
+    </select>
+  </label>
+  <label>Ширина
+    <select id="zml-width">
+      <option value="wide">широкая</option>
+      <option value="narrow">узкая</option>
+    </select>
+  </label>
+  <a class="vb-orig" href="15E.html?orig=1">Оригинал</a>
+  <button class="vb-edit" type="button" disabled aria-disabled="true" title="Редактирование появится позже">✎ Править</button>
+</nav>
+</header>
+<img class="cover" src="../img/15E.jpg" alt="ЗОЛУШКА">
+
+<h1 id="article-title">ЗОЛУШКА⁠<a class="audio-link" href="https://t.me/art_017_tracks/373" target="_blank" rel="noopener" title="Слушать аудио-озвучку" aria-label="Слушать аудио-озвучку">🎧</a></h1>
+<p class="byline">Элиягу Бар Малей · #15E · 2021-05-14 · Источник: <a href="https://proza.ru/2021/09/12/1243" target="_blank" rel="noopener">proza.ru/2021/09/12/1243</a></p>
+<article>
+
+<p>Поясним принцип, лежащий в основе духовного Пути человека и "воина", на примере сюжетной линии народной сказки про Золушку. Для начала вспомним, согласно КК, первое следствие “обучения магии”: движение между состояниями сознания. Именно движение, то есть постоянное изменение одного на другой, а не установка в каком-либо одном, “предпочтительно”. Это единственный “неизменный” в Реальности вечного изменения и текучести “эманаций Орла”, “магический” принцип, заключающийся в том, что на Пути нет ничего неизменного, установленного раз и навсегда для всех одинаковым образом, кроме того, что место, в котором человек находится сегодня, завтра будет совершенно другим. Не важно, “лучше” или “хуже”, ближе или дальше от умозрительной “цели” (если воин все еще занимается такими глупостями, как самооценка себя на Пути посредством слов и мыслей), но совершенно точно максимально разным, и чем дальше человек заходит на этом Пути, тем более широкой становится амплитуда, а более частыми резкие изменения.</p>
+
+<p>Именно здесь находится центральный водораздел между людьми и магами, или “точка невозврата к глупости своей” (она же, только “с другой стороны” своего достижения воином, с легкой руки Кипелова, “точка невозврата из мечты”), поскольку Намерение людей, независимо от успешности усилий, прилагаемых на Пути воином во всевозможных “неделаниях”, его ТС возвращает (медленно, но неизменно и неуклонно) в то же самое стойло, из которого кормятся все остальные окружающие воина люди. Когда воин становится магом, он включается в работу Намерения принципиально иного типа, влияние которого на ТС воина носит в точности противоположный характер, постоянно “выталкивая” его ТС из насиженной позиции, какой бы она не была, при этом, делая это легко и естественно, “без потрясений и навязчивых идей”, независимо от сложности каждого конкретного шага. Это называется “быть взятым под крыло Птицей Свободы”, или жить в Мифе, являясь частью Правила, или, быть знакомым с Намерением по принципу Второго Кольца Силы. По большому счету, этот “водораздел” либо включает человека в реальность Намерения Духа, либо выталкивает его из этой Реальности обратно в мир людей, являющийся миром безблагодатной и серой безысходной рутины, пустотности и абсолютной власти лжи и глупости. Разумеется, Дух не по причине каких-либо “садистских наклонностей” отталкивает от Себя человека, а ради пользы самого человека, поскольку если бы этот вход был открытым для всех автоматически, то вместо достижения этого состояния целой жизни упорной борьбы, чтобы никогда и ни за что его не потерять и не обменять ни на что на Свете, человек бы либо ходил туда-обратно через “точку невозврата”, как через “проходной двор”, в итоге оставляя себе все меньше и меньше шансов в этой жизни к чему-то придти вообще, либо, столкнувшись с Реальностью, более серьезной и “конкретной” на порядок, чем его собственные усилия по встрече с Ней, банально слетит с катушек, с тем же самым итогом для всей жизни и Пути в целом. Однако, с развитием общего цивилизационного процесса, который проходит человечество, с каждым новым поколением, а, в особенности, в новом тысячелетии и новой эпохе, доступность все более “настоящих” и “внутренних” форм Пути, равно как и их “человеко-ориентированность” (user-friendly usability), неуклонно и ощутимо повышается.</p>
+
+<div class="music-group" data-label="Музыка под настроение">
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Точка невозврата из мечты</span> <span class="trk-sep">—</span> <span class="trk-art">Валерий Кипелов</span></span><a class="ext" href="https://www.youtube.com/watch?v=f1xADw21Lx4" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/f1xADw21Lx4?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+</div>
+
+<p>Возвращаясь к Золушке. Во всех вариантах сюжета, начинается он с того, что жизнь ГГ (человек, ступающий на Путь перерождения) становится систематически невыносимой, под сопровождением того, как он видит, своих прежних друзей и знакомых, получающих всевозможные блага и радости жизни, поскольку “не занимаются всякими глупостями”, и продолжают жить “как все”. Это испытание воин должен выдержать, чтобы Страж порога (Знающий Тайны того, как человек последовательно переходит с этапа на этап) пропустил его дальше. Знаком окончания испытания, становится весть о том, что Королевич собирается устраивать святочный бал. Общеизвестно, что далеко “не каждый, желающий приблизиться к Творцу, сможет приблизиться к Нему”. Не потому, что Творец не желает приближать человека, а наоборот, поскольку человек на первом же перекрестке продает эту возможность на своем Пути за первую же подкинутую судьбой красивую иллюзию – деньги, счастливая семейная жизнь, карьерный рост, известность. Поэтому перед тем, как отправиться на бал, Золушка должна показать серьезность своего намерения участвовать в “жеребьевке Духа”. Редко кому, до настоящего времени, это реально удавалось завершить и реально “войти во дворец Царя”, фактически, это были, в каждой из отдельных традиций, или “линий передачи знания”, “единицы из поколения”, “избранные среди избранных”, перед которыми ставилась цель сохранить линию передачи, и не дать исчезнуть накопленному поколениями духовному опыту и исключительным знаниям о человеке и мире; но не “просто так”, потому что он родился человеком и это его судьба – учиться воспринимать Мир таким, каким он в действительности является, достигая реальной “магической” ступени при жизни “в этом мире”, как это становится возможным (пока еще, главным образом, потенциально) в наше время и далее, в Силу изменений в “невидимой” обывателю, не смотря на полное управление его жизнью и судьбой, частей Реальности, “выписавших пропуск” к переходу на следующий этап, являющийся этим самым “святочным балом”, уже не какому-то отдельному человеку, а всему человечеству как одному единому энергоинформационному явлению, или “тоналю времени”, развивающемуся из поколения в поколение как в частном, так и в целом, и имеющем четкую и выверенную до мелочей логику и точность осуществления каждого своего шага, предопределенного изначальным включением в него “стратегии Бенефактора”, Намерением Которого этот единый Процесс был когда-то запущен, равно как и продолжает свой ход на каждом конкретном шаге, проявляясь в конкретных людях, становящихся его локальными “драйверами” согласно конкретному месту, задаче и времени.</p>
+
+<p>Все, что Золушка делала, стремясь доказать Мачехе (инертность я-личности “этого мира”, нормальный и здоровый эгоизм, чувство собственной важности и жалости к себе), что она должна пропустить свою воспитанницу на Бал вместе с ее “родными” дочерьми (желаниями в сердце человека, продолжающими впечатляться и воодушевляться от открывающейся перспективы материальных благ, приобретений и успеха), оказалось “напрасно”, потому что Мачеха изначально не планировала давать Золушке карт-бланш на какое-либо проявление самостоятельности. Победа принципов воина для эго-личности означает личное полное эволюционное поражение в схватке за жизненную Силу воина “не на жизнь, а на смерть”, поэтому, “принимая решения” отнюдь не “словами”, вяло прокручивающими в монологе с самим собой то, к чему ей человека необходимо склонить, перед тем, как он об этом должен будет принимать “собственное, свободное и абсолютно независимое ни от кого” “разумное” решение, “злое начало”, являющееся ничем иным, нежели совокупной волей самого человека быть взрослой и адекватной (бессмертной и непрерывной, само собой) личностью повседневного мира, которая всегда выполняет роль “злого полицейского” в спектакле экзистенциальной драмы человеческой формы, выписывающей бесконечные фигурки перед зеркалом, пока человек не принимает решение это зеркало разбить со всего размаха ногой, следует простому и рациональному до предела принципу “бритвы оккама”, сначала закрывая перед воином все шлагбаумы, до которых только может дотянуться, а потом уже начиная с ним торговаться об “объективных внешних причинах”, которые никогда не дадут воину через них пройти, “как бы ему не хотелось этого”.</p>
+
+<p>Такое безжалостное и точное поведение эго-личности лишает человека выбора – т.к. закрепляет себя в позиции своего непримиримого противника, хотя он, в действительности, пока еще хочет “как все” испытать счастье, не особенно надеясь на какой-либо успех. И, вынудив “злое начало” раскрыть карты, то есть, дать понять, что на Бал его пускать не станет ни при каких условиях, а все “обстоятельства”, которые воин уже преодолел, являлись пустым маскарадом, он находит другого “союзника”, который с радостью помогает воину совершить задуманное, причем, сделав это гораздо лучше, чем могло бы быть в принципе, если бы ему “помогала” все та же “Мачеха”, таким образом, она действительно ему “помогла”, поскольку “летуны” свои “услуги” никому не “навязывают” вопреки желанию сердца, но только сам человек выбирает, с какой Силой он хочет советоваться и искать поддержки и помощи, чтобы у него были духовные и материальные силы совершать все то, что необходимо, чтобы достичь задуманного. И человек, не зная никакой другой Силы в принципе, до самого конца “кошмарит” своего единственного “союзника” – “летуна”, “здоровый взрослый эгоизм” человека этого мира, не являющийся каким-то “злом” сам по себе, но занимающий свое строго конкретное “место” в цепочке питания “беспризорным” осознанием человека, предпочитающего всю жизнь оставаться тупой деревянной куклой, в глубине души отлично зная, что вся его жизнь – сплошной унылый и позорный маскарад. Как только воин осознает, что он сам в ответе за свою судьбу, и его решение отменить не в силах даже смерть, он сам перестает по каждому поводу лезть “советоваться” к “голосу разума”, читай “летуну”, и начинает учиться вместо этого постоянно быть чутким к тихому безмолвному, безразличному к пользе или вреду получаемых посредством него “советов”, голосу сердца, которое всегда чувствует заранее исход любого Пути, по которому идет человек, или только готовится на него ступить, потому что знает главную Тайну. Именно этим делая свои “услуги” полностью лишенными привлекательности для человека в быту личностью этого мира, которому нет до этого никакого дела.</p>
+
+<p>Новый найденный “союзник” прозрачно намекает на неожиданное обнаружение воином определенной “волшебной” генеалогии, о которой он “ни слухом, ни Духом” не догадывался, разумеется, потому, что “вакантное место” “говорящего осла” было постоянно занято “старым союзником”. А именно, к Золушке является фея-крестная, производящая “мановением волшебной палочки” “цветную революцию” в отношении Золушки к окружающим ее “обычным”, привычным по “повседневной серости” простым вещам. Которые оказываются то каретой, то конями, то извозчиком, что указывает на то, что человек учится “создавать мир”, наполненный совершенно другими чувствами, намерениями и смыслом, используя те же самые “подручные” вещи, которые всем остальным продолжают казаться тем же, чем они были всегда – “элементами серого безблагодатного повседневного болота, в котором живут все люди, а я не лучше и не хуже остальных”. Но и здесь, чтобы жизнь медом не казалась (еще рано для “меда”), появляется новая напасть – “лишь только часы пробьют полночь…”, как контр-революционные силы Намерения первого Кольца Силы берут власть над “нетрадиционно ориентированными”, молодыми и робкими, попытками человека построить из “подручных средств” “магическую картину мира”. Больше всего в этот момент Золушка мечтает оказаться как можно дальше от Принца, хотя, откровенного говоря, это зря – поскольку, если бы она наоборот Ему во всем “призналась”, и осталась бы с ним, то они бы уж как нибудь решили бы ”проблему 12 часов”. Например, приказали бы бросить в топку все часы в Королевстве, или запретили часам бить 12 под страхом превращения навечно в деревяного Щелкунчика. Поскольку Принц в этой Сказке – не какой нибудь заурядный паяц из “золотой молодежи”, пресыщенный жалким подобием полноценной Жизни, в которой все есть, потому что все возможные желания на Свете давно переисполнены царственным Папой, а Сила, Которая дает человеку шанс “поставить на Карту самого себя и выиграть”, либо проиграть, не испытывая сожалений в обоих случаях, чтобы уже никогда не оглядываться назад.</p>
+
+<div class="music-group" data-label="Музыка под настроение">
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Песня О Настоящем Индейце</span> <span class="trk-sep">—</span> <span class="trk-art">Ноль</span></span><a class="ext" href="https://youtu.be/mLC5Dt0HQRw" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/mLC5Dt0HQRw?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+</div>
+</article>
+
+<nav class="article-nav">
+  <span class="prev"><a href="15F.view.html">← Абстрактные Ядра Сказок о Силе</a></span>
+  <span class="next"><a href="15FA.view.html">Сказка о мертвой царевне →</a></span>
+</nav>
+
+<footer class="footer">
+<p class="editinfo">Редакция: Иван Иванович</p>
+<p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+<p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+</footer>
+</div>
+<script>
+// Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
+// no editor/login module is loaded.
+(function(){
+  var bubble = null, hideTimer = null;
+  function ensureBubble(){
+    if (bubble) return bubble;
+    bubble = document.createElement('div');
+    bubble.className = 'footnote-bubble';
+    bubble.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); });
+    bubble.addEventListener('mouseleave', scheduleHide);
+    document.body.appendChild(bubble);
+    return bubble;
+  }
+  function scheduleHide(){
+    if (hideTimer) clearTimeout(hideTimer);
+    hideTimer = setTimeout(function(){ if (bubble) bubble.classList.remove('show'); }, 180);
+  }
+  function show(link){
+    var href = link.getAttribute('href') || '';
+    if (!href.startsWith('#')) return;
+    var target = document.getElementById(href.slice(1));
+    if (!target) return;
+    var b = ensureBubble();
+    var clone = target.cloneNode(true);
+    var back = clone.querySelector('a.backref');
+    if (back) back.remove();
+    // муз-трек как цель сноски: во всплывашке — ТОЛЬКО название трека (+ ↗),
+    // БЕЗ плеера/iframe-фрейма и дубль-этикетки (вердикт оператора 14:46)
+    if ((clone.className || '').indexOf('music') >= 0 || clone.querySelector('iframe, .player')) {
+      Array.prototype.forEach.call(clone.querySelectorAll('.player, .caret, .label, .trk-play'),
+        function(e){ e.remove(); });
+    }
+    b.innerHTML = clone.innerHTML;
+    b.classList.add('show');
+    var r = link.getBoundingClientRect();
+    var sx = window.pageXOffset, sy = window.pageYOffset;
+    b.style.left = '0px'; b.style.top = '0px';
+    var bw = b.offsetWidth, bh = b.offsetHeight;
+    var left = sx + r.left + r.width/2 - bw/2;
+    var maxLeft = sx + document.documentElement.clientWidth - bw - 8;
+    if (left > maxLeft) left = maxLeft;
+    if (left < sx + 8) left = sx + 8;
+    var top = sy + r.top - bh - 10;
+    var placeBelow = (top - sy) < 8;
+    if (placeBelow) top = sy + r.bottom + 10;
+    b.style.left = left + 'px';
+    b.style.top  = top  + 'px';
+    b.classList.toggle('below', placeBelow);
+  }
+  function ytPost(f, func){
+    if (!f) return;
+    try { f.contentWindow.postMessage('{"event":"command","func":"'+func+'","args":[]}', '*'); } catch(e){}
+  }
+  function applyMute(d){
+    var btn = d.querySelector('.trk-mute'); if (!btn) return;
+    var f = d.querySelector('iframe');
+    if (!f || f.getAttribute('data-src')) return;   // плеер ещё не впрыснут
+    var func = btn.getAttribute('aria-pressed') === 'true' ? 'mute' : 'unMute';
+    ytPost(f, func);                                 // плеер готов (играет рекламу) → срабатывает сразу
+    setTimeout(function(){ ytPost(f, func); }, 700); // ретраи на случай «только что открыли»
+    setTimeout(function(){ ytPost(f, func); }, 1800);
+  }
+  function bindMusic(){
+    document.querySelectorAll('details.music').forEach(function(d){
+      if (d.dataset.musicBound) return; d.dataset.musicBound = '1';
+      d.addEventListener('toggle', function(){
+        if (!d.open) return;
+        var f = d.querySelector('iframe[data-src]');
+        if (f) {
+          var src = f.getAttribute('data-src');
+          src += (src.indexOf('?') >= 0 ? '&' : '?') + 'origin=' + encodeURIComponent(location.origin);
+          f.src = src; f.removeAttribute('data-src');
+        }
+        applyMute(d);                                // применить запомненное mute-состояние
+      });
+      var btn = d.querySelector('.trk-mute');
+      if (btn) {
+        var toggle = function(ev){
+          ev.preventDefault(); ev.stopPropagation();  // не дёргать details.open
+          var on = btn.getAttribute('aria-pressed') !== 'true';
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+          btn.setAttribute('aria-label', on ? 'Включить звук' : 'Заглушить звук');
+          btn.title = on ? 'Включить звук' : 'Заглушить звук (реклама YouTube)';
+          applyMute(d);
+        };
+        btn.addEventListener('click', toggle);
+        btn.addEventListener('keydown', function(ev){
+          if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') toggle(ev);
+        });
+      }
+    });
+  }
+  function bindFootnotes(){
+    document.querySelectorAll('sup a[href^="#cite_note-"]').forEach(function(a){
+      if (a.dataset.fnBound) return; a.dataset.fnBound = '1';
+      a.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); show(a); });
+      a.addEventListener('mouseleave', scheduleHide);
+      a.addEventListener('focus', function(){ show(a); });
+      a.addEventListener('blur',  scheduleHide);
+    });
+  }
+  function bindSpoilers(){
+    document.querySelectorAll('.spoiler').forEach(function(sp){
+      if (sp.dataset.splBound) return; sp.dataset.splBound = '1';
+      function reveal(){ sp.classList.add('revealed'); }
+      sp.addEventListener('click', reveal);
+      sp.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); reveal(); }
+      });
+    });
+  }
+  bindMusic(); bindFootnotes(); bindSpoilers();
+
+  // Общая левая рейка стихов: все .poem статьи ровняются по краю, который
+  // центрирует САМЫЙ ШИРОКИЙ из них (классическая осевая выключка, но единая
+  // на статью — края не скачут от блока к блоку). Пересчёт при смене
+  // темы/ширины/размера окна: метрики шрифта и мера меняются.
+  function alignPoems(){
+    var art = document.querySelector('article'); if (!art) return;
+    var poems = Array.prototype.slice.call(art.querySelectorAll('.poem'));
+    if (!poems.length) return;
+    poems.forEach(function(p){ p.style.marginLeft = ''; p.style.marginRight = ''; });
+    if (poems.length < 2) return; // одиночный стих — родное центрирование темы
+    var maxW = 0;
+    poems.forEach(function(p){ maxW = Math.max(maxW, p.getBoundingClientRect().width); });
+    var cs = getComputedStyle(art);
+    var artRect = art.getBoundingClientRect();
+    var contentLeft = artRect.left + parseFloat(cs.paddingLeft || 0) + parseFloat(cs.borderLeftWidth || 0);
+    var contentWidth = art.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+    var targetX = contentLeft + Math.max(0, (contentWidth - maxW) / 2);
+    poems.forEach(function(p){
+      p.style.marginLeft = '0px'; p.style.marginRight = 'auto';
+      var x = p.getBoundingClientRect().left;
+      p.style.marginLeft = (targetX - x) + 'px';
+    });
+  }
+  var alignTimer = null;
+  function alignPoemsSoon(){ if (alignTimer) clearTimeout(alignTimer); alignTimer = setTimeout(alignPoems, 60); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignPoemsSoon);
+  window.addEventListener('load', alignPoemsSoon);
+  window.addEventListener('resize', alignPoemsSoon);
+  alignPoemsSoon();
+
+  // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  var sel = document.getElementById('zml-theme');
+  var wsel = document.getElementById('zml-width');
+  var link = document.getElementById('theme-css');
+  var wrap = document.querySelector('.wrap');
+  var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+  if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
+  if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
+  if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
+  if (sel) sel.addEventListener('change', function(){
+    var t = sel.value;
+    document.body.setAttribute('data-theme', t);
+    if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
+  });
+  if (wsel) wsel.addEventListener('change', function(){
+    if (!wrap) return;
+    wrap.classList.toggle('w-narrow', wsel.value==='narrow');
+    wrap.classList.toggle('w-wide', wsel.value==='wide');
+    alignPoemsSoon();
+  });
+
+  // Ф8′ ре-резолвинг вида для ЗАЛОГИНЕННОГО пользователя. Аноним уже получил
+  // запечённый Admin-вид (display.json на сборке) — здесь ничего не делаем. Залогинен
+  // → тянем личные правила из worker KV и применяем (зеркало resolveDisplay в render.js).
+  (function(){
+    var body = document.body;
+    var section = body.getAttribute('data-art-section') || '';
+    var type    = body.getAttribute('data-art-type') || '';
+    var fmTheme = body.getAttribute('data-fm-theme') || '';
+    var fmWidth = body.getAttribute('data-fm-width') || '';
+    var worker  = (body.getAttribute('data-worker') || '').replace(/\/+$/, '');
+    var sess; try { sess = JSON.parse(localStorage.getItem('ya_session')||'null'); } catch(e){}
+    if (!sess || !sess.token || !worker) return;
+    function resolve(cfg){
+      var g=(cfg&&cfg.global)||{}, rules=(cfg&&cfg.rules)||[], rd='', rw='';
+      for (var i=0;i<rules.length;i++){ var m=rules[i]&&rules[i].match; if(!m) continue;
+        if ((m.kind==='section'&&m.value===section)||(m.kind==='type'&&m.value===type)){
+          rd=rules[i].design||''; rw=rules[i].width||''; break; } }
+      return { design:(fmTheme||rd||g.design||'A_editorial'),
+               width:(fmWidth||rw||g.width||'wide') };
+    }
+    function apply(d){
+      if (sel && sel.value!==d.design){ sel.value=d.design; sel.dispatchEvent(new Event('change')); }
+      var w = /narrow|820/.test(d.width)?'narrow':'wide';
+      if (wsel && wsel.value!==w){ wsel.value=w; wsel.dispatchEvent(new Event('change')); }
+    }
+    fetch(worker+'/api/settings',{headers:{Authorization:'Bearer '+sess.token}})
+      .then(function(r){ return r.ok?r.json():null; })
+      .then(function(cfg){ if(cfg) apply(resolve(cfg)); })
+      .catch(function(){});
+  })();
+})();
+</script>
+</body>
+</html>

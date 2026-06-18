@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ЗДЕСЬ СТОИТ ТРОН ЭЛИЯГУ</title>
+<meta name="description" content="">
+<meta name="robots" content="noindex">
+<link id="theme-css" rel="stylesheet" href="../themes/A_editorial.css?v=20260618-01">
+<style id="spl-base">
+/* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
+.wrap.w-narrow{max-width:820px;}
+.wrap.w-wide{max-width:1080px;}
+/* [spl] spoiler — structural, theme-agnostic. Themes may tune --spl-cover. */
+.spoiler{position:relative;display:inline-block;cursor:pointer;border-radius:3px;vertical-align:baseline;}
+.spoiler:not(.revealed) .spoiler-content{visibility:hidden;}
+.spoiler:not(.revealed)::before{content:"";position:absolute;inset:-1px;border-radius:3px;
+  background:var(--spl-cover,repeating-linear-gradient(45deg,#4a4a4a 0 7px,#2f2f2f 7px 14px));
+  background-size:auto;animation:spl-shimmer 1.4s linear infinite;}
+.spoiler.revealed{cursor:auto;}
+.spoiler:focus-visible{outline:2px solid currentColor;outline-offset:2px;}
+@keyframes spl-shimmer{from{background-position:0 0;}to{background-position:20px 0;}}
+@media (prefers-reduced-motion:reduce){.spoiler:not(.revealed)::before{animation:none;}}
+/* audio narration 🎧 by H1 — structural, theme-agnostic (themes may refine). */
+.audio-link{font-size:.62em;vertical-align:middle;margin-left:.4em;text-decoration:none;white-space:nowrap;}
+/* [subsec] section subtitle — base (themes refine): muted italic, tight to ## heading. */
+.sec-sub{margin:.15em 0 1.3em;font-style:italic;font-size:.95em;opacity:.7;line-height:1.45;text-indent:0;text-align:left;}
+h2 + .sec-sub, h2.subtitle + .sec-sub{margin-top:-.5em;}
+/* fn-ревью (2026-06-12) — структурная база новых конструкций; темы уточняют. */
+/* [^N] в H1: sup-маркер на глаз отличим от текста заголовка (THEME_CONTRACT). */
+h1#article-title sup{font-size:.42em;font-weight:400;line-height:0;letter-spacing:normal;vertical-align:super;}
+/* [line kind=tags|dateline] — служебная роль-строка; буквицы тем её пропускают. */
+p.line{font-size:.88em;opacity:.72;letter-spacing:.02em;text-indent:0;}
+/* [ul] — маркированный список; значок через --marker → li::marker. */
+ul.ul{margin:1em 0;padding-left:1.6em;}
+ul.ul li::marker{content:var(--marker, initial);}
+/* [num] со скобко-стилем «1)» (авторские номера держит li[value]). */
+ol.num.num-paren li::marker{content:counter(list-item) ") ";}
+/* [epi kind=dedi] — посвящение. */
+article .epigraph.dedication, article .epilogue.dedication{text-align:right;font-style:italic;}
+/* TOC: вложенный 2-й уровень (###). */
+details.article-toc ol ol{margin:.15em 0 .15em 1.1em;}
+/* [toc nonum]: заголовки сами нумерованы (1 / 1.1 / 1.1.1) → гасим авто-числа <ol>
+   (две класса-метки → перебивает per-theme `.article-toc ol{padding-left}` по специфичности) */
+details.article-toc.nonum ol{list-style:none; padding-left:0;}
+details.article-toc.nonum ol ol{margin-left:1.1em;}
+/* [sig] подпись / [cry] возглас (ZML3 C11) — base, themes refine. */
+.sig{text-align:right;font-style:italic;margin:1.4rem 0;}
+.cry{text-align:center;font-weight:700;letter-spacing:.05em;margin:1.6rem 0;}
+/* глифы (C13) + inline term/leit (C10) — base no-op-ish; themes colour or ignore. */
+.glyph{white-space:nowrap;}
+.term{text-decoration:underline dotted;text-underline-offset:3px;}
+.leit{font-style:italic;}
+/* музыка Б2: inter-track заметка (1AQA «Слушать вместе…») — base, themes refine. */
+.music-note{text-align:center;font-style:italic;opacity:.72;font-size:.92em;
+  margin:.2rem 0 .5rem;}
+/* музыка-плашка (канон оригинала): ▶ N) **Название** — *Автор* — название жирным,
+   автор обычным-курсивом, ► играбел-индикатор (крутится при раскрытии). Специфичность
+   `.music-group .title …` перебивает курсив `.title` темы. */
+.music-group .trk-play{display:inline-block;font-size:.82em;opacity:.65;margin-right:.1em;
+  transition:transform .18s ease;}
+details.music[open] .trk-play{transform:rotate(90deg);}
+.music-group .title .trk-num{opacity:.55;font-style:normal;font-variant-numeric:tabular-nums;}
+.music-group .title .trk-ttl{font-weight:600;font-style:normal;}
+.music-group .title .trk-sep{opacity:.5;font-weight:400;}
+.music-group .title .trk-art{font-weight:400;font-style:italic;opacity:.78;}
+/* трек-строка = flex: текст слева ВО ВСЕХ темах (перебивает theme text-align:center
+   у B_manuscript/ar_deco — флекс-айтемы паковка слева), динамик-mute прижат вправо
+   (2026-06-18). */
+.music-group details.music>summary,.music-group .music-noplayer>.summary{
+  display:flex; align-items:center; flex-wrap:wrap; gap:.12em; text-align:left;}
+.music-group .title{min-width:0;}
+/* кнопка-динамик (mute рекламы YouTube) — справа на строчке */
+.music-group .trk-mute{margin-left:auto; flex:0 0 auto; align-self:center;
+  cursor:pointer; opacity:.5; color:inherit; line-height:0; padding:.1em .2em;
+  border-radius:4px; transition:opacity .15s,color .15s;
+  -webkit-tap-highlight-color:transparent;}
+.music-group .trk-mute:hover,.music-group .trk-mute:focus-visible{opacity:1; outline:none;}
+.music-group .trk-mute svg{width:1.2em; height:1.2em; display:block;}
+.music-group .trk-mute .spk-slash{display:none;}
+.music-group .trk-mute[aria-pressed="true"]{opacity:.95; color:var(--accent,currentColor);}
+.music-group .trk-mute[aria-pressed="true"] .spk-wave{display:none;}
+.music-group .trk-mute[aria-pressed="true"] .spk-slash{display:inline;}
+/* [dlg] форум-стиль (№2, по образцу форума ccastaneda.ru): пост-в-рамке + метка
+   спикера small-caps. base — themes refine (--accent2 = акцент темы). */
+.dialog .post{border-left:3px solid var(--accent2,currentColor);
+  background:color-mix(in srgb, currentColor 4%, transparent);
+  padding:.55rem .95rem;margin:.7rem 0;border-radius:0 4px 4px 0;}
+.dialog .post-by{display:block;font-variant:small-caps;letter-spacing:.05em;
+  font-weight:700;font-style:normal;font-size:.9em;color:var(--accent2,inherit);
+  opacity:.95;margin-bottom:.25em;}
+.dialog .post-text{display:block;}
+.dialog .post-text + .post-text{margin-top:.55em;}/* многоабзацная реплика */
+.dialog .dlg-line{margin:.45rem 0;}
+/* viewbar — управление видом статьи (тема/ширина/оригинал/править).
+   Сидит в одной строке с крошками (крошки слева, управление справа).
+   Здесь только структура; типографика/цвета — у темы (.viewbar в THEME_CONTRACT). */
+header.breadcrumbs{display:flex;gap:1.2em;row-gap:.3em;align-items:baseline;flex-wrap:wrap;}
+header.breadcrumbs .crumbs{flex:1 1 auto;}
+.viewbar{display:flex;gap:1.1em;row-gap:.3em;align-items:center;flex-wrap:wrap;
+  font-size:.78rem;margin:0 0 0 auto;}
+.viewbar label{display:inline-flex;gap:.35em;align-items:center;white-space:nowrap;}
+.viewbar select{font:inherit;color:inherit;background:transparent;border:none;
+  border-bottom:1px solid currentColor;padding:0 1px 1px;cursor:pointer;}
+.viewbar select option{color:#222;background:#fff;}
+.viewbar a{text-decoration:none;white-space:nowrap;}
+.viewbar .vb-edit{font:inherit;color:inherit;background:none;border:none;padding:0;white-space:nowrap;}
+.viewbar .vb-edit:disabled{opacity:.45;cursor:default;}
+</style>
+</head>
+<body class="article-page" data-art="28MA" data-theme="A_editorial" data-pagefind-ignore="all"
+  data-art-section="dreamon" data-art-type="poem"
+  data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
+<div class="wrap w-wide">
+<header class="breadcrumbs">
+<span class="crumbs"><a href="../index.html">Главная</a><span class="sep">›</span><a href="../dreamon/index.html">Мечтай!!</a></span>
+<nav class="viewbar" aria-label="Вид статьи">
+  <label>Тема
+    <select id="zml-theme">
+      <option value="A_editorial">editorial</option>
+      <option value="B_manuscript">manuscript</option>
+      <option value="cyberpunk">cyberpunk</option>
+      <option value="swiss">swiss</option>
+      <option value="ar_deco">ar-deco</option>
+    </select>
+  </label>
+  <label>Ширина
+    <select id="zml-width">
+      <option value="wide">широкая</option>
+      <option value="narrow">узкая</option>
+    </select>
+  </label>
+  <a class="vb-orig" href="28MA.html?orig=1">Оригинал</a>
+  <button class="vb-edit" type="button" disabled aria-disabled="true" title="Редактирование появится позже">✎ Править</button>
+</nav>
+</header>
+
+<h1 id="article-title">ЗДЕСЬ СТОИТ ТРОН ЭЛИЯГУ<sup id="cite_ref-15"><a href="#cite_note-15">[15]</a></sup>⁠<a class="audio-link" href="https://t.me/art_017_tracks/299" target="_blank" rel="noopener" title="Слушать аудио-озвучку" aria-label="Слушать аудио-озвучку">🎧</a></h1>
+<p class="byline">Элиягу Бар Малей · #28MA · 2022-08-22 · Источник: <a href="https://proza.ru/2022/10/30/873" target="_blank" rel="noopener">proza.ru/2022/10/30/873</a></p>
+<article>
+
+<p>22.08.22, #AA28N</p>
+
+<p>Серия<sup id="cite_ref-6"><a href="#cite_note-6">[6]</a></sup> Добрая речь<sup id="cite_ref-7"><a href="#cite_note-7">[7]</a></sup>. School story, Bro!<br>
+«Школьные истории» не столь отдаленного Будущего «этого Мира»</p>
+
+<details class="article-toc" open>
+<summary>Содержание</summary>
+<ol>
+<li><a href="#vvedenie">ВВЕДЕНИЕ</a>
+</li>
+<li><a href="#epigraf">ЭПИГРАФ</a>
+</li>
+<li><a href="#akt1">АКТ 1</a>
+</li>
+<li><a href="#akt2">АКТ 2</a>
+</li>
+<li><a href="#music">Песнь Ступеней</a>
+</li>
+<li><a href="#notes">ОР ПНИМИ (ПРИМЕЧАНИЯ)</a>
+</li>
+</ol>
+</details>
+
+<h2 id="vvedenie">ВВЕДЕНИЕ <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<p>Книга порождений Адама<sup id="cite_ref-8"><a href="#cite_note-8">[8]</a></sup>, Сына человека Живого<sup id="cite_ref-9"><a href="#cite_note-9">[9]</a></sup>, созданного Творцом<sup id="cite_ref-10"><a href="#cite_note-10">[10]</a></sup>, Свят Благословен Он, Мужчиной и Женщиной<sup id="cite_ref-11"><a href="#cite_note-11">[11]</a></sup> "этого мира", посредством "получения" ими, "как одним человеком с одним сердцем", Высшего Бесконечного Света Духовной Половой Любви<sup id="cite_ref-12"><a href="#cite_note-12">[12]</a></sup> (Ор Хохма 32 путей Мира Ацилут<sup id="cite_ref-17"><a href="#cite_note-17">[17]</a></sup>), с целью раскрытия, посредством Его облачения в "Келим"<sup id="cite_ref-3"><a href="#cite_note-3">[3]</a></sup> настоящего и будущего "этого мира", Своего непостижимого совершенства<sup id="cite_ref-13"><a href="#cite_note-13">[13]</a></sup>, мудрости, милосердия, могущества и благородства, мирам и душам праведников ("грешники" все остались во "втором тысячелетии" по р.х., в наступившем "третьем" будут рождаться на Свет только "полные праведники", а про старые страшные сказки на ночь можно смело забыть уже сейчас, потому что отныне и далее "драйвер" человеческой эволюции, как частной, так и общей, из метода "развития пинками и от обратного" (ситра ахра, злое начало, "не ходите дети в Африку гулять"<sup id="cite_ref-4"><a href="#cite_note-4">[4]</a></sup>, ад, сатана, дьявол, клипот, эгоизм, бесы, летуны, ЧСВ и т.п.) уступает место принципу "мне туда надо" (Ж) и "мне это нравится"<sup id="cite_ref-5"><a href="#cite_note-5">[5]</a></sup> (М), посредством пробуждения во все большем кол-ве нынеживущих душ соответствующих "решимот", т.е. энерго-информационных "записей" ДНК личной судьбы<sup id="cite_ref-2"><a href="#cite_note-2">[2]</a></sup>, закладываемого "Отправителем" в "послание" перед отправкой его новорожденным "получателем" для рождения в "этот мир" и раскрытия соответствующих обстоятельств, событий и переживаний индивидуальной судьбы на личном Пути Сердца). Сделаем и услышим, услышим и "с-не-делаем" все наоборот, получив этим в точности то, что и требуется<sup id="cite_ref-14"><a href="#cite_note-14">[14]</a></sup>!</p>
+
+<h2 id="epigraf">ЭПИГРАФ <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<div class="epigraph verse" data-label="Эпиграф">
+<p>«Нет клейма на душе моей.<br>
+Кроме Господа, я не знал Царей.<br>
+Но, на скрипке мне<br>
+выжег Мастер тайный знак<sup id="cite_ref-16"><a href="#cite_note-16">[16]</a></sup>…»</p>
+</div>
+
+<p>Маргарита Пушкина</p>
+
+<div class="music-group" data-label="Песнь Ступеней">
+<details class="music"><summary><span class="label">Песнь Ступеней:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Игра с Огнем</span> <span class="trk-sep">—</span> <span class="trk-art">АРИЯ</span></span><a class="ext" href="https://youtu.be/MQpTyHJ6pKQ" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/MQpTyHJ6pKQ?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+</div>
+
+<h2 id="akt1">АКТ 1 <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<div class="poem">1. Ниночка летом на даче
+(Было ей тогда лет девять,
+Или восемь, но не старше -
+Можете тут мне поверить)
+
+Одно время утром часто
+В лес на озеро ходила.
+Там местечко она знала
+Тайное, где не увидят
+
+Девочку другие люди.
+Впрочем, их там не водилось -
+Бабушкин заброшен хутор
+Был в лесах вдали от мира
+
+Человеков безнадежно.
+Но уверенность давало,
+Девочке, чтобы спокойно
+Выйдя к озеру, на травку
+
+Побросать с себя одежку
+Чтобы тело все дышало
+И вода ее ласкала
+С Солнышком, каждую клетку.</div>
+
+<div class="music-group" data-label="Песнь Ступеней">
+<details class="music"><summary><span class="label">Песнь Ступеней:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Bless the Child</span> <span class="trk-sep">—</span> <span class="trk-art">Nightwish</span></span><a class="ext" href="https://youtu.be/U52aAa9VkEk" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/U52aAa9VkEk?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+</div>
+
+<h2 id="akt2">АКТ 2 <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<div class="poem">2. - Я пред нею, обнаженной,
+Обнаженным появился,
+Стоя к ней спиной, а к волнам -
+Лицом стоя, лишив мыслей
+
+Враз прелесное созданье.
+Т.к. на разумном плане
+Быть такое в самом деле
+Никаким путем не смело.<sup id="cite_ref-1"><a href="#cite_note-1">[1]</a></sup>
+
+Обернувшись, краем глаза
+Взгляд на девочку я бросил
+Подмигнув ей хитровато,
+И вперед прыгнул на волны.
+
+Я летел плашмя на волны
+И разбил бы о них тело
+Если бы в миг встречи вновь я
+Не исчез пред ней волшебно.
+
+И не просто "растворился" -
+А на стаю птиц разбился
+Белоперых певчих соек
+Разлетевшихся крикливо.</div>
+
+<div class="music-group" data-label="Песнь Ступеней">
+<details class="music"><summary><span class="label">Песнь Ступеней:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">The Phantom of the Opera</span> <span class="trk-sep">—</span> <span class="trk-art">Nightwish</span></span><a class="ext" href="https://youtu.be/tL25rbnvM4o" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/tL25rbnvM4o?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+</div>
+
+<div class="poem">3. На глазах и на экране
+Мира Снов Реальных ярких
+Что у девочек и женщин
+Расположен ниже матки.
+
+Мальчик и мужчина бьется
+В него членом при соитьи.
+Чтобы семя Жизни новой
+Шанс имело просочиться
+
+Вопреки защите мощной
+Перегруженной, ей в Лоно
+(Методом DDoS-атаки,
+Как IT-шники б сказали)
+
+А затем укорениться,
+Свету став новой опорой
+Чтобы Кли новой ступени
+Инкарнироваться в Душу
+
+Норме Света Бесконечной
+Что вместилищем послужит
+В срок вскормившись и родившись
+В свой Мир Снов Реальных ярких.</div>
+
+<div class="music-group" data-label="Песнь Ступеней">
+<details class="music"><summary><span class="label">Песнь Ступеней:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Circle of Life</span> <span class="trk-sep">—</span> <span class="trk-art">Elton John</span></span><a class="ext" href="https://youtu.be/IwH9YvhPN7c" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/IwH9YvhPN7c?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+</div>
+
+<div class="poem">4. Впрочем, суть рассказа нам здесь
+Призывать пора обратно
+(To recall the circumstances
+Of betrothed Future events).
+
+...Эти птицы<sup id="cite_ref-15-extra1"><a href="#cite_note-15">[15]</a></sup> "облаченьем"
+Внешним были моей Воли.
+Суть же, как движенье ветра
+На девчонку я настроил.
+
+И она меня прекрасно,
+Матку к жизни пробуждая,
+В Мире Снов своих реальных
+Пред собою ощущала.
+
+Этот факт, крайне удачный,
+Я использовал мгновенно:
+Зафиксировав вниманьем
+Её Целью своей - Чрево.
+
+И, пронзая возбужденьем
+Скань картинки сна девчонки,
+ВЗЯЛ ЕЕ ПОЛОВЫМ ЧЛЕНОМ
+Мир Иллюзий порвав в клочья</div>
+
+<div class="music-group" data-label="Песнь Ступеней">
+<details class="music"><summary><span class="label">Песнь Ступеней:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Инцидент в Настасьино</span> <span class="trk-sep">—</span> <span class="trk-art">Б.Г.</span></span><a class="ext" href="https://www.youtube.com/watch?v=L31_wqA3Nm4" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/L31_wqA3Nm4?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+</div>
+
+<div class="poem">5. И наполнив новым смыслом
+Обновленную Реальность,
+Положив начало дивной
+Тропе Сердца в Мире Счастья,
+
+Где отдельно мы не будем -
+Дух, и Женщина с Мужчиной,
+Став Одной Единой сутью -
+Человеком Триединым
+
+Человеком Говорящим,
+Человеком, слитым с Духом
+Человеком, проводящим
+Волю Бога к живым людям
+
+К детям Будущего Мира<sup id="cite_ref-23"><a href="#cite_note-23">[23]</a></sup>,
+К взрослым - в Мире Настоящем
+Выполнив Команду Силы:
+"Нас троих Одним создал Он"<sup id="cite_ref-18"><a href="#cite_note-18">[18]</a></sup>.</div>
+
+<div class="music-group" data-label="Песнь Ступеней">
+<details class="music"><summary><span class="label">Песнь Ступеней:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Верхом на Звезде<sup id="cite_ref-22"><a href="#cite_note-22">[22]</a></sup></span> <span class="trk-sep">—</span> <span class="trk-art">Найк Борзов</span></span><a class="ext" href="https://youtu.be/hz4YfY4agT8" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/hz4YfY4agT8?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+</div>
+
+<div class="poem">6. Да прибудет Воля Света
+Бесконечного, вовеки!
+Да познают Его телом
+Женщина с Мужчиной вместе,
+
+Раскрывая совершенство
+В "этом мире", в чувствах "нижних"
+Невозможного блаженства,
+"Жить, давая Жить", навечно.
+
+Жить посредством Любви к детям
+Половой Любви Духовной
+Создавая вместе с Богом
+Их, и вместе с мамой с папой.
+
+Ведь Трон<sup id="cite_ref-22-extra1"><a href="#cite_note-22">[22]</a></sup> Элиягу Крылатый<sup id="cite_ref-15-extra2"><a href="#cite_note-15">[15]</a></sup>
+Должен быть Живым Глаголом
+Высказан посредством Слова
+Что "вначале" есть у Бога
+А потом - у Человека,
+
+Назван Человеком явно:
+ЗДЕСЬ СТОИТ ТРОН ЭЛИЯГУ.
+Чтоб Творца раскрылось Знанье
+Всем от мала до велика
+
+То есть, нам и детям нашим
+В «Келим Будущего мира»
+По Любви, желанной каждым,
+О Любви всей своей Жизни<sup id="cite_ref-22-extra2"><a href="#cite_note-22">[22]</a></sup>.</div>
+
+<h2 id="music">Песнь Ступеней <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<div class="music-group has-heading" data-label="Музыка под настроение">
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Игра с Огнем</span> <span class="trk-sep">—</span> <span class="trk-art">АРИЯ</span></span><a class="ext" href="https://youtu.be/MQpTyHJ6pKQ" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/MQpTyHJ6pKQ?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Bless the Child</span> <span class="trk-sep">—</span> <span class="trk-art">Nightwish</span></span><a class="ext" href="https://youtu.be/U52aAa9VkEk" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/U52aAa9VkEk?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">The Phantom of the Opera</span> <span class="trk-sep">—</span> <span class="trk-art">Nightwish</span></span><a class="ext" href="https://youtu.be/tL25rbnvM4o" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/tL25rbnvM4o?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Circle of Life</span> <span class="trk-sep">—</span> <span class="trk-art">Elton John</span></span><a class="ext" href="https://youtu.be/IwH9YvhPN7c" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/IwH9YvhPN7c?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Инцидент в Настасьино</span> <span class="trk-sep">—</span> <span class="trk-art">Б.Г.</span></span><a class="ext" href="https://www.youtube.com/watch?v=L31_wqA3Nm4" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/L31_wqA3Nm4?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Верхом на Звезде</span> <span class="trk-sep">—</span> <span class="trk-art">Найк Борзов</span></span><a class="ext" href="https://youtu.be/hz4YfY4agT8" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/hz4YfY4agT8?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Не думай о секундах свысока</span> <span class="trk-sep">—</span> <span class="trk-art">к/ф 17 мгновений весны</span></span><a class="ext" href="https://youtu.be/XkptwawfnJQ" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/XkptwawfnJQ?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+</div>
+
+<h2 id="notes">ОР ПНИМИ (ПРИМЕЧАНИЯ) <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+<ol class="notes">
+<li id="cite_note-1" value="1"><a class="backref" href="#cite_ref-1" title="Вернуться к месту в тексте">↑</a> В «мире взрослом и разумном»<br>
+А не «выдуманном детском».<br>
+Впрочем, тут поспорить трудно<br>
+Дочитав до конца текста...</li>
+<li id="cite_note-2" value="2"><a class="backref" href="#cite_ref-2" title="Вернуться к месту в тексте">↑</a> См. также: <a class="internal" href="1CI.view.html">Откуда берутся дети - инфографика</a></li>
+<li id="cite_note-3" value="3"><a class="backref" href="#cite_ref-3" title="Вернуться к месту в тексте">↑</a> Кли (каб.ивр.; мн.ч. - Келим) - ощущения, механизмы, формы и действия (в данном контексте).</li>
+<li id="cite_note-4" value="4"><a class="backref" href="#cite_ref-4" title="Вернуться к месту в тексте">↑</a> Первоисточник: Песнь про Бар Малея. <a href="https://www.youtube.com/watch?v=sybxMdW6kSY" target="_blank" rel="noopener">youtube.com/watch?v=sybxMdW6kSY</a></li>
+<li id="cite_note-5" value="5"><a class="backref" href="#cite_ref-5" title="Вернуться к месту в тексте">↑</a> Цитата: «И дело в том, что прежде сотворения мира Тикуна был Швират Келим в семи нижних мира Некудим, как сказали мудрецы наши, благословенной памяти: «Творил миры и разрушал их, пока не сотворил этот мир и сказал: этот мне угоден»», Заповедь девятая, п. 236, том 1, Книга Зоар, РАШБИ — Бааль Сулам <a class="zohar" href="https://imyavel.github.io/zohar-sulam/akdama/029.html">Книга Зоар. Введение (Акдама). Девятая заповедь</a></li>
+<li id="cite_note-6" value="6"><a class="backref" href="#cite_ref-6" title="Вернуться к месту в тексте">↑</a> См. также: <a class="internal" href="24C.view.html">Обладательница крыльев</a>, <a class="internal" href="28P.view.html">Да, я такая</a>, <a class="internal" href="26M.view.html">Лоно Природы</a>, и др. стихи серии Добрая речь <a href="http://proza.ru/avtor/agent017&amp;book=14#14" target="_blank" rel="noopener">proza.ru/avtor/agent017&amp;book=14#14</a></li>
+<li id="cite_note-7" value="7"><a class="backref" href="#cite_ref-7" title="Вернуться к месту в тексте">↑</a> См. также: стих <a class="internal" href="1AQA.view.html">Конечное Исправление</a></li>
+<li id="cite_note-8" value="8"><a class="backref" href="#cite_ref-8" title="Вернуться к месту в тексте">↑</a> Цитата: «Сказано: «Могучая башня – имя Творца, Свят Благословен Он, в нее убежит праведник и укрепится». «Праведник», о котором здесь говорится, – это «книга порождений Адама», которая устремляется в эту башню. И это «башня Давида», т.е. Малхут, а также «могучая башня – имя Творца, Свят Благословен Он». И всё является одним целым, поскольку башней (мигдаль) называется Малхут в состоянии гадлут, потому что «мигдаль (башня)» означает «гадлут» (от слова гадоль — большой, каб. ивр. - прим. Здесь скрыта тайна, известная обладающим верой, т.е. тайна сочетания имен, исходящих из сказанного: «Могучая башня…» И это, конечно, книга порождений, т.е. Есод праведника, который с помощью этой башни производит порождения», Вот книга порождений Адама, Берешит-1, п. 471, т. 2, Книга Зоар, РАШБИ — Бааль Сулам</li>
+<li id="cite_note-9" value="9"><a class="backref" href="#cite_ref-9" title="Вернуться к месту в тексте">↑</a> Цитата: «Открыл и сказал: «и Бенайаhу бен Йеhойада» (Шмуэль II, 23). Этот стих изъясняли, и он прекрасен. Но этот стих пришёл, чтобы показать высшие тайны Торы. И имя Бенайаhу бен Йеhойада пришло, чтобы намекнуть на тайну Хохмы. На вещь сокровенную намекает он, и имя обусловило. «Сын мужа живого» — это цадик хай ха-оламим. «Великий делами» — то есть он — владыка всех деяний и всех высших воинств, ибо все они выходят из него. Он называется Господь Цваот, ибо он — знак во всех воинствах своих, отмечен он и более всех.», Погонщик ослов, п. 91, том 1, Книга Зоар, РАШБИ — Бааль Сулам <a class="zohar" href="https://imyavel.github.io/zohar-sulam/akdama/012.html">Книга Зоар. Введение (Акдама). Погонщик ослов</a></li>
+<li id="cite_note-10" value="10"><a class="backref" href="#cite_ref-10" title="Вернуться к месту в тексте">↑</a> Цитата: ««Мужчиной и женщиной создал Он их». Высшие тайны раскрывались посредством двух изречений – «вот Книга порождений Адама» и «мужчиной и женщиной создал Он их». Изречение «мужчиной и женщиной создал Он их» – для постижения высшего величия в свойстве веры, и от этого свойства произошел Адам, т.е. от высших ЗОН, называемых небом и землей», Мужчиной и женщиной создал Он, их п. 367, том 3, Берешит-2, Книга Зоар, РАШБИ — Бааль Сулам</li>
+<li id="cite_note-11" value="11"><a class="backref" href="#cite_ref-11" title="Вернуться к месту в тексте">↑</a> Цитата: ««Мужчиной и женщиной (захар и некева) создал Он их». Отсюда становится ясным, что любая форма, в которой не находятся свойства захар и некева, не является высшей формой, как подобает», там же, п. 368 А также: ««Мужского и женского пола (захар ве-некева) сотворил Он их» – непонятно. Следовало сказать: «Мужчиной и женщиной сотворил Он их». Но дело в том, что один был включен в другого, т.е. некева была включена в захара во время создания его, потому что они были двойным парцуфом, но затем разделил Он их», п. 470, Вот Книга порождений Адама, том 2, Берешит-1, Книга Зоар, РАШБИ — Бааль Сулам</li>
+<li id="cite_note-12" value="12"><a class="backref" href="#cite_ref-12" title="Вернуться к месту в тексте">↑</a> См. также: <a class="internal" href="1CIA.view.html">Радость ответной Любви</a></li>
+<li id="cite_note-13" value="13"><a class="backref" href="#cite_ref-13" title="Вернуться к месту в тексте">↑</a> См. также: <a class="internal" href="141.view.html">Путь Творца, Свят Благословен Он</a></li>
+<li id="cite_note-14" value="14"><a class="backref" href="#cite_ref-14" title="Вернуться к месту в тексте">↑</a> См. также: <a class="internal" href="247.view.html">Конфронтология человеческого Духа</a></li>
+<li id="cite_note-15" value="15"><a class="backref" href="#cite_ref-15" title="Вернуться к месту в тексте">↑</a> Цитата: ««и птицы полетят над землёй» (Берешит, 1:20) — это Элияhу, что облетает весь мир в четырёх облётах, дабы быть там при том святом брит мила. И нужно приготовить ему кисэ (престол) и произнести устами: «это кисэ Элияhу». А если нет — он там не пребывает.» - Заповедь седьмая, п. 255, том 1, Книга Зоар, РАШБИ — Бааль Сулам <a class="zohar" href="https://imyavel.github.io/zohar-sulam/akdama/027.html">Книга Зоар. Введение (Акдама). Заповедь седьмая</a> А также: «...И далее выясняется, что следующее изречение: «И всякую птицу крылатую по виду ее» – об ангелах, которые, кружась по миру, облетают его в шесть перелетов. Здесь выясняется конец речения, где говорится о земле, и поэтому нельзя отнести его к высшим ангелам, так как они не находятся на земле. И поэтому понятно, что это Элияу...», там же</li>
+<li id="cite_note-16" value="16"><a class="backref" href="#cite_ref-16" title="Вернуться к месту в тексте">↑</a> Цитата: ««И это – знак буквы "йуд ;", запечатлевшейся на святой плоти более, чем все остальные впечатления в мире», так как с помощью обрезания и подворачивания из человека тоже устраняются все впечатления этого мира, относящиеся к букве «хэй ;». И знак буквы «йуд ;» появляется вместо нее, так же как это произошло в Нукве, когда она поднялась в Бину. И поскольку святая плоть Есода отмечена буквой «йуд ;», человек тоже может получить завершенную «нефеш хая» от святой Нуквы.», там же, п. 224</li>
+<li id="cite_note-17" value="17"><a class="backref" href="#cite_ref-17" title="Вернуться к месту в тексте">↑</a> См. также: Мудрость, на которой держится Мир, п. 40, том 1, Книга Зоар, РАШБИ — Бааль Сулам <a class="zohar" href="https://imyavel.github.io/zohar-sulam/akdama/007.html">Книга Зоар. Введение (Акдама). Хохма, на которой стоит мир</a></li>
+<li id="cite_note-18" value="18"><a class="backref" href="#cite_ref-18" title="Вернуться к месту в тексте">↑</a> См. также: Кто создал их (по Элияу), п. 11, том 1, Книга Зоар, РАШБИ — Бааль Сулам <a class="zohar" href="https://imyavel.github.io/zohar-sulam/akdama/004.html">Книга Зоар. Введение (Акдама). «МИ бара ЭЛЕ» Элияhу</a></li>
+<li id="cite_note-22" value="22"><a class="backref" href="#cite_ref-22" title="Вернуться к месту в тексте">↑</a> См. также: стих «<a class="internal" href="1AQA.view.html">Конечное Исправление</a>»</li>
+<li id="cite_note-23" value="23"><a class="backref" href="#cite_ref-23" title="Вернуться к месту в тексте">↑</a> См. также: <a class="internal" href="61T.view.html">Детям будущего мира</a></li>
+</ol>
+</article>
+
+<nav class="article-nav">
+  <span class="prev"><a href="299.view.html">← Берегите свои желания</a></span>
+  <span class="next"><a href="243.view.html">Эники Беники Ели Вареники →</a></span>
+</nav>
+
+<footer class="footer">
+<p class="editinfo">Редакция: Иван Иванович</p>
+<p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+<p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+</footer>
+</div>
+<script>
+// Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
+// no editor/login module is loaded.
+(function(){
+  var bubble = null, hideTimer = null;
+  function ensureBubble(){
+    if (bubble) return bubble;
+    bubble = document.createElement('div');
+    bubble.className = 'footnote-bubble';
+    bubble.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); });
+    bubble.addEventListener('mouseleave', scheduleHide);
+    document.body.appendChild(bubble);
+    return bubble;
+  }
+  function scheduleHide(){
+    if (hideTimer) clearTimeout(hideTimer);
+    hideTimer = setTimeout(function(){ if (bubble) bubble.classList.remove('show'); }, 180);
+  }
+  function show(link){
+    var href = link.getAttribute('href') || '';
+    if (!href.startsWith('#')) return;
+    var target = document.getElementById(href.slice(1));
+    if (!target) return;
+    var b = ensureBubble();
+    var clone = target.cloneNode(true);
+    var back = clone.querySelector('a.backref');
+    if (back) back.remove();
+    // муз-трек как цель сноски: во всплывашке — ТОЛЬКО название трека (+ ↗),
+    // БЕЗ плеера/iframe-фрейма и дубль-этикетки (вердикт оператора 14:46)
+    if ((clone.className || '').indexOf('music') >= 0 || clone.querySelector('iframe, .player')) {
+      Array.prototype.forEach.call(clone.querySelectorAll('.player, .caret, .label, .trk-play'),
+        function(e){ e.remove(); });
+    }
+    b.innerHTML = clone.innerHTML;
+    b.classList.add('show');
+    var r = link.getBoundingClientRect();
+    var sx = window.pageXOffset, sy = window.pageYOffset;
+    b.style.left = '0px'; b.style.top = '0px';
+    var bw = b.offsetWidth, bh = b.offsetHeight;
+    var left = sx + r.left + r.width/2 - bw/2;
+    var maxLeft = sx + document.documentElement.clientWidth - bw - 8;
+    if (left > maxLeft) left = maxLeft;
+    if (left < sx + 8) left = sx + 8;
+    var top = sy + r.top - bh - 10;
+    var placeBelow = (top - sy) < 8;
+    if (placeBelow) top = sy + r.bottom + 10;
+    b.style.left = left + 'px';
+    b.style.top  = top  + 'px';
+    b.classList.toggle('below', placeBelow);
+  }
+  function ytPost(f, func){
+    if (!f) return;
+    try { f.contentWindow.postMessage('{"event":"command","func":"'+func+'","args":[]}', '*'); } catch(e){}
+  }
+  function applyMute(d){
+    var btn = d.querySelector('.trk-mute'); if (!btn) return;
+    var f = d.querySelector('iframe');
+    if (!f || f.getAttribute('data-src')) return;   // плеер ещё не впрыснут
+    var func = btn.getAttribute('aria-pressed') === 'true' ? 'mute' : 'unMute';
+    ytPost(f, func);                                 // плеер готов (играет рекламу) → срабатывает сразу
+    setTimeout(function(){ ytPost(f, func); }, 700); // ретраи на случай «только что открыли»
+    setTimeout(function(){ ytPost(f, func); }, 1800);
+  }
+  function bindMusic(){
+    document.querySelectorAll('details.music').forEach(function(d){
+      if (d.dataset.musicBound) return; d.dataset.musicBound = '1';
+      d.addEventListener('toggle', function(){
+        if (!d.open) return;
+        var f = d.querySelector('iframe[data-src]');
+        if (f) {
+          var src = f.getAttribute('data-src');
+          src += (src.indexOf('?') >= 0 ? '&' : '?') + 'origin=' + encodeURIComponent(location.origin);
+          f.src = src; f.removeAttribute('data-src');
+        }
+        applyMute(d);                                // применить запомненное mute-состояние
+      });
+      var btn = d.querySelector('.trk-mute');
+      if (btn) {
+        var toggle = function(ev){
+          ev.preventDefault(); ev.stopPropagation();  // не дёргать details.open
+          var on = btn.getAttribute('aria-pressed') !== 'true';
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+          btn.setAttribute('aria-label', on ? 'Включить звук' : 'Заглушить звук');
+          btn.title = on ? 'Включить звук' : 'Заглушить звук (реклама YouTube)';
+          applyMute(d);
+        };
+        btn.addEventListener('click', toggle);
+        btn.addEventListener('keydown', function(ev){
+          if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') toggle(ev);
+        });
+      }
+    });
+  }
+  function bindFootnotes(){
+    document.querySelectorAll('sup a[href^="#cite_note-"]').forEach(function(a){
+      if (a.dataset.fnBound) return; a.dataset.fnBound = '1';
+      a.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); show(a); });
+      a.addEventListener('mouseleave', scheduleHide);
+      a.addEventListener('focus', function(){ show(a); });
+      a.addEventListener('blur',  scheduleHide);
+    });
+  }
+  function bindSpoilers(){
+    document.querySelectorAll('.spoiler').forEach(function(sp){
+      if (sp.dataset.splBound) return; sp.dataset.splBound = '1';
+      function reveal(){ sp.classList.add('revealed'); }
+      sp.addEventListener('click', reveal);
+      sp.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); reveal(); }
+      });
+    });
+  }
+  bindMusic(); bindFootnotes(); bindSpoilers();
+
+  // Общая левая рейка стихов: все .poem статьи ровняются по краю, который
+  // центрирует САМЫЙ ШИРОКИЙ из них (классическая осевая выключка, но единая
+  // на статью — края не скачут от блока к блоку). Пересчёт при смене
+  // темы/ширины/размера окна: метрики шрифта и мера меняются.
+  function alignPoems(){
+    var art = document.querySelector('article'); if (!art) return;
+    var poems = Array.prototype.slice.call(art.querySelectorAll('.poem'));
+    if (!poems.length) return;
+    poems.forEach(function(p){ p.style.marginLeft = ''; p.style.marginRight = ''; });
+    if (poems.length < 2) return; // одиночный стих — родное центрирование темы
+    var maxW = 0;
+    poems.forEach(function(p){ maxW = Math.max(maxW, p.getBoundingClientRect().width); });
+    var cs = getComputedStyle(art);
+    var artRect = art.getBoundingClientRect();
+    var contentLeft = artRect.left + parseFloat(cs.paddingLeft || 0) + parseFloat(cs.borderLeftWidth || 0);
+    var contentWidth = art.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+    var targetX = contentLeft + Math.max(0, (contentWidth - maxW) / 2);
+    poems.forEach(function(p){
+      p.style.marginLeft = '0px'; p.style.marginRight = 'auto';
+      var x = p.getBoundingClientRect().left;
+      p.style.marginLeft = (targetX - x) + 'px';
+    });
+  }
+  var alignTimer = null;
+  function alignPoemsSoon(){ if (alignTimer) clearTimeout(alignTimer); alignTimer = setTimeout(alignPoems, 60); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignPoemsSoon);
+  window.addEventListener('load', alignPoemsSoon);
+  window.addEventListener('resize', alignPoemsSoon);
+  alignPoemsSoon();
+
+  // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  var sel = document.getElementById('zml-theme');
+  var wsel = document.getElementById('zml-width');
+  var link = document.getElementById('theme-css');
+  var wrap = document.querySelector('.wrap');
+  var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+  if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
+  if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
+  if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
+  if (sel) sel.addEventListener('change', function(){
+    var t = sel.value;
+    document.body.setAttribute('data-theme', t);
+    if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
+  });
+  if (wsel) wsel.addEventListener('change', function(){
+    if (!wrap) return;
+    wrap.classList.toggle('w-narrow', wsel.value==='narrow');
+    wrap.classList.toggle('w-wide', wsel.value==='wide');
+    alignPoemsSoon();
+  });
+
+  // Ф8′ ре-резолвинг вида для ЗАЛОГИНЕННОГО пользователя. Аноним уже получил
+  // запечённый Admin-вид (display.json на сборке) — здесь ничего не делаем. Залогинен
+  // → тянем личные правила из worker KV и применяем (зеркало resolveDisplay в render.js).
+  (function(){
+    var body = document.body;
+    var section = body.getAttribute('data-art-section') || '';
+    var type    = body.getAttribute('data-art-type') || '';
+    var fmTheme = body.getAttribute('data-fm-theme') || '';
+    var fmWidth = body.getAttribute('data-fm-width') || '';
+    var worker  = (body.getAttribute('data-worker') || '').replace(/\/+$/, '');
+    var sess; try { sess = JSON.parse(localStorage.getItem('ya_session')||'null'); } catch(e){}
+    if (!sess || !sess.token || !worker) return;
+    function resolve(cfg){
+      var g=(cfg&&cfg.global)||{}, rules=(cfg&&cfg.rules)||[], rd='', rw='';
+      for (var i=0;i<rules.length;i++){ var m=rules[i]&&rules[i].match; if(!m) continue;
+        if ((m.kind==='section'&&m.value===section)||(m.kind==='type'&&m.value===type)){
+          rd=rules[i].design||''; rw=rules[i].width||''; break; } }
+      return { design:(fmTheme||rd||g.design||'A_editorial'),
+               width:(fmWidth||rw||g.width||'wide') };
+    }
+    function apply(d){
+      if (sel && sel.value!==d.design){ sel.value=d.design; sel.dispatchEvent(new Event('change')); }
+      var w = /narrow|820/.test(d.width)?'narrow':'wide';
+      if (wsel && wsel.value!==w){ wsel.value=w; wsel.dispatchEvent(new Event('change')); }
+    }
+    fetch(worker+'/api/settings',{headers:{Authorization:'Bearer '+sess.token}})
+      .then(function(r){ return r.ok?r.json():null; })
+      .then(function(cfg){ if(cfg) apply(resolve(cfg)); })
+      .catch(function(){});
+  })();
+})();
+</script>
+</body>
+</html>

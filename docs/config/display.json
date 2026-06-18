@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "default_view": "old",
+  "global": {
+    "design": "A_editorial",
+    "width": "wide"
+  },
+  "rules": []
+}

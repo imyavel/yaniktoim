@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Последний Отсчет</title>
+<meta name="description" content="">
+<meta name="robots" content="noindex">
+<link id="theme-css" rel="stylesheet" href="../themes/A_editorial.css?v=20260618-01">
+<style id="spl-base">
+/* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
+.wrap.w-narrow{max-width:820px;}
+.wrap.w-wide{max-width:1080px;}
+/* [spl] spoiler — structural, theme-agnostic. Themes may tune --spl-cover. */
+.spoiler{position:relative;display:inline-block;cursor:pointer;border-radius:3px;vertical-align:baseline;}
+.spoiler:not(.revealed) .spoiler-content{visibility:hidden;}
+.spoiler:not(.revealed)::before{content:"";position:absolute;inset:-1px;border-radius:3px;
+  background:var(--spl-cover,repeating-linear-gradient(45deg,#4a4a4a 0 7px,#2f2f2f 7px 14px));
+  background-size:auto;animation:spl-shimmer 1.4s linear infinite;}
+.spoiler.revealed{cursor:auto;}
+.spoiler:focus-visible{outline:2px solid currentColor;outline-offset:2px;}
+@keyframes spl-shimmer{from{background-position:0 0;}to{background-position:20px 0;}}
+@media (prefers-reduced-motion:reduce){.spoiler:not(.revealed)::before{animation:none;}}
+/* audio narration 🎧 by H1 — structural, theme-agnostic (themes may refine). */
+.audio-link{font-size:.62em;vertical-align:middle;margin-left:.4em;text-decoration:none;white-space:nowrap;}
+/* [subsec] section subtitle — base (themes refine): muted italic, tight to ## heading. */
+.sec-sub{margin:.15em 0 1.3em;font-style:italic;font-size:.95em;opacity:.7;line-height:1.45;text-indent:0;text-align:left;}
+h2 + .sec-sub, h2.subtitle + .sec-sub{margin-top:-.5em;}
+/* fn-ревью (2026-06-12) — структурная база новых конструкций; темы уточняют. */
+/* [^N] в H1: sup-маркер на глаз отличим от текста заголовка (THEME_CONTRACT). */
+h1#article-title sup{font-size:.42em;font-weight:400;line-height:0;letter-spacing:normal;vertical-align:super;}
+/* [line kind=tags|dateline] — служебная роль-строка; буквицы тем её пропускают. */
+p.line{font-size:.88em;opacity:.72;letter-spacing:.02em;text-indent:0;}
+/* [ul] — маркированный список; значок через --marker → li::marker. */
+ul.ul{margin:1em 0;padding-left:1.6em;}
+ul.ul li::marker{content:var(--marker, initial);}
+/* [num] со скобко-стилем «1)» (авторские номера держит li[value]). */
+ol.num.num-paren li::marker{content:counter(list-item) ") ";}
+/* [epi kind=dedi] — посвящение. */
+article .epigraph.dedication, article .epilogue.dedication{text-align:right;font-style:italic;}
+/* TOC: вложенный 2-й уровень (###). */
+details.article-toc ol ol{margin:.15em 0 .15em 1.1em;}
+/* [toc nonum]: заголовки сами нумерованы (1 / 1.1 / 1.1.1) → гасим авто-числа <ol>
+   (две класса-метки → перебивает per-theme `.article-toc ol{padding-left}` по специфичности) */
+details.article-toc.nonum ol{list-style:none; padding-left:0;}
+details.article-toc.nonum ol ol{margin-left:1.1em;}
+/* [sig] подпись / [cry] возглас (ZML3 C11) — base, themes refine. */
+.sig{text-align:right;font-style:italic;margin:1.4rem 0;}
+.cry{text-align:center;font-weight:700;letter-spacing:.05em;margin:1.6rem 0;}
+/* глифы (C13) + inline term/leit (C10) — base no-op-ish; themes colour or ignore. */
+.glyph{white-space:nowrap;}
+.term{text-decoration:underline dotted;text-underline-offset:3px;}
+.leit{font-style:italic;}
+/* музыка Б2: inter-track заметка (1AQA «Слушать вместе…») — base, themes refine. */
+.music-note{text-align:center;font-style:italic;opacity:.72;font-size:.92em;
+  margin:.2rem 0 .5rem;}
+/* музыка-плашка (канон оригинала): ▶ N) **Название** — *Автор* — название жирным,
+   автор обычным-курсивом, ► играбел-индикатор (крутится при раскрытии). Специфичность
+   `.music-group .title …` перебивает курсив `.title` темы. */
+.music-group .trk-play{display:inline-block;font-size:.82em;opacity:.65;margin-right:.1em;
+  transition:transform .18s ease;}
+details.music[open] .trk-play{transform:rotate(90deg);}
+.music-group .title .trk-num{opacity:.55;font-style:normal;font-variant-numeric:tabular-nums;}
+.music-group .title .trk-ttl{font-weight:600;font-style:normal;}
+.music-group .title .trk-sep{opacity:.5;font-weight:400;}
+.music-group .title .trk-art{font-weight:400;font-style:italic;opacity:.78;}
+/* трек-строка = flex: текст слева ВО ВСЕХ темах (перебивает theme text-align:center
+   у B_manuscript/ar_deco — флекс-айтемы паковка слева), динамик-mute прижат вправо
+   (2026-06-18). */
+.music-group details.music>summary,.music-group .music-noplayer>.summary{
+  display:flex; align-items:center; flex-wrap:wrap; gap:.12em; text-align:left;}
+.music-group .title{min-width:0;}
+/* кнопка-динамик (mute рекламы YouTube) — справа на строчке */
+.music-group .trk-mute{margin-left:auto; flex:0 0 auto; align-self:center;
+  cursor:pointer; opacity:.5; color:inherit; line-height:0; padding:.1em .2em;
+  border-radius:4px; transition:opacity .15s,color .15s;
+  -webkit-tap-highlight-color:transparent;}
+.music-group .trk-mute:hover,.music-group .trk-mute:focus-visible{opacity:1; outline:none;}
+.music-group .trk-mute svg{width:1.2em; height:1.2em; display:block;}
+.music-group .trk-mute .spk-slash{display:none;}
+.music-group .trk-mute[aria-pressed="true"]{opacity:.95; color:var(--accent,currentColor);}
+.music-group .trk-mute[aria-pressed="true"] .spk-wave{display:none;}
+.music-group .trk-mute[aria-pressed="true"] .spk-slash{display:inline;}
+/* [dlg] форум-стиль (№2, по образцу форума ccastaneda.ru): пост-в-рамке + метка
+   спикера small-caps. base — themes refine (--accent2 = акцент темы). */
+.dialog .post{border-left:3px solid var(--accent2,currentColor);
+  background:color-mix(in srgb, currentColor 4%, transparent);
+  padding:.55rem .95rem;margin:.7rem 0;border-radius:0 4px 4px 0;}
+.dialog .post-by{display:block;font-variant:small-caps;letter-spacing:.05em;
+  font-weight:700;font-style:normal;font-size:.9em;color:var(--accent2,inherit);
+  opacity:.95;margin-bottom:.25em;}
+.dialog .post-text{display:block;}
+.dialog .post-text + .post-text{margin-top:.55em;}/* многоабзацная реплика */
+.dialog .dlg-line{margin:.45rem 0;}
+/* viewbar — управление видом статьи (тема/ширина/оригинал/править).
+   Сидит в одной строке с крошками (крошки слева, управление справа).
+   Здесь только структура; типографика/цвета — у темы (.viewbar в THEME_CONTRACT). */
+header.breadcrumbs{display:flex;gap:1.2em;row-gap:.3em;align-items:baseline;flex-wrap:wrap;}
+header.breadcrumbs .crumbs{flex:1 1 auto;}
+.viewbar{display:flex;gap:1.1em;row-gap:.3em;align-items:center;flex-wrap:wrap;
+  font-size:.78rem;margin:0 0 0 auto;}
+.viewbar label{display:inline-flex;gap:.35em;align-items:center;white-space:nowrap;}
+.viewbar select{font:inherit;color:inherit;background:transparent;border:none;
+  border-bottom:1px solid currentColor;padding:0 1px 1px;cursor:pointer;}
+.viewbar select option{color:#222;background:#fff;}
+.viewbar a{text-decoration:none;white-space:nowrap;}
+.viewbar .vb-edit{font:inherit;color:inherit;background:none;border:none;padding:0;white-space:nowrap;}
+.viewbar .vb-edit:disabled{opacity:.45;cursor:default;}
+</style>
+</head>
+<body class="article-page" data-art="29N" data-theme="A_editorial" data-pagefind-ignore="all"
+  data-art-section="confront" data-art-type="prose_num"
+  data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
+<div class="wrap w-wide">
+<header class="breadcrumbs">
+<span class="crumbs"><a href="../index.html">Главная</a><span class="sep">›</span><a href="../confront/index.html">Конфронтология Духа</a></span>
+<nav class="viewbar" aria-label="Вид статьи">
+  <label>Тема
+    <select id="zml-theme">
+      <option value="A_editorial">editorial</option>
+      <option value="B_manuscript">manuscript</option>
+      <option value="cyberpunk">cyberpunk</option>
+      <option value="swiss">swiss</option>
+      <option value="ar_deco">ar-deco</option>
+    </select>
+  </label>
+  <label>Ширина
+    <select id="zml-width">
+      <option value="wide">широкая</option>
+      <option value="narrow">узкая</option>
+    </select>
+  </label>
+  <a class="vb-orig" href="29N.html?orig=1">Оригинал</a>
+  <button class="vb-edit" type="button" disabled aria-disabled="true" title="Редактирование появится позже">✎ Править</button>
+</nav>
+</header>
+<img class="cover" src="../img/29N.jpg" alt="Последний Отсчет">
+
+<h1 id="article-title">Последний Отсчет⁠<a class="audio-link" href="https://t.me/art_017_tracks/402" target="_blank" rel="noopener" title="Слушать аудио-озвучку" aria-label="Слушать аудио-озвучку">🎧</a></h1>
+<p class="byline">Элиягу Бар Малей · #29N · 2022-09-23 · Источник: <a href="https://proza.ru/2022/09/23/62" target="_blank" rel="noopener">proza.ru/2022/09/23/62</a></p>
+<article>
+
+<h2 id="новое-начало">НОВОЕ НАЧАЛО <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<p>(МИР В МИРЕ)</p>
+
+<p>Написано 23.09.22 в кулуарах форума ЛЛ(ККО) под новым всежесозданным ником ;)</p>
+
+<ol class="num">
+<li value="1">Все истории Реального Мира выстроены по одному и тому же "лекалу", универсальному шаблону, который обобщает все, что происходит с "чувствующими существами" в процессе их яркого стремительного турне под названием "опыт всех опытов - быть живым" (КК).</li>
+<li value="2">КК утверждает, что цель всех чувствующих существ - это "культивация осознания" (тему питания Орла пока оставим в стороне, поскольку она слабо соответствует реальности, по моим ощущениям, во всяком случае нашей "здесь и сейчас", хотя, наверное, была вполне адекватным способом делать то, что ДХ делал с КК, рассказывая ему это в коротких перерывах между приступами безудержного хохота).</li>
+<li value="3">Культивация осознания - это развитие структурной целостности и содержательной насыщенности того, что каждый из нас испытывает в процессе жизни "здесь и сейчас", включая чувства, их осмысление, образ действия, канву развивающейся "цепочки событий", включая ее сущностные предпосылки и наиболее непосредственный результат. То есть повышение качества "конечного продукта" - примерно то же самое мы наблюдаем сейчас в "повседневном мире", с кинематографом в целом, и, в частности, с анимационной мультипликацией.</li>
+<li value="4">Здесь нужно сделать отступление и пояснить неочевидную для большинства "идущих" форму "безмолвного знания", говорящего о сути всех существующих в повседневном мире "привычных" нам форм явлений и устойчивых форм различных феноменов, т.е. все, что используем мы, либо что использует нас, в процессе того, как мы думаем, что делаем то же самое, что делают, более-менее, все и всегда, ну или что либо другое "делаем", или наблюдаем со стороны за тем, как делает кто-то другой, либо даже получаем "достоверную информацию" об этом через "третьи руки", ничтоже сумняшеся в том, что "все вот именно так и было/есть на самом деле, инфа 100%". Все эти формы, явления и образы существуют, конечно же, только у нас в голове.</li>
+<li value="5">Точнее, в тех образах, которые мы называем "своими мыслями" или "внутренним диалогом" (но которые "нами", или даже "нашими" не являются ни разу<sup id="cite_ref-1"><a href="#cite_note-1">[1]</a></sup>, даже приблизительно, поскольку являются порождениями чуждого нам типа создания неорганической природы, тщательно маскируемого под собственое "я" уникальной человеческой личности посредством тупой подмены и примитивного самообмана, поскольку человек сам выбирает быть т.о. введенным в неведение, следуя по путям своих учителей "черных магов" общества этого мира).</li>
+<li value="6">Эта самая форма является "зарисовками" явлений и событий "реального мира", т.е. фактуры и содержания "намерений Духа", "замыслов Абстрактного", которыми "соткана" вся реальность воспринимаемого Мира, называемого магами "реальным" (а человеком этого мира "подсознанием" и "коллективным бессознательным", "спящим 99% потенциалом коры головного мозга"). Сам "этот мир" относительно вышеописанного "массива" энергоинформации, актуальной "здесь и сейчас" в том или ином положении точки сборки, в целом называемым магами "неведомым", является не более, чем компактным структурно-однородным "островком", названным "видящими" "островом тоналя", или "известным".</li>
+<li value="7">То, что важно для нас в контексте начатой дискуссии, и что не было подобающим образом (вообще никаким, насколько я знаю) упомянуто в сухих мемуарах КК, это то, что этот "остров" является своеобразным, как могли бы выразится современные IT-шники, "словарем", точнее, "ключом" этого словаря, являющимся отдельным информационным "полем", содержащим закодированную краткую информацию о реально содержащихся в этом "словаре" данных, являющихся его настоящим "реальным" наполнением и "истинной сутью" (с т.з. "второго внимания", поскольку понятие "истинности" и "ложности" в Реальном Мире ну о-очень растяжимо, и зависит, главным образом, от целей конкретного пользователя).</li>
+<li value="8">Я не был щепетилен в согласовании точности описания типа данных из области IT, поскольку эта аналогия имеет второстепенное значение в данном контексте, служа лишь только для понимания сущностной взаимосвязи, имеющейся у "первого" и "второго" типа вниманий (или даже "колец Силы"), относительно "третьего", о котором мы, может быть, отдельно поговорим впоследствии. Так что прошу к деталям не придираться, отнимая впустую драгоценное время, которого у всех нас критически мало, чтобы заниматься вещами, не нужными никому, кроме энергопаразитов и прикормленных ими "форумных троллей" (которые существуют на каждом форуме и являются важной частью его экосистемы, не подумайте лишнего).</li>
+<li value="9">Сложность, или важный ньюанс, в нашем случае, заключается в том, что есть значительная разница между тем образом действия и мысли, понимания и целеполагания, т.е. пробужденности и осознанности, который имеется у человека, освоенного с вышеизложенным фактом о природе взаимосвязи двух типов вниманий, и не освоенного, будь он сам по себе хоть магом, хоть "видящим", хоть кем угодно еще. Человек, начинающий "догадываться" о существовании таковой взаимосвязи, начинает смотреть на события и явления вокруг него совершенно особым образом, меняя привычные приоритеты важности и значимости различных аспектов информационного пространства "повседневного мира".</li>
+<li value="10">В итоге перед таким исследователем (навигатору неведомого - терминология КК - требуется тщательно выверенная "карта местности", и взять ее откуда-либо, кроме как из "уже известного" человек не способен принципиально, что называется, по определению) разворачивается еще более широкий ракурс и перспектива дальнейших поисков и наблюдений, поскольку оказывается, что все, происходящее как в "повседневном мире" физических действий, скрытые побудительные мотивы которых, равно как и причинно-следственная "объективность" обуславливаемой ими "реальности", разворачивающейся на наших глазах в "реальном времени" наподобие киноленты, имеет внутренную связь и выстраивается в достаточно простые формулы, которых, в конечном итоге, оказывается совсем немного, и которые настолько универсальны, что сознание человека, равно как и "мага на пути воинов" просто не регистрирует их фабулу и канву как что-то отличное от того, что является "внешним фоном", на котором происходят и разворачиваются наши Пути и жизни.</li>
+<li value="11">У КК использована формулировка "Намерение Духа", но не сделано попытки осмыслить практически то, чем является по сути Его Намерение "в действительности", вместо этого делаются многочисленные указания на "безличность и внечеловечность" происходящего в Реальном Мире. Но это так только относительно нас и наших ограниченных по определению когнитивных возможностей (что такое "точка сборки", если не существенное и сущностное ограничение "сверху" потенциала роста осознания и уровня сознания? а это базовая форма нашего существования в принципе, вариант с "огнем изнутри" не относится вовсе никак, кроме приема -проскока мимо Орла-, к человеческому типу сознания и восприятию мира, равно как и жизни "здесь и сейчас", со всеми втекающими и вытекающими, очевидными и контринтуитивными, но от этого не менее актуальными и влияющими, выводами, следствиями, Законами, Командами, "энергофактами", безмолвными знаниями, абстрактными ядрами и иже с ними).</li>
+<li value="12">Относительно самого Абстракта, который включен в эти явления сущностно, "Намеревая" их Дух посредством "буквы" наших опосредуемых ими Путей и быстротечных жизней, вышеупомянутая сущностная взаимосвязь является явлением одного и того же порядка, что и все остальное, что является частью этого порядка, происходящей каким-то характерным образом не "просто так", потому что "так сложились звезды", как это естественно представляется любому "исследователю неведомого", подходящему к исследованию Реального Мира с какой угодно "стартовой позиции", буть то "науки этого мира", или же "энергетические дубли и волевые искусства" мира "магического", поскольку оба этих исследователя, при всем громадном, кажущемся, или вполне объективно существующем, не суть важно, отличии в их "исходных вводных" и уровне пробужденности и осознанности, арсенале и качестве развития используемых ими "рабочих инструментов", включая имеющиеся у них "научные/магические" парадигмы, картины мира и образы действия в первую очередь, - оказываются в позиции, принципиально и непреодолимо однобокой (оставаясь в рамках соответствующих парадигм, без серьезной попытки их переосмысления и конструктивного реформирования в соответствии с новой открывающейся посредством "контролируемого использования видения" /КК/ информацией о строении Реального Мира), лишенной "противоположной" половины всего открывающегося перед их глазами, приборами и "дублями", ансамбля происходящей "здесь и сейчас" единой и слитой, совершенной, полностью осознанной и безупречно выверенной (поскольку иное не называется "полной осознанностью"), до мелочей, Единой Реальности, раскрывающейся человеку в двух "ипостасях", исторически представляющихся ему взамоисключающими и отрицающими друг друга, а в действительности - тесно взаимодействующих и взаимодополняющих в удивительной гармонии и переплетении их развивающихся по единой, скрытой и контринтуитивной логике, Путей развития, связанных изначально вложенной в них Орлом единой, целостной и единственной, Целью своего происхождения "здесь и сейчас", в нашем восприятии принимающего формы отрицающие реальность друг друга и далекие одно от другого настолько, насколько это только возможно и может быть.</li>
+</ol>
+
+<p>За границей очерченной формы соединения и взаимовключения двух "базовых" (относительно нас с Вами) типов "внимания", или уровней осознанности, типов "инструментов", имеющихся у человека разумного, обладающего голосом - способностью, уникальной среди всех имеющихся во Вселенной жизненных форм (ДХ) не случайно, а поскольку суть этой способности - это потенциал УПРАВЛЯЮЩЕЙ СТУПЕНИ, ПОСТУЛИРУЮЩЕЙ ФАКТЫ О ТОМ, ЧТО ПРОИСХОДИТ В РЕАЛЬНОСТИ - т.е. "Команды Орла", становящиеся затем имеющими Силу безусловных Законов для тех существ, которые во время их произнесения человеком, находящимся на пике своей "личной Силы" в "гармонии с Духом", и вершащего, по сути, судьбы Реального Мира, в том объеме и данности, которые соответствуют опосредуемому им действию "здесь и сейчас" в соответствии с тем же самым Намерением, которое включает на еще более высоком, принципиально непостижимым для человека, уровне совершенства и осуществленности, данные эпизоды, происходящие в "первом" и "втором" вниманиях по-раздельности, поскольку нахождение в них человека посредством управления фиксацией точки сборки, производимой средним человеком, и ее управляемым сдвигом, производимым магами, исключает возможность существования в воспринимаемой им Реальности "другой стороны медали" совершаемого и переживаемого им явления реального мира, лишая человека, находящегося в обоих формах "образа действия" и уровня осознания, какой-либо возможности учитывать и отражать в своем действии посредством целеполагания всю картину в целостности двух типов внимания, суть которой в том, что находится "выше" них, то есть, первичнее, универсальнее и "абстрактнее" их обоих, являясь их причиной и источником происхождения, а вместе с тем, истинным смыслом и целью происхождения в каждой конкретной "частной" воспринимаемой нами форме или временном этапе как процесса последовательного эволюционного развития и роста того, что является продуктом и сутью наших с вами Путей и жизней, кем бы мы ни были и кем бы ни считали себя, магами, обывателями, учеными, практиками, теоретиками, "воинами полной свободы" или "малыми частями целого".</p>
+
+<div class="cry">Пока на этом все. Да прибудет с нами Сила, Доброта и Мудрость, поскольку мы являемся, согласны мы или не согласны, понимаем или не понимаем, хотим или не хотим активно участвовать - основоположниками "новейшего цикла современных видящих", единой эволюционной ступени будущего человека и Мира, более не делящегося на "магические" и "среднечеловеческие" сектора и образы жизни и сознательной деятельности, целеполагания и намерения своей "магической", "научной", "духовной", либо "просточеловеческой" повседневной работы. МЫ ВЕРШИМ ИСТОРИЮ НОВОГО МИРА! ;) С этим ничего не поделаешь, это просто "энергетический факт" о том особом промежутке времени в момент смены тысячелетних циклов, в эпицентре которого мы с Вами находимся "здесь и сейчас" и будем продолжать находиться в обозримом ближайшем будущем.</div>
+
+<h2 id="песнь-ступеней">Песнь Ступеней <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<div class="music-group has-heading" data-label="Песнь Ступеней">
+<details class="music"><summary><span class="label">Песнь Ступеней:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">1. Final Countdown</span> <span class="trk-sep">—</span> <span class="trk-art">Europe</span></span><a class="ext" href="https://www.youtube.com/watch?v=9jK-NcRmVcw" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/9jK-NcRmVcw?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+<details class="music"><summary><span class="label">Песнь Ступеней:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">2. Поезд в Огне</span> <span class="trk-sep">—</span> <span class="trk-art">Аквариум</span></span><a class="ext" href="https://youtu.be/v3RQ6x9qD8w" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/v3RQ6x9qD8w?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+</div>
+
+<h2 id="notes">Пост Скриптум <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+<ol class="notes">
+<li id="cite_note-1" value="1"><a class="backref" href="#cite_ref-1" title="Вернуться к месту в тексте">↑</a> См. также: <a class="internal" href="1AA.view.html">Бремя Власти Небес</a></li>
+</ol>
+</article>
+
+<nav class="article-nav">
+  <span class="prev"><a href="3A7.view.html">← В духовном все наоборот</a></span>
+  <span class="next"><a href="2BNA.view.html">Зеркало Тр. Олли →</a></span>
+</nav>
+
+<footer class="footer">
+<p class="editinfo">Редакция: Иван Иванович</p>
+<p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+<p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+</footer>
+</div>
+<script>
+// Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
+// no editor/login module is loaded.
+(function(){
+  var bubble = null, hideTimer = null;
+  function ensureBubble(){
+    if (bubble) return bubble;
+    bubble = document.createElement('div');
+    bubble.className = 'footnote-bubble';
+    bubble.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); });
+    bubble.addEventListener('mouseleave', scheduleHide);
+    document.body.appendChild(bubble);
+    return bubble;
+  }
+  function scheduleHide(){
+    if (hideTimer) clearTimeout(hideTimer);
+    hideTimer = setTimeout(function(){ if (bubble) bubble.classList.remove('show'); }, 180);
+  }
+  function show(link){
+    var href = link.getAttribute('href') || '';
+    if (!href.startsWith('#')) return;
+    var target = document.getElementById(href.slice(1));
+    if (!target) return;
+    var b = ensureBubble();
+    var clone = target.cloneNode(true);
+    var back = clone.querySelector('a.backref');
+    if (back) back.remove();
+    // муз-трек как цель сноски: во всплывашке — ТОЛЬКО название трека (+ ↗),
+    // БЕЗ плеера/iframe-фрейма и дубль-этикетки (вердикт оператора 14:46)
+    if ((clone.className || '').indexOf('music') >= 0 || clone.querySelector('iframe, .player')) {
+      Array.prototype.forEach.call(clone.querySelectorAll('.player, .caret, .label, .trk-play'),
+        function(e){ e.remove(); });
+    }
+    b.innerHTML = clone.innerHTML;
+    b.classList.add('show');
+    var r = link.getBoundingClientRect();
+    var sx = window.pageXOffset, sy = window.pageYOffset;
+    b.style.left = '0px'; b.style.top = '0px';
+    var bw = b.offsetWidth, bh = b.offsetHeight;
+    var left = sx + r.left + r.width/2 - bw/2;
+    var maxLeft = sx + document.documentElement.clientWidth - bw - 8;
+    if (left > maxLeft) left = maxLeft;
+    if (left < sx + 8) left = sx + 8;
+    var top = sy + r.top - bh - 10;
+    var placeBelow = (top - sy) < 8;
+    if (placeBelow) top = sy + r.bottom + 10;
+    b.style.left = left + 'px';
+    b.style.top  = top  + 'px';
+    b.classList.toggle('below', placeBelow);
+  }
+  function ytPost(f, func){
+    if (!f) return;
+    try { f.contentWindow.postMessage('{"event":"command","func":"'+func+'","args":[]}', '*'); } catch(e){}
+  }
+  function applyMute(d){
+    var btn = d.querySelector('.trk-mute'); if (!btn) return;
+    var f = d.querySelector('iframe');
+    if (!f || f.getAttribute('data-src')) return;   // плеер ещё не впрыснут
+    var func = btn.getAttribute('aria-pressed') === 'true' ? 'mute' : 'unMute';
+    ytPost(f, func);                                 // плеер готов (играет рекламу) → срабатывает сразу
+    setTimeout(function(){ ytPost(f, func); }, 700); // ретраи на случай «только что открыли»
+    setTimeout(function(){ ytPost(f, func); }, 1800);
+  }
+  function bindMusic(){
+    document.querySelectorAll('details.music').forEach(function(d){
+      if (d.dataset.musicBound) return; d.dataset.musicBound = '1';
+      d.addEventListener('toggle', function(){
+        if (!d.open) return;
+        var f = d.querySelector('iframe[data-src]');
+        if (f) {
+          var src = f.getAttribute('data-src');
+          src += (src.indexOf('?') >= 0 ? '&' : '?') + 'origin=' + encodeURIComponent(location.origin);
+          f.src = src; f.removeAttribute('data-src');
+        }
+        applyMute(d);                                // применить запомненное mute-состояние
+      });
+      var btn = d.querySelector('.trk-mute');
+      if (btn) {
+        var toggle = function(ev){
+          ev.preventDefault(); ev.stopPropagation();  // не дёргать details.open
+          var on = btn.getAttribute('aria-pressed') !== 'true';
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+          btn.setAttribute('aria-label', on ? 'Включить звук' : 'Заглушить звук');
+          btn.title = on ? 'Включить звук' : 'Заглушить звук (реклама YouTube)';
+          applyMute(d);
+        };
+        btn.addEventListener('click', toggle);
+        btn.addEventListener('keydown', function(ev){
+          if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') toggle(ev);
+        });
+      }
+    });
+  }
+  function bindFootnotes(){
+    document.querySelectorAll('sup a[href^="#cite_note-"]').forEach(function(a){
+      if (a.dataset.fnBound) return; a.dataset.fnBound = '1';
+      a.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); show(a); });
+      a.addEventListener('mouseleave', scheduleHide);
+      a.addEventListener('focus', function(){ show(a); });
+      a.addEventListener('blur',  scheduleHide);
+    });
+  }
+  function bindSpoilers(){
+    document.querySelectorAll('.spoiler').forEach(function(sp){
+      if (sp.dataset.splBound) return; sp.dataset.splBound = '1';
+      function reveal(){ sp.classList.add('revealed'); }
+      sp.addEventListener('click', reveal);
+      sp.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); reveal(); }
+      });
+    });
+  }
+  bindMusic(); bindFootnotes(); bindSpoilers();
+
+  // Общая левая рейка стихов: все .poem статьи ровняются по краю, который
+  // центрирует САМЫЙ ШИРОКИЙ из них (классическая осевая выключка, но единая
+  // на статью — края не скачут от блока к блоку). Пересчёт при смене
+  // темы/ширины/размера окна: метрики шрифта и мера меняются.
+  function alignPoems(){
+    var art = document.querySelector('article'); if (!art) return;
+    var poems = Array.prototype.slice.call(art.querySelectorAll('.poem'));
+    if (!poems.length) return;
+    poems.forEach(function(p){ p.style.marginLeft = ''; p.style.marginRight = ''; });
+    if (poems.length < 2) return; // одиночный стих — родное центрирование темы
+    var maxW = 0;
+    poems.forEach(function(p){ maxW = Math.max(maxW, p.getBoundingClientRect().width); });
+    var cs = getComputedStyle(art);
+    var artRect = art.getBoundingClientRect();
+    var contentLeft = artRect.left + parseFloat(cs.paddingLeft || 0) + parseFloat(cs.borderLeftWidth || 0);
+    var contentWidth = art.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+    var targetX = contentLeft + Math.max(0, (contentWidth - maxW) / 2);
+    poems.forEach(function(p){
+      p.style.marginLeft = '0px'; p.style.marginRight = 'auto';
+      var x = p.getBoundingClientRect().left;
+      p.style.marginLeft = (targetX - x) + 'px';
+    });
+  }
+  var alignTimer = null;
+  function alignPoemsSoon(){ if (alignTimer) clearTimeout(alignTimer); alignTimer = setTimeout(alignPoems, 60); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignPoemsSoon);
+  window.addEventListener('load', alignPoemsSoon);
+  window.addEventListener('resize', alignPoemsSoon);
+  alignPoemsSoon();
+
+  // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  var sel = document.getElementById('zml-theme');
+  var wsel = document.getElementById('zml-width');
+  var link = document.getElementById('theme-css');
+  var wrap = document.querySelector('.wrap');
+  var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+  if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
+  if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
+  if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
+  if (sel) sel.addEventListener('change', function(){
+    var t = sel.value;
+    document.body.setAttribute('data-theme', t);
+    if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
+  });
+  if (wsel) wsel.addEventListener('change', function(){
+    if (!wrap) return;
+    wrap.classList.toggle('w-narrow', wsel.value==='narrow');
+    wrap.classList.toggle('w-wide', wsel.value==='wide');
+    alignPoemsSoon();
+  });
+
+  // Ф8′ ре-резолвинг вида для ЗАЛОГИНЕННОГО пользователя. Аноним уже получил
+  // запечённый Admin-вид (display.json на сборке) — здесь ничего не делаем. Залогинен
+  // → тянем личные правила из worker KV и применяем (зеркало resolveDisplay в render.js).
+  (function(){
+    var body = document.body;
+    var section = body.getAttribute('data-art-section') || '';
+    var type    = body.getAttribute('data-art-type') || '';
+    var fmTheme = body.getAttribute('data-fm-theme') || '';
+    var fmWidth = body.getAttribute('data-fm-width') || '';
+    var worker  = (body.getAttribute('data-worker') || '').replace(/\/+$/, '');
+    var sess; try { sess = JSON.parse(localStorage.getItem('ya_session')||'null'); } catch(e){}
+    if (!sess || !sess.token || !worker) return;
+    function resolve(cfg){
+      var g=(cfg&&cfg.global)||{}, rules=(cfg&&cfg.rules)||[], rd='', rw='';
+      for (var i=0;i<rules.length;i++){ var m=rules[i]&&rules[i].match; if(!m) continue;
+        if ((m.kind==='section'&&m.value===section)||(m.kind==='type'&&m.value===type)){
+          rd=rules[i].design||''; rw=rules[i].width||''; break; } }
+      return { design:(fmTheme||rd||g.design||'A_editorial'),
+               width:(fmWidth||rw||g.width||'wide') };
+    }
+    function apply(d){
+      if (sel && sel.value!==d.design){ sel.value=d.design; sel.dispatchEvent(new Event('change')); }
+      var w = /narrow|820/.test(d.width)?'narrow':'wide';
+      if (wsel && wsel.value!==w){ wsel.value=w; wsel.dispatchEvent(new Event('change')); }
+    }
+    fetch(worker+'/api/settings',{headers:{Authorization:'Bearer '+sess.token}})
+      .then(function(r){ return r.ok?r.json():null; })
+      .then(function(cfg){ if(cfg) apply(resolve(cfg)); })
+      .catch(function(){});
+  })();
+})();
+</script>
+</body>
+</html>

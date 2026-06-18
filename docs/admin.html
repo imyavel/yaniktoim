@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Админка вида — Путь Восходящей Звезды</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="stylesheet" href="style.css?v=20260618-01">
+<style>
+  .adm{max-width:880px;margin:0 auto;}
+  .adm h1{font-size:1.5rem;margin:.4em 0 .2em;}
+  .adm .scope{opacity:.75;font-size:.9rem;margin:.2em 0 1.4em;}
+  .adm fieldset{border:1px solid rgba(128,128,128,.35);border-radius:7px;margin:1.1em 0;padding:.8em 1em 1.1em;}
+  .adm legend{padding:0 .4em;font-weight:600;}
+  .adm label{display:inline-flex;gap:.4em;align-items:center;margin-right:1.4em;}
+  .adm select,.adm button{font:inherit;}
+  .adm select{padding:.2em .35em;border:1px solid rgba(128,128,128,.5);border-radius:4px;background:transparent;color:inherit;}
+  .adm table{width:100%;border-collapse:collapse;margin:.4em 0;}
+  .adm th,.adm td{text-align:left;padding:.35em .45em;vertical-align:middle;}
+  .adm thead th{font-size:.8rem;opacity:.7;font-weight:600;border-bottom:1px solid rgba(128,128,128,.3);}
+  .adm tbody tr{border-bottom:1px solid rgba(128,128,128,.15);}
+  .adm .rule-move button,.adm .rule-del button{border:none;background:none;cursor:pointer;font-size:1rem;opacity:.7;padding:.1em .3em;color:inherit;}
+  .adm .rule-move button:hover,.adm .rule-del button:hover{opacity:1;}
+  .adm .btn{border:1px solid rgba(128,128,128,.5);border-radius:5px;background:transparent;color:inherit;cursor:pointer;padding:.4em .9em;}
+  .adm .btn-primary{background:#1d6fe0;color:#fff;border-color:#1d6fe0;}
+  .adm .btn-primary:disabled{opacity:.5;cursor:default;}
+  .adm .bar{display:flex;gap:1em;align-items:center;margin-top:1.2em;}
+  .adm .msg{font-size:.9rem;}
+  .adm .gate{margin:2em 0;font-size:1rem;}
+  .adm .empty{opacity:.6;font-style:italic;padding:.6em .45em;}
+  #ya-login{margin-left:auto;}
+</style>
+</head>
+<body>
+<div class="wrap adm">
+<header class="breadcrumbs" style="display:flex;align-items:center;gap:1em;">
+  <a href="index.html">Главная</a>
+  <span id="ya-login"></span>
+</header>
+
+<h1>Админка вида</h1>
+<p class="scope" id="scope">Настройки отображения ZML-версии: дизайн и ширина по разделам и типам работ.</p>
+
+<div id="gate" class="gate" hidden>
+  Чтобы менять настройки, войдите (поле входа — вверху справа).
+</div>
+
+<div id="editor" hidden>
+  <fieldset>
+    <legend>Версия по умолчанию</legend>
+    <label><input type="radio" name="dv" value="old"> Старый HTML (по умолчанию)</label>
+    <label><input type="radio" name="dv" value="new"> Новая (ZML)</label>
+    <p class="scope" style="margin:.6em 0 0;">Какую версию видит читатель, открывая статью. Кнопка перехода есть в любом случае.</p>
+  </fieldset>
+
+  <fieldset>
+    <legend>Общий стиль по умолчанию</legend>
+    <label>Дизайн <select id="g-design"></select></label>
+    <label>Ширина <select id="g-width"></select></label>
+    <p class="scope" style="margin:.6em 0 0;">Применяется, когда статья не подпала ни под одно правило ниже.</p>
+  </fieldset>
+
+  <fieldset>
+    <legend>Правила (приоритет сверху вниз — действует первое совпавшее)</legend>
+    <table>
+      <thead><tr><th>Раздел / тип</th><th>Дизайн</th><th>Ширина</th><th></th><th></th></tr></thead>
+      <tbody id="rules"></tbody>
+    </table>
+    <button type="button" class="btn" id="add-rule">+ Добавить правило</button>
+  </fieldset>
+
+  <div class="bar">
+    <button type="button" class="btn btn-primary" id="save">Сохранить</button>
+    <span class="msg" id="msg"></span>
+  </div>
+</div>
+
+</div>
+
+<script src="ya-auth.js"></script>
+<script>
+(function () {
+  "use strict";
+  var SECTIONS = [["best","Избранное"],["dreamon","Мечтай!!"],["cyberson","Киберсон"],
+    ["dabudet","Да будет Свет!"],["confront","Конфронтология Духа"],
+    ["shoshana","Роза Среди Шипов"],["other","Без категории"]];
+  var TYPES = [["verse","Обычный стих"],["poem","Поэма"],["prose","Проза"],
+    ["dialog","Диалоги"],["prose_num","Проза с нумер. абзацами"]];
+  var DESIGNS = [["A_editorial","editorial"],["B_manuscript","manuscript"],
+    ["cyberpunk","cyberpunk"],["swiss","swiss"],["ar_deco","ar-deco"]];
+  var WIDTHS = [["wide","широкая"],["narrow","узкая"]];
+
+  function opts(sel, list, val) {
+    sel.innerHTML = "";
+    list.forEach(function (p) {
+      var o = document.createElement("option");
+      o.value = p[0]; o.textContent = p[1]; sel.appendChild(o);
+    });
+    if (val != null) sel.value = val;
+  }
+  function matchSelect(val) {
+    var sel = document.createElement("select");
+    function group(label, list, kind) {
+      var g = document.createElement("optgroup"); g.label = label;
+      list.forEach(function (p) {
+        var o = document.createElement("option");
+        o.value = kind + ":" + p[0]; o.textContent = p[1]; g.appendChild(o);
+      });
+      sel.appendChild(g);
+    }
+    group("Разделы", SECTIONS, "section");
+    group("Типы", TYPES, "type");
+    if (val) sel.value = val;
+    return sel;
+  }
+
+  var rules = [];           // [{match:{kind,value}, design, width}]
+  var tbody = document.getElementById("rules");
+
+  function renderRules() {
+    tbody.innerHTML = "";
+    if (!rules.length) {
+      var tr = document.createElement("tr");
+      var td = document.createElement("td");
+      td.colSpan = 5; td.className = "empty";
+      td.textContent = "Правил нет — действует общий стиль по умолчанию.";
+      tr.appendChild(td); tbody.appendChild(tr); return;
+    }
+    rules.forEach(function (r, i) {
+      var tr = document.createElement("tr");
+      var tdM = document.createElement("td");
+      var ms = matchSelect(r.match.kind + ":" + r.match.value);
+      ms.onchange = function () { var v = ms.value.split(":"); r.match = { kind: v[0], value: v[1] }; };
+      tdM.appendChild(ms); tr.appendChild(tdM);
+
+      var tdD = document.createElement("td");
+      var ds = document.createElement("select"); opts(ds, DESIGNS, r.design);
+      ds.onchange = function () { r.design = ds.value; }; tdD.appendChild(ds); tr.appendChild(tdD);
+
+      var tdW = document.createElement("td");
+      var ws = document.createElement("select"); opts(ws, WIDTHS, r.width);
+      ws.onchange = function () { r.width = ws.value; }; tdW.appendChild(ws); tr.appendChild(tdW);
+
+      var tdMove = document.createElement("td"); tdMove.className = "rule-move";
+      var up = btn("↑", function () { if (i > 0) { swap(i, i - 1); } });
+      var dn = btn("↓", function () { if (i < rules.length - 1) { swap(i, i + 1); } });
+      up.disabled = i === 0; dn.disabled = i === rules.length - 1;
+      tdMove.appendChild(up); tdMove.appendChild(dn); tr.appendChild(tdMove);
+
+      var tdDel = document.createElement("td"); tdDel.className = "rule-del";
+      tdDel.appendChild(btn("✕", function () { rules.splice(i, 1); renderRules(); }));
+      tr.appendChild(tdDel);
+
+      tbody.appendChild(tr);
+    });
+  }
+  function btn(txt, fn) { var b = document.createElement("button"); b.type = "button"; b.textContent = txt; b.onclick = fn; return b; }
+  function swap(a, b) { var t = rules[a]; rules[a] = rules[b]; rules[b] = t; renderRules(); }
+
+  document.getElementById("add-rule").onclick = function () {
+    rules.push({ match: { kind: "section", value: "best" }, design: "A_editorial", width: "wide" });
+    renderRules();
+  };
+
+  opts(document.getElementById("g-design"), DESIGNS);
+  opts(document.getElementById("g-width"), WIDTHS);
+
+  function fill(cfg) {
+    cfg = cfg || {};
+    var dv = cfg.default_view === "new" ? "new" : "old";
+    document.querySelector('input[name="dv"][value="' + dv + '"]').checked = true;
+    var g = cfg.global || {};
+    document.getElementById("g-design").value = g.design || "A_editorial";
+    document.getElementById("g-width").value = g.width || "wide";
+    rules = (Array.isArray(cfg.rules) ? cfg.rules : []).map(function (r) {
+      return { match: { kind: (r.match || {}).kind, value: (r.match || {}).value }, design: r.design, width: r.width };
+    });
+    renderRules();
+  }
+  function collect() {
+    return {
+      version: 1,
+      default_view: (document.querySelector('input[name="dv"]:checked') || {}).value || "old",
+      global: { design: document.getElementById("g-design").value, width: document.getElementById("g-width").value },
+      rules: rules.map(function (r) { return { match: r.match, design: r.design, width: r.width }; }),
+    };
+  }
+
+  var msg = document.getElementById("msg");
+  document.getElementById("save").onclick = function () {
+    var s = YaAuth.session(); if (!s) return;
+    var b = document.getElementById("save"); b.disabled = true; msg.textContent = "Сохраняю…"; msg.style.color = "";
+    fetch(YaAuth.WORKER + "/api/settings", {
+      method: "PUT", headers: { "Content-Type": "application/json", Authorization: "Bearer " + s.token },
+      body: JSON.stringify(collect()),
+    }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (x) {
+        b.disabled = false;
+        if (!x.ok) { msg.style.color = "#b00"; msg.textContent = x.d.error || "ошибка"; return; }
+        msg.style.color = "#0a0";
+        msg.textContent = x.d.scope === "global"
+          ? "Сохранено глобально (видят все без логина)." : "Сохранено (личные настройки).";
+      }).catch(function (e) { b.disabled = false; msg.style.color = "#b00"; msg.textContent = e.message || "сеть"; });
+  };
+
+  function boot() {
+    var box = document.getElementById("ya-login");
+    if (box) YaAuth.renderAuthInto(box);
+    var s = YaAuth.session();
+    if (!s) { document.getElementById("gate").hidden = false; return; }
+    document.getElementById("scope").textContent = s.role === "admin"
+      ? "Вы — Admin: изменения глобальные, их видят все читатели без логина."
+      : "Личные настройки: применяются только когда вы залогинены.";
+    document.getElementById("editor").hidden = false;
+    fetch(YaAuth.WORKER + "/api/settings", { headers: { Authorization: "Bearer " + s.token } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (cfg) { fill(cfg || {}); })
+      .catch(function () { fill({}); });
+  }
+  boot();
+})();
+</script>
+</body>
+</html>

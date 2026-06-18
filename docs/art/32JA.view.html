@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Происхождение времени ч. 2</title>
+<meta name="description" content="">
+<meta name="robots" content="noindex">
+<link id="theme-css" rel="stylesheet" href="../themes/A_editorial.css?v=20260618-01">
+<style id="spl-base">
+/* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
+.wrap.w-narrow{max-width:820px;}
+.wrap.w-wide{max-width:1080px;}
+/* [spl] spoiler — structural, theme-agnostic. Themes may tune --spl-cover. */
+.spoiler{position:relative;display:inline-block;cursor:pointer;border-radius:3px;vertical-align:baseline;}
+.spoiler:not(.revealed) .spoiler-content{visibility:hidden;}
+.spoiler:not(.revealed)::before{content:"";position:absolute;inset:-1px;border-radius:3px;
+  background:var(--spl-cover,repeating-linear-gradient(45deg,#4a4a4a 0 7px,#2f2f2f 7px 14px));
+  background-size:auto;animation:spl-shimmer 1.4s linear infinite;}
+.spoiler.revealed{cursor:auto;}
+.spoiler:focus-visible{outline:2px solid currentColor;outline-offset:2px;}
+@keyframes spl-shimmer{from{background-position:0 0;}to{background-position:20px 0;}}
+@media (prefers-reduced-motion:reduce){.spoiler:not(.revealed)::before{animation:none;}}
+/* audio narration 🎧 by H1 — structural, theme-agnostic (themes may refine). */
+.audio-link{font-size:.62em;vertical-align:middle;margin-left:.4em;text-decoration:none;white-space:nowrap;}
+/* [subsec] section subtitle — base (themes refine): muted italic, tight to ## heading. */
+.sec-sub{margin:.15em 0 1.3em;font-style:italic;font-size:.95em;opacity:.7;line-height:1.45;text-indent:0;text-align:left;}
+h2 + .sec-sub, h2.subtitle + .sec-sub{margin-top:-.5em;}
+/* fn-ревью (2026-06-12) — структурная база новых конструкций; темы уточняют. */
+/* [^N] в H1: sup-маркер на глаз отличим от текста заголовка (THEME_CONTRACT). */
+h1#article-title sup{font-size:.42em;font-weight:400;line-height:0;letter-spacing:normal;vertical-align:super;}
+/* [line kind=tags|dateline] — служебная роль-строка; буквицы тем её пропускают. */
+p.line{font-size:.88em;opacity:.72;letter-spacing:.02em;text-indent:0;}
+/* [ul] — маркированный список; значок через --marker → li::marker. */
+ul.ul{margin:1em 0;padding-left:1.6em;}
+ul.ul li::marker{content:var(--marker, initial);}
+/* [num] со скобко-стилем «1)» (авторские номера держит li[value]). */
+ol.num.num-paren li::marker{content:counter(list-item) ") ";}
+/* [epi kind=dedi] — посвящение. */
+article .epigraph.dedication, article .epilogue.dedication{text-align:right;font-style:italic;}
+/* TOC: вложенный 2-й уровень (###). */
+details.article-toc ol ol{margin:.15em 0 .15em 1.1em;}
+/* [toc nonum]: заголовки сами нумерованы (1 / 1.1 / 1.1.1) → гасим авто-числа <ol>
+   (две класса-метки → перебивает per-theme `.article-toc ol{padding-left}` по специфичности) */
+details.article-toc.nonum ol{list-style:none; padding-left:0;}
+details.article-toc.nonum ol ol{margin-left:1.1em;}
+/* [sig] подпись / [cry] возглас (ZML3 C11) — base, themes refine. */
+.sig{text-align:right;font-style:italic;margin:1.4rem 0;}
+.cry{text-align:center;font-weight:700;letter-spacing:.05em;margin:1.6rem 0;}
+/* глифы (C13) + inline term/leit (C10) — base no-op-ish; themes colour or ignore. */
+.glyph{white-space:nowrap;}
+.term{text-decoration:underline dotted;text-underline-offset:3px;}
+.leit{font-style:italic;}
+/* музыка Б2: inter-track заметка (1AQA «Слушать вместе…») — base, themes refine. */
+.music-note{text-align:center;font-style:italic;opacity:.72;font-size:.92em;
+  margin:.2rem 0 .5rem;}
+/* музыка-плашка (канон оригинала): ▶ N) **Название** — *Автор* — название жирным,
+   автор обычным-курсивом, ► играбел-индикатор (крутится при раскрытии). Специфичность
+   `.music-group .title …` перебивает курсив `.title` темы. */
+.music-group .trk-play{display:inline-block;font-size:.82em;opacity:.65;margin-right:.1em;
+  transition:transform .18s ease;}
+details.music[open] .trk-play{transform:rotate(90deg);}
+.music-group .title .trk-num{opacity:.55;font-style:normal;font-variant-numeric:tabular-nums;}
+.music-group .title .trk-ttl{font-weight:600;font-style:normal;}
+.music-group .title .trk-sep{opacity:.5;font-weight:400;}
+.music-group .title .trk-art{font-weight:400;font-style:italic;opacity:.78;}
+/* трек-строка = flex: текст слева ВО ВСЕХ темах (перебивает theme text-align:center
+   у B_manuscript/ar_deco — флекс-айтемы паковка слева), динамик-mute прижат вправо
+   (2026-06-18). */
+.music-group details.music>summary,.music-group .music-noplayer>.summary{
+  display:flex; align-items:center; flex-wrap:wrap; gap:.12em; text-align:left;}
+.music-group .title{min-width:0;}
+/* кнопка-динамик (mute рекламы YouTube) — справа на строчке */
+.music-group .trk-mute{margin-left:auto; flex:0 0 auto; align-self:center;
+  cursor:pointer; opacity:.5; color:inherit; line-height:0; padding:.1em .2em;
+  border-radius:4px; transition:opacity .15s,color .15s;
+  -webkit-tap-highlight-color:transparent;}
+.music-group .trk-mute:hover,.music-group .trk-mute:focus-visible{opacity:1; outline:none;}
+.music-group .trk-mute svg{width:1.2em; height:1.2em; display:block;}
+.music-group .trk-mute .spk-slash{display:none;}
+.music-group .trk-mute[aria-pressed="true"]{opacity:.95; color:var(--accent,currentColor);}
+.music-group .trk-mute[aria-pressed="true"] .spk-wave{display:none;}
+.music-group .trk-mute[aria-pressed="true"] .spk-slash{display:inline;}
+/* [dlg] форум-стиль (№2, по образцу форума ccastaneda.ru): пост-в-рамке + метка
+   спикера small-caps. base — themes refine (--accent2 = акцент темы). */
+.dialog .post{border-left:3px solid var(--accent2,currentColor);
+  background:color-mix(in srgb, currentColor 4%, transparent);
+  padding:.55rem .95rem;margin:.7rem 0;border-radius:0 4px 4px 0;}
+.dialog .post-by{display:block;font-variant:small-caps;letter-spacing:.05em;
+  font-weight:700;font-style:normal;font-size:.9em;color:var(--accent2,inherit);
+  opacity:.95;margin-bottom:.25em;}
+.dialog .post-text{display:block;}
+.dialog .post-text + .post-text{margin-top:.55em;}/* многоабзацная реплика */
+.dialog .dlg-line{margin:.45rem 0;}
+/* viewbar — управление видом статьи (тема/ширина/оригинал/править).
+   Сидит в одной строке с крошками (крошки слева, управление справа).
+   Здесь только структура; типографика/цвета — у темы (.viewbar в THEME_CONTRACT). */
+header.breadcrumbs{display:flex;gap:1.2em;row-gap:.3em;align-items:baseline;flex-wrap:wrap;}
+header.breadcrumbs .crumbs{flex:1 1 auto;}
+.viewbar{display:flex;gap:1.1em;row-gap:.3em;align-items:center;flex-wrap:wrap;
+  font-size:.78rem;margin:0 0 0 auto;}
+.viewbar label{display:inline-flex;gap:.35em;align-items:center;white-space:nowrap;}
+.viewbar select{font:inherit;color:inherit;background:transparent;border:none;
+  border-bottom:1px solid currentColor;padding:0 1px 1px;cursor:pointer;}
+.viewbar select option{color:#222;background:#fff;}
+.viewbar a{text-decoration:none;white-space:nowrap;}
+.viewbar .vb-edit{font:inherit;color:inherit;background:none;border:none;padding:0;white-space:nowrap;}
+.viewbar .vb-edit:disabled{opacity:.45;cursor:default;}
+</style>
+</head>
+<body class="article-page" data-art="32JA" data-theme="A_editorial" data-pagefind-ignore="all"
+  data-art-section="cyberson" data-art-type="prose_num"
+  data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
+<div class="wrap w-wide">
+<header class="breadcrumbs">
+<span class="crumbs"><a href="../index.html">Главная</a><span class="sep">›</span><a href="../cyberson/index.html">Киберсон</a></span>
+<nav class="viewbar" aria-label="Вид статьи">
+  <label>Тема
+    <select id="zml-theme">
+      <option value="A_editorial">editorial</option>
+      <option value="B_manuscript">manuscript</option>
+      <option value="cyberpunk">cyberpunk</option>
+      <option value="swiss">swiss</option>
+      <option value="ar_deco">ar-deco</option>
+    </select>
+  </label>
+  <label>Ширина
+    <select id="zml-width">
+      <option value="wide">широкая</option>
+      <option value="narrow">узкая</option>
+    </select>
+  </label>
+  <a class="vb-orig" href="32JA.html?orig=1">Оригинал</a>
+  <button class="vb-edit" type="button" disabled aria-disabled="true" title="Редактирование появится позже">✎ Править</button>
+</nav>
+</header>
+<img class="cover" src="../img/32JA.jpg" alt="Происхождение времени ч. 2">
+
+<h1 id="article-title">Происхождение времени ч. 2⁠<a class="audio-link" href="https://t.me/art_017_tracks/331" target="_blank" rel="noopener" title="Слушать аудио-озвучку" aria-label="Слушать аудио-озвучку">🎧</a></h1>
+<p class="byline">Элиягу Бар Малей · #32JA · 2023-02-19 · Источник: <a href="https://proza.ru/2023/02/19/290" target="_blank" rel="noopener">proza.ru/2023/02/19/290</a></p>
+<article>
+
+<ol class="num">
+<li value="21">Измерение – это процесс контролируемого внесения изменений в тот образ действия и принятые в нем «умолчания», аксиомы и условности, которые производят в итоге для оператора, не делающего различия подобно описанному в пп. 1-20, тот объект, процесс, объем и результат «наблюдаемого происхождения во времени», который человек подразумевает под «объективно независимой реальностью», в действительности опосредовав своим «человеческим фактором», а конкретно, допущением о «материальности» времени и его однонаправленности, характер имеющегося процесса чуть менее, чем от начала и до конца его исследования.</li>
+<li value="22">В итоге «незнание Закона не освобождает от тесного познания его на собственном опыте», что и происходит с учеными-физиками, столкнувшимися «влоб» с кажущимся бредовой выдумкой младшеклассника (для физика конца пазапрошлого столетия, когда Эйнштейн с Бором еще не осчастливили всех священной битвой за звание наиболее информированного теолога-софиста, в то время как их приятель Шредингер применял теософские знания на практике, принося в жертву на алтаре Науки собственного ни в чем не повинного Кота), закономерностью, ставящей процесс измерения свойств системы в зависимость от того результата, который измеряемым процессом опосредуется в наблюдаемом «объективном внешнем мире», лишь в силу факта «получения кем-то информации об объекте посредством измерений» меняя основополагающие свойства изучаемого объекта. В итоге вокруг этого озадачивающего факта, интерпретировать который оказалось крайне затруднительно, как впрочем и всю квантово-механическую теорию, а особенно практику, возникла целая вереница рассуждений о получении информации, передаче информации, считывании информации, и так далее, с «квантового объекта».</li>
+<li value="23">Все гораздо проще, господа Ученые! Система, которая имеет место в Вашем случае «квантовой запутанности», не обладает «объективно независимо» теми свойствами, которые Вы ей приписываете, в частности, она не является событием (цепочкой событий), происходящих в 4-мерном ПВР. Ваши измерения изначально не просто влияли, а ФОРМИРОВАЛИ тот результат, который был Вами получен, в итоге произведения «объективных наблюдений за системой в реальном времени». Исходя из этого, совершенно естественно возникновение следствия, модифицирующего формируемый результат посредством изменения того порядка в точности, в котором этот результат был сформирован Вами «из ничего», т.е. «на коленке». Точнее, по привычке принимать нежелаемое за неизбежно истинное (чувственный опыт наблюдаемого происхождения времени).</li>
+<li value="24">Во-вторых, здесь мы говорим о действии, которое лежит в самом центре процесса «превращения» реальности «предпосланной» в которой нет возможности что либо измерить или описать рационально, в то, что известным характерным образом происходит в 4Д ПВР последовательным наблюдаемым образом. Это действие – НЕСУЩЕЙ ФАЗЫ ПОТОКА ВРЕМЕНИ, которая является частью процесса «ДО», и происходит независимо ни от чего с заданной «квантовой постоянной» тактовой частотой в нашем восприятии (т.е. во внимании наблюдателя), чтобы из этого события наш мозг ничтоже сумняшеся смог формировать все то, что мы привыкли называть реальным миром последовательно непрерывно происходящим с нами во времени и пространстве.</li>
+<li value="25">Это действие имеет двоякую природу, часть этой природы касается самого действия, чья природа «ненаблюдаема» (т.е. нельзя достоверно описать что либо про нее, кроме того факта, что она происходит, с определенной частотой впервые, с целью «продолжения происхождения» нами процессов, в которых мы находимся. Второй аспект этого действия касается того, как оно «принимается», что с ним «делается», и чем оно становится в итоге для нас «регулярным образом», и чем в этом процессе мы обязаны реальности «ДО», и реальности «ПОСЛЕ», поскольку два вышеуказанных аспекта в точности дублируют то разделение и ту классификацию, которая в первой части статьи была дана в отношении самого процесса изучения (восприятия) реальности в объем и целом.</li>
+<li value="26">Это действие является действием обращения внимания. То есть внимание индивида обращает на что либо не он сам, хотя он сам тоже, а обратного он заметить не в силах, но лишь после того, как нечто «внешнее» вклинивается в процесс его «сознательной деятельности», и производит действие, которое сразу же становится по факту своего происхождения с человеком «его собственным» обращением внимания, или любым микро-событием в процессе производства ежедневной мыслительной и прочей жизненной деятельности.</li>
+<li value="27">Этот процесс является самоподдерживающимся и самообуславливаемым, в связи с чем имеет внешнюю видимость полностью «объективно независящего» от человека процесса взаимодействия с «реальным миром». Тогда как на самом деле человек взаимодействует сам с собой и в точности известным заранее ему самому образом и результатом. Но та часть человеческого «я», которая делает все это, надежно «скрыта» от той части, с которой посредством этого делания происходит все то, что составляет «осмысленную» часть того, что происходящее означает для человека, какие изменения или какое влияние оказывает на имеющуюся у него картинку «обстоятельств и свойств объективного настоящего», а также его ожиданий, страхов, намерений, настроений и состояний субъективно.</li>
+</ol>
+
+<ul class="ul">
+<li>a.«Осмысливаемая» часть человеческой «реакции» на «тик-так» называется «разум», «первое кольцо силы», способность, которую человек использует в процессе опосредования самим собой ее происхождения посредством «мыслей в моей голове», «я мыслю, следовательно, существую» - «первое внимание». В терминологии «быстрой-медленной квантовой пр»роды» это наиболее медленная (почти застывшая) составляющая единого двустороннего механизма обращения внимания, т.е. того, что и является действием КДС реального мира «человек».</li>
+<li>b.«Чувственная» часть человеческой «реакции» на «тик-так» производится человеком раньше, чем «осмысленная», причем, происходит так, что становится первым действием человека, которым он запечатывает в самом себе какую либо возможность в дальнейшем иметь дело с тем объемом «первичного материала» - действия «носителя фазовой частоты потока времени», делая это посредством актуализации этим действием определенного конкретного объема информационной повестки «ожиданий», имеющихся у него «подспудно», куда входят, главным образом, страхи и «фобии», например, навязчивые попытки что-то «описать» себе, по содержанию которых становится ясно, что человек не способен в этом «что-то» осуществить адекватное самоориентирование на местности. В результате того, что самое близкое к тому, чего человек опасается здесь и сейчас, происходит с ним в качестве «обстоятельств реального ми»а", на самом деле лишь констатируя факт того, что именно в этом месте у человека более всего и актуально здесь и сейчас «недоставало», и вот он с радостью себе этого «ничего» добавил по самые помидоры, отправляясь героически доблестно на войну с безрадостной привычкой реального объективного мира быть с ним не в ладах, или происходить строго «вопреки» его «хотелкам» и «мечталкам» о том, как бы все так сложилось, чтобы минимально пришлось что-либо менять по жизни, можно было максимально долго сохранять сцепление пятой точки с диванным креслом, и на горизонте, конечно же, он мог нарисовать образ себя «отдыхающего» от праведных битв с «реальной объективностью» за чем-нибудь вроде пивасика и футбосика, с друзьями в баре и т.д. и т.п.</li>
+</ul>
+
+<ol class="num">
+<li value="28">В итоге происхождения всего, что описано в с), причем единомоментно, человек ощущает «укол совести», тут же возвращающий человека «в реальный мир», то есть делающего его не способным усомниться в объективной реальной данности ему внешним образом всего того объема информации, который он вкладывает в эти понятия, равно как и любой отдельной действительной части этого объема, формирующей его действительность «здесь и сейчас» в виде «картины сновидения», не имеющей ничего общего с тем, что происходит и чем является реальный мир и он сам, вне процесса «повседневности этого мира», выстраиваемой чувственным образом из «драйвера происхождения жизни» путем его «ожидаемого происхождения с тем, с чем меньше всего бы хотелось». Законы Мерфи имеют в точности физическую подоплеку и работают не «случайно» и не «абы как», а потому что сам человек для этого очень старается ежеминутно!</li>
+<li value="29">Именно «запечатыванием» состояния «повседневного мира» посредством чувственного «укола совести»", напоминающего человеку о том, что он не на прогулке на пляже в майами (у тех кто на прогулке, все еще печальнее, как правило), что мир – это не волшебная сказка, а экзистенциальная серая безысходность повседневности, что он сам – паталогический неудачник, глупец и лгун, и ничего не способен поделать с этим, и т.д. и т.п. – это «момент истины» который завершает фактическое производство действия «измерения», причем, не важно чего и как именно, это все человек уточнит потом посредством моделирования и анализирования результатов своих исследований.</li>
+<li value="30">На данный момент «измерением» завершившимся является то, что человек привык называть «ходом времени», то есть некоторое событие, на которое он может обратить внимание и сказать «вот это произошло, и стало прошлым, можно поставить галочку», и «вот это тоже произошло, после предыдущего, и тоже стало прошлым, можно поставить галочку», и из всего подобного выстраивая свои «железобетонные опытные факты объективности реального внешнего мира». Вот эта «галочка», становящаяся результатом чувственного характера «слепого» происхождения с человеком всего того, чего бы ему меньше всего хотелось в данный конкретный момент, как факта о «реальном мире», является результат «преобразования» первичного «импульса фазовой несущей частоты потока времени» «тик-так» в форму ожидаемого происхождения «по закону Мерфи» давления на него обстоятельств со временем – это и есть та «искусственная добавка» к тому, что есть реально, и происходит реально, и в чем нет даже следа происхождения времени, как мы его понимаем обычно, - которая, функционально блокируя память о том, чем была реальность «скорости получения несущей фазы быстрого потока времени», то есть «второго внимания» и «второго кольца Силы», путем «выбора» элементарных составляющих данной «памяти» в качестве инструментов достижения требуемого состояния «здесь и сейчас», в котором ничто из этого не сможет быть восстановлено в осознании ни при каких условиях, сохраняя работоспособность «идеи самого себя» и непрерывности личной истории и картины мира.</li>
+<li value="31">То принципиальное отличие положения дел «ДО» и «ПОСЛЕ» происхождения «чувственного преобразования импульса происхождения времени» заключается в том, как происходит в дальнейшем переход «курсора» «линии времени посредством событий, наблюдаемых и ощущаемых человеком», к последующим за этим «фазовым носителям тик-так», сохраняя внешнюю видимость непрерывности и однонаправленности этого происхождения из прошлого, через настоящее, в будущее (то есть из неосознанности, через забвение, к субъективно худшему) – это то, как данное ожидаемое чувство становится мерилом размера «шага времени», который является чувственным ощущением того, что время объективно и реально «вещественно» происходит «здесь и сейчас».</li>
+<li value="32">Это мерило, довольно банально и незамысловато, берет в качестве «необходимого и достаточного» доказательства того, что все так и есть, как было состряпано «вторым вниманием», а затем успешно и навсегда забыто, на фоне того, как человек вступал в оживленную «дискуссию с самим собой» о том, что ему предъявляет «объективный внешний мир» в виде давления обстоятельств и чувственной безнадеги, опосредованной массивом неосознаваемых, но функционально полностью работающих «против человека» ожиданий, стереотипов, представлений, «знаний на опыте», страхов, фобий, и так далее – факт уже доказанный, констатируя порядок происхождения во времени всего того, что сейчас происходит с человеком, как «массива обстоятельств», который рано или поздно должен уйти в прошлое, также как он из него незабвенно «прорезался» некоторое время назад, только уже в качестве отработанных воспоминаний, полезных, разве что, чтобы</li>
+<li value="33">НАКАПЛИВАТЬ ОБЪЕМ ЧУВСТВЕННО ДОСТОВЕРНОЙ ОПЫТНОЙ ИНФОРМАЦИИ О ТОМ, ЧТО ВРЕМЯ ПРОИСХОДИТ И ИМЕЕТ МЕСТО И ОНО ЛИНЕЙНО, ЧТО МИР ОБЪЕКТОВ СУЩЕСТВУЕТ ОБЪЕКТИВНО НЕЗАВИСИМО, И ОН ВНЕ ЕГО, ЧТО ОН САМ НЕ ВЫБИРАЕТ И НЕ РЕШАЕТ, ЧТО С НИМ ПРОИСХОДИТ ПО ВОЛЕ СЛЕПОГО СЛУЧАЯ, И НЕ СПОСОБЕН ПОВЛИЯТЬ НА ОБЪЕКТИВНО ПРОИСХОДЯЩЕЕ ПО СЛЕПЫМ ЗАКОНАМ МИРОЗДАНИЯ – и посредством этого делая из того, что просто «есть», причем, совершенно не так, как человек привык себе фантазировать, - «то, что было», «то что есть», и «то, что будет», причем, автоматически распределяя «ярлыки» тем чувственным ощущениям, которые последовательно давали ему прийти к тому «располагаемому настоящему», в котором он говорит с собой здесь и сейчас, и когда он вновь встречается с действием, которое затем становится чувственным «вердиктом», приказывая ему забыть о чем либо кроме того, о чем помнить ему совсем не хочется, - совершенно естественно оказывается, что прошлое и настоящее находятся в точности в том отношении и сочетании, в котором это подразумевается понятием «линейное время». Но если человек остановит тот «поток уколов совести самого себя жалостью», который он называет «объективная внешняя реальность повседневности», то, встречая происходящее с ним, остановив поток ожидания, остановив поток мыслей, и имея в двух этих «местах» своего состояния «нули», то есть безмятежное спокойствие и полная перцептуальная прозрачность, тот мир, который был выстроен его собственным «потоком второго внимания», блокирующим способность «видеть энергию, которая свободно и беспрепятственно течет во Вселенной туда, куда заблагодассудится, а не туда, куда направит стрелка измерительного прибора», чтобы видеть «действия людей и их закономерные последствия» - ОСТАНОВИТСЯ, точнее, он будет «заполнен» до состояния, в котором ему происходить будет дальше незачем. Человек, используя все то же «внимание наблюдателя», на этот раз второе, а не первое, сможет наблюдать за тем, в каком виде «события» происходящие с ним самим, посредством «восприятия и видения» существуют в «здесь и сейчас» продолжительной длительности, в которой отсутствует «время» как исключительно явление создаваемое «на коленке» самим человеком «из того, что было». А то, что просто случается, без уточнения порядка и причинности, не может служить опорой и доказательством «объективности» произведенного измерения чего бы то ни было, поскольку получится, что начало процесса измерения находится в будущем относительно «здесь и сейчас», что не может быть «обработано» нехитрым и «абы как» выполненным механизмом повседневного самогипноза человеком, и этот механизм перестает функционировать, уступая место осознанному восприятию себя в порядке, характере и качестве происхождения «второго внимания». Но это ни в коем случае не означает, что сам механизм от этой «остановки» пострадал в чем-либо конструктивно. В нем нечему «страдать». Т.к. «материал», из которого он «на коленке» собирает «образ себя и мира» - это сухая солома на ветру, «перекати поле», пыль и прах под ногами, в этом нет ни жизни ни энергии, в этом есть только сам человек, обрекающий себя безблагодатно и бессмысленно страдать по-жизни, и приказывающий себе навсегда забыть об этом снова и снова, пока в цирке не включат Свет и забвение перестанет работать, чтобы завершить отработанную ступень и подготовить начало новой, начинающейся, разумеется… С полного забвения.</li>
+<li value="34">Другими словами, будет нарушен действительный Закон причинности, который выполняется строго во всех случаях реального мира, поскольку его происхождение «вшито» в тот порядок и характер, которым это происхождение обладает «физико-энергетически», то есть образом прямого действия, которое можно либо сделать, либо не сделать, потому что нет подходящих условий, а третьего (вроде болтовни о том, сделать или не сделать) не дано.</li>
+<li value="35">Закон Причинности не даст, без того, чтобы серьезно дурачить себе голову самым идиотским способом 24 часа в сутки всю сознательную жизнь, посредством делания самого себя из того, о чем затем забыть напрочь навсегда, чтобы иметь возможность продолжать жить в мире лжи и иллюзии – без всего этого не дает существовать «линейному времени» в реальности вообще, поскольку его гипотетическое происхождение "с открытыми глазами" нарушает совершенно очевидным образом этот самый закон Причинности.</li>
+</ol>
+
+<div class="music-group" data-label="Музыка">
+<details class="music"><summary><span class="label">Музыка:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Тайный узбек</span> <span class="trk-sep">—</span> <span class="trk-art">Аквариум</span></span><a class="ext" href="https://www.youtube.com/watch?v=q9nNWY5RikM" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/q9nNWY5RikM?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+</div>
+</article>
+
+<nav class="article-nav">
+  <span class="prev"><a href="32J.view.html">← Происхождение Времени ч. 1</a></span>
+  <span class="next"><a href="32M.view.html">Внутреннее и внешнее Кли →</a></span>
+</nav>
+
+<footer class="footer">
+<p class="editinfo">Редакция: Иван Иванович</p>
+<p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+<p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+</footer>
+</div>
+<script>
+// Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
+// no editor/login module is loaded.
+(function(){
+  var bubble = null, hideTimer = null;
+  function ensureBubble(){
+    if (bubble) return bubble;
+    bubble = document.createElement('div');
+    bubble.className = 'footnote-bubble';
+    bubble.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); });
+    bubble.addEventListener('mouseleave', scheduleHide);
+    document.body.appendChild(bubble);
+    return bubble;
+  }
+  function scheduleHide(){
+    if (hideTimer) clearTimeout(hideTimer);
+    hideTimer = setTimeout(function(){ if (bubble) bubble.classList.remove('show'); }, 180);
+  }
+  function show(link){
+    var href = link.getAttribute('href') || '';
+    if (!href.startsWith('#')) return;
+    var target = document.getElementById(href.slice(1));
+    if (!target) return;
+    var b = ensureBubble();
+    var clone = target.cloneNode(true);
+    var back = clone.querySelector('a.backref');
+    if (back) back.remove();
+    // муз-трек как цель сноски: во всплывашке — ТОЛЬКО название трека (+ ↗),
+    // БЕЗ плеера/iframe-фрейма и дубль-этикетки (вердикт оператора 14:46)
+    if ((clone.className || '').indexOf('music') >= 0 || clone.querySelector('iframe, .player')) {
+      Array.prototype.forEach.call(clone.querySelectorAll('.player, .caret, .label, .trk-play'),
+        function(e){ e.remove(); });
+    }
+    b.innerHTML = clone.innerHTML;
+    b.classList.add('show');
+    var r = link.getBoundingClientRect();
+    var sx = window.pageXOffset, sy = window.pageYOffset;
+    b.style.left = '0px'; b.style.top = '0px';
+    var bw = b.offsetWidth, bh = b.offsetHeight;
+    var left = sx + r.left + r.width/2 - bw/2;
+    var maxLeft = sx + document.documentElement.clientWidth - bw - 8;
+    if (left > maxLeft) left = maxLeft;
+    if (left < sx + 8) left = sx + 8;
+    var top = sy + r.top - bh - 10;
+    var placeBelow = (top - sy) < 8;
+    if (placeBelow) top = sy + r.bottom + 10;
+    b.style.left = left + 'px';
+    b.style.top  = top  + 'px';
+    b.classList.toggle('below', placeBelow);
+  }
+  function ytPost(f, func){
+    if (!f) return;
+    try { f.contentWindow.postMessage('{"event":"command","func":"'+func+'","args":[]}', '*'); } catch(e){}
+  }
+  function applyMute(d){
+    var btn = d.querySelector('.trk-mute'); if (!btn) return;
+    var f = d.querySelector('iframe');
+    if (!f || f.getAttribute('data-src')) return;   // плеер ещё не впрыснут
+    var func = btn.getAttribute('aria-pressed') === 'true' ? 'mute' : 'unMute';
+    ytPost(f, func);                                 // плеер готов (играет рекламу) → срабатывает сразу
+    setTimeout(function(){ ytPost(f, func); }, 700); // ретраи на случай «только что открыли»
+    setTimeout(function(){ ytPost(f, func); }, 1800);
+  }
+  function bindMusic(){
+    document.querySelectorAll('details.music').forEach(function(d){
+      if (d.dataset.musicBound) return; d.dataset.musicBound = '1';
+      d.addEventListener('toggle', function(){
+        if (!d.open) return;
+        var f = d.querySelector('iframe[data-src]');
+        if (f) {
+          var src = f.getAttribute('data-src');
+          src += (src.indexOf('?') >= 0 ? '&' : '?') + 'origin=' + encodeURIComponent(location.origin);
+          f.src = src; f.removeAttribute('data-src');
+        }
+        applyMute(d);                                // применить запомненное mute-состояние
+      });
+      var btn = d.querySelector('.trk-mute');
+      if (btn) {
+        var toggle = function(ev){
+          ev.preventDefault(); ev.stopPropagation();  // не дёргать details.open
+          var on = btn.getAttribute('aria-pressed') !== 'true';
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+          btn.setAttribute('aria-label', on ? 'Включить звук' : 'Заглушить звук');
+          btn.title = on ? 'Включить звук' : 'Заглушить звук (реклама YouTube)';
+          applyMute(d);
+        };
+        btn.addEventListener('click', toggle);
+        btn.addEventListener('keydown', function(ev){
+          if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') toggle(ev);
+        });
+      }
+    });
+  }
+  function bindFootnotes(){
+    document.querySelectorAll('sup a[href^="#cite_note-"]').forEach(function(a){
+      if (a.dataset.fnBound) return; a.dataset.fnBound = '1';
+      a.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); show(a); });
+      a.addEventListener('mouseleave', scheduleHide);
+      a.addEventListener('focus', function(){ show(a); });
+      a.addEventListener('blur',  scheduleHide);
+    });
+  }
+  function bindSpoilers(){
+    document.querySelectorAll('.spoiler').forEach(function(sp){
+      if (sp.dataset.splBound) return; sp.dataset.splBound = '1';
+      function reveal(){ sp.classList.add('revealed'); }
+      sp.addEventListener('click', reveal);
+      sp.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); reveal(); }
+      });
+    });
+  }
+  bindMusic(); bindFootnotes(); bindSpoilers();
+
+  // Общая левая рейка стихов: все .poem статьи ровняются по краю, который
+  // центрирует САМЫЙ ШИРОКИЙ из них (классическая осевая выключка, но единая
+  // на статью — края не скачут от блока к блоку). Пересчёт при смене
+  // темы/ширины/размера окна: метрики шрифта и мера меняются.
+  function alignPoems(){
+    var art = document.querySelector('article'); if (!art) return;
+    var poems = Array.prototype.slice.call(art.querySelectorAll('.poem'));
+    if (!poems.length) return;
+    poems.forEach(function(p){ p.style.marginLeft = ''; p.style.marginRight = ''; });
+    if (poems.length < 2) return; // одиночный стих — родное центрирование темы
+    var maxW = 0;
+    poems.forEach(function(p){ maxW = Math.max(maxW, p.getBoundingClientRect().width); });
+    var cs = getComputedStyle(art);
+    var artRect = art.getBoundingClientRect();
+    var contentLeft = artRect.left + parseFloat(cs.paddingLeft || 0) + parseFloat(cs.borderLeftWidth || 0);
+    var contentWidth = art.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+    var targetX = contentLeft + Math.max(0, (contentWidth - maxW) / 2);
+    poems.forEach(function(p){
+      p.style.marginLeft = '0px'; p.style.marginRight = 'auto';
+      var x = p.getBoundingClientRect().left;
+      p.style.marginLeft = (targetX - x) + 'px';
+    });
+  }
+  var alignTimer = null;
+  function alignPoemsSoon(){ if (alignTimer) clearTimeout(alignTimer); alignTimer = setTimeout(alignPoems, 60); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignPoemsSoon);
+  window.addEventListener('load', alignPoemsSoon);
+  window.addEventListener('resize', alignPoemsSoon);
+  alignPoemsSoon();
+
+  // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  var sel = document.getElementById('zml-theme');
+  var wsel = document.getElementById('zml-width');
+  var link = document.getElementById('theme-css');
+  var wrap = document.querySelector('.wrap');
+  var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+  if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
+  if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
+  if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
+  if (sel) sel.addEventListener('change', function(){
+    var t = sel.value;
+    document.body.setAttribute('data-theme', t);
+    if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
+  });
+  if (wsel) wsel.addEventListener('change', function(){
+    if (!wrap) return;
+    wrap.classList.toggle('w-narrow', wsel.value==='narrow');
+    wrap.classList.toggle('w-wide', wsel.value==='wide');
+    alignPoemsSoon();
+  });
+
+  // Ф8′ ре-резолвинг вида для ЗАЛОГИНЕННОГО пользователя. Аноним уже получил
+  // запечённый Admin-вид (display.json на сборке) — здесь ничего не делаем. Залогинен
+  // → тянем личные правила из worker KV и применяем (зеркало resolveDisplay в render.js).
+  (function(){
+    var body = document.body;
+    var section = body.getAttribute('data-art-section') || '';
+    var type    = body.getAttribute('data-art-type') || '';
+    var fmTheme = body.getAttribute('data-fm-theme') || '';
+    var fmWidth = body.getAttribute('data-fm-width') || '';
+    var worker  = (body.getAttribute('data-worker') || '').replace(/\/+$/, '');
+    var sess; try { sess = JSON.parse(localStorage.getItem('ya_session')||'null'); } catch(e){}
+    if (!sess || !sess.token || !worker) return;
+    function resolve(cfg){
+      var g=(cfg&&cfg.global)||{}, rules=(cfg&&cfg.rules)||[], rd='', rw='';
+      for (var i=0;i<rules.length;i++){ var m=rules[i]&&rules[i].match; if(!m) continue;
+        if ((m.kind==='section'&&m.value===section)||(m.kind==='type'&&m.value===type)){
+          rd=rules[i].design||''; rw=rules[i].width||''; break; } }
+      return { design:(fmTheme||rd||g.design||'A_editorial'),
+               width:(fmWidth||rw||g.width||'wide') };
+    }
+    function apply(d){
+      if (sel && sel.value!==d.design){ sel.value=d.design; sel.dispatchEvent(new Event('change')); }
+      var w = /narrow|820/.test(d.width)?'narrow':'wide';
+      if (wsel && wsel.value!==w){ wsel.value=w; wsel.dispatchEvent(new Event('change')); }
+    }
+    fetch(worker+'/api/settings',{headers:{Authorization:'Bearer '+sess.token}})
+      .then(function(r){ return r.ok?r.json():null; })
+      .then(function(cfg){ if(cfg) apply(resolve(cfg)); })
+      .catch(function(){});
+  })();
+})();
+</script>
+</body>
+</html>
