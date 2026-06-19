@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "default_view": "old",
+  "default_view": "new",
   "global": {
-    "design": "A_editorial",
+    "design": "swiss",
     "width": "wide"
   },
   "rules": []
