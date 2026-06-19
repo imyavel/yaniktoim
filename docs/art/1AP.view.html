@@ -9,7 +9,7 @@
 <title>Зеркало, которое не светит</title>
 <meta name="description" content="">
 <meta name="robots" content="noindex">
-<link id="theme-css" rel="stylesheet" href="../themes/A_editorial.css?v=20260618-01">
+<link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260618-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
 .wrap.w-narrow{max-width:820px;}
@@ -112,7 +112,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit:disabled{opacity:.45;cursor:default;}
 </style>
 </head>
-<body class="article-page" data-art="1AP" data-theme="A_editorial" data-pagefind-ignore="all"
+<body class="article-page" data-art="1AP" data-theme="swiss" data-pagefind-ignore="all"
   data-art-section="confront" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -331,9 +331,13 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
     alignPoemsSoon();
   });
 
-  // Ф8′ ре-резолвинг вида для ЗАЛОГИНЕННОГО пользователя. Аноним уже получил
-  // запечённый Admin-вид (display.json на сборке) — здесь ничего не делаем. Залогинен
-  // → тянем личные правила из worker KV и применяем (зеркало resolveDisplay в render.js).
+  // Ф8′ ре-резолвинг вида. Настройки Admin (global design/width + правила по
+  // разделам/типам, с приоритетом per-article frontmatter) распространяются на
+  // ВСЕХ через ОДИН resolveDisplay (зеркало render.js). Залогинен → личные правила
+  // из worker KV (/api/settings); аноним → глобальный display.json (тот же файл,
+  // что коммитит Admin) → правки Admin доходят до анонимов В РАНТАЙМЕ, не только
+  // редирект «new/old». Запечённая build_views тема — лишь стартовый/no-JS дефолт:
+  // если совпадает с резолвом (обычный случай), apply() ничего не трогает (нет мигания).
   (function(){
     var body = document.body;
     var section = body.getAttribute('data-art-section') || '';
@@ -342,7 +346,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
     var fmWidth = body.getAttribute('data-fm-width') || '';
     var worker  = (body.getAttribute('data-worker') || '').replace(/\/+$/, '');
     var sess; try { sess = JSON.parse(localStorage.getItem('ya_session')||'null'); } catch(e){}
-    if (!sess || !sess.token || !worker) return;
     function resolve(cfg){
       var g=(cfg&&cfg.global)||{}, rules=(cfg&&cfg.rules)||[], rd='', rw='';
       for (var i=0;i<rules.length;i++){ var m=rules[i]&&rules[i].match; if(!m) continue;
@@ -356,10 +359,13 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       var w = /narrow|820/.test(d.width)?'narrow':'wide';
       if (wsel && wsel.value!==w){ wsel.value=w; wsel.dispatchEvent(new Event('change')); }
     }
-    fetch(worker+'/api/settings',{headers:{Authorization:'Bearer '+sess.token}})
-      .then(function(r){ return r.ok?r.json():null; })
-      .then(function(cfg){ if(cfg) apply(resolve(cfg)); })
-      .catch(function(){});
+    // залогинен с воркером → личный KV; иначе (аноним) → общий display.json.
+    var src = (sess && sess.token && worker)
+      ? fetch(worker+'/api/settings',{headers:{Authorization:'Bearer '+sess.token}})
+      : fetch('../config/display.json',{cache:'no-cache'});
+    src.then(function(r){ return r.ok?r.json():null; })
+       .then(function(cfg){ if(cfg) apply(resolve(cfg)); })
+       .catch(function(){});
   })();
 })();
 </script>
