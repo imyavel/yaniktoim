@@ -110,6 +110,9 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar a{text-decoration:none;white-space:nowrap;}
 .viewbar .vb-edit{font:inherit;color:inherit;background:none;border:none;padding:0;white-space:nowrap;}
 .viewbar .vb-edit:disabled{opacity:.45;cursor:default;}
+/* по умолчанию кнопка СКРЫТА (hidden в разметке) — аноним/не-редактор её не видят;
+   ya-edit.js снимает hidden только у editor/admin. Явное правило перебивает темы. */
+.viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
 <body class="article-page" data-art="343" data-theme="swiss" data-pagefind-ignore="all"
@@ -135,7 +138,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
     </select>
   </label>
   <a class="vb-orig" href="343.html?orig=1">Оригинал</a>
-  <button class="vb-edit" type="button" disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
+  <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
 <img class="cover" src="../img/343.jpg" alt="КУКУШКА">

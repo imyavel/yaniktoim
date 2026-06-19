@@ -41,8 +41,9 @@
   }
   var sess = getSession();
   var canEdit = !!(sess && sess.token && (sess.role === "editor" || sess.role === "admin"));
-  if (!canEdit) return; // кнопка остаётся disabled (только просмотр)
+  if (!canEdit) return; // кнопка скрыта (hidden в шаблоне) — аноним/не-редактор её не видят
 
+  btn.hidden = false;   // показываем только editor/admin
   btn.disabled = false;
   btn.removeAttribute("aria-disabled");
   btn.title = "Редактировать ZML-источник";
