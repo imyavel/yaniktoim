@@ -23,7 +23,7 @@
 let MOUNTED = false;
 
 export function mountZmlEditor(opts) {
-  if (MOUNTED) return null;      // один редактор за раз
+  if (MOUNTED || document.getElementById("ze-root")) return null;  // один за раз — существующий оверлей НЕ трогаем (в нём м.б. несохранённое)
   opts = opts || {};
   MOUNTED = true;
   injectStyles();
