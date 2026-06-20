@@ -159,6 +159,7 @@ h1#article-title sup a{color:var(--accent); font-weight:400;}
 .audio-link{filter:grayscale(1); opacity:.7; transition:filter .15s, opacity .15s;}
 .audio-link:hover{filter:grayscale(.15); opacity:1;}
 .sec-sub{font-style:normal; color:var(--muted); opacity:1;}
+.meta .epi{color:var(--ink);}  /* swiss: дек обычным текстом, без кримсона (кант остаётся акцентным) */
 .epigraph.dedication p,.epilogue.dedication p{text-align:right;}
 details.article-toc ol ol{font-size:.92em;}
 /* ── [shir] плитка муз-грида (ZML3 §6.7) — swiss: плоско, острые углы, чёрная верхняя линейка ── */
