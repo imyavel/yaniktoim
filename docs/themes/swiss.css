@@ -174,9 +174,9 @@ details.article-toc ol ol{font-size:.92em;}
 .songgrid .song .a .sep{color:var(--accent); opacity:1;}
 
 /* ── [faw] free-associative writing — стихи, записанные прозой ────────────────
-   swiss: МОНОЛИТ (inline), монохромное чередование ink / muted — границы строк
-   читаются как зебра, без украшательств. */
+   swiss: МОНОЛИТ (inline), чередование прямой / КУРСИВ в обычном цвете (не серым) —
+   границы строк читаются сменой начертания, без украшательств. */
 .faw{font-family:var(--sans); margin:1.7rem 0; line-height:1.66;}
 .faw-l{display:inline;}
 .faw-l.a{color:var(--ink);}
-.faw-l.b{color:var(--muted);}
+.faw-l.b{font-style:italic; color:var(--ink);}
