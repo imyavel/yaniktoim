@@ -29,6 +29,32 @@
 /* [subsec] section subtitle — base (themes refine): muted italic, tight to ## heading. */
 .sec-sub{margin:.15em 0 1.3em;font-style:italic;font-size:.95em;opacity:.7;line-height:1.45;text-indent:0;text-align:left;}
 h2 + .sec-sub, h2.subtitle + .sec-sub{margin-top:-.5em;}
+/* [faw] free-associative writing — стихи, записанные прозой. Строки-сегменты «|»
+   → .faw-l.a/.b с чередованием стиля (границы строк видны на глаз). Режим (монолит
+   display:inline — swiss/editorial/cyberpunk · построчно display:block — manuscript/
+   ar_deco) и чередование задаёт ТЕМА. База — только отступ блока и нулевой-специфичности
+   фолбэк построчно через :where() (любое правило темы его перебивает; стиль <style> идёт
+   ПОСЛЕ <link> темы, поэтому обычное `.faw-l` затёрло бы тему — отсюда :where). */
+.faw{margin:1.5rem 0;}
+/* Абзацы внутри [faw] (безымянный [fp]): каждый — блок .faw-p, между ними отступ. Виден и
+   в монолитных темах (между блоками), и в построчных. Внутри .faw-p строки идут по теме. */
+.faw .faw-p + .faw-p{margin-top:1.1em;}
+:where(.faw-l){display:block;}
+/* [faw sta=N] зазор-строфа: пустая строка после каждых N строк. Верт. margin к inline
+   не применяется → в монолите параметр игнорируется (как и задумано). */
+:where(.faw-l.faw-se){margin-bottom:1em;}
+/* Капитализация первой буквы строки (.faw-cap) — фича ПОСТРОЧНЫХ тем (manuscript/ar_deco):
+   там строки начинаются с заглавной, как в стихах. Монолитные темы .faw-cap НЕ трогают —
+   текст течёт прозой в авторском регистре. См. THEME_CONTRACT. */
+/* [fp] маркер нумерованного пункта внутри [faw] (§2.5): инлайн-бейдж — строку НЕ рвёт (стих
+   течёт сквозь пункты), может стоять в середине строки; даёт якорь для TOC. Не наследует
+   курсив/регистр чередования. Базовый вид (тема может уточнить через --accent). */
+.faw-pt{display:inline-block;font-family:ui-sans-serif,system-ui,sans-serif;font-weight:700;
+  font-size:.62em;line-height:1.5;vertical-align:.16em;color:var(--accent,#777);
+  border:1px solid currentColor;border-radius:.5em;padding:0 .42em;margin:0 .45em 0 .1em;
+  font-style:normal;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;
+  scroll-margin-top:1.4rem;text-decoration:none;}
+.faw-l .faw-cap{font-style:inherit;}
 /* fn-ревью (2026-06-12) — структурная база новых конструкций; темы уточняют. */
 /* [^N] в H1: sup-маркер на глаз отличим от текста заголовка (THEME_CONTRACT). */
 h1#article-title sup{font-size:.42em;font-weight:400;line-height:0;letter-spacing:normal;vertical-align:super;}
@@ -156,6 +182,8 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 </li>
 <li><a href="#part2">ЧАСТЬ 2. БЕЗДНА</a>
 </li>
+<li><a href="#music">МУЗЫКА ПОД НАСТРОЕНИЕ</a>
+</li>
 <li><a href="#notes">ПРИМЕЧАНИЯ</a>
 </li>
 </ol>
@@ -172,7 +200,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p>"Oh how I wish for soothing rain,<br>
 All I wish is to dream again!!<br>
 My loving heart lost in the Dark<br>
-For Hope I'll give my everything..."</p>
+For Hope I'll give my everything..."<sup id="cite_ref-1"><a href="#cite_note-1">[1]</a></sup></p>
 <span class="cite">— Nightwish</span>
 </div>
 
@@ -366,16 +394,20 @@ For Hope I'll give my everything..."</p>
 Где жизнь людей всегда разменной
 Служила игровой монетой...</div>
 
-<p>Полезные ссылки</p>
+<h2 id="music">МУЗЫКА ПОД НАСТРОЕНИЕ <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<div class="music-group has-heading" data-label="Музыка под настроение">
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Nemo (Никто)</span> <span class="trk-sep">—</span> <span class="trk-art">Nightwish</span></span><a class="ext" href="https://youtu.be/kIBdpFJyFkc" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/kIBdpFJyFkc?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Небо Тебя Найдёт</span> <span class="trk-sep">—</span> <span class="trk-art">Ария</span></span><a class="ext" href="https://youtu.be/dsz8DyL8aso" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/dsz8DyL8aso?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+</div>
 
 <h2 id="notes">ПРИМЕЧАНИЯ <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
 <ol class="notes">
-<li id="cite_note-1" value="1">Музыка под настроение: ▶ Nemo (Никто) — Nightwish <a href="https://youtu.be/kIBdpFJyFkc" target="_blank" rel="noopener">↗</a> ▶ Небо Тебя Найдёт — Ария <a href="https://youtu.be/dsz8DyL8aso" target="_blank" rel="noopener">↗</a></li>
-<li class="anon">См. также: Написано 6 Июня 2022 г.</li>
+<li id="cite_note-1" value="1"><a class="backref" href="#cite_ref-1" title="Вернуться к месту в тексте">↑</a> Nemo - Nightwish</li>
 <li id="cite_note-2" value="2"><a class="backref" href="#cite_ref-2" title="Вернуться к месту в тексте">↑</a> См. также: <a class="internal" href="182.view.html">Летопись Живого Огня</a></li>
 <li id="cite_note-3" value="3"><a class="backref" href="#cite_ref-3" title="Вернуться к месту в тексте">↑</a> См. также: <a class="internal" href="237.view.html">Дано Творцу право Любить</a></li>
-<li id="cite_note-4" value="4"><a class="backref" href="#cite_ref-4" title="Вернуться к месту в тексте">↑</a> См. также: <a class="internal" href="1AQA.view.html">Конечное Исправление</a></li>
-<li id="cite_note-5" value="5"><a class="backref" href="#cite_ref-5" title="Вернуться к месту в тексте">↑</a> См. также: Книга Зоар, том 2, Берешит-1, п. 1 и далее (РАШБИ - Бааль Сулам), а также: Учение Десяти Сфирот, том 1, "ответы о смысле слов", п. 7 (Бааль Сулам), а также: Древо жизни - стихотворение (АРИ)</li>
+<li id="cite_note-4" value="4"><a class="backref" href="#cite_ref-4" title="Вернуться к месту в тексте">↑</a> См. также: Книга Зоар, том 2, Берешит-1, п. 1 и далее (РАШБИ - Бааль Сулам), а также: Учение Десяти Сфирот, том 1, "ответы о смысле слов", п. 7 (Бааль Сулам), а также: Древо жизни - стихотворение (АРИ)</li>
+<li id="cite_note-5" value="5"><a class="backref" href="#cite_ref-5" title="Вернуться к месту в тексте">↑</a> См. также: <a class="internal" href="1AQA.view.html">Конечное Исправление</a></li>
 </ol>
 </article>
 

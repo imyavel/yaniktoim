@@ -6,6 +6,7 @@ image: 266.jpg
 type: poem
 notes_title: ПРИМЕЧАНИЯ
 audio: [{"url": "https://t.me/art_017_tracks/256", "label": "Слушать аудио-озвучку"}]
+view: zml
 ---
 [toc]
 
@@ -19,7 +20,7 @@ audio: [{"url": "https://t.me/art_017_tracks/256", "label": "Слушать ау
 "Oh how I wish for soothing rain,
 All I wish is to dream again!!
 My loving heart lost in the Dark
-For Hope I'll give my everything..."
+For Hope I'll give my everything..."[^1]
 [/epi]
 
 [epi cite="Станислав Ежи Лец"]
@@ -215,17 +216,19 @@ For Hope I'll give my everything..."
 Служила игровой монетой...
 [/poem]
 
-Полезные ссылки
+## МУЗЫКА ПОД НАСТРОЕНИЕ {music}
 
+[mus]
+[https://youtu.be/kIBdpFJyFkc|Nemo (Никто)|Nightwish]
+[https://youtu.be/dsz8DyL8aso|Небо Тебя Найдёт|Ария]
+[/mus]
 
-[^1]: Музыка под настроение: ▶ Nemo (Никто) — Nightwish [https://youtu.be/kIBdpFJyFkc|↗] ▶ Небо Тебя Найдёт — Ария [https://youtu.be/dsz8DyL8aso|↗]
-
-[^]: Написано 6 Июня 2022 г.
+[^1]: Nemo - Nightwish
 
 [^2]: См. также: [[182]]
 
 [^3]: См. также: [[237]]
 
-[^4]: См. также: [[1AQA]]
+[^4]: См. также: Книга Зоар, том 2, Берешит-1, п. 1 и далее (РАШБИ - Бааль Сулам), а также: Учение Десяти Сфирот, том 1, "ответы о смысле слов", п. 7 (Бааль Сулам), а также: Древо жизни - стихотворение (АРИ)
 
-[^5]: См. также: Книга Зоар, том 2, Берешит-1, п. 1 и далее (РАШБИ - Бааль Сулам), а также: Учение Десяти Сфирот, том 1, "ответы о смысле слов", п. 7 (Бааль Сулам), а также: Древо жизни - стихотворение (АРИ)
+[^5]: См. также: [[1AQA]]
