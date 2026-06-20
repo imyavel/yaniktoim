@@ -941,7 +941,7 @@ function renderEpigraph(b, ctx, label, cls) {
   const paraHtml = paras
     .map((p) => `<p>${linesToHtml(p, ctx.inline)}</p>`)
     .join("\n");
-  const citeHtml = cite ? `\n<span class="cite">— ${htmlEscape(cite)}</span>` : "";
+  const citeHtml = cite ? `\n<span class="cite">— ${resolveInline(cite, ctx.inline)}</span>` : "";
   return `<div class="${cls}${verse ? " verse" : ""}" data-label="${label}">\n${paraHtml}${citeHtml}\n</div>`;
 }
 
@@ -983,7 +983,7 @@ function renderQuote(b, ctx) {
   const paraHtml = paras
     .map((p) => `<p>${linesToHtml(p, ctx.inline)}</p>`)
     .join("\n");
-  const citeHtml = cite ? `\n<span class="cite">— ${htmlEscape(cite)}</span>` : "";
+  const citeHtml = cite ? `\n<span class="cite">— ${resolveInline(cite, ctx.inline)}</span>` : "";
   // В1 (вердикт оператора 13:06): ярлык «ЦИТАТА» убран — в оригинале его нет (2BS).
   // data-label не выводим → тематический ::before (content:attr(data-label)) пуст.
   // Эпиграф/эпилог свои ярлыки сохраняют (renderEpigraph data-label остаётся).
