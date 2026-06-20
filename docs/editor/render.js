@@ -813,13 +813,31 @@ function renderFaw(b, ctx) {
   // применяется → параметр сам собой не виден (как и капитализация .faw-cap).
   const sta = parseInt(b.attrs.sta, 10);
   const hasSta = Number.isFinite(sta) && sta > 0;
-  const last = segs.length - 1;
-  const rows = segs.map((s, i) => {
-    let cls = "faw-l " + (i % 2 === 0 ? "a" : "b");
-    if (hasSta && (i + 1) % sta === 0 && i < last) cls += " faw-se";
-    return `<span class="${cls}">${renderFawSegment(s, ctx)}</span>`;
+  // Безымянный [fp] в начале строки (граница абзаца, §2.5) → новый АБЗАЦ-блок .faw-p:
+  // между абзацами есть отступ (виден и в монолите, и построчно), а ВНУТРИ абзаца стих
+  // течёт/ломается по теме. Нумерованные [fp="N"] абзац НЕ начинают (текут как раньше,
+  // бейдж в строке — их рисует renderFawSegment).
+  const paras = [[]];
+  for (let s of segs) {
+    const mp = /^\[fp\]\s*/.exec(s);
+    if (mp) {
+      s = s.slice(mp[0].length).trim();
+      if (paras[paras.length - 1].length) paras.push([]);
+    }
+    if (s) paras[paras.length - 1].push(s);
+  }
+  let lineN = 0;
+  const total = segs.length;
+  const blocks = paras.filter((p) => p.length).map((para) => {
+    const rows = para.map((s) => {
+      let cls = "faw-l " + (lineN % 2 === 0 ? "a" : "b");
+      if (hasSta && (lineN + 1) % sta === 0 && lineN < total - 1) cls += " faw-se";
+      lineN++;
+      return `<span class="${cls}">${renderFawSegment(s, ctx)}</span>`;
+    });
+    return `<div class="faw-p">\n${rows.join("\n")}\n</div>`;
   });
-  return `<div class="faw">\n${rows.join("\n")}\n</div>`;
+  return `<div class="faw">\n${blocks.join("\n")}\n</div>`;
 }
 
 // Один сегмент-строка: чередуем текстовые куски и маркеры пунктов [fp=…]. Маркер → инлайн-
