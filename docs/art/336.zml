@@ -4,10 +4,10 @@ art: "336"
 date: 2023-03-06
 image: 336.jpg
 type: verse
+view: zml
 ---
-Песнь Ступеней
 
-[mus]
+[mus="Песнь Ступеней"]
 [https://www.youtube.com/watch?v=1V_xRb0x9aw|Clint Eastwood|Gorillaz]
 [/mus]
 
@@ -22,9 +22,7 @@ type: verse
 ГДЕ ТЫ ГЕРОЙ.
 [/poem]
 
-Песнь Ступеней
-
-[mus]
+[mus="Песнь Ступеней"]
 [https://www.youtube.com/watch?v=HZSFCAQ7eWA|Писатель Гудвин|Король и Шут]
 [/mus]
 
@@ -40,9 +38,7 @@ type: verse
 АКТЕР - ХОТЬ СТОЙ…
 [/poem]
 
-Песнь Ступеней
-
-[mus]
+[mus="Песнь Ступеней"]
 [https://www.youtube.com/watch?v=aM56CgSR340|Русы косы|Пикник]
 [/mus]
 
@@ -57,9 +53,7 @@ type: verse
 МИР СОЗДАЛ СВОЙ
 [/poem]
 
-Песнь Ступеней
-
-[mus]
+[mus="Песнь Ступеней"]
 [https://www.youtube.com/watch?v=hz4YfY4agT8|Верхом на Звезде|Найк Борзов]
 [/mus]
 
@@ -74,9 +68,7 @@ type: verse
 БЫТЬ ЖИВОЙ
 [/poem]
 
-Песнь Ступеней
-
-[mus]
+[mus="Песнь Ступеней"]
 [https://www.youtube.com/watch?v=KbmYHDbaE-o|Дыши|Серебро]
 [/mus]
 
@@ -88,9 +80,7 @@ type: verse
 ДУШОЙ, ЧЬЕ ИМЯ «ЧЕЛОВЕК»
 [/poem]
 
-Песнь Ступеней
-
-[mus]
+[mus="Песнь Ступеней"]
 [https://www.youtube.com/watch?v=G4jvU6eDk9E|Псалом 150|Царь Давид]
 [/mus]
 
@@ -106,17 +96,13 @@ type: verse
 «С ВОЗЛЮБЛЕННОЙ ЕДИНЫМ ВНОВЬ»
 [/poem]
 
-Песнь Ступеней
-
-[mus]
+[mus="Песнь Ступеней"]
 [https://www.youtube.com/watch?v=xdzBf7xzqeI|Апрель|Кино]
 [/mus]
 
 См. также: [[1C1]]
 
 ## Песнь Ступеней
-
-Все треки статьи в одном месте
 
 [mus]
 [https://www.youtube.com/watch?v=1V_xRb0x9aw|Clint Eastwood|Gorillaz]
