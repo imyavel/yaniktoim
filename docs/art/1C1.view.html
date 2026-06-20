@@ -29,6 +29,10 @@
 /* [subsec] section subtitle — base (themes refine): muted italic, tight to ## heading. */
 .sec-sub{margin:.15em 0 1.3em;font-style:italic;font-size:.95em;opacity:.7;line-height:1.45;text-indent:0;text-align:left;}
 h2 + .sec-sub, h2.subtitle + .sec-sub{margin-top:-.5em;}
+/* [meta] metadata card (proza-шапка) — base; themes refine via own vars. */
+.meta{margin:1.4em auto .6em;max-width:560px;padding:.85em 1.2em;background:var(--panel,rgba(128,128,128,.06));border:1px solid var(--rule,#ddd);border-left:4px solid var(--accent2,var(--accent,#999));border-radius:3px;line-height:1.5;color:var(--muted,inherit);text-indent:0;}
+.meta b{color:var(--ink,inherit);font-weight:600;}
+.meta .epi{display:block;margin-top:.5em;padding-top:.5em;border-top:1px dashed var(--rule,#ddd);font-style:italic;color:var(--accent,inherit);}
 /* [faw] free-associative writing — стихи, записанные прозой. Строки-сегменты «|»
    → .faw-l.a/.b с чередованием стиля (границы строк видны на глаз). Режим (монолит
    display:inline — swiss/editorial/cyberpunk · построчно display:block — manuscript/
@@ -173,12 +177,13 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="byline">Элиягу Бар Малей · #1C1 · 2021-12-01 · Источник: <a href="https://proza.ru/2021/12/01/179" target="_blank" rel="noopener">proza.ru/2021/12/01/179</a></p>
 <article>
 
-<div class="poem">Серия: ДОБРАЯ РЕЧЬ
-Рассказ: Апрель навсегда
-Написано: 01.12.21
-Формат: Школьные истории (School Story, Bro!)</div>
-
-<h2 class="subtitle">Дети Будущего Мира, Мужчиной и Женщиной Он создал Их</h2>
+<div class="meta">
+<b>Серия:</b> ДОБРАЯ РЕЧЬ<br>
+<b>Рассказ:</b> Апрель навсегда<br>
+<b>Написано:</b> 01.12.21<br>
+<b>Формат:</b> Школьные истории (School Story, Bro!)
+<span class="epi">Дети Будущего Мира, Мужчиной и Женщиной Он создал Их</span>
+</div>
 
 <div class="music-group" data-label="Музыка">
 <details class="music"><summary><span class="label">Музыка:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Апрель</span> <span class="trk-sep">—</span> <span class="trk-art">В.Цой</span></span><a class="ext" href="https://www.youtube.com/watch?v=3JoP4e6Syxk" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/3JoP4e6Syxk?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>

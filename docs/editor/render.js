@@ -82,7 +82,7 @@ function applyHonorific(s) {
 // Epilogue is NOT a separate tag (ZML3 A4): an epilogue is an [epi] block in
 // TAIL position, labelled «Эпилог» by the renderer via block index. So only
 // [epi] is parsed here — [epil] was retired with the Ф3 shadowing quirk.
-const PAIRED = ["poem", "epi", "quote", "num", "mus", "shir", "subsec", "sub", "sig", "cry", "line", "ul", "dlg", "faw"];
+const PAIRED = ["poem", "epi", "quote", "num", "mus", "shir", "subsec", "sub", "meta", "sig", "cry", "line", "ul", "dlg", "faw"];
 const PAIRED_ALT = PAIRED.join("|");
 
 // Footnote GROUPS (fn-ревью, вердикты 1+3): marker [^имя.N], definition
@@ -662,6 +662,7 @@ function renderBlocks(blocks, ctx) {
       case "shir":      out.push(renderShir(b, ctx)); break;
       case "subsec":    out.push(renderSubsec(b, ctx)); break;
       case "sub":       out.push(renderSub(b, ctx)); break;
+      case "meta":      out.push(renderMeta(b, ctx)); break;
       case "sig":       out.push(renderSigCry(b, ctx, "sig")); break;
       case "cry":       out.push(renderSigCry(b, ctx, "cry")); break;
       case "line":      out.push(renderLine(b, ctx)); break;
@@ -742,6 +743,32 @@ function renderSubsec(b, ctx) {
   const lines = b.inner.replace(/^\n+/, "").replace(/\n+$/, "").split(/\n/)
     .map((ln) => resolveInline(ln.trim(), ctx.inline)).filter((x) => x);
   return `<p class="sec-sub">${lines.join("<br>\n")}</p>`;
+}
+
+// [meta] — metadata «card» (proza-шапка: Серия/Рассказ/Написано/Формат…). Каждая
+// строка «Ярлык: значение» → жирный ярлык до первого «:» + значение, строки через
+// <br> в панели с левым акцентным кантом (CSS .meta в шаблоне/темах — мирит 5 тем
+// через --accent/--ink/--muted/--rule). Хвостовой блок, отделённый пустой строкой,
+// рендерится как .epi-дек (курсив под пунктиром) — как <span class="epi"> в ориг.
+// (1C1). Регистр литеральный (capsPass:false), сноски/ссылки в значениях работают.
+function renderMeta(b, ctx) {
+  const inner = b.inner.replace(/^\n+/, "").replace(/\n+$/, "");
+  const inlineCtx = Object.assign({}, ctx.inline, { capsPass: false });
+  const chunks = inner.split(/\n\s*\n/);
+  const deck = chunks.slice(1).join("\n").trim();
+  const rows = (chunks[0] || "").split("\n")
+    .map((ln) => ln.trim())
+    .filter((x) => x)
+    .map((line) => {
+      const m = line.match(/^([^:\n]{1,40}:)\s*(.*)$/);
+      return m
+        ? `<b>${resolveInline(m[1], inlineCtx)}</b> ${resolveInline(m[2], inlineCtx)}`
+        : resolveInline(line, inlineCtx);
+    });
+  const deckHtml = deck
+    ? `\n<span class="epi">${deck.split("\n").map((ln) => resolveInline(ln.trim(), inlineCtx)).filter((x) => x).join("<br>\n")}</span>`
+    : "";
+  return `<div class="meta">\n${rows.join("<br>\n")}${deckHtml}\n</div>`;
 }
 
 // [sig] — author's signature (right-aligned italic) · [cry] — emphatic refrain/

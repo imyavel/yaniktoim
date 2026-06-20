@@ -6,13 +6,13 @@ image: 1AN.jpg
 type: verse
 audio: [{"url": "https://t.me/art_017_tracks/313", "label": "Слушать аудио-озвучку"}]
 ---
-[poem]
+[meta]
 Серия: ДОБРАЯ РЕЧЬ
 Рассказ: 3
 Написано: 23 октября 2021 г.
 Название: ТЫ НЕ ЗНАЕШЬ
 Формат: Школьная история (School Story, Bro!)
-[/poem]
+[/meta]
 
 [mus="Музыка в тему"]
 [https://youtu.be/ngH0fkiNo-g|You Don't Know|Eminem]
