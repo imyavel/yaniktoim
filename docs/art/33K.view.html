@@ -6,7 +6,7 @@
 <link rel="apple-touch-icon" href="../img/favicon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Эй, Земля!✦</title>
+<title>Эй, Земля!</title>
 <meta name="description" content="">
 <meta name="robots" content="noindex">
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260618-01">
@@ -29,6 +29,32 @@
 /* [subsec] section subtitle — base (themes refine): muted italic, tight to ## heading. */
 .sec-sub{margin:.15em 0 1.3em;font-style:italic;font-size:.95em;opacity:.7;line-height:1.45;text-indent:0;text-align:left;}
 h2 + .sec-sub, h2.subtitle + .sec-sub{margin-top:-.5em;}
+/* [faw] free-associative writing — стихи, записанные прозой. Строки-сегменты «|»
+   → .faw-l.a/.b с чередованием стиля (границы строк видны на глаз). Режим (монолит
+   display:inline — swiss/editorial/cyberpunk · построчно display:block — manuscript/
+   ar_deco) и чередование задаёт ТЕМА. База — только отступ блока и нулевой-специфичности
+   фолбэк построчно через :where() (любое правило темы его перебивает; стиль <style> идёт
+   ПОСЛЕ <link> темы, поэтому обычное `.faw-l` затёрло бы тему — отсюда :where). */
+.faw{margin:1.5rem 0;}
+/* Абзацы внутри [faw] (безымянный [fp]): каждый — блок .faw-p, между ними отступ. Виден и
+   в монолитных темах (между блоками), и в построчных. Внутри .faw-p строки идут по теме. */
+.faw .faw-p + .faw-p{margin-top:1.1em;}
+:where(.faw-l){display:block;}
+/* [faw sta=N] зазор-строфа: пустая строка после каждых N строк. Верт. margin к inline
+   не применяется → в монолите параметр игнорируется (как и задумано). */
+:where(.faw-l.faw-se){margin-bottom:1em;}
+/* Капитализация первой буквы строки (.faw-cap) — фича ПОСТРОЧНЫХ тем (manuscript/ar_deco):
+   там строки начинаются с заглавной, как в стихах. Монолитные темы .faw-cap НЕ трогают —
+   текст течёт прозой в авторском регистре. См. THEME_CONTRACT. */
+/* [fp] маркер нумерованного пункта внутри [faw] (§2.5): инлайн-бейдж — строку НЕ рвёт (стих
+   течёт сквозь пункты), может стоять в середине строки; даёт якорь для TOC. Не наследует
+   курсив/регистр чередования. Базовый вид (тема может уточнить через --accent). */
+.faw-pt{display:inline-block;font-family:ui-sans-serif,system-ui,sans-serif;font-weight:700;
+  font-size:.62em;line-height:1.5;vertical-align:.16em;color:var(--accent,#777);
+  border:1px solid currentColor;border-radius:.5em;padding:0 .42em;margin:0 .45em 0 .1em;
+  font-style:normal;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;
+  scroll-margin-top:1.4rem;text-decoration:none;}
+.faw-l .faw-cap{font-style:inherit;}
 /* fn-ревью (2026-06-12) — структурная база новых конструкций; темы уточняют. */
 /* [^N] в H1: sup-маркер на глаз отличим от текста заголовка (THEME_CONTRACT). */
 h1#article-title sup{font-size:.42em;font-weight:400;line-height:0;letter-spacing:normal;vertical-align:super;}
@@ -142,7 +168,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 </nav>
 </header>
 
-<h1 id="article-title">Эй, Земля!✦⁠<a class="audio-link" href="https://t.me/art_017_tracks/282" target="_blank" rel="noopener" title="Слушать аудио-озвучку" aria-label="Слушать аудио-озвучку">🎧</a></h1>
+<h1 id="article-title">Эй, Земля!⁠<a class="audio-link" href="https://t.me/art_017_tracks/282" target="_blank" rel="noopener" title="Слушать аудио-озвучку" aria-label="Слушать аудио-озвучку">🎧</a></h1>
 <p class="byline">Элиягу Бар Малей · #33K · 2023-03-20 · Источник: <a href="https://proza.ru/2023/03/20/1266" target="_blank" rel="noopener">proza.ru/2023/03/20/1266</a></p>
 <article>
 
