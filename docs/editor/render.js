@@ -844,9 +844,13 @@ function renderFawSegment(s, ctx) {
     pushText(s.slice(lastIdx, m.index));
     const a = parseAttrs(m[1] || "");
     const label = (a.label != null ? String(a.label) : "").trim();
-    const slug = (a.slug || makeSlug(label) || ("fp-" + (ctx.toc.length + 1))).trim();
-    ctx.toc.push({ slug, label: htmlEscape(label), level: 2 });
-    out.push(`<span class="faw-pt" id="${slug}">${htmlEscape(label)}</span>`);
+    if (label) {
+      // нумерованный пункт → бейдж + TOC
+      const slug = (a.slug || makeSlug(label) || ("fp-" + (ctx.toc.length + 1))).trim();
+      ctx.toc.push({ slug, label: htmlEscape(label), level: 2 });
+      out.push(`<span class="faw-pt" id="${slug}">${htmlEscape(label)}</span>`);
+    }
+    // безымянная граница абзаца (label="") в стихе НЕВИДИМА — строки уже разбиты по «|»
     lastIdx = m.index + m[0].length;
   }
   pushText(s.slice(lastIdx));
@@ -875,9 +879,14 @@ function renderFawInert(b, ctx) {
     emit(pendingBadge, flat.slice(idx, m.index));
     const a = parseAttrs(m[1] || "");
     const label = (a.label != null ? String(a.label) : "").trim();
-    const slug = (a.slug || makeSlug(label) || ("fp-" + (ctx.toc.length + 1))).trim();
-    ctx.toc.push({ slug, label: htmlEscape(label), level: 2 });
-    pendingBadge = `<span class="faw-pt" id="${slug}">${htmlEscape(label)}</span>`;
+    if (label) {
+      // нумерованный пункт → разрыв абзаца + бейдж + TOC
+      const slug = (a.slug || makeSlug(label) || ("fp-" + (ctx.toc.length + 1))).trim();
+      ctx.toc.push({ slug, label: htmlEscape(label), level: 2 });
+      pendingBadge = `<span class="faw-pt" id="${slug}">${htmlEscape(label)}</span>`;
+    } else {
+      pendingBadge = "";   // безымянная граница абзаца — просто новый <p> без бейджа/TOC
+    }
     idx = m.index + m[0].length;
   }
   emit(pendingBadge, flat.slice(idx));

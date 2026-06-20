@@ -171,6 +171,11 @@ function makeSyl(dic) {
 }
 
 // ── parse_text: поток токенов [ [слово, метка|null], ... ] ───────────────────
+// ¶ — внутренняя метка БЕЗЫМЯННОЙ границы абзаца (пустая строка в [faw]). В отличие от
+// именованной «=== label {slug} ===» (нумерованный пункт → бейдж + TOC), безымянная граница
+// в выводе даёт «[fp]» без метки: в инертном виде — разрыв абзаца, в стихе — невидима.
+const FAW_PARA = String.fromCharCode(0xB6);
+
 function parseText(srcText) {
   // re.split(r'^[ \t]*===\s*(.+?)\s*===[ \t]*$', src, flags=re.M)
   const rx = /^[ \t]*===\s*([\s\S]+?)\s*===[ \t]*$/gm;
@@ -178,12 +183,20 @@ function parseText(srcText) {
   const tokens = [];
   let cur = null;
   for (let i = 0; i < parts.length; i++) {
-    if (i % 2 === 1) { cur = parts[i]; continue; }   // имя раздела
-    const p = parts[i].trim();
-    if (!p) continue;
-    for (const w of p.split(/\s+/)) {
-      tokens.push([w, cur]);
-      cur = null;
+    if (i % 2 === 1) { cur = parts[i]; continue; }   // имя раздела (=== … ===)
+    // НЕ-секционную часть дробим на абзацы по пустым строкам. Первый токен абзаца (кроме
+    // самого первого токена потока) несёт безымянную границу FAW_PARA → разрыв абзаца.
+    const paras = parts[i].split(/\n[ \t]*\n+/);
+    for (let pi = 0; pi < paras.length; pi++) {
+      const words = paras[pi].trim().split(/\s+/).filter(Boolean);
+      for (let wi = 0; wi < words.length; wi++) {
+        let label = null;
+        if (wi === 0) {
+          if (cur !== null) { label = cur; cur = null; }     // явная === секция
+          else if (tokens.length > 0) label = FAW_PARA;      // граница абзаца (пустая строка)
+        }
+        tokens.push([words[wi], label]);
+      }
     }
   }
   return tokens;
@@ -399,6 +412,7 @@ export function dumpLines(lines, meter) {
 // Пункты НЕ рвут строку (стих течёт через границы) — маркер ставится перед словом, где
 // пункт начинается (может оказаться в середине строки). render рисует бейдж + запись в TOC.
 function fpMarker(secName) {
+  if (secName === FAW_PARA) return "[fp]";   // безымянная граница абзаца → [fp] без метки
   const m = /^([\s\S]*?)\s*\{([^}]+)\}\s*$/.exec(secName);
   const label = (m ? m[1] : secName).trim().replace(/"/g, "");
   const slug = m ? m[2].trim().replace(/[^\w-]/g, "") : "";
