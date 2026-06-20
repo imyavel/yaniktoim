@@ -61,13 +61,15 @@
       fetch(base + "data/proper-nouns.txt").then(t),
       fetch(base + "data/template_view.html", { cache: "no-store" }).then(t),
       fetch(base + "data/site.json").then(j),
-      fetch("../config/display.json").then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+      fetch("../config/display.json").then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }),
+      import(modUrl("editor/faw_markup.js"))   // авто-разметка [faw] на «Сохранить»
     ]).then(function (a) {
       var manifest = a[1], byArt = {};
       manifest.forEach(function (r) { byArt[r.art] = r; });
       deps = {
         render: a[0].renderArticleHtml, manifest: manifest, byArt: byArt,
-        zoharIndex: a[2], properNouns: a[3], template: a[4], siteConfig: a[5], displayConfig: a[6]
+        zoharIndex: a[2], properNouns: a[3], template: a[4], siteConfig: a[5], displayConfig: a[6],
+        fawMarkup: a[7].autoMarkupFaw
       };
       return deps;
     });
@@ -97,6 +99,7 @@
             label: "Правка ZML · #" + ART,
             initialZml: ensureViewZml(zml),
             renderView: renderView,
+            preprocess: deps.fawMarkup,   // [faw] без «|» → разметка по слогам перед сохранением
             save: saveToWorker,
             image: { artId: ART },     // Ф8(b): блок «Иллюстрация» (image: + бинарь)
             savedPrimaryLabel: "На статью",

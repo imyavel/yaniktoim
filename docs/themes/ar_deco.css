@@ -190,3 +190,13 @@ details.article-toc ol ol{font-size:.92em;}
 .songgrid .song .a a{color:var(--accent); border-bottom:1px dotted var(--rule);}
 .songgrid .song .a a:hover{color:var(--accent-soft); border-bottom-color:var(--accent-soft);}
 .songgrid .song .a .sep{color:var(--accent); opacity:.85;}
+
+/* ── [faw] free-associative writing — стихи, записанные прозой ────────────────
+   ar-deco: ПОСТРОЧНО (block), по центру; чередование cream / gold с лёгкой
+   разрядкой — деко-ритм. */
+.faw{font-family:var(--serif); margin:1.9rem 0; text-align:center; line-height:1.62;}
+.faw-l{display:block;}
+.faw-l.a{color:var(--ink);}
+.faw-l.b{color:var(--accent); letter-spacing:.05em;}
+/* [faw sta=N]/построчно: первая буква каждой строки — заглавная (как в стихах). */
+.faw-l .faw-cap{text-transform:uppercase;}

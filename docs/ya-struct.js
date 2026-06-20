@@ -274,9 +274,10 @@
       fetch("editor/data/zohar_index.json").then(j),
       fetch("editor/data/proper-nouns.txt").then(t),
       // шаблон вью — всегда свежий (нельзя «запечь» устаревший после деплоя).
-      fetch("editor/data/template_view.html", { cache: "no-store" }).then(t)
+      fetch("editor/data/template_view.html", { cache: "no-store" }).then(t),
+      import("./editor/faw_markup.js")   // авто-разметка [faw] на «Сохранить»
     ]).then(function (a) {
-      artDepsLoaded = { zoharIndex: a[0], properNouns: a[1], templateView: a[2] };
+      artDepsLoaded = { zoharIndex: a[0], properNouns: a[1], templateView: a[2], fawMarkup: a[3].autoMarkupFaw };
       return artDepsLoaded;
     });
   }
@@ -401,7 +402,7 @@
 
   function createArticle(slug) {
     status("Готовлю редактор новой статьи…");
-    loadArtDeps().then(function () {
+    loadArtDeps().then(function (deps) {
       var today = isoToday(), art;
       try { art = mintArtId(); } catch (e) { status(e.message, true); return; }
       var zml = templateZml(art, today);
@@ -411,6 +412,7 @@
           label: "Новая статья · #" + art + " → " + secName(slug),
           initialZml: zml,
           renderView: function (z) { return renderNewView(z, art, slug, today); },
+          preprocess: deps.fawMarkup,   // [faw] без «|» → разметка по слогам перед сохранением
           save: function (z, html) { return commitNewArticle(art, slug, z, html, today); },
           savedMessage: "Статья создана. Обновление сайта — 30–90 сек, затем Ctrl+R. Откройте её, чтобы продолжить правку тела.",
           savedPrimaryLabel: "Открыть статью",

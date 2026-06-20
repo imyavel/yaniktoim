@@ -93,11 +93,21 @@ export function mountZmlEditor(opts) {
   }
 
   function doSave() {
+    // Предобработка перед сохранением (opts.preprocess): например, авто-разметка
+    // [faw] по слогам (вставка «|»). Результат показываем в textarea — оператор
+    // видит, что именно сохраняется, и может поправить/пересохранить.
+    let src = ta.value;
+    if (typeof opts.preprocess === "function") {
+      try { src = opts.preprocess(src); }
+      catch (e) { status("Не сохраняю — ошибка предобработки: " + (e.message || e), true); return; }
+      if (typeof src !== "string") src = ta.value;
+      if (src !== ta.value) ta.value = src;
+    }
     let html;
-    try { html = opts.renderView(ta.value); }
+    try { html = opts.renderView(src); }
     catch (e) { status("Не сохраняю — ошибка рендера: " + (e.message || e), true); return; }
     if (typeof opts.save !== "function") { status("Сохранение не настроено.", true); return; }
-    const zml = ta.value;
+    const zml = src;
     status("Сохранение…");
     setBusy(true);
     Promise.resolve()

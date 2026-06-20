@@ -189,3 +189,11 @@ details.article-toc ol ol{font-size:.92em;}
 .songgrid .song .a a{color:var(--accent); border-bottom:none;}
 .songgrid .song .a a:hover{color:var(--accent2); text-shadow:0 0 8px var(--accent2);}
 .songgrid .song .a .sep{color:var(--accent2); opacity:.8;}
+
+/* ── [faw] free-associative writing — стихи, записанные прозой ────────────────
+   cyberpunk: МОНОЛИТ (inline), чередование ink / неон-cyan со свечением —
+   границы строк подсвечены. */
+.faw{margin:1.7rem 0; line-height:1.72;}
+.faw-l{display:inline;}
+.faw-l.a{color:var(--ink);}
+.faw-l.b{color:var(--accent); text-shadow:0 0 6px rgba(0,229,255,.30);}

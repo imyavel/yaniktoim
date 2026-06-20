@@ -199,3 +199,14 @@ details.article-toc ol ol{font-size:.93em;}
 .songgrid .song .a a{color:var(--accent); border-bottom:1px dotted var(--accent-soft);}
 .songgrid .song .a a:hover{border-bottom-style:solid;}
 .songgrid .song .a .sep{color:var(--gold); opacity:1;}
+
+/* ── [faw] free-associative writing — стихи, записанные прозой ────────────────
+   manuscript: ПОСТРОЧНО (block) — стих виден строками; чередование роман /
+   курсив с висячим отступом, как в рукописи. */
+.faw{font-family:"Palatino Linotype",Palatino,"Iowan Old Style",Georgia,serif;
+  margin:1.8rem 0; font-size:1.06rem; line-height:1.5;}
+.faw-l{display:block;}
+.faw-l.a{color:var(--ink);}
+.faw-l.b{color:var(--accent-soft); font-style:italic; padding-left:1.5em;}
+/* [faw sta=N]/построчно: первая буква каждой строки — заглавная (как в стихах). */
+.faw-l .faw-cap{text-transform:uppercase;}

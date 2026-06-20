@@ -82,7 +82,7 @@ function applyHonorific(s) {
 // Epilogue is NOT a separate tag (ZML3 A4): an epilogue is an [epi] block in
 // TAIL position, labelled «Эпилог» by the renderer via block index. So only
 // [epi] is parsed here — [epil] was retired with the Ф3 shadowing quirk.
-const PAIRED = ["poem", "epi", "quote", "num", "mus", "shir", "subsec", "sub", "sig", "cry", "line", "ul", "dlg"];
+const PAIRED = ["poem", "epi", "quote", "num", "mus", "shir", "subsec", "sub", "sig", "cry", "line", "ul", "dlg", "faw"];
 const PAIRED_ALT = PAIRED.join("|");
 
 // Footnote GROUPS (fn-ревью, вердикты 1+3): marker [^имя.N], definition
@@ -640,6 +640,7 @@ function renderBlocks(blocks, ctx) {
       case "heading":   out.push(renderHeading(b, ctx)); break;
       case "paragraph": out.push(renderParagraph(b, ctx)); break;
       case "poem":      out.push(renderPoem(b, ctx)); break;
+      case "faw":       out.push(renderFaw(b, ctx)); break;
       case "epi": {
         // Epilogue = [epi] in TAIL position (last body block, and not the only
         // one — ZML3 A4). Render decides the label by position; no [epil] tag.
@@ -785,6 +786,119 @@ function renderPoem(b, ctx) {
   const title = b.attrs.title || "";
   const titleHtml = title ? `<div class="poem-title">${htmlEscape(title)}</div>` : "";
   return `<div class="poem">${titleHtml}${body}</div>`;
+}
+
+// [faw] — free-associative writing (стихи, записанные прозой). Разметка строк — знаком
+// «|» (ставит движок при «Сохранить», verse_split.js по счёту слогов). Render не считает
+// слоги: делит inner по верхнеуровневым «|» на строки-сегменты, чередует .faw-l.a/.b
+// (границы видны). Темы решают режим: монолит (display:inline — swiss/editorial/cyberpunk)
+// или построчно (display:block — manuscript/ar_deco). Внутри сегмента: маркеры пунктов
+// [fp=…] (бейдж + TOC, §2.5) и капитализация первой буквы. «|» внутри [url|анкор] и пр.
+// скобок НЕ разделитель (splitTopLevelPipes).
+// Сентинелы капитализации — control-символы через fromCharCode (не пишем сырыми в исходник).
+const FAW_SENT0 = String.fromCharCode(0), FAW_SENT1 = String.fromCharCode(1);
+const FAW_CAP_RX = /\u0000([\s\S])\u0001/u;
+const FAW_PT_RX = /\[fp\b((?:"[^"]*"|[^\]"])*)\]/g;
+
+function renderFaw(b, ctx) {
+  // allow_faw OFF (деф.): разметка [faw] инертна — рисуем прозой (renderFawInert).
+  if (!ctx.fawEnabled) return renderFawInert(b, ctx);
+  const inner = b.inner.replace(/^\n+/, "").replace(/\n+$/, "");
+  const segs = splitTopLevelPipes(inner)
+    .map((s) => s.replace(/\s+/g, " ").trim())
+    .filter((s) => s);
+  if (!segs.length) return "";
+  // [faw sta=N]: строфы по N строк — после каждой N-й строки зазор (класс .faw-se).
+  // Действует лишь в построчном (block) режиме; в монолите верт. margin к inline не
+  // применяется → параметр сам собой не виден (как и капитализация .faw-cap).
+  const sta = parseInt(b.attrs.sta, 10);
+  const hasSta = Number.isFinite(sta) && sta > 0;
+  const last = segs.length - 1;
+  const rows = segs.map((s, i) => {
+    let cls = "faw-l " + (i % 2 === 0 ? "a" : "b");
+    if (hasSta && (i + 1) % sta === 0 && i < last) cls += " faw-se";
+    return `<span class="${cls}">${renderFawSegment(s, ctx)}</span>`;
+  });
+  return `<div class="faw">\n${rows.join("\n")}\n</div>`;
+}
+
+// Один сегмент-строка: чередуем текстовые куски и маркеры пунктов [fp=…]. Маркер → инлайн-
+// бейдж .faw-pt (id-якорь) + запись в TOC (уровень 2, как ## которые он заменяет); строку
+// НЕ рвёт, может стоять в середине. Первую БУКВУ строки оборачиваем в .faw-cap (построчные
+// темы поднимают в верхний регистр — заглавная, как в стихах; монолит не трогает). Сентинелы
+// ставим на СЫРОЙ текст ДО inline-резолва: пропускаем ведущую пунктуацию/тире/markup, не
+// цепляем html-сущности.
+function renderFawSegment(s, ctx) {
+  const out = [];
+  let lastIdx = 0, m, capDone = false;
+  const pushText = (txt) => {
+    if (!txt) return;
+    if (!capDone && /\p{L}/u.test(txt)) {
+      capDone = true;
+      txt = txt.replace(/^([^\p{L}]*)(\p{L})/u, (mm, pre, ch) => pre + FAW_SENT0 + ch + FAW_SENT1);
+    }
+    out.push(resolveInline(txt, ctx.inline).replace(FAW_CAP_RX, '<span class="faw-cap">$1</span>'));
+  };
+  FAW_PT_RX.lastIndex = 0;
+  while ((m = FAW_PT_RX.exec(s)) !== null) {
+    pushText(s.slice(lastIdx, m.index));
+    const a = parseAttrs(m[1] || "");
+    const label = (a.label != null ? String(a.label) : "").trim();
+    const slug = (a.slug || makeSlug(label) || ("fp-" + (ctx.toc.length + 1))).trim();
+    ctx.toc.push({ slug, label: htmlEscape(label), level: 2 });
+    out.push(`<span class="faw-pt" id="${slug}">${htmlEscape(label)}</span>`);
+    lastIdx = m.index + m[0].length;
+  }
+  pushText(s.slice(lastIdx));
+  return out.join("");
+}
+
+// allow_faw OFF (деф.): [faw] рисуется ОБЫЧНОЙ ПРОЗОЙ — |-строки склеиваются через пробел
+// (границы стиха инертны), пункты [fp] остаются разрывом абзаца + бейдж .faw-pt (id-якорь) +
+// запись в TOC, чтобы нумерация/оглавление статьи сохранились до включения allow_faw. Сама
+// разметка | при этом ОСТАЁТСЯ в .zml — оператор включает вид флагом allow_faw: true + Сохранить.
+function renderFawInert(b, ctx) {
+  const inner = b.inner.replace(/^\n+/, "").replace(/\n+$/, "");
+  const flat = splitTopLevelPipes(inner)
+    .map((s) => s.replace(/\s+/g, " ").trim())
+    .filter((s) => s).join(" ");
+  if (!flat) return "";
+  const out = [];
+  let idx = 0, m, pendingBadge = "";
+  const emit = (badge, txt) => {
+    txt = txt.replace(/\s+/g, " ").trim();
+    if (!badge && !txt) return;
+    out.push(`<p>${badge}${badge && txt ? " " : ""}${resolveInline(txt, ctx.inline)}</p>`);
+  };
+  FAW_PT_RX.lastIndex = 0;
+  while ((m = FAW_PT_RX.exec(flat)) !== null) {
+    emit(pendingBadge, flat.slice(idx, m.index));
+    const a = parseAttrs(m[1] || "");
+    const label = (a.label != null ? String(a.label) : "").trim();
+    const slug = (a.slug || makeSlug(label) || ("fp-" + (ctx.toc.length + 1))).trim();
+    ctx.toc.push({ slug, label: htmlEscape(label), level: 2 });
+    pendingBadge = `<span class="faw-pt" id="${slug}">${htmlEscape(label)}</span>`;
+    idx = m.index + m[0].length;
+  }
+  emit(pendingBadge, flat.slice(idx));
+  return out.join("\n");
+}
+
+// Делит строку по «|» только на верхнем уровне (вне «[…]»): «|» внутри [url|анкор]/
+// [mus]-полей не считается границей строки. Этой же логикой движок решает, размечен
+// ли уже [faw] (есть хоть один верхнеуровневый «|»).
+function splitTopLevelPipes(s) {
+  const out = [];
+  let depth = 0, cur = "";
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i];
+    if (c === "[") depth++;
+    else if (c === "]") { if (depth > 0) depth--; }
+    if (c === "|" && depth === 0) { out.push(cur); cur = ""; continue; }
+    cur += c;
+  }
+  out.push(cur);
+  return out;
 }
 
 function renderEpigraph(b, ctx, label, cls) {
@@ -1361,6 +1475,10 @@ export function renderArticleParts(ctx) {
   // CAPS folding (small-caps + proper-nouns + ^marker) is OFF by default in ZML3
   // (A1): text renders literally unless frontmatter `caps:` opts in.
   const capsEnabled = /^(on|true|1|yes|да)$/i.test((fm.caps || "").trim());
+  // [faw] активна ТОЛЬКО при frontmatter `allow_faw: true` (деф. OFF — «везде false»).
+  // Иначе разметка [faw] инертна: |-строки и [fp]-пункты рисуются обычной прозой (но
+  // сама разметка остаётся в .zml — оператор включает вид флагом allow_faw + Сохранить).
+  const fawEnabled = /^(on|true|1|yes|да)$/i.test((fm.allow_faw || "").trim());
   // Authorial notes-section heading (ZML3 A2): «Примечания» / «Полезные ссылки» /
   // «Пост скриптум» … — render draws fm.notes_title instead of a hardcoded label.
   const notesTitle = (fm.notes_title || "").trim() || "Примечания";
@@ -1411,7 +1529,7 @@ export function renderArticleParts(ctx) {
     capsEnabled,
   };
   const renderCtx = {
-    inline, toc: [], notesTitle, notesTitleHtml: "",
+    inline, toc: [], notesTitle, notesTitleHtml: "", fawEnabled,
     fnGroups, renderedGroups: new Set(), tocMarker: null,
     // [shir] art-link href base: "" inside an article (flat docs/art/), "../art/"
     // on the songs special page (docs/songs/ → docs/art/).

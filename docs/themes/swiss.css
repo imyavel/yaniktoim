@@ -172,3 +172,11 @@ details.article-toc ol ol{font-size:.92em;}
 .songgrid .song .a a{color:var(--ink); border-bottom:1px solid var(--rule);}
 .songgrid .song .a a:hover{color:var(--accent); border-bottom-color:var(--accent);}
 .songgrid .song .a .sep{color:var(--accent); opacity:1;}
+
+/* ── [faw] free-associative writing — стихи, записанные прозой ────────────────
+   swiss: МОНОЛИТ (inline), монохромное чередование ink / muted — границы строк
+   читаются как зебра, без украшательств. */
+.faw{font-family:var(--sans); margin:1.7rem 0; line-height:1.66;}
+.faw-l{display:inline;}
+.faw-l.a{color:var(--ink);}
+.faw-l.b{color:var(--muted);}

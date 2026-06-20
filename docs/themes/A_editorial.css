@@ -252,3 +252,11 @@ details.article-toc ol ol{font-size:.93em;}
 .songgrid .song .a a{color:var(--accent); border-bottom:1px dotted var(--accent);}
 .songgrid .song .a a:hover{border-bottom-style:solid;}
 .songgrid .song .a .sep{color:var(--accent-soft); opacity:.9;}
+
+/* ── [faw] free-associative writing — стихи, записанные прозой ────────────────
+   editorial: МОНОЛИТ (inline), чередование роман / курсив-rust — как у
+   реконструктора стихотворной разбивки; границы строк видны, текст течёт прозой. */
+.faw{font-family:var(--serif); margin:1.7rem 0; line-height:1.8;}
+.faw-l{display:inline;}
+.faw-l.a{color:var(--ink); font-style:normal;}
+.faw-l.b{color:var(--accent-soft); font-style:italic;}
