@@ -19,9 +19,6 @@
 `cms-revival/` (исходники движка) + `PROJECT.md`/roadmap'ы/`tools/`/`manifest.json`. Всё вне `docs/`
 живёт в репо и видно на github.com, но на публичный сайт не попадает.
 
-**Соседи — не трогать:** рядом в папке-контейнере `imyavel/` клонируются `zohar-sulam` и `imyavel.github.io` —
-это **отдельные репо**, ZML/CMS их не касаются. Деплой всех трёх — локальный `push.bat` оператора (в git не хранится).
-
 ---
 
 # Сайт — `yaniktoim/docs/`
@@ -33,6 +30,7 @@
 - **`art/`** — корпус: на статью `<id>.zml` (источник) · `<id>.view.html` (рендер) · `<id>.html` (старая; у новых нет).
 - **`img/`** — иллюстрации (~209).
 - **`config/`** — состояние CMS: `structure.json` (разделы/порядок/статусы), `display.json` (глобальный вид + правила тем), `forced_views.json` (пер-статейный форс zml/html).
+  ↳ **Контракт через репо:** `structure.json` в рантайме читает заглавная домена `imyavel.github.io/index.html` (счётчик «N статей в M разделах», тот же origin) — при смене его схемы (`articles[].status`, `sections[].archived`) проверить этого потребителя.
 - **`editor/`**, **`themes/`** — **производные** (синкаются из `cms-revival/` сборкой `build_views.mjs`; руками не править).
 - **CMS-клиент** (hand-maintained прямо в `docs/`): `ze-core.js` (общий движок правки + модальный логин/`ensureFreshSession`) ·
   `ya-edit.js` (статья) · `ya-struct.js` (структура+создание) · `ya-songs.js` (песни) · `ya-switch.js` (old↔zml) · `ya-auth.js` (логин на главной).
