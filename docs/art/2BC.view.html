@@ -7,8 +7,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Молчание - Золото</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе о свободной воле, независимом выборе и творческой самостоятельности: размышление о том, как человек подчиняет свою волю обществу.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/2BC.html">
+<meta property="og:title" content="Молчание - Золото">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/2BC.html">
+<meta property="og:description" content="Эссе о свободной воле, независимом выборе и творческой самостоятельности: размышление о том, как человек подчиняет свою волю обществу.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Молчание - Золото">
+<meta name="twitter:description" content="Эссе о свободной воле, независимом выборе и творческой самостоятельности: размышление о том, как человек подчиняет свою волю обществу.">
+<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/2BC.jpg">
+<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/2BC.jpg">
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +156,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="2BC" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="2BC" data-theme="swiss"
   data-art-section="confront" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +170,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +179,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="2BC.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -249,6 +260,376 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#1d1c1a;
+    --muted:#6b6458;
+    --accent:#8a3324;
+    --accent2:#b05c2e;
+    --line:#d8cfbf;
+    --maxw:1180px;
+    --colw:66%;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:28px 32px 64px;
+  }
+  .container{
+    width:var(--colw);
+    margin:0 auto;
+  }
+
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:22px;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--line);
+  }
+  .breadcrumbs a{color:var(--accent2);}
+  .breadcrumbs span{margin:0 .5em;color:#bbab93;}
+
+  .hero{
+    width:100%;
+    height:auto;
+    max-width:100%;
+    display:block;
+    margin:0 auto 26px;
+    border-radius:3px;
+  }
+
+  h1{
+    font-size:42px;
+    line-height:1.18;
+    letter-spacing:.01em;
+    margin:.2em 0 .35em;
+    font-weight:700;
+  }
+
+  .lead-note{
+    font-style:italic;
+    color:var(--accent);
+    background:#fbf0ea;
+    border-left:4px solid var(--accent2);
+    padding:14px 20px;
+    margin:0 0 30px;
+    font-size:18px;
+  }
+
+  h2{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:26px;
+    line-height:1.25;
+    letter-spacing:.04em;
+    margin:2.2em 0 .7em;
+    color:var(--accent);
+    font-weight:700;
+    cursor:pointer;
+    scroll-margin-top:20px;
+  }
+  h2:hover{color:var(--accent2);}
+
+  p{margin:0 0 1.25em;text-align:justify;hyphens:auto;}
+
+  /* TOC */
+  .toc{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:5px;
+    padding:18px 24px;
+    margin:0 0 36px;
+  }
+  .toc-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    cursor:pointer;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    font-weight:700;
+  }
+  .toc-head .arrow{transition:transform .25s;}
+  .toc.collapsed .arrow{transform:rotate(-90deg);}
+  .toc ol{
+    margin:14px 0 4px;
+    padding-left:1.4em;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+    line-height:1.9;
+  }
+  .toc.collapsed ol{display:none;}
+  .toc a{color:var(--ink);}
+  .toc a:hover{color:var(--accent);}
+
+  /* music */
+  .music-group{
+    margin:30px 0;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    font-weight:700;
+    margin-bottom:8px;
+  }
+  .track{
+    border:1px solid var(--line);
+    border-radius:5px;
+    background:var(--paper);
+    overflow:hidden;
+  }
+  .track-bar{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 16px;
+    cursor:pointer;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .track-bar:hover{background:#fbf6ee;}
+  .track-toggle{
+    font-size:13px;
+    color:var(--accent);
+    transition:transform .25s;
+    width:14px;
+    flex:none;
+  }
+  .track.open .track-toggle{transform:rotate(90deg);}
+  .track-title{flex:1;font-size:17px;}
+  .track-title .artist{color:var(--muted);}
+  .track-ext{
+    color:var(--muted);
+    font-size:16px;
+    flex:none;
+  }
+  .track-ext:hover{color:var(--accent);}
+  .track-player{display:none;}
+  .track.open .track-player{display:block;}
+  .track-player .ratio{
+    position:relative;
+    width:100%;
+    padding-bottom:56.25%;
+    height:0;
+    background:#000;
+  }
+  .track-player iframe{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    border:0;
+  }
+
+  /* see also */
+  .seealso ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+  }
+  .seealso li{
+    padding:7px 0;
+    border-bottom:1px dotted var(--line);
+  }
+
+  /* nav bottom */
+  .pagenav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:48px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+  }
+  .pagenav a{flex:1;}
+  .pagenav .next{text-align:right;}
+  .pagenav .lbl{
+    display:block;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:3px;
+  }
+
+  footer.colophon{
+    margin-top:40px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer.colophon a{color:var(--accent2);}
+
+  @media (max-width:900px){
+    .ya-old{font-size:18px;}
+    .container{width:100%;}
+    .wrap{padding:20px 18px 48px;}
+    h1{font-size:32px;}
+    h2{font-size:22px;}
+    p{text-align:left;}
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №2BC</span>
+<div class="wrap">
+  <div class="container">
+
+    <nav class="breadcrumbs">
+      <a href="../index.html">Главная</a><span>/</span><a href="../confront/index.html">Конфронтология Духа</a>
+    </nav>
+
+    <img class="hero" src="../img/2BC.jpg" alt="">
+
+    <h1>Молчание - Золото<a class="audio-link" href="https://t.me/art_017_tracks/419" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+    <p class="lead-note">Это тяжелое во всех смыслах произведение. Но мужчинам нужное. Женщинам я его читать не рекомендую.</p>
+
+    <nav class="toc" id="toc">
+      <div class="toc-head" onclick="document.getElementById('toc').classList.toggle('collapsed')">
+        <span>Содержание</span><span class="arrow">▼</span>
+      </div>
+      <ol>
+        <li><a href="#s-vstup">ВСТУПЛЕНИЕ</a></li>
+        <li><a href="#s-vybor">НЕЗАВИСИМЫЙ ВЫБОР</a></li>
+        <li><a href="#s-volya">СВОБОДНАЯ ВОЛЯ</a></li>
+        <li><a href="#s-tvorch">ТВОРЧЕСКАЯ САМОСТОЯТЕЛЬНОСТЬ</a></li>
+        <li><a href="#s-seealso">См. также</a></li>
+      </ol>
+    </nav>
+
+    <div class="music-group">
+      <div class="music-label">Песнь Ступеней:</div>
+      <div class="track" data-yt="0T-nBNIBbtY">
+        <div class="track-bar" onclick="toggleTrack(this)">
+          <span class="track-toggle">▶</span>
+          <span class="track-title">Песня без Слов <span class="artist">— Кино</span></span>
+          <a class="track-ext" href="https://www.youtube.com/watch?v=0T-nBNIBbtY" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a>
+        </div>
+        <div class="track-player"></div>
+      </div>
+    </div>
+
+    <h2 id="s-vstup" onclick="toTop()">ВСТУПЛЕНИЕ</h2>
+    <p>Свободная Воля свободна от "самого себя", т.е. от того, чтобы быть чьей-то собственной, принадлежать кому-то, поскольку любая принадлежность чего-то кому-то является фактом, закрепляющим точку сборки этого кого-то (чаще всего - намертво, и без возможности осознания, что это так) посредством используемой им самим "свободной воли" к тому, чтобы быть кем-то и чем-то, кому могут принадлежнать определенные свойства и качества, о ком можно сказать что-либо конкретно, выделив "собственные" от "не собственных" или тех, которыми он вовсе не обладает.</p>
+
+    <h2 id="s-vybor" onclick="toTop()">НЕЗАВИСИМЫЙ ВЫБОР</h2>
+    <p>Выбрал - намеревая самого себя быть кем или чем угодно, кроме того, кто выбирает сам, кем и чем ему быть до того, как кем-то или чем-то действительно становится, приложив известную долю усилий и стремлений к достижению результата "здесь и сейчас". Но становясь (или, с точно таким же успехом, "не становясь") тем, тогда и таким образом, каким это за него намеревают другие - те, кто наиболее непосредственно открывал для него "этот мир" еще в то время, когда он сам не был его дееспособной и самостоятельной равноправной частью, - а находился под опекой общества этого мира, использовавшего "физических" опекунов, воспитателей и родителей, чтобы посредством них совершать выбор за него, в отношении которого у человека всегда была полная свобода воли: "выбрать жизнь", или же выбрать что-то другое, что "жизнью" точно не является. Воля эта проявляется так и тогда, когда это предусмотрено социо-психоэнергетическими процессами и системами внутри общества, в отношении которого человек осуществил в прошлом свободное волеизъявление, запретив себе помнить о том, что у него в жизни существовал этот конкретный судьбоносный выбор, в осуществлении которого он не руководствовался и не опосредовался в действии и решении никакими их возможных осмысленных форм целеполагания и осознания, поскольку все эти формы стали знакомы ему строго после и посредством принятия им этого решения, "вопреки самому себе", поскольку сам человек должен будет безропотно склонять голову, подчиняя свою свободную волю воле общества и его мнению, относительно того момента, когда у него действительно будет появляться возможность выбора того, что ему предлагают другие люди, либо возможность отказа от совершения такового выбора, поддерживая этим нехитрым трюком нерушимость собственной "слепой" веры в свою свободу, самостоятельность, уникальность и обособленность от той человеческой общности, которая его породила на Свет, которой он принадлежит даже не как раб, потому что раб знает о своем презираемом положении, а он нет: он будет всю жизнь уверен, что его собственный свободный выбор посредством независимого волеизъявления определил ту судьбу, которая у него имелась, хоть он и не способен ответить на вопрос, зачем она имелось у него, будучи чем-то лишенным признаков контролируемого стремления и достижения каких-либо мало-мальски выдерживающих объективную критику его же собственного разума, вынужденно освободившегося от розовых очков посредством близости прекращения непрерывного бесконечного и лишенного намека на осмысленность, самоунижения и самообмана самим человеком самого себя, поскольку в "анонимном контракте", подписанном в самом начале, об этом черным по белому было написано, и значит он сам выполнит требование пункта договора, перестав существовать и сдав "свое" осознания без претензии на память о чем-либо, в чем его собственной творческой самостоятельности не было нисколько (кроме пародии на таковую называемых у людей "творчеством", но являющейся, за редчайшими исключениями, таковым действительно не в большей степени, чем они сами, называя себя живыми, хотя бы мгновение в сознательной жизни испытывали, что значит быть живым на самом деле, а не потому что "я мыслю, значит существую" анонимного происхождения в силу строжайщего и жесточайшего запрета самому себе помнить о том, чей этот голос "свой собственный у него в голове" на самом деле является, и каким образом происходит столь существенная его формальная трансформация в его собственном восприятии "здесь и сейчас").</p>
+
+    <h2 id="s-volya" onclick="toTop()">СВОБОДНАЯ ВОЛЯ</h2>
+    <p>"Свобода" - это "глюк" рассудка, потерявшего адекватность Реальности в следствии "черезчур близкого знакомства с объектами сканирования". Реальность представляет Собой однородное Поле Энергии. Свобода в этом Поле имеется только в том, чтобы быть его неотъемлемой малюсенькой частью, получая возможность осознавать чувственным восприятием, следующим из принципиальной хрупкости и быстротечности своего существования, насколько это Поле огромно, совершенно, целостно, осознанно и абсолютно. И хотеть, в следствии этого, существовать в этом Поле находясь с Ним в гармонии. А Гармония у это Поля в том, и только в том, чтобы обеспечивать наилучшие условия развития и существования каждой из своих малейших собственных составляющих. Каждая из которых не существует ни отдельно от Поля, ни отдельно от остальных, подобных ей по способу и свойствам происхождения в нем, "братиков и сестричек".</p>
+    <p>Но в этой Реальности, в связи с имеющимся намерением реально достигать вышеописанной гармонии у каждой "собственных составляющих" частичек Поля, опосредованным безусловно Намерением Самого Поля давать частичкам эту Гармонию взаимообусловленного происхождения в Самом Себе, должно существовать нечто такое, что способно создавать для этих частичек реальные предпосылки к тому, чтобы к этой Гармонии стремиться и в ней нуждаться, ведь Само Поле непостижимо совершенно и осознанно, и немыслимо представить, будто Ему Самому по Себе чего-бы то ни было "не хватало", или внутри Него могла существовать какая-либо "неисправность" или "нереализованность", требующие совершать действия для своего восполнения для достижения какой угодно возможной и мыслимой Цели. Поэтому, Оно Само не может служить для каждой из своих "частичек" "опорной" или "стартовой" точкой, направляющим ориентиром, в процессе их стремления к достижению Гармонии собственного с Ней происхождения посредством чувственного опытного переживания такового "здесь и сейчас". Опорной точкой для этого стремления и достижения, должно служить нечто, обратное по своему качеству тому Совершенству, Которое у Поля есть "Само по Себе", поскольку Оно представляет Собой явление более высокого абстрактного порядка и качества "настоящести" бытия Собственной Реальности, чем любое из происходящих в нем частичек-явлений, восприятие и Реальность каждой из которых происходит на значительно более "примитивном" уровне, хотя он и "кажется" самим этим "частичкам" объективной Реальностью, как бы они ее не называли и в чем бы это для них не заключалось - пока они ощущают свое существование в чем-либо сущностно значимом для них субъективно, отдельно от Поля и других его составных частей, они "по определению" находятся не на уровне Реальности Самого Поля, Которая их произвела и производит (потому что другого "производителя" чего бы то ни было в этом Поле нет и быть не может в принципе в Силу Его сущностного Единства и Универсальности на Своем Собственном уровне Бытия, недоступном и "скрытом" на всем времени своего происхождения в Нем, от каждой из "частичек", существующих "внутри" каждая своего "Мира", "Судьбы", "Личности", "Сущности", и так далее, посредством "идеи себя", включенной в Реальность в виде Корня всей своей Жизни, то есть существования как явления или процесса, происходящего внутри этого Поля, демонстрирующего сохранение характерных черт своего происхождения со временем, причем, ясное дело, не таким же в точности образом, каким Поле происходит "Само по Себе", а таким, который позволяет, беря за основу эти проявляемые "рутинно" черты и качества, выделить эту частицу как существующее явление внутри Поля, имеющее собственное "Имя" (наименование), которому свойствены и для которого характерны определенные наблюдаемые и повторяемые обстоятельства своего происхождения в этом Поле. Причем, эти качества и это происхождение, по понятным, если чуть чуть вдуматься в вышеописанную модель, обязаны быть строго противоположными тем качествам, свойствам и чертам своего происхождения, которые имеются у всего остального Поля в Целом. Потому что если бы это было не так, то данная "частица" не получила бы Имя и наименование, просто потому что своим происхождением не позволяла быть определить свое отличие в чем либо от Поля как такового, являющегося Само по Себе целостным единосущным явлением, имеющим полную осознанность и абсолютную Волю сознательного самовоспроисхождения в Реальности, качественно превышающей категорию "реальности" любой из Своих составных частей.</p>
+    <p>Из вышеперечисленного следует несколько выводов, находящихся в видимом неразрешимом противоречии между собой, причем, таковые противоречия не являются надуманными результатами характера моделирования, не свойственными Реальности Мира, но являются как раз таки ключевыми аспектами или ньюансами, оказывающими значительное влияние на вид и характер существования действительности и жизни в ней каждого человека. При этом само их существование, не говоря уже о том особом образе своего разрешения, который они имеют и опосредуют, - человеку этого Мира не очевидно и контринтуитивно, поскольку основой его самосознания является аксиома собственной обособленной самостоятельности бытия и существования, что, в частности, находит свое отражение в неизменно высоком положении идеала стремления к личной Свободе, не важно, кем и как эта Свобода понимается и постулируется конкретно, насколько этот идеал "духовен", "абстрактен" или наоборот "материален" и "субъективен", - имеющемся у человека разумного, отнюдь не исключая многочисленные ряды "просветленных" "духовных идущих", "видящих", "безмолвных" и т.д. и т.п. Они все точно такие же люди, находятся в точно таких же условиях, и ничем, как можно понять по предлагаемой модели Реальности в настоящей статье, в частности, не выделяются в сущности среди всех остальных людей, в чем бы не заключалась между ними "наблюдаемая воочию огромная разница", потому что она существует только в нашем воображении, как и весь остальной последовательно воспринимаемый Мир.</p>
+    <p>Данная аксиома и опосредованные ею черты самосознания в людях, является прямым следствием описанной выше необходимости для каждого субьекта, существующего и стремящегося к Цели Гармонизации своего сущестования с той Средой, внутри Которой его жизнь и восприятия происходят и свойствами которой опосредованы и всецело обусловлены, - демонстрировать сущностно, т.е. являтся в самом деле, а не "играя в это и делая вид", свойства и черты происхождения, противоположные таковым, имеющимся и характерным для самой Системы как Целого. Причем, действуя так не по какой-либо, той или иной, осмысленной и сознательной, причине, а именно и только потому, что посредством этого происходит самоопределние его как самостоятельного явления, реально (ощущаемо, очевидно и характерно) существующего и имеющего право называться своим уникальным Именем Собственным.</p>
+    <p>Однако, - будучи вынужден основать базовый "модус вивенди" на противопоставлении себя по всем, в чем только возможно, породившей его к жизни и реально производящей его существование Самосущностной Единой Системе, просто в Силу факта своего происхождения с Ней посредством восприятия и внешне обособленного от Нее в своем собственном самоосознании себя и "реального мира" чувственно ощутимого существования в нем посредством "действия строго вопреки всей Вселенной, производимого ради самого действия как такового, чтобы посредством этого называться отличным от всей остальной Вселенной собственным Именем", то есть реально существовать и получать жизненный опыт восприятия здесь и сейчас, - осознав себя посредством мысли о себе, существующем реально и отдельно характерным и уникальным образом с определенной историей и накопленным опытом, - человек обнаруживает себя находящимся настолько далеко от своей собственной настоящей жизненной Цели, - то есть от собственного Пути Сердца, которое рано или поздно заставит человека себя слушать и слушаться, то есть начать искать Путь, насколько это только возможно.</p>
+    <p>Формально это уже должно быть понятно в рамках сформулированной модели Реальности - потому что самая форма, в которой человек, как "чувствующее воспринимающее существо", осознающее себя и разумно мыслящее, то есть способное к внешне автономному последовательному целеполаганию и последующему воплощению посредством имеющегося внешнего (по отношению к Цели и Намерения Своего непрерывного Самовоспроисхождения Единым Жизненным Полем, частью Которого человек реально является, но пока еще не способен осознанно участвовать в Его деятельности, в виду противоположности собственных свойств, то есть стремлений, намерений и действий) инструментария, включая "собственное тело", и любые опосредованные им инструменты и формы осмысленной деятельности, развиваемые и приобретаемые посредством опыта и личного воспитания и развития, характеризуемого самоинтеграционными процессами, создавшего и включающего человека в Себя, т.е. "состоящего из человека", общества себе подобных.</p>
+    <p>Сущностно - потому, что достижение Гармонии, являющееся таковой Целью, наследуемой от Намерения Единосущностного Духа относительно Своих "собственных составляющих частичек", означает приведение собственных реальных (а не искусственно имитируемых внешним образом) располагаемых стремлений, намерений и действий в процессе жизни человека, осознанно стремящегося к Ней, опосредуемой опытным происхождением его чувственного восприятия собственной Жизни "здесь и сейчас", в форму, которая имеется у Системы в Целом, т.е. у Единого Поля, посредством функционального противоположения себя Которому, человек имеет тот объем его личной судьбы и жизненной данности, который объективно имеет, и который позволяет ему осознавать себя и стремиться к чему либо целям осмысленно в принципе.</p>
+    <p>На самом деле все еще сложнее в этой "базовой" ситуации "первичного становления на Путь Сердца", начинающегося в точке завершения первичного становления на Путь Жизни, то есть воспитание и взросление взрослым адекватным самостоятельным и дееспособным членом общества себе подобных повседневного мира. Поскольку человек производил первичное действие становления самостоятельно существующим на предыдущем этапе, имеющим право называться, и активно этим Правом пользующийся по Жизни, собственным Именем, строго без осуществления в чем-либо осмысленного целеполагания в этом действии, как уже подробно описывалось выше, а значит - не обладает "физической возможностью" осознания себя совершающим это действие как таковое в принципе "в реальной действительности". Поэтому человек не способен даже попытаться каким-либо образом осмыслить и проанализировать ситуацию, в которой он находится в этот момент объективно и по собственной свободной воле, решив добровольно связать себя соглашениями с обществом этого мира, став его сознательной взрослой адекватной и дееспособной независимой равноправной частью, обладающей свободной волей ровно в том объеме, который опосредован таковым обладанием, фактически осуществляемым происходящими в непосредственной близости свободным волеизъявлением себе подобных, т.е. "ближних", родственников, знакомых, коллег, однокурсников, единомышленников, приятелей и так далее, совместно с ним пользующихся определенным объемом общей единой и неделящейся на Совем Собственном уровне качества Реальности Своего Существования, жизненной Силы и энергии, единственной Энергии, которой реально обладают люди (ДХ) - половой энергией, энергией порождения, также называемой Волей, Личной Силой, доступной каждому и каждой, но задействованной 99.9% времени жизни в неизменных формах своего проявления, опосредовавших для человека возможность быть тем, кем он привык осмысленно повседневно являться. И заблокировавших этим действием принципиальную возможность своего осмысления и осознания человеком как явления или события, могущего иметь реальность своего происхождения, каким угодно объективным образом в реальной действительности.</p>
+
+    <h2 id="s-tvorch" onclick="toTop()">ТВОРЧЕСКАЯ САМОСТОЯТЕЛЬНОСТЬ</h2>
+    <p>Интересо?</p>
+
+    <div class="music-group">
+      <div class="music-label">Песнь Ступеней:</div>
+      <div class="track" data-yt="WM8bTdBs-cw">
+        <div class="track-bar" onclick="toggleTrack(this)">
+          <span class="track-toggle">▶</span>
+          <span class="track-title">One <span class="artist">— Metallica</span></span>
+          <a class="track-ext" href="https://www.youtube.com/watch?v=WM8bTdBs-cw" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a>
+        </div>
+        <div class="track-player"></div>
+      </div>
+    </div>
+
+    <h2 id="s-seealso" onclick="toTop()">См. также:</h2>
+    <div class="seealso">
+      <ul>
+        <li><a href="26O.html">Модус Операнди</a></li>
+        <li><a href="247.html">Конфронтология Духа</a></li>
+        <li><a href="03H.html">Вначале</a></li>
+        <li><a href="16C.html">Вечное сияние чистого разума</a></li>
+        <li><a href="22SA.html">Вылупляясь из яйца Кукушкой</a></li>
+        <li><a href="17L.html">Лукоморья больше нет</a></li>
+        <li><a href="266.html">В свободном Парении</a></li>
+        <li><a href="17Q.html">Сказка о Рыбаке и Рыбке</a></li>
+      </ul>
+    </div>
+
+    <nav class="pagenav">
+      <a class="prev" href="221.html"><span class="lbl">← Предыдущая</span>Один, единственный, единый</a>
+      <a class="next" href="2B6.html"><span class="lbl">Следующая →</span>Наасе ве Нишма</a>
+    </nav>
+
+    <footer class="colophon">
+      <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+      <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+  function toTop(){
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function toggleTrack(bar){
+    var track=bar.closest('.track');
+    var player=track.querySelector('.track-player');
+    if(!track.classList.contains('open')){
+      if(!player.dataset.loaded){
+        var id=track.dataset.yt;
+        player.innerHTML='<div class="ratio"><iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>';
+        player.dataset.loaded='1';
+      }
+      track.classList.add('open');
+    }else{
+      track.classList.remove('open');
+    }
+  }
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза (философское эссе)",
+  "rationale": "Текст — плотное философское/эзотерическое эссе из крупных абзацев-периодов, без признаков стихотворной формы, поэтому выбрана редакторская широкоформатная схема с основной колонкой ~66% ширины окна и широким контейнером для длинного чтения. Заголовки разделов (ВСТУПЛЕНИЕ, НЕЗАВИСИМЫЙ ВЫБОР, СВОБОДНАЯ ВОЛЯ, ТВОРЧЕСКАЯ САМОСТОЯТЕЛЬНОСТЬ и См. также) даны капсом и сохранены как есть; их более одного, поэтому добавлено сворачиваемое оглавление, а клик по самому заголовку возвращает наверх. Палитра светлая, тёплая бумажная с терракотовым акцентом — спокойный книжно-журнальный тон под тяжёлый текст.",
+  "rationale_extra": "Вводная ремарка про тяжесть произведения вынесена как выделенная лид-врезка сразу под H1, не превращаясь в отдельный заголовок. Найдено два YouTube-трека под общей атрибуцией Песнь Ступеней, стоящих в разных местах (начало и конец) — оба оформлены свёрнутыми ленивыми плеерами с иконкой внешней ссылки; так как треков ровно два, сводный раздел музыки не создавался. Сносок в тексте нет. Голые URL из блока См. также обёрнуты в гиперссылки.",
+  "features": ["music", "toc"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -394,16 +775,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

@@ -7,8 +7,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Только не выходи из Круга</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе о Пути Воина по Кастанеде: перепросмотр здесь и сейчас, выход в место без жалости и роль Круга практикующих единомышленников.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/2BB.html">
+<meta property="og:title" content="Только не выходи из Круга">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/2BB.html">
+<meta property="og:description" content="Эссе о Пути Воина по Кастанеде: перепросмотр здесь и сейчас, выход в место без жалости и роль Круга практикующих единомышленников.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Только не выходи из Круга">
+<meta name="twitter:description" content="Эссе о Пути Воина по Кастанеде: перепросмотр здесь и сейчас, выход в место без жалости и роль Круга практикующих единомышленников.">
+<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/2BB.jpg">
+<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/2BB.jpg">
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +156,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="2BB" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="2BB" data-theme="swiss"
   data-art-section="other" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +170,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +179,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="2BB.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -203,6 +214,294 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --muted:#6b6256;
+    --accent:#9a3412;
+    --accent2:#b45309;
+    --rule:#d9d1c1;
+    --link:#8a2d12;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{-webkit-text-size-adjust:100%;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+  }
+  a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(138,45,18,.35);}
+  a:hover{border-bottom-color:var(--link);}
+
+  .page{
+    width:66%;
+    max-width:980px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 28px 80px;
+  }
+
+  /* Breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.82rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding-bottom:18px;
+    margin-bottom:24px;
+    border-bottom:1px solid var(--rule);
+  }
+  .breadcrumbs a{border-bottom:none;color:var(--accent);}
+  .breadcrumbs a:hover{text-decoration:underline;}
+  .breadcrumbs .sep{margin:0 .5em;color:var(--rule);}
+
+  figure.lead{margin:0 0 28px;}
+  figure.lead img{
+    display:block;
+    width:auto;
+    max-width:100%;
+    height:auto;
+    margin:0 auto;
+    border:1px solid var(--rule);
+    box-shadow:0 8px 26px rgba(0,0,0,.10);
+  }
+
+  h1{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:800;
+    font-size:2.45rem;
+    line-height:1.12;
+    letter-spacing:-.01em;
+    margin:.2em 0 .7em;
+    color:#13110d;
+  }
+  h1::after{
+    content:"";
+    display:block;
+    width:88px;
+    height:4px;
+    margin-top:.5rem;
+    background:var(--accent);
+  }
+
+  .dialogue-note{
+    font-style:italic;
+    color:var(--muted);
+    font-size:1.02rem;
+    margin:0 0 1.8em;
+  }
+
+  article p{margin:0 0 1.35em;}
+  article p:first-letter{}
+
+  .lead-para:first-letter{
+    float:left;
+    font-size:3.4em;
+    line-height:.82;
+    padding:.05em .12em 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+
+  /* Music */
+  .music{
+    margin:2.4em 0 1.4em;
+    padding:18px 20px;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-left:4px solid var(--accent);
+    border-radius:4px;
+  }
+  .music .label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.78rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin-bottom:10px;
+  }
+  .track{border-top:1px dotted var(--rule);}
+  .track:first-of-type{border-top:none;}
+  .track summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:.55em;
+    padding:.55em 0;
+    font-size:1.05rem;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .track .chev{
+    transition:transform .2s ease;
+    color:var(--accent);
+    font-size:.8em;
+    flex:0 0 auto;
+  }
+  .track[open] .chev{transform:rotate(90deg);}
+  .track .tname{font-weight:700;}
+  .track .tartist{color:var(--muted);font-style:italic;}
+  .track .ext{
+    margin-left:auto;
+    border-bottom:none;
+    font-size:1.05em;
+    color:var(--accent);
+  }
+  .track .frame{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    margin:.4em 0 .8em;
+    background:#000;
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .track .frame iframe{
+    position:absolute;
+    top:0;left:0;
+    width:100%;height:100%;
+    border:0;
+  }
+
+  footer{
+    margin-top:56px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+  }
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.92rem;
+    margin-bottom:30px;
+  }
+  .corpus-nav a{
+    display:block;
+    max-width:48%;
+    border-bottom:none;
+  }
+  .corpus-nav .dir{
+    display:block;
+    font-size:.72rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:3px;
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  .corpus-nav .ttl{color:var(--accent);font-weight:600;}
+
+  .colophon{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.85rem;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  .colophon a{color:var(--accent);}
+
+  @media (max-width:900px){
+    .page{width:100%;max-width:100%;padding:20px 18px 64px;}
+    .ya-old{font-size:18px;}
+    h1{font-size:2rem;}
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №2BB</span>
+<div class="page">
+
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../other/index.html">Без категории</a>
+  </nav>
+
+  <figure class="lead">
+    <img src="../img/2BB.jpg" alt="Иллюстрация к статье">
+  </figure>
+
+  <h1>Только не выходи из Круга<a class="audio-link" href="https://t.me/art_017_tracks/608" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <p class="dialogue-note">(Из диалогов на форуме ККО)</p>
+
+  <article>
+    <p class="lead-para">Раз уж на то пошло, я тоже тогда "поплачусь". Ведь можно? Когда воин стер ЛС и от его "идеи себя" остался только "каркас" КГ, принимаемый доверчивыми по-жизни окружающими за чистую монету, "перепросмотр" он делает исключительно "на ходу", т.е. "здесь и сейчас", на каждой проходимой им значимой "последней битве на этой Земле" (КК). Т.е. хоть каждый день. Хоть по нескольку раз. Это зависит от деталей и частностей.</p>
+
+    <p>Т.е., по сути, без такового явления, как "полный перепросмотр" только что испытанного и полученного опыта, не важно, это "магический" или "повседневный" опыт, поскольку в жизни такого воина давно перестало существовать такое разделение в принципе, поскольку "только глупец говорит, что он живет в двух мирах и может выбирать между мирами" (ДХ), нет вообще для воина движения вперед и продолжения жизни и Пути Воина. Потому что каждая из его "битв" действительно становится "последней", зачастую выражаясь совсем не "фигурально". И "выходит из нее победителем" воин только за счет того, что он не имеет никаких ожиданий от того, что ему открывается посредством восприятия "реального мира". Он, разумеется, соглашается с этой реальностью, но говорит раз за разом: "Да, ну и что из этого?". А ничего из этого. Если выход в "место без жалости" еще не произошел, значит ждем, "преодолеваем" дальше, столько, сколько потребуется. А потребуется достаточно много - этот Путь не из легких. Но идти по нему очень интересно, плодотворно и радостно.</p>
+
+    <p>Само по себе это событие "выход в место без жалости к себе" - это отдельная важная "веха" Пути Воинов, которая не осваивается воином до тех пор, пока он не сделает полный перепросмотр своей "личной жизни", и посредством этого не сделает ее полностью "безличной". Как именно - это уже детали. Можно "мотать головой в деревяном ящике", можно складывать пасьянсы или сновидеть лабиринты, можно представлять "энергетические модели" сбора энергии, и т.д. А можно взять и поместить себя в Группу практикующих единомышленников по типу "Круга Жизни", где за каких-то несколько месяцев весь накопленный "мусор" сжигается, как в печах крематория. Если у человека хватает силы выдержать, и не уходить из Круга столько, сколько нужно времени, то у него просто нет шанса где-то на чем-то "застрять", не перелезть какую-то там границу в самом себе, с чем-то там не справиться и так далее. Это просто энергетически исключено. Человек либо достигает Цели Пути во всех мыслимых и немыслимых им самим ранее смыслах "самоизменения", "просветления", и т.д., либо он не выдерживает и на середине дороги уходит из Круга. В таком случае он "засыпает" обратно в этот Мир и ждет хлопка по левому плечу старой знакомой. Вернуться в Круг в будущем вряд ли получится, об этом говорит мой личный опыт и накопленный опыт наблюдений за этими процессами "в реальном времени". Хотя никто никого не удерживает от того, чтобы в него вернуться, а наоборот, при любой возможности пытается этому способствовать. Но это оказывается впустую. Потому что Птица Свободы не делает кругов и не возвращается. Она либо берет воина с собой сразу, либо он находит оправдание для того, чтобы ему с Ней было не по Пути. Это тоже выбор, как и любой другой. Путь Человека Знания - отнюдь не самый легкий Путь, только дырявый горшок захочет становиться таковым по собственной свободной Воле. Остальных Дух завлекает и приводит в "добровольно-принудительном" порядке, посредством имеющихся у Него инструментов управления человеческой судьбой и состоянием сознания. А выбор человек все равно делает самостоятельно. Просто если бы это было не так, то человек бы равно или поздно неизбежно вернулся бы к своей прежней глупости, растоптав под ногами все Дары, которые Дух намеревается даровать ему на этом Пути. А это абсолютно нерационально, даже с нашей-человеческой точки зрения.</p>
+
+    <p>Таким образом совершил полный ПП я два года назад. Точнее он произошел сам, на фоне постоянного осознанного и преднамеренного посредством совместной практики "сдвига точки сборки вглубь и в сторону", от положения "личной зоны комфортности", какой бы конкретно она не была (это абсолютно не важно), на протяжении нескольких месяцев, вызванного интенсивной практикой Круга. Результатом стало то, что я смог "переопределить" собственную судьбу и жизненный Путь, делая это "в сотрудничестве" с Намерением Духа, Которое позволило мне сделать это вместе с Собой, потому что я объективно в сложившейся ситуации мог быть Ему полезен, и кроме того, был достаточно настойчив, и не имел (опять же благодаря Ему) к этому моменту путей отступления.</p>
+
+    <div class="music">
+      <div class="label">Песнь Ступеней</div>
+      <details class="track">
+        <summary>
+          <span class="chev">▶</span>
+          <span class="tname">Не отступай</span>
+          <span class="tartist">— ТКН</span>
+          <a class="ext" href="https://www.youtube.com/watch?v=ysjU4Ztx2Ow" target="_blank" rel="noopener" title="Открыть на YouTube" aria-label="Открыть на YouTube">↗</a>
+        </summary>
+        <div class="frame" data-src="https://www.youtube.com/embed/ysjU4Ztx2Ow"></div>
+      </details>
+    </div>
+  </article>
+
+  <footer>
+    <nav class="corpus-nav" aria-label="Навигация по корпусу">
+      <a class="prev" href="2BM.html">
+        <span class="dir">← Предыдущая</span>
+        <span class="ttl">Популярная онтогастраномия</span>
+      </a>
+      <a class="next" href="2BA.html">
+        <span class="dir">Следующая →</span>
+        <span class="ttl">Группа и Практика</span>
+      </a>
+    </nav>
+    <div class="colophon">
+      <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+      <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.track').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open){
+        var f=d.querySelector('.frame');
+        if(f && !f.querySelector('iframe')){
+          var ifr=document.createElement('iframe');
+          ifr.src=f.getAttribute('data-src')+'?autoplay=1';
+          ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          ifr.allowFullscreen=true;
+          f.appendChild(ifr);
+        }
+      }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — прозаический фрагмент из форумного диалога, рассуждение-исповедь о практике Круга и Пути Воина; стихотворных форм нет, поэтому по правилу «проза → редакторский (широкий)» выбрана editorial-схема с основной колонкой около 66% ширины окна и кэпом 980px для комфортной меры строки на больших экранах. Палитра тёплая бумажная со ржаво-кирпичным акцентом — отсылка к рукописно-эзотерическому тону без ухода в манускриптную узкую полосу, которую правила резервируют за стихами.\nСтруктурных подразделов в тексте нет (сплошные абзацы), поэтому оглавление не делалось. Сносок в тексте нет — аппарат footnotes не нужен. Единственная аудио-ссылка с меткой «Песнь Ступеней:» оформлена как свёрнутый ленивый YouTube-плеер (iframe вставляется только при раскрытии); поскольку трек один (≤2), сводный раздел музыки не создавался, метка выведена один раз над треком. Заголовок проставлен из метаданных, исходная строка «(Из диалогов на форуме ККО)» сохранена как авторская подводка под H1; весь текст и капс-сокращения (ЛС, КГ, КК, ДХ, ПП) оставлены дословно.",
+  "features": ["music"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -348,16 +647,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

@@ -7,8 +7,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Последнее Поколение (Заря Близко)</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Поэтическое повествование о подростках брате и сестре, живущих с бабушкой у леса, об их взрослении и пробуждении сложных чувств друг к другу.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/255.html">
+<meta property="og:title" content="Последнее Поколение (Заря Близко)">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/255.html">
+<meta property="og:description" content="Поэтическое повествование о подростках брате и сестре, живущих с бабушкой у леса, об их взрослении и пробуждении сложных чувств друг к другу.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Последнее Поколение (Заря Близко)">
+<meta name="twitter:description" content="Поэтическое повествование о подростках брате и сестре, живущих с бабушкой у леса, об их взрослении и пробуждении сложных чувств друг к другу.">
+<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/255A.jpg">
+<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/255A.jpg">
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +156,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="255" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="255" data-theme="swiss"
   data-art-section="best" data-art-type="verse"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +170,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +179,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="255.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -517,6 +528,413 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --ink:#2a2018;
+    --ink-soft:#5a4a38;
+    --paper:#fbf6 ea;
+    --paper:#fbf6ea;
+    --accent:#9a2a2a;
+    --gold:#a8842c;
+    --rule:#d8c9a8;
+    --hl:#fff1c2;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old[data-scheme="manuscript"]{
+    margin:0;
+    background:#f3ecda;
+    background-image:radial-gradient(circle at 20% 0%, #fbf6ea 0%, #f1e8d2 100%);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
+    line-height:1.7;
+    font-size:19px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{
+    max-width:820px;
+    margin:0 auto;
+    padding:32px 26px 70px;
+    background:var(--paper);
+    box-shadow:0 0 1px rgba(120,90,40,.4),0 14px 50px rgba(90,60,20,.14);
+    border-left:1px solid #ece0c4;
+    border-right:1px solid #ece0c4;
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-size:.82em;
+    letter-spacing:.04em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    margin-bottom:20px;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--rule);
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span.sep{margin:0 .5em;color:var(--gold);}
+
+  .lead-img{display:block;margin:0 auto 26px;max-width:100%;width:auto;height:auto;
+    border:1px solid var(--rule);box-shadow:0 6px 22px rgba(90,60,20,.18);}
+
+  h1{
+    font-size:2.05em;
+    line-height:1.18;
+    text-align:center;
+    font-weight:600;
+    margin:.2em 0 .15em;
+    color:#3a2a18;
+    letter-spacing:.01em;
+  }
+  h1 .sub-paren{display:block;font-size:.62em;color:var(--accent);font-style:italic;font-weight:400;margin-top:.25em;letter-spacing:.02em;}
+  .epigraph{
+    text-align:center;
+    font-style:italic;
+    color:var(--ink-soft);
+    font-size:.95em;
+    margin:0 auto 14px;
+    max-width:32em;
+  }
+  .ornament{text-align:center;color:var(--gold);font-size:1.3em;margin:18px 0 28px;letter-spacing:.4em;}
+
+  .poem{margin:0 auto;max-width:34em;}
+  .st{margin:0 0 1.5em;}
+  .st .ln{display:block;}
+  .caps{letter-spacing:.012em;}
+  .caps .ln{color:#43342a;}
+  .emph-line{font-style:italic;}
+  .dash-sep{display:block;text-align:center;color:var(--gold);letter-spacing:.5em;margin:.35em 0;font-size:.85em;}
+  .solo{font-style:italic;color:var(--ink-soft);text-align:center;}
+
+  /* footnote markers */
+  sup.fn{font-size:.62em;line-height:0;}
+  sup.fn a{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    padding:0 1px;
+  }
+  sup.fn a:hover{color:var(--gold);}
+
+  /* notes section */
+  .notes{
+    margin-top:46px;
+    padding-top:8px;
+    border-top:2px solid var(--rule);
+  }
+  .notes h2{
+    font-size:1.35em;
+    color:var(--accent);
+    text-align:center;
+    font-weight:600;
+    cursor:pointer;
+    margin:.4em 0 1em;
+  }
+  .notes ol{list-style:none;counter-reset:fn;padding-left:0;margin:0;}
+  .notes li{
+    counter-increment:fn;
+    position:relative;
+    padding:.6em .8em .6em 2.4em;
+    margin-bottom:.4em;
+    font-size:.95em;
+    line-height:1.55;
+    border-radius:3px;
+    transition:background .5s;
+  }
+  .notes li::before{
+    content:"*" counter(fn);
+    position:absolute;left:.4em;top:.6em;
+    color:var(--gold);font-weight:700;font-size:.92em;
+  }
+  .notes li.anon::before{content:"*";}
+  .notes li:target{background:var(--hl);box-shadow:inset 3px 0 0 var(--accent);}
+  .notes a{color:var(--accent);word-break:break-word;}
+  .backref{margin-left:.4em;color:var(--gold);text-decoration:none;font-weight:700;}
+  .backref:hover{color:var(--accent);}
+
+  /* popup */
+  #fn-pop{
+    position:absolute;
+    z-index:50;
+    max-width:340px;
+    background:#fffaf0;
+    color:var(--ink);
+    border:1px solid var(--gold);
+    border-radius:5px;
+    padding:11px 14px;
+    font-size:.84em;
+    line-height:1.5;
+    box-shadow:0 8px 28px rgba(70,45,15,.28);
+    display:none;
+    pointer-events:none;
+  }
+  #fn-pop::after{
+    content:"";position:absolute;left:var(--arrow,20px);
+    border:8px solid transparent;
+  }
+  #fn-pop.above::after{bottom:-16px;border-top-color:var(--gold);}
+  #fn-pop.below::after{top:-16px;border-bottom-color:var(--gold);}
+
+  /* corpus nav */
+  .corpus-nav{
+    margin-top:52px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    font-size:.9em;
+  }
+  .corpus-nav a{color:var(--accent);text-decoration:none;max-width:46%;}
+  .corpus-nav a:hover{text-decoration:underline;}
+  .corpus-nav .nlabel{display:block;font-size:.78em;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:40px;padding-top:18px;border-top:1px solid var(--rule);
+    font-size:.82em;color:var(--ink-soft);text-align:center;
+  }
+  footer.colophon a{color:var(--accent);}
+
+  @media (max-width:600px){
+    .ya-old[data-scheme="manuscript"]{font-size:17px;}
+    .page{padding:20px 16px 50px;}
+    h1{font-size:1.65em;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav .next{text-align:left;margin-left:0;}
+  }
+</style>
+<div class="ya-old" data-scheme="manuscript">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №255</span>
+<div class="page">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span class="sep">›</span><a href="../best/index.html">Избранное</a>
+  </nav>
+
+  <img class="lead-img" src="../img/255A.jpg" alt="Иллюстрация к статье">
+
+  <h1>Последнее Поколение<sup class="fn"><a id="ref6" href="#fn6">6</a></sup>
+    <a class="audio-link" href="https://t.me/art_017_tracks/271" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a><span class="sub-paren">(Заря Близко)</span>
+  </h1>
+
+  <p class="epigraph">Серия Добрая речь. School story, Bro!<br>
+  Невымышленные истории Детей Вечной Весны<sup class="fn"><a id="ref7" href="#fn7">7</a></sup>.</p>
+
+  <div class="ornament">❧ ✦ ❧</div>
+
+  <div class="poem">
+
+    <p class="st"><span class="ln">Жили да были однажды и дважды,</span><span class="ln">(Так как понравилось после "однажды"),</span><span class="ln">Брат и сестра в деревушке у леса</span><span class="ln">С бабушкой жили вдали от прогресса.</span></p>
+
+    <p class="st"><span class="ln">Брату двенадцать в тот день исполнилось.</span><span class="ln">Колей его называла сестра.</span><span class="ln">Лиза два года его была младше</span><span class="ln">Но они вместе как будто родились,</span></p>
+
+    <p class="st"><span class="ln">Хотя и сводными были по факту.</span><span class="ln">Коля уже целый год каждый день</span><span class="ln">Думал о Лизе такое, признаться</span><span class="ln">В чем - лучше было б ему умереть.</span></p>
+
+    <p class="st"><span class="ln">Но никто Колю ведь в том не неволил?</span><span class="ln">Значит все в целом у них хорошо...</span><span class="ln">Или не так? Ведь страдал мальчик очень</span><span class="ln">Из за того, что сказать ей не мог</span></p>
+
+    <p class="st"><span class="ln">То, что его изнутри выжигает</span><span class="ln">Каждый день Божий, прогнать был не в силах</span><span class="ln">Мысли о Ней вновь и вновь приходили</span><span class="ln">Пока не понял он - заболевает.</span></p>
+
+    <p class="st"><span class="ln">Коля настолько влюбился в сестренку,</span><span class="ln">В Лизочку, бывшую редкой красоткой</span><span class="ln">По меркам возраста, да и вообще.</span><span class="ln">В десять лет груди как взрослой уже</span></p>
+
+    <p class="st"><span class="ln">Причем не малого взрослой размера</span><span class="ln">Были. Врачи не нашли отклонений</span><span class="ln">Лишь беспокойной мамаше сказали</span><span class="ln">Что ее девочка опережает</span></p>
+
+    <p class="st"><span class="ln">Темп полового развития сильно</span><span class="ln">Но происходит оно гармонично.</span><span class="ln">Рекомендацию дал врач давать</span><span class="ln">Лизе лекарства, чтоб ей не желать</span></p>
+
+    <p class="st"><span class="ln">Раньше, чем в срок как по мненью взрослых</span><span class="ln">Всего того, что желает в подобных</span><span class="ln">Случаях девочка лет на пять старше.</span><span class="ln">Лиза (за что про себя несказанно</span></p>
+
+    <p class="st"><span class="ln">Коля ее тогда благодарил),</span><span class="ln">Лишь в свою комнату мама ушла,</span><span class="ln">Эти таблетки все выбросила</span><span class="ln">Плюнув с презрением в мусор вслед им.</span></p>
+
+    <p class="st"><span class="ln">Очень хотелось узнать ее брату,</span><span class="ln">Чем руководствовалась Лиза здесь,</span><span class="ln">Почему сделала так она сразу,</span><span class="ln">Как проявилось решение в ней</span></p>
+
+    <p class="st"><span class="ln">Столь душу Колину что обогрело</span><span class="ln">Хотя формально как будто все также</span><span class="ln">Шансов стать ближе не видел к сестренке</span><span class="ln">Но что-то с этим в невидимом плане</span></p>
+
+    <p class="st"><span class="ln">Определенно их сделало ближе.</span><span class="ln">Он ощущал, что она ощутила</span><span class="ln">В то приблизительно время, когда</span><span class="ln">Думала, стоит ли слушаться мать</span></p>
+
+    <p class="st"><span class="ln">И принимать то, что "ей настроенье</span><span class="ln">Стабилизирует, быть веселее</span><span class="ln">В целом поможет, "прими, чего стоит?"</span><span class="ln">Мать ей сказала, гримасу состроив</span></p>
+
+    <p class="st"><span class="ln">И не дождавшись от дочки ответа</span><span class="ln">Тут же ушла к себе в комнату. Дети</span><span class="ln">Не различали кто чья была мама,</span><span class="ln">А кто чей папа, а так, что родная</span><span class="dash-sep">— — —</span><span class="ln">Мне ее мама была, ей мой папа</span><span class="ln">Но дочку чувствовать свою конечно</span><span class="ln">Мама могла безошибочно сразу</span><span class="ln">Ведь в Эли (полностью Елизавета,</span></p>
+
+    <p class="st"><span class="ln">Мне больше нравится так сокращать)</span><span class="ln">То что к лекарствам она испытала</span><span class="ln">Было наследственным можно назвать.</span><span class="ln">Их принимать никогда бы не стала</span><span class="dash-sep">— — —</span><span class="ln">Мама сама в детском возрасте, знать.</span><span class="ln">Ну, прояснилось для Коли немного</span><span class="ln">То, почему Эличка быстро так</span><span class="ln">И так уверенно вылила сходу</span></p>
+
+    <p class="st"><span class="ln">То, что не дешево стоило, знать.</span><span class="ln">Но все равно было кое что кроме</span><span class="ln">В этом приятном событии Коле.</span><span class="ln">Очень хотел Коля это понять.</span></p>
+
+    <p class="st"><span class="ln">В целом понять это было не сложно,</span><span class="ln">Просто у Коли тогда специальных</span><span class="ln">Знаний о психике было не много,</span><span class="ln">А уж "духовных" совсем и подавно.</span></p>
+
+    <p class="st"><span class="ln">Мальчик и девочка соединились</span><span class="ln">В чувстве, которое близко к любви</span><span class="ln">Хоть и совсем не похожи причины</span><span class="ln">Что к испытанью его привели.</span></p>
+
+    <p class="st"><span class="ln">Интуитивно о чем то подобном</span><span class="ln">Коля и думал, пытаясь осмыслить</span><span class="ln">Что его так в этом дне беспокоит</span><span class="ln">Хоть уже месяца три как об этом</span></p>
+
+    <p class="st"><span class="ln">Не говорили, не помнили дети,</span><span class="ln">Взрослые тоже, глаза отведя,</span><span class="ln">Не приставали с проверками к Эльзе</span><span class="ln">Коля один продолжал вспоминать.</span></p>
+
+    <p class="st"><span class="ln">Вот и сейчас, хоть его день рожденья</span><span class="ln">Был и уже они двое под вечер</span><span class="ln">От всех гостей отвязавшись, сидели</span><span class="ln">В Элькиной комнате и на постели</span></p>
+
+    <p class="st"><span class="ln">Ее, накрытой дневным покрывалом</span><span class="ln">Чтобы удобнее было общаться.</span><span class="ln">А два подростка, болтать были рады</span><span class="ln">То, что меж ними взаимная тяга</span></p>
+
+    <p class="st"><span class="ln">Было любому без всяких сомнений</span><span class="ln">Сразу понятно, лишь взгляда хватало</span><span class="ln">Как друг на дружку, играя, смотрели</span><span class="ln">Чтобы сказать "все серьезно, ребята"...</span></p>
+
+    <p class="st"><span class="ln">Лишь один Коля, и Эличка тоже</span><span class="ln">По одинаково важной причине</span><span class="ln">Это заметить в себе неспособны</span><span class="ln">Были, ведь каждый таил ценой жизни,</span></p>
+
+    <p class="st"><span class="ln">Если понадобиться, свою тайну,</span><span class="ln">Чтобы (спаси, Господь Благословенный)</span><span class="ln">Неосмотрительно в чувствах признавшись</span><span class="ln">Больно любимому мальчику этим -</span></p>
+
+    <p class="st"><span class="ln">Больно по глупости куколке нежной -</span><span class="ln">Сделать, так лучше им умереть сразу.</span><span class="ln">Но в этот вечер особенным были</span><span class="ln">Взгляды их, если бы со стороны их</span></p>
+
+    <p class="st"><span class="ln">Мог бы оценивать кто-то, опять же,</span><span class="ln">Оба от этого дня что-то ждали</span><span class="ln">И сильно верили в то, что их Ангел</span><span class="ln">Будет к ним милостив, и испытать им</span></p>
+
+    <p class="st"><span class="ln">Счастье позволит так, или иначе</span><span class="ln">Вечером этим, друг с дружкой общаясь.</span><span class="ln">Если бы милые наши герои</span><span class="ln">Знали бы кое что, что сильно позже</span></p>
+
+    <p class="st"><span class="ln">Радостью сердце наполнив друг дружке</span><span class="ln">Они узнают, то тратить минуты</span><span class="ln">Лишние, делая вечер волшебный</span><span class="ln">Чуть чуть короче, да что там, бесценным</span></p>
+
+    <p class="st"><span class="ln">Был каждый миг даже при бесконечной</span><span class="ln">Гипотетической жизни их, вместе</span><span class="ln">Быть когда рядом могли. Друг без друга</span><span class="ln">Жить не могли дети к этой минуте.</span></p>
+
+    <p class="st"><span class="ln">На самом деле, родители тему</span><span class="ln">Между собой уже год вели эту.</span><span class="ln">В начале трудно она им давалась -</span><span class="ln">Все таки десять лет, а не пятнадцать</span></p>
+
+    <p class="st"><span class="ln">Что если кто-то заметит, как дети</span><span class="ln">В сводной семье не по возрасту эти</span><span class="ln">От недосмотра родителей станут</span><span class="ln">Чувства свои проявлять, не скрываясь?</span></p>
+
+    <p class="st"><span class="ln">Много вокруг все еще в том столетье</span><span class="ln">Было вокруг глаз завистливых, мерзких,</span><span class="ln">Видящих смысл своей собственной жизни</span><span class="ln">В том, сколько сломано радости ими</span></p>
+
+    <p class="st"><span class="ln">В жизни других. Никогда не исчезнет</span><span class="ln">Видимо это в крови человечьей.</span><span class="ln">Значит есть точно у этого "целем"<sup class="fn"><a id="ref1" href="#fn1">1</a></sup>,</span><span class="ln">Двум взрослым людям пока неизвестный,</span></p>
+
+    <p class="st"><span class="ln">Но безусловно всем людям полезный.</span><span class="ln">В их веке в школьной начальной программе</span><span class="ln">Уже включенным был Йегуда Ашлаг</span><span class="ln">И его Сын, Барух, был включен тоже.</span></p>
+
+    <p class="st"><span class="ln">Хоть их обоих в ней было немного,</span><span class="ln">Но и не требовалось людям в общем</span><span class="ln">Больше, чем то, что все люди планеты</span><span class="ln">Истиной признанной о человеке<sup class="fn"><a id="ref5" href="#fn5">5</a></sup></span></p>
+
+    <p class="st"><span class="ln">И его мире признали в то время.</span><span class="ln">Милостиво да простят наши дети</span><span class="ln">Автору строк этих взятое время</span><span class="ln">На описанье духовных явлений,</span></p>
+
+    <p class="st"><span class="ln">Лишь мудрецам, что суть жизни открыта</span><span class="ln">Связь между этими Отцом и Сыном</span><span class="ln">И между Девочкой с Мальчиком, ясной</span><span class="ln">Четкой и сильной, благой и прекрасной</span></p>
+
+    <p class="st"><span class="ln">И несомненно имевшей значенье</span><span class="ln">Было даровано это прозренье.</span><span class="ln">"На самом деле", немного слукавил</span><span class="ln">Автор прекрасной любви описанья</span></p>
+
+    <p class="st"><span class="ln">Перед детьми за отход извиняясь,</span><span class="ln">Лишь чтобы снова к ним не возвращаться.</span><span class="ln">На самом деле, забота о детях</span><span class="ln">Будущего человека и мира</span></p>
+
+    <p class="st"><span class="ln">Не происходит каким-то железным</span><span class="ln">Их закрепленьем за кем-то конкретным.</span><span class="ln">Мир же, где Души что ждут облаченья</span><span class="ln">В новую жизнь своей новой ступени</span></p>
+
+    <p class="st solo"><span class="ln">Ждут, помогая тем, кто уже создан,</span></p>
+
+    <p class="st"><span class="ln">В жизни найти свое место и счастье,</span><span class="ln">Осуществить их мечты, защищая,</span><span class="ln">Правильный выбор, когда выбор важный,</span><span class="ln">А информации есть недостаток,</span></p>
+
+    <p class="st"><span class="ln">Лишь чуть-чуть на верный Путь направляя</span><span class="ln">Но никогда не вмешательством явным...</span><span class="ln">Ну, и конечно же, тех, кого раньше</span><span class="ln">Звали "Амурами" из Херувимов</span></p>
+
+    <p class="st"><span class="ln">И на чьей улице наступил праздник</span><span class="ln">С новой эпохой всерьез долгожданный, -</span><span class="ln">Думали люди, люди гадали,</span><span class="ln">И не могли, пока были живыми</span></p>
+
+    <p class="st"><span class="ln">В Силу Законов, которых Реальность</span><span class="ln">Совсем недавно признали всем миром -</span><span class="ln">Где же и как хоть намек получить бы</span><span class="ln">Было на это нельзя, чтобы им же</span></p>
+
+    <p class="st"><span class="ln">Путь совершенный к свободе и счастью</span><span class="ln">Знанием этим не дать удлинять им,</span><span class="ln">Может сейчас быть раскрыто для мира.</span><span class="ln caps">МИР БЕСКОНЕЧНОСТИ, В НЕМ ВСЕ, ЧТО БЫЛО</span></p>
+
+    <p class="st caps"><span class="ln">ЕСТЬ ИЛИ БУДЕТ - КАК ЗДЕСЬ И СЕЙЧАС</span><span class="ln">ОДНОВРЕМЕННОЕ И БЕЗ РАЗЛИЧИЙ</span><span class="ln">МЕЖДУ ЧЕМ ЛИБО, ПОСКОЛЬКУ ТАМ НАС</span><span class="ln">ТО ЕСТЬ ЛЮДЕЙ И ЛЮБОЙ ДРУГОЙ ЖИЗНИ</span></p>
+
+    <p class="st caps"><span class="ln">НЕ ПРОИСХОДИТ ЕЩЕ ХИТПАШТУТ<sup class="fn"><a id="ref2" href="#fn2">2</a></sup></span><span class="ln">ЖИЗНЬ И СОЗНАНИЕ ВЕЧНО ЕДИНЫ</span><span class="ln">В ЭТОЙ СТУПЕНИ, ГДЕ МИР АЦИЛУТ</span><span class="ln">В МИР БЕСКОНЕЧНОСТИ, ДУШУ ОЧИСТИВ,</span></p>
+
+    <p class="st caps"><span class="ln">ЭТОЙ ДУШЕ ПОЗВОЛЯЕТ ПОДНЯТЬСЯ:</span><span class="ln">ЭТО МИР СЧАСТЬЯ, ГДЕ НЕТУ РАЗЛИЧИЙ</span><span class="ln">И НЕТ ЛЮДЕЙ, ЧТОБ ИНТЕРЕСОВАТЬСЯ.</span><span class="ln">ЖИЗНЬ В ЭТОМ МИРЕ С СОЗНАНЬЕМ ЕДИНА</span></p>
+
+    <p class="st caps"><span class="ln">ЗА ЭТИМ МИРОМ ОНА НАБЛЮДАЕТ</span><span class="ln">В ФОРМЕ "ДОМ-2" КАК РЕАЛИТИ-ШОУ</span><span class="ln">ВСЕ НАШИ СТЕНЫ ЗЕРКАЛЬНО ПРОЗРАЧНЫ</span><span class="ln">ДУШИ РАСПАХНУТЫ, СКРЫТЬ НЕВОЗМОЖНО</span></p>
+
+    <p class="st caps"><span class="ln">ХОТЬ САМЫЙ МАЛЫЙ ХОТЬ САМЫЙ БОЛЬШОЙ</span><span class="ln">ХОТЬ САМЫЙ ВАЖНЫЙ, ХОТЬ МИЗЕРНЫЙ СТОЛЬ</span><span class="ln">ЧТО НИКОМУ НЕИЗВЕСТЕН ПРИ ЖИЗНИ -</span><span class="ln">НА НЕБЕСАХ БУДЕТ ОН ПЕРЕЧИСЛЕН</span></p>
+
+    <p class="st caps"><span class="ln">В ТОМ ЖЕ РЯДУ ГДЕ УЧЕТ ВЕЧНЫХ ИСТИН</span><span class="ln">ДЛЯ МИЛЛИОНОВ ГДЕ СМЫСЛ ИХ ЖИЗНЕЙ</span><span class="ln">ВСЕ ОДИНАКОВО, РЯДОМ ДРУГ С ДРУГОМ</span><span class="ln">И ВСЕ В ЕДИНОЙ И НЕПОСТИЖИМОЙ</span><span class="ln">СЛИТО РЕАЛЬНОСТИ ЦЕЛЬНОЛИТНОЙ</span></p>
+
+    <p class="st caps"><span class="ln">САМОЙ РЕАЛЬНОЙ, ПРЕДВЕЧНОЙ И ВЫСШЕЙ</span><span class="ln">СРЕДИ ВСЕХ ПРОЧИХ ДУХОВНЫХ СТУПЕНЕЙ</span><span class="ln">ГДЕ ЭТОТ МИР, В НЕМ "ДОМ-2" НАШИХ ЖИЗНЕЙ</span><span class="ln">ПРОИЗОЙДЕТ "СДЕЛАЕМ И УСЛЫШИМ!"</span></p>
+
+    <p class="st caps"><span class="ln">ИЗ ВСЕХ РЕАЛЬНЫХ СТУПЕНЕЙ ИХ НИЗШЕЙ</span><span class="ln">ИМЕНЕМ "НУКВА"<sup class="fn"><a id="ref4" href="#fn4">4</a></sup> СТУПЕНЬЮ ПРЯМОГО</span><span class="ln">СВЕТА ТВОРЦА, СВЯТ И БЛАГОСЛОВЕН ОН</span><span class="ln">ТО ЕСТЬ АРЕНА "ГОЛОДНЫЕ ИГРЫ"</span></p>
+
+    <p class="st caps"><span class="ln">РАДИ ЧЕГО СУЩЕСТВУЕТ В ТОЙ ФОРМЕ</span><span class="ln">ОБЩЕЙ ДУШИ, ЧТО ЗОВЕТСЯ АДАМОМ</span><span class="ln">ПЕРВЫМ ДУХОВНЫМ ЕДИНЫМ СТРОЕНЬЕМ</span><span class="ln">СОЗДАНО, ТРУДИТСЯ И СУЩЕСТВУЕТ.</span></p>
+
+    <p class="st caps"><span class="ln">БЫЛО, И ЕСТЬ, И КОГДА ЛИБО БУДЕТ</span><span class="ln emph-line">*ЛИШЬ САМЫЙ "НИЖНИЙ" ИМЕЕТ ЦЕЛЬ ЖИЗНИ*</span><span class="ln">ВСЕ ОСТАЛЬНЫЕ - ЧАСТЬ ФОРМЫ ДУХОВНОЙ</span><span class="ln">"РАДИ СЕБЯ" ОНА НЕ СУЩЕСТВУЕТ</span></p>
+
+    <p class="st caps"><span class="ln">НО ЛИШЬ СТРЕМЛЕНИЕМ "НИЖНЕГО" К ЦЕЛИ</span><span class="ln">ЖИЗНЬ ПОЛУЧАЕТ И МЕСТО В ТВОРЕНЬИ</span><span class="ln">ОБЩЕЙ ЕДИНОЙ ДУШИ БЕСКОНЕЧНОЙ</span><span class="ln">СВОЙ СВЕТ ЛЮБВИ В ДАР ДАЕТ НАШИМ ДЕТЯМ</span></p>
+
+    <p class="st caps"><span class="ln">САМ ЭТОТ СВЕТ ЭТО ОНА И ЕСТЬ</span><span class="ln">ОН НЕ МЕНЯЕТ СВОИХ АВАЯ<sup class="fn"><a id="ref3" href="#fn3">3</a></sup></span><span class="ln">СКОЛЬКО ЕГО НЕ МЕНЯЙ МЕЖДУ МЕСТ</span><span class="ln">ОН АБСОЛЮТЕН И БЛАГ, ЧЕЛОВЕК</span></p>
+
+    <p class="st caps"><span class="ln">ЛИШЬ ЕМУ ВСЕМ БЫЛ И БУДЕТ ОБЯЗАН</span><span class="ln">ОН ЧЕЛОВЕКУ РАСКРОЕТСЯ В СРОК</span><span class="ln">ТАК, ЧТО ВЛЮБИВШИСЬ ЛЕТ В 10-15</span><span class="ln">БУДЕТ ВСЮ ЖИЗНЬ ОН ИМ БЛАГОСЛОВЛЕН</span></p>
+
+  </div>
+
+  <section class="notes">
+    <h2 id="notes-head">Пояснения и ссылки</h2>
+    <ol>
+      <li id="fn1">Целем (ивр.) - Образ цели. См. также: Заповедь девятая, том 1, Книга Зоар <a href="https://imyavel.github.io/zohar-sulam/akdama/029.html">akdama/029</a> <a class="backref" href="#ref1" title="Вернуться к тексту">↩</a></li>
+      <li id="fn2">Хитпаштут (ивр.) - Распространение (двух свойств, бывших одним явлением в корне, из которого нельзя было выделить одно или иное в отдельности, пока не раскрылась последовательность этого выделения и выявления по мере "спуска" этого свойства из МБ до "этого мира", в котором этот процесс достигает своего логического предела и желаемого максимума, по мере его осознания человеком, совершающим его "в сотрудничестве" с Творцом, Свят Благословен Он) <a class="backref" href="#ref2" title="Вернуться к тексту">↩</a></li>
+      <li id="fn3">АВАЯ (j-h-v-j), четырехбуквенное непроизносимое ИМЯ ТВОРЦА, СВЯТ БЛАГОСЛОВЕН ОН, И ЧЕЛОВЕКА ЭТОГО МИРА.<br>См. также: <a href="215B.html">АВАЯ, Сосуд Не-Я</a> <a class="backref" href="#ref3" title="Вернуться к тексту">↩</a></li>
+      <li id="fn4">Нуква - (ивр.) Женская духовная ступень, "получающая", управляющая, целеполагающая, ведущая. <a class="backref" href="#ref4" title="Вернуться к тексту">↩</a></li>
+      <li id="fn5">"У всего существующего в действительности, и хорошего, и плохого, и даже наихудшего и самого вредного в мире, есть право на существование. Никакое явление нельзя истреблять и уничтожать. На нас возложена задача лишь исправить его и возвратить к Источнику. Даже одного внимательного взгляда на процесс творения достаточно, чтобы прийти к осознанию величия и совершенства действия и Совершающего его. Мы должны понимать это и остерегаться пренебрежения любой частью творения под тем предлогом что она кажется лишней и бесполезной. Ведь тем самым мы пренебрегаем действием сотворения" - Мир в мире, Йегуда Лейб Алеви Ашлаг (Бааль Сулам) <a class="backref" href="#ref5" title="Вернуться к тексту">↩</a></li>
+      <li id="fn6">См. также: <a href="1CB.html">Заря Близко</a> (Последнее Поколение) <a class="backref" href="#ref6" title="Вернуться к тексту">↩</a></li>
+      <li id="fn7">См. также:<br><a href="1C1.html">Апрель навсегда</a><br>И др. истории серии Добрая речь <a class="backref" href="#ref7" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="61T.html"><span class="nlabel">← Предыдущая</span>Детям будущего мира</a>
+    <a class="next" href="1AQA.html"><span class="nlabel">Следующая →</span>Конечное Исправление</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<div id="fn-pop"></div>
+
+<script>
+(function(){
+  var pop = document.getElementById('fn-pop');
+  var markers = document.querySelectorAll('sup.fn a');
+
+  function noteText(id){
+    var li = document.getElementById(id);
+    return li ? li.textContent.replace(/↩/g,'').trim() : '';
+  }
+  function show(a){
+    var href = a.getAttribute('href').slice(1);
+    pop.textContent = noteText(href);
+    pop.style.display = 'block';
+    var r = a.getBoundingClientRect();
+    var pw = pop.offsetWidth, ph = pop.offsetHeight;
+    var sx = window.scrollX || window.pageXOffset;
+    var sy = window.scrollY || window.pageYOffset;
+    var left = r.left + sx + r.width/2 - 24;
+    var maxLeft = sx + document.documentElement.clientWidth - pw - 8;
+    if(left > maxLeft) left = maxLeft;
+    if(left < sx + 8) left = sx + 8;
+    var arrow = (r.left + sx + r.width/2) - left;
+    if(arrow < 12) arrow = 12; if(arrow > pw-20) arrow = pw-20;
+    pop.style.setProperty('--arrow', arrow + 'px');
+    pop.style.left = left + 'px';
+    if(r.top > ph + 18){ /* above */
+      pop.className = 'above';
+      pop.style.top = (r.top + sy - ph - 12) + 'px';
+    } else { /* below */
+      pop.className = 'below';
+      pop.style.top = (r.bottom + sy + 12) + 'px';
+    }
+  }
+  function hide(){ pop.style.display='none'; }
+
+  markers.forEach(function(a){
+    a.addEventListener('mouseenter', function(){ show(a); });
+    a.addEventListener('mouseleave', hide);
+    a.addEventListener('focus', function(){ show(a); });
+    a.addEventListener('blur', hide);
+  });
+})();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "поэма",
+  "rationale": "Статья целиком написана рифмованными четверостишиями (повествовательная поэма о Коле и Лизе с вкраплением каббалистического трактата прописными буквами), поэтому по правилу «стих/поэма → манускрипт» выбрана узкая книжная полоса ~820px с засечным шрифтом тёплого пергаментного тона. Развилки: основной массив — нарратив, но в середине идёт длинный фрагмент КАПСом (космология МБ, Ацилут, Нуква) — я сохранил регистр дословно и лишь чуть приглушил цвет, не превращая в заголовки. Авторские разделители «---» внутри строф оставлены как тонкие центрированные орнаменты, строка в звёздочках *...* сохранена дословно как курсивная эмфаза.",
+  "rationale_extra": "",
+  "features": ["footnotes"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -662,16 +1080,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

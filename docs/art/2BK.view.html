@@ -7,8 +7,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Парадок Создателя</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе о парадоксе сотворения мира согласно Книге Зоар и Торе: автор размышляет о приставке Со- в слове сотворение и роли человека.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/2BK.html">
+<meta property="og:title" content="Парадок Создателя">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/2BK.html">
+<meta property="og:description" content="Эссе о парадоксе сотворения мира согласно Книге Зоар и Торе: автор размышляет о приставке Со- в слове сотворение и роли человека.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Парадок Создателя">
+<meta name="twitter:description" content="Эссе о парадоксе сотворения мира согласно Книге Зоар и Торе: автор размышляет о приставке Со- в слове сотворение и роли человека.">
+<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/2BK.jpg">
+<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/2BK.jpg">
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +156,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="2BK" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="2BK" data-theme="swiss"
   data-art-section="best" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +170,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +179,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="2BK.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -217,6 +228,281 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --ink:#1c1a17;
+    --paper:#f7f4ee;
+    --muted:#6b6256;
+    --rule:#d8cfbf;
+    --accent:#9a3b1b;
+    --accent2:#b8702a;
+    --link:#8a3415;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{ -webkit-text-size-adjust:100%; }
+  .ya-old{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    line-height:1.72;
+    font-size:20px;
+  }
+  .wrap{
+    width:66%;
+    max-width:1020px;
+    margin:0 auto;
+    padding:36px 28px 80px;
+  }
+  @media (max-width:1100px){ .wrap{ width:82%; } }
+  @media (max-width:760px){
+    .ya-old{font-size:18px;}
+    .wrap{ width:100%; padding:22px 18px 60px; }
+  }
+
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:12px;
+    margin-bottom:22px;
+  }
+  .breadcrumbs a{ color:var(--muted); text-decoration:none; }
+  .breadcrumbs a:hover{ color:var(--accent); }
+  .breadcrumbs .sep{ margin:0 .5em; color:var(--rule); }
+
+  .lead-image{ display:block; margin:0 auto 26px; max-width:100%; width:auto; height:auto; }
+
+  h1{
+    font-size:2.15em;
+    line-height:1.12;
+    font-weight:700;
+    letter-spacing:-.01em;
+    margin:.2em 0 .9em;
+    color:var(--ink);
+  }
+  h1::after{
+    content:"";
+    display:block;
+    width:84px;
+    height:3px;
+    background:var(--accent);
+    margin-top:.45em;
+  }
+
+  p{ margin:0 0 1.25em; text-align:justify; hyphens:auto; }
+  .article > p:first-of-type::first-letter{
+    font-size:3.4em;
+    line-height:.82;
+    float:left;
+    padding:.06em .12em 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+  a{ color:var(--link); }
+
+  /* see-also */
+  .see-also{
+    margin:2.4em 0 1.6em;
+    padding:18px 22px;
+    background:#efe9dd;
+    border-left:4px solid var(--accent2);
+    font-size:.96em;
+  }
+  .see-also .label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-size:.74em;
+    color:var(--muted);
+    margin-bottom:.6em;
+  }
+  .see-also ul{ margin:0; padding-left:1.1em; }
+  .see-also li{ margin:.35em 0; }
+
+  /* music */
+  .music{ margin:2.2em 0; }
+  .music .m-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-size:.72em;
+    color:var(--accent);
+    margin-bottom:.55em;
+    font-weight:700;
+  }
+  details.track{
+    border:1px solid var(--rule);
+    border-radius:6px;
+    background:#fff;
+    overflow:hidden;
+    margin-bottom:8px;
+  }
+  details.track summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:.6em;
+    padding:13px 16px;
+    font-size:.95em;
+    user-select:none;
+  }
+  details.track summary::-webkit-details-marker{ display:none; }
+  .t-arrow{
+    transition:transform .2s ease;
+    color:var(--accent2);
+    font-size:.85em;
+    flex:0 0 auto;
+  }
+  details.track[open] .t-arrow{ transform:rotate(90deg); }
+  .t-title{ flex:1 1 auto; }
+  .t-title b{ font-weight:700; }
+  .t-title span{ color:var(--muted); }
+  .t-ext{ flex:0 0 auto; text-decoration:none; color:var(--muted); font-size:1.05em; }
+  .t-ext:hover{ color:var(--accent); }
+  .t-frame{ position:relative; width:100%; aspect-ratio:16/9; background:#000; }
+  .t-frame iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+  /* bottom nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:3em;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.9em;
+  }
+  .corpus-nav a{ text-decoration:none; color:var(--link); max-width:46%; }
+  .corpus-nav a:hover{ color:var(--accent); }
+  .corpus-nav .dir{ display:block; text-transform:uppercase; letter-spacing:.06em; font-size:.78em; color:var(--muted); margin-bottom:.25em; }
+  .corpus-nav .next{ text-align:right; margin-left:auto; }
+
+  footer.colophon{
+    margin-top:2.4em;
+    padding-top:18px;
+    border-top:1px solid var(--rule);
+    font-size:.82em;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{ color:var(--link); }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №2BK</span>
+<div class="wrap">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../best/index.html">Избранное</a>
+  </nav>
+
+  <img class="lead-image" src="../img/2BK.jpg" alt="">
+
+  <h1>Парадок Создателя<a class="audio-link" href="https://t.me/art_017_tracks/257" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <section class="music">
+    <div class="m-label">Музыка под настроение:</div>
+    <details class="track" data-embed="eyBG-YFo4Vc">
+      <summary>
+        <span class="t-arrow">▶</span>
+        <span class="t-title"><b>Time (Время) Inception (Начало)</b> <span>— Joslin (Hans Zimmer)</span></span>
+        <a class="t-ext" href="https://www.youtube.com/watch?v=eyBG-YFo4Vc" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </summary>
+      <div class="t-frame"></div>
+    </details>
+  </section>
+
+  <div class="article">
+
+    <p>Приставка "Со-" в Слове "сотворение" указывает на то, что в этом Действии ("Берешит", с которого начинается Тора, Книга Зоар, Библия, ...) Творец, Свят Благословен Он, хоть и будучи Единоличной реальной Высшей Силой, совершающей этого действие во всем, что "вещественно и объективно" совершается в Реальном Мире чем или кем либо вообще посредством Его совершения Творцом, Свят Благословен Он, "первоначально" (то есть в Реальности, в Которой нет "миллионов Световых лет пустой Вселенной, тысяч километров Земной поверхности, миллиардов людей на планете Земля, тысяч лет исторbи человеческой цивилизации, десятков лет человеческой жизни, и так далее, а есть только одно единственное действие, кроме Которого нет ничего, что можно было бы добавить к тому что просто "Есть", в котором нет времени или пространства, равно как и множественности деятелей, действий или задействуемых ими явлений, образующих "вереницу изменения свойств" "колеса времени этого мира", точнее говоря, "любого воспринимаемого Мира", поскольку именно восприятие человека "запускает в движение" эту Колесницу, а Мир посредством этого является не более (и не менее) чем тем, чем его непрерывно согласованно "намеревают" посредством взаимообусловленного процесса коллективной групповой "настройки восприятия" "взрослые современные люди", которые одновременно воспринимают его примерно одинаковым образом, независимо от обстоятельств, могущих быть связанными "с ними лично").</p>
+
+    <p>Указывает на то, что, не смотря на все вышеперечисленное и не перечисленное, но подразумеваемое кем либо, Творец, Свят Благословен Он, Реально выполняющий это действие "Вначале", т.е. еще до того, как человек создается и начинает жить в этом созданном Творцом, Свят Благословен Он, Мире, становящимся для него Действительностью (Асия), внешне-независимой от его собственных желаний, чаще всего им испытываемых "конфронтологично" тому, что является результатом чувственного восприятия "объективной реальности" в части оказываемого влияния на него лично, "здесь и сейчас".</p>
+
+    <p>Выполняет Его не Один и не Сам по Себе, хотя больше с Ним Его выполнять, по всем мыслимым и немыслимым, но реальным от этого в не меньшей мере и степени, "понятиям", "Законам", "обстоятельствам" Своего происхождения, Которое, напомню, происходит в Супер-реальности Абсолюта, где все времена, формы материи, сознания, действия, явления и т.д., еще не стали тем, чем они выглядят для человека, воспринимающего и "наблюдающего" за ними посредством органов чувств и разума "этого Мира". Поскольку это именно действие "со-творения", а не "просто творения", в котором был бы создан тот, кого вознамерился создать Создатель, "без учета", как говорится, в виду собственной малости и мимолетности, "особого мнения" создаваемого субъекта (что вполне соответствует порядку и норме логических конструкций, с которыми хорошо и близко освоен наш разум и интеллект - ведь как можно при создании "творения", не важно, какого именно и каким образом, действительно руководствоваться "особым мнением" того, кто не то, что еще не обладает каким либо личным мнением, но и кого еще вообще нет в реальном Мире, поскольку он только должен быть, посредством этого Действия своего Создателя, буквально "создан из ничего"?).</p>
+
+    <p>В действительности этот вопрос, могущий казаться софистическим, ошибочным или наигранным (нереальным, надуманным и объективно малозначимым), является одним из фундаментальных парадоксов человеческого бытия и сознания, наподобие широко известного "быть или не быть", с которым человеку и человечеству предстоит "лично встретиться" в уже не столь отдаленном будущем, когда мечты о создании "искусственного интеллекта" перестанут быть "чистой воды" фантазией и фантастикой, и станут частью "будничной" реальности повседневного человеческого Мира "здесь и сейчас", примерно также, как ею за какие-то два десятилетия стал компьютер и Интернет. По моим ощущениям, разрешить этот "парадокс" практически окажется легко, а вот объяснить его онтологически и теоретически, полноценно и "строго по Научному" может быть значительно сложнее и занять гораздо больше времени, как самого человека, так и (включая) того, Кто и Кого этим самым действием своего Творца, Свят Благословен Он, то есть, человека Этого Мира "объективной реальной действительности", в процессе и посредством постановки, осознания и практического и онтологического разрешения данного Парадокса (не случайно, как оказывается, слова "порядок", "подарок" и "парадокс" формально синонимичны, как минимум, в русском языке) человечеством, будет создан, сформирован, испытан и задействован в достижении конкретных практических задач своего "создания из ничего" (в просторечии "создание из ничего" отражается фразеологизмом "на коленке") человеком, являющимся для него "старшей духовной сущностью", реальность которой непостижима для разума, но гораздо более реальна, чем сам разум как явление и онтологическое средство самососуществования человека и человечества в "этом" реальном "мире".</p>
+
+    <p>Человеком, для которого будущая Реальность совершения Им данного действия, или данной сферы деятельности и публичного, равно как и лично-частного интереса, деятельности и направленности жизненных стремлений, целей, намерений, идеалов, посредством важности и приоритетности перед многими другими, наполняющими и составляющими коллективное семантическое поле "тоналя времени", условно называемое "магами и воинами" выражением "здесь и сейчас", сферами интересов и практической деятельности человека разумного в третьем тысячелетии, символизирующем окончание становления Человека с большой буквы, то есть многочисленного в количестве "себе подобных" на Планете Земля, "Царем над Природой" этого Мира, то есть, иначе говоря, создания, формирования и "взрослого" становления и осознания самого себя Творцом, Свят Благословен Он, выполняющим работу Творца, Свят Благословен Он, чтобы раскрыть этим своего Творца, Свят Благословен Он, и выполнить Его Волю, соединив со своей собственной свободной волей по желанию сердца и твердому решению разума и воли, также проходящих непростой и нелегкий процесс соединения и самососуществования в человеке и человечестве, осуществляемый посредством конфронтологической взаимообусловленности своего одновременного самовоспроисхождения с человеком, получающим опыт жизни этого мира посредством, осознанного разумом, чувственного восприятия, осуществляемого посредством воли, опосредованной конкретным намеренным действием "здесь и сейчас" выполняемым полностью "от обратного".</p>
+
+    <p>В этом особом месте Бущущего "этого мира" произойдет (и уже начинает происходить), вынужденное соединение двух представлявшихся человеку на протяжении всего долгого Пути собственного Начала эволюционного формирования и развития, абсолютно не связанными сущностно, и даже отрицающими друг друга, областями Знания, "базисными экзистенциально-онтологическими модусами", являющихся двумя "полюсами" человеческого бытия и эволюционно последовательного развития - мира разума, или научной рациональной просвещенности, и мира воли, или "магической"/"духовной" пробужденности и осознанности. Поскольку и то и другое окажется нерасчленимо задействованы в реальности совершаемого единого действия и взаимной деятельности, становящейся, по мере своего осуществления, выяснения, формирования и становления "взрослой" сферой жизненных интересов все большего числа людей, и опосредуя жизненно важные обстоятельства и механизмы остальной части, не вникающей лично и непосредственно в то, "из чего состоит и как и кем производится" то, посредством чего они "просто живут, как все" на Земле, пользуясь "благами цивилизации" современного им Мира и общества.</p>
+
+    <p>Соединение, опосредованное тем фактом, все больше и больше проявляющим себя и тем и другим, как "благодаря", так и "строго против", их собственным представлениям, намерениям, и, кажущимся незыблемыми и неизменными, насущным интересам, стремлениям и потребностям, которые имеются у них наследственным образом, как у представителей течений и направлений, исторически широко задействованных и принимающих непосредственное участия, являясь неотъемлемой частью, единого процесса эволюционного развития человека и человечества, длящегося на протяжении многих веков, и впереди уходящего за горизонт "будущности" любой меры "просматриваемой отдаленности от настоящего". Поскольку и одни и вторые будут нуждаться в друг друге конкретно и практически, каждый со своей стороны видя и осознавая "объективно независимо" от своих собственных "особых мнений" на этот счет, объективное значение взаимного участия в этом процессе, важным для каждого со своей стороны, но важного равным "жизненным", несократимым образом, для каждого и каждой из них...</p>
+
+    <aside class="see-also">
+      <div class="label">См. также (Э.Б.М.):</div>
+      <ul>
+        <li><a href="247.html" target="_blank" rel="noopener">Конфронтология самовоспроисхождения человеческого Духа</a></li>
+        <li><a href="246.html" target="_blank" rel="noopener">Сияние Утренней Звезды</a></li>
+        <li><a href="1BJ.html" target="_blank" rel="noopener">Киберсон</a></li>
+      </ul>
+    </aside>
+
+  </div>
+
+  <section class="music">
+    <div class="m-label">Музыка под настроение:</div>
+    <details class="track" data-embed="ba9AeUMjoBo">
+      <summary>
+        <span class="t-arrow">▶</span>
+        <span class="t-title"><b>Terminator 2 - Main theme</b> <span>— Joslin - Brad Fiedel</span></span>
+        <a class="t-ext" href="https://youtu.be/ba9AeUMjoBo" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </summary>
+      <div class="t-frame"></div>
+    </details>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="266.html"><span class="dir">← Предыдущая</span>В Свободном Парении</a>
+    <a class="next" href="539.html"><span class="dir">Следующая →</span>Сон Жены Рыбака</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('details.track').forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if(d.open){
+        var frame = d.querySelector('.t-frame');
+        if(frame && !frame.querySelector('iframe')){
+          var id = d.getAttribute('data-embed');
+          var ifr = document.createElement('iframe');
+          ifr.src = 'https://www.youtube.com/embed/' + id + '?rel=0&autoplay=1';
+          ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          ifr.allowFullscreen = true;
+          frame.appendChild(ifr);
+        }
+      }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза (философское эссе)",
+  "rationale": "Текст — сплошная философско-онтологическая проза с очень длинными периодами и без стихотворных строк, поэтому выбрана редакторская широкоформатная схема: основная колонка ~2/3 ширины окна с разумным max-width, чтобы длинные предложения дышали, но мера строки оставалась читаемой. Манускрипт отвергнут, так как нет ни стихов, ни строфики. Палитра тёплая бумажная с терракотовым акцентом — спокойный лонгрид; буквица на первом абзаце задаёт журнальный тон, не добавляя нового контента.\n\nДва трека помечены одной и той же атрибуцией 'Музыка под настроением:', но стоят в разных местах (начало и конец) и не идут подряд, поэтому метка сохранена у каждого; оба ведут на YouTube и сделаны сворачиваемыми плеерами с ленивой подгрузкой iframe только при раскрытии. Распознанных треков всего два (не больше двух), поэтому сводный раздел музыки не создавался. Сносок в тексте нет, подразделов с заголовками нет — оглавление не требуется. Блок 'См. также' и голые URL обёрнуты в гиперссылки; КАПС, кавычки и опечатки оригинала ('Парадок', 'исторbи', 'Бущущего') сохранены дословно."
+,
+  "features": ["music"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -362,16 +648,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

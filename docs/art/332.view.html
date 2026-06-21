@@ -7,8 +7,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ТИХАЯ ТАКТИКА АТАКИ АТИКА</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе о тишине ума, перепросмотре и намерении духа, с отсылками к Кастанеде и каббале; размышления о времени, реальности и самопамяти воина.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/332.html">
+<meta property="og:title" content="ТИХАЯ ТАКТИКА АТАКИ АТИКА">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/332.html">
+<meta property="og:description" content="Эссе о тишине ума, перепросмотре и намерении духа, с отсылками к Кастанеде и каббале; размышления о времени, реальности и самопамяти воина.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ТИХАЯ ТАКТИКА АТАКИ АТИКА">
+<meta name="twitter:description" content="Эссе о тишине ума, перепросмотре и намерении духа, с отсылками к Кастанеде и каббале; размышления о времени, реальности и самопамяти воина.">
+<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/332.jpg">
+<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/332.jpg">
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +156,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="332" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="332" data-theme="swiss"
   data-art-section="confront" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +170,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +179,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="332.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -234,6 +245,319 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --muted:#6b6258;
+    --accent:#9a3b2e;
+    --accent2:#b8762a;
+    --rule:#ddd4c4;
+    --link:#8a2f24;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1000px;
+    min-height:100vh;
+    margin:0 auto;
+    background:var(--paper);
+    padding:42px 64px 70px;
+    box-shadow:0 0 60px rgba(0,0,0,.06);
+  }
+  /* Breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:22px;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs .sep{margin:0 .5em;color:var(--rule);}
+  /* Lead image */
+  .lead-img{display:block;margin:0 auto 26px;max-width:100%;width:auto;height:auto;border-radius:2px;}
+  /* Title */
+  h1{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:800;
+    font-size:40px;
+    line-height:1.12;
+    letter-spacing:-.01em;
+    margin:.2em 0 .1em;
+    color:var(--ink);
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin-bottom:26px;
+  }
+  /* TOC */
+  .toc{
+    background:#f1ece0;
+    border:1px solid var(--rule);
+    border-left:4px solid var(--accent);
+    border-radius:4px;
+    padding:14px 22px;
+    margin:0 0 34px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .toc summary{
+    cursor:pointer;
+    font-weight:700;
+    font-size:14px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    outline:none;
+  }
+  .toc ol{margin:14px 0 4px;padding-left:1.4em;}
+  .toc li{margin:.32em 0;font-size:16px;}
+  .toc li ol{margin:.2em 0;}
+  .toc a{color:var(--link);text-decoration:none;}
+  .toc a:hover{text-decoration:underline;}
+  /* Sections */
+  h2{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:800;
+    font-size:27px;
+    line-height:1.2;
+    margin:1.7em 0 .55em;
+    padding-top:.3em;
+    color:var(--accent);
+    border-top:2px solid var(--rule);
+  }
+  h3{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    font-size:20px;
+    margin:1.3em 0 .4em;
+    color:var(--accent2);
+  }
+  h2 a,h3 a{color:inherit;text-decoration:none;}
+  h2 a:hover,h3 a:hover{text-decoration:underline dotted;}
+  p{margin:0 0 1.15em;text-align:justify;hyphens:auto;}
+  a{color:var(--link);}
+  /* Music */
+  .music-group{margin:1.6em 0;}
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin-bottom:8px;
+    font-weight:700;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:6px;
+    background:#f9f5ec;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 16px;
+    cursor:pointer;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    user-select:none;
+  }
+  .track-head:hover{background:#f2ecdd;}
+  .track-arrow{
+    transition:transform .2s;
+    color:var(--accent);
+    font-size:13px;
+    width:1em;
+    flex:none;
+  }
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-title{font-weight:700;font-size:16px;}
+  .track-artist{color:var(--muted);font-size:15px;}
+  .track-ext{margin-left:auto;color:var(--accent);text-decoration:none;font-size:16px;flex:none;}
+  .track-ext:hover{color:var(--accent2);}
+  .track-body{display:none;padding:0 16px 16px;}
+  .track.open .track-body{display:block;}
+  .track-body .ratio{position:relative;padding-bottom:56.25%;height:0;border-radius:5px;overflow:hidden;background:#000;}
+  .track-body iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+  /* Bottom nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:54px;
+    padding-top:22px;
+    border-top:2px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    display:block;
+    max-width:46%;
+    text-decoration:none;
+    color:var(--link);
+  }
+  .corpus-nav .dir{
+    font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px;
+  }
+  .corpus-nav .nxt{text-align:right;margin-left:auto;}
+  .corpus-nav a:hover .ttl{text-decoration:underline;}
+  /* Footer */
+  footer{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:14px;
+    color:var(--muted);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    line-height:1.55;
+  }
+  footer a{color:var(--accent);}
+  @media (max-width:900px){
+    .wrap{width:100%;max-width:100%;padding:24px 18px 50px;}
+    .ya-old{font-size:18px;}
+    h1{font-size:31px;}
+    h2{font-size:23px;}
+    p{text-align:left;}
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №332</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <img class="lead-img" src="../img/332.jpg" alt="">
+
+  <div class="kicker">ТИКТАК</div>
+  <h1>ТИХАЯ ТАКТИКА АТАКИ АТИКА<a class="audio-link" href="https://t.me/art_017_tracks/441" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <details class="toc" open>
+    <summary>Содержание</summary>
+    <ol>
+      <li><a href="#s-preface">Предисловие форума</a></li>
+      <li><a href="#s-part1">Часть 1. Целем Элоким</a>
+        <ol>
+          <li><a href="#s-states">Состояния 1, 2, 3 (ОП, _, ОП_ОХ)</a></li>
+        </ol>
+      </li>
+      <li><a href="#s-music">Песнь Ступеней</a></li>
+    </ol>
+  </details>
+
+  <section>
+    <h2 id="s-preface"><a href="#top">Предисловие форума</a></h2>
+    <p>Тишина в голове - это пустой звук. Звон, застывший в воздухе посредством остановки волей потока слов, это то, что возвращает человеку утерянную память о себе, делающим восприятие "миром слов", забывая в которых себя, человек выполняет безупречно свою непосредственную задачу и "команду орла", оказываясь в созданной "из ничего" реальности "объективного внешнего мира", являясь в нем объектом "разумной человеческой личностью", внешне обособленной от миллионов других таких же объектов, каждый из которых имеет свободу воли, и применяет ее, "думая и принимая решения", чтобы действовать в согласии с ними, достигая целей, которые сам перед собой ставит осознанно. Все это ложь. А кто сказал, что воин не должен лгать? Гарри Поттер? Хрена лысого - Долорес Амбридж, с подачи Сами-Знаете-Кого. Воин, который поступает по чести и совести, последователен и постоянен - это дырявый фуфел, на котором изображен дырявый горшок в естественной среде - внутри ящика перепросмотра. Воин, который имеет хотя бы чуть-чуть воображения и сообразительности, поймет, что польза, которую выполняет этот ящик в точности дублируется тем "полезным эффектом", которым его гниющее тело будет обладать посредством упаковки в герметичный гроб перед захоронением в Землю. А если у него уже есть этот "полезный эффект" в точности, в том, что неизбежно скоро станет исключительно реальной частью его "личной истории", то вместо дублирующих форм действий он может взять и заняться чем-либо в точности более полезным и оригинальным, чего с ним действительно никогда не происходило. Например, научиться помнить себя совершающим "волей" предательство забвения самого себя в том объеме "реального мира", который он фантазирует строго "в соответствии с инструкцией" несбывшегося клиента несуществующего сервера, работа которого реальна лишь тогда, когда желание оказывается человека в точности "ее остановить". Как и все остальное, объективно реально существующее в мире слов мертвых героев.</p>
+  </section>
+
+  <section>
+    <h2 id="s-part1"><a href="#top">Часть 1. Целем Элоким</a></h2>
+
+    <h3 id="s-states"><a href="#top">Состояния 1, 2, 3 (ОП, _, ОП_ОХ)</a></h3>
+
+    <p>Время - это Намерение Духа, которое скрывается в действии Орла, создавая нагвалей М+Ж, в осознании которых это действие раскрывается, а первичное Намерение ими заимствуется как Кли для совершения с ним действия уподобления Духу Жизни, Свят Благословен Он, по свойствам, производя его в отношении следующей ступени их эволюционной формы, которая формируется в скрытии пока они находятся в раскрытии взрослой сформированной формы, чтобы посредством ухода из этого мира (полный издохехут 1 ступени КЖ) произвести переворот и стать формируемой в скрытии формой будущего мира, напротив раскрытой сформированной формой, располагаемой у имеющейся эволюционной ступени их формы здесь и сейчас.</p>
+
+    <p>Время является воздействием выраженной квантовой природы, т.е. приходящей равными порциями одинаковым образом, независимо ни от чего. Его в точности преднамеренная форма направленного происхождения, целью которой становится тот, кто это "видит", осознает и воспринимает, являясь важной частью происходящего здесь и сейчас, на которую возложено завершение начатого Творцом, Свят Благословен Он, еще тогда, когда их не было в проекте, которого тоже не было. Это по версии "первого внимания" этого мира. А по версии "второго внимания", которое задействуется в процессе исследования энформационных взаимодействий и форм, этим "проектом", в котором есть все, что потом будет бегать, думать, любить, мечтать и молиться, равно как и все опущенные формы, в которых это что-то проходит многочисленные ступени подготовки к тому, чтобы решить, НАФИГА ему может быть в точности нужно "брать на себя смелость" называть "своим Именем" "то самое" действие, "прототип" которого есть у Творца, Свят Благословен Он, и нет у человека, потому он ему нафиг не нужен, без сопровождения точной пошаговой "инструкцией по использованию", которую можно исполнить и забыть, о чем там было написано.</p>
+
+    <p>Намерением Духа является ротация формы "целем элоким", производимая человеком в "этом мире" и "будущем мире", в форме двух ступеней, в каждой из которых по два человека, одновременно приходящих в этот мир, противоположного пола. Когда одна пара достигает своего первого гадлута (одновременно опосредуя гадлут связанной с их формой, временем ступени Круга Жизни, проходящего эволюцию наравне с эволюцией личной каждого участника, эволюцией базовой формы, включенной в Круг, и являющейся его неделимой основой, поскольку в ней содержится минимально требуемый набор качеств, явлений и навыков, который позволяет им существовать в собственном времени автономно, когда это требуется им для выполнения текущей выполняемой задачи и нахождения в располагаемой форме, связанной с Келим этого мира.</p>
+
+    <p>Этот минимум является двумя самостоятельными «потоками», логика которых имеет заметные отличия, которым, в целом (являясь, разумеется, свойством женского и мужского типа энформационного строения, или типами Точки Сборки, или предрасположенностями внимания), соответствует «второе внимание», «действие», в котором отсутствует включение семантики внешней к «несущему потоку», и которое, поэтому, происходит «в силу привычки, ставшей второй натурой», т.е. закрепления «несгибаемого намерения», как инструмента «жизни вопреки», что является общим характером явления, которое К.Кастанеда называет «волей», т.е. скрытой способностью человека воздействовать на «реальность Эманаций Орла», поскольку сам является в точности такой же «эманацией», точнее ее исполнительной частью, в зависимости от формы своего восприятия здесь и сейчас и имеющегося энформационного контекста.</p>
+
+    <p>И соответствует тому, что К.Кастанеда называет «Мир Разума», или «первое внимание», или «слепое намерение», а мы называем «миром слов» (традиционно вкладываемые в уста мертвых героев, и произносимые с придыханием, без тени понятия о том, что вообще говоря хотел сказать герой, который говорил это, еще будучи живым и бодрым деревяным мальчиком, с надписью «я настоящий мальчик!!!111», прибитой гвоздями к бруску туловища в районе грудной клетки.), «Катнут», «Мечта», «Решимот», «Образ Действия», «Идея Себя», «СКРЫТИЕ», поскольку, являясь открытым принципиально, реальность «разума» одновременно во всех случаях действуя этим набором слов претендующих быть взаимосвязанными каким-либо в точности полезным образом, - «забывает» собой то, что действие это, в общем  и целом, равно как и в частных деталях своего происхождения и осуществления, характерных чертах, формах и задачах, является принципиально КОМПОЗИТНЫМ явлением, которое «составлено» одновременным происхождением в осознании, жизни, чувстве, разуме, внимании, времени, и так далее, принципиально различных по сути и смыслу, явлений реального мира, только лишь взаимовключение которых посредством действия, с намерением, соединяющем «целем элоким», равно как и его посредством все, что последовательно должно быть «раскрыто», «исправлено» (путем раскрытия и переворота из катнута в гадлут, выполнением в точности ради собственной цели, у которой отсутствует внешнее включение) и использовано по назначению теми, Кто «находясь в сотрудничестве с Творцом, Свят Благословен Он», «создающим их Мужчиной и Женщиной», чтобы «вложить Слова Свои в уста твои» посредством соединения «действия и слышания», «речи и голоса», «прошлого и будущего», «духовного и материального», «реального и иллюзорного» и всего всего что только может, но не хочет, и хочет, но не может, и все равно делает вопреки, то есть наоборот, без какого либо уважения к тому, что «полагается», «правильно», «безупречно», «осознанно» и так далее, им, если бы им было дело до «особых мнений» кого бы то ни было во Вселенной, кроме друг друга, кроме как «полезного тренажера» в навыке делать вопреки, предавая всех и вся, в первую очередь себя самого, чтобы в итоге оказываться делающим именно то и так, как им самим и Творцу, Свят Благословен Он, требовалось и было получено.</p>
+
+    <p>Разум не описывает Мир, он является формой скрытия реальности, в которой человек пока еще не может находиться постоянно, поскольку у нее нет стабильного устойчивого состояния, способного к самовоспроизводству во времени полезным образом, но каждое такое нахождения человека «во втором внимании», и тем более, в «Нагвале», т.е. в том, что не является никаким вниманием, но из реальности чего начинается действием, повторяя которое по собственной свободной воле, человек «замыкает» первое, либо второе «кольцо Силы», разница между которыми сводится, без усложнений описываемой модели, к определению включенных в данное «действие» ступеней «Альфа» и «Омега», причина и следствие, воля и разум, действие и ощущение.</p>
+
+    <p>Пока на «том конце», т.е. конце конца, который «здесь и сейчас» у человека имеется, и ждет от него той или иной меры осознанного включения в его выполнение в соответствии с собственным осознанием, намерением и решением, связанными с пониманием и состоянием сознания, т.е. в общем случае, опять же, если не плодить сущности, делая в точности «вопреки» или «назло» маме и папе, бабушке дедушке, тете и дяде, «кто людям помогает, тот тратит время зря. Хорошими делами прославиться нельзя». Поэтому, человек не принимает в расчет до самого последнего момента, когда уже деваться просто некуда, исключительную реальность и серьезность формулировки «намерения, доставить наслаждение или пользу кому-то другому», то есть не самому себе и не таким образом, каким это входит в точности в имеющиеся у «самого себя» «представления о прекрасном и ужасном», «нужном и бесполезном», «добром и бедном», «осмысленным и безблагодатным». И так далее. А просто другому, не себе, сделать очень приятно, не делая (в ответ на его воздействие с целью «насладить» на меня) того, что ненавижу в себе, т.е. того, что я делаю скрыто в форме «разумно мыслящим существует», при этом «стирая» память о себе, находящемся в реальном мире, где это действие производится строго «вопреки» на всех этапах своего происхождения, осознания и выполнения кем угодно вообще, поскольку в Мире нет никакого смысла, и нет никакой цели и намерения кроме того, которое включено в отношение делающего действие к тому, кто с ним будет его делать вместе, и это отношение не является «причинно-следственным там-парару рам» объективным обстоятельством, которое описывают словами мертвых героев, а является простым фактом, который в Книге Зоар описывается «мне это нравится», а также мы говорим «мне туда надо» (первая формулировка и характерное свойство – это вариант «мужского» типа внимания, вторая – «женского», то есть вполне прозрачно, поскольку «нравится» это отношение, которое является важной формой «Мечты», как части реальности «первого внимания» или «Мира Разума», а вторая форма «туда надо» – это форма действия, которое осуществляется тем, кому туда надо, либо не осуществляется в соединении с тем, кому туда не надо, но кто там окажется так или иначе не смотря ни на что, потому что это надо Тому, Кто Силой Мысли Делает для нас все это в точности выполнимым последовательным процессов в точности направленным туда, куда мы сами бы без сомнений направили себя, если бы могли находиться там одновременно с тем, откуда это направление требовалось осуществить, не находясь и не зная о том в точности что либо, кроме того, что им туда надо и все тут.</p>
+  </section>
+
+  <section id="s-music">
+    <h2><a href="#top">Песнь Ступеней</a></h2>
+    <div class="music-group">
+      <div class="music-label">Песнь Ступеней:</div>
+      <div class="track" data-embed="vV9tFTTsidc">
+        <div class="track-head" role="button" tabindex="0">
+          <span class="track-arrow">▶</span>
+          <span><span class="track-title">Часики (2019) 0+</span> — <span class="track-artist">Егор Крид, Валерия</span></span>
+          <a class="track-ext" href="https://www.youtube.com/watch?v=vV9tFTTsidc" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+        </div>
+        <div class="track-body"></div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="corpus-nav">
+    <a href="2BS.html" class="prv">
+      <span class="dir">← Предыдущая</span>
+      <span class="ttl">Чему пока детей не учат в Школе</span>
+    </a>
+    <a href="2CL.html" class="nxt">
+      <span class="dir">Следующая →</span>
+      <span class="ttl">Тыр-пыр 9 дыр части 1-3</span>
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<a id="top"></a>
+
+<script>
+  document.querySelectorAll('.track').forEach(function(tr){
+    var head=tr.querySelector('.track-head');
+    function toggle(e){
+      if(e.target.closest('.track-ext'))return;
+      var open=tr.classList.toggle('open');
+      var body=tr.querySelector('.track-body');
+      if(open && !body.dataset.loaded){
+        var id=tr.dataset.embed;
+        body.innerHTML='<div class="ratio"><iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>';
+        body.dataset.loaded='1';
+      }
+    }
+    head.addEventListener('click',toggle);
+    head.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle(e);}});
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — плотная эзотерико-философская проза (длинные абзацы рассуждений, без стихотворной строфики), поэтому выбрана редакторская широкоформатная схема, а не узкий каббалистический манускрипт. Основная колонка задана на 66% ширины окна (с потолком 1000px) для журнального лонгрида; на мобильных — полная ширина и выравнивание влево вместо justify. Палитра тёплая, светлая, бумажная с кирпично-охряными акцентами, чтобы поддержать «форумно-манускриптную» тему без перегруза.\n\nРазвилки: заголовок взял из самого текста (ТИКТАК как кикер, основная строка как H1), название proza.ru совпадает по смыслу. Разделов больше одного (Предисловие, Часть 1 с подразделом Состояния, плюс музыка) — поэтому добавлено сворачиваемое оглавление, по умолчанию развёрнутое; клик по заголовкам секций возвращает наверх. Сносок в тексте нет — feature footnotes не применён. Музыкальный трек один (Песнь Ступеней — Егор Крид, Валерия — Часики, YouTube), поэтому сводный раздел музыки не создавался (порог >2); сделан одиночный ленивый раскрывающийся плеер с меткой атрибуции, значками стрелки и внешней ссылки. КАПС (НАФИГА, СКРЫТИЕ, КОМПОЗИТНЫМ) и авторская пунктуация сохранены дословно.",
+  "features": ["music", "toc"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -379,16 +703,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

@@ -7,8 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Действуя посредством воли...</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе о воине, который в последней битве следует стратегии Бенефактора, не индульгируя и не цепляясь за исход событий.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/1CIC.html">
+<meta property="og:title" content="Действуя посредством воли...">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/1CIC.html">
+<meta property="og:description" content="Эссе о воине, который в последней битве следует стратегии Бенефактора, не индульгируя и не цепляясь за исход событий.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Действуя посредством воли...">
+<meta name="twitter:description" content="Эссе о воине, который в последней битве следует стратегии Бенефактора, не индульгируя и не цепляясь за исход событий.">
+
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +155,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="1CIC" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="1CIC" data-theme="swiss"
   data-art-section="confront" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +169,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +178,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="1CIC.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -192,6 +202,214 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f7f4ee;
+    --paper:#fffdf9;
+    --ink:#1f1c18;
+    --muted:#6b6258;
+    --accent:#8a5a2b;
+    --accent-soft:#b98a52;
+    --rule:#e3dccf;
+    --link:#7a4a1f;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{ -webkit-text-size-adjust:100%; }
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    line-height:1.7;
+    font-size:20px;
+  }
+  a{ color:var(--link); text-decoration:underline; text-underline-offset:2px; }
+  a:hover{ color:var(--accent); }
+
+  .page{
+    width:66%;
+    max-width:1180px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 40px 64px;
+  }
+
+  /* Breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:0.82rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:14px 0 22px;
+    border-bottom:1px solid var(--rule);
+    margin-bottom:34px;
+  }
+  .breadcrumbs a{ color:var(--muted); text-decoration:none; }
+  .breadcrumbs a:hover{ color:var(--accent); text-decoration:underline; }
+  .breadcrumbs .sep{ margin:0 .55em; color:var(--accent-soft); }
+
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:0.85rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:14px;
+  }
+
+  h1.title{
+    font-size:2.6rem;
+    line-height:1.15;
+    font-weight:600;
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .title-rule{
+    width:84px;
+    height:3px;
+    background:var(--accent);
+    margin:26px 0 40px;
+    border:none;
+  }
+
+  article{
+    font-size:1.12rem;
+  }
+  article p{
+    margin:0 0 1.5em;
+    text-align:justify;
+    hyphens:auto;
+  }
+  article p:first-of-type::first-letter{
+    float:left;
+    font-size:4.4rem;
+    line-height:0.78;
+    padding:6px 12px 0 0;
+    color:var(--accent);
+    font-weight:600;
+  }
+
+  .seealso{
+    margin-top:48px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    font-size:1rem;
+    color:var(--muted);
+  }
+  .seealso .lbl{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:0.8rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-right:.5em;
+  }
+
+  /* Bottom corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    margin-top:60px;
+    padding-top:28px;
+    border-top:2px solid var(--accent-soft);
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    color:var(--ink);
+    flex:1 1 0;
+    max-width:48%;
+  }
+  .corpus-nav .dir{
+    display:block;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:0.75rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:6px;
+  }
+  .corpus-nav .t{
+    display:block;
+    font-size:1.05rem;
+    line-height:1.3;
+  }
+  .corpus-nav a:hover .t{ color:var(--accent); text-decoration:underline; }
+  .corpus-nav .next{ text-align:right; }
+
+  footer.colophon{
+    margin-top:48px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:0.86rem;
+    line-height:1.55;
+    color:var(--muted);
+  }
+  footer.colophon p{ margin:0 0 .6em; }
+
+  @media (max-width:900px){
+    .ya-old{ font-size:18px; }
+    .page{ width:100%; max-width:100%; padding:20px 20px 48px; }
+    h1.title{ font-size:2rem; }
+    article{ font-size:1.05rem; }
+    article p{ text-align:left; }
+    .corpus-nav{ flex-direction:column; }
+    .corpus-nav a{ max-width:100%; }
+    .corpus-nav .next{ text-align:left; }
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №1CIC</span>
+<div class="page">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <div class="dateline">18 декабря 2021 г.</div>
+  <h1 class="title">Действуя посредством воли...<a class="audio-link" href="https://t.me/art_017_tracks/461" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <hr class="title-rule">
+
+  <article>
+    <p>Действуя посредством “воли”, в отношении непрерывности самого себя и “личной истории”, оказываясь “внутри” театра боевых действий своей последней битвы, воин вместо того, чтобы индульгировать в том, какой он бедный и несчастный, либо, с равной вероятностью и пользой, проникнуться собственной крутостью и превосходством над прочими акторами, интересантами и обстоятельствами, следует тщательно выверенной стратегии своего Бенефактора, которая самим фактом включения воина в свою “последнюю битву” здесь и сейчас, оказывается включена в развитие событий реального мира, делая происхождение этих событий частью более масштабного процесса, корни которого выходят далеко за рамки логики происходящего на сцене открытых действий, и доступного пониманию человеческой личности, которой воин, включаясь в происходящее с ним и вокруг него точно также, как и все остальные его участники, вне всякого сомнения и во всех возможных и невозможных смыслах в этот момент является, не имея “за душой” никаких тайных козырей, которые могли бы обеспечить ему в этой битве решающее преимущество, поскольку воину вообще нет никакого дела до того, каким будет ее ход и результат, но лишь в той в точности мере и степени важности для него самого происходящего, равно как и прилагаемых им самим усилий, решений и действий, производимых по привычной человеку логике развития событий и их осмысливания расстановкой сфер интересов действующих лиц, их компетентностью, сноровкой и удачей, кроме той меры и степени важности, которые непосредственно следуют из вышеупомянутой стратегии, посредством того, что воин обнаруживает их объективное наличие у самого себя по мере приложения им усилий и совершения действий, предполагаемых характером непосредственного развития событий. В этом он тоже ничем не отличается от произвольного участника развивающихся, по мере розыгрыша участниками своих и чужих "карт" и "позиций", обстоятельств, делающих тот или иной исход битвы более или менее вероятным, пока его включение и активное участие в разворачивающееся на сцене действие не будет реализовано полностью, то есть, до своего логического и фактического конца, который полностью раскрывает "карты" воина и делает его проигрыш или выигрыш в этой битве автоматическим событием, на исход которого воин своими действиями больше никак не влияет.</p>
+
+    <p class="seealso"><span class="lbl">См. также:</span></p>
+  </article>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="1CIB.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="t">Сталкинг Сталкеров</span>
+    </a>
+    <a class="next" href="1CJ.html">
+      <span class="dir">Следующая →</span>
+      <span class="t">Ты ничего не знаешь про существование души...</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой единый философско-эзотерический прозаический фрагмент — одно огромное сложноподчинённое предложение-период плюс строка \"См. также\" со ссылкой. Это плотная аналитическая проза, а не стих, поэтому выбрана редакторская широкоформатная схема с колонкой ~66% ширины окна и засечной антиквой для медленного вдумчивого чтения; узкий манускрипт здесь неуместен, так как нет стихотворной формы.\n\nПодразделов нет (всего один абзац), поэтому оглавление не строилось; сносок, музыкальных ссылок и внутренних маркеров в тексте нет — соответствующая обвязка не добавлялась. Голый URL из \"См. также\" обёрнут в гиперссылку дословно. Сохранены авторские кавычки разных типов (“ ” и \" \") как в исходнике. Дату вынес отдельной надстрочной строкой-датлайном, чтобы не дробить заголовок; заголовок взят из метаданных источника. Применена буквица в начале единственного абзаца как акцент длинного периода и тонкие коричневые линейки для книжно-редакторского характера на светлом фоне.",
+  "features": []
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -337,16 +555,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

@@ -58,6 +58,29 @@ const docsRoot = join(root, "..", "docs");
 const displayConfig = JSON.parse(readFileSync(join(docsRoot, "config", "display.json"), "utf8"));
 const siteConfig = JSON.parse(readFileSync(join(data, "site.json"), "utf8"));
 
+// ── «old» (6-й дизайн): тело архивного старого html → ctx.legacyBody ──────────
+// Вынимаем то, что покажем в Shadow DOM: все <style> из <head> + тело <body>.
+// Селекторы :root/body/html в шадоу не матчатся (нет этих элементов и :root) →
+// ремапим: :root→:host (CSS-переменные старого дизайна), body/html→.ya-old (обёртка
+// тела). Инлайн-<script> оставляем — boot исполнит их scoped к shadow root (lazy-YT,
+// сноски). <script src=ya-switch> (если затесался в тело) вырезаем — он не нужен.
+const legacyDir = join(root, "legacy_html");
+function extractLegacy(oldHtml) {
+  const styles = [];
+  oldHtml.replace(/<style\b[^>]*>([\s\S]*?)<\/style>/gi, (m, css) => { styles.push(css); return m; });
+  const bm = /<body\b([^>]*)>([\s\S]*?)<\/body>/i.exec(oldHtml);
+  if (!bm) return "";
+  const bodyInner = bm[2].replace(/<script\b[^>]*\bya-switch[^>]*><\/script>\s*/gi, "");
+  const remap = (css) => css
+    .replace(/:root\b/g, ":host")
+    .replace(/(^|[\s,{}>+~()])body\b/g, "$1.ya-old")
+    .replace(/(^|[\s,{}>+~()])html\b/g, "$1.ya-old");
+  const styleBlock = styles.map((c) => `<style>${remap(c)}</style>`).join("\n");
+  const schemeM = /\bdata-scheme\s*=\s*("[^"]*"|'[^']*')/i.exec(bm[1]);
+  const schemeAttr = schemeM ? ` data-scheme=${schemeM[1]}` : "";
+  return `${styleBlock}\n<div class="ya-old"${schemeAttr}>${bodyInner}</div>`;
+}
+
 let ids = process.argv.slice(2);
 if (!ids.length) {
   ids = readdirSync(docsArt)
@@ -69,7 +92,10 @@ for (const art of ids) {
   try {
     const zml = readFileSync(join(docsArt, `${art}.zml`), "utf8");
     const rec = manifestByArt[art] || { art, section: "other", title: "", url: "" };
-    const html = renderArticleHtml({ zml, rec, manifest, manifestByArt, zoharIndex, template, properNouns, displayConfig, siteConfig });
+    let legacyBody = "";
+    try { legacyBody = extractLegacy(readFileSync(join(legacyDir, `${art}.html`), "utf8")); }
+    catch (e) { legacyBody = ""; } // нет архива (zml-only статья) → опция «old» скрыта
+    const html = renderArticleHtml({ zml, rec, manifest, manifestByArt, zoharIndex, template, properNouns, displayConfig, siteConfig, legacyBody });
     writeFileSync(join(docsArt, `${art}.view.html`), html);
     console.log("OK", art, "->", `art/${art}.view.html`, html.length, "B");
   } catch (e) {

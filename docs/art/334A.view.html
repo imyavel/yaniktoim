@@ -7,8 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ллл. Внимание Человека</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе о внимании человека как квантово-механическом процессе, формирующем восприятие реальности, и о сходстве этого процесса с игрой ребёнка и взрослого.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/334A.html">
+<meta property="og:title" content="Ллл. Внимание Человека">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/334A.html">
+<meta property="og:description" content="Эссе о внимании человека как квантово-механическом процессе, формирующем восприятие реальности, и о сходстве этого процесса с игрой ребёнка и взрослого.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ллл. Внимание Человека">
+<meta name="twitter:description" content="Эссе о внимании человека как квантово-механическом процессе, формирующем восприятие реальности, и о сходстве этого процесса с игрой ребёнка и взрослого.">
+
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +155,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="334A" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="334A" data-theme="swiss"
   data-art-section="cyberson" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +169,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +178,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="334A.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -200,6 +210,217 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f5f2ea;
+    --paper:#fffdf8;
+    --ink:#1f1c17;
+    --muted:#6c645a;
+    --accent:#8a5a2b;
+    --accent-soft:#c9a36a;
+    --rule:#e0d8c8;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{-webkit-text-size-adjust:100%;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .page{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 32px 80px;
+  }
+
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:26px 0 4px;
+    border-bottom:1px solid var(--rule);
+    margin-bottom:30px;
+  }
+  .breadcrumbs a{color:var(--muted);}
+  .breadcrumbs a:hover{color:var(--accent);}
+  .breadcrumbs .sep{margin:0 .55em;color:var(--accent-soft);}
+
+  /* layout: wide content ~2/3 */
+  .layout{
+    display:grid;
+    grid-template-columns:minmax(0,2fr) 1fr;
+    gap:56px;
+    align-items:start;
+  }
+  .content{min-width:0;}
+  .rail{
+    position:sticky;
+    top:32px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px;
+    line-height:1.6;
+    color:var(--muted);
+    border-left:2px solid var(--rule);
+    padding-left:24px;
+  }
+  .rail .kicker{
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:12px;
+    color:var(--accent);
+    margin-bottom:14px;
+  }
+
+  header.article-head{margin-bottom:38px;}
+  h1{
+    font-size:46px;
+    line-height:1.12;
+    font-weight:700;
+    margin:0 0 18px;
+    letter-spacing:-.01em;
+  }
+  .lede-rule{
+    width:90px;
+    height:3px;
+    background:var(--accent);
+    margin:0 0 6px;
+  }
+
+  .content p{
+    margin:0 0 1.45em;
+    text-align:justify;
+    hyphens:auto;
+  }
+  .content > p:first-of-type::first-letter{
+    float:left;
+    font-size:4.6em;
+    line-height:.82;
+    padding:.04em .12em 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+
+  /* footer corpus nav */
+  .corpus-nav{
+    margin-top:64px;
+    padding-top:28px;
+    border-top:1px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    display:block;
+    max-width:46%;
+  }
+  .corpus-nav .dir{
+    display:block;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:5px;
+  }
+  .corpus-nav .ttl{font-family:Georgia,serif;font-size:18px;}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:48px;
+    padding-top:26px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent);}
+  footer.colophon .attrib{margin:0 0 .5em;}
+
+  @media (max-width:900px){
+    .ya-old{font-size:18px;}
+    .layout{grid-template-columns:1fr;gap:0;}
+    .rail{display:none;}
+    h1{font-size:34px;}
+    .page{padding:0 20px 60px;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav a{max-width:100%;}
+    .corpus-nav .next{text-align:left;}
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №334A</span>
+<div class="page">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../cyberson/index.html">Киберсон</a>
+  </nav>
+
+  <div class="layout">
+    <main class="content">
+      <header class="article-head">
+        <div class="lede-rule"></div>
+        <h1>Ллл. Внимание Человека<a class="audio-link" href="https://t.me/art_017_tracks/336" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+      </header>
+
+      <p>То, что мы привыкли называть "объективной реальностью вокруг нас", в действительности является работой нашего внимания, являющегося сложным "квантово механическим системным динамическим процессом", и именно свойства этого процесса, и его происхождение "наблюдаемым образом здесь и сейчас" мы описываем и изучаем, говоря себе о том, что изучаем "реальный внешний мир".</p>
+
+      <p>Этот процесс имеет действительно сложную "квантовую природу", настолько сложную, что все сложности, с которыми когда либо сталкивался и еще столкнется человеческий разум, в процессе "эволюции научного познания", является прямым следствием, точнее говоря, единственная настоящая причина этих сложностей заключается, в "сложности", в природе и характере реального наблюдаемого (испытываемого в процессе получения жизненного опыта) происхождения вышеуказанного процесса, являющегося истинным, действительным "предметом изучения", или тем явлением, которое мы изучаем и можем изучать вообще, поскольку именно этот процесс является "Альфой" и "Омегой" того, что становится, посредством своего происхождения в восприятии человека, "реальным объективным внешним миром объектов, существующим от человека независимо".</p>
+
+      <p>Тем не менее, эта "сложность" несколько отличатся по своей природе и свойствам, из нее проистекающим, от того понимания "сложности" чего бы то ни было, с которым мы привыкли сталкиваться в процессе разрешения и классификации различных жизненных, научных и творческих задач реального мира. Эта сложность носит характер увлекательной игры, в которую увлеченно играет ребенок под присмотром взрослого, который для него эту игрушку организовал, и сам с ним непосредственно в нее играет, действуя по "правилам игры", и позволяя этим правилам "действовать правильно" в отношении ребенка, чтобы ему было интересно играть, и главное, чтобы идея, заложенная в сам характер игры, реализовывалась практически, а именно, конструктивное и полезное творческое развитие внимания ребенка, формируя внутри него на "игровой среде" механизмы и навыки, которые затем, в дальнейшей жизни и воспитании, будут играть немаловажную роль опорных основ дальнейших последовательных микро-эволюционных вех его собственного развития и формирования, от уровня "ползающего покемона" до уровня "взрослой образованной и просвещенной творчески мыслящей человеческой личности".</p>
+
+      <p>Только, при этом, и ребенок и взрослый, а заодно и все остальное, из чего состоит игровой процесс, и посредством чего, и каким образом, он осуществляется, и так далее, и тому подобное, то есть все вообще - это одно и то же явление "реального Мира", реального в несколько ином смысле этого слова, чем мы привыкли обычно вкладывать, но передать словами которое невозможно, можно только сказать, и этого будет достаточно, что сам этот факт, даже без дополнений и пояснений, без многочисленных свойств и опосредуемых качеств и характера происхождения дальнейшего "игрового процесса", то есть всей человеческой жизни, без разделения ее на "научную", "бытовую", "творческую", "духовную" и иные "особо важные области, обладающие своим набором особенностей и характера происхождения" - на самом деле все происходит одинаково, и со всеми всегда оно просто происходит и все, и посредством этого происходит все остальное, что происходит, уже являясь тем, что человек делает с тем, что с ним происходит постоянно одинаково и очень просто, квантовым "повторяющимся порциями" образом, как Намерение "реального Мира", не того, что мы привыкли называть таковым, а более глубинного, не подчиняющегося законам здравого смысла и линейного мышления, но формирующий их как очень узкий частный случай всего того огромного объема, который он формирует и управляет, посредством воздействия на восприятие человека "Своим Намерением", в котором все заключено единовременно, независимо от того, на какой стадии реализации этого "чего-то" человек в данный конкретный момент находится, объективно, субъективно и независимо, но каждый раз двигает происхождение этого процесса, в котором находится человек, вперед и вперед, по заранее заложенной в "объективные (скрытые пока от человека) законы восприятия", единой целевой функциональной логики "цели жизни и смысла ее происхождения" с человеком, независимо от того, делает он или не делает из этого выводы, соответствующие этому "энергетическому факту" по смыслу (т.е. описывающему объективно не зависящее от принятой парадигмы мироописания явление, доступное человеку посредством прямого энформационного (энерго-информационного) контакта своего осознания и той воли/действия "невидимой", в обыкновенном смысле слова, Силы, формирующей для него реальность "здесь и сейчас").</p>
+
+      <nav class="corpus-nav">
+        <a class="prev" href="32F.html">
+          <span class="dir">← Предыдущая</span>
+          <span class="ttl">Ллл Дорогу Осилит Идущий</span>
+        </a>
+        <a class="next" href="33D.html">
+          <span class="dir">Следующая →</span>
+          <span class="ttl">Никтояим</span>
+        </a>
+      </nav>
+
+      <footer class="colophon">
+        <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+        <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+      </footer>
+    </main>
+
+    <aside class="rail">
+      <div class="kicker">Киберсон</div>
+      <div>Внимание Человека</div>
+    </aside>
+  </div>
+
+</div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — сплошное философско-эссеистическое рассуждение из четырёх крупных абзацев прозы, без стихотворных строк, поэтому выбрана редакторская широкоформатная схема, а не узкий манускрипт. Контейнер задан широким (~1180px) с сеткой 2fr/1fr: основная колонка занимает примерно 2/3 ширины, справа — тонкий sticky-рельс как воздух и ориентир раздела; на мобильном рельс скрыт и контент занимает полную ширину. Палитра тёплая бумажная на светлом фоне с коричневым акцентом — спокойное длинное чтение; буквица в первом абзаце даёт журнальный лонгрид-характер. Оглавление не делалось: в статье нет подразделов (один цельный текст). Музыки, сносок и галерейных меток в тексте нет, поэтому соответствующие механизмы не задействованы. Кавычки-ёлочки и специфические авторские обороты, капитализация ('Альфой', 'Омегой', 'Своим Намерением') сохранены дословно.",
+  "features": []
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -345,16 +566,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

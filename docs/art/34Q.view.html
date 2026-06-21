@@ -7,8 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ОДИН НА ВСЕХ</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Стихотворение Элиягу Бар Малея о коллективной ответственности и природе зла, проводящее параллель между Гитлером и обыденным человеческим лицемерием.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/34Q.html">
+<meta property="og:title" content="ОДИН НА ВСЕХ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/34Q.html">
+<meta property="og:description" content="Стихотворение Элиягу Бар Малея о коллективной ответственности и природе зла, проводящее параллель между Гитлером и обыденным человеческим лицемерием.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ОДИН НА ВСЕХ">
+<meta name="twitter:description" content="Стихотворение Элиягу Бар Малея о коллективной ответственности и природе зла, проводящее параллель между Гитлером и обыденным человеческим лицемерием.">
+
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +155,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="34Q" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="34Q" data-theme="swiss"
   data-art-section="dreamon" data-art-type="verse"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +169,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +178,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="34Q.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -264,6 +274,465 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --paper:#f7f2e7;
+    --paper-edge:#efe6d2;
+    --ink:#2a211a;
+    --ink-soft:#5b4d3e;
+    --accent:#8a2f1d;
+    --accent-2:#1d5a4a;
+    --gold:#9c7a23;
+    --rule:#cdbf9f;
+    --caps:#4a2d12;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{-webkit-text-size-adjust:100%;}
+  .ya-old{
+    margin:0;
+    background:
+      radial-gradient(circle at 20% 0%, #fbf7ec 0%, transparent 60%),
+      radial-gradient(circle at 100% 100%, #f2ead7 0%, transparent 55%),
+      var(--paper);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+    padding:0 18px;
+  }
+  .page{
+    max-width:820px;
+    margin:0 auto;
+    padding:40px 0 80px;
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-size:0.82rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:34px;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent);}
+  .crumbs a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2);}
+  .crumbs .sep{margin:0 .55em;color:var(--gold);}
+
+  /* epigraph */
+  .epigraph{
+    margin:0 auto 42px;
+    padding:18px 26px;
+    border-left:3px solid var(--gold);
+    background:linear-gradient(90deg, rgba(156,122,35,0.07), transparent);
+    font-style:italic;
+    color:var(--ink-soft);
+  }
+  .epigraph .verse{
+    font-variant:normal;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    font-style:normal;
+    line-height:1.55;
+    color:var(--caps);
+  }
+  .epigraph .sign{
+    text-align:right;
+    margin-top:14px;
+    font-style:italic;
+    text-transform:none;
+    color:var(--ink-soft);
+  }
+
+  h1{
+    font-size:2.35rem;
+    line-height:1.15;
+    text-align:center;
+    letter-spacing:0.04em;
+    margin:0 0 8px;
+    color:var(--accent);
+    font-weight:700;
+  }
+  h1::after{
+    content:"❧";
+    display:block;
+    font-size:1.2rem;
+    color:var(--gold);
+    margin-top:14px;
+    font-weight:400;
+  }
+
+  /* poem */
+  .poem{margin:30px 0;}
+  .stanza{
+    margin:0 0 1.45em;
+    line-height:1.65;
+  }
+  .caps{
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    color:var(--caps);
+    font-weight:600;
+  }
+  .stanza.capsblock{
+    padding:14px 20px;
+    border:1px solid var(--rule);
+    border-radius:4px;
+    background:rgba(255,255,255,0.4);
+  }
+
+  .seealso{
+    margin:38px 0 10px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+    font-style:italic;
+  }
+  .seealso a{color:var(--accent-2);}
+
+  a{color:var(--accent);}
+  a:hover{color:var(--accent-2);}
+
+  /* music */
+  .music{margin:34px 0;}
+  .music-label{
+    font-variant:small-caps;
+    letter-spacing:0.08em;
+    font-size:0.95rem;
+    color:var(--gold);
+    margin-bottom:8px;
+    text-transform:lowercase;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:6px;
+    background:rgba(255,255,255,0.55);
+    overflow:hidden;
+  }
+  .track summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 16px;
+    font-size:0.98rem;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .track .chev{
+    transition:transform .25s;
+    color:var(--accent);
+    font-size:0.85rem;
+  }
+  .track[open] .chev{transform:rotate(90deg);}
+  .track .tname{font-weight:600;color:var(--ink);}
+  .track .tartist{color:var(--ink-soft);font-style:italic;}
+  .track .ext{
+    margin-left:auto;
+    text-decoration:none;
+    color:var(--gold);
+    font-size:1.05rem;
+  }
+  .track .ext:hover{color:var(--accent);}
+  .player{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    background:#000;
+    border-top:1px solid var(--rule);
+  }
+  .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+  /* footnotes */
+  .fnmark{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    cursor:pointer;
+    padding:0 1px;
+  }
+  .fnmark:hover{color:var(--accent-2);}
+  .notes{
+    margin-top:46px;
+    padding-top:18px;
+    border-top:2px solid var(--gold);
+    font-size:0.92rem;
+    color:var(--ink-soft);
+  }
+  .notes h2{
+    font-size:1.15rem;
+    letter-spacing:0.06em;
+    color:var(--accent);
+    margin:0 0 14px;
+  }
+  .notes ol{padding-left:1.4em;margin:0;}
+  .notes li{margin-bottom:10px;}
+  .notes li.anon{list-style:none;margin-left:-1.4em;}
+  .notes li:target{
+    background:rgba(156,122,35,0.22);
+    border-radius:4px;
+    box-shadow:0 0 0 6px rgba(156,122,35,0.22);
+  }
+  .backref{text-decoration:none;color:var(--accent);margin-left:6px;}
+
+  /* footnote popup */
+  #fnpop{
+    position:absolute;
+    z-index:50;
+    max-width:340px;
+    background:var(--ink);
+    color:var(--paper);
+    padding:10px 13px;
+    border-radius:6px;
+    font-size:0.85rem;
+    line-height:1.45;
+    box-shadow:0 6px 22px rgba(0,0,0,0.3);
+    display:none;
+    pointer-events:none;
+  }
+  #fnpop a{color:#e7c873;}
+
+  /* bottom nav */
+  .corpus-nav{
+    margin-top:54px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    font-size:0.92rem;
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    color:var(--accent);
+    max-width:46%;
+  }
+  .corpus-nav .nxt{text-align:right;}
+  .corpus-nav .dir{
+    display:block;
+    font-variant:small-caps;
+    letter-spacing:0.08em;
+    color:var(--gold);
+    font-size:0.78rem;
+  }
+  .corpus-nav a:hover{color:var(--accent-2);}
+
+  footer.colophon{
+    margin-top:40px;
+    padding-top:18px;
+    border-top:1px solid var(--rule);
+    font-size:0.82rem;
+    color:var(--ink-soft);
+    line-height:1.5;
+  }
+  footer.colophon a{color:var(--accent);}
+
+  @media (max-width:600px){
+    .ya-old{font-size:18px;padding:0 14px;}
+    h1{font-size:1.9rem;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav a{max-width:100%;}
+    .corpus-nav .nxt{text-align:left;}
+  }
+</style>
+<div class="ya-old" data-scheme="manuscript">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №34Q</span>
+<div class="page">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../dreamon/index.html">Мечтай!!</a>
+  </nav>
+
+  <div class="epigraph">
+    <div class="muted" style="font-style:italic;margin-bottom:6px;">Эпиграф</div>
+    <div class="verse">
+      ...КАК ИСПРАЖНЕНИЯ ПЛЫВУТ<br>
+      НА ДНЕ ТОЙ ЯМЫ ВЫГРЕБНОЙ<br>
+      ВОКРУГ КОТОРОЙ ДЕНЬ ЗА ДНЕМ<br>
+      ЗОМБИ СВОЙ ВОДЯТ ХОРОВОД,<br>
+      ПРОИЗНОСЯ НАБОР ИЗ СЛОВ<br>
+      "ДУША, ОТЕЧЕСТВО, НАРОД"...
+    </div>
+    <div class="sign">Костер <a href="#fn1" id="fnref1" class="fnmark" data-fn="Костер, ЭБМ — http://proza.ru/2023/03/07/149">*</a></div>
+  </div>
+
+  <h1>ОДИН НА ВСЕХ</h1>
+
+  <div class="poem">
+    <p class="stanza">
+      ...Вы скажете - перегиб<br>
+      Черных сортирных тонов.<br>
+      Мол - не такой Человек<br>
+      В Реальном Мире гнилой.
+    </p>
+    <p class="stanza">
+      Я Вам скажу, что талант<br>
+      Мой крайне средний в стихах.<br>
+      И я даже не приступал<br>
+      Формы, что "здесь и сейчас"
+    </p>
+    <p class="stanza">
+      Точно таким же гнильем<br>
+      С точно таким же лицом<br>
+      Как и у громких Имен<br>
+      Прошлых печальных эпох
+    </p>
+    <p class="stanza">
+      Ради забавы простой<br>
+      Между плевком и зевком<br>
+      Сотни детей и отцов<br>
+      Словно подпорченный скот
+    </p>
+    <p class="stanza">
+      На гибель в печке живьем<br>
+      Среди сжигаемых дров.<br>
+      Это - не шизоманьяк<br>
+      А Ваш народный герой.
+    </p>
+  </div>
+
+  <div class="music">
+    <div class="music-label">Музыка:</div>
+    <details class="track" data-yt="E6qeKMuRSag">
+      <summary>
+        <span class="chev">▶</span>
+        <span><span class="tname">Не верь, не бойся, не проси</span> <span class="tartist">— Тату</span></span>
+        <a class="ext" href="https://www.youtube.com/watch?v=E6qeKMuRSag" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </summary>
+      <div class="player"></div>
+    </details>
+  </div>
+
+  <div class="poem">
+    <p class="stanza capsblock">
+      <span class="caps">
+      Он ценой жертвы себя<br>
+      Вашим став первым козлом<br>
+      Вам показал без прекрас<br>
+      ВАШЕ РОДНОЕ НУТРО<br>
+      В КАЖДОМ НА ДНЕ, ЕСЛИ СНЯТЬ<br>
+      ВСЮ МНОГОСЛОЙНУЮ ЛОЖЬ -<br>
+      ОН ЗА ВЕСЬ ГРЕБАНЫЙ МИР<br>
+      БРАТЬЯМ ЛЮБИМЫМ СВОИМ<br>
+      В НАШ С ВАМИ БУДУЩИЙ МИР<br>
+      УБРАВ ВЕСЬ СЛОЙ ТОЛСТЫЙ ЛЖИ<br>
+      ВМЕСТЕ С ОДЕЖДОЙ С ДУШИ<br>
+      НА ВСЕХ НАС В МИРЕ ОДНОЙ<br>
+      В СИЛУ ЗАКОНОВ ПРОСТЫХ<br>
+      ЗНАТЬ О КОТОРЫХ ЛЮБОЙ<br>
+      ИЗО ВСЕХ "СОБСТВЕННЫХ СИЛ"<br>
+      ЛИШЬ СТАВ "КАК ВСЕХ" ЛЕГИОН<br>
+      ЯРОСТНО БЬЕТСЯ ЗАБЫТЬ<br>
+      ЧТОБЫ ПРИВЫЧНАЯ ЛОЖЬ<br>
+      ЗАПАХ МОГЛА ПОТЕРЯТЬ -<br>
+      ДРУГОЙ ДУШИ В МИРЕ НЕТ<br>
+      ГИТЛЕР - ТЕБЕ РОДНОЙ БРАТ<br>
+      И ОН БЕСЦЕННУЮ РОЛЬ<br>
+      СЛОЖНЕЙ КОТОРОЙ НЕ ВЗЯТЬ<br>
+      ВЫПОЛНИЛ ДЛЯ НАС С ТОБОЙ<br>
+      ДАВ НАМ НА ТЫСЯЧИ ЛЕТ<br>
+      ЗЕРКАЛО ПЕРЕД ДУШОЙ
+      </span>
+    </p>
+  </div>
+
+  <div class="music">
+    <div class="music-label">Музыка:</div>
+    <details class="track" data-yt="92UaUyJZ6ZE">
+      <summary>
+        <span class="chev">▶</span>
+        <span><span class="tname">Yerushalayim Shel Zahav</span> <span class="tartist">— Naomi Shemer</span></span>
+        <a class="ext" href="https://www.youtube.com/watch?v=92UaUyJZ6ZE" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </summary>
+      <div class="player"></div>
+    </details>
+  </div>
+
+  <p class="seealso">
+    См. также: <a href="17M.html">Способный ученик</a> (фильм по С.Кингу рекомендую)
+  </p>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1"><a href="337.html">Костер</a>, ЭБМ <a href="#fnref1" class="backref" title="Вернуться к тексту">↑</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prv" href="O4Q.html"><span class="dir">← Предыдущая</span>Неорганикон</a>
+    <a class="nxt" href="1B5.html"><span class="dir">Следующая →</span>Знание!! Сила</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<div id="fnpop"></div>
+
+<script>
+  // lazy youtube players
+  document.querySelectorAll('.track').forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if(d.open){
+        var box = d.querySelector('.player');
+        if(box && !box.querySelector('iframe')){
+          var f = document.createElement('iframe');
+          f.src = 'https://www.youtube.com/embed/' + d.dataset.yt + '?rel=0&autoplay=1';
+          f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          f.allowFullscreen = true;
+          box.appendChild(f);
+        }
+      }
+    });
+  });
+
+  // footnote popup
+  var pop = document.getElementById('fnpop');
+  document.querySelectorAll('.fnmark').forEach(function(m){
+    m.addEventListener('mouseenter', function(){
+      pop.innerHTML = m.dataset.fn || '';
+      pop.style.display = 'block';
+      var r = m.getBoundingClientRect();
+      var pr = pop.getBoundingClientRect();
+      var sx = window.scrollX, sy = window.scrollY;
+      var left = sx + r.left + r.width/2 - pr.width/2;
+      left = Math.max(sx + 8, Math.min(left, sx + document.documentElement.clientWidth - pr.width - 8));
+      var top;
+      if(r.top - pr.height - 10 < 0){
+        top = sy + r.bottom + 8; // below
+      } else {
+        top = sy + r.top - pr.height - 8; // above
+      }
+      pop.style.left = left + 'px';
+      pop.style.top = top + 'px';
+    });
+    m.addEventListener('mouseleave', function(){
+      pop.style.display = 'none';
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "стих",
+  "rationale": "Текст целиком стихотворный: эпиграф в каплоке, заголовок и пять-плюс строф основной поэмы. Доминирующая форма — стих/поэма, поэтому выбрана манускриптная схема с узкой книжной полосой (~820px), засечными шрифтами и поэтичной палитрой на тёплом светлом фоне. Развилка была лишь в подаче каплочных блоков: длинный финальный фрагмент целиком в ПРОПИСНЫХ я не стал занижать, а сохранил как есть и выделил рамкой-врезкой, чтобы визуально отделить его от строф нижнего регистра, не меняя смысла и регистра.",
+    "rationale_extra": "Авторская метка '*' в эпиграфе сделана кликабельной сноской с popup и ссылкой на источник 'Костер'. Музыкальных ссылок две — порог сводного раздела (>2) не достигнут, поэтому сводный блок не создавался; оба трека стоят на своих местах как ленивые сворачиваемые YouTube-плееры, метка 'Музыка:' сохранена у каждого, так как они разнесены по тексту. Оглавление не делалось: подразделов больше одного в тексте нет (единая поэма с эпиграфом).",
+  "features": ["music", "footnotes"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -409,16 +878,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

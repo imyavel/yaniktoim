@@ -7,8 +7,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Действие без ожиданий (продолжение)</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Личная заметка-история о походе в макдональдс за призовым мороженым и неожиданной щедрости кассирши как иллюстрации действия без ожиданий.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/1C8C.html">
+<meta property="og:title" content="Действие без ожиданий (продолжение)">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/1C8C.html">
+<meta property="og:description" content="Личная заметка-история о походе в макдональдс за призовым мороженым и неожиданной щедрости кассирши как иллюстрации действия без ожиданий.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Действие без ожиданий (продолжение)">
+<meta name="twitter:description" content="Личная заметка-история о походе в макдональдс за призовым мороженым и неожиданной щедрости кассирши как иллюстрации действия без ожиданий.">
+<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/1C8C.jpg">
+<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/1C8C.jpg">
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +156,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="1C8C" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="1C8C" data-theme="swiss"
   data-art-section="dabudet" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +170,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +179,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="1C8C.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -218,6 +229,402 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#23201b;
+    --muted:#6f6657;
+    --accent:#9a3b25;
+    --accent-soft:#c9683f;
+    --line:#e0d8c8;
+    --link:#8a3a1f;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1120px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 40px 80px;
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    margin:6px 0 26px;
+    text-transform:uppercase;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span.sep{margin:0 .5em;color:#bcae97;}
+  /* lead image */
+  .lead-img{
+    margin:0 0 30px;
+    text-align:center;
+  }
+  .lead-img img{
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border-radius:3px;
+    box-shadow:0 6px 24px rgba(60,45,25,.18);
+  }
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent-soft);
+    margin:0 0 12px;
+  }
+  h1{
+    font-size:2.35rem;
+    line-height:1.15;
+    font-weight:700;
+    margin:0 0 8px;
+    letter-spacing:-.01em;
+  }
+  .rule{
+    width:80px;height:3px;background:var(--accent);
+    margin:22px 0 34px;border:0;
+  }
+  article{
+    background:var(--paper);
+    padding:40px 48px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    box-shadow:0 1px 0 #fff inset;
+  }
+  article p{margin:0 0 1.25em;}
+  article p:first-of-type{font-size:1.05em;}
+  .dropcap:first-letter{
+    initial-letter:3;
+    -webkit-initial-letter:3;
+    font-weight:700;
+    color:var(--accent);
+    margin-right:.08em;
+  }
+  /* footnote markers */
+  .fnref{
+    font-size:.72em;
+    vertical-align:super;
+    line-height:0;
+    color:var(--accent);
+    text-decoration:none;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    cursor:pointer;
+    position:relative;
+    padding:0 1px;
+  }
+  .fnref:hover{color:var(--accent-soft);}
+  .fnref .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:140%;
+    width:280px;
+    max-width:70vw;
+    background:#2c2620;
+    color:#f3ece0;
+    font-family:"Iowan Old Style",Georgia,serif;
+    font-size:15px;
+    font-weight:400;
+    line-height:1.5;
+    vertical-align:baseline;
+    text-align:left;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
+    z-index:50;
+    white-space:normal;
+  }
+  .fnref .pop::after{
+    content:"";
+    position:absolute;
+    left:50%;margin-left:-7px;
+    top:100%;
+    border:7px solid transparent;
+    border-top-color:#2c2620;
+  }
+  .fnref.below .pop{bottom:auto;top:140%;}
+  .fnref.below .pop::after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:#2c2620;}
+  .fnref .pop a{color:#f0b58f;}
+  .fnref:hover .pop{display:block;}
+  /* music */
+  .music{
+    margin:36px 0 8px;
+    padding:20px 22px;
+    background:#fbf6ec;
+    border:1px solid var(--line);
+    border-left:4px solid var(--accent);
+    border-radius:4px;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 12px;
+    font-weight:700;
+  }
+  .track{
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:#fff;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#fbf3e8;}
+  .track-chevron{
+    color:var(--accent);
+    transition:transform .25s ease;
+    flex:0 0 auto;
+    font-size:13px;
+  }
+  .track.open .track-chevron{transform:rotate(90deg);}
+  .track-title{flex:1 1 auto;font-size:17px;}
+  .track-title .artist{color:var(--muted);}
+  .track-ext{
+    flex:0 0 auto;
+    color:var(--accent);
+    text-decoration:none;
+    font-size:16px;
+  }
+  .track-ext:hover{color:var(--accent-soft);}
+  .track-player{display:none;background:#000;}
+  .track.open .track-player{display:block;}
+  .track-player .frame{
+    position:relative;
+    width:100%;
+    padding-bottom:56.25%;
+    height:0;
+  }
+  .track-player iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+  }
+  /* notes */
+  .notes{margin-top:46px;}
+  .notes h2{
+    font-size:1.5rem;
+    border-bottom:2px solid var(--accent);
+    padding-bottom:6px;
+    margin:0 0 18px;
+  }
+  ol.fnlist{
+    margin:0;padding:0;
+    list-style:none;
+    counter-reset:fn;
+  }
+  ol.fnlist li{
+    font-size:16px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:0 0 14px;
+    padding:6px 10px 6px 14px;
+    border-left:2px solid transparent;
+    border-radius:3px;
+  }
+  ol.fnlist li .num{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    color:var(--accent);
+    margin-right:8px;
+  }
+  ol.fnlist li:target{
+    background:#fcefe0;
+    border-left-color:var(--accent);
+    animation:flash 1.6s ease;
+  }
+  @keyframes flash{0%{background:#f7d9b8;}100%{background:#fcefe0;}}
+  .backref{
+    margin-left:8px;
+    color:var(--accent);
+    text-decoration:none;
+    font-size:14px;
+  }
+  .backref:hover{text-decoration:underline;}
+  a.inline{color:var(--link);}
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    margin:50px 0 0;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    color:var(--accent);
+    max-width:46%;
+  }
+  .corpus-nav .lbl{
+    display:block;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .corpus-nav .ttl{font-size:16px;line-height:1.3;}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:46px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent);}
+  @media (max-width:900px){
+    .ya-old{font-size:18px;}
+    .wrap{width:100%;padding:20px 18px 60px;}
+    article{padding:26px 20px;}
+    h1{font-size:1.85rem;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav a,.corpus-nav .next{max-width:100%;text-align:left;}
+    .corpus-nav .next{margin-left:0;}
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №1C8C</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <div class="lead-img">
+    <img src="../img/1C8C.jpg" alt="Иллюстрация к статье">
+  </div>
+
+  <p class="dateline">8 декабря 2021 г.</p>
+  <h1>Действие без ожиданий (продолжение)<a class="audio-link" href="https://t.me/art_017_tracks/370" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <hr class="rule">
+
+  <article>
+    <p class="dropcap">Продолжение истории<span class="fnref"><a class="fnref" href="#fn1" id="ref1">*1</a><span class="pop">Начало истории: <a href="1C6.html">Действие без ожиданий</a></span></span> про действие без ожиданий.</p>
+
+    <p>Решил давеча пойти в макдональдс, "отоварить" два "ваучера" на бесплатное мороженое, которое я у них выиграл в "монополии". У них, типа, такая игра. Покупаешь "обед", тебе дают два "купона". Которые могут выиграть, там, что угодно. Ну вот, и у меня два стаканчика мороженого "скопилось".</p>
+
+    <p>Прихожу<a class="fnref" href="#fn2" id="ref2">*2<span class="pop">Только не спрашивайте, зачем я в 7 утра при -12 на улице пестрячил в макдональдс за мороженым по акции, допустим, это очень специальный вид спорта, типа спортивного ориентирования или ловли покемонов</span></a>, значит, в 7 часов. Утра. В 7 часов открывается макдональдс. В общем, иду в киоск. Там электронные "киоски" у них (для оформления заказов, чтобы в очереди не стоять скопом и не ковидом не заражаться). Вбиваю (код купона)... Опа! "Акция недоступна". Иду, значит, ищу на кассах кассиршу. Кассирша, видимо, "управляющая" сама (они там иногда работают и так и так). И она тоже, начинает пробивать (не получается), и говорит, что, наверное, нужно сначала что-то купить.</p>
+
+    <p>Я отвечаю, "ну дайте мне тогда салфеточку за два рубля". Она, значит, пробивает салфеточку. Снова "пикает" (устройством для считывания штрих-кода призового купона) - "нет", говорит, "не доступно". Говорит: "сейчас я узнаю", я говорю "ну, Вы, пожалуйста, узнайте, что у вас там". Она, значит, узнает. Приходит (обратно), говорит "акция не доступна, 'они' занимаются вопросом". Пока не разобрались, акция вообще не доступна.</p>
+
+    <p>Ну, очевидно, просто утро. Утром еще не успели "завести" серверы, то бишь, сервера, в их центральном офисе, и они еще не работают. И я вообще ничего не говорю, начинаю думать, размышлять, мол, а что же делать-то. И тут она мне говорит... В общем, "я Вам так пробью два стаканчика мороженого". Причем, я ей не сказал, что у меня их по акции было два. Она мне сама сказала "я Вам пробью два мороженых". Я ей говорю, спрашиваю, "то есть Вы у меня потом снимете (с бонусного счета), Вы знаете, что у меня два (купона), да?" Она так, типа, уклончиво, кивает, в общем, просто берет, наполняет в своей машине, и дает мне два стаканчика мороженого. : ))</p>
+
+    <p>Я говорю "Спасибо!", и пошел. И помолился за нее Господу тоже. Это Классно! Вот это (и есть) спираль<a class="fnref" href="#fn5" id="ref5">*5<span class="pop">См. также: Важнейшие понятия из "Дара Орла", Карлос Кастанеда, Колесо Времени</span></a>. "Спираль потери человеческой формы" - это на самом деле СПИРАЛЬ ЕЕ ОБРЕТЕНИЯ. Друзья, это понимание стоит очень дорого. И добывается потом и кровью<a class="fnref" href="#fn3" id="ref3">*3<span class="pop">И соплями : ))) Куда же без них.</span></a></p>
+
+    <div class="music">
+      <p class="music-label">Музыка под настроение<span class="fnref"><a class="fnref" href="#fn4" id="ref4">*4</a><span class="pop">См. также: <a href="1C8B.html">Моя ТьМа</a></span></span>:</p>
+      <div class="track" id="track1">
+        <div class="track-head" onclick="toggleTrack(this)">
+          <span class="track-chevron">▶</span>
+          <span class="track-title">Sound of Silence (Simon &amp; Garfunkel original) <span class="artist">— Jadyn Rylee and Sina</span></span>
+          <a class="track-ext" href="https://youtu.be/8xysVNigCsU" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+        </div>
+        <div class="track-player" data-embed="https://www.youtube.com/embed/8xysVNigCsU">
+          <div class="frame"></div>
+        </div>
+      </div>
+    </div>
+
+    <section class="notes">
+      <h2>Примечания</h2>
+      <ol class="fnlist">
+        <li id="fn1"><span class="num">*1</span>Начало истории: <a href="1C6.html">Действие без ожиданий</a><a class="backref" href="#ref1" title="Вернуться к тексту">↩</a></li>
+        <li id="fn2"><span class="num">*2</span>Только не спрашивайте, зачем я в 7 утра при -12 на улице пестрячил в макдональдс за мороженым по акции, допустим, это очень специальный вид спорта, типа спортивного ориентирования или ловли покемонов<a class="backref" href="#ref2" title="Вернуться к тексту">↩</a></li>
+        <li id="fn3"><span class="num">*3</span>И соплями : ))) Куда же без них.<a class="backref" href="#ref3" title="Вернуться к тексту">↩</a></li>
+        <li id="fn4"><span class="num">*4</span>См. также: <a href="1C8B.html">Моя ТьМа</a><a class="backref" href="#ref4" title="Вернуться к тексту">↩</a></li>
+        <li id="fn5"><span class="num">*5</span>См. также: Важнейшие понятия из "Дара Орла", Карлос Кастанеда, Колесо Времени<a class="backref" href="#ref5" title="Вернуться к тексту">↩</a></li>
+        <li id="fn6"><span class="num">*</span>См. также: </li>
+      </ol>
+    </section>
+  </article>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="17O.html">
+      <span class="lbl">← Предыдущая</span>
+      <span class="ttl">Часть 4 Плод Вечной Весны</span>
+    </a>
+    <a class="next" href="1C6.html">
+      <span class="lbl">Следующая →</span>
+      <span class="ttl">Действие без ожиданий</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggleTrack(head){
+    var track=head.parentElement;
+    var open=track.classList.toggle('open');
+    if(open){
+      var p=track.querySelector('.track-player');
+      if(!p.querySelector('iframe')){
+        var f=document.createElement('iframe');
+        f.src=p.getAttribute('data-embed')+'?autoplay=1';
+        f.allow='acceleroteter; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        f.setAttribute('allowfullscreen','');
+        p.querySelector('.frame').appendChild(f);
+      }
+    }
+  }
+  // footnote popup side flip near top edge
+  document.querySelectorAll('.fnref').forEach(function(m){
+    m.addEventListener('mouseenter',function(){
+      var r=m.getBoundingClientRect();
+      if(r.top<200){m.classList.add('below');}else{m.classList.remove('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — короткий автобиографический прозаический рассказ (история про макдональдс и спираль обретения человеческой формы), без стихотворных строк, поэтому выбрана редакторская широкоформатная схема: колонка ~2/3 ширины окна, засечный книжный шрифт, тёплая бумажная палитра с кирпичным акцентом — подходящий тон для исповедально-ироничного лонгрида. Развилка была только по ширине и по тому, делать ли оглавление: подразделов-заголовков внутри текста нет (есть лишь сплошной рассказ, блок музыки и примечания), поэтому TOC опущен как избыточный для одностраничного короткого материала.\n\nМузыкальный трек один (YouTube), поэтому сводный раздел музыки не создавался — только свёрнутый ленивый плеер на своём месте с сохранённой меткой «Музыка под настроение» и её сноской *4. Сноски *1–*5 имеют маркеры в тексте (popup над маркером, у верхней кромки экрана переключается вниз; подсветка цели при переходе). Сноска *6 присутствует только в аппарате примечаний без ссылки в тексте — оформлена как анонимная, без номера. Авторские смайлы ': ))' и ': )))' и капс 'СПИРАЛЬ ЕЕ ОБРЕТЕНИЯ' сохранены дословно, голые URL обёрнуты в ссылки."
+  ,
+  "features": ["music", "footnotes"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -363,16 +770,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

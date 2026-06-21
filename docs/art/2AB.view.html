@@ -7,8 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Я уже отдан Силе</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе о намерении мага, передаче судьбы в руки управляющей Силы и осознанном предварении Ее Намерения через несгибаемую веру воина.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/2AB.html">
+<meta property="og:title" content="Я уже отдан Силе">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/2AB.html">
+<meta property="og:description" content="Эссе о намерении мага, передаче судьбы в руки управляющей Силы и осознанном предварении Ее Намерения через несгибаемую веру воина.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Я уже отдан Силе">
+<meta name="twitter:description" content="Эссе о намерении мага, передаче судьбы в руки управляющей Силы и осознанном предварении Ее Намерения через несгибаемую веру воина.">
+
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +155,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="2AB" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="2AB" data-theme="swiss"
   data-art-section="other" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +169,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +178,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="2AB.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -230,6 +240,424 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#faf8f3;
+    --ink:#1f1b16;
+    --muted:#6b6358;
+    --rule:#d8cfbf;
+    --accent:#8a3324;
+    --accent2:#2f5d56;
+    --paper:#fffdf8;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{ -webkit-text-size-adjust:100%; }
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1000px;
+    min-width:0;
+    margin:0 auto;
+    padding:40px 28px 90px;
+  }
+  @media(max-width:980px){
+    .wrap{width:100%;max-width:680px;}
+  }
+  @media(max-width:560px){
+    .ya-old{font-size:18px;}
+    .wrap{padding:24px 18px 70px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:30px;
+  }
+  .crumbs a{color:var(--accent2);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span.sep{margin:0 .5em;color:var(--rule);}
+
+  h1{
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    font-weight:700;
+    font-size:2.45rem;
+    line-height:1.12;
+    margin:.1em 0 .25em;
+    letter-spacing:-.01em;
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    margin:0 0 36px;
+    padding-bottom:24px;
+    border-bottom:3px double var(--rule);
+  }
+  .kicker a{color:var(--accent2);}
+
+  p{margin:0 0 1.15em;}
+
+  .lead p{ }
+
+  blockquote.forum{
+    margin:0 0 1.4em;
+    padding:.6em 1.2em;
+    border-left:4px solid var(--accent);
+    background:var(--paper);
+    color:#3a342c;
+    font-style:italic;
+  }
+  blockquote.forum .who{
+    display:block;
+    font-style:normal;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.03em;
+    color:var(--muted);
+    margin-bottom:.4em;
+  }
+
+  .ps{
+    margin:1.6em 0;
+    padding:.2em 0 .2em 1.1em;
+    border-left:3px solid var(--accent2);
+    color:#3a342c;
+  }
+  .ps .ps-label{font-variant:small-caps;font-weight:700;letter-spacing:.04em;color:var(--accent2);}
+
+  /* verse / incantation */
+  .verse{
+    margin:2em auto;
+    padding:1.6em 1.8em;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:3px;
+    box-shadow:0 1px 0 rgba(0,0,0,.03);
+    max-width:620px;
+  }
+  .verse .lines{
+    font-size:1.12rem;
+    line-height:1.85;
+    white-space:pre-line;
+    font-style:italic;
+  }
+  .verse .attribution{
+    margin-top:1.1em;
+    text-align:right;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.03em;
+    color:var(--muted);
+    font-style:normal;
+  }
+
+  a{color:var(--accent);}
+
+  /* footnote marker */
+  .fnref{
+    color:var(--accent);
+    font-weight:700;
+    text-decoration:none;
+    cursor:pointer;
+    position:relative;
+  }
+  .fnref:hover{text-decoration:underline;}
+  .fn-popup{
+    position:absolute;
+    z-index:50;
+    width:min(420px,82vw);
+    background:#2a241d;
+    color:#f4efe4;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-style:normal;
+    font-size:15px;
+    line-height:1.5;
+    padding:14px 16px;
+    border-radius:6px;
+    box-shadow:0 8px 26px rgba(0,0,0,.32);
+    display:none;
+    letter-spacing:0;
+    font-weight:400;
+  }
+  .fn-popup.show{display:block;}
+  .fn-popup a{color:#ffcaa8;}
+
+  /* notes section */
+  .notes{
+    margin-top:3em;
+    padding-top:1.2em;
+    border-top:3px double var(--rule);
+    font-size:16px;
+    color:#3a342c;
+  }
+  .notes h2{
+    font-size:1.2rem;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 1em;
+  }
+  .notes li{margin-bottom:1em;line-height:1.6;}
+  .notes .backref{margin-left:.4em;text-decoration:none;color:var(--accent2);font-weight:700;}
+  li.fn-target{
+    background:#fff3cf;
+    transition:background 1.4s ease;
+    border-radius:4px;
+    padding:4px 8px;
+    margin-left:-8px;
+  }
+
+  /* music player */
+  .player{
+    border:1px solid var(--rule);
+    background:var(--paper);
+    border-radius:6px;
+    margin:1.4em 0;
+    max-width:620px;
+    overflow:hidden;
+  }
+  .player-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .player-head .arrow{
+    transition:transform .2s ease;
+    color:var(--accent);
+    font-size:13px;
+  }
+  .player.open .player-head .arrow{transform:rotate(90deg);}
+  .player-head .tname{font-weight:700;}
+  .player-head .tartist{color:var(--muted);font-size:15px;}
+  .player-head .ext{margin-left:auto;color:var(--accent2);text-decoration:none;font-size:17px;}
+  .player-body{display:none;background:#000;}
+  .player.open .player-body{display:block;}
+  .player-body .ratio{position:relative;padding-top:56.25%;}
+  .player-body iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+  /* bottom corpus nav */
+  .corpus-nav{
+    margin-top:3.5em;
+    padding-top:1.4em;
+    border-top:1px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    color:var(--accent2);
+    display:block;
+    max-width:46%;
+  }
+  .corpus-nav a:hover{text-decoration:underline;}
+  .corpus-nav .lbl{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+  .corpus-nav .nx{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:2.6em;
+    padding-top:1.2em;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent2);}
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №2AB</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../other/index.html">Без категории</a>
+  </nav>
+
+  <h1>Я уже отдан Силе<a class="audio-link" href="https://t.me/art_017_tracks/614" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <p class="kicker">Написано 11.10.22 в кулуарах форума ЛЛ(ККО) <a href="https://ccastaneda.ru/viewtopic.php?id=3413#p73159" target="_blank" rel="noopener">https://ccastaneda.ru/viewtopic.php?id=3413#p73159</a></p>
+
+  <div class="lead">
+
+    <blockquote class="forum">
+      <span class="who">Лафанга написал(а):</span>
+      без своего намерения, если оставить все в руки божьи то я не знаю что будет . это как готовить пирог без рецепта, пирог то получиться но какой? А вот, Дх дает свой рецепт. Но есть и другие рецепты конечно.
+    </blockquote>
+
+    <p>Конечно, каждый маг рано или поздно начинает готовить свой пирог, по своему собственному рецепту, после долгих практик рандомных получается хорошо.</p>
+
+    <p>Есть тут, как говаривал Василий Иванович Петьке, один ньюанс. Выполняют Волю Бога все без исключения созданные Им творения (если не нравится терминология, говори "наделенные Орлом осознанием через Свои эманации чувствующие существа", суть называемого явления от этого не изменится нисколько). Но только маги, прошедшие через "точку невозврата" (ака прыжок в пропасть с обрыва), и "передавшие судьбу в руки Силе, Которая ей управляет", неважно, как Она в их "магической картине мира" (являющейся не более чем произвольной интерпретацией "Правила Орла", и отличающейся от любой "среднечеловеческой", только тем, что "безупречный воин" осознанно участвует при ее конструировании, а "средний человек" получает ее, а затем и передает своим детям, без тени осознания происходящего и собственного преднамеренного и осмысленного участия в нем) называется, выполняют Ее осознанно и по своей собственной свободной воле, предваряя своим высказываемым вслух намерением Намерение этой Силы, раскрывающееся им в виде того или иного воспринимаемого Мира и/или образа своего нахождения в нем.</p>
+
+    <p>Можно задать закономерный вопрос: Откуда маги знают, что и как им следует "намеревать", если предполагаемый "мир" (читай "сдвинутая по их собственному желанию позиция т.с.") еще не построен? Ответ: они этого не знают и не могут знать. И знать не намереваются. Но они знают совершенно точно то, что Намерение той Силы, к Которой они обращаются, в процессе осуществления такового "предварения-намеревания", "знает" это гораздо лучше, безупречнее, и на порядок осознаннее их самих. Какими бы "трезвыми, безупречными и отрешенными" (информированными, опытными, подготовленными, и т.д. и т.п.), они ни были, и/или не считали себя.</p>
+
+    <p>Более того, именно вера (уверенность, основанная на выборе, не обусловленном ничем, кроме "несгибаемого намерения" воина осуществлять этот выбор независимо от чьего бы то ни было "особо важного мнения" по любому поводу) в тотальную безупречность и осознанность этой Силы отражается в глазах магов, а не "их собственная безупречность". Поэтому они и называют эту Силу своим Бенефактором (иногда это понятие "совмещается" с реальным человеком этого мира, который является их учителем, иногда нет, в данном случае это не суть важно).</p>
+
+    <p>Еще один важный, с практической точки зрения, ньюанс, заключается в том, что выработка таковой уверенности в тотальной безупречности и осознанности внешней управляющей скрытой<a class="fnref" id="ref1" href="#fn1" data-fn="fn1">*</a> Силы должна быть произведена воином и осознанно использована им по своей собственной свободной воле строго до того момента, когда он произведет посредством нее "переход рубикона" и станет магом и человеком знания, соединив свою волю и Волю этой Силы осознанно и по собственному желанию Сердца, осознав, что его Путь Сердца и Путь, которым его ведет эта Сила, являются в точности одним и тем же понятием.</p>
+
+    <div class="ps">
+      <p><span class="ps-label">П.С.</span> Для тех, кто до сих пор считает, что КК не использовал молитв в своей практике, рекомендую внимательно, возможно даже несколько раз, перечитать это, и по-активнее покрутить зрачками</p>
+    </div>
+
+    <div class="verse">
+      <div class="lines">Я уже отдан Силе,
+что правит моей судьбой.
+Я ни за что не держусь,
+поэтому мне нечего защищать.
+У меня нет мыслей,
+поэтому я увижу.
+Я ничего не боюсь,
+поэтому я буду помнить себя.
+Отрешенный, с легкой душой,
+я проскочу мимо Орла,
+чтобы стать свободным.</div>
+      <div class="attribution">Дар Орла, К.Кастанеда</div>
+    </div>
+
+    <div class="ps">
+      <p><span class="ps-label">П.С.</span> "По своему собственному желанию управлять ТС" у воина/мага получилось бы только вот это:</p>
+    </div>
+
+    <div class="player" id="player1">
+      <div class="player-head" onclick="togglePlayer('player1','B7UmUX68KtE')">
+        <span class="arrow">▶</span>
+        <span>
+          <span class="tname">YouTube</span>
+          <span class="tartist"> — видео</span>
+        </span>
+        <a class="ext" href="https://www.youtube.com/watch?v=B7UmUX68KtE" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="player-body"><div class="ratio" data-loaded="0"></div></div>
+    </div>
+
+  </div><!-- /lead -->
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol style="list-style:none;padding:0;margin:0;">
+      <li id="fn1"><strong>*</strong>&nbsp; скрытой — поскольку маг и воин не видит, не чувствует и не осознает "собственной" реальности Намерения Духа также, как человек осознает, видит или чувствует что угодно еще, не важно, "магическое" или "среднечеловеческое", поскольку и то и другое относится к категории "известного+неведомого", а Сила относится к категории "непостижимого" в принципе, которое по определению не может стать "известным", то есть явно и открыто воспринимаемым, испытываемым и наблюдаемым человеком, ни при каких условиях позиционно-обусловленного восприятия посредством ТС. То есть воину приходится принять этот "энергетический факт" так, как если бы он верил, но делая это исключительно по своей свободной воле и личному независимому от мнений всевозможных "Донов Хуанов" и иже с ними, при всем уважении к последним, собственному решению. Потому что иначе он не достигнет той меры "ответственности за собственные высказываемые намерения", которая требуется для осуществления маневра задействования, очищенного от рутинных последствий первичной социализации, Звена связи с этой Силы с ним самим, посредством осознанного использования которого с ним будет происходить все, что последует за этим действием, уже находясь на этапе собственного бытия как "человека знания", и "видящего".
+        <a class="backref" href="#ref1" title="Вернуться к тексту">↩</a>
+      </li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="pv" href="2AF.html"><span class="lbl">← Предыдущая</span>А зачем чайникам Каббала?</a>
+    <a class="nx" href="29NA.html"><span class="lbl">Следующая →</span>Путь Одиночки</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div><!-- /wrap -->
+
+<script>
+  // ---- music player lazy load ----
+  function togglePlayer(id, vid){
+    var p = document.getElementById(id);
+    var open = p.classList.toggle('open');
+    if(open){
+      var ratio = p.querySelector('.ratio');
+      if(ratio.getAttribute('data-loaded')==='0'){
+        var ifr = document.createElement('iframe');
+        ifr.src = 'https://www.youtube.com/embed/'+vid+'?autoplay=1';
+        ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        ifr.allowFullscreen = true;
+        ratio.appendChild(ifr);
+        ratio.setAttribute('data-loaded','1');
+      }
+    }
+  }
+
+  // ---- footnote popups ----
+  (function(){
+    var refs = document.querySelectorAll('.fnref');
+    refs.forEach(function(ref){
+      var fid = ref.getAttribute('data-fn');
+      var src = document.getElementById(fid);
+      var popup;
+      function build(){
+        if(popup) return popup;
+        popup = document.createElement('span');
+        popup.className='fn-popup';
+        var clone = src.cloneNode(true);
+        var br = clone.querySelector('.backref'); if(br) br.remove();
+        popup.innerHTML = clone.innerHTML;
+        document.body.appendChild(popup);
+        return popup;
+      }
+      function show(){
+        build();
+        popup.classList.add('show');
+        var r = ref.getBoundingClientRect();
+        var pr = popup.getBoundingClientRect();
+        var top = r.top + window.scrollY - pr.height - 10;
+        if(r.top - pr.height - 10 < 0){ top = r.bottom + window.scrollY + 10; }
+        var left = r.left + window.scrollX - 10;
+        if(left + pr.width > window.scrollX + document.documentElement.clientWidth - 10){
+          left = window.scrollX + document.documentElement.clientWidth - pr.width - 10;
+        }
+        if(left < window.scrollX + 8) left = window.scrollX + 8;
+        popup.style.top = top+'px';
+        popup.style.left = left+'px';
+      }
+      function hide(){ if(popup) popup.classList.remove('show'); }
+      ref.addEventListener('mouseenter', show);
+      ref.addEventListener('mouseleave', hide);
+    });
+  })();
+
+  // ---- highlight footnote on jump ----
+  function hi(){
+    if(location.hash && location.hash.length>1){
+      var el = document.querySelector(location.hash);
+      if(el && el.closest('.notes')){
+        document.querySelectorAll('.fn-target').forEach(function(n){n.classList.remove('fn-target');});
+        el.classList.add('fn-target');
+        setTimeout(function(){el.classList.remove('fn-target');},2200);
+      }
+    }
+  }
+  window.addEventListener('hashchange', hi);
+  hi();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — форумный пост-эссе на кастанедовскую тему: основной объём занимает рассуждающая проза автора (про намерение, Силу, Бенефактора), с одной вкраплённой цитатой Лафанги и одной короткой стихотворной заклинательной вставкой из \"Дара Орла\". Поскольку доминирует прозаическая рассуждающая форма, выбрана редакторская широкая схема (~2/3 ширины окна), а не узкий манускрипт; стихотворный фрагмент при этом аккуратно выделен центрированной врезкой-цитатой, чтобы сохранить его построчную структуру (символы '|' из исходника убраны как мусор импорта, переносы строк сохранены дословно).\nРазвилки: оглавление не делалось, так как у текста нет более одного именованного подраздела (только сплошной поток с двумя 'П.С.'). Единственная сноска помечена авторской звёздочкой '*' — она вынесена в аппарат 'Примечания' с переходами вниз/вверх, popup по наведению и подсветкой цели. Единственная YouTube-ссылка оформлена как ленивый раскрывающийся плеер (грузится только при клике); сводный раздел музыки не создавался, так как распознан лишь один аудио-трек (порог — более двух). Голый URL форума и ссылка YouTube обёрнуты в гиперссылки. Палитра — тёплый светлый фон с тёмными чернилами, бордовым и тёмно-бирюзовым акцентами, засечный текст и гротеск для служебных элементов."
+,
+  "features": ["music", "footnotes"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -375,16 +803,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

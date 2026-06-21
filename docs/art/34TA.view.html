@@ -7,8 +7,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>По чем стоит Мир?</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе о духовном барьере, который встаёт перед человеком, идущим путём воина по Кастанеде, и о том, как маги переступают через него без опор.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/34TA.html">
+<meta property="og:title" content="По чем стоит Мир?">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/34TA.html">
+<meta property="og:description" content="Эссе о духовном барьере, который встаёт перед человеком, идущим путём воина по Кастанеде, и о том, как маги переступают через него без опор.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="По чем стоит Мир?">
+<meta name="twitter:description" content="Эссе о духовном барьере, который встаёт перед человеком, идущим путём воина по Кастанеде, и о том, как маги переступают через него без опор.">
+<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/34TA.jpg">
+<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/34TA.jpg">
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +156,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="34TA" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="34TA" data-theme="swiss"
   data-art-section="confront" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +170,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +179,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="34TA.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -207,6 +218,255 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1c17;
+    --soft:#5c554a;
+    --rule:#d8d0c0;
+    --accent:#9a3b1d;
+    --accent2:#34607a;
+    --shadow:0 1px 3px rgba(60,50,30,.08),0 8px 28px rgba(60,50,30,.06);
+  }
+  *{box-sizing:border-box;}
+  .ya-old{-webkit-text-size-adjust:100%;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.72;
+  }
+  a{color:var(--accent2);text-decoration:none;border-bottom:1px solid rgba(52,96,122,.35);}
+  a:hover{border-bottom-color:var(--accent2);}
+  .wrap{
+    width:66%;
+    max-width:1100px;
+    margin:0 auto;
+    padding:34px 28px 80px;
+  }
+  /* Breadcrumbs */
+  .crumbs{
+    font-size:.82em;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--soft);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:26px;
+  }
+  .crumbs a{color:var(--soft);border-bottom:none;}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs .sep{margin:0 .55em;color:var(--rule);}
+  /* Hero image */
+  .hero{margin:0 0 30px;}
+  .hero img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border-radius:3px;
+    box-shadow:var(--shadow);
+  }
+  h1{
+    font-size:2.45em;
+    line-height:1.12;
+    font-weight:600;
+    margin:0 0 .5em;
+    letter-spacing:-.01em;
+  }
+  .lede-rule{
+    width:64px;height:3px;
+    background:var(--accent);
+    margin:0 0 34px;
+  }
+  article p{
+    margin:0 0 1.5em;
+    text-align:justify;
+    hyphens:auto;
+  }
+  article p:first-of-type::first-letter{
+    font-size:3.4em;
+    line-height:.82;
+    float:left;
+    padding:.05em .12em 0 0;
+    color:var(--accent);
+    font-weight:600;
+  }
+  /* Music player */
+  .music{
+    margin:34px 0;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.7em;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    padding:12px 18px 0;
+  }
+  .track{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 18px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track .arrow{
+    transition:transform .25s ease;
+    color:var(--soft);
+    font-size:.9em;
+  }
+  .track.open .arrow{transform:rotate(90deg);}
+  .track .ti{flex:1;}
+  .track .tname{font-weight:600;}
+  .track .tartist{color:var(--soft);}
+  .track .ext{
+    color:var(--soft);
+    border-bottom:none;
+    font-size:.95em;
+  }
+  .track .ext:hover{color:var(--accent);}
+  .player{
+    display:none;
+    border-top:1px solid var(--rule);
+    background:#000;
+    line-height:0;
+  }
+  .player.open{display:block;}
+  .player iframe{
+    width:100%;
+    aspect-ratio:16/9;
+    border:0;
+  }
+  /* Footer nav */
+  .pager{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:56px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .pager a{
+    display:block;
+    max-width:48%;
+    border-bottom:none;
+  }
+  .pager .dir{
+    font-size:.7em;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--soft);
+    display:block;
+    margin-bottom:4px;
+  }
+  .pager .t{color:var(--accent);font-weight:600;font-size:.95em;}
+  .pager .next{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:50px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-size:.82em;
+    color:var(--soft);
+    line-height:1.6;
+  }
+  footer.colophon a{color:var(--soft);}
+  @media(max-width:900px){
+    .ya-old{font-size:18px;}
+    .wrap{width:100%;padding:22px 18px 60px;}
+    h1{font-size:2em;}
+    .pager{flex-direction:column;}
+    .pager a,.pager .next{max-width:100%;text-align:left;}
+    .pager .next{margin-left:0;}
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №34TA</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/34TA.jpg" alt="">
+  </div>
+
+  <h1>По чем стоит Мир?<a class="audio-link" href="https://t.me/art_017_tracks/454" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <div class="lede-rule"></div>
+
+  <div class="music">
+    <div class="music-label">Музыка:</div>
+    <div class="track" id="trk" onclick="(function(t){var p=document.getElementById('pl');t.classList.toggle('open');if(!p.classList.contains('open')){p.querySelector('iframe').src='https://www.youtube-nocookie.com/embed/cbB3iGRHtqA';p.classList.add('open');}else{p.classList.remove('open');p.querySelector('iframe').src='';}})(this)">
+      <span class="arrow">▶</span>
+      <span class="ti">
+        <span class="tname">How Much is The Fish</span> —
+        <span class="tartist">Scooter</span>
+      </span>
+      <a class="ext" href="https://www.youtube.com/watch?v=cbB3iGRHtqA" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+    </div>
+    <div class="player" id="pl"><iframe src="" title="How Much is The Fish — Scooter" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+  </div>
+
+  <article>
+    <p>В жизни, возможно, каждого человека был такой момент, когда он спрашивал сам себя, вглядываясь в "общегуманистические ценности", выпукло имеющиеся в самом себе - что ему прямо сейчас мешает пойти наперекор "всему святому и прекрасному в себе и мире", что называется "напролом", "пойти на страх", - потому что именно страх абсолютной неизвестности, подобный страху смерти, удерживает человека в жестких рамках этих лекал массового сознания? И, оставляя эту безумную затею, тут же возвращался "в строй" здравомыслия и разумной умеренности, не спеша упорствовать в черезчур "смелых" экспериментах до того, как будут испробованы все пути отхода, и найден способ пойти на риск, не рискуя при этом собой, т.е. непрерывной последовательностью ощущений, которые лежат в основе самоидентификации взрослой разумной человеческой личности.</p>
+
+    <p>Человек видит в "поворотный момент", что, пойди он "на страх" до конца, он потеряет в жизни вообще какой-либо ориентир или целевой смысл, указующие направление его "временно-пространственной ориентации" в жизненном процессе, и перестанет быть в состоянии этот процесс осуществлять последовательно и сохраняя некоторое подобие единства намерения и осмысленного целеустремления и осознанности нахождения в любой его точке здесь и сейчас, которое имеется у него, посредством того, что он "не проявляет излишнего упорства в самоочевидных вопросах, ответ на которые всем понятен без слов с раннего детства, а если не понятен, они либо дурачатся за твой счет, либо им требуется очень серьезное лечение".</p>
+
+    <p>К чему я все это пишу? Разумеется, у меня нет идеи наивных ожиданий того, что кто-то сможет раньше полагающегося срока пройти этот заметный "барьер" в своем собственном духовном/магическом развитии. Но у меня есть память о том, как я сам упирался в него, и был вынужден сдавать назад, не имея таковых ориентиров, которыми можно было бы "заменить" таковые, с которыми я сталкивался "в лоб", с одной стороны понимая, что я хочу идти путями воинов, и у воина нет ни чести, ни достоинства, ни семьи ни имени ни родины, а с другой видя самого себя, погруженного во все перечисленные явления по жизни чуть менее, чем с головой и без какой либо задней мысли, даже не в состоянии помыслить себя не относящимся к понятию "родина", "отечество", "совесть" и так далее, как либо иначе, чем полагается тем, кто не является "падшим из рода человеческого" выродком, как это замечательно описано в повести и экранизации Братьев Стругацких Обитаемый остров.</p>
+
+    <p>Я хотел в этой статье приоткрыть завесу тайны с того, что в итоге позволяет "магам", то есть "воинам", потерявшим человеческую форму (по К.Кастанеде), перешагнуть через этот барьер, и откуда они берут ориентиры, модели и стимулы для дальнейшего движения, когда "корни", которыми человек прирастает к миру, который его породил и воспитал, оказываются обрублены без возможности восстановления.</p>
+
+    <p>Ничто не позволяет. Ниоткуда не берут. У них их вообще нет. Но они перешагивают его, ориентиры и модели у них имеются гораздо более четкие, последовательные и осознанные, чем у человека и воина, не находящегося "с другой стороны поля боя", на котором происходит повседневная схватка человека с самим собой, называемым "внешний объективный мир" и "общество", по сути становясь на шаг в стороне от них, и обладая обзором той картины, на которой они толкаются локтями вслепую, не видя ни на локоть вперед, и называя это "слепой фартуной", "судьбой", "случайностью" или "роком", либо называя свою слепоту "провидением", "божественным промыслом", "предначертанием", поскольку признаться в ней не позволяет глупая гордыня.</p>
+
+    <p>Дело в том, что, перешагивая через барьер "прыжка в пропасть", воины знакомятся "лично" с Силой, называнной К. Кастанедой Намерением, Духом или Орлом, и эта Сила, не умозрительно и иносказательно, а реально, ощущаемо и буднично, то есть через чувственный опыт их личной жизни повседневного мира, испытываемый день за днем, что позволяет им совершить очень простой маневр, перенося свое восприятия этого мира в будущее, посредством осуществления реал-тайм перепросмотра, т.е. призывания в своем здесь и сейчас тех состояний "целеполагания и морального ориентирования", которые у них самих объективно имелись на момент "до" пересечения ими точки невозврата, при этом получая возможность утилизации того аспекта нахождения в них, который касается возможности продолжать осмысленное последовательное целеполагание и бытие социальной личностью этого мира, с одной стороны, и при этом будучи лишенными критического недостатка, который сводил в прошлом эту полезную функцию на "нет", то есть на полный ноль возможности быть использованной по полезному назначению, в связи с полным контролем над сознанием того, кто пользуется ею, принимая на себя все те идеалы, образы мышления, "общегуманитарные" психоэмоциональные и поведенческие реакции, не позволяя ему выходить за пределы границ целеполагания и целеустремления, которые вприсаны в жесткие рамки имеющихся внутри данного энерго-информационного механизма набора социально-обусловленных клише, программируемых масс-медиа и масс-культурой "интеллектуально значимого потребления" сценариев тех микро-эволюционных процессов, которые в принципе могут протекать в процессе жизнедеятельности взрослой разумной личности, и, что гораздо менее очевидно, но в чем состоит, относительно "намерения идти путями воинов", - функционально блокируя возможность человека выбрать сценарную программу собственного развития (без заранее заданной программы не развивается ничто в Реальном Мире - допущение обратного является ярким образчиком распространенного способа самообмана), которая не является предложенной ему "материнским" провайдером мета-программ из крайне узкого и незамысловатого набора вписанных в прото-социопсихогенетическую матрицу "тоналя времени" в его локальной культурно-языковой пространственной однородности.</p>
+
+    <p>Вместо того, чтобы "добавлять" в жесткую и неизменяемую "пользователями" по определению, матрицу тоналя времени, "духовно-продвинутые" эргрегоры, то есть учения, со всеми их внутренними "прибамбасами" когнитивно-социо-психо-энергетического характера, меняющего "оттенок" свечения сознания своих адептов в ту или иную сторону общего "материнского" спектра, характерного для данной социо-психогенетической однородности в общем, эти эргрегоры переиспользуют отдельные элементы, уже имеющиеся в данной матрице, "одевая" их в собственную "палитру" не похожих внешне ни на что иное нейро-программных кодов, т.е. образов, выражений, несущих с собой очень конкретные психо-эмоциональные коды, которые оказываются "вшиты" в сознание "пользователей" посредством их неосознанного выполнения, в то время, как они не способны даже на миг усомниться в истинности "их собственных идеалов и убеждений", чувств, мыслей и стремлений, представлений о добре и зле, и, конечно же, о собственной неповторимости и уникальности как частей чего-то большого и очень отдельного, непохожего и неповторимого в своей оригинальности и аутентичности, отчетливо затеняющей все остальное пространство социо-психогенетического фона, из которого они сами вырастают, и к которому в действительности прикреплены корнями, без какой-либо возможности реальной самостоятельности в чем-бы то ни было</p>
+  </article>
+
+  <nav class="pager">
+    <a class="prev" href="33G.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="t">Яврем Дети Вперде!</span>
+    </a>
+    <a class="next" href="352.html">
+      <span class="dir">Следующая →</span>
+      <span class="t">Принцип ОВД</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — цельное философско-эзотерическое эссе из шести длинных абзацев без стихотворных форм, поэтому выбрана редакторская широкоформатная схема: основная колонка ~66% ширины окна, максимум 1100px, что даёт комфортную меру строки для плотного, синтаксически тяжёлого текста и при этом использует ширину экрана осмысленно. Засечный шрифт, тёплый светлый фон и буквица в первом абзаце задают лонгрид-характер; акцентные цвета (терракота и приглушённый синий) обеспечивают контраст ссылок и навигации без крика.\n\nВ тексте ровно один аудио-трек с YouTube-ссылкой (Scooter — How Much is The Fish), поэтому реализован один свёрнутый ленивый плеер с меткой «Музыка:» как в оригинале; сводный раздел музыки не нужен (треков не больше двух). Подзаголовков и сносок в статье нет, поэтому оглавление и аппарат примечаний не создавались. От узкой манускриптной колонки отказался, так как это проза, а не стихи; от добавления собственных заголовков воздержался согласно требованию верности тексту.",
+  "features": ["music"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -352,16 +612,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

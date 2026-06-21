@@ -7,8 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Духовное наслаждение</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Статья о духовном наслаждении: разбор отрывка Бааль Сулама из Предисловия к Книге Паним Меирот и размышления о намерении ради Творца.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/15R.html">
+<meta property="og:title" content="Духовное наслаждение">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/15R.html">
+<meta property="og:description" content="Статья о духовном наслаждении: разбор отрывка Бааль Сулама из Предисловия к Книге Паним Меирот и размышления о намерении ради Творца.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Духовное наслаждение">
+<meta name="twitter:description" content="Статья о духовном наслаждении: разбор отрывка Бааль Сулама из Предисловия к Книге Паним Меирот и размышления о намерении ради Творца.">
+
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +155,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="15R" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="15R" data-theme="swiss"
   data-art-section="shoshana" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +169,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +178,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="15R.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -213,6 +223,276 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#23201a;
+    --muted:#6e6557;
+    --accent:#8a5a2b;
+    --accent-deep:#6d4118;
+    --rule:#d9cfbd;
+    --quote-bg:#f0ead c;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{ -webkit-text-size-adjust:100%; }
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.72;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(138,90,43,.35);}
+  a:hover{color:var(--accent-deep);border-bottom-color:var(--accent-deep);}
+  .wrap{
+    width:66%;
+    max-width:920px;
+    margin:0 auto;
+    padding:32px 28px 80px;
+  }
+  @media(max-width:1100px){ .wrap{width:78%;} }
+  @media(max-width:760px){
+    .ya-old{font-size:18px;}
+    .wrap{width:100%;max-width:none;padding:20px 18px 60px;}
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:14.5px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:26px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--rule);
+  }
+  .crumbs a{border-bottom:none;color:var(--accent);}
+  .crumbs span.sep{margin:0 .5em;color:var(--rule);}
+  /* title */
+  h1{
+    font-size:2.15em;
+    line-height:1.18;
+    font-weight:700;
+    margin:.2em 0 .1em;
+    letter-spacing:.01em;
+    color:var(--ink);
+  }
+  .dateline{
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    margin:0 0 1.6em;
+  }
+  .article{ }
+  .article p{ margin:0 0 1.25em; }
+  /* opening epigraph */
+  .epigraph{
+    background:var(--quote-bg);
+    border-left:4px solid var(--accent);
+    padding:18px 24px;
+    margin:0 0 2em;
+    font-style:italic;
+    color:#322c22;
+  }
+  .epigraph p{margin:0 0 .8em;}
+  .epigraph .src{
+    font-style:normal;
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:14.5px;
+    color:var(--muted);
+    margin:0;
+  }
+  .caps{ }
+  .refrain{
+    font-size:1.25em;
+    font-weight:700;
+    text-align:center;
+    margin:1.6em 0;
+    letter-spacing:.02em;
+    color:var(--accent-deep);
+  }
+  .seealso{
+    font-style:italic;
+    color:var(--muted);
+    margin:1.4em 0;
+  }
+  /* music */
+  .music-wrap{ margin:2.4em 0 1em; }
+  .music-label{
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:.6em;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    background:var(--paper);
+    overflow:hidden;
+  }
+  .track summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:16px;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .track .arrow{
+    color:var(--accent);
+    transition:transform .2s;
+    font-size:14px;
+  }
+  .track[open] .arrow{transform:rotate(90deg);}
+  .track .tname{font-weight:700;color:var(--ink);}
+  .track .tperf{color:var(--muted);}
+  .track .ext{
+    margin-left:auto;
+    color:var(--accent);
+    border-bottom:none;
+    font-size:18px;
+  }
+  .player{position:relative;width:100%;aspect-ratio:16/9;border-top:1px solid var(--rule);}
+  .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+  /* footer nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:3em;
+    padding-top:1.4em;
+    border-top:1px solid var(--rule);
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:15px;
+  }
+  .corpus-nav a{display:block;max-width:46%;border-bottom:none;}
+  .corpus-nav .lbl{
+    display:block;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--muted);
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:2.6em;
+    padding-top:1.4em;
+    border-top:1px solid var(--rule);
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent);}
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №15R</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <p class="dateline">27 мая 2021 г.</p>
+  <h1>Духовное наслаждение<a class="audio-link" href="https://t.me/art_017_tracks/547" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <div class="article">
+
+    <div class="epigraph">
+      <p>Новое и возвышенное было сообщено ей, ведь доказал им, что глупость думать, будто сотворил Творец в Своем мире нечто злое и приносящее вред. Конечно же, по отношению к Творцу не может быть вреда и зла. А та горечь, которая чувствуется даже в близости к прикосновению, ощущается только вами, так как съев это, возвыситесь вы над самими собой. И потому нуждаетесь в большей святости во время совершения действия с намерением ради Творца, для того чтобы осуществить намерение, ради которого были вы созданы.</p>
+      <p class="src">Бааль Сулам, Предисловие к Книге Паним Меирот, п. 17</p>
+    </div>
+
+    <p>Когда Творец, Свят Благословен Он, хочет дать человеку добрую судьбу, на что указывается каббалистами как “выбери Жизнь”, Он дает человеку “шанс иметь шанс”, т.е. возможность, приложив известную долю усилий, зависящую от величины ожидающего человека блага, “удостоиться” получить эту судьбу, как “подарок Свыше”, очень важный для человека и значимый в его жизни. Важный и значимый не потому, что человек больше наслаждается, или меньше страдает, чем раньше (или чем другие), а потому, что Тот, Кто сделал человеку этот подарок, очень важен в глазах человека, и, в соответствующей этой важности мере, становятся важны для человека все Его знаки внимания, каждый из которых важен в своей собственной мере и степени, но не относительно самой сути подарка и его важности, а относительно Того, Кто оказывает человеку внимание посредством него, и с Кем человек, благодаря этому, находится в соединении.</p>
+
+    <p>Этот образ мыслей и намерений внутри "человека, стремящегося" к Творцу, Свят Благословен Он, производит сразу 2 полезных действия. Во-первых, он позволяет человеку и Творцу доставлять друг другу наслаждение, оправдывая и осуществляя Цель творения, и реализуя предназначение человека и Мира. Во-вторых, само наслаждение, измеряемое согласно данным “органов чувств” и разума, т.е. как “сладость или горечь во рту”, не влияет на степень внутренней близости человека к Тому, Кто человеку это наслаждение дарит, “в обратную сторону” (ситра ахра), приводя к тому, что, когда исчезает из его жизни и памяти это наслаждение, что является неизбежным итогом самой возможности “наслаждаться” (т.е. жить, воспринимать и чувствовать Мир), человек отдаляется от Того, Кто давал ему это наслаждение, еще больше, чем прежде, начиная ненавидеть Того, Кого раньше, во время того, когда в его жизни чувствовалось благо, которое Он доставлял человеку, явным и открытым образом, уважал и ценил.</p>
+
+    <p>Это следует из Законов существования реальности, о которых человек, по большому счету, не догадывается, но от этого не в меньшей степени оказывается управляемым ими, без возможности сделать хоть шаг в сторону. Существует много людей, которые становятся “равнодушны к благам этого мира”, но они платят за избавление от “обратного эффекта” негативной стороны получения блага в их жизни тем, что перестают это благо получать в принципе, делаясь одинаково далекими и от Жизни, и от Смерти, и расценивая это поведение как пример высшей благодетели. На самом деле, это поведение является абсолютной глупостью, не говоря уже о том, что оно “расстраивает” Творца, Свят Благословен Он, т.е. отдаляет человека от гармонии с Мирозданием, а не приближает к ней. Творцу доставляет наслаждение то, что человек, которого Он создал, реально "получает" даруемое ему Творцом "наслаждение жизни", посредством ощущения осознанной Любви. Когда человек расценивает отказ от "получения наслаждения" как благодетель, он “запирает дверь перед носом” у Творца, Свят Благословен Он, Который хочет ему это наслаждение дать, говоря этим “Твое наслаждение недостаточно хорошо, чтобы я захотел его получить”. Другими словами, возносясь в гордыне, а завещано праведниками, что “не можем Я и гордец находиться в одном месте”.</p>
+
+    <p>Но, в то же самое время, человек должен наслаждаться потому, что этого хочет Творец, Свят Благословен Он, а не потому, что это наслаждение делает жизнь человека лучше и приятнее. Причина этого подробно описана выше, поскольку неизбежным итогом такого наслаждения человека будет обратное ему состояние, в котором он сам отдаляется от Творца, Свят Благословен Он, гораздо сильнее, чем прежде, когда исчезает наслаждение из его ощущений и памяти, а это происходит неизбежно, после каждой новой полученной “порции”, таким образом, что человек, наслаждение которого не происходит по причине огромной важности в его глазах Дающего наслаждение, а имеет какую-либо иную причину, кроме этой, делает человека все более и более отдаленным от Творца, Свят Благословен Он, являющегося “корнем” человека и источником его доброй судьбы, до тех пор, пока отделение не становится критическим, и тогда человек умирает.</p>
+
+    <p>Из этого мы видим, что человек, до того, как осознает большую важность в собственных глазах Творца, Свят Благословен Он, действительно должен отказываться от получения благ и наслаждений, то есть от осознанного использования “по назначению” своего “желания получать”, являющегося всей сутью человека, тем “материалом”, из которого он создан Творцом, Свят Благословен Он. Однако, он должен, вместе с этим, каждый раз, отказываясь, СОЖАЛЕТЬ О СВОЕМ ОТКАЗЕ НАСЛАЖДАТЬСЯ, поскольку иначе он попадает во власть другой “клипы”, еще более сильной и губительной, чем сама клипа получения “ради себя”, а именно, ГОРДЫНИ – игнорирования вопроса о том, как его отказ выглядит в глазах Творца, Свят Благословен Он, Который создал Мир и человека, чтобы наслаждался жизнью, и осознанием величия, доброты и совершенства Того, Кто ему эту жизнь дарует, посредством ее “получения” и “ощущения” “здесь и сейчас”, в органах чувств и в разуме “этого мира”. Если человек помнит об этом, и сожалеет каждый раз, отказываясь от получения любых благ “этого мира”, равно как и “духовного мира”, то он не вознесется в гордыне, и не отделит себя этим каменной стеной от Творца, Свят Благословен Он, равно как и от ожидающей его самого в скором будущем, даруемой человеку Творцом доброй судьбы.</p>
+
+    <p class="refrain">Сделаем и услышим!</p>
+
+    <p class="seealso">См. также: Бааль Сулам, Предисловие к Книге Паним Меирот, п. 15 и далее..</p>
+
+    <div class="music-wrap">
+      <div class="music-label">Музыка под настроение</div>
+      <details class="track" id="track-1">
+        <summary>
+          <span class="arrow">▶</span>
+          <span><span class="tperf">SEREBRO</span> — <span class="tname">Дыши</span></span>
+          <a class="ext" href="https://www.youtube.com/watch?v=KbmYHDbaE-o" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+        </summary>
+        <div class="player" data-embed="https://www.youtube.com/embed/KbmYHDbaE-o"></div>
+      </details>
+    </div>
+
+    <p class="seealso">См. также: </p>
+
+  </div>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="22P.html">
+      <span class="lbl">← Предыдущая</span>
+      Необходимость пути Средней Линии
+    </a>
+    <a class="next" href="0BC.html">
+      <span class="lbl">Следующая →</span>
+      Маасер
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.track').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open){
+        var box=d.querySelector('.player');
+        if(box && !box.querySelector('iframe')){
+          var f=document.createElement('iframe');
+          f.src=box.dataset.embed+'?autoplay=1';
+          f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          f.allowFullscreen=true;
+          box.appendChild(f);
+        }
+      }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — это богословско-философское прозаическое рассуждение (комментарий к Бааль Суламу) без стихотворных строк, поэтому однозначно выбрана редакторская широкоформатная схема: контейнер примерно 2/3 ширины окна (66%, ограничен 920px для комфортной меры строки), с книжной засечной гарнитурой Georgia на тёплом светлом фоне. Открывающая цитата с атрибуцией оформлена как эпиграф-врезка, а финальная строка «Сделаем и услышим!» выделена как рефрен, не добавляя при этом никаких своих заголовков. КАПС-фрагменты (СОЖАЛЕТЬ О СВОЕМ ОТКАЗЕ НАСЛАЖДАТЬСЯ, ГОРДЫНИ) сохранены дословно.",
+    "Оглавление не делалось: в тексте нет более одного подраздела. Единственный музыкальный трек (SEREBRO — Дыши, YouTube) оформлен как свёрнутый ленивый плеер с меткой «Музыка под настроение»; сводный музыкальный раздел не создавался, так как трек только один (порог — более двух). Сносок в тексте нет. Голые URL обёрнуты в гиперссылки.",
+  "features": ["music"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -358,16 +638,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

@@ -7,8 +7,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>НОВАЯ ПЕСНЬ ХОЗЯЙКИ НОЧИ</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Стихотворная история о двух друзьях детства Маше и Васе, встретившихся обнажёнными в лесном омуте и впервые осознавших взаимное чувство.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/341.html">
+<meta property="og:title" content="НОВАЯ ПЕСНЬ ХОЗЯЙКИ НОЧИ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/341.html">
+<meta property="og:description" content="Стихотворная история о двух друзьях детства Маше и Васе, встретившихся обнажёнными в лесном омуте и впервые осознавших взаимное чувство.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="НОВАЯ ПЕСНЬ ХОЗЯЙКИ НОЧИ">
+<meta name="twitter:description" content="Стихотворная история о двух друзьях детства Маше и Васе, встретившихся обнажёнными в лесном омуте и впервые осознавших взаимное чувство.">
+<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/341.jpg">
+<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/341.jpg">
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +156,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="341" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="341" data-theme="swiss"
   data-art-section="dreamon" data-art-type="poem"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +170,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +179,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="341.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -487,6 +498,705 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --ink:#2b2118;
+    --ink-soft:#5a4a38;
+    --gold:#9a6b1f;
+    --gold-deep:#6e4a13;
+    --rule:#d8c7a8;
+    --bg:#f6f0e2;
+    --panel:#fbf6ea;
+    --accent:#7a2e1d;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
+    margin:0;
+    background:
+      radial-gradient(circle at 20% 0%, #fbf5e6 0%, var(--bg) 60%) ,
+      var(--bg);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    line-height:1.7;
+    font-size:19px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{
+    max-width:820px;
+    margin:0 auto;
+    padding:32px 26px 80px;
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--ink-soft);
+    margin-bottom:20px;
+    font-variant:small-caps;
+  }
+  .crumbs a{color:var(--gold-deep);text-decoration:none;border-bottom:1px solid var(--rule);}
+  .crumbs a:hover{color:var(--accent);border-color:var(--accent);}
+  .crumbs span.sep{margin:0 .5em;color:var(--rule);}
+  /* illustration */
+  .illus{
+    text-align:center;
+    margin:18px 0 26px;
+  }
+  .illus img{
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border-radius:3px;
+    box-shadow:0 6px 26px rgba(80,55,20,.22);
+    border:1px solid var(--rule);
+  }
+  /* title */
+  h1{
+    font-size:33px;
+    line-height:1.25;
+    text-align:center;
+    margin:.2em 0 .1em;
+    color:var(--gold-deep);
+    font-weight:600;
+    letter-spacing:.01em;
+  }
+  .title-orn{
+    text-align:center;
+    color:var(--gold);
+    font-size:22px;
+    margin:.1em 0 1.4em;
+    letter-spacing:.4em;
+  }
+  /* epigraph */
+  .epigraph{
+    margin:0 auto 2.4em;
+    max-width:560px;
+    padding:18px 26px;
+    background:var(--panel);
+    border-left:3px solid var(--gold);
+    border-radius:0 6px 6px 0;
+    font-style:italic;
+    color:var(--ink-soft);
+    box-shadow:0 2px 14px rgba(120,90,40,.07);
+  }
+  .epigraph .ep-lbl{
+    font-style:normal;
+    font-variant:small-caps;
+    letter-spacing:.08em;
+    font-size:14px;
+    color:var(--gold);
+    display:block;
+    margin-bottom:.5em;
+  }
+  .epigraph .ep-verse{white-space:pre-line;}
+  .epigraph .ep-src{
+    font-style:normal;
+    font-size:14.5px;
+    margin-top:.8em;
+    display:block;
+  }
+  .epigraph .ep-src a{color:var(--gold-deep);text-decoration:none;border-bottom:1px dotted var(--gold);}
+  .epigraph .ep-src a:hover{color:var(--accent);}
+  /* toc */
+  details.toc{
+    margin:0 auto 2.6em;
+    max-width:560px;
+    background:var(--panel);
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:6px 22px;
+    box-shadow:0 2px 12px rgba(120,90,40,.06);
+  }
+  details.toc>summary{
+    cursor:pointer;
+    list-style:none;
+    font-variant:small-caps;
+    letter-spacing:.1em;
+    color:var(--gold-deep);
+    font-size:16px;
+    padding:10px 0;
+    text-align:center;
+    outline:none;
+  }
+  details.toc>summary::-webkit-details-marker{display:none;}
+  details.toc>summary::before{content:"✦ ";color:var(--gold);}
+  details.toc>summary::after{content:" ✦";color:var(--gold);}
+  .toc ol{
+    margin:.2em 0 1em;
+    padding:0 0 0 0;
+    list-style:none;
+    counter-reset:toc;
+  }
+  .toc ol li{
+    counter-increment:toc;
+    padding:5px 0;
+    border-top:1px dotted var(--rule);
+  }
+  .toc ol li:first-child{border-top:none;}
+  .toc ol li a{
+    color:var(--ink);
+    text-decoration:none;
+    display:block;
+  }
+  .toc ol li a::before{
+    content:counter(toc,upper-roman) ".";
+    color:var(--gold);
+    margin-right:.7em;
+    font-variant:normal;
+  }
+  .toc ol li a:hover{color:var(--accent);}
+  /* sections */
+  .part{
+    scroll-margin-top:18px;
+    margin:2.8em 0 1.6em;
+  }
+  .part h2{
+    font-size:23px;
+    text-align:center;
+    color:var(--accent);
+    font-weight:600;
+    letter-spacing:.04em;
+    margin:0 0 1.1em;
+  }
+  .part h2 a{
+    color:inherit;
+    text-decoration:none;
+  }
+  .part h2 a:hover{color:var(--gold-deep);}
+  .part h2::before,.part h2::after{
+    content:"❧";
+    color:var(--gold);
+    font-size:17px;
+    margin:0 .55em;
+    vertical-align:.05em;
+  }
+  /* verse */
+  .stanza{
+    white-space:pre-line;
+    margin:0 auto 1.5em;
+    text-align:left;
+    max-width:540px;
+    padding-left:8px;
+  }
+  .stanza:first-letter{}
+  /* drop-cap on first stanza of part */
+  .part .stanza:first-of-type::first-letter{
+    font-size:3.1em;
+    line-height:.8;
+    float:left;
+    color:var(--gold-deep);
+    margin:.04em .12em 0 0;
+    font-weight:600;
+  }
+  /* music */
+  .music-block{
+    margin:2em auto;
+    max-width:560px;
+  }
+  .music-label{
+    font-variant:small-caps;
+    letter-spacing:.08em;
+    font-size:14.5px;
+    color:var(--gold);
+    margin-bottom:.5em;
+    text-align:center;
+  }
+  details.player{
+    background:var(--panel);
+    border:1px solid var(--rule);
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 2px 12px rgba(120,90,40,.07);
+  }
+  details.player>summary{
+    cursor:pointer;
+    list-style:none;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:13px 16px;
+    outline:none;
+  }
+  details.player>summary::-webkit-details-marker{display:none;}
+  .player .arrow{
+    color:var(--gold);
+    transition:transform .25s;
+    font-size:14px;
+  }
+  details.player[open] .arrow{transform:rotate(90deg);}
+  .player .track-name{font-weight:600;color:var(--ink);}
+  .player .track-art{color:var(--ink-soft);font-size:16px;}
+  .player .ext{
+    margin-left:auto;
+    color:var(--gold-deep);
+    text-decoration:none;
+    font-size:15px;
+    border-bottom:1px solid var(--rule);
+  }
+  .player .ext:hover{color:var(--accent);}
+  .player .frame{
+    position:relative;
+    padding-top:56.25%;
+    background:#000;
+  }
+  .player .frame iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+  }
+  /* signature */
+  .signature{
+    text-align:center;
+    font-style:italic;
+    color:var(--ink-soft);
+    margin:2.6em 0 0;
+    font-size:17px;
+  }
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin:3.4em 0 0;
+    padding-top:1.6em;
+    border-top:1px solid var(--rule);
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    color:var(--gold-deep);
+    max-width:46%;
+    font-size:16px;
+  }
+  .corpus-nav a:hover{color:var(--accent);}
+  .corpus-nav .lbl{
+    display:block;
+    font-variant:small-caps;
+    font-size:13px;
+    color:var(--gold);
+    letter-spacing:.06em;
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  footer.colofon{
+    margin-top:3em;
+    padding-top:1.4em;
+    border-top:1px solid var(--rule);
+    font-size:14.5px;
+    color:var(--ink-soft);
+    text-align:center;
+    line-height:1.6;
+  }
+  footer.colofon a{color:var(--gold-deep);}
+  .ornend{
+    text-align:center;
+    color:var(--gold);
+    font-size:20px;
+    letter-spacing:.4em;
+    margin:2.4em 0 0;
+  }
+  @media(max-width:680px){
+    .ya-old{font-size:17.5px;}
+    .page{padding:22px 16px 60px;}
+    h1{font-size:27px;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav .next{text-align:left;margin-left:0;}
+  }
+</style>
+<div class="ya-old" data-scheme="manuscript">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №341</span>
+<div class="page" id="top">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../dreamon/index.html">Мечтай!!</a>
+  </nav>
+
+  <div class="illus">
+    <img src="../img/341.jpg" alt="Иллюстрация к статье">
+  </div>
+
+  <h1>НОВАЯ ПЕСНЬ ХОЗЯЙКИ НОЧИ<a class="audio-link" href="https://t.me/art_017_tracks/308" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <div class="title-orn">✦ ❧ ✦</div>
+
+  <div class="epigraph">
+    <span class="ep-lbl">Эпиграф</span>
+    <div class="ep-verse">"А теперь, друг дорогой,
+Вопрос на самоконтроль:
+Какова будет судьба
+Двух героев у Пруда?"</div>
+    <span class="ep-src">— <a href="2BN.html">Немая Песнь Хозяйки Ночи</a></span>
+  </div>
+
+  <details class="toc" open>
+    <summary>Оглавление</summary>
+    <ol>
+      <li><a href="#part1">ДЕНЬ ПОБЕДЫ</a></li>
+      <li><a href="#part2">ТЕНЬ ПОБЕДЫ</a></li>
+      <li><a href="#part3">БЕЗДНА ПОБЕДЫ</a></li>
+      <li><a href="#part4">ПРОЛОГ ПОБЕДЫ</a></li>
+    </ol>
+  </details>
+
+  <!-- PART 1 -->
+  <section class="part" id="part1">
+    <h2><a href="#top">Часть 1. ДЕНЬ ПОБЕДЫ</a></h2>
+
+    <p class="stanza">Маша в озере купалась
+Скинув на траву одежду.
+Ее пися наслаждалась
+Лаской волн об клитор нежных.</p>
+
+    <p class="stanza">А с ней рядом, за березкой
+Незаметно друг для друга
+Плавал, без одежды тоже
+Васька, бывший ее другом.</p>
+
+    <p class="stanza">Но не так, чтобы им голым
+Было раньше вместе плавать.
+Они в первом классе школы
+Были оба, жили рядом</p>
+
+    <p class="stanza">Летом с бабушкой на даче
+И их бабушки судачить
+Обожали, на скамейке
+Сидя, пока вдвоем дети</p>
+
+    <p class="stanza">Игры детские играли.
+Но сейчас взрослее стали
+И смотреть стали иначе
+На друг дружку Машка с Васькой.</p>
+
+    <p class="stanza">Глаза тут же от смущенья
+Отводя в сторону быстро
+Когда взгляд другой заметит
+И глаза на них поднимет.</p>
+
+    <p class="stanza">И вот, двое друзей детства
+Вдруг встречаются, едва ли
+Не столкнувшись их телами
+И растерянно глазея</p>
+
+    <div class="music-block">
+      <div class="music-label">Музыка</div>
+      <details class="player" data-vid="zinzvs86qNA">
+        <summary>
+          <span class="arrow">▶</span>
+          <span class="track-name">Наблюдатель</span>
+          <span class="track-art">— Король и Шут</span>
+          <a class="ext" href="https://www.youtube.com/watch?v=zinzvs86qNA" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a>
+        </summary>
+        <div class="frame"></div>
+      </details>
+    </div>
+
+    <p class="stanza">Над водою головами
+Друг на дружку. Хоть считали
+Что никто их не заметит
+Пока будут они плавать</p>
+
+    <p class="stanza">В водах Омута лесного.
+Скрытого в потайном Месте
+Каждому из них знакомым
+Омут тот с раннего детства</p>
+
+    <p class="stanza">Обнаруженным был ими
+И безлюден был годами.
+"Машка?" "Вась"
+"Ты что здесь..." Вместе</p>
+
+    <p class="stanza">Дети начали, и сразу
+Поняли, что обоюдно
+Говоряд друг дружке фразу
+И залились смехом тут же.</p>
+
+    <p class="stanza">Начали руками воду
+Брызгами лить друг на дружку
+И впервые дав свободу
+Этим летом своим чувствам</p>
+
+    <p class="stanza">От которых было страшно
+Им обоим, ведь впервые
+Они чувствовали жажду
+От которой душа с телом -</p>
+
+    <p class="stanza">Стоит лишь увидеть милый
+Силуэт вдали идущий -
+Пламенем великой Силы
+Полыхали. Мир ненужным</p>
+
+    <p class="stanza">Делая, но лишь руками
+Трогать, чувствуя друг друга
+Вожделея, и не смея
+Подойти, и, улыбнувшись,</p>
+
+    <p class="stanza">Предложить провести время
+Вместе, каждым своей тайной,
+Уже много лет известной
+Мальчик с девочкой считали</p>
+
+    <p class="stanza">И как самым ценным Даром
+Что в их жизнях было, вместе
+Поделиться, нараспашку
+Оголяя чувства, сердцем</p>
+
+    <p class="stanza">Как герой древнего мифа
+Что Огонь своего сердца
+Вынув сердце ценой жизни
+Давать тем, любовью чьею</p>
+
+    <p class="stanza">Жил, горел, стремился, мыслил
+Создан им будучи Духом
+Жизни из Любви Всесильным
+Чтобы сделать их взаимно</p>
+
+    <p class="stanza">Силой, отраженной дважды,
+И от них, соединивших
+То, что в жизни стало главным
+С Тем, главнее Кого в Мире</p>
+
+    <p class="stanza">Нет, непостижимой Тайной
+Кто для всех всегда оставшись
+Делает им то, что двое
+Наших мужественных, добрых</p>
+
+    <p class="stanza">И немыслимо влюбленных
+Юных двух героев, вдоволь
+Наигравшихся, друг к другу
+Тесно-тесно подплыв, бурно</p>
+
+    <p class="stanza">Что пылала первозданным
+Огнем, что в Ядре Планеты
+Вечно и Неугасая
+Никогда, будучи Искрой</p>
+
+    <p class="stanza">В Сердце Каменного Царства
+Солнца, Жизнь с Теплом дарует
+Всем, кто служит Ей Экраном,
+Чьи плетет Узоры Судеб</p>
+  </section>
+
+  <!-- PART 2 -->
+  <section class="part" id="part2">
+    <h2><a href="#top">Часть 2. ТЕНЬ ПОБЕДЫ</a></h2>
+
+    <p class="stanza">Спящий Абсолютный Разум
+Созданной для прославленья
+В созданных Ее созданьях
+С Нижней (неживой) ступени</p>
+
+    <p class="stanza">Собственными их Путями -
+Славы, Мир Животворящей
+Силы, Девочку создавшей
+Чтобы Мальчик, возжелавший</p>
+
+    <p class="stanza">Слиться с Ней впервые в жизни
+Стал смотреть на Мир иначе
+Когда Маша с Васей вместе
+Что есть сил обняв друг дружку</p>
+
+    <p class="stanza">И прижав к себе руками
+И, глаза крепко зажмурив,
+Впились жадными губами
+Нежно, яростно, слиянью</p>
+
+    <p class="stanza">Лишь, ценой всей своей жизни,
+Если нужно, ведь терпеть им
+Невозможно то, что мысли
+Чувства, Мир делая "нижний"
+Высшим, губы лишь разнявши</p>
+
+    <p class="stanza">Посмотрев без тени страха
+Несгибаемо друг другу
+Полными от слез глазами
+Чтобы сообщить, что чувство</p>
+
+    <p class="stanza">Что в груди пылает ярче,
+Чем Звезда с Именем Солнце
+В Миг, который приближался
+Неминуемо, им Богом</p>
+
+    <p class="stanza">В Дар Живым который Сделал
+Им все то, что вело к встрече
+Ими этого мгновенья
+Дан, в котором будет детство</p>
+
+    <p class="stanza">Навсегда ими распято
+На Кресте победоносном
+Что уперся в живот Маше
+Потому что Он воткнется</p>
+
+    <p class="stanza">Резко изнутри туда же
+И с недетской Силой биться
+Снизу вверх, сметя преграду
+Прижав девочку к границе</p>
+
+    <p class="stanza">Омута спиною, Васькой
+Туда вновь и вновь со стоном
+Вожделения под Корень
+Словно пушечным снарядом</p>
+
+    <p class="stanza">Чпоканием воды втыкаясь,
+Тыча в Машину тугую
+Распечатанную письку
+Так неистово и резко</p>
+
+    <p class="stanza">Что сдержать будет не в силах
+Девочка вопль, всем телом
+Дергая непроизвольно
+Будто приступ от болезни</p>
+
+    <p class="stanza">Страшной и смертельной хвори
+Будто брешь в защите мощной
+Мальчик, тычась в ее лоно
+Сотворил, открыв бездонный</p>
+
+    <p class="stanza">И бескрайний в Ней колодец
+Бездну, *****в ****у Ей
+Каменным ***м огромным
+Отворил, слив с нею чувства</p>
+  </section>
+
+  <!-- PART 3 -->
+  <section class="part" id="part3">
+    <h2><a href="#top">Часть 3. БЕЗДНА ПОБЕДЫ</a></h2>
+
+    <p class="stanza">И представ для ощущенья
+Не*****ого блаженства
+Неизбежности паденья</p>
+
+    <p class="stanza">Перед Его вожделеньем
+Ставшим Силой непреклонной
+Что вторгается Ей в Лоно
+И вот-вот Водою Жизни</p>
+
+    <p class="stanza">Изольется, Дверь закрыв в ней
+Туда, где вечность блаженства
+Существует бесконечно
+И где без ограничений</p>
+
+    <p class="stanza">На их пол, время и место
+Близости ставшей причиной
+Всех причин, собранных вместе
+Управляющей всем Миром</p>
+
+    <p class="stanza">Скрыто от Своих творений -
+Чья Природа - быстротечность,
+Тлен, иллюзия и бренность
+Жизни, данной в Дар на время, -</p>
+
+    <p class="stanza">Находясь в Хитколелуте
+С Силой Сверхуниверсальной
+Абсолютной и бескрайней
+Тень которой лишь - их разум</p>
+
+    <p class="stanza">В своей высшей точке самой.
+Блеклая, как свечи пламя
+Перед Пламенем Планеты
+Или ядерным Ударом -</p>
+
+    <p class="stanza">И лишь только в Силу этих,
+Кажущихся приговором,
+Фактов о Себе и Свете -
+Чувствовать Любовь способных</p>
+  </section>
+
+  <!-- PART 4 -->
+  <section class="part" id="part4">
+    <h2><a href="#top">Часть 4. ПРОЛОГ ПОБЕДЫ</a></h2>
+
+    <p class="stanza">Мальчика к своей Девчонке
+Матери к своему Сыну
+Отца к Дочке, даря Миру</p>
+
+    <p class="stanza">Где Они, живую Душу,
+Слитую с Ними вовеки
+Пол и возраст их лишь служат
+Инструментом наслажденья</p>
+
+    <p class="stanza">Истинной Единой Пары
+Света, движущего всеми,
+Кто дыханьем обладает,
+И, поднявшейся из праха</p>
+
+    <p class="stanza">Нижними, Им вдохновленных
+На Полет Мечты свободный
+В Будущее, где Ей Место
+Подготовлено любовных</p>
+
+    <p class="stanza">Отношений совершенных.
+Где от Мала до Велика
+Свет и Кли Душой и Телом
+Будут, есть, и всегда слиты</p>
+
+    <p class="stanza">Поднимая их к Победе
+Над Всем Тем, Кто Создал Это</p>
+
+    <div class="music-block">
+      <div class="music-label">Музыка под настроение</div>
+      <details class="player" data-vid="N9PNCCW7hvo">
+        <summary>
+          <span class="arrow">▶</span>
+          <span class="track-name">Черно-Белые Дни</span>
+          <span class="track-art">— AMATORY</span>
+          <a class="ext" href="https://www.youtube.com/watch?v=N9PNCCW7hvo" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a>
+        </summary>
+        <div class="frame"></div>
+      </details>
+    </div>
+
+    <p class="signature">(ц) Элиягу Бар Малей, Апрель 2023</p>
+  </section>
+
+  <div class="ornend">✦ ❧ ✦</div>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="1BA.html">
+      <span class="lbl">← Предыдущая</span>
+      Стихотворение АРИ. Часть 3
+    </a>
+    <a class="next" href="55K.html">
+      <span class="lbl">Следующая →</span>
+      Мама, ты иди к подружкам...
+    </a>
+  </nav>
+
+  <footer class="colofon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('details.player').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open && !d.dataset.loaded){
+        var vid=d.dataset.vid;
+        var frame=d.querySelector('.frame');
+        var ifr=document.createElement('iframe');
+        ifr.src='https://www.youtube.com/embed/'+vid+'?rel=0&autoplay=1';
+        ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        ifr.allowFullscreen=true;
+        frame.appendChild(ifr);
+        d.dataset.loaded='1';
+      }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "поэма",
+  "rationale": "Текст — цельная сюжетная поэма, строго организованная катренами (с редкими 3- и 5-строчными строфами) и разбитая на четыре нумерованные части. Стихотворная форма доминирует безоговорочно, поэтому выбрана манускриптная схема: узкая книжная полоса ~820px, засечный шрифт палатиновского типа, тёплая 'иллюминированная' золотисто-пергаментная палитра на светлом фоне, буквицы в начале каждой части и орнаментальные разделители ❧ — это поддерживает медленное, поэтическое чтение. Строфы отрисованы через white-space:pre-line, чтобы сохранить авторскую разбивку строк дословно, включая зацензуренные звёздочками фрагменты, КАПС и кавычки.",
+  "rationale_extra": "Развилки: частей больше одной, поэтому добавил сворачиваемое оглавление (по умолчанию развёрнуто) с переходом по заголовку-ссылке обратно наверх; примечаний и сносок в тексте нет, поэтому аппарат не строился. Музыкальных ссылок ровно две (порог сводного раздела — более двух не достигнут), поэтому оба трека оставлены на своих местах как ленивые сворачиваемые YouTube-плееры с метками 'Музыка' и 'Музыка под настроение' дословно; iframe инжектится только при первом раскрытии. Эпиграф со ссылкой на proza.ru оформлен врезкой, голый URL обёрнут в гиперссылку.",
+  "features": ["music", "toc"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -632,16 +1342,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

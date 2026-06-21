@@ -7,8 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Этапы Путей Воинов</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Диалог с форума ccastaneda.ru о понятиях воина, мага и человека знания в учении Кастанеды, союзниках, сдвиге точки сборки и принципах сталкинга.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/2AA.html">
+<meta property="og:title" content="Этапы Путей Воинов">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/2AA.html">
+<meta property="og:description" content="Диалог с форума ccastaneda.ru о понятиях воина, мага и человека знания в учении Кастанеды, союзниках, сдвиге точки сборки и принципах сталкинга.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Этапы Путей Воинов">
+<meta name="twitter:description" content="Диалог с форума ccastaneda.ru о понятиях воина, мага и человека знания в учении Кастанеды, союзниках, сдвиге точки сборки и принципах сталкинга.">
+
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +155,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="2AA" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="2AA" data-theme="swiss"
   data-art-section="other" data-art-type="dialog"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +169,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +178,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="2AA.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -203,6 +213,241 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --muted:#6b6256;
+    --accent:#8a5a2b;
+    --accent-soft:#b98a4e;
+    --rule:#e0d6c4;
+    --quote-bg:#f0ead d;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{-webkit-text-size-adjust:100%;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Georgia","Times New Roman",serif;
+    line-height:1.72;
+    font-size:19px;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .wrap{
+    width:66%;
+    max-width:1080px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 28px 72px;
+  }
+
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:34px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .breadcrumbs a{color:var(--muted);}
+  .breadcrumbs a:hover{color:var(--accent);}
+  .breadcrumbs .sep{margin:0 .55em;color:var(--accent-soft);}
+
+  header.article-head{margin-bottom:40px;}
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    font-size:13px;
+    color:var(--accent);
+    margin-bottom:14px;
+  }
+  h1{
+    font-size:40px;
+    line-height:1.14;
+    font-weight:700;
+    margin:0;
+    letter-spacing:-.01em;
+  }
+  h1 .rule{
+    display:block;
+    width:84px;
+    height:3px;
+    background:var(--accent);
+    margin-top:22px;
+  }
+
+  .lead-src{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+    color:var(--muted);
+    margin:0 0 18px;
+  }
+
+  /* quoted forum block */
+  blockquote.forum{
+    margin:0 0 38px;
+    padding:24px 30px;
+    background:var(--paper);
+    border-left:4px solid var(--accent-soft);
+    box-shadow:0 1px 0 var(--rule);
+    border-radius:2px;
+  }
+  blockquote.forum p{margin:0 0 1em;}
+  blockquote.forum p:last-child{margin-bottom:0;}
+  blockquote.forum ol{margin:.2em 0 1em;padding-left:1.4em;}
+  blockquote.forum li{margin:.15em 0;}
+
+  .answer-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:13px;
+    color:var(--accent);
+    margin:0 0 8px;
+  }
+
+  article p{margin:0 0 1.35em;}
+  article > p:first-of-type::first-letter{
+    font-size:3.4em;
+    line-height:.82;
+    float:left;
+    padding:6px 12px 2px 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+
+  .signoff{
+    font-style:italic;
+    color:var(--muted);
+    margin-top:32px;
+    padding-top:16px;
+    border-top:1px solid var(--rule);
+  }
+
+  /* corpus nav */
+  nav.corpus{
+    margin-top:56px;
+    padding-top:24px;
+    border-top:2px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  nav.corpus a{
+    display:block;
+    max-width:48%;
+  }
+  nav.corpus .dir{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  nav.corpus .ttl{font-size:17px;color:var(--accent);font-weight:600;}
+  nav.corpus .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:48px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer.colophon a{color:var(--accent);}
+
+  @media (max-width:900px){
+    .wrap{width:100%;max-width:680px;padding:22px 18px 56px;}
+    .ya-old{font-size:18px;}
+    h1{font-size:31px;}
+    nav.corpus{flex-direction:column;}
+    nav.corpus a{max-width:100%;}
+    nav.corpus .next{text-align:left;}
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №2AA</span>
+<div class="wrap">
+
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../other/index.html">Без категории</a>
+  </nav>
+
+  <header class="article-head">
+    <div class="kicker">Диалоги · сталкинг</div>
+    <h1>Этапы Путей Воинов<a class="audio-link" href="https://t.me/art_017_tracks/616" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a><span class="rule"></span></h1>
+  </header>
+
+  <p class="lead-src">Диалог на форуме <a href="https://ccastaneda.ru" rel="noopener">ccastaneda.ru</a>:</p>
+
+  <blockquote class="forum">
+    <p>Обычный чел-воин-маг-человек знания.</p>
+    <p>Чтобы стать войном нужно побороть свои страсти, он же чужеродный разум. Избавиться от него и стать свободным. Поэтому и называется путь воина, так как человек начинает войну с самим собой, с другим я.</p>
+    <p>Чтобы стать магом нужно пройти 3моста моста.</p>
+    <ol>
+      <li>Избавиться от идеи секса</li>
+      <li>Научиться смещать Тс по собственному желанию</li>
+      <li>Обрести союзника</li>
+    </ol>
+    <p>А человеком знания становятся наверно, пройдя все врата сновидения.</p>
+    <p>Как то так. Поэтому нужно соблюдать последовательность пути.</p>
+  </blockquote>
+
+  <p class="answer-label">Ответ</p>
+
+  <article>
+    <p>К сожалению, все мимо. Кроме, может быть, последнего пункта. Но только союзника придется искать среди людей. Главным образом, противоположного пола. А потом уже, по факту нахождения, появятся и союзники. Союзник&nbsp;- это связующий элемент, он служит взаимосвязи нескольких разнородных по типу энергий в одну энергию более высокого порядка, в которой они взаимодополняют друг друга. Обрести союзника для связи с самим собой любимым (равно как и со всевозможными фантазийными умозрительными сущностями, на которые богато наше воображение)&nbsp;- это оксюморон и бессмыслица. Такой "союзник" может оказаться лишь "летуном", пользующимся глупостью и наивностью "донора" в интересах своих реальных "хозяев", рассматривающих такого "воина" как питательный планктон, дрейфующий без тени осознания себя и не проявляющий признаков собственной жизни, в отрыве от тех "собственных мыслей, стремлений и чувств", которые они прокручивают на его внутреннем теле-радио, услужливо подстраиваемыми теми самыми "обретенными союзниками".</p>
+
+    <p>Человеком знания становятся тогда, когда ни знания, ни способности, ни желания "собственные" человека, т.е. "воина" и "мага", уже не волнуют от слова "совсем". Но это совсем не означает, что у него не остается таковых желаний, стремлений, и всего прочего. Просто, он больше ими не ограничен также, как любой другой человек этого мира, включая магов и воинов, просто потому, что не считает их собой, и реально действует исходя из этого понимания, давая им прийти и уйти естественно, под управлением и по воле Намерения Духа. У КК это называется бесконечным совершенствованием способностей сталкера к импровизации, являющимся следствием освоения им, на собственном ежедневном практическом опыте, первых 7 формальных принципов сталкинга, суть которых лишь в том, чтобы позволить воину быть тем, кем он сам не является и никогда не являлся, потому что он и то, чем он является или не является, ведя свою "последнюю битву на этой Земле"&nbsp;- две вещи существующие одновременно, но не являющиеся одним и тем же, поскольку то, чем он является, чего он желает, что он имеет или не имеет, делает или не делает&nbsp;- это приходит и уходит как ветер на берегу моря, рядом с которым он живет и на которое он смотрит по жизни, и в которое он неизбежно войдет, когда придет его время отправляться в дальнейший Путь, также, как когда-то вышел из него на берег, родившись в этот мир, чтобы быть человеческой личностью.</p>
+
+    <p>Со сдвигом ТС "по собственному желанию" есть еще одна принципиальная "проблема". Твоя ТС уже является зафиксированной в конкретных свойствах "личности этого мира" по твоей собственной свободной воле, причем, ты сделал это не "просто так, чтобы было", а ради вполне конкретной цели и задачи, которые никуда не делись и находятся перед тобой здесь и сейчас точно также, как это было в момент осуществления тобой первоначальной "фиксации". Точнее, в момент осуществления Орлом наделения посредством Своих эманаций Жизнью некоторой формы целеполагания и связанного с ним образа действия, которые в последствии ты стал называть "собой". Чтобы что-либо сущностно изменить в вышеописанном положении вещей, требуется для начала как следует разобраться, т.е. осознать, понять и принять, природу и сущность тех имеющихся у нынешней формы "фиксации" целей и задач, выполняемых тобой независимо от желания и степени осознания, имея в виду при этом, что настоящая цель&nbsp;- посредством данного опыта прийти к тому, чтобы переопределить для самого себя (читай точки сборки) новый набор таковых целей и задач, сущностно подобных уже имеющимся, но только поставленных тобой самим перед Духом непосредственно перед тем, как Он поставит их перед тобой и скомандует тебе "забыть" чтобы начать выполнять их, оказавшись в том объеме реального мира, который им сущностно соответствует посредством настройки восприятия. Искренне желаю удачи!</p>
+
+    <p class="signoff">Написано 10.10.22 г.</p>
+  </article>
+
+  <nav class="corpus" aria-label="Навигация по разделу">
+    <a class="prev" href="29NA.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="ttl">Путь Одиночки</span>
+    </a>
+    <a class="next" href="165A.html">
+      <span class="dir">Следующая →</span>
+      <span class="ttl">Вопросы и Ответы</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой прозаический диалог с форума: короткая цитата вопроса и развёрнутый ответ из трёх плотных абзацев рассуждений. Стихотворных форм нет, поэтому выбрана редакторская широкоформатная схема с основной колонкой примерно в 2/3 ширины окна (66%, max-width 1080px) — длинные сложноподчинённые предложения комфортнее читаются в широкой мере с увеличенным межстрочным интервалом.\n\nПограничное решение касалось подачи реплики форума и подписи 'Ответ:': исходный текст содержит явное разделение на чужую реплику (в кавычках-блоке) и авторский ответ, поэтому реплика оформлена как blockquote с сохранением её нумерованного списка и опечаток дословно ('войном', '3моста моста', 'Тс'), а 'Ответ:' вынесен надстрочной меткой — без добавления собственных заголовков. Оглавление не делалось: смысловых подразделов в тексте нет (единый ответ). Музыки и сносок в тексте нет, поэтому соответствующие функции не применялись. Кавычки и КАПС оставлены как есть; единственная типографская правка — неразрывные пробелы вокруг тире для опрятных строк.",
+  "features": []
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -348,16 +593,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

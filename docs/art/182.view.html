@@ -7,8 +7,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ЛЕТОПИСЬ ЖИВОГО ОГНЯ</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Поэтическое эссе со стихотворными вставками о синтезе Пути Воина Кастанеды и Каббалы, духовной и плотской любви, самоотмене и наполнении Светом.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/182.html">
+<meta property="og:title" content="ЛЕТОПИСЬ ЖИВОГО ОГНЯ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/182.html">
+<meta property="og:description" content="Поэтическое эссе со стихотворными вставками о синтезе Пути Воина Кастанеды и Каббалы, духовной и плотской любви, самоотмене и наполнении Светом.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ЛЕТОПИСЬ ЖИВОГО ОГНЯ">
+<meta name="twitter:description" content="Поэтическое эссе со стихотворными вставками о синтезе Пути Воина Кастанеды и Каббалы, духовной и плотской любви, самоотмене и наполнении Светом.">
+<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/182.jpg">
+<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/182.jpg">
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +156,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="182" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="182" data-theme="swiss"
   data-art-section="best" data-art-type="poem"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +170,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +179,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="182.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -774,6 +785,519 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f6efe0;
+    --paper:#fbf6ea;
+    --ink:#2b2118;
+    --crimson:#7e2b1c;
+    --gold:#9a6a12;
+    --rule:#d8c7a3;
+    --link:#8a2d1a;
+    --soft:#5c4a33;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'PT Serif',Georgia,'Times New Roman',serif;
+    font-size:19px;
+    line-height:1.62;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{
+    max-width:820px;
+    margin:0 auto;
+    padding:28px 26px 64px;
+    background:var(--paper);
+    box-shadow:0 0 38px rgba(80,55,20,.10);
+  }
+  a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(138,45,26,.35);}
+  a:hover{border-bottom-color:var(--link);}
+  /* breadcrumbs */
+  .crumbs{
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--soft);
+    margin-bottom:18px;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:10px;
+  }
+  .crumbs a{border:none;color:var(--crimson);}
+  .crumbs span{margin:0 .5em;color:var(--gold);}
+  /* lead image */
+  .lead-img{display:block;margin:0 auto 20px;max-width:100%;width:auto;height:auto;border:1px solid var(--rule);
+    box-shadow:0 3px 14px rgba(80,55,20,.18);}
+  /* titles */
+  h1{
+    font-size:33px;
+    line-height:1.18;
+    text-align:center;
+    color:var(--crimson);
+    margin:.2em 0 .25em;
+    letter-spacing:.01em;
+  }
+  .subtitle{
+    text-align:center;
+    font-style:italic;
+    color:var(--soft);
+    font-size:19px;
+    margin:0 auto .5em;
+    max-width:42em;
+  }
+  .artmeta{
+    text-align:center;
+    font-size:15px;
+    letter-spacing:.06em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .divider{
+    text-align:center;
+    color:var(--gold);
+    font-size:20px;
+    margin:22px 0;
+    letter-spacing:.4em;
+  }
+  /* TOC */
+  details.toc{
+    border:1px solid var(--rule);
+    background:#fdfaf2;
+    padding:6px 18px;
+    margin:22px 0 30px;
+  }
+  details.toc>summary{
+    cursor:pointer;
+    font-variant:small-caps;
+    letter-spacing:.05em;
+    color:var(--crimson);
+    font-size:18px;
+    padding:6px 0;
+    list-style:none;
+  }
+  details.toc>summary::-webkit-details-marker{display:none;}
+  details.toc>summary::before{content:"❦ ";color:var(--gold);}
+  details.toc ol{margin:8px 0 12px;padding-left:1.4em;}
+  details.toc li{margin:.32em 0;}
+  details.toc a{border:none;color:var(--ink);}
+  details.toc a:hover{color:var(--crimson);}
+  /* section headings */
+  h2.act{
+    font-size:23px;
+    color:var(--crimson);
+    text-align:center;
+    margin:42px 0 8px;
+    line-height:1.3;
+    letter-spacing:.01em;
+  }
+  h2.act::before,h2.act::after{content:"·";color:var(--gold);margin:0 .5em;}
+  h2.act a{color:inherit;border:none;}
+  h2.act a:hover{color:var(--gold);}
+  /* verse */
+  .stanza{
+    margin:0 0 1.05em;
+    text-align:left;
+    padding-left:.4em;
+  }
+  .epigraph{
+    font-style:italic;
+    text-align:center;
+    color:var(--soft);
+    margin:18px auto 8px;
+  }
+  .prose{
+    text-align:justify;
+    margin:1.1em 0 1.4em;
+    font-size:18px;
+    color:#33281b;
+  }
+  .climax{
+    text-align:center;
+    color:var(--crimson);
+    font-size:26px;
+    letter-spacing:.06em;
+    line-height:1.5;
+    margin:30px 0 14px;
+    font-weight:600;
+  }
+  /* footnote refs + popup */
+  sup.fnref{position:relative;font-size:.72em;}
+  sup.fnref>a{color:var(--gold);border:none;font-weight:700;padding:0 1px;}
+  sup.fnref>a:hover{color:var(--crimson);}
+  .fnpop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:140%;
+    width:300px;
+    max-width:78vw;
+    background:#2b2118;
+    color:#f6efe0;
+    font-size:14.5px;
+    font-style:normal;
+    font-weight:400;
+    line-height:1.45;
+    text-align:left;
+    padding:10px 12px;
+    border-radius:6px;
+    box-shadow:0 6px 22px rgba(0,0,0,.34);
+    z-index:40;
+    letter-spacing:0;
+  }
+  .fnpop a{color:#e9b96a;border:none;}
+  sup.fnref.below .fnpop{bottom:auto;top:140%;}
+  sup.fnref:hover .fnpop{display:block;}
+  /* notes apparatus */
+  .notes{margin-top:18px;}
+  .note{
+    font-size:16px;
+    margin:0 0 1.1em;
+    padding:6px 10px;
+    border-left:3px solid transparent;
+    color:#33281b;
+    transition:background .4s,border-color .4s;
+  }
+  .note .marker{color:var(--gold);font-weight:700;margin-right:.5em;}
+  .note .back{margin-left:.5em;border:none;color:var(--crimson);}
+  .note:target{background:#fcf0cf;border-left-color:var(--gold);}
+  .note .vsub{display:block;margin:.2em 0;}
+  /* music */
+  .music-label{
+    font-variant:small-caps;
+    letter-spacing:.05em;
+    color:var(--gold);
+    font-size:18px;
+    margin:6px 0 12px;
+  }
+  details.track{
+    border:1px solid var(--rule);
+    border-bottom:none;
+    background:#fdfaf2;
+  }
+  details.track:last-of-type{border-bottom:1px solid var(--rule);}
+  details.track>summary{
+    cursor:pointer;
+    list-style:none;
+    padding:11px 14px;
+    display:flex;
+    align-items:center;
+    gap:.5em;
+    font-size:17px;
+  }
+  details.track>summary::-webkit-details-marker{display:none;}
+  .tnum{color:var(--gold);font-weight:700;min-width:1.4em;}
+  .tarrow{color:var(--crimson);transition:transform .2s;display:inline-block;}
+  details.track[open] .tarrow{transform:rotate(90deg);}
+  .ttitle{flex:1;}
+  .ttitle b{color:var(--ink);font-weight:600;}
+  .ext{border:none;color:var(--gold);font-size:1.05em;}
+  .embed{padding:0 14px 14px;}
+  .embed iframe{width:100%;aspect-ratio:16/9;border:0;background:#000;}
+  /* bottom nav */
+  .corpusnav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin:46px 0 10px;
+    border-top:1px solid var(--rule);
+    padding-top:18px;
+    font-size:16px;
+  }
+  .corpusnav a{border:none;color:var(--crimson);max-width:46%;}
+  .corpusnav .nx{text-align:right;margin-left:auto;}
+  .corpusnav small{display:block;color:var(--gold);font-size:13px;letter-spacing:.05em;text-transform:uppercase;}
+  footer{
+    margin-top:26px;
+    border-top:1px solid var(--rule);
+    padding-top:16px;
+    font-size:14.5px;
+    color:var(--soft);
+  }
+  footer a{color:var(--crimson);}
+  .attrib{margin:.3em 0;}
+  @media(max-width:680px){
+    .ya-old{font-size:18px;}
+    .wrap{padding:18px 15px 50px;}
+    h1{font-size:27px;}
+    h2.act{font-size:20px;}
+    .climax{font-size:22px;}
+  }
+</style>
+<div class="ya-old" data-scheme="manuscript">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №182</span>
+<div class="wrap" id="top">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>›</span><a href="../best/index.html">Избранное</a>
+  </nav>
+
+  <img class="lead-img" src="../img/182.jpg" alt="Иллюстрация к статье «Летопись Живого Огня»">
+
+  <h1>ЛЕТОПИСЬ ЖИВОГО ОГНЯ<a class="audio-link" href="https://t.me/art_017_tracks/255" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <p class="subtitle">Сила в стихах о Сказке, гораздо более реальной, чем то, что мы привыкли называть “жизнь”.</p>
+  <p class="artmeta">Арт. #AP182, записано 2 Августа 2021 г.</p>
+
+  <div class="stanza epigraph">
+    Свет наполнит это Кли<sup class="fnref"><a id="ref1" href="#fn1">*</a><span class="fnpop">Кли (— ивр. каб.: инструмент, желание, сосуд, способ, действие, механизм). «Только наполнение Светом с Его последующим исчезновением (осветлением — издохехут ивр.) делают Кли пригодным к выполнению своего предназначения» — Бааль Сулам, Введение в Науку Каббала.</span></sup><br>
+    Трепетной любовью<br>
+    Ты держи Его внутри<br>
+    Как свое, родное.
+  </div>
+
+  <div class="divider">✦ ✦ ✦</div>
+
+  <details class="toc" open>
+    <summary>Оглавление</summary>
+    <ol>
+      <li><a href="#act1">Акт первый и акт второй. Половая любовь и духовная вера</a></li>
+      <li><a href="#act3">Акт третий. Очищение Землёй</a></li>
+      <li><a href="#act4">Акт четвёртый. Очищение Огнём</a></li>
+      <li><a href="#act5">Акт пятый. Наполнение Светом</a></li>
+      <li><a href="#music">Музыка под настроение</a></li>
+      <li><a href="#notes">Пост скриптум (примечания)</a></li>
+    </ol>
+  </details>
+
+  <h2 class="act" id="act1"><a href="#top">АКТ ПЕРВЫЙ И АКТ ВТОРОЙ. ПОЛОВАЯ ЛЮБОВЬ И ДУХОВНАЯ ВЕРА</a></h2>
+
+  <p class="prose">О связи духовной Любви и материальной любви, о том, кто такой “нагваль” и Кто такой Орел, или Творец, Свят Благословен Он – Малхут Мира Бесконечности. О связи “малого” и “большого” духовного состояния как двух главных этапах Пути, стремящимся достичь Свободы от Ангела Смерти. Поверхностный (но важный) экскурс в содержание и форму Пути Воина-Исраэль (синтез духовных учений К.Кастанеды “Учение Дона Хуана” или Путь Воина, и Науки Каббала, древней еврейской системы, содержащей ключи к такому количеству нераскрываемых другими учениями аспектов Знания, Пути и Реальности, что обойти его стороной, на мой взгляд, просто невозможно. Путь Воина-Исраэль является “средней линией”, которая использует две вышеперечисленные “правую и левую линии” также, как человек использует две ноги для устойчивого передвижения).</p>
+
+  <div class="stanza">Чтобы в твоем ей быть распоряженьи<br>Силой, источник Которой древнее,<br>Чем нам привычно по этому миру<br>Тело, по сути лишь слабой антенной<br>Служащее для Огня Полового.</div>
+  <div class="stanza">В этом Огне суть Вселенной и Бога<br>Нашего Господа, Бога Живого,<br>Он создал нас для Любви разнополой<br>Мужчиной с Женщиной создал Адама,<br>Не существует Адама без пары.</div>
+  <div class="stanza">Поскольку Жизнь – это лишь когда вместе<br>Мужчина с Женщиной, сильным желаньем<br>Чтобы друг в друга Жизнь Жизней струилась:<br>“Только в другого хочу “насладиться”,<br>Это намеренье есть у мужчины.</div>
+  <div class="stanza">Женщина, в нем когда чувствует это,<br>(То входит с ним через самоотмену, )<br>Чем дает вышеописанной форме<br>Стать ее собственным Кли сокровенным.<br>Быть ее собственным личным стремленьем<br>(Не прекращая отмену при этом)</div>
+  <div class="stanza">Это, для тех, кто об этом не знает,<br>Самоотменой духовною названо.<br>Навык, который у магов-воительниц<br>Чуть ли не вытеснен на подсознание.</div>
+  <div class="stanza">Так что когда подчиняется женской<br>Воле мужчина, отчасти он делает<br>Это из трепетного отношения<br>Мужчины к женщине в общей Реальности<br>Чувствовать их для мужчины волнительно.<br>Здесь Кли катнута он будет использовать,<br>(Нет на Пути бесполезного опыта.)</div>
+  <div class="stanza">Но эта честь и достоинство трепета,<br>В нем здесь являются лишь дополнением<br>(Хоть для него все и делалось прежнее)<br>Самоотмена – в основе как действие.</div>
+
+  <div class="stanza">Темнить не стану, тем более, прятать<br>Этим скрывая часть важную Правила<br>И того в будущем общего нашего<br>Где эта часть роль сыграет особую.</div>
+  <div class="stanza">Роль эта в том переходе критическом<br>От взгляда самого распространенного,<br>Который в сути подобен зашоренной<br>Кляче, причем сам с собой это делает<br>Брат наш не слишком пока что удачливый.</div>
+  <div class="stanza">Когда касается дело тех принципов,<br>Что управляют всей нашей Реальностью.<br>Вплоть до истерики сопротивляется<br>(Я по себе этот факт помню красочно)<br>Когда принять предлагается магами<br>Факт его собственной полной ведОмости.</div>
+  <div class="stanza">Если бы это принятие воином<br>На всем Пути в целом не было значимо,<br>Я бы скорее не вспомнил вообще о нем<br>Чем стал какую-то форму продавливать.</div>
+  <div class="stanza">Но я сам Милостью Благословенного<br>Взрослой ступени Пути удостоился,<br>И зная точно причины и следствия<br>Вывод единственный делать приходится:</div>
+  <div class="stanza">Навыки (вера - отмена - молитва)<br>Воином в первой главе становления<br>(Когда с любовью пока что работает<br>В форме запрета на грех получения)</div>
+  <div class="stanza">По существу открывает мужчине<br>Дверь к достиженью всех целей Пути.<br>Их невозможно не ставить намеренно<br>Главным акцентом. Нельзя заменить</div>
+  <div class="stanza">Чем-то что "психику меньше травмирует"<br>Или откладывать их освоение,<br>Так как потом они будут служить ему<br>Как в этом мире учиться ходить</div>
+  <div class="stanza">Должен ребенок, и так не получится,<br>Чтобы имел он “особое мнение”,<br>Что он потом это сделает в будущем,<br>А пока, скажем, поучится чтению.</div>
+  <div class="stanza">Нет, он сначала обязан встать на ноги,<br>Если конечно он, Милостью Господа,<br>Не поражен от природы физически<br>В силу чего не способен освоить<br>Жизненно важных физических навыков.</div>
+  <div class="stanza">Вот и в духовном Пути также в точности<br>Тройка озвученных выше способностей<br>Каждым, кто жить начать твердо настроился<br>Стать должны первым, о чем он заботится</div>
+  <div class="stanza">Поскольку все остальное приложится<br>Как только вера и самоотмена<br>Через молитву духовного общества<br>Будут им прочно на базовом уровне<br>Закреплены в его практике будничной.</div>
+
+  <div class="stanza">Как эти вещи, как будто полярные<br>Связаны с мной упомянутым Правилом?<br>Есть одна тайна, что скрыта от мира<br>Для магов и для воительниц Силой.</div>
+  <div class="stanza">В этой уловке суть перерожденья<br>В огненном вихре, сжигающем маски,<br>Все, что привык “надевать” кроме веры<br>Воина в собственную безупречность</div>
+  <div class="stanza">Если не сбросил, как старую кожу<br>Через барьер невозврата шагая<br>Чтобы омыться Огнем Первозданным,<br>То вместе с кожей в золу обратятся.</div>
+  <div class="stanza">Если же сам возжелал омовенья<br>В огненных водах обители древней<br>Первого, до облачения в тело<br>Лишь ради этого созданной Евой</div>
+  <div class="stanza">Два с лишним (лучше не трать свое время<br>В тщетных попытках осмыслить такое)<br>В прошлое лет миллиона примерно<br>Перед началом сегодняшней формы</div>
+  <div class="stanza">Был промежуток большой безвременья,<br>Когда природа второго вниманья<br>Была главенствующей, род и племя<br>Были пределом их распространенья.</div>
+  <div class="stanza">Будет с читателем здесь нам не лишне<br>Выяснить общие смысл и значенье<br>Двух категорий своей пробужденности:<br>Речь о внимании втором и первом.</div>
+
+  <h2 class="act" id="act3"><a href="#top">АКТ ТРЕТИЙ. ОЧИЩЕНИЕ ЗЕМЛЕЙ</a></h2>
+
+  <div class="stanza">Многие воины, типа, идущие<br>Из числа тех, кто использует голову<br>Ту, где глаза, рот, прическа и уши<br>Чтобы в нее класть еду, главным образом.</div>
+  <div class="stanza">Чтобы смотреть по утрам без презрения<br>На себя в зеркало (выше и старше<br>Чем он сам), время от времени,<br>В мыслях он крутит цепочку дежурную,</div>
+  <div class="stanza">Смысл которой – служить доказательством<br>Что головой он не только питается,<br>Но поднимаются темы серьезные<br>(От ОВД нужен отдых, ведь правильно?)</div>
+  <div class="stanza">Ну а что как они в ней поднимаются,<br>Так, не успев хоть осмыслить, зачем<br>Именно эта идея откопана?<br>В чем эксгумации тайная цель?</div>
+  <div class="stanza">Были идеи гурьбой похоронены<br>Мысли в них глупые словно мычание<br>Каждая вывод сама же исполнила.<br>Что ее вредно оставить в активе.</div>
+  <div class="stanza">Каждая мысль пустобрешная в степени<br>Ясной без всяких сомнений в себе<br>В светлый день похорон самой грубой и скверной</div>
+  <div class="stanza">Маски, в чем, к слову, ведение Духа<sup class="fnref"><a id="ref3" href="#fn3">***</a><span class="fnpop">Было и есть, здесь есть форма особая / Форма подобия свойств – АВАЯ. / Когда одна только есть Кли Маски Огненной / Не в кого Свет “снизу вверх” получать.</span></sup><br>Как сейчас мне очевидно, смотря назад,<br>У меня не было знаний достаточных,<br>Чтобы понять в этом Кли что угодно.</div>
+  <div class="stanza">Прежнее Кли здесь в Земле захоронено<br>Чтоб новый Духа виток для спирали<br>Что в две стороны сразу закручена:<br>Глубже в себе видеть чтобы снимать с себя<br>Чувствовать Дух, чтоб быть с Ним в гармонии.<sup class="fnref"><a id="ref2" href="#fn2">**</a><span class="fnpop">Я Намерением правлю / В точности такой судьбою / От которой я избавил / Сам себя, став сам Собою. //// Всеотец Мирами Правит / В точности такой судьбою, / От которой Сын избавлен / Евы трепетной Любовью.</span></sup></div>
+
+  <h2 class="act" id="act4"><a href="#top">АКТ ЧЕТВЕРТЫЙ. ОЧИЩЕНИЕ ОГНЕМ</a></h2>
+
+  <div class="stanza">Сверху вниз, снизу вверх, две спирали Пути<br>Слышать Дух (из Земли) - значит чувствовать Сердцем.<br>(в Землю) Захоронить, – вполне действенный метод.</div>
+  <div class="stanza">Но в Гадлуте – лишь пламя из Сердца Планеты.</div>
+  <div class="stanza">…Все, что в этой форме было (речь о настоящей форме,<br>То есть Маске с большой буквы, созданной вторым вниманьем,<br>Чтобы наполнять Любовью.</div>
+  <div class="stanza">Все, что в этой форме было),<br>Пламя в Пепел обратило.<br>Выжжена Огнем Любви<br>Маска Ворона <sup class="fnref"><a id="ref5" href="#fn5">*5</a><span class="fnpop">См. также: <a href="http://proza.ru/avtor/viktor1717" target="_blank" rel="noopener">proza.ru/avtor/viktor1717</a></span></sup>, став Кли.</div>
+  <div class="stanza">Тот Огонь пылает вечно<br>Находясь в Ядре Планеты.<br>Кто дерзнет без Света Веры<br>Подойти к Пламени близко.<br>Тот об этом пожалеет<br>Непременно очень скоро.</div>
+  <div class="stanza">Вера, трепет, безупречность –<br>Тот, кто их хранит, откроет<br>Формулу самосожженья<br>В Пламени Живого Бога</div>
+  <div class="stanza">Вместе с Ним ради творений<br>Вознесет свой взор высоко.<br>А потом опустит долу<br>Чтобы в этот мир вернуться</div>
+  <div class="stanza">Получать, объединяясь<br>В форме Правила Нагваля<br>Снова первым быть Адамом<br>Раскрывать тем, кто проснулся</div>
+  <div class="stanza">Как Орел создал Нагваля<br>Как Творец создал Адама<br>По отдельности мужчиной<br>Или женщиной он не был.</div>
+  <div class="stanza">Но лишь вспомнив о задаче,<br>Об Орле и о Печати,<br>Вместе в долгий Путь пускаясь<br>Адам первый и последний<br>Станут воины Нагваля<br>Одним Целым Человеком</div>
+  <div class="stanza">С одним Сердцем пробужденным,<br>Оживленным, чутким к Духу,<br>Чтобы жизни свои службе<br>Посвятить Творцу и людям.</div>
+  <div class="stanza">С этих пор они для мира -<br>Персонажи странной Сказки.<br>А для них с такой же Силой<br>Люди – мертвые болванки.</div>
+  <div class="stanza">Существа иной Природы<br>Стали Миру, вызов смерти<br>Им не слишком интересен<br>Если нужно – умереть им</div>
+  <div class="stanza">Воля Высшего – вовеки</div>
+  <div class="stanza">Да пребудет явно с каждым<br>По желанию их сердца –<br>А не безысходным страхом.</div>
+  <div class="stanza">Воля Святого Случится,<br>По Его Милости с нами,<br>Да поможет Он включиться<br>Всем нам в Путь, поняв Задачу.</div>
+  <div class="stanza">Форму, что сейчас имеет.<br>Форму, что иметь захочет<br>В будущем, начав с известных<br>Простых действий, от которых</div>
+  <div class="stanza">Человек не ожидает<br>Никакой вообще отдачи,<br>Кроме той, что "над экраном"<br>То есть "верой выше знанья",</div>
+  <div class="stanza">Это форма игровая,<br>Но без этого ни шагу<br>Человек не сможет сделать<br>На Пути к духовной Цели.</div>
+
+  <h2 class="act" id="act5"><a href="#top">АКТ ПЯТЫЙ. НАПОЛНЕНИЕ СВЕТОМ</a></h2>
+
+  <div class="stanza">Здесь кончается вступленье<br>В Летопись Огня Живого.<br>Дар Свободы Бесконечной</div>
+  <div class="stanza">Ждет нас всех, но вместе только<br>СИЛА мы – и существуем<br>Для Намерения Духа,<br>Как ожившая часть Сказки<br>Когда мы стремимся в русле</div>
+  <div class="stanza">Существующем Реально,<br>А в Реальности где создан<br>Воин с Именем Творца,<br>Четырехраздельный Кокон -<br>Это Имя АВАЯ.</div>
+  <div class="stanza">Самовоспроизводитель,</div>
+  <div class="stanza">Я бы так Его назвал.<br>Суть, что в Имени сокрыта -<br>Это Свет, что Жизнь создал.</div>
+  <div class="stanza">Этот Свет Творцом был создан<br>Вместе с ним по его просьбе<br>С ЧЕЛОВЕКОМ, ВЕДЬ ДАН ГОЛОС<br>ВОИНУ ОРЛОМ НЕ ТОЛЬКО</div>
+  <div class="stanza">ЧТОБЫ СОХРАНЯТЬ МОЛЧАНЬЕ.<br>(ЭТО ВРЕМЯ ПОДГОТОВКИ)<br>А РЕАЛЬНО ЦЕЛЬ ТАКАЯ:<br>У ТВОРЦА, БЛАГОСЛОВЕН ОН<br>БЫЛО, ЕСТЬ И БУДЕТ СЛОВО.</div>
+  <div class="stanza">ГОВОРЯ ЕГО, ДАЕТ ОН<br>ЧЕЛОВЕКУ ДАР НАГВАЛЯ.<br>ЧЕЛОВЕК ДАР ПОЛУЧАЕТ</div>
+  <div class="stanza">ЗАБЫВАЯ ГДЕ ОН, КТО ЗДЕСЬ…</div>
+  <div class="stanza">ВЕДЬ ОН ДОЛЖЕН СТАТЬ НАГВАЛЕМ<br>А ПРИХОДИТ В МИР ОСЛЕНКОМ…<br>ДОЛЖЕН ОН ПРОЙТИ СТОПАМИ<br>ТАКЖЕ, КАК ИДУТ ВСЕ ЛЮДИ.</div>
+  <div class="stanza">ОН НЕ СМОЖЕТ ВЕРНУТЬ ПАМЯТЬ<br>ПОКА ЭТОТ МИР ВОЛНУЕТ<br>ХОТЬ В КАКОЙ-ТО МЕРЕ, АДОМ<br>ЛИЧНЫМ БУДЕТ ЕМУ В ЖИЗНИ<br>СЕРЫЙ И БЕЗБЛАГОДАТНЫЙ<br>ГОД ЗА ГОДОМ ИДУТ МИМО</div>
+  <div class="stanza">ОН ВСЕ ТАМ ЖЕ, СТО ЖЕЛАНИЙ<br>ВО ВСЕ СТОРОНЫ ПО КРУГУ<br>ДЕЛАЯ БЕГ МЫШКИ ВЕЧНЫМ<br>В КОЛЕСЕ РАДИ ПУСТОГО<br>НИЧЕГО ВЕСЕЛЬЯ НЕТУ</div>
+  <div class="stanza">В ЭТОМ БЕГЕ, ДАЖЕ ТЕМИ,<br>КТО ИГРАЯ РОЛЬ ХОЗЯЕВ<br>ПОДСЫПАЕТ КОРМ В КОРМУШКУ<br>ЭТИМ МЫШКЕ ОТКРЫВАЯ<br>ИСТИННУЮ СУТЬ ИХ ДРУЖБЫ.</div>
+  <div class="stanza">НО КОГДА КРУТЯ ПЕДАЛИ<br>КОЛЕСА СВОЕЙ САНСАРЫ<br>МЫШКА ЧЕТКО ОТРАЖАЕТ,<br>ЧТО ЗА ЭТО ПОЛУЧАЕТ</div>
+  <div class="stanza">ВМЕСТЕ С ПИЩЕЙ ЖИТЬ ВОЗМОЖНОСТЬ</div>
+  <div class="stanza">ПРОДОЛЖАТЬ ПОЛУЧАТЬ ОПЫТ.<br>ТОГДА В ПЕРВЫЙ РАЗ СЕРЬЕЗНО<br>МЫШЬ САМА У СЕБЯ СПРОСИТ:</div>
+  <div class="stanza">ЛАДНО, Я КРУЧУ ПЕДАЛИ,<br>ЧТОБЫ МНЕ ЕДУ ДАВАЛИ.<br>НО ЗАЧЕМ МНЕ ЖИТЬ ВООБЩЕ-ТО,<br>ДЛЯ ЧЕГО ВЕСЬ ФАРС МНЕ ЭТОТ?</div>
+  <div class="stanza">ЧТОБЫ ВНОВЬ КРУТИТЬ ПЕДАЛИ<br>ВЫЗЫВАЯ ТЕНЬ УЛЫБКИ<br>НА ЛИЦЕ, ГДЕ ВИДНО ЧЕТКО:<br>ПОТЕРПЕЛ ОН НЕУДАЧУ,</div>
+  <div class="stanza">НА МЕНЯ СМОТРЯ, ПОДУМАВ:<br>НУ-КА БЫСТРО МЫ ОТЫЩЕМ<br>В ТОМ ЧТО ЕСТЬ В СУДЬБЕ МЫШОНКА<br>(10 СУЩНОСТНЫХ ОТЛИЧИЙ<br>С МОЕЙ СОБСТВЕННОЙ СУДЬБОЮ)</div>
+  <div class="stanza">ОНА ВСЯ В ОДНОЙ КАРТИНКЕ,<br>КАК ОН КРУТИТСЯ ПО КРУГУ,<br>РАЗВЛЕКАЯ ЧЕЛОВЕКА,<br>ТЕМ, ЧТО ОН НЕ ЗНАЕТ БУДТО,<br>ЧТО ОН БЕГАЕТ ПО КЛЕТКЕ,<br>ГДЕ ОН ЗАПЕРТ ОТ РОЖДЕНЬЯ<br>И ГДЕ ОН УМРЕТ ОТ СМЕРТИ.</div>
+  <div class="stanza">ПРУТЬЯ В ФОРМЕ КАРУСЕЛИ<br>ЧТОБ КРУТЯ ИХ ЧЕЛОВЕКА<br>МОГ ХОМЯК РАЗВЛЕЧЬ, В НАГРАДУ<br>ПОЛУЧАЯ ПРАВО ДАЛЬШЕ<br>БЕГАТЬ ПО ТЮРЕМНОЙ КЛЕТКЕ<br>ТРЮКОМ ГЛУПЫМ ПРОДЛЕВАЯ<br>ВЕЧНОСТЬ СОБСТВЕННОГО АДА.</div>
+  <div class="stanza">ЧТОБЫ ВНОВЬ И ВНОВЬ ПО КЛЕТКЕ<br>БЕГАТЬ ЛЮДЯМ НА ЗАБАВУ.<br>К СЧАСТЬЮ, ЕСТЬ У ЧЕЛОВЕКА<br>ТОЧНО КАЖДОГО И КАЖДОЙ,</div>
+  <div class="stanza">ВЫХОД - ШАГ ОТ КАРУСЕЛИ<br>ПОВСЕДНЕВНЫХ ВСЕХ ЗАНЯТИЙ<br>НО ВНАЧАЛЕ БУДЕТ ДОЛЖЕН<br>ЧЕЛОВЕК КАК ТОТ МЫШОНОК<br>ЯСНЫМ ВЗГЛЯДОМ ПРЯМО В КОРЕНЬ</div>
+  <div class="stanza">СВОЕЙ ЗАМКНУТОЙ… НЕ ПЫЛЬНОЙ,<br>ДАЖЕ МОЖЕТ БЫТЬ УЮТНОЙ,<br>СОВРЕМЕННОЙ И ЦИВИЛЬНОЙ<br>КЛЕТКИ… ТЕЛЕК ВМЕСТО ПРУТЬЕВ,</div>
+  <div class="stanza">ВМЕСТО СПИЦ У КАРУСЕЛИ -<br>ОНЛАЙН-ИГРЫ, ЧАТ, СОЦСЕТИ,<br>НА ПАЕК, ЧТОБ ПРОДОЛЖАЛОСЬ<br>ЗАРАБАТЫВАТЬ НЕ СЛОЖНО</div>
+  <div class="stanza">…А ЗАЧЕМ ЧТО-ТО МЕНЯТЬ-ТО?</div>
+  <div class="stanza">НАФИГА? ОТВЕТА НЕТУ, ПОТОМУ ЧТО<br>НЕТ ВОПРОСА. ТОТ, КОМУ ФИГУРКИ ЭТИ<br>ЧТО ОБЩЕСТВЕННОСТЬ ТАК ЦЕНИТ</div>
+  <div class="stanza">ОТ ДЕПРЕССИИ ВЕДЬ ЛЕЧАТ<br>И ДРУГИХ ОПАСНЫХ ХВОРЕЙ.<br>ВЕРОЯТНОСТЬ ЖЕРТВОЙ СЕКТЫ<br>СТАТЬ, ШАНС МЕНЬШЕ, ВЫШЕ ТОНУС</div>
+  <div class="stanza">ПОЗВОЛЯЮЩИЙ ПО БУДНЯМ<br>ПРОСЫПАЯСЬ РАННИМ УТРОМ<br>ЗАРАБАТЫВАТЬ В НАГРАДУ<br>ПРИВИЛЕГИЮ ПРОДОЛЖИТЬ</div>
+  <div class="stanza">КОГДА ЧЕЛОВЕК СДВИГАЕТ<br>В РЕЗУЛЬТАТЕ ВОЛИ ДУХА<br>ТОЧКУ СБОРКИ, ИЗБАВЛЯЯСЬ</div>
+  <div class="stanza">ОТ ЧУЖИХ ЖЕЛАНИЙ, ЧУВСТВА<br>ПРОБУЖДАТЬСЯ НАЧИНАЮТ<br>НЕ ДЕЖУРНОМ ЭТИКЕТОМ<br>ВРАТЬ ДРУГ ДРУГУ ПОМОГАЯ</div>
+  <div class="stanza">А ВПЕРВЫЕ ТО, ЧТО В СЕРДЦЕ<br>ОЖИВАЯ, ГОЛОС ТИХИЙ<br>ГОВОРИТ ПОЧТИ НЕ СЛЫШНО</div>
+  <div class="stanza">ТО, ЧТО ВАЖНО ТЕМ, КТО ХОЧЕТ<br>СИЛЕ ПРАВЯЩЕЙ СУДЬБОЮ,<br>ВЫСШЕЙ, СКРЫТОЙ, НЕДОСТУПНОЙ</div>
+  <div class="stanza">НАУЧИТЬСЯ БЫТЬ ПРОЗРАЧНЫМ,<br>ПРОВОДЯ ЧРЕЗ СЕБЯ В МИР<br>ЕЕ ВОЛЮ, ЧУВСТВА, ЗНАНЬЯ,</div>
+  <div class="stanza">ЧТОБЫ НЕ БЫЛО В НЕМ ЛИЧНО<br>НИЧЕГО, ВООБЩЕ НИСКОЛЬКО.<br>НО ЧТОБ НАПОЛНЯЛА СИЛА<br>КАЖДЫЙ МИГ ЕГО, ЧЕМ ХОЧЕТ</div>
+  <div class="stanza">НЕ "ОН ХОЧЕТ", ПОТОМУ ЧТО</div>
+  <div class="stanza">ОН ЛИШЬ ЗЕРКАЛО ДЛЯ ДУХА,<br>ЗЕРКАЛО САМО БЕЗЛИКО,<br>И НЕТ МНЕНИЙ В НЕМ ОСОБЫХ,</div>
+  <div class="stanza">НО КОГДА В НЕГО ПОСМОТРИТ<br>ТОТ, КТО ТАКЖЕ ВЫПОЛНЯЕТ<br>ВОЛЮ ДУХА, КАК И ВОИН,</div>
+  <div class="stanza">НО ПОСКОЛЬКУ НЕ ЖЕЛАЕТ<br>ДЕЛАТЬ ЭТОГО, В ПОТЕМКАХ<br>ДО ПОРЫ ДУША БЛУЖДАЕТ.</div>
+  <div class="stanza">В ЗЕРКАЛЕ НЕ СМОЖЕТ ВИДЕТЬ<br>ЧЕЛОВЕК ЭТОГО МИРА<br>ВОИНА, ЧТО ОТДАН СИЛЕ<br>ТАК КАК ОН ПОЧТИ ВСЕ ВРЕМЯ<br>ПРЕДСТАВЛЕНИЯ ЗА СЦЕНОЙ</div>
+  <div class="stanza">А НА СЦЕНЕ МАСКА СИЛЫ.<br>МАСКА, БОЛЕЕ ЖИВАЯ,<br>ЧЕМ КТО ЛИБО В ЭТОМ МИРЕ,<br>ВЕДЬ ЕЙ СИЛА УПРАВЛЯЕТ<br>СВЕТОМ МУДРОСТИ И ЖИЗНИ,</div>
+  <div class="stanza">“ПОЛУЧАЕМЫМ” ПОСРЕДСТВОМ<br>ПРОСЬБЫ ДУХУ ВСЛУХ ОБ ЭТОМ<br>В ЭТУ МАСКУ ПЕРЕД БИТВОЙ<br>ЧТОБЫ ЖИТЬ ПО ВОЛЕ ДУХА.</div>
+  <div class="stanza">СДЕЛАЕМ, ДРУЗЬЯ, НА ВРЕМЯ<br>РАЗУМ СВОЙ СЛОЖИВ НА ПОЛКУ,<br>ТО, ЧТО ДАЛ ОРЕЛ, ЧТОБ ДЕЛАТЬ<sup class="fnref"><a id="ref4" href="#fn4">*4</a><span class="fnpop">«Это за окном Рассвет» — Браво (трек №4 музыкальной подборки). <a href="https://youtu.be/yLUOwe9f2X8" target="_blank" rel="noopener">youtu.be/yLUOwe9f2X8</a></span></sup><br>(ПРИКАЗАВ "ЗАБЫТЬ" ВДОГОНКУ).<br>И ТОГДА ТОЛЬКО, РАЗРУШИВ<br>СВЯЗЬ УСИЛИЙ С РЕЗУЛЬТАТОМ<br>УДОСТОИТ ДУХ НАС СЛУШАТЬ<br>ГОЛОС ТИХИЙ В СЕРДЦЕ САМОМ.</div>
+  <div class="stanza">ИМЕННО И ТОЛЬКО ЧУВСТВОМ<br>НАСТОЯЩИМ В ЖИВОМ СЕРДЦЕ<br>ЧЕЛОВЕКА ДУХ НАУЧИТ<br>СЕБЯ СЛЫШАТЬ, ПОСТЕПЕННО<br>ГОЛОС С РЕЧЬЮ ЧЕЛОВЕКА<br>ЧЕЛОВЕКОМ ГОВОРЯЩИМ<br>СОЗДАДУТ СОВМЕСТНО С ДУХОМ,</div>
+  <div class="stanza">ГОВОРЯЩИМ С НИМ О ГЛАВНОМ,<br>КАЖДЫЙ ДЕНЬ, И ОБОЮДНО<br>ПОСТЕПЕННО ОБУЧАЯСЬ<br>И ПРАКТИЧЕСКИ, НЕ РОБКО<br>А УВЕРЕННО И СМЕЛО</div>
+  <div class="stanza">ЗНАЯ, ЧТО КОГДА РЕАЛЬНОСТЬ<br>ЕМУ ОТВЕЧАЕТ ПРЯМО<br>КАК ОН В ПРИНЦИПЕ НЕДАВНО<br>ДУМАЛ, ЭТО ПРЕДСТАВЛЯЯ<br>ЧУТЬ ЛИ НЕ ТОЧЬ В ТОЧЬ БУКВАЛЬНО –</div>
+  <div class="stanza">ВОИН БЕЗ СОМНЕНИЙ, С ПОЛНОЙ<br>ЧИСТОЙ КАК СЛЕЗА МЛАДЕНЦА<br>МОЩНОЙ КАК КУЛАК БОКСЕРА<br>ВЕРОЙ ВОПРЕКИ ВСЕЛЕННОЙ</div>
+  <div class="stanza">В ТУ РЕАЛЬНОСТЬ, О КОТОРОЙ<br>ОН ДОГОВОРИЛСЯ С ДУХОМ<br>И В КОТОРОЙ ДУХ И ВОИН<br>НАКОНЕЦ НАШЛИ ДРУГ ДРУГА:</div>
+
+  <div class="climax">ТОЛЬКО<br>ВМЕСТЕ,<br>МЫ -<br>СИЛА!</div>
+
+  <h2 class="act" id="music"><a href="#top">МУЗЫКА ПОД НАСТРОЕНИЕ</a></h2>
+  <p class="music-label">Музыка под настроение:</p>
+
+  <details class="track" data-embed="5DBuIhr1Id4">
+    <summary><span class="tnum">1.</span><span class="tarrow">▸</span><span class="ttitle"><b>Let Us Burn</b> — Within Temptation</span><a class="ext" href="https://youtu.be/5DBuIhr1Id4" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></summary>
+    <div class="embed"></div>
+  </details>
+  <details class="track" data-embed="oAycSf8COQo">
+    <summary><span class="tnum">2.</span><span class="tarrow">▸</span><span class="ttitle"><b>Sanitarium</b> — Metallica</span><a class="ext" href="https://youtu.be/oAycSf8COQo" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></summary>
+    <div class="embed"></div>
+  </details>
+  <details class="track" data-embed="cmsll_arD4I">
+    <summary><span class="tnum">3.</span><span class="tarrow">▸</span><span class="ttitle"><b>Делай как я</b> — Богдан Титамир</span><a class="ext" href="https://youtu.be/cmsll_arD4I" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></summary>
+    <div class="embed"></div>
+  </details>
+  <details class="track" data-embed="yLUOwe9f2X8">
+    <summary><span class="tnum">*4.</span><span class="tarrow">▸</span><span class="ttitle"><b>Это за окном Рассвет</b> — Браво</span><a class="ext" href="https://youtu.be/yLUOwe9f2X8" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></summary>
+    <div class="embed"></div>
+  </details>
+
+  <h2 class="act" id="notes"><a href="#top">ПОСТ СКРИПТУМ</a></h2>
+  <div class="notes">
+    <p class="note" id="fn1"><span class="marker">*</span>Кли (— ивр. каб.: инструмент, желание, сосуд, способ, действие, механизм). «Только наполнение Светом с Его последующим исчезновением (осветлением — издохехут ивр.) делают Кли пригодным к выполнению своего предназначения» — Бааль Сулам, Введение в Науку Каббала. См. также: <a href="3C5.html">Жизнь в Дар</a>, в пояснении<a class="back" href="#ref1" title="Вернуться к тексту">↑</a></p>
+
+    <p class="note" id="fn2"><span class="marker">**</span>
+      <span class="vsub">Я Намерением правлю</span>
+      <span class="vsub">В точности такой судьбою</span>
+      <span class="vsub">От которой я избавил</span>
+      <span class="vsub">Сам себя, став сам Собою</span>
+      <span class="vsub"><a href="O4Q.html" target="_blank" rel="noopener">«Неорганикон»</a></span>
+      <span class="vsub">////</span>
+      <span class="vsub">Всеотец Мирами Правит</span>
+      <span class="vsub">В точности такой судьбою,</span>
+      <span class="vsub">От которой Сын избавлен</span>
+      <span class="vsub">Евы трепетной Любовью.</span>
+      <span class="vsub"><a href="237.html" target="_blank" rel="noopener">«Дано Творцу право Любить»</a></span>
+      <a class="back" href="#ref2" title="Вернуться к тексту">↑</a></p>
+
+    <p class="note" id="fn3"><span class="marker">***</span>
+      <span class="vsub">Было и есть, здесь есть форма особая</span>
+      <span class="vsub">Форма подобия свойств – АВАЯ.</span>
+      <span class="vsub">Когда одна только есть Кли Маски Огненной</span>
+      <span class="vsub">Не в кого Свет “снизу вверх” получать.</span>
+      <a class="back" href="#ref3" title="Вернуться к тексту">↑</a></p>
+
+    <p class="note" id="fn4"><span class="marker">*4</span>«Это за окном Рассвет» — Браво (трек №4 музыкальной подборки): <a href="https://youtu.be/yLUOwe9f2X8" target="_blank" rel="noopener">youtu.be/yLUOwe9f2X8</a><a class="back" href="#ref4" title="Вернуться к тексту">↑</a></p>
+
+    <p class="note" id="fn5"><span class="marker">*5</span>См. также: <a href="http://proza.ru/avtor/viktor1717" target="_blank" rel="noopener">proza.ru/avtor/viktor1717</a><a class="back" href="#ref5" title="Вернуться к тексту">↑</a></p>
+  </div>
+
+  <nav class="corpusnav">
+    <a class="pv" href="368.html"><small>← Предыдущая</small>Мир Света и Сон Разума</a>
+    <a class="nx" href="266.html"><small>Следующая →</small>В Свободном Парении</a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // Lazy YouTube players
+  document.querySelectorAll('details.track').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open){
+        var box=d.querySelector('.embed');
+        if(box && !box.dataset.loaded){
+          var f=document.createElement('iframe');
+          f.src='https://www.youtube.com/embed/'+d.dataset.embed;
+          f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          f.allowFullscreen=true;
+          f.loading='lazy';
+          box.appendChild(f);
+          box.dataset.loaded='1';
+        }
+      }
+    });
+  });
+
+  // Footnote popup edge-flip
+  document.querySelectorAll('sup.fnref').forEach(function(s){
+    s.addEventListener('mouseenter',function(){
+      var r=s.getBoundingClientRect();
+      if(r.top<230){ s.classList.add('below'); } else { s.classList.remove('below'); }
+    });
+  });
+
+  // Highlight targeted footnote
+  function flash(){
+    if(location.hash){
+      var el=document.querySelector(location.hash);
+      if(el && el.classList.contains('note')){
+        el.style.transition='none';
+        el.style.background='#fbe6a8';
+        setTimeout(function(){el.style.transition='background .9s';el.style.background='';},60);
+      }
+    }
+  }
+  window.addEventListener('hashchange',flash);
+  window.addEventListener('load',flash);
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "поэма",
+  "rationale": "Текст почти целиком стихотворный: цельная мистико-поэтическая поэма в пяти «актах», с регулярными строфами и единственным прозаическим абзацем-аннотацией в первом акте. Поскольку доминирует стихотворная форма, выбрана манускриптная схема с узкой книжной полосой ~820px — она лучше держит строку стиха, не разрывая её, и поддерживает медленное, «рукописное» чтение; редакторский широкий лонгрид сломал бы стиховую разбивку. Палитра — пергамент/тёмно-коричневые чернила с золотыми и кармазинными акцентами под «живой огонь» названия, засечный шрифт.\n\nПограничные решения: маркер *4 в тексте у автора указывает не на отдельную сноску, а на 4-й трек подборки (он и помечен «*4» в списке музыки), поэтому я сохранил трек в плеере и одновременно завёл сноску *4, ведущую к нему, чтобы не терять авторскую перекрёстную ссылку. Сноски ** и *** — сами по себе четверостишия, оформил их как многострочные тела. Все 4 трека идут единой группой в самом конце перед «Пост скриптум», поэтому метку «Музыка под настроение» вывел один раз над группой и не делал отдельного сводного раздела (треки и так уже собраны вместе). Длинные капс-фрагменты пятого акта оставлены КАК ЕСТЬ. Финальная лесенка «ТОЛЬКО/ВМЕСТЕ/МЫ-/СИЛА!» подана центрированной кульминацией.",
+  "features": ["music", "footnotes", "toc"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -919,16 +1443,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

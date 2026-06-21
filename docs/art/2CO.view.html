@@ -7,8 +7,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ОДИН, ЕДИНСТВЕННЫЙ И ЕДИНЫЙ</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе о понимании Дара Орла из учения Кастанеды, единстве жизни и непрерывности осознанности за пределами обыденного восприятия себя.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/2CO.html">
+<meta property="og:title" content="ОДИН, ЕДИНСТВЕННЫЙ И ЕДИНЫЙ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/2CO.html">
+<meta property="og:description" content="Эссе о понимании Дара Орла из учения Кастанеды, единстве жизни и непрерывности осознанности за пределами обыденного восприятия себя.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ОДИН, ЕДИНСТВЕННЫЙ И ЕДИНЫЙ">
+<meta name="twitter:description" content="Эссе о понимании Дара Орла из учения Кастанеды, единстве жизни и непрерывности осознанности за пределами обыденного восприятия себя.">
+<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/2CO.jpg">
+<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/2CO.jpg">
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +156,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="2CO" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="2CO" data-theme="swiss"
   data-art-section="confront" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +170,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +179,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="2CO.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -197,6 +208,200 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --muted:#6a6256;
+    --accent:#8a5a2b;
+    --rule:#d8d0c0;
+  }
+  *{box-sizing:border-box;}
+  .ya-old,.ya-old{margin:0;padding:0;}
+  .ya-old{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    line-height:1.7;
+    font-size:20px;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .wrap{
+    width:66vw;
+    max-width:1100px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 28px 80px;
+  }
+
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:28px;
+  }
+  .crumbs a{color:var(--muted);}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs .sep{margin:0 .5em;opacity:.6;}
+
+  .lead-img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    margin:0 auto 34px;
+    border:1px solid var(--rule);
+    box-shadow:0 6px 26px rgba(0,0,0,.08);
+  }
+
+  h1{
+    font-family:"Playfair Display",Georgia,serif;
+    font-weight:700;
+    font-size:2.45rem;
+    line-height:1.15;
+    letter-spacing:.01em;
+    margin:0 0 8px;
+    color:var(--ink);
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:34px;
+  }
+  .kicker::after{
+    content:"";
+    display:block;
+    width:64px;
+    height:3px;
+    background:var(--accent);
+    margin-top:14px;
+  }
+
+  article p{
+    margin:0 0 1.5em;
+    text-align:justify;
+    hyphens:auto;
+  }
+  article p:first-of-type::first-letter{
+    font-family:"Playfair Display",Georgia,serif;
+    float:left;
+    font-size:4.1em;
+    line-height:.82;
+    padding:.05em .12em 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+
+  .pager{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:56px;
+    padding-top:26px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .pager a{
+    display:block;
+    max-width:46%;
+    font-size:16px;
+  }
+  .pager .lbl{
+    display:block;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .pager .next{text-align:right;margin-left:auto;}
+
+  footer{
+    margin-top:48px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer a{color:var(--accent);}
+
+  @media (max-width:900px){
+    .wrap{width:100%;max-width:100%;padding:22px 18px 60px;}
+    .ya-old{font-size:18px;}
+    h1{font-size:2rem;}
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №2CO</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <img class="lead-img" src="../img/2CO.jpg" alt="">
+
+  <header>
+    <h1>ОДИН, ЕДИНСТВЕННЫЙ И ЕДИНЫЙ<a class="audio-link" href="https://t.me/art_017_tracks/436" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <div class="kicker">Конфронтология Духа</div>
+  </header>
+
+  <article>
+    <p>Сущность "Дара Орла", выраженная в словах намерения "сохранять осознанность и помнить себя", раскрытая К. Кастанеде Доном Хуаном, не была им раскрыта в полной мере, и мы, вследствие этого, т.е. последователи Учения К.К., понимаем суть Дара, даруемого нами Орлом, в корне не правильно. То есть, от начала до конца не так, как это понимали сам Д.Х. и другие "видящие" его линии.</p>
+
+    <p>Эта суть, выраженная в приведенных словах из "Дара Орла" КК, указывает в точности на то действие, которое с человеком происходит посредством смерти и рождения новой человеческой личностью "этого повседневного мира". Той личностью, которая всем нам хорошо известна посредством повседневного смотрения в зеркало на самих себя. Как нам всем хорошо известно и понятно, подразумеваемо, и что является для всех нас аксиомой (если отбросить фантазии ума, не имеющие основания в "реальном мире", о "перерождениях", "памяти кругооборотов" и т.д. и т.п., которые некоторые из нас любят выдумывать и повторять, чтобы этим немного разнообразить и сделать менее скучной и обыденной свою же повседневную реальность "смотрения в зеркало").</p>
+
+    <p>То, что "я живу на Земле первый и единственный раз, эта жизнь является моим альфа и омега, до нее 'меня' не было, как самостоятельного осознающего существа, и после смерти, очевидно, точно также не будет". Это результат реальности "по умолчанию", единой для всех и каждого. И, одновременно, это тот "маленький нюанс", изменение которого, посредством "Дарования Орлом нам Своего Дара", сделает "этот повседневный мир" совершенно иным во всех смыслах, хотя изменится только наше к нему отношение "здесь и сейчас". Изменится навсегда, потому что изменится чудовищная и убивающая чудесность данного состояния "жизнь" и "восприятие", фрагментированность, порубленность на куски, не поддающиеся никакими способами "сшиванию обратно" в единое непрерывное Целое, подобно фаршу, пропущенному, через мясорубку - но соединяя все свои "первые и единственные" последовательные этапы "путешествия по этому Миру, по планете Земля" в качестве человека, существующего "впервые, ограниченное время и уходящего навсегда, чтобы никогда не вернуться", в Единое непрерывное движение и существование в Вечности "здесь и сейчас", поскольку Жизнь, сама по Себе, как она "свободно течет во Вселенной", не делится на эти участки и этапы, и не имеет начала и конца, но является единым и бесконечным Живым Самосознающим и целостным Явлением, которым и является, Сам дающий Свой Дар чувствующим существам "Орел", или Творец, Свят Благословен Он, или используйте любое из многочисленных Имен, данных человеком за долгую историю своего эволюционного развития, которое только начинается и набирает Силу осознанного процесса и усилия со стороны самого человека.</p>
+
+    <p>Подобно тому, как мы проживаем этот день, ложимся спать, засыпаем "теряя сознание" на самом деле, а не "фигурально выражаясь", а то и "обретая" его в промежутке в абсолютно иных, нежели "этот повседневный", мирах и реальностях Сновидения (а то и более "далеких" Мирах "второго внимания"), чтобы затем проснуться на следующий день, не "впервые родившись и обретя жизнь и самосознание", но продолжая то, что не прекращалось посредством нашего "периода ночного отдыха" ни в каком смысле, являясь непрерывным явлением, длящимся изо дня в день, и называемом нами "жизнь и судьба взрослой сознательной человеческой личности". Именно это будущее состояние (ждущее в обозримом будущем все человечество, а не только единиц "людей знания", "нагвалей" и "видящих") является тем Даром, который Орел "дарует" человеку и человечеству, и который является посредством этого Намерением Духа, производящим последовательную эволюцию, формирование и развитие создаваемого Им создания, чувственно воспринимающего Вселенную Его Эманаций посредством приведения Им в соответствие своих собственных "внутренних эманаций", раскрывая "здесь и сейчас" ту Вселенную, в которой, по выражению Дона Хуана, "нет толп", но есть миллионы и миллиарды "точек сборки" единого Кокона, который "собирает" и "настраивает" восприятие каждой из них в отдельности, даруя каждой и каждому существование в той же самой "системе координат", в которой существует Он Сам - "один, единственный и единый".</p>
+  </article>
+
+  <nav class="pager">
+    <a class="prev" href="28M.html">
+      <span class="lbl">← Предыдущая</span>
+      Методика Трех Линий 111-115
+    </a>
+    <a class="next" href="251.html">
+      <span class="lbl">Следующая →</span>
+      Правильно мыслишь
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой сплошной философско-эзотерический прозаический текст из четырёх длинных абзацев-периодов без стихотворной формы, поэтому выбрана редакторская широкоформатная схема, а не узкая манускриптная колонка. Текст монолитен и не содержит подзаголовков, поэтому оглавление не делалось (более одного подраздела нет); музыкальных ссылок и сносок в тексте нет, так что соответствующие аппараты не нужны.\n\nКолонку задал в ~66vw (с ограничением max-width для очень широких мониторов) — это укладывается в требование 'основная колонка ~2/3 ширины'. Выбрал тёплую светлую палитру (кремовый фон, коричневый акцент) под журнальный лонгрид, засечный шрифт для тела и буквицу в первом абзаце как сдержанный редакторский акцент; КАПС-заголовок и кавычки сохранены дословно. На мобильных колонка раскрывается на полную ширину."
+  ,
+  "features": []
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -342,16 +547,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

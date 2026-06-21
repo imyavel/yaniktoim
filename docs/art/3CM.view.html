@@ -7,8 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Мне давно уже не больно</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе-поток сознания о природе оценки, лжи и самообмана, размышляющее о словах как намерениях и образе воина в современном мире.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/3CM.html">
+<meta property="og:title" content="Мне давно уже не больно">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/3CM.html">
+<meta property="og:description" content="Эссе-поток сознания о природе оценки, лжи и самообмана, размышляющее о словах как намерениях и образе воина в современном мире.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Мне давно уже не больно">
+<meta name="twitter:description" content="Эссе-поток сознания о природе оценки, лжи и самообмана, размышляющее о словах как намерениях и образе воина в современном мире.">
+
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +155,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="3CM" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="3CM" data-theme="swiss"
   data-art-section="other" data-art-type="dialog"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +169,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +178,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="3CM.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -200,6 +210,263 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f7f5f0;
+    --ink:#1d1b18;
+    --muted:#6a635a;
+    --accent:#9c2a1f;
+    --rule:#d8d2c6;
+    --paper:#fffdf8;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+  }
+  .wrap{
+    width:66%;
+    max-width:880px;
+    margin:0 auto;
+    padding:48px 24px 64px;
+  }
+  @media (max-width:900px){
+    .wrap{width:100%;max-width:100%;padding:28px 18px 48px;}
+    .ya-old{font-size:18px;}
+  }
+  nav.crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    margin-bottom:30px;
+    text-transform:uppercase;
+  }
+  nav.crumbs a{color:var(--accent);text-decoration:none;}
+  nav.crumbs a:hover{text-decoration:underline;}
+  nav.crumbs span.sep{margin:0 8px;color:var(--rule);}
+  h1{
+    font-size:42px;
+    line-height:1.15;
+    font-weight:700;
+    margin:0 0 8px;
+    letter-spacing:-.01em;
+  }
+  @media (max-width:900px){h1{font-size:32px;}}
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--muted);
+    margin:0 0 28px;
+  }
+  .dialog{
+    margin:0 0 26px;
+    padding:18px 22px;
+    background:var(--paper);
+    border-left:4px solid var(--accent);
+  }
+  .dialog .who{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--accent);
+    margin:0 0 6px;
+  }
+  .dialog .quote{
+    font-style:italic;
+    margin:0;
+  }
+  .reply-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--accent);
+    margin:36px 0 10px;
+  }
+  p{margin:0 0 22px;}
+  .caps{}
+  /* music */
+  .music{
+    margin:40px 0;
+    border-top:1px solid var(--rule);
+    padding-top:24px;
+  }
+  .music .label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    font-style:italic;
+    margin-bottom:14px;
+  }
+  .track{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .track summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .track .arrow{
+    transition:transform .2s;
+    color:var(--accent);
+    font-size:14px;
+  }
+  .track[open] .arrow{transform:rotate(90deg);}
+  .track .tname{flex:1;}
+  .track .ext{
+    color:var(--accent);
+    text-decoration:none;
+    font-size:18px;
+  }
+  .track .player{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    background:#000;
+  }
+  .track .player iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+  }
+  /* bottom nav */
+  .pagenav{
+    margin-top:56px;
+    border-top:1px solid var(--rule);
+    padding-top:24px;
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .pagenav a{
+    color:var(--accent);
+    text-decoration:none;
+    max-width:46%;
+  }
+  .pagenav a:hover{text-decoration:underline;}
+  .pagenav .lbl{
+    display:block;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-size:12px;
+    margin-bottom:4px;
+  }
+  .pagenav .next{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:48px;
+    border-top:1px solid var(--rule);
+    padding-top:20px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer.colophon a{color:var(--accent);}
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №3CM</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../other/index.html">Без категории</a>
+  </nav>
+
+  <h1>Мне давно уже не больно<a class="audio-link" href="https://t.me/art_017_tracks/603" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <div class="dialog">
+    <p class="who">Нет написал(а):</p>
+    <p class="quote">оценка это карма того кто оценивает</p>
+  </div>
+
+  <p class="reply-label">Реплика:</p>
+
+  <p>Мне это понимание далось с большим трудом и буквально совсем недавно. Оценка это карма того кто оценивает, но не только. Высказав что угодно посредством рта или пальцев с клавиатурой, ты выражаешь намерение, которое начинает сбываться вокруг тебя. Поэтому сказав ложь, ты делаешь сказанное правдой, которая начинает неотвратимо с тобой сбываться здесь и сейчас. А оценив другого не как воин, который не имеет ни чести, ни достоинства этого мира, родина которого на самом деле не родина, ее щенки являются продуктами переработки опыта, пройденного и свободного от вышеднего из него света жизни (осознания), оставшись лишь как форма, подобна неорганической конструкции в которой есть лишь каркасная оболочка. И "рождением" этот процесс назвать, не заставляя себя вновь начать свистеть как свестит паровоз проплывая мимо станции, где у него не будет остановки. Да и груди, к которым этим щенкам предполагается прикрепляться, это совсем не груди, хотя и имеют похожесть по форме, но не имеют кормящих сосцов.</p>
+
+  <p>Родина является матерью всех кто имеет членство в команде произведенных Ею на свет, а точнее, поскольку я не должен врать, хотя и не в силах не врать совсем и во всем, хотя и не вижу всего этого, но чувствую, поскольку я не создавал всего многообразия используемых посредством слов образов и форм этого мира, каждая из которых является сошедшей в мужскую п:%У головного мозга через уши посредством передачи шевелением языка во рту для сотрясения воздухом барабанных перепонок уха, передающих информацию для нахождения там до тех пор, пока ее источник не покинет орбиты личного окружения человека на жизненном этапе жизненного пути, являющейся тем самым пучком искривленных нитей сознания окружающих в совокупности их которых состоит явление реального мира "идея самого себя", произведенная и исторгнутая, <span class="caps">Я НЕ ДОЛЖЕН ЛГАТЬ, НЕ НА СВЕТ, А ТУДА, ГДЕ ОНА В ЭТО ВРЕМЯ СИДИТ, ПРОИЗВОДЯ УМСТВЕННЫЕ ПОТУГИ ЧТОБЫ РОДИТЬ В ОЧКО 2 ПОРВАННЫХ БОЯНА БИНГО</span></p>
+
+  <p>И пойти дальше, подняв родную жопу с отхожего места и переложив ее на мягкий диван для потребления новой порции того, что продуктом ума станет гораздо поздее так или иначе, после своего потребления и переваривания для продолжения развития качества того продукта, который изготавливается посредством умственной потуги задним проходом этого мира в его же канализацию, по которой мы плаваем, зарабатывая деньги и называя себя с большой буквы пафосными словами типа "Воин", на самом деле являясь напыщенными индюками, шанс которых иметь шанс перестать ими быть при жизни был потерян в миг начала говорения им команд тем центром, команды которого они выполняют как свои собственные, поскольку первой командой выполненной безупречно, чтобы не быть вместо получения приза их родительской жопы быть самым родными в свою же жопу выдранным ремнем, а если не отступит от вредной глупости, то потом и не только</p>
+
+  <div class="music">
+    <p class="label">Музыка против шерсти, но шерсть полезно иногда причесывать перед зеркалом напротив)</p>
+    <details class="track">
+      <summary>
+        <span class="arrow">▶</span>
+        <span class="tname">YouTube</span>
+        <a class="ext" href="https://www.youtube.com/watch?v=rJpPqSXw3Tw" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </summary>
+      <div class="player" data-src="https://www.youtube-nocookie.com/embed/rJpPqSXw3Tw"></div>
+    </details>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="433.html">
+      <span class="lbl">← Предыдущая</span>
+      Парадокс Очистителя
+    </a>
+    <a class="next" href="416B.html">
+      <span class="lbl">Следующая →</span>
+      Напоследок для форума ККО
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('details.track').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open){
+        var box=d.querySelector('.player');
+        if(box && !box.querySelector('iframe')){
+          var f=document.createElement('iframe');
+          f.src=box.getAttribute('data-src')+'?autoplay=1';
+          f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          f.allowFullscreen=true;
+          box.appendChild(f);
+        }
+      }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст представляет собой прозаическую реплику-комментарий в диалоге (цитата собеседника + развёрнутый ответ потоком сознания), а не стихотворную форму, поэтому выбрана редакторская широкая схема с колонкой около 2/3 ширины окна. Стихотворных строк, строф или поэтической разбивки нет — это сплошные абзацы, что однозначно склоняет к лонгриду, а не к узкому манускрипту.\n\nДиалоговую часть («Нет написал(а):» и цитату) я оформил отдельной врезкой с акцентной полосой, чтобы отделить чужую реплику от ответа автора, не меняя текста. Капс-фрагмент сохранён дословно как есть, без понижения регистра. Подразделов нет, поэтому оглавление не делалось; сносок в тексте нет. Музыкальная метка нестандартная («Музыка против шерсти...») — сохранена дословно как подпись над единственным треком; так как трек один (не больше двух), сводный раздел музыки не создавался, плеер ленивый и сворачиваемый с ссылкой на YouTube.",
+  "features": ["music"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -345,16 +612,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

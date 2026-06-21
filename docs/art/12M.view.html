@@ -7,8 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Одно напротив другого создал Творец</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе о том, как Творец через скрытия, падения и противоречия ведёт человека к вере выше знания и независимой любви, по мотивам Розы Среди Шипов.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/12M.html">
+<meta property="og:title" content="Одно напротив другого создал Творец">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/12M.html">
+<meta property="og:description" content="Эссе о том, как Творец через скрытия, падения и противоречия ведёт человека к вере выше знания и независимой любви, по мотивам Розы Среди Шипов.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Одно напротив другого создал Творец">
+<meta name="twitter:description" content="Эссе о том, как Творец через скрытия, падения и противоречия ведёт человека к вере выше знания и независимой любви, по мотивам Розы Среди Шипов.">
+
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +155,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="12M" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="12M" data-theme="swiss"
   data-art-section="shoshana" data-art-type="prose_num"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +169,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +178,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="12M.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -205,6 +215,238 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#26211b;
+    --muted:#6f6557;
+    --accent:#9a5b2e;
+    --accent-soft:#c9863f;
+    --rule:#e0d8c8;
+    --num:#a7682f;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{-webkit-text-size-adjust:100%;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.7;
+  }
+  .wrap{
+    width:66%;
+    max-width:1080px;
+    min-width:0;
+    margin:0 auto;
+    padding:0 28px 80px;
+  }
+  a{color:var(--accent);}
+  a:hover{color:var(--accent-soft);}
+
+  /* Breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    padding:26px 0 0;
+  }
+  .crumbs a{
+    color:var(--muted);
+    text-decoration:none;
+    border-bottom:1px solid var(--rule);
+  }
+  .crumbs a:hover{color:var(--accent);border-color:var(--accent-soft);}
+  .crumbs .sep{margin:0 .55em;color:var(--accent-soft);}
+
+  /* Header */
+  header.article-head{
+    margin:34px 0 40px;
+    padding-bottom:28px;
+    border-bottom:2px solid var(--rule);
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-size:12.5px;
+    color:var(--accent);
+    margin:0 0 16px;
+  }
+  h1{
+    font-size:40px;
+    line-height:1.18;
+    font-weight:700;
+    margin:0;
+    letter-spacing:-.005em;
+  }
+  .pubdate{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    color:var(--muted);
+    margin:18px 0 0;
+  }
+
+  /* Body list */
+  .points{
+    list-style:none;
+    counter-reset:pt;
+    margin:0;
+    padding:0;
+  }
+  .points li{
+    counter-increment:pt;
+    position:relative;
+    padding:22px 0 22px 64px;
+    border-bottom:1px solid var(--rule);
+  }
+  .points li:last-child{border-bottom:none;}
+  .points li::before{
+    content:counter(pt);
+    position:absolute;
+    left:0;
+    top:20px;
+    width:44px;
+    text-align:right;
+    font-family:Georgia,serif;
+    font-style:italic;
+    font-size:30px;
+    line-height:1;
+    color:var(--num);
+  }
+  .points li p{margin:0;}
+
+  .coda{
+    margin:54px 0 0;
+    text-align:center;
+  }
+  .coda p{
+    display:inline-block;
+    font-size:24px;
+    letter-spacing:.06em;
+    color:var(--accent);
+    border-top:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+    padding:18px 4px;
+    margin:0;
+  }
+
+  /* Bottom nav */
+  nav.corpus{
+    margin-top:64px;
+    padding-top:26px;
+    border-top:2px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  nav.corpus a{
+    text-decoration:none;
+    color:var(--ink);
+    max-width:46%;
+    display:block;
+  }
+  nav.corpus .lbl{
+    display:block;
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    color:var(--muted);
+    margin-bottom:5px;
+  }
+  nav.corpus .ttl{font-size:17px;color:var(--accent);}
+  nav.corpus a:hover .ttl{color:var(--accent-soft);}
+  nav.corpus .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:44px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer.colophon a{color:var(--accent);}
+
+  @media(max-width:900px){
+    .wrap{width:100%;max-width:680px;padding:0 20px 60px;}
+    .ya-old{font-size:18px;}
+    h1{font-size:31px;}
+    .points li{padding-left:52px;}
+    .points li::before{font-size:25px;width:36px;}
+    nav.corpus{flex-direction:column;}
+    nav.corpus a{max-width:100%;}
+    nav.corpus .next{text-align:left;}
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №12M</span>
+<div class="wrap">
+
+  <div class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </div>
+
+  <header class="article-head">
+    <p class="kicker">Роза Среди Шипов</p>
+    <h1>Одно напротив другого создал Творец<a class="audio-link" href="https://t.me/art_017_tracks/517" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <p class="pubdate">22 февраля 2021 г.</p>
+  </header>
+
+  <ol class="points">
+    <li><p>Творец мешает мне расти, посылая "низкие" и не достойные мысли и состояния падения, чтобы я пришел к окончательному решению, что отныне и всегда я буду думать о Нем только хорошее, независимо от того, что говорят мне мои глаза и уши</p></li>
+    <li><p>Творец играет со мной в игры разума, посылая мне "скрытие" за "скрытием", как только я, как мне кажется, что-то понимаю "правильно", я тут же убеждаюсь в том, что блуждаю в потемках... Чтобы я понял, что не важно, что я о Нем знаю или не знаю, а важно то, насколько это знание или незнание помогает мне верить "выше знания" в то, что Он - делал, делает, и всегда будет делать, всем Своим творениям только абсолютное Добро</p></li>
+    <li><p>Творец воюет со мной всю мою жизнь. Правда, мне, как правило, кажется, что я воюю с самим собой, или это какие-то "третьи силы" расстраивают мои планы и мешают наконец "сложить оружие". Если бы не это, я бы никогда не смог понять, что такое независимая и совершенная Любовь к Нему, любовь, испытываемая не "благодаря", а "вопреки", "даже когда Он забирает мою душу"</p></li>
+    <li><p>Творец создал желание получать, сделав меня абсолютным эгоистом, который не способен на настоящую "отдачу" даже под страхом смерти, чтобы я пришел к истинной просьбе к Нему, понимая без тени сомнения, что Он Один может помочь мне и спасти меня, дав мне Свою природу, а если Он не поможет мне, то я сгину, никогда не увидев Света</p></li>
+    <li><p>Творец контролирует каждый мой шаг, каждый вздох, потому что Он хочет научить меня на опыте, быть таким же, как Он, путем "из действий Твоих познаю Тебя" (да и вообще потому что Он Милостив и Добр, и не отвращает Свое ухо от моих молитв о том, чтобы именно Он делал это, а не "я сам себя контролировал")</p></li>
+    <li><p>Перед тем, как "удостоить" подняться на действительно важную ступеньку на Пути к Нему, Творец дает мне пройти через такое унижение, которое я только могу вынести (Его помощью и ведением). Если бы не это, я бы пропал, потому что "у нераскрывшегося зла в человеке нет надежды на исправления" (Бааль Сулам)</p></li>
+    <li><p>Нет большего ревнителя, чем Творец. Он требует от меня соблюдения буквы и духа Его Науки и дисциплины вплоть до "толщины волоса", за что я благодарю Его день и ночь, поскольку если бы Он не помогал мне быть придирчивым к себе "на толщину волоса", то и величина Света Торы, Которого я Милостью Его удостаиваюсь ощущать, выполняя заповедь в Круге товарищей, была бы такой же "несерьезной".</p></li>
+    <li><p>Когда я вижу, что Творец нигде и никогда не оставляет меня, не дает мне ни минуты покоя и "личного времени", то нет благословения больше этого...</p></li>
+    <li><p>Если я совершаю ошибку, то могу быть уверен, что Он даст мне совершить еще одну, еще более серьезную, ошибку вслед за этим, если только я сам Его Милостью не осознаю и искренне не раскаюсь за прегрешения перед Ним в молитве. Если бы Он не делал этого для меня, то навсегда бы остался без Его чудесного избавления, которое только и помогает быть иногда к Нему приближенным и желанным Ему, как если бы я был праведником.</p></li>
+    <li><p>Мир, созданный для меня Творцом, если только я не иду по нему с молитвой на устах и не отходя от Круга Его работников, является не просто жестоким, но таким, что в нем нередко слепая ничем немотивированная жестокость возведена в экзистенциальный принцип (см. "Процесс" Кафки). И в то же время, "Нет никого, кроме Него, Кто делал, делает и будет делать все действия". Нужно ли это объяснять?</p></li>
+  </ol>
+
+  <div class="coda">
+    <p>ОБРАТНЫЙ МИР УВИДЕЛ Я.</p>
+  </div>
+
+  <nav class="corpus">
+    <a class="prev" href="12MA.html">
+      <span class="lbl">← Предыдущая</span>
+      <span class="ttl">А на меньшее я не согласен</span>
+    </a>
+    <a class="next" href="127B.html">
+      <span class="lbl">Следующая →</span>
+      <span class="ttl">Как понять, что мои усилия направлены на Творца?</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст представляет собой пронумерованный список из десяти прозаических утверждений-афоризмов с финальной строкой-кодой. Это не стихотворная форма (нет строф, рифмы, разбивки на строки), поэтому выбрана редакторская широкая схема: контейнер занимает примерно 2/3 ширины окна на десктопе и полную ширину на мобильных. Развилка была только в трактовке финальной капсовой строки \"ОБРАТНЫЙ МИР УВИДЕЛ Я.\" — она могла бы намекать на поэтичность, но это единичная фраза-завершение прозаического перечня, поэтому я оформил её как выделенную коду, сохранив КАПС дословно, а не как стих.\n\nОглавление не делал: в статье нет подразделов (один непрерывный нумерованный список), а условие требует TOC лишь при более чем одном подразделе. Сносок и музыкальных ссылок в тексте нет — скобочные ремарки (Бааль Сулам), (см. \"Процесс\" Кафки) являются частью авторского текста и оставлены инлайн. Палитра — тёплая книжно-журнальная (кремовый фон, коричнево-охристый акцент) под медитативно-каббалистический характер содержания; крупные курсивные цифры структурируют чтение без добавления собственных заголовков. Дату вынес отдельной строкой под H1, заголовок взял из метаданных, чтобы не дублировать капсовую версию из текста."
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -350,16 +592,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

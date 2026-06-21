@@ -7,8 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Из переписки двух воинов...</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе-размышление о Пути Воина: участии в жизни без следов, перепросмотре и связи воинов с Духом, в форме письма-заметки для форума.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/3C7.html">
+<meta property="og:title" content="Из переписки двух воинов...">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/3C7.html">
+<meta property="og:description" content="Эссе-размышление о Пути Воина: участии в жизни без следов, перепросмотре и связи воинов с Духом, в форме письма-заметки для форума.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Из переписки двух воинов...">
+<meta name="twitter:description" content="Эссе-размышление о Пути Воина: участии в жизни без следов, перепросмотре и связи воинов с Духом, в форме письма-заметки для форума.">
+
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +155,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="3C7" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="3C7" data-theme="swiss"
   data-art-section="other" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +169,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +178,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="3C7.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -212,6 +222,252 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#22201b;
+    --muted:#6f685a;
+    --accent:#8a4b2f;
+    --accent-soft:#c97a4a;
+    --line:#ddd5c5;
+    --hl:#ffe9c2;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    line-height:1.72;
+    font-size:20px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:980px;
+    min-width:0;
+    margin:0 auto;
+    padding:46px 40px 80px;
+    background:var(--paper);
+    border-left:1px solid var(--line);
+    border-right:1px solid var(--line);
+    min-height:100vh;
+  }
+  nav.crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:30px;
+  }
+  nav.crumbs a{color:var(--accent);text-decoration:none;}
+  nav.crumbs a:hover{text-decoration:underline;}
+  nav.crumbs .sep{margin:0 .5em;color:var(--line);}
+  h1{
+    font-size:2.05rem;
+    line-height:1.18;
+    font-weight:600;
+    margin:.1em 0 .15em;
+    letter-spacing:-.01em;
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--accent-soft);
+    margin-bottom:34px;
+  }
+  .rule{
+    width:64px;height:3px;background:var(--accent);
+    border:0;margin:0 0 34px;
+  }
+  article p{margin:0 0 1.25em;}
+  article p.bracketed{color:var(--ink);}
+  .sign{font-style:italic;color:var(--muted);}
+  /* footnote markers */
+  sup.fn{
+    font-size:.72em;
+    line-height:0;
+    vertical-align:super;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  sup.fn a{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    padding:0 1px;
+  }
+  sup.fn a:hover{color:var(--accent-soft);}
+  /* popup */
+  .fnref{position:relative;}
+  .fnref .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:140%;
+    width:280px;
+    max-width:72vw;
+    background:#2b2722;
+    color:#f4efe4;
+    font-family:Georgia,serif;
+    font-size:15px;
+    line-height:1.5;
+    padding:11px 14px;
+    border-radius:7px;
+    box-shadow:0 8px 26px rgba(0,0,0,.28);
+    z-index:30;
+    text-align:left;
+    font-weight:400;
+    vertical-align:baseline;
+  }
+  .fnref .pop a{color:# f0c08a;color:#f0c08a;}
+  .fnref.below .pop{bottom:auto;top:140%;}
+  .fnref:hover .pop{display:block;}
+  /* footnotes section */
+  .notes{
+    margin-top:54px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    font-size:17px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+  .notes h2{
+    font-size:1.05rem;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    color:var(--accent);
+    margin:0 0 16px;
+  }
+  .notes ol{list-style:none;margin:0;padding:0;counter-reset:none;}
+  .notes li{
+    margin:0 0 13px;
+    padding:6px 10px;
+    border-radius:6px;
+    transition:background .5s;
+  }
+  .notes li .mk{color:var(--accent);font-weight:700;margin-right:.5em;}
+  .notes li:target{background:var(--hl);}
+  .notes a, article a{color:var(--accent);}
+  .back{font-family:"Helvetica Neue",Arial,sans-serif;font-size:13px;margin-left:.5em;text-decoration:none;}
+  /* corpus nav */
+  .corpusnav{
+    display:flex;justify-content:space-between;gap:20px;
+    margin-top:60px;padding-top:26px;border-top:2px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpusnav a{
+    display:block;text-decoration:none;color:var(--accent);
+    max-width:46%;font-size:16px;
+  }
+  .corpusnav .dir{
+    display:block;font-size:11.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:5px;
+  }
+  .corpusnav a:hover .ttl{text-decoration:underline;}
+  .corpusnav .next{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:46px;padding-top:22px;border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;line-height:1.6;color:var(--muted);
+  }
+  footer.colophon a{color:var(--accent);}
+  @media (max-width:880px){
+    .ya-old{font-size:18px;}
+    .wrap{width:100%;max-width:100%;padding:30px 20px 60px;border-left:0;border-right:0;}
+    h1{font-size:1.7rem;}
+    .corpusnav{flex-direction:column;}
+    .corpusnav a,.corpusnav .next{max-width:100%;text-align:left;margin-left:0;}
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №3C7</span>
+<div class="wrap">
+
+  <nav class="crumbs" aria-label="Хлебные крошки">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../other/index.html">Без категории</a>
+  </nav>
+
+  <div class="kicker">Из переписки</div>
+  <h1>Из переписки двух воинов...<a class="audio-link" href="https://t.me/art_017_tracks/605" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <hr class="rule">
+
+  <article>
+    <p>...Любить их тоже можно, но по своему. Не оставляя нитей. Это называется Путь Воина. Воин приходит (если решил), делает свое дело, в котором он сам решает, кого и как ему любить, кого не любить, и так далее, следуя голосу Сердца, а не доводам разума) и уходит, как будто его в этом никогда не было. А была Сила, Маска Силы. Маска более живая<sup class="fn fnref" id="ref2"><a href="#fn2">**</a><span class="pop">См. также: <a href="182.html">Летопись Живого Огня</a>, Зеир Арихович Анпин</span></sup>, чем что или кто либо в этом Мире...</p>
+
+    <p>Человек этого [повседневного] мира всегда оставляет следы или нити</p>
+
+    <p>Всегда завязает в том, в чем начинает участвовать</p>
+
+    <p>В этом очень важная и принципиальная разница. Единственная, к слову сказать, между магами воинами и средним челом современного психосоциогенотипа</p>
+
+    <p>Цель практики ПП (перепросмотра) не в том, чтобы перепросмотреть старые связи и вернуть энергию. А а том, чтобы, сделав это раз до конца, ее уже не тратить. Это не значит не любить и не жить, и не быть тем-то и тем-то. Это значить, быть, любить и делать, а потом навсегда уходить, не оставляя следов.</p>
+
+    <p>Дух в этом воинам активно помогает. Посредством того, что воины начинают помогать Ему. Они не "просто" начинают и заканчивают участвовать в ситуациях повседневного мира, а делают это так, тогда и в точности столько, как, когда и сколько это дает и им, и Духу Жизни вместе с ними, достигать определенных практических целей, актуальных для Того и другого "здесь и сейчас", но в абсолютно разном фактическом смысле. Проекты и задачи Духа более масштабны, абстрактны и целостны, чем таковые любого мага или воина. Даже если он или она "нагвали" и/или действуют "групповым" образом...</p>
+
+    <p>Вот уже и статейку с утреца написал, Милостью Творца, Свят Благословен Он ; Пойду, отправлю в какую нибудь ветку о ПП на форуме<sup class="fn fnref" id="ref1"><a href="#fn1">*</a><span class="pop"><a href="http://ccastaneda.ru">ccastaneda.ru</a></span></sup></p>
+
+    <p class="sign">П.С. Всем КУ! И Бай :D</p>
+  </article>
+
+  <section class="notes" aria-label="Примечания">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1"><span class="mk">*</span><a href="http://ccastaneda.ru">ccastaneda.ru</a><a class="back" href="#ref1" title="Вернуться к тексту">↩</a></li>
+      <li id="fn2"><span class="mk">**</span>См. также: <a href="182.html">Летопись Живого Огня</a>, Зеир Арихович Анпин<a class="back" href="#ref2" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpusnav" aria-label="Навигация по разделу">
+    <a class="prev" href="416B.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="ttl">Напоследок для форума ККО</span>
+    </a>
+    <a class="next" href="32K.html">
+      <span class="dir">Следующая →</span>
+      <span class="ttl">Высший Свет, Время...</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // выбор стороны popup: над маркером, либо под ним, если не хватает места сверху
+  document.querySelectorAll('.fnref').forEach(function(el){
+    el.addEventListener('mouseenter',function(){
+      var r=el.getBoundingClientRect();
+      if(r.top<160){el.classList.add('below');}else{el.classList.remove('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — короткое прозаическое письмо («из переписки»), без стихотворных строк, поэтому выбрана редакторская широкая схема: основная колонка ~2/3 ширины окна, засечный шрифт для тела и гротеск для служебных элементов (крошки, навигация, метки). Текст представляет собой сплошной поток абзацев без внутренних подзаголовков и разделов, поэтому оглавление не делалось (условие — более одного подраздела — не выполнено). Музыкальных ссылок в тексте нет, поэтому раздел музыки и плееры отсутствуют.",
+  "rationale_extra": "Развилка была со сносками: в тексте два символьных маркера — ** (после «Маска более живая») и * (после «форуме»), и оба имеют тела в конце. Сохранил исходные символы вместо цифр, реализовал переходы вниз/вверх, подсветку цели по :target и popup при наведении с автоматическим выбором стороны (над/под маркером). Голые URL (ccastaneda.ru и proza.ru-ссылка) обёрнуты в гиперссылки. Дублирующий заголовок в первой строке оставлен как H1, чтобы не повторять его в теле; авторские глифы (':D', 'КУ!') и пунктуация сохранены дословно.",
+  "features": ["footnotes"]
+}
+</script>
+
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -357,16 +613,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

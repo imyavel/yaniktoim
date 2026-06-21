@@ -7,8 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Командное неделание Воинов Исраэль</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Статья о практике командного неделания Воинов Исраэль: замена чувства собственной важности на чувство важности товарищей в Кругу.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/254B.html">
+<meta property="og:title" content="Командное неделание Воинов Исраэль">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/254B.html">
+<meta property="og:description" content="Статья о практике командного неделания Воинов Исраэль: замена чувства собственной важности на чувство важности товарищей в Кругу.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Командное неделание Воинов Исраэль">
+<meta name="twitter:description" content="Статья о практике командного неделания Воинов Исраэль: замена чувства собственной важности на чувство важности товарищей в Кругу.">
+
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +155,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="254B" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="254B" data-theme="swiss"
   data-art-section="confront" data-art-type="prose_num"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +169,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +178,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="254B.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -204,6 +214,315 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f7f4ee;
+    --paper:#fffdf9;
+    --ink:#23201b;
+    --muted:#6b6357;
+    --accent:#9a3b1f;
+    --accent2:#1f5a6b;
+    --rule:#ddd5c6;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1100px;
+    min-width:0;
+    margin:0 auto;
+    padding:40px 48px 80px;
+  }
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:34px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .breadcrumbs a{
+    color:var(--accent2);
+    text-decoration:none;
+  }
+  .breadcrumbs a:hover{text-decoration:underline;}
+  .breadcrumbs span.sep{margin:0 .5em;color:var(--rule);}
+  h1{
+    font-size:2.1rem;
+    line-height:1.18;
+    font-weight:700;
+    margin:.2em 0 1.4em;
+    letter-spacing:-.01em;
+  }
+  h1::after{
+    content:"";
+    display:block;
+    width:84px;
+    height:3px;
+    background:var(--accent);
+    margin-top:.55em;
+  }
+  ol.tractate{
+    list-style:none;
+    counter-reset:item;
+    margin:0;
+    padding:0;
+  }
+  ol.tractate > li{
+    counter-increment:item;
+    position:relative;
+    padding-left:64px;
+    margin:0 0 1.8em;
+  }
+  ol.tractate > li::before{
+    content:counter(item);
+    position:absolute;
+    left:0;
+    top:.05em;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    font-size:1.15rem;
+    color:#fff;
+    background:var(--accent);
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    line-height:1;
+  }
+  p{margin:0 0 1.2em;}
+  .closing{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    letter-spacing:.08em;
+    font-size:1.15rem;
+    color:var(--accent2);
+    margin:2.4em 0 1em;
+    text-align:center;
+  }
+
+  /* Music */
+  .music-zone{
+    margin:2.6em 0;
+    padding:24px 26px;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-left:4px solid var(--accent);
+    border-radius:4px;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:12px;
+  }
+  .track{
+    border-top:1px solid var(--rule);
+  }
+  .track:first-of-type{border-top:none;}
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 4px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head .arrow{
+    transition:transform .2s ease;
+    color:var(--accent);
+    font-size:14px;
+    flex:0 0 auto;
+  }
+  .track.open .track-head .arrow{transform:rotate(90deg);}
+  .track-title{
+    font-size:1.05rem;
+    flex:1 1 auto;
+  }
+  .track-title .artist{font-weight:700;}
+  .track-ext{
+    color:var(--accent2);
+    text-decoration:none;
+    font-size:1.05rem;
+    flex:0 0 auto;
+  }
+  .track-ext:hover{text-decoration:underline;}
+  .player{
+    display:none;
+    padding:0 4px 16px;
+  }
+  .track.open .player{display:block;}
+  .player .frame{
+    position:relative;
+    width:100%;
+    padding-top:56.25%;
+    background:#000;
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .player .frame iframe{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    border:0;
+  }
+
+  /* Bottom nav */
+  .corpus-nav{
+    margin-top:60px;
+    padding-top:26px;
+    border-top:1px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    color:var(--accent2);
+    display:block;
+    max-width:46%;
+  }
+  .corpus-nav a:hover{text-decoration:underline;}
+  .corpus-nav .dir{
+    display:block;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  footer{
+    margin-top:48px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-size:15px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer a{color:var(--accent2);}
+  footer .attrib{margin:0 0 .4em;font-style:italic;}
+
+  @media (max-width:900px){
+    .wrap{width:100%;max-width:none;padding:24px 20px 60px;}
+    .ya-old{font-size:18px;}
+    h1{font-size:1.7rem;}
+    ol.tractate > li{padding-left:48px;}
+    ol.tractate > li::before{width:32px;height:32px;font-size:1rem;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav a,.corpus-nav .next{max-width:100%;text-align:left;margin-left:0;}
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №254B</span>
+<div class="wrap">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <h1>Командное неделание Воинов Исраэль<a class="audio-link" href="https://t.me/art_017_tracks/491" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <ol class="tractate">
+    <li>[при работе в Круге на собраниях Воинов^Исраэль] Ничто и никто не является более или менее важным, чем что-то или кто-то еще.</li>
+
+    <li>Все одинаково равно и все одинаково равны, являясь одинаково непостижимой, бесконечно манящей удивительной загадкой.</li>
+
+    <li>То, что делают люди, никогда не окажется более важным, чем то, что я делаю людям, посредством оценивания того, что именно и как именно они делают, "создавая" их этим "из ничего" и фиксируя в этом созданном "ничего" точку сборки образом самого себя посредством фантомного "чувства собственной важности" (ЧСВ).</li>
+
+    <li>Идущим по Пути Воина^Исраэль рекомендуется вместо "чувства собственной важности" начать чувствовать "чувство важности товарищей" по Кругу. Причина в том, что тогда он начнет относиться к реально существующему явлению (все, кроме самого человека - это Сам Творец, Свят Благословен Он), а в случае ЧСВ он фиксирует точку сборки посредством создаваемого этим отношением образа явления, которого не было, нет и никогда не будет в Реальном мире.</li>
+
+    <li>Идущий по Пути Воина^Исраэль "ученик каббалистов", перед тем, как самому стать каббалистом, способным учить других "идущих", обязательно осваивает в совершенстве способность (Кли) действия, образ совершения которого ради некоторой цели, имеющийся в его уме, и тот образ, который у него в уме будет иметься посредством своего совершения, не имеют между собой абсолютно ничего общего, посредством того, что первый образ, являясь порождением ума и стремления самого человека, имеет для него сугубо практическую ценность, позволяя осуществить связанное с ним практическое действие понятным и точным образом, не допускающим колебаний и сомнений в том, что он делает и зачем, а второй образ, приходит к нему извне ума его самого, и является элементом, заложенным в изначально совершенную и выверенную, единую на всех этапах своей практической реализации человеком, стратегию его Бенефактора, Которым является Творец, Свят Благословен Он, лично и непосредственно, "отвечая" таким образом на молитвы человека и Круга о том, чтобы им "удостоиться" выполнять Его Волю "как один человек с одним сердцем" и доставлять Ему наслаждение и радовать Его творения, и т.д. и т.п.</li>
+
+    <li>В момент, когда к воину приходит образ Цели, не включающий ничего такого, что могло бы быть результатом работы его ума и личного целеполагания в то время, когда он прилагает усилия ради достижения этой Цели, точка сборки воина получает новые "координаты" для своей передислокации из места, называемого "чувством собственной важности" в место, называемое "чувством важности товарищей" в Круге, которое подсвечивает новые энергетические поля, ранее никогда не использованные, поскольку они были отброшены человеческой личностью этого мира в процессе осуществления настройки восприятия, в основе которой легла идея самого себя. Идеи самого себя не существует без ощущения той важности, которую ощущает товарищ, оценивая человека в соответствии с тем, насколько он преуспевает в том, чтобы заменить "чувство собственной важности" на "чувство важности товарища", таким образом, что у этой конкретной "практической работы" человека всегда есть строгие проверяющие, обмануть которых невозможно.</li>
+
+    <li>Разница между человеком общества этого мира и идущим по Пути Воина в Кругах "Кнессет Исраэль", являющихся мини-моделью такого же в точности явления реального мира, как и само общество, заключается только в том, что Воин^Исраэль отдает себе регулярный отчет в том, что его "чувство собственной важности" иллюзорно, а имеющееся у товарища "чувство важности товарища" реально, и что замена одного на другое является его приоритетной задачей при работе в собраниях Круга и в самонастройке намерения человеком между ними. В то время, как человек этого мира называет чувство важности, имеющееся у товарища, "чувством собственной важности товарища", и пренебрегает им, во всем предпочитая ему чувство собственной важности, кроме того, чтобы отдавать себе регулярный отчет в том, как он его постоянно чувствует, игнорируя то чувство важности товарища, которое могло бы дать человеку возможность сдвинуть "точку сборки" в область бесчисленных тайн и загадок "здесь и сейчас", которыми буквально сочится Мир, товарищ и он сам. Но ему нет до этих тайн никакого дела, и поэтому он напрочь забывает о том, что именно благодаря этому чувству, которое к нему испытывает товарищ, производя оценку качества выполняемой им работы на благо "духовного общества", он преуспевает в том, чтобы заменить "чувство собственной важности" на "чувство важности", реально имеющееся у его товарища, чтобы снабдить им его самого. Сделаем и услышим!</li>
+  </ol>
+
+  <div class="music-zone">
+    <div class="music-label">Музыка под настроение</div>
+    <div class="track" id="track1">
+      <div class="track-head" onclick="toggleTrack('track1')">
+        <span class="arrow">▶</span>
+        <span class="track-title"><span class="artist">Rammstein</span> — Halleluj</span>
+        <a class="track-ext" href="https://youtu.be/z-FDVZTaLeY" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="player">
+        <div class="frame" data-embed="https://www.youtube-nocookie.com/embed/z-FDVZTaLeY"></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="closing">ОДНИМ СЛОВОМ ; БУДУЩЕЕ ^ ЗА НАМИ;</p>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="0CP.html">
+      <span class="dir">← Предыдущая</span>
+      Наука Каббала один из миллиона возможных путей
+    </a>
+    <a class="next" href="254A.html">
+      <span class="dir">Следующая →</span>
+      Правило Трехзубчатого Нагваля.
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+function toggleTrack(id){
+  var t=document.getElementById(id);
+  var open=t.classList.toggle('open');
+  if(open){
+    var f=t.querySelector('.frame');
+    if(f && !f.querySelector('iframe')){
+      var iframe=document.createElement('iframe');
+      iframe.src=f.getAttribute('data-embed')+'?autoplay=1';
+      iframe.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen=true;
+      f.appendChild(iframe);
+    }
+  }
+}
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой нумерованный прозаический трактат (семь развёрнутых тезисов) философско-каббалистического содержания — это связная аналитическая проза, а не стихотворная форма, поэтому однозначно выбрана редакторская широкоформатная схема с колонкой примерно 2/3 ширины окна. Развилок с манускриптом не было: никакого стихотворного членения, рефренов или поэтической строфики в тексте нет. Семь пунктов оформлены как нумерованный список с крупными кружками-маркерами, что подчёркивает структуру «правил неделания» без добавления собственных заголовков; финальная строка 'ОДНИМ СЛОВОМ...' и КАПС сохранены дословно и поданы как акцентная подпись по центру.",
+  "rationale_extra": "Оглавление не делал: в тексте нет именованных подразделов, только сквозная нумерация тезисов, а одиночных пронумерованных абзацев недостаточно для содержательного TOC. Сносок в тексте нет. Музыкальный трек один (Rammstein — Halleluj, ссылка на YouTube), поэтому сводный раздел музыки не создавался (порог — более двух); трек оформлен как свёрнутый ленивый плеер с иконкой внешней ссылки, iframe подгружается только при раскрытии. Палитра: тёплый бумажный фон, кирпично-красный акцент и приглушённый сине-зелёный для ссылок — сдержанный журнальный контраст на светлом фоне.",
+  "features": ["music"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -349,16 +668,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

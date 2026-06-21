@@ -7,8 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Третье Кольцо Силы</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе о Внутреннем Диалоге, учении Кастанеды и трансформации духовных учений после ухода их создателей, с разбором практики сдвига точки сборки.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/273A.html">
+<meta property="og:title" content="Третье Кольцо Силы">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/273A.html">
+<meta property="og:description" content="Эссе о Внутреннем Диалоге, учении Кастанеды и трансформации духовных учений после ухода их создателей, с разбором практики сдвига точки сборки.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Третье Кольцо Силы">
+<meta name="twitter:description" content="Эссе о Внутреннем Диалоге, учении Кастанеды и трансформации духовных учений после ухода их создателей, с разбором практики сдвига точки сборки.">
+
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +155,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="273A" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="273A" data-theme="swiss"
   data-art-section="confront" data-art-type="prose_num"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +169,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +178,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="273A.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -210,6 +220,316 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#23201b;
+    --muted:#6b6356;
+    --accent:#8a4b2f;
+    --accent-soft:#c9a06a;
+    --rule:#ddd4c2;
+    --shadow:rgba(60,45,25,.10);
+  }
+  *{box-sizing:border-box;}
+  .ya-old{-webkit-text-size-adjust:100%;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Georgia","Iowan Old Style","Palatino Linotype",serif;
+    font-size:19px;
+    line-height:1.72;
+  }
+  /* Editorial wide layout: content column ~ 2/3 of viewport */
+  .wrap{
+    width:66vw;
+    max-width:1080px;
+    min-width:0;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  @media (max-width:1000px){
+    .wrap{width:100%;max-width:720px;}
+    .ya-old{font-size:18px;}
+  }
+  @media (max-width:560px){
+    .wrap{padding:0 16px;}
+  }
+
+  header.masthead{
+    border-bottom:3px double var(--rule);
+    padding:34px 0 26px;
+    margin-bottom:30px;
+  }
+  nav.breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:26px;
+  }
+  nav.breadcrumbs a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;}
+  nav.breadcrumbs a:hover{border-bottom-color:var(--accent);}
+  nav.breadcrumbs .sep{margin:0 .55em;color:var(--accent-soft);}
+
+  h1{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:800;
+    font-size:2.45rem;
+    line-height:1.12;
+    letter-spacing:-.01em;
+    margin:0 0 .35em;
+    color:var(--ink);
+  }
+  @media (max-width:560px){ h1{font-size:1.9rem;} }
+  .subtitle{
+    font-style:italic;
+    font-size:1.18rem;
+    color:var(--muted);
+    margin:0;
+    line-height:1.5;
+  }
+
+  article{padding-bottom:10px;}
+
+  .lead-quote{
+    margin:34px 0;
+    padding:6px 0 6px 24px;
+    border-left:4px solid var(--accent-soft);
+  }
+  .lead-quote .by{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.9rem;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:block;
+    margin-bottom:.4em;
+  }
+  .lead-quote p{font-style:italic;color:#3a352c;margin:0;}
+
+  article p{margin:0 0 1.35em;}
+  .num{
+    counter-reset:none;
+  }
+  .para{position:relative;margin:0 0 1.5em;}
+  .para .n{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:800;
+    color:var(--accent);
+    margin-right:.15em;
+  }
+
+  .closing{
+    text-align:center;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    letter-spacing:.05em;
+    color:var(--accent);
+    margin:40px 0 28px;
+    font-size:1.15rem;
+  }
+
+  /* Music player */
+  .music{
+    margin:34px 0 10px;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.82rem;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:10px;
+  }
+  .track{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:0 1px 4px var(--shadow);
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#faf6ed;}
+  .track-arrow{
+    color:var(--accent);
+    transition:transform .25s ease;
+    font-size:.9rem;
+    flex:0 0 auto;
+  }
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-meta{flex:1 1 auto;}
+  .track-title{font-weight:700;}
+  .track-artist{color:var(--muted);font-size:.95rem;}
+  .track-ext{
+    color:var(--accent);
+    text-decoration:none;
+    font-size:1.1rem;
+    flex:0 0 auto;
+    padding:0 4px;
+  }
+  .track-ext:hover{color:var(--accent-soft);}
+  .track-body{display:none;padding:0 16px 16px;}
+  .track.open .track-body{display:block;}
+  .track-body .frame{
+    position:relative;
+    width:100%;
+    padding-top:56.25%;
+    border-radius:8px;
+    overflow:hidden;
+    background:#000;
+  }
+  .track-body iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+  }
+
+  /* Bottom corpus nav */
+  nav.pager{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    border-top:3px double var(--rule);
+    margin-top:46px;
+    padding-top:24px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  nav.pager a{
+    text-decoration:none;
+    color:var(--accent);
+    max-width:46%;
+    display:block;
+  }
+  nav.pager .dir{
+    display:block;
+    font-size:.74rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:.3em;
+  }
+  nav.pager .t{font-weight:600;line-height:1.3;}
+  nav.pager a:hover .t{text-decoration:underline;}
+  nav.pager .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:38px;
+    padding:24px 0 60px;
+    border-top:1px solid var(--rule);
+    color:var(--muted);
+    font-size:.92rem;
+    line-height:1.6;
+  }
+  footer.colophon a{color:var(--accent);}
+  footer.colophon .attrib{margin:0 0 .5em;}
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №273A</span>
+<div class="wrap">
+
+  <header class="masthead">
+    <nav class="breadcrumbs">
+      <a href="../index.html">Главная</a>
+      <span class="sep">/</span>
+      <a href="../confront/index.html">Конфронтология Духа</a>
+    </nav>
+    <h1>Третье Кольцо Силы<a class="audio-link" href="https://t.me/art_017_tracks/471" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <p class="subtitle">или Одно Кольцо чтобы Править Сердцем,<br>или Обручальное Кольцо Всесильного</p>
+  </header>
+
+  <article>
+
+    <div class="lead-quote">
+      <span class="by">Тайо Но Намида написал(а):</span>
+      <p>Авель, что ты знаешь об ОВД? Тебя там не было, судя по размеру твоих тараканов.</p>
+    </div>
+
+    <p class="para"><span class="n">1.</span>Я действительно ничего не знаю про ОВД. Зато я "знаю" кое что про ВД. А именно. В принципе, к этому можно и самостоятельно прийти, читая Кастанеду, и обладая пытливым умом, и определенного рода "иммунитетом" к зомбированию (не важно, под какого цвета "флагами" или "эгидами", с насколько благими, "трезвыми", "абстрактными" и "безупречными" намерениями оно происходит). ДХ говорит, что "ВД - это единственная, основная причина и условие" того, что человек не способен сдвинуть свою ТС куда угодно "здесь и сейчас", как он говорил "способен улететь в Бесконечность прямо сейчас, и только ВД не дает тебе сделать этого". Ну или близко по смыслу.</p>
+
+    <p class="para"><span class="n">2.</span>Это, к сожалению, очень характерно не только для учения КК, но и для любого другого сколько-нибудь "массового" "магического" или "духовного" учения, имеющего реальность своего распространения и определенного "встраивания" в семантическую матрицу этого мира, то есть ставшего, так или иначе, достаточно известным (пусть даже "в узких кругах", это не суть важно) массовым явлением, которое "переросло" своих создателей и, фактически, уже существует и развивается полностью автономно, то есть, по логике и через механизмы, не имеющие к "оригинальной форме" своих "отцов-основателей" никакого отношения даже отдаленно. Поскольку их форма не предполагала возможности открытости своего знания массам. В тех условиях, в которых проходили их Пути и жизни "этого мира", детально описываемые во всем известных книгах, такой возможности просто не существовало. А "проход" мимо Орла открывать как-то надо. "Загвоздка", только в том, что чтобы "пройти мимо Орла", нужно Им стать. Иначе не получится. В Силу очень конкретных особенностей "Реального Мира", о которых Дон Хуан своему незадачливому "3-зубчатому" ученику не решился рассказывать. Либо его ученик не решился об этом рассказывать нам. Либо не понял. Либо не вспомнил, поскольку "вспомнил" он явно не все, что с ним делали ДХ и Компания. Потому что "вспомнить" такое можно только посредством нахождения в той же в точности энерго-конфигурации, которая ему данный опыт, "ощущения" и "знания" когда-то передавала. А ДХ ему сказал, и КК не сомневался до самого конца в бесспорности его "вердикта" - что сам КК построить полноценную "когорту Магов", и продолжить посредством этого Путь, по которому ушли в Бесконечность идущие перед ним воины, принципиально ("энергетически") неспособен.</p>
+
+    <p class="para"><span class="n">3.</span>Так или иначе, настоящие Маги, следов которых в нынешнем имеющемся у нас "магическом здании", считающимся "наследием Дона Хуана" давным давно уже почти совсем нет, отличаются характерной чертой в своем отношении к практикам и концепциям, которой оказываются напрочь лишены таковые же практики, после "передачи" их "в руки летунам", что неизбежно происходит с уходом "отцов-основателей" из этого мира. Эта черта называется поиск конструктива и позитива в тех аспектах Реальности, на которые они направляют своих учеников, находясь с ними в процессе приема-передачи опыта, имеющего для формы "передающей" даже большую важность и значение, чем для формы "получающей", поскольку требование "Правила Орла", описанное в Даре Орла у КК, далеко не "простая формальность" и не "второстепенная деталь" Пути Человека Знания, а самая его основа, главная формообразующая и всепроникающая  фундаментальная "Истина в последней инстанции", с которой они как "двойные нагвали" посредством своего собственного "создания Орлом" в форме соответствующей "двойной" конфигурации, равно как и последовавших за этим долгих практических и методических выяснений, и прочих процессов, поскольку "нагвали" создаются тем, что они "отдают" остальным воинам, одновременно "получая от них" то, что Орел "дарует чувствующим существам", одновременно давая этим существам возможность, принимая Его Дар, "подниматься, становясь равными по свойствам", то есть сути и уровню осознания и восприятия, Его Собственной "абстрактной ступени", на которой Он "Один, Единственный и Единый", т.е. относительно человека и человечества является нашей следующей эволюционно ступенью развития сложности организации проявленного осознания, способного облекаться "чувственным восприятием" посредством обладания формами "первого" и "второго" внимания, как неотъемлемыми частями Самого Себя, то есть единого и единственного "внимания третьего" - того самого "самого настоящего мальчика", за Которым следуют все остальные легионы "претендентов".</p>
+
+    <p class="para"><span class="n">4.</span>Можно догадаться, что такая "сложная", то есть комплексная, многогранная, совершенная, Реальность, не создана для того, чтобы держать "человека этого Мира" в тюрьме, которую он сам же непрерывно для себя "запирает", несгибаемо и упорно продолжая вести Диалог. Но, вместе с этим, нельзя сказать и том, как если бы насколько мощная "магическая способность", которая буквально (!) способна "создавать Миры из ничего и наполнять их жизнью" (поскольку "этот мир", воспринимаемый человеком, пускай и находящимся в форме ТС, прочно фиксированной Духом в "исходной позиции", в которой также, как и в "Исходной позиции" Самого Духа, ощущаемо для находящегося в ней человека "нет никого, кроме него, "только в случае человека этого мира, это форма, "ниже" которой нет, по условной шкале "роста осознанности" чувствующими существами, в случае Орла, это самая Высшая Реальность и форма осознания как такового в принципе, соединяющего Волю и Разум посредством Действия "Самовоспроисхождения" Человеческого Духа, чтобы быть одухотворенным (или оплодотворенным, как кому больше нравится) Духом Жизни, то есть Намерением Духа, являющийся "чистой Энергией", не ограниченной и не обуславливаемой ничем, и являющейся самой Высшей из всего, что вообще человеком может быть, теоретически, находясь в форме "получения опыта жизни посредством чувственного восприятия", может быть когда-либо воспринято.</p>
+
+    <p class="para"><span class="n">5.</span>И, посредством такового "оплодотворения", "сделав Команду Орла своей командой", то есть достигая "слияния с Духом" в Корне, человек получает от Орла возможность начать Жить на принципиально ином, качественно более реальном уровне собственной Жизни "этого мира", в которой, как он обнаруживает, он сам, уже будучи достаточно "продвинутым" "воином", все время до этого момента, вообще не знал что такое Жизнь на самом деле, что такое "быть живым" - это значит ЛЮБИТЬ ТВОРЦА, СВЯТ БЛАГОСЛОВЕН ОН, И БЫТЬ ЕГО ВОЗЛЮБЛЕННЫМ СЫНОМ, потому что три типа внимания, это три "реальных Мира", каждый из Которых является "завершенной областью", и не имеет прямолинейных "пересечений" с двумя другими, которые могли бы кем-либо раскрываться (чувствоваться, переживаться) в том же самом смысле, в котором реальные, "живые и чувствующие", обитатели и обладатели этих "двух других" реальностей, "раскрывают" свое нахождение в "единственном объективно реальном Мире", который соответствует характерному для данного типа сознания и существования объему процессов и "энерго-информационных" явлений, соответствующих имеющемуся в их собственном "этом мире", посредством опыта, осознания, памяти, разума и личной Силы, нахождению "здесь и сейчас".</p>
+
+    <p class="para"><span class="n">6.</span>Сам не знаю, зачем я столько тебе написал. Не похоже, чтобы меня кто-то ждал или приветствовал на этом форуме. Получается, что я хочу людей делать счастливыми (даже если эта радость торжества Духа дается человеку очень сложно, она все равно неизмеримо важнее для него и "оправдывает" любые претерпеваемые в процессе своего достижения "лишения" и "обратные" чувственные формы недостатка реализованности, имеющиеся у каждого человека этого мира, совсем отнюдь не исключая "воинов"). А делаю их "несчастными". Наверное, пора мне взять свою котомку, и отчалить восвояси, т.к. этот удивительный Мир так огромен, а время человеческой жизни настолько мимолетно, а удивительность тайн и волшебство Света Духовной Половой Любви, раскрываемой Орлом тем "чувствующим существам", которые "удостоились" посредством "своих собственных путей и способов" объединиться в форме "женщины и мужчины нагвалей", которая имеется и в которой находится в отношении всей остальной Реальности "чувствующих существ" Сам Орел на Своем Месте, чем и "объясняется" "особая роль" называемой этим словом "энергоконфигурации" и явления в целом, поскольку они должны вместе, как один человек с одним Сердцем, выполнив команду Орла как свою собственную, этой командой СТАТЬ, соединившись в нечто гораздо более Реальное, Настоящее, важное, непостижимо манящее где-то там, и в то же время, настолько близкое и "сокровенно личное" каждому и каждой - что дарует Свой Дар "чувствующим существам", увековечивая этим Свои "эманации жизни посредством осознания", и даруя магам, дерзнувшим "покуситься" на Святая Святых, благословение омовением в Первозданном Внутреннем Огне, Который является одновременно Огнем Вечным и реальность Которого находится выше, чем тот или иной воспринимаемый "мир", опосредуя все, что находится в этих мирах, и все, что в них теоретически может находиться в принципе, Своим стремлением к Осознанию Себя, и раскрытию той имеющейся непостижимо Сильной, Чудесной, желаемой, каждым и каждой, но прочно забытой человеком этого мира (совсем отнюдь не исключая "воинов"), невыразимой Любви к Своим созданиям, раскрывая которую, и находясь в "слиянии" с Которой, "женщина и мужчина нагвали" выполняют предписание Правила Орла "вспомнить себя и вспомнить Орла", и вспомнить задачу и собрать "когорту магов", равно как и все, что на их конкретной "ступени мир-год-душа" включено и вытекает из формы своего собственного целеполагания уже не как "мужчины и женщины этого мира", а как "истинной пары, которая проходит через все миры из Мира Бесконечности до Этого Мира", то есть каббалистические "Свет и Кли", чтобы затем, опосредовать своим "подъемом обратно" проложение Пути, по которому следом за ними сможет подняться все остальное Человечество, выполняя этим Команду Орла "быть Живыми" и увековечивать даруемые Им Жизнь и осознание посредством их распространения в "этот мир", чтобы "быть свободными от Ангела Смерти".</p>
+
+    <p class="closing">Только вместе Мы - СИЛА</p>
+
+    <div class="music">
+      <div class="music-label">Музыка, созвучная описываемому намерению:</div>
+      <div class="track" id="track-1">
+        <div class="track-head" onclick="toggleTrack('track-1','TF4Orx0765Q')">
+          <span class="track-arrow">▶</span>
+          <span class="track-meta">
+            <span class="track-title">Moment of Peace</span>
+            <span class="track-artist"> — Gregorian</span>
+          </span>
+          <a class="track-ext" href="https://youtu.be/TF4Orx0765Q" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+        </div>
+        <div class="track-body"><div class="frame"></div></div>
+      </div>
+    </div>
+
+  </article>
+
+  <nav class="pager">
+    <a class="prev" href="26E.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="t">Место Силы изменить нельзя</span>
+    </a>
+    <a class="next" href="2AN.html">
+      <span class="dir">Следующая →</span>
+      <span class="t">Гармония с Намерением</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggleTrack(id, ytid){
+    var el=document.getElementById(id);
+    var open=el.classList.toggle('open');
+    var frame=el.querySelector('.track-body .frame');
+    if(open && !frame.querySelector('iframe')){
+      var f=document.createElement('iframe');
+      f.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      f.setAttribute('allowfullscreen','');
+      f.src='https://www.youtube.com/embed/'+ytid+'?autoplay=1';
+      frame.appendChild(f);
+    }
+  }
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — связная философско-эзотерическая проза (форумная реплика-ответ с шестью пронумерованными абзацами), стихотворных форм нет, поэтому выбрана редакторская широкоформатная схема с колонкой около 2/3 ширины окна. Развилка была с обработкой шапки: строка '{#AA26D=>[(...)][*]' — это импортный мусор-якорь, обрамляющий подзаголовок 'или Одно Кольцо чтобы Править Сердцем, или Обручальное Кольцо Всесильного'; сам подзаголовок сохранён как авторский текст под H1, служебные скобки и якорь убраны, а висячий маркер сноски '[*]' без тела примечания удалён согласно правилу о висячих маркерах — поэтому раздела сносок нет.",
+  "rationale_extra": "Пронумерованные пункты 1–6 поданы как абзацы с сохранением исходных цифр (а не через <ol>, чтобы не потерять авторскую нумерацию буквально); вводная реплика 'Тайо Но Намида написал(а):' оформлена как обращённая цитата-эпиграф. Палитра тёплая книжно-журнальная на светлом фоне с терракотовым акцентом. Музыкальный трек один, поэтому сводный раздел музыки не делался — только одиночный ленивый YouTube-плеер с меткой 'Музыка, созвучная описываемому намерению' дословно. Оглавление не строилось: озаглавленных подразделов в тексте нет.",
+  "features": ["music"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -355,16 +675,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

@@ -7,8 +7,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Онтология единства человеческой Души, часть 1</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Статья из цикла Роза Среди Шипов о каббалистических понятиях Катнут и Гадлут, отдаче ради ближнего и подобии свойств как условии духовной работы.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/163.html">
+<meta property="og:title" content="Онтология единства человеческой Души, часть 1">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/163.html">
+<meta property="og:description" content="Статья из цикла Роза Среди Шипов о каббалистических понятиях Катнут и Гадлут, отдаче ради ближнего и подобии свойств как условии духовной работы.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Онтология единства человеческой Души, часть 1">
+<meta name="twitter:description" content="Статья из цикла Роза Среди Шипов о каббалистических понятиях Катнут и Гадлут, отдаче ради ближнего и подобии свойств как условии духовной работы.">
+<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/163.jpg">
+<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/163.jpg">
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +156,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="163" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="163" data-theme="swiss"
   data-art-section="shoshana" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +170,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +179,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="163.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -240,6 +251,384 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#fbfaf6;
+    --ink:#211c16;
+    --muted:#6e655a;
+    --accent:#8c2f23;
+    --accent2:#1f5a63;
+    --rule:#ddd5c7;
+    --paper:#ffffff;
+    --hl:#fff2c2;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1060px;
+    margin:0 auto;
+    padding:38px 26px 90px;
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:14.5px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:26px;
+  }
+  .crumbs a{color:var(--accent2);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs .sep{margin:0 .5em;color:var(--rule);}
+  /* hero image */
+  .hero{margin:0 0 30px;}
+  .hero img{display:block;max-width:100%;width:auto;height:auto;border:1px solid var(--rule);}
+  /* title */
+  h1{
+    font-family:"Iowan Old Style",Georgia,serif;
+    font-weight:700;
+    font-size:2.35em;
+    line-height:1.18;
+    margin:.1em 0 .25em;
+    letter-spacing:-.01em;
+  }
+  .dateline{
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:14.5px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    margin:0 0 1.6em;
+    padding-bottom:1.1em;
+    border-bottom:3px double var(--rule);
+  }
+  article p{margin:0 0 1.25em;text-align:justify;hyphens:auto;}
+  article p.lead{font-size:1.04em;}
+  /* footnote markers */
+  sup.fnm{line-height:0;}
+  a.fnref{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    font-size:.74em;
+    padding:0 1px;
+    cursor:pointer;
+  }
+  a.fnref:hover{text-decoration:underline;}
+  h1 a.fnref{font-size:.42em;vertical-align:super;}
+  /* music */
+  .music{
+    margin:2em 0;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .music .mlabel{
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:12.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    padding:11px 16px 0;
+    display:block;
+  }
+  .track{border-top:0;}
+  .track .thead{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 16px 14px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track .arrow{
+    color:var(--accent);
+    transition:transform .2s ease;
+    font-size:.85em;
+    width:1em;
+    flex:0 0 auto;
+  }
+  .track.open .arrow{transform:rotate(90deg);}
+  .track .tname{font-weight:700;}
+  .track .tartist{color:var(--muted);}
+  .track .ext{
+    margin-left:auto;
+    color:var(--accent2);
+    text-decoration:none;
+    font-size:1.05em;
+    flex:0 0 auto;
+  }
+  .track .ext:hover{color:var(--accent);}
+  .track .player{display:none;padding:0 16px 16px;}
+  .track.open .player{display:block;}
+  .track .player .ratio{position:relative;width:100%;padding-top:56.25%;}
+  .track .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:4px;}
+  /* misc lines */
+  .closing{font-style:italic;color:var(--muted);margin:1.6em 0;}
+  .signature{font-family:"Iowan Old Style",Georgia,serif;font-weight:700;font-size:1.15em;margin:1.4em 0;}
+  .shout{font-family:"Iowan Old Style",Georgia,serif;font-weight:700;font-size:1.25em;color:var(--accent);text-align:center;margin:2.4em 0 .4em;}
+  /* notes */
+  .notes{margin-top:3em;padding-top:1.2em;border-top:3px double var(--rule);}
+  .notes h2{
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:1.15em;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin:0 0 1em;
+  }
+  ol.fnlist{margin:0;padding:0;list-style:none;counter-reset:fn;}
+  ol.fnlist li{
+    font-size:.92em;
+    line-height:1.6;
+    color:#3a342c;
+    margin:0 0 .95em;
+    padding:6px 10px;
+    border-radius:5px;
+    display:flex;
+    gap:.55em;
+  }
+  ol.fnlist li .num{
+    color:var(--accent);
+    font-weight:700;
+    flex:0 0 auto;
+    min-width:1.6em;
+    text-align:right;
+  }
+  ol.fnlist li.anon .num{color:var(--muted);}
+  ol.fnlist li:target{background:var(--hl);}
+  a.fnback{color:var(--accent2);text-decoration:none;margin-left:.3em;font-weight:700;}
+  a.fnback:hover{color:var(--accent);}
+  .fnlist a{color:var(--accent2);}
+  /* popup */
+  #fnpop{
+    position:absolute;
+    z-index:50;
+    max-width:360px;
+    background:#2a241c;
+    color:#f6efe2;
+    font-size:14.5px;
+    line-height:1.5;
+    padding:11px 14px;
+    border-radius:7px;
+    box-shadow:0 8px 26px rgba(0,0,0,.28);
+    display:none;
+    pointer-events:none;
+  }
+  #fnpop a{color:#ffce8a;}
+  /* corpus nav */
+  .corpusnav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:3em;
+    padding-top:1.4em;
+    border-top:1px solid var(--rule);
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .corpusnav a{
+    text-decoration:none;
+    color:var(--accent2);
+    max-width:46%;
+    display:block;
+  }
+  .corpusnav a:hover{color:var(--accent);}
+  .corpusnav .dir{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.25em;}
+  .corpusnav .nx{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:2.6em;
+    padding-top:1.3em;
+    border-top:1px solid var(--rule);
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent2);}
+  @media(max-width:1000px){
+    .wrap{width:92%;}
+  }
+  @media(max-width:620px){
+    .ya-old{font-size:17.5px;}
+    .wrap{width:100%;padding:24px 18px 70px;}
+    h1{font-size:1.95em;}
+    article p{text-align:left;}
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №163</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/163.jpg" alt="">
+  </div>
+
+  <h1>Онтология единства человеческой Души<sup class="fnm"><a class="fnref" id="ref-23" href="#fn-23" data-fn="23">23</a></sup>, часть 1<sup class="fnm"><a class="fnref" id="ref-22" href="#fn-22" data-fn="22">22</a></sup><a class="audio-link" href="https://t.me/art_017_tracks/525" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <p class="dateline">3 июня 2021 г.</p>
+
+  <article>
+    <p class="lead">1. Катнут и Гадлут<sup class="fnm"><a class="fnref" id="ref-1" href="#fn-1" data-fn="1">1</a></sup> – это форма совершения одного и того же действия, “относительно” (для) “самого себя”, и “для другого” (для кого-либо, или для чего-либо, другого). То есть, “ради ближнего”, как об этом говорится в Науке Каббала (учении “правой линии”<sup class="fnm"><a class="fnref" id="ref-4" href="#fn-4" data-fn="4">4</a></sup>). На самом деле, как Каббала нас учит, человек не способен ощутить, и реально представить, в частности, в качестве “цели” своего намерения, что-либо, находящееся “вне своей кожи”. Т.е., в таком случае, оно становится “формой распространения”, формой “отдачи” – такой формой “желания получать”<sup class="fnm"><a class="fnref" id="ref-5" href="#fn-5" data-fn="5">5</a></sup>, в которую может “облачиться”<sup class="fnm"><a class="fnref" id="ref-6" href="#fn-6" data-fn="6">6</a></sup> такое свойство, которого в человеке в принципе. Нет “от Природы”, но которого человек достигает, посредством последовательного развития от “малого” к “большому” на каждой ступени (получения опыта). И которое, в действительности, является Целью и задачей всей его жизни; “результирующей” (целевой) “функцией” тех процессов, которые он проходит в течение жизни на любом ее этапе.</p>
+
+    <p>2. По сути, Катнут и Гадлут<sup class="fnm"><a class="fnref" id="ref-7" href="#fn-7" data-fn="7">7</a></sup> – это одно и то же действие, но, в первом случае, оно осуществляется в форме осуществления кем-то этого же действия “не ради себя”. Поскольку для того, чтобы осуществить действие “не ради себя”, необходимо, чтобы в этом действии участвовал тот конкретный “духовный объект” (та конкретная форма, сущность, явление “этого мира”), ради которого, “во имя” которого, для которого, или “посредством которого”, оно совершается. Поскольку то, что невозможно почувствовать чего-либо, что находится “вне собственной кожи”, о чем уже было сказано выше, это означает, что не существует какого-то “абстрактного” Творца, Свят Благословен Он, какой-то абстрактной, не “облаченной” в конкретную реальность “этого мира”, ступени, “ради которой” я могу совершать это действие, которой я могу “отдавать”.</p>
+
+    <p>3. Существует только реальная, конкретная, форма (если она существует), с которой я соединен непосредственно, в “ощущениях тела”, т.е., некоторой “совместной реальностью”, в которой существую я, и существует он (или она, или они). В которой мы чувствуем друг друга, мы не просто “умозрительно” представляем друг друга, не ощущая и не раскрывая “реально” на опыте, “что это такое” (что я “ощущаю“ и чему “отдаю”). Мы реально находимся вместе, и мы действуем вместе. Мы молимся вместе, в случае “духовной работы”<sup class="fnm"><a class="fnref" id="ref-8" href="#fn-8" data-fn="8">8</a></sup>. Или, хотя бы, разделяем одно и то же “социальное пространство”, посредством которого мы можем “передавать” друг другу некоторые “сигналы”, которые будут нами, предположительно, “предсказуемо одинаково“ восприниматься. То есть, коммуницировать. Чтобы выстраивать (“отражать”) некоторую “совместную” реальность – совместные ощущение, понимание, намерение, усилие, желание, и т.д.</p>
+
+    <p>4. Соединяясь, т.о., с кем-то (с “ближним”), с намерением (декларируя это, как минимум, и стремясь, чтобы это было так) осуществлять “отдачу”, т.е., делать что-то “не относительно самого себя”, а относительно этой (внешней, другой) формы, но с которой я “соединен” уже непосредственно определенным жизненным опытом, совместным действием, явно проявляющимися в ощущениях “этого мира”<sup class="fnm"><a class="fnref" id="ref-9" href="#fn-9" data-fn="9">9</a></sup> – тогда, я уже могу это делать (“отдавать”, или “получать ради отдачи”, что одно и то же<sup class="fnm"><a class="fnref" id="ref-10" href="#fn-10" data-fn="10">10</a></sup>). Я могу это делать в том случае, если тот объект, или явление, или человек, или группа, с которыми я объединяюсь, находятся со мной в отношении “подобия свойств”, - “заповеди Милосердия”<sup class="fnm"><a class="fnref" id="ref-11" href="#fn-11" data-fn="11">11</a></sup> Книги Зоар. То есть, “позволяют мне присоединить себя” в качестве Нуквы<sup class="fnm"><a class="fnref" id="ref-12" href="#fn-12" data-fn="12">12</a></sup>. И, таким образом, (позволяют мне) войти в ту форму единой “духовной ступени” в “Мире Ацилут”<sup class="fnm"><a class="fnref" id="ref-13" href="#fn-13" data-fn="13">13</a></sup>, которая называется “ЗОН”<sup class="fnm"><a class="fnref" id="ref-14" href="#fn-14" data-fn="14">14</a></sup>. Или “этот мир”. ЗОН (сокр. Зеир Анпин и Нуква – ивр.), или Тиферет и Малхут, если это проецировать на каббалистические “10 сфирот”, или Бина и Малхут (другой вариант “проекции”), потому, что их (ЗОН) “родительской” формой является Аба ве Има<sup class="fnm"><a class="fnref" id="ref-15" href="#fn-15" data-fn="15">15</a></sup>, которая “облачает”, “опускает” туда свои “ЭЛЕ”<sup class="fnm"><a class="fnref" id="ref-16" href="#fn-16" data-fn="16">16</a></sup> и, соединяясь с этими ЭЛЕ, ЗОН выстраивают свой собственный Гадлут. До тех пор, пока они сами “духовно” не “поднимаются”, и не становятся “как Абе ве Има”, что называется уже “сфирой Даат”<sup class="fnm"><a class="fnref" id="ref-17" href="#fn-17" data-fn="17">17</a></sup>. И уже соединяются со (своей) “следующей ступенью”, тоже делятся на “МИ – ЭЛЕ”, передают им эти ЭЛЕ, являющиеся формой “подобия свойств”, с которой соединяются “НАРАН”<sup class="fnm"><a class="fnref" id="ref-18" href="#fn-18" data-fn="18">18</a></sup> следующие (за ними), которые должны “подняться” и “облачить” их. И, таким образом, соединяясь снова в одну ступень, посредством “получения” и “отдачи”, посредством соединения “катнута” и “гадлута” в одно Целое.</p>
+
+    <p>5. Существование Катнута (в паре Катнут и Гадлут) “само по себе” происходит из самой формы “Гадлута” (я бы даже сказал, из самой “сути” Гадлута, как состояния). Что такое “Гадлут”? Гадлут – это состояние “получения”. Получения Света Творца, Свят Благословен Он, творениями “этого мира”. Раскрытие Творца. Ощущение (осознанной) Любви Творца к творениям, и творений к Творцу, Свят Благословен Он. Милостью Господа, во всех формах – как в формах, связанных с образами (действий, состояний, или явлений) “этого мира”, так и в формах, которые непосредственно относятся к Дающему добро, поскольку последние являются не более, чем (ничем иным, как) обобщением и, как бы, кульминацией, всех остальных форм Любви.</p>
+
+    <p>6. Разумеется, речь идет о “настоящей” Любви. Не о какой-то “умозрительной” любви, такой, как “любовь между товарищами”. Любовь между товарищами, при всем их единстве взглядов, не является Любовью. Она является работой разума. Работой Бины<sup class="fnm"><a class="fnref" id="ref-19" href="#fn-19" data-fn="19">19</a></sup>. А Любовь – это работа МАЛХУТ. Это работа “желания получать” в творении. Это работа уже внутренняя, глубокая, работа с “авиютом”<sup class="fnm"><a class="fnref" id="ref-20" href="#fn-20" data-fn="20">20</a></sup>.</p>
+
+    <div class="music">
+      <span class="mlabel">Рекомендуемая музыка</span>
+      <div class="track" data-embed="https://www.youtube.com/embed/zxKrBSHKO-0?autoplay=1">
+        <div class="thead" role="button" tabindex="0">
+          <span class="arrow">▶</span>
+          <span class="tname">Voices of Infinity</span>
+          <span class="tartist">— Yakuro</span>
+          <a class="ext" href="https://youtu.be/zxKrBSHKO-0" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+        </div>
+        <div class="player"><div class="ratio"></div></div>
+      </div>
+    </div>
+
+    <p class="closing">Продолжение следует<sup class="fnm"><a class="fnref" id="ref-21" href="#fn-21" data-fn="21">21</a></sup>…</p>
+
+    <p class="signature">Ор Пашут<sup class="fnm"><a class="fnref" id="ref-3" href="#fn-3" data-fn="3">3</a></sup></p>
+  </article>
+
+  <section class="notes" id="notes">
+    <h2>Примечания</h2>
+    <ol class="fnlist">
+      <li id="fn-1"><span class="num">1</span><span>“Малое” и “большое” (ивр.) состояние получения опыта человеком (главным образом, имеется в виду процесс продвижения человека на духовном Пути, но сами понятия и принципы в одинаковой степени справедливы и применимы к произвольному этапу эволюционного роста и развития любого живого существа “реального мира”). <a class="fnback" href="#ref-1">↑</a></span></li>
+      <li id="fn-2" class="anon"><span class="num">2</span><span>“Внутреннее и внешнее” (ивр.) - лицевая и обратная сторона какого-либо явления, либо, соответствующие стадии развития некоторого процесса.</span></li>
+      <li id="fn-3"><span class="num">3</span><span>“Простой Свет” (ивр.) - простое толкование, пояснения, комментарии, “пост скриптум”. <a class="fnback" href="#ref-3">↑</a></span></li>
+      <li id="fn-4"><span class="num">4</span><span>Относительно Круга Жизни (каббалистической Группы “Сделаем и услышим!” и их единомышленников) “учением правой линии” является Наука Каббала Бааля Сулама (далее - НК), а “учением левой линии” является Путь воина (человека знания, “видящего”) Карлоса Кастанеды (далее - КК). Обе эти формы созданы Творцом, Свят Благословен Он, или Орлом, - единой, Высшей, управляющей всей реальностью, скрытой, совершенной, “превременной” и надпространственной, абсолютной Силы, “эманирующей” действительность, доступную восприятию человека посредством опыта жизни и “духовного Пути”. <a class="fnback" href="#ref-4">↑</a></span></li>
+      <li id="fn-5"><span class="num">5</span><span>“Желание получать” (рацон лекабель – ивр.) – согласно учению НК, “первозданный материал творения”, из которого, в частности, “состоит” Душа человека (то есть, в конечном итоге, сам человек), равно как и весь “окружающий” его “реальный мир”. Является субстанцией, “созданной из ничего” Творцом, Свят Благословен Он, в процессе осуществления Им действия “создания Мира” и человека, описанного в ветхозаветной Библии, и прокомментированного в каббалистической Книге Зоар достаточно подобно. <a class="fnback" href="#ref-5">↑</a></span></li>
+      <li id="fn-6"><span class="num">6</span><span>“Облачиться” (леhитлабеш – ивр.) – приблизительно то же самое, что “одеваться (в)” для человека, относительно духовных сущностей и духовных объектов – НК. <a class="fnback" href="#ref-6">↑</a></span></li>
+      <li id="fn-7"><span class="num">7</span><span>“Малое” и “большое” состояние человека, в ракурсе получаемого им посредством этого жизненного опыта, который он получает “в едином соединении и в единой связи" (Книга Зоар) с другими людьми, занимая в этом процессе четко определяемую роль и функцию (например, ребенок или взрослый, учитель или ученик, мужчина или женщина, и т.п.). <a class="fnback" href="#ref-7">↑</a></span></li>
+      <li id="fn-8"><span class="num">8</span><span>Регулярная совместная молитва (леhитпалель – ивр.) Круга “стремящихся к Творцу” (Исраэль = яшар к Эль)  единомышленников, находящихся (или желающих находиться) в форме “духовного поручительства”, “как один человек с одним сердцем” – центральная компонента практической “духовной работы” в каббалистической духовной методике. <a class="fnback" href="#ref-8">↑</a></span></li>
+      <li id="fn-9"><span class="num">9</span><span>“Этого”, или даже “духовного мира” – не суть важно, поскольку “духовные ощущения” – это точно такие же ощущения (как и “материальные”), только они немного “тоньше”, и принадлежат к другому “мироописанию”. В остальном – все то же самое. <a class="fnback" href="#ref-9">↑</a></span></li>
+      <li id="fn-10"><span class="num">10</span><span>“Поскольку получение ради отдачи – это отдача, а не получение” (см. Бааль Сулам, Введение в Науку Каббала, п. 15). Кстати, ответ на вопрос, долгое время не дававший “совести” Вашего покорного слуги “спать спокойно”: если “совершенный праведник” получает наслаждение, отдавая, то как это можно назвать “чистой отдачей”, без всяких искр получения? – он в том, что действие “получения” включено в действие “отдачи” в качестве “внешнего Кли”, о чем и повествуется в статье, то есть, состояния “получение ради себя” (Катнут), и “получение ради отдачи”, “являющееся отдачей, а не получением” – это два разных уровня сознания, на которых человек производит одно и то же действие, “соединяясь по свойствам” с Творцом, Свят Благословен Он, Который (Малхут Бесконечности) осуществляет Его “на Своем собственном”, третьем, “уровне сознания”, предшествующим облачению Души в тела и события “этого мира”. <a class="fnback" href="#ref-10">↑</a></span></li>
+      <li id="fn-11"><span class="num">11</span><span>Заповедь девятая, п. 233, том 1, Предисловия, Книга Зоар (Перуш Сулам), РАШБИ – Бааль Сулам <a href="https://imyavel.github.io/zohar-sulam/akdama/029.html" target="_blank" rel="noopener">akdama/029</a> <a class="fnback" href="#ref-11">↑</a></span></li>
+      <li id="fn-12"><span class="num">12</span><span>Нуква (ивр.) – женское, “получающее” или “пассивное”, начало или свойство, сфира Малхут. <a class="fnback" href="#ref-12">↑</a></span></li>
+      <li id="fn-13"><span class="num">13</span><span>Мир Ацилут (мир Исправления) – высшая (управляющая) форма восприятия реальности, предшествующая облачению души человека в “этот мир” – НК (см. Введение в Науку Каббала, п. 6, Бааль Сулам) <a class="fnback" href="#ref-13">↑</a></span></li>
+      <li id="fn-14"><span class="num">14</span><span>ЗОН (сокр. Зеир Анпин и Нуква – ивр.) – в широком смысле, восприятие “этого мира”, относительно Дающего (жизнь, сознание, любовь) восприятие, в Науке Каббала. <a class="fnback" href="#ref-14">↑</a></span></li>
+      <li id="fn-15"><span class="num">15</span><span>Мать и Отец (ивр., точнее, арам. – в данной статье под “ивр.” имеется в виду не конкретно язык Иврит, а “каббалистический Иврит”, включающий в себя, в определенной степени, не только древний Иврит, но и Арамейский) – духовная ступень “родителей” “Круга Жизни” – объединения единомышленников, стремящихся к Творцу, проходящего в точности такой же процесс “зарождения, вынашивания, вскармливания и взросления”, как и человек “этого мира”. <a class="fnback" href="#ref-15">↑</a></span></li>
+      <li id="fn-16"><span class="num">16</span><span>См. “Кто создал их”, п. 7, том 1, Предисловия, Книга Зоар (Перуш Сулам), РАШБИ – Бааль Сулам <a href="https://imyavel.github.io/zohar-sulam/akdama/003.html" target="_blank" rel="noopener">akdama/003</a> <a class="fnback" href="#ref-16">↑</a></span></li>
+      <li id="fn-17"><span class="num">17</span><span>“Сфира Даат возникает в результате подъема МА"Н де ЗО"Н к Аба ве Има и его постоянного нахождения там” - Введение в Науку Каббала, п. 99, Бааль Сулам <a class="fnback" href="#ref-17">↑</a></span></li>
+      <li id="fn-18"><span class="num">18</span><span>НАРАН (Нефеш, Руах, Нешама – ивр., “духовная душа”) – души “праведников этого мира” – НК. <a class="fnback" href="#ref-18">↑</a></span></li>
+      <li id="fn-19"><span class="num">19</span><span>Бина (ивр.) – переводится в т.ч. как “разум”, “понимание”. Это корень “катнута”, т.е. обыкновенного и знакомого всем “восприятия реальности этого мира” человеком, суть которого в разветвленной и сложной системе сдержек и противовесов, позволяющей человеку существовать внутри “объективной реальности, данной ему в ощущениях”, единообразно с (произвольно многочисленным) сообществом себе подобных. “Во множестве народа – Величие Царя”, в данном случае, “величие” выражается в том, что, чем больше участников “разделяют” одну и ту же “объективность” реальности, тем более “реальной” она ощущается “объективно” каждым из участников, и тем более сложным становится для человека малейший “шаг в сторону” от этого “кругового соглашения”, заключаемого и поддерживаемого на строго бессознательном уровне, который объективно необходим для начала Пути раскрытия им Реальности Истинной, в которой он существует “до момента вступления в Силу” вышеупомянутого соглашения. <a class="fnback" href="#ref-19">↑</a></span></li>
+      <li id="fn-20"><span class="num">20</span><span>Авиют (ивр.) – уровень “внешней самостоятельности” творения от Творца, Свят Благословен Он (равно как и уровень осознанности человека, или совокупной “жизненной опытности”) – НК <a class="fnback" href="#ref-20">↑</a></span></li>
+      <li id="fn-21"><span class="num">21</span><span>В аудио записи статья приводится полностью, без разделения на первую и вторую часть, но и без “комментариев”. <a class="fnback" href="#ref-21">↑</a></span></li>
+      <li id="fn-22"><span class="num">22</span><span>Материал статьи можно прослушать в форме аудио, а также прочитать в форме статей с пояснениями. Звуковой файл прилагается к посту: <a href="https://yadi.sk/d/CxQxithvfhhT0w" target="_blank" rel="noopener">yadi.sk/d/CxQxithvfhhT0w</a>. <a class="fnback" href="#ref-22">↑</a></span></li>
+      <li id="fn-23"><span class="num">23</span><span>"<a href="163A.html">Онтология единства человеческой Души 2</a>" Зеир Арихович Анпин. <a class="fnback" href="#ref-23">↑</a></span></li>
+    </ol>
+  </section>
+
+  <p class="shout">Сделаем и услышим!</p>
+
+  <nav class="corpusnav">
+    <a href="16K.html"><span class="dir">← Предыдущая</span>Внутренний регламент Круга Жизни</a>
+    <a class="nx" href="18T.html"><span class="dir">Следующая →</span>Ревность ангелов Творца в духовной работе</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<div id="fnpop"></div>
+
+<script>
+(function(){
+  /* music expand + lazy iframe */
+  document.querySelectorAll('.track').forEach(function(tr){
+    var head=tr.querySelector('.thead');
+    function toggle(){
+      var open=tr.classList.toggle('open');
+      if(open){
+        var box=tr.querySelector('.ratio');
+        if(box && !box.querySelector('iframe')){
+          var f=document.createElement('iframe');
+          f.src=tr.getAttribute('data-embed');
+          f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          f.allowFullscreen=true;
+          box.appendChild(f);
+        }
+      }
+    }
+    head.addEventListener('click',function(e){
+      if(e.target.closest('.ext')) return;
+      toggle();
+    });
+    head.addEventListener('keydown',function(e){
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}
+    });
+  });
+
+  /* footnote popup */
+  var pop=document.getElementById('fnpop');
+  function showPop(a){
+    var n=a.getAttribute('data-fn');
+    var li=document.getElementById('fn-'+n);
+    if(!li) return;
+    var clone=li.cloneNode(true);
+    var bk=clone.querySelector('.fnback'); if(bk) bk.remove();
+    pop.innerHTML=clone.innerHTML;
+    pop.style.display='block';
+    var r=a.getBoundingClientRect();
+    var pw=pop.offsetWidth, ph=pop.offsetHeight;
+    var sx=window.scrollX, sy=window.scrollY;
+    var left=r.left+sx+r.width/2-pw/2;
+    left=Math.max(8+sx, Math.min(left, sx+document.documentElement.clientWidth-pw-8));
+    var top;
+    if(r.top-ph-10 < 0){ top=r.bottom+sy+8; } /* not enough space above → below */
+    else { top=r.top+sy-ph-8; }
+    pop.style.left=left+'px';
+    pop.style.top=top+'px';
+  }
+  function hidePop(){ pop.style.display='none'; }
+  document.querySelectorAll('a.fnref').forEach(function(a){
+    a.addEventListener('mouseenter',function(){showPop(a);});
+    a.addEventListener('mouseleave',hidePop);
+  });
+})();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза (философско-каббалистическое эссе)",
+  "rationale": "Статья — связный теоретический текст в пронумерованных абзацах (1–6) с обильным аппаратом примечаний; никакой стихотворной формы нет, поэтому по правилу «проза → редакторский широкий» выбрана editorial-схема с колонкой ~66% ширины окна (cap 1060px) для журнального лонгрида. Развилка была вокруг оглавления: пронумерованные абзацы не являются озаглавленными подразделами, а реальных секций по сути две (текст и Примечания), поэтому TOC не строил, чтобы не выдумывать собственные заголовки вопреки запрету. Музыка одна (Yakuro — Voices of Infinity, YouTube), поэтому сводный раздел не нужен — оставил единичный ленивый раскрывающийся плеер на своём месте с меткой «Рекомендуемая музыка».",
+  "rationale2": "",
+  "features": ["music", "footnotes"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -385,16 +774,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

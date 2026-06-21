@@ -7,8 +7,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Воля Творца, Свят Благословен Он</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе о Воле Творца в каббале: размышление о Намерении, свободе, усилиях самопреодоления и восприятии реального мира через призму учения Зоар.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/23TA.html">
+<meta property="og:title" content="Воля Творца, Свят Благословен Он">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/23TA.html">
+<meta property="og:description" content="Эссе о Воле Творца в каббале: размышление о Намерении, свободе, усилиях самопреодоления и восприятии реального мира через призму учения Зоар.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Воля Творца, Свят Благословен Он">
+<meta name="twitter:description" content="Эссе о Воле Творца в каббале: размышление о Намерении, свободе, усилиях самопреодоления и восприятии реального мира через призму учения Зоар.">
+<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/23TA.jpg">
+<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/23TA.jpg">
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +156,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="23TA" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="23TA" data-theme="swiss"
   data-art-section="shoshana" data-art-type="prose_num"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +170,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +179,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="23TA.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -216,6 +227,362 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --muted:#6b5d4b;
+    --accent:#8a3324;
+    --accent2:#b8763a;
+    --line:#ddd2bf;
+    --hl:#fbe6b2;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.7;
+  }
+  .wrap{
+    width:66%;
+    max-width:980px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 28px 80px;
+  }
+  @media(max-width:900px){
+    .wrap{width:100%;max-width:100%;padding:20px 18px 60px;}
+    .ya-old{font-size:18px;}
+  }
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    border-bottom:1px solid var(--line);
+    padding-bottom:12px;
+    margin-bottom:24px;
+  }
+  .breadcrumbs a{color:var(--accent);text-decoration:none;}
+  .breadcrumbs a:hover{text-decoration:underline;}
+  .breadcrumbs .sep{margin:0 .5em;color:var(--accent2);}
+  .lead-img{display:block;margin:0 auto 28px;max-width:100%;width:auto;height:auto;border:1px solid var(--line);box-shadow:0 6px 22px rgba(60,40,20,.12);}
+  h1{
+    font-family:Georgia,serif;
+    font-weight:700;
+    font-size:2.05em;
+    line-height:1.18;
+    color:var(--accent);
+    margin:.2em 0 .15em;
+    letter-spacing:.01em;
+  }
+  .byline{
+    font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    font-style:italic;
+    margin-bottom:34px;
+  }
+  .epigraph{
+    background:var(--paper);
+    border-left:4px solid var(--accent2);
+    padding:20px 26px;
+    margin:0 0 40px;
+    font-size:.96em;
+    line-height:1.66;
+    color:#322a20;
+    box-shadow:0 2px 10px rgba(60,40,20,.06);
+  }
+  .epigraph p{margin:0 0 .8em;}
+  .epigraph .src{
+    display:block;
+    text-align:right;
+    font-style:italic;
+    color:var(--muted);
+    font-size:.9em;
+    margin-top:.6em;
+  }
+  .article p{margin:0 0 1.25em;}
+  .numbered{
+    counter-reset:none;
+    list-style:none;
+    padding:0;
+    margin:0;
+  }
+  .numbered li{
+    position:relative;
+    padding-left:3.2em;
+    margin:0 0 1.5em;
+  }
+  .numbered li .num{
+    position:absolute;
+    left:0;
+    top:.05em;
+    width:2.3em;
+    text-align:right;
+    font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
+    font-weight:700;
+    font-size:1.05em;
+    color:var(--accent);
+  }
+  .shout{
+    text-align:center;
+    font-family:Georgia,serif;
+    font-weight:700;
+    font-size:1.35em;
+    letter-spacing:.04em;
+    color:var(--accent);
+    margin:42px 0;
+  }
+  a{color:var(--accent);}
+  /* music */
+  .music-section{margin:38px 0;}
+  .music-label{
+    font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--accent2);
+    margin-bottom:8px;
+  }
+  .track{
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--paper);
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:.6em;
+    padding:13px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#f3ead8;}
+  .track-arrow{
+    transition:transform .25s;
+    color:var(--accent2);
+    font-size:.9em;
+  }
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-title{flex:1;font-size:1.02em;}
+  .track-title b{color:var(--ink);}
+  .track-title span{color:var(--muted);}
+  .ext{color:var(--accent);text-decoration:none;font-size:1.05em;}
+  .ext:hover{color:var(--accent2);}
+  .track-body{display:none;padding:0 16px 16px;}
+  .track.open .track-body{display:block;}
+  .track-body .frame{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .track-body iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+  /* footnotes */
+  .fn-ref{
+    font-size:.78em;
+    vertical-align:super;
+    line-height:0;
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    cursor:pointer;
+    position:relative;
+  }
+  .fn-ref:hover{color:var(--accent2);}
+  .fn-ref .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:1.6em;
+    width:300px;
+    max-width:78vw;
+    background:#2a221a;
+    color:#f5ede0;
+    font-size:14px;
+    line-height:1.5;
+    font-weight:400;
+    text-align:left;
+    padding:11px 14px;
+    border-radius:7px;
+    box-shadow:0 8px 24px rgba(0,0,0,.3);
+    z-index:50;
+    vertical-align:baseline;
+  }
+  .fn-ref .pop a{color:#ffd27d;}
+  .fn-ref.below .pop{bottom:auto;top:1.6em;}
+  .fn-ref:hover .pop{display:block;}
+  .notes{
+    margin-top:48px;
+    padding-top:18px;
+    border-top:2px solid var(--line);
+    font-size:.94em;
+  }
+  .notes h2{
+    font-family:Georgia,serif;
+    color:var(--accent);
+    font-size:1.3em;
+    margin:0 0 16px;
+  }
+  .notes ol{padding-left:1.4em;}
+  .notes li{margin-bottom:.9em;}
+  .notes .anon{list-style:none;margin-left:-1.4em;}
+  .note-item:target{background:var(--hl);transition:background .3s;}
+  .back{text-decoration:none;color:var(--accent2);margin-left:.4em;font-size:.9em;}
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:54px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
+    font-size:15px;
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    color:var(--accent);
+    max-width:46%;
+  }
+  .corpus-nav a:hover{text-decoration:underline;}
+  .corpus-nav .lbl{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:44px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent);}
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №23TA</span>
+<div class="wrap">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">→</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <img class="lead-img" src="../img/23TA.jpg" alt="">
+
+  <h1>Воля Творца, Свят Благословен Он<a class="audio-link" href="https://t.me/art_017_tracks/542" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <div class="byline">Написано 29.03.22 рукой скорописца<span class="fn-ref"><a class="fn-ref" href="#note-1" id="ref-1">*</a><span class="pop">Эта статья: #AA23T Школы Ацилут по  (Зеир Арихович Анпин)</span></span></div>
+
+  <div class="epigraph">
+    <p>«"Тогда пробуждается Творец на ступенях Своих и ударяет по небосводам, и содрогаются двенадцать тысяч миров, и разносится Его призыв и плач. Как сказано: "Творец из высей возгремит, из святого жилища Своего вознесет голос Свой, громко взывает Он над обителью Своей", и Он помнит Исраэль", что они в изгнании, "и роняет две слезы в великое море, и тогда вспыхивает пламя одно на северной стороне. И один ветер на северной стороне соединяется с этим пламенем, и это пламя начинает распространяться по миру. И в этот час разделяется ночь, и пламя ударяет по крыльям петуха, и он кричит. И тогда входит Творец в Эденский сад"».</p>
+    <span class="src">Книга Зоар, Ваякель, п. 21, том 5</span>
+  </div>
+
+  <div class="article">
+    <ol class="numbered">
+      <li><span class="num">1.</span>Воля Творца, Свят Благословен Он - в том, чтобы творение (человек) совершало усилия самопреодоления, поступая не "благодаря", а "вопреки" всему на Свете, что оно только может воспринять или вообразить, как часть "объективно существующего вокруг него мироздания", действующего определенным образом, который человек посредством органов ощущений и опыта привык называть "реальным миром".</li>
+
+      <li><span class="num">2.</span>Этот "Закон Орла" является одновременно Его Даром Полной Свободы, поскольку в результате всех таких усилий, человек преодолевает абсолютно все внутренние сдерживающие факторы, обуславливающие его восприятие, делая так потому, что по-другому действовать просто не может, обладая Волей не напрямую, а опосредовано, через Намерение Второго Кольца Силы, в той мере, в которой он этим обладанием выполняет работу и является инструментом реализации Воли Орла, т.е. Творца, Свят Благословен Он.</li>
+
+      <li><span class="num">3.</span>Человек не входит в контакт с Намерением, а Намерение, т.е. Дух, или Творец, Свят Благословен Он, "входит в контакт" с человеком, по мере его собственного развития и формирования на том Пути, на Котором человек по Воле и Милости Творца, Свят Благословен Он, находится, живет и действует в течение жизни, осуществляя этим контактом "личное управление" человеком, опосредуя его волю Своей Волей, являющейся Безмолвным Знанием для человека, который соприкасается с Ним, и является Абсолютным Законом прямого действия, истинность которого не допускает апелляций (не является предметом человеческих соглашений) - то есть является "энергетическим фактом", следующим напрямую из "видения потоков энергии, как они текут во Вселенной".</li>
+
+      <li><span class="num">4.</span>Чтобы понять, в требуемом для полноценного осознанного выполнения своей жизненной задачи человеком объеме и точности, чем является этот "реальный мир", реальный в кавычках, - поскольку его реальность как раз таки является предметом этих самих человеческих соглашений, причем, не важно, это соглашения "среднего человека", или же группы магов - и те и другие для восприятия мира используют модель ака интерпретацию, позволяющую осуществлять целеполагание и осознанное взаимодействие с Намерением посредством Воли, не имеющей взаимно однозначного отображения в пространство слов, утверждений и смыслов, только одни интерпретируют Намерение как "реальный мир объектов", а другие - как "Вселенную эманаций Орла", используя для этого Правило и "дисциплину Пути воина", - удобно использовать аналогию с созданными человеком системами знания - "Келим (инструментарий) этого мира", поскольку, следуя этому же принципу, все, что человек делает, независимо от внутренних мотивов, побуждений и смыслов, равно как и от понимания и "особого мнения" о том, чем и зачем что-то является "на самом деле в действительности", включая действия самого человека в первую очередь.</li>
+
+      <li><span class="num">5.</span>Мир подобен программному компьютерному коду, посредством которого, выполняющий его "центральный процессор", - то есть сам человек, идущий по Путям своей жизни, и получающий "опыт всех опытов" "здесь и сейчас", опять же, не важно, использует он на данном этапе своего Пути "магическую" или "обычно-человеческую" интерпретацию Намерения Духа, - достигает заранее заложенной в этот код Программистом Цели - собственного создания и формирования, с дальнейшим "пробуждением" в Реальный Мир, что у Кастанеды называется "проскочить мимо Орла, чтобы стать свободным". А в Науке Каббала - Конечное Исправление. Понятно, что процессор имеет заранее известный набор "свойств", таких как, тактовая частота (скорость восприятия), оперативная память, пропускная способность систем коммуникации и так далее. Повлиять на это он не имеет никакой возможности (если вообще в этой аналогии уместно говорить о том, что "процессор", являющийся не более чем инструментом реализации определенного набора команд, что-то "имеет", или "не имеет").</li>
+
+      <li><span class="num">6.</span>Кроме вышесказанного, процессор запущен на выполнение кода, к которому сам не имеет доступа ни для чего другого, кроме непосредственного выполнения. То есть "с точки зрения" процессора, то, "что с ним происходит", является следствием независимых внешних "электрических слепых Сил" и прочих физических Законов Природы. Но Программист, Который написал и отладил код, и Который внимательно следит за корректностью его выполнения, знает, что за каждым "событием" стоит единая логика, Его Собственная логика, которую он вложил в компьютер, и передал на выполнение процессору. И в ней нет никакой случайности, если только она не предусмотрена программным сценарием и не находится под полным контролем Программиста.</li>
+
+      <li><span class="num">7.</span>Таковым "программным кодом" является этот мир, вся совокупность происходящих с человеком и человечеством исторических эволюционных изменений, процессов и явлений, по мере их фактического происхождения, является "интегрированной средой выполнения", в которой происходит выполнение точной и четкой программы, результат которой, общие характеристики времени и этапов выполнения, вплоть до мельчайших микрокоманд и битов данных, известны Программисту заранее, но скрыты от пользователя, которым, в данном случае, является сам выполняющий программу и находящийся "внутри" создаваемой ей программной среды компьютер. Именно поток выполнения этой программы "пользователем-компьютером" называется у Кастанеды и мистиков "Волей, скрытой способностью взаимодействовать с Реальным Миром, находящейся у большинства людей в спящем состоянии, но пробуждаемая посредством целенаправленной и точной дисциплины посредством Пути Воина". Чем является Реальный Мир "на самом деле", до того, как программа будет нами выполнена на 100%, посредством чего мы сами будем созданы и сформированы, и готовы для "перехода на следующий уровень", качественно отличающийся от всего, с чем мы были ранее знакомы, на неприводимый порядок, - мы знать не можем в принципе, поскольку наше функциональное предназначение, которое каждый из "чувствующих существ", созданных Орлом, имеет и опосредует собственной жизнью, включая сюда все, что в этой жизни может иметь место в принципе, вплоть до самых "незначительных" и незаметных мелочей, не предполагает наличия у нас этого знания, но предполагает и совершает практически последовательный и точный процесс достижения того, что этим знанием опосредуется, и что из него напрямую проистекает - то есть, мы созданы/рождены для того, чтобы действовать, а не задавать вопросы. Какое либо магическое "Знание" Реального Мира является не более, чем приятным, но не обязательным во всех смыслах элементом, который у Магов/Каббалистов появляется по мере того, как возникает практическая необходимость в его использовании "здесь и сейчас" для выполнения той практической задачи, которую они, равно как и все остальные живые существа, созданные Орлом, совершают и выполняют посредством жизненного Пути. И по определению любое таковое знание является фрагментарным, частичным и не отражающим ни в коей мере истинной картины Реальности, которую мы обнаружим, когда исполним "предначертанное" до самой последней "программной инструкции".</li>
+    </ol>
+
+    <p class="shout">СДЕЛАЕМ И УСЛЫШИМ!!</p>
+
+    <div class="music-section">
+      <div class="music-label">Музыка под настроение</div>
+      <div class="track" id="track1">
+        <div class="track-head" onclick="toggleTrack(this)">
+          <span class="track-arrow">▶</span>
+          <span class="track-title"><b>The Riddler</b> <span>— Nightwish</span></span>
+          <a class="ext" href="https://youtu.be/eTsH1NcoFa8" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+        </div>
+        <div class="track-body">
+          <div class="frame" data-src="https://www.youtube.com/embed/eTsH1NcoFa8"></div>
+        </div>
+      </div>
+    </div>
+
+    <section class="notes">
+      <h2>Примечания и ссылки</h2>
+      <ol>
+        <li class="anon">См. также: #AA247 "<a href="247.html">Конфронтология Духа</a>" (Зеир Арихович Анпин)</li>
+        <li class="note-item" id="note-1" value="1">Эта статья: #AA23T Школы Ацилут по  (Зеир Арихович Анпин) <a class="back" href="#ref-1" title="Вернуться к тексту">↩</a></li>
+      </ol>
+    </section>
+  </div>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="2A9.html"><span class="lbl">Предыдущая</span>Давай представим этот мир другим</a>
+    <a class="next" href="212.html"><span class="lbl">Следующая</span>Следующая жизнь</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggleTrack(head){
+    var t=head.parentElement;
+    var frame=t.querySelector('.frame');
+    if(!t.classList.contains('open')){
+      if(frame && !frame.querySelector('iframe')){
+        var f=document.createElement('iframe');
+        f.src=frame.getAttribute('data-src');
+        f.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        f.allowFullscreen=true;
+        frame.appendChild(f);
+      }
+    }
+    t.classList.toggle('open');
+  }
+  // footnote popup edge detection
+  document.querySelectorAll('.fn-ref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      var pop=ref.querySelector('.pop');
+      if(!pop)return;
+      ref.classList.remove('below');
+      var r=ref.getBoundingClientRect();
+      if(r.top<160){ref.classList.add('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой философско-эзотерическое эссе из семи пронумерованных абзацев плотной прозы с эпиграфом из Зоара и финальным восклицанием — это сплошная аналитическая проза, а не стихотворная форма, поэтому выбрана редакторская широкая схема (~2/3 ширины окна), дающая комфортную меру для длинных периодов с обилием вложенных оговорок. Колонку ограничил max-width 980px, чтобы строки не становились непосильно длинными на больших мониторах. Нумерацию абзацев реализовал как семантический список с вынесенными номерами в акцентный цвет, сохранив авторскую структуру.",
+  "rationale_extra": "Оглавление не делал: явных озаглавленных подразделов в тексте нет (нумерованные пункты — не разделы с названиями). Музыкальный трек один (YouTube) — оформлен как ленивый раскрывающийся плеер, сводный раздел музыки не требуется (треков не более двух). Сносок две: маркер «*» в подзаголовке ведёт на нумерованную сноску с popup и двусторонней навигацией; запись «См. также» дана без маркера в тексте — оформлена как анонимная сноска без номера. Палитра — тёплая книжная (винный акцент, охра) на светлом фоне, засечный шрифт для тела."
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -361,16 +728,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

@@ -7,8 +7,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Апрель навсегда</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Стихотворение о школьниках Муне и Володе, которых сближает любовь к учёбе и противостояние насмешкам одноклассников.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/1C1.html">
+<meta property="og:title" content="Апрель навсегда">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/1C1.html">
+<meta property="og:description" content="Стихотворение о школьниках Муне и Володе, которых сближает любовь к учёбе и противостояние насмешкам одноклассников.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Апрель навсегда">
+<meta name="twitter:description" content="Стихотворение о школьниках Муне и Володе, которых сближает любовь к учёбе и противостояние насмешкам одноклассников.">
+<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/1C1.jpg">
+<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/1C1.jpg">
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +156,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="1C1" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="1C1" data-theme="swiss"
   data-art-section="best" data-art-type="verse"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +170,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +179,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="1C1.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -561,6 +572,793 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#fbf7ef;
+    --panel:#fffdf8;
+    --ink:#2a2117;
+    --soft:#5a4d3a;
+    --accent:#7a1f1f;
+    --accent2:#9c6b16;
+    --line:#e3d8c2;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{-webkit-text-size-adjust:100%;}
+  .ya-old{
+    margin:0;
+    background:
+      radial-gradient(circle at 50% -10%, #fffdf6 0%, var(--bg) 60%) fixed;
+    color:var(--ink);
+    font-family:"Palatino Linotype","Book Antiqua",Palatino,Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.62;
+  }
+  .wrap{
+    max-width:820px;
+    margin:0 auto;
+    padding:28px 26px 70px;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* breadcrumbs */
+  .crumbs{
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--soft);
+    border-bottom:1px solid var(--line);
+    padding-bottom:12px;
+    margin-bottom:22px;
+    font-variant:small-caps;
+  }
+  .crumbs a{color:var(--soft);}
+  .crumbs .sep{margin:0 .5em;color:var(--accent2);}
+
+  .hero{
+    text-align:center;
+    margin:0 0 18px;
+  }
+  .hero img{
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border:1px solid var(--line);
+    border-radius:3px;
+    box-shadow:0 6px 26px rgba(60,40,15,.13);
+  }
+
+  h1{
+    font-size:34px;
+    line-height:1.18;
+    text-align:center;
+    font-weight:700;
+    letter-spacing:.01em;
+    margin:.2em 0 .15em;
+    color:var(--accent);
+  }
+  h1 .orn{
+    display:block;
+    color:var(--accent2);
+    font-size:20px;
+    margin-top:.35em;
+    letter-spacing:.4em;
+  }
+
+  .meta{
+    margin:22px auto 6px;
+    max-width:560px;
+    padding:14px 20px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-left:4px solid var(--accent2);
+    border-radius:3px;
+    font-size:16px;
+    line-height:1.5;
+    color:var(--soft);
+  }
+  .meta b{color:var(--ink);}
+  .meta .epi{
+    display:block;
+    margin-top:.5em;
+    padding-top:.5em;
+    border-top:1px dashed var(--line);
+    font-style:italic;
+    color:var(--accent);
+  }
+
+  .stanza{
+    margin:0 0 1.45em;
+  }
+  .verse{
+    margin-top:34px;
+  }
+  .indent{padding-left:1.1em;}
+
+  .divider{
+    text-align:center;
+    color:var(--accent2);
+    letter-spacing:.5em;
+    margin:34px 0;
+    font-size:18px;
+  }
+  .ellipsis{
+    text-align:center;
+    color:var(--accent2);
+    margin:26px 0;
+    letter-spacing:.4em;
+  }
+
+  /* music */
+  .music{
+    margin:30px 0;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:5px;
+    overflow:hidden;
+  }
+  .music .label{
+    font-variant:small-caps;
+    letter-spacing:.06em;
+    font-size:14px;
+    color:var(--accent2);
+    padding:9px 16px 0;
+  }
+  .track{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:11px 16px 14px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track .arrow{
+    color:var(--accent);
+    transition:transform .2s;
+    font-size:15px;
+    flex:0 0 auto;
+  }
+  .track.open .arrow{transform:rotate(90deg);}
+  .track .name{font-size:18px;}
+  .track .name b{color:var(--ink);}
+  .track .by{color:var(--soft);}
+  .track .ext{
+    margin-left:auto;
+    font-size:15px;
+    color:var(--accent2);
+    flex:0 0 auto;
+  }
+  .player{
+    padding:0 16px;
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .3s ease;
+  }
+  .player.open{max-height:420px;padding-bottom:16px;}
+  .player .frame{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    border-radius:4px;
+    overflow:hidden;
+    background:#000;
+  }
+  .player iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+  }
+
+  /* corpus nav */
+  .ends{
+    margin-top:46px;
+    border-top:1px solid var(--line);
+    padding-top:20px;
+    display:flex;
+    justify-content:space-between;
+    gap:14px;
+    font-size:16px;
+  }
+  .ends a{display:inline-block;max-width:46%;}
+  .ends .nx{text-align:right;margin-left:auto;}
+  .ends .dir{
+    display:block;font-size:13px;font-variant:small-caps;
+    letter-spacing:.08em;color:var(--soft);
+  }
+  footer.colophon{
+    margin-top:34px;
+    border-top:1px solid var(--line);
+    padding-top:18px;
+    font-size:14.5px;
+    color:var(--soft);
+    line-height:1.5;
+  }
+  footer.colophon a{color:var(--accent);}
+  footer.colophon .license{font-size:13.5px;}
+
+  @media (max-width:560px){
+    .ya-old{font-size:18px;}
+    .wrap{padding:20px 16px 56px;}
+    h1{font-size:27px;}
+    .ends{flex-direction:column;}
+    .ends a,.ends .nx{max-width:100%;text-align:left;margin-left:0;}
+  }
+</style>
+<div class="ya-old" data-scheme="manuscript">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №1C1</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">❧</span>
+    <a href="../best/index.html">Избранное</a>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/1C1.jpg" alt="Иллюстрация к рассказу «Апрель навсегда»">
+  </div>
+
+  <h1>Апрель навсегда<a class="audio-link" href="https://t.me/art_017_tracks/268" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a><span class="orn">✦ ✦ ✦</span></h1>
+
+  <div class="meta">
+    <b>Серия:</b> ДОБРАЯ РЕЧЬ<br>
+    <b>Рассказ:</b> Апрель навсегда<br>
+    <b>Написано:</b> 01.12.21<br>
+    <b>Формат:</b> Школьные истории (School Story, Bro!)
+    <span class="epi">Дети Будущего Мира, Мужчиной и Женщиной Он создал Их</span>
+  </div>
+
+  <!-- music track 1 -->
+  <div class="music">
+    <div class="label">Музыка:</div>
+    <div class="track" data-yt="3JoP4e6Syxk" onclick="togglePlayer(this)">
+      <span class="arrow">▶</span>
+      <span class="name"><b>Апрель</b> <span class="by">— В.Цой</span></span>
+      <a class="ext" href="https://www.youtube.com/watch?v=3JoP4e6Syxk" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+    </div>
+    <div class="player"><div class="frame"></div></div>
+  </div>
+
+  <div class="verse">
+
+  <p class="stanza">
+  Друзья Марину звали Муня.<br>
+  Ей было *** юных зим.<br>
+  Черноволосой красотулей<br>
+  На зависть девочкам другим
+  </p>
+
+  <p class="stanza">
+  Она была, и на пятерки<br>
+  Училась в школе пятый год.<br>
+  Ей нравилось учить уроки<br>
+  Целыми днями напролет
+  </p>
+
+  <p class="stanza">
+  Сидела в одиночку дома<br>
+  Ни с кем из сверстников дружить<br>
+  Ей не хотелось: ей не ровня<br>
+  Все они были, глупость лишь
+  </p>
+
+  <p class="stanza">
+  Одна, и в головах сквозняк у них.<br>
+  Девочки все - себя готовят<br>
+  Во всем зависеть от мужчин<br>
+  Предел для их ума и воли -
+  </p>
+
+  <p class="stanza">
+  Удачно замуж выйти вскоре<br>
+  И прослужить подстилкой мужу<br>
+  Всю свою жизнь, детей по-больше<br>
+  На свет произвести, подружек
+  </p>
+
+  <p class="stanza">
+  Пугать, раз в год фотоколлажем<br>
+  С каких то райских островов -<br>
+  Была противна жизнь такая<br>
+  Мариночке превыше слов.
+  </p>
+
+  <p class="stanza">
+  Мальчишки? Да ничуть не лучше<br>
+  Мозги отсутствуют совсем<br>
+  Ворон пугая по округе<br>
+  Изо дня в день с мячом своим
+  </p>
+
+  <p class="stanza">
+  Подобно шелудивой своре<br>
+  Бродяжничающих собак<br>
+  Бесцельно носятся. А в школе<br>
+  Сидят все как один дурак.
+  </p>
+
+  <p class="stanza">
+  ...Бывают, правда, исключенья<br>
+  Лишь подтверждающие этот<br>
+  Печальный факт. Был в параллельном<br>
+  С ней классе мальчик неприметный
+  </p>
+
+  <p class="stanza">
+  В компаниях подобных шумных<br>
+  Его увидеть было сложно.<br>
+  Учился он чуть хуже Муни,<br>
+  Конечно, но все же без "троек".
+  </p>
+
+  <p class="stanza">
+  Его учителя любили,<br>
+  За успеваемость и нрав.<br>
+  А одноклассники чмырили<br>
+  Не сильно, но обидно так.
+  </p>
+
+  <p class="stanza">
+  Муни отлично понимала<br>
+  "За что", и как ему обидно<br>
+  Терпеть нападки обезьяньи<br>
+  За то, что он умней по жизни
+  </p>
+
+  <p class="stanza">
+  Чем их компания вся скопом.<br>
+  Володя с Муней не знакомы<br>
+  По настоящему, лишь только<br>
+  Друг друга встретив в коридорах
+  </p>
+
+  <p class="stanza">
+  С улыбкой радостной махали<br>
+  Приветствуя, но не случалось<br>
+  Им никогда лично встречаться<br>
+  Лишь пару раз в олимпиадах
+  </p>
+
+  <p class="stanza">
+  По математике, от школы<br>
+  Когда своей им приходилось<br>
+  Обоим выступать - с ним только<br>
+  Она тогда за одной партой
+  </p>
+
+  <p class="stanza">
+  Сидела Муни, но запомнить<br>
+  Мало что ей в этом соседстве<br>
+  Могло удастся, напряженной<br>
+  Была она все это время.
+  </p>
+
+  <p class="stanza">
+  ...А мальчик помнил. Хотя Муни<br>
+  Об этом знать и не могла.<br>
+  А если еще ближе к сути,<br>
+  То он из за нее был там
+  </p>
+
+  <p class="stanza">
+  Заранее так и подумав,<br>
+  Что она будет на ней точно.<br>
+  Он бы вообще, если б не Муни,<br>
+  Год на "отлично" не закончил
+  </p>
+
+  <p class="stanza">
+  По ряду основных предметов,<br>
+  Которые она любила,<br>
+  И на любые эстафеты<br>
+  В которых первая ходила.
+  </p>
+
+  <p class="stanza">
+  Как он "пятерку" умудрился<br>
+  По химии за прошлый год<br>
+  Иметь, он сам понять не в силах<br>
+  Решительно с тех пор не мог.
+  </p>
+
+  <p class="stanza">
+  Но он узнал об этом точно,<br>
+  Что Муни химию любила.<br>
+  И стал вдвоем с нею в итоге<br>
+  На оба класса их учиться
+  </p>
+
+  <p class="stanza">
+  Хоть что-то понимать способным<br>
+  Все кроме них ни в зуб ногою<br>
+  Бездельничали на уроках<br>
+  С большим трудом на "три" в итоге
+  </p>
+
+  <p class="stanza">
+  За четверть и за год сдавая<br>
+  Предмет, лишь потому что завуч<br>
+  Таскал их за уши нещадно<br>
+  С родителями вызывая
+  </p>
+
+  <p class="stanza">
+  К директору, и со слезами<br>
+  Выпрашивая своим чадам<br>
+  Чтобы не портить жизнь "колами"<br>
+  Ровным заборчиком в журнале
+  </p>
+
+  <p class="stanza">
+  Уже поставленными честно<br>
+  Когда в ответах про "валентность"<br>
+  В контрольной годовой конечной<br>
+  О менструальном цикле женском<br>
+  Они всем классом умудрились
+  </p>
+
+  <p class="stanza">
+  Списать друг другу дать. Химичку<br>
+  Заставили всем им по тройке<br>
+  Вместо того, что заслужили<br>
+  Поставить. Премию вручили
+  </p>
+
+  <p class="stanza">
+  За это ей, и дали отпуск<br>
+  Внеочередный за труд школьный.<br>
+  Можно представить, как на Вову<br>
+  Который заслужил "пятерку"
+  </p>
+
+  <p class="stanza">
+  На фоне их колов, за это<br>
+  Пытались всячески унизить.<br>
+  Но это было безуспешно<br>
+  Хотя конечно же обидно.
+  </p>
+
+  <p class="stanza">
+  За этим Муня наблюдала<br>
+  Со стороны с негодованьем.<br>
+  И вот однажды не сдержалась,<br>
+  Когда опять ему досталось
+  </p>
+
+  <p class="stanza">
+  И он помятый шел из школы,<br>
+  Она решилась пойти рядом<br>
+  С ним, будто им одной дорогой<br>
+  Было идти, и, поравнявшись
+  </p>
+
+  <p class="stanza">
+  Шла в ногу с мальчиком угрюмым<br>
+  Вдруг неожиданно на праздник<br>
+  Ему к ней предложила, будто<br>
+  Они давно друг друга знали.
+  </p>
+
+  <p class="stanza indent">
+  "Володя, ты в субботу занят?<br>
+  &nbsp;У меня просто день рожденья...<br>
+  &nbsp;Если придешь, я буду рада<br>
+  &nbsp;В три часа дня на чай с печеньем?"
+  </p>
+
+  <p class="stanza">
+  Володя аж остановился<br>
+  От неожиданности глядя<br>
+  На девочку, словно не веря<br>
+  Что она в гости пригласила
+  </p>
+
+  <p class="stanza">
+  Того, кто стал школьным изгоем...<br>
+  Над кем смеялись всей гурьбою.<br>
+  Ответил, сильно заикаясь:<br>
+  "Ка...ка... К-конечно же я буду,<br>
+  Большое тебе с-с--спасибо!"
+  </p>
+
+  <p class="stanza">
+  И пошел дальше, шаг ускорив<br>
+  Оставив девочку счастливой<br>
+  Стоять и улыбаться в спину<br>
+  Ему, уже вся в мыслях про их
+  </p>
+
+  <p class="stanza">
+  Первую встречу, и не в силах<br>
+  В себе самой, вдруг ставшей странной<br>
+  Впервые вдруг такой счастливой<br>
+  Покой обычный целой гаммой
+  </p>
+
+  <p class="stanza">
+  Ей неизвестных, очень сильных<br>
+  Запутанных, переплетенных<br>
+  Надежд, волнений, чувств накрыло<br>
+  Ее волной огромной теплой
+  </p>
+
+  <p class="stanza">
+  Ей не хотелось чтобы эта<br>
+  Волна куда-то уходила<br>
+  Три дня оставшихся до встречи<br>
+  Она в ней провести решила.
+  </p>
+
+  <div class="divider">⁘ ⁘ ⁘</div>
+
+  <p class="stanza">
+  В себе немного разобралась<br>
+  Мариночка ко дню их встречи.<br>
+  Что делать будет расписала<br>
+  В уме по пунктам до момента.
+  </p>
+
+  <p class="stanza">
+  Хотя умом и невозможно<br>
+  Поверить было в то, что этот<br>
+  Безумный бред она серьезно<br>
+  Было намерена с ним делать.
+  </p>
+
+  <p class="stanza">
+  Ведь каждый шаг ведет к фиаско<br>
+  Разумной, выверенной жизни<br>
+  Крах неминуемый настанет<br>
+  Всему, к чему пришла Марина
+  </p>
+
+  <p class="stanza">
+  Трудом упорным и нелегким<br>
+  За годы трудных достижений<br>
+  По жизни, дома, на уроках<br>
+  Олимпиадах, размышленьях...
+  </p>
+
+  <p class="stanza">
+  ...Все это псу под хвост отправить<br>
+  Она хотела так упрямо,<br>
+  Что с собой спорить не решалась<br>
+  Как будто вдруг безумной стала
+  </p>
+
+  <p class="stanza">
+  Так, словно за одно мгновенье<br>
+  Перевернулся мир и время<br>
+  Словно таким всегда и было<br>
+  Вдруг изменило направленье<br>
+  И бодро продолжало тикать
+  </p>
+
+  <p class="stanza">
+  Мир вверх тормашками поставив<br>
+  То что "нельзя", теперь любою<br>
+  Ценой осуществить готова<br>
+  Не оставляя даже шанса
+  </p>
+
+  <p class="stanza">
+  Чему-то быть у них другому<br>
+  Когда Он к ней придет с цветами<br>
+  (Она откуда-то знать точно<br>
+  Про многое внезапно стала)
+  </p>
+
+  <p class="stanza">
+  Когда они отсидят столько,<br>
+  Сколько для вежливости надо<br>
+  Со взрослыми, съедят их тортик<br>
+  И чаем вкусным до отвала
+  </p>
+
+  <p class="stanza">
+  Потом придумав что угодно<br>
+  Она одних их там оставит,<br>
+  Володю же возьмет с собою<br>
+  (За руку - тут без вариантов)
+  </p>
+
+  <p class="stanza">
+  И поведет к себе, закроют<br>
+  Они надежно дверь защелкой,<br>
+  Они напротив на кровати<br>
+  Друг друга сядут. У нее здесь
+  </p>
+
+  <p class="stanza">
+  Припасены будут бокалы<br>
+  С вином французским первоклассным.<br>
+  Для храбрости бокал весь залпом<br>
+  Она двумя глотками выпьет,
+  </p>
+
+  <p class="stanza">
+  Платком атласным прикоснется<br>
+  К губам, накрашенным помадой<br>
+  В салоне красоты в цвет алый<br>
+  И в первый раз Вове посмотрит
+  </p>
+
+  <p class="stanza">
+  Глаза в глаза. И не моргая<br>
+  Так просидят они немного<br>
+  Она должна будет создать в нем<br>
+  Такое сильное желанье
+  </p>
+
+  <p class="stanza">
+  Против которого бессилен<br>
+  Был бы любой другой мужчина.<br>
+  Но не таков Ее Владимир,<br>
+  Ни одним мускулом не выдаст
+  </p>
+
+  <p class="stanza">
+  Он в нем бушующей стихии.<br>
+  Лишь продолжать будет в глаза мне<br>
+  Смотреть, о настоящем Мире<br>
+  Все больше помня с каждым мигом
+  </p>
+
+  <p class="stanza">
+  О том, кем мы с ним всегда были<br>
+  О том, что, в этот мир родившись<br>
+  Мы оба прочно позабыли,<br>
+  До этой самой встречи, быть здесь
+  </p>
+
+  <p class="stanza">
+  Давным-давно мы с ним решили<br>
+  Мы в точности об этом знали<br>
+  И шли, детально выполняя<br>
+  По пунктам план начала Жизни
+  </p>
+
+  <p class="stanza">
+  Начать которую должны мы<br>
+  Прямо в конкретный этот миг,<br>
+  Все обо всем одновременно<br>
+  И должен первый шаг мужским
+  </p>
+
+  <p class="stanza">
+  Единоличным быть решеньем.<br>
+  Поэтому я не даю<br>
+  Знать внешне Вове даже бровью<br>
+  О том, что я давно горю<br>
+  Желанием стать Его Женою.
+  </p>
+
+  <div class="ellipsis">…</div>
+
+  <p class="stanza">
+  Он не привык заставлять дам<br>
+  Ждать собственной иницьятивы.<br>
+  Он нежно обнял мой кафтан<br>
+  И нежно положил на спину.
+  </p>
+
+  <p class="stanza">
+  С себя снял быстрыми рывками<br>
+  Все, что надето на нем было<br>
+  Я тоже в это время сняла<br>
+  Все что могла с себя вниз скинув.
+  </p>
+
+  <p class="stanza">
+  ...Только сейчас издал он стон<br>
+  Протяжный, телом накрывая<br>
+  Мое, и резко, как стрелой<br>
+  Копьем Судьбы меня пронзая.
+  </p>
+
+  </div><!-- /verse -->
+
+  <!-- music track 2 -->
+  <div class="music">
+    <div class="label">Музыка:</div>
+    <div class="track" data-yt="elsS3VPn8-c" onclick="togglePlayer(this)">
+      <span class="arrow">▶</span>
+      <span class="name"><b>Супердетка</b> <span class="by">— Пропаганда</span></span>
+      <a class="ext" href="https://www.youtube.com/watch?v=elsS3VPn8-c" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+    </div>
+    <div class="player"><div class="frame"></div></div>
+  </div>
+
+  <div class="verse">
+
+  <p class="stanza">
+  Он не особенно таился,<br>
+  Поскольку мы под властью Силы<br>
+  Были всецело Всемогущей,<br>
+  Всесильной, Совершенномудрой,<br>
+  Непостижимо Милосердной,<br>
+  Любвеобильной, Совершенной,<br>
+  Неисчислимо Доброй с каждым,<br>
+  Над всем, что есть в Мире Реальном<br>
+  Она Одна Своей Свободной<br>
+  Могущественной, Благородной<br>
+  Непостижимой Святой Волей<br>
+  Она в Ручном Режиме Словом<br>
+  Своим и Делом Управляет,<br>
+  Людей, Существ, Всем Мирозданьем<br>
+  Поэтому, Ее рабами<br>
+  Непостижимо всем желанно.<br>
+  Непостижимое блаженство,<br>
+  Но чья Реальность сокровенна<br>
+  Глубоким личным ощущеньем<br>
+  И знанием Этого Мира<br>
+  Для человека неизбежно<br>
+  Для каждого и каждой станет<br>
+  Но до тех пор, пока об этом<br>
+  Сам человек Ей не расскажет,<br>
+  Излив желание из сердца,<br>
+  Из сна забвенья в мире мертвых<br>
+  Пока еще не в силах верить,<br>
+  Но только если Он поможет,<br>
+  Что невозможность неизбежна<br>
+  Чуда волшебной дивной Сказки<br>
+  С Ним лично с ним происходящей<br>
+  Реальность самых дерзких планов<br>
+  Взмахом бровей осуществляя<br>
+  И новый, дивный МИР МЕЧТЫ<br>
+  В Дар человеку открывая.<br>
+  Непостижимой мудрой СКАЗКИ<br>
+  Возможность Людям подарить<br>
+  Соединившись с Ним, МИР СЧАСТЬЯ<br>
+  ГДЕ БОГ ДЕТЕЙ УЧИТ ЛЮБИТЬ<br>
+  А взрослые, Им не мешая<br>
+  Им помогают матерьяльно.<br>
+  Свою Мечту осуществить.
+  </p>
+
+  </div><!-- /verse -->
+
+  <nav class="ends">
+    <a class="pv" href="26M.html"><span class="dir">← Предыдущая</span>Лоно Природы</a>
+    <a class="nx" href="26O.html"><span class="dir">Следующая →</span>Модус Операнди</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+function togglePlayer(el){
+  var player = el.nextElementSibling;
+  var open = el.classList.toggle('open');
+  player.classList.toggle('open', open);
+  if(open){
+    var frame = player.querySelector('.frame');
+    if(!frame.querySelector('iframe')){
+      var id = el.getAttribute('data-yt');
+      var ifr = document.createElement('iframe');
+      ifr.src = 'https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0';
+      ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      ifr.allowFullscreen = true;
+      frame.appendChild(ifr);
+    }
+  }
+}
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "поэма / стих",
+  "rationale": "Несмотря на то, что в шапке текст помечен как «Рассказ» и «School Story», фактически весь материал написан стихом — четверостишиями с выраженным метром и рифмой, разбитыми на строфы. По правилу выбора схемы доминирующая форма (стих/поэма) определяет «Каббалистический манускрипт»: узкая книжная полоса ~820px, засечный шрифт (Palatino/Book Antiqua), тёплая светлая палитра пергамента с тёмной охристо-коричневой 'чернильной' типографикой и кримсоновым акцентом — это поддерживает медленное, поэтичное чтение строфа за строфой. Колонку держал узкой намеренно, чтобы строки стиха не ломались и сохраняли визуальный ритм.\n\nКаждая строфа — отдельный абзац с переносами строк, что сохраняет авторскую разбивку; диалоговая строфа сохранила ведущие отступы. Два музыкальных трека (Цой — «Апрель», Пропаганда — «Супердетка») оба ведут на YouTube, поэтому оформлены свёрнутыми ленивыми плеерами (iframe создаётся только при раскрытии) на своих местах в тексте; их меньше трёх, поэтому сводный раздел музыки не создавался. Метка «Музыка:» взята дословно из текста вместо дефолтной. Сносок и подразделов с заголовками в тексте нет, поэтому оглавление и аппарат сносок не добавлялись. КАПС (ДОБРАЯ РЕЧЬ, МИР МЕЧТЫ, ГДЕ БОГ ДЕТЕЙ УЧИТ ЛЮБИТЬ) и глифы вроде *** сохранены как есть.",
+  "features": ["music"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -706,16 +1504,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

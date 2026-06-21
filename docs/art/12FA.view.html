@@ -7,8 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Праведник, оживляющий Миры</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе о каббалистическом принципе помощи от обратного, роли мужчины и женщины в духовной работе и образе праведника, оживляющего миры.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/12FA.html">
+<meta property="og:title" content="Праведник, оживляющий Миры">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/12FA.html">
+<meta property="og:description" content="Эссе о каббалистическом принципе помощи от обратного, роли мужчины и женщины в духовной работе и образе праведника, оживляющего миры.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Праведник, оживляющий Миры">
+<meta name="twitter:description" content="Эссе о каббалистическом принципе помощи от обратного, роли мужчины и женщины в духовной работе и образе праведника, оживляющего миры.">
+
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +155,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="12FA" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="12FA" data-theme="swiss"
   data-art-section="shoshana" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +169,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +178,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="12FA.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -298,6 +308,434 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+ :host{
+ --bg:#f7f4ee;
+ --ink:#211d18;
+ --muted:#6b6356;
+ --accent:#8c2f23;
+ --link:#1d5e74;
+ --rule:#d9d2c5;
+ --paper:#fffdf8;
+ --hl:#fbe7c8;
+ }
+ *{box-sizing:border-box}
+ .ya-old{scroll-behavior:smooth}
+ .ya-old{
+ margin:0;
+ background:var(--bg);
+ color:var(--ink);
+ font-family:Georgia,"Times New Roman",serif;
+ font-size:18px;
+ line-height:1.72;
+ -webkit-text-size-adjust:100%;
+ }
+ .wrap{width:min(92vw,1080px);margin:0 auto;padding:0 26px}
+ a{color:var(--link);text-decoration:none}
+ a:hover{text-decoration:underline}
+ .ui{font-family:"Helvetica Neue",Arial,sans-serif}
+
+ /* breadcrumbs */
+ .crumbs{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;
+ color:var(--muted);
+ padding:22px 0 0;
+ }
+ .crumbs a{color:var(--muted)}
+ .crumbs span{margin:0 .5em;color:var(--rule)}
+
+ /* header */
+ header.lead{padding:26px 0 10px;border-bottom:3px double var(--rule);margin-bottom:28px}
+ h1{
+ font-size:2.35rem;line-height:1.15;margin:.2em 0 .25em;
+ font-weight:700;color:var(--ink);letter-spacing:-.01em;
+ }
+ .subtitle{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:1.05rem;color:var(--accent);font-style:normal;font-weight:500;
+ line-height:1.45;margin:.2em 0 0;
+ }
+
+ /* toc */
+ details.toc{
+ background:var(--paper);border:1px solid var(--rule);border-radius:6px;
+ padding:6px 18px;margin:0 0 38px;
+ }
+ details.toc summary{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;
+ color:var(--muted);cursor:pointer;padding:8px 0;font-weight:600;
+ }
+ details.toc ol{margin:.4em 0 .8em;padding-left:1.4em}
+ details.toc li{margin:.32em 0;font-family:"Helvetica Neue",Arial,sans-serif;font-size:.98rem}
+
+ section{margin:0 0 18px}
+ h2{
+ font-size:1.62rem;line-height:1.22;margin:1.8em 0 .5em;
+ padding-top:.3em;color:var(--ink);font-weight:700;
+ border-top:1px solid var(--rule);
+ }
+ h2 a{color:inherit}
+ h2 a:hover{text-decoration:none;color:var(--accent)}
+ .secmeta{
+ font-family:"Helvetica Neue",Arial,sans-serif;font-size:.8rem;
+ letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
+ margin:-.2em 0 1em;
+ }
+ p{margin:0 0 1.15em}
+ .body p{text-align:justify;hyphens:auto}
+
+ /* epigraph */
+ .epi{
+ margin:1.1em 0 1.6em;padding:.2em 0 .2em 1.4em;
+ border-left:3px solid var(--accent);
+ font-style:italic;color:#3a342b;font-size:1.04rem;line-height:1.6;
+ }
+ .epi p{margin:.3em 0}
+
+ .shout{
+ font-family:"Helvetica Neue",Arial,sans-serif;font-weight:700;
+ letter-spacing:.02em;color:var(--accent);font-size:1.05rem;
+ margin:1.4em 0;text-align:center;
+ }
+
+ /* added / note box */
+ .added{
+ background:var(--paper);border:1px solid var(--rule);
+ border-left:4px solid var(--accent);border-radius:5px;
+ padding:16px 22px;margin:1.6em 0;
+ }
+ .added .lbl{
+ font-family:"Helvetica Neue",Arial,sans-serif;font-size:.78rem;
+ letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+ display:block;margin-bottom:.5em;
+ }
+ .seealso{font-family:"Helvetica Neue",Arial,sans-serif;font-size:.95rem;margin-top:.8em;color:var(--muted)}
+
+ .tags{
+ font-family:"Helvetica Neue",Arial,sans-serif;font-size:.82rem;
+ letter-spacing:.04em;color:var(--muted);margin:1.2em 0 0;
+ }
+ .tags span{margin:0 .45em;color:var(--rule)}
+
+ /* music */
+ .music-label{
+ font-family:"Helvetica Neue",Arial,sans-serif;font-size:.78rem;
+ letter-spacing:.12em;text-transform:uppercase;color:var(--accent);
+ font-weight:600;margin:1.6em 0 .5em;
+ }
+ .track{border:1px solid var(--rule);border-radius:6px;background:var(--paper);margin:0 0 1.4em;overflow:hidden}
+ .track-head{
+ display:flex;align-items:center;gap:10px;width:100%;
+ background:none;border:0;cursor:pointer;text-align:left;
+ padding:13px 16px;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;color:var(--ink);
+ }
+ .track-arrow{transition:transform .2s;color:var(--accent);font-size:.9em}
+ .track-head.open .track-arrow{transform:rotate(90deg)}
+ .track-name{flex:1;font-weight:600}
+ .track-ext{font-size:1.05em;color:var(--muted);padding:0 4px}
+ .track-body{display:none;border-top:1px solid var(--rule)}
+ .track-body.open{display:block}
+ .track-body iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
+
+ /* footnote markers + popups */
+ .fnwrap{position:relative;display:inline}
+ a.fn{color:var(--accent);font-weight:700;text-decoration:none;padding:0 1px}
+ a.fn sup{font-size:.72em}
+ .fn-pop{
+ display:none;position:absolute;left:50%;bottom:140%;transform:translateX(-50%);
+ width:330px;max-width:78vw;max-height:300px;overflow:auto;
+ background:#2a2620;color:#f3eee3;font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:.86rem;line-height:1.5;font-style:normal;text-align:left;
+ padding:12px 14px;border-radius:7px;box-shadow:0 8px 26px rgba(0,0,0,.28);
+ z-index:40;
+ }
+ .fn-pop.below{bottom:auto;top:140%}
+ .fn-pop a{color:#9fd3e6}
+ .fnwrap:hover .fn-pop{display:block}
+
+ /* notes apparatus */
+ .notes{border-top:1px solid var(--rule);margin-top:1em}
+ .note{
+ display:flex;gap:.7em;padding:.55em 0;border-bottom:1px solid #ece6da;
+ font-size:.95rem;line-height:1.55;
+ }
+ .note .num{color:var(--accent);font-weight:700;min-width:2.1em;text-align:right}
+ .note .txt{flex:1}
+ .note:target{background:var(--hl);border-radius:5px;padding-left:.5em;padding-right:.5em}
+ .back{color:var(--muted);text-decoration:none;font-weight:700;margin-left:.3em}
+
+ .closing{
+ font-family:"Helvetica Neue",Arial,sans-serif;font-weight:700;
+ text-align:center;letter-spacing:.06em;color:var(--accent);
+ font-size:1.1rem;margin:2.4em 0 1em;
+ }
+
+ /* corpus nav */
+ nav.pager{
+ display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+ border-top:3px double var(--rule);margin-top:48px;padding-top:22px;
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ }
+ nav.pager a{display:block;max-width:46%}
+ nav.pager .dir{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+ nav.pager .ttl{font-size:1.02rem;color:var(--link);font-weight:600}
+ nav.pager .next{text-align:right;margin-left:auto}
+
+ footer{
+ border-top:1px solid var(--rule);margin-top:34px;padding:22px 0 56px;
+ font-family:"Helvetica Neue",Arial,sans-serif;font-size:.86rem;color:var(--muted);line-height:1.6;
+ }
+ footer a{color:var(--link)}
+ .attrib{margin:0 0 .4em}
+
+ @media(max-width:760px){
+ .ya-old{font-size:17px}
+ .wrap{width:100%;padding:0 18px}
+ h1{font-size:1.9rem}
+ h2{font-size:1.4rem}
+ .body p{text-align:left;hyphens:none}
+ nav.pager a{max-width:100%}
+ }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №12FA</span>
+<div class="wrap">
+
+ <div class="crumbs ui">
+ <a href="../index.html">Главная</a><span>/</span><a href="../shoshana/index.html">Роза Среди Шипов</a>
+ </div>
+
+ <header class="lead" id="top">
+ <h1>Праведник, оживляющий Миры<a class="audio-link" href="https://t.me/art_017_tracks/593" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+ <p class="subtitle">Чем помогает Творец, Свят Благословен Он, мужчине, каббалисту, в его духовной работе</p>
+ </header>
+
+ <details class="toc" open>
+ <summary class="ui">Содержание</summary>
+ <ol>
+ <li><a href="#s1">Помощь от обратного</a></li>
+ <li><a href="#s2">Мужчиной и Женщиной Он создал Их</a></li>
+ <li><a href="#s3">Праведник, оживляющий Миры</a></li>
+ <li><a href="#notes">Примечания</a></li>
+ </ol>
+ </details>
+
+ <div class="epi">
+ <p>«Сказал Господь Бог: “Нехорошо человеку быть одному. Сотворю для него помощника, ему под стать ( – Я сделаю ему помощника против него)”»<span class="fnwrap"><a class="fn" id="r-1" href="#n-1"><sup>1</sup></a><span class="fn-pop">Моисей, Тора, Берешит, 2: 18 — <a href="http://www.torah.booknik.ru/bereshit/bereshit/glava2/" target="_blank" rel="noopener">torah.booknik.ru</a></span></span></p>
+ </div>
+
+ <section>
+ <h2 id="s1"><a href="#top">Помощь от обратного</a></h2>
+ <div class="secmeta ui">Написано: Понедельник, 15 Февраля 2021 г.</div>
+
+ <div class="music-label">Рекомендуемая музыка:</div>
+ <div class="track">
+ <button class="track-head ui" type="button" onclick="toggleTrack(this)">
+ <span class="track-arrow">▶</span>
+ <span class="track-name">Крематорий — Мусорный ветер</span>
+ <a class="track-ext" href="https://www.youtube.com/watch?v=n3KhG_FUGHE" target="_blank" rel="noopener" onclick="event.stopPropagation">↗</a>
+ </button>
+ <div class="track-body" data-embed="n3KhG_FUGHE"></div>
+ </div>
+
+ <div class="body">
+ <p>Что хорошо человеку, “по жизни” стремящемуся к раскрытию Творца, то хорошо и Творцу, а что не хорошо (у нас нет оснований не доверять “мнению” Моисея в том, что касается “духовной работы”) – то не хорошо и Творцу, со всеми (для человека, а не для Творца, разумеется), “вытекающими”. Как недвусмысленно следует из текста Торы, речь идет о женщине, которая разделит с человеком (мужчиной) все тяготы и прелести их общего духовного Пути (вполне возможно, что и “материального” тоже, но об этом Тора ничего не говорит, если мы, конечно же, ее рассматриваем как ученики Каббалы, а не как простые верующие).</p>
+
+ <p>Принцип “помощи от обратного” следует изучить и понять как можно тщательнее, поскольку он будет иметь огромное значение для человека на всем протяжении его Пути, если только человек решится переступить через собственные страхи и взять свою судьбу в свои руки осознанно и бескомпромиссно, желая доставить этим наслаждение Творцу, то есть, раскрыв Его совершенство, и вытекающее из него духовное знание и наслаждение, самому себе, позволяя его получить и почувствовать “творениям этого мира”<span class="fnwrap"><a class="fn" id="r-2" href="#n-2"><sup>2</sup></a><span class="fn-pop">В мирском обществе принято за правило, что польза другим от действий человека, является “приятным дополнением” к той пользе от своих действий, которую человек извлекает для самого себя. В “духовной работе”, все в точности наоборот: польза самому человеку от его действий и прикладываемых им усилий на Пути, является “приятным дополнением” к той пользе, которую они приносят другим людям, с которыми человек совсем не обязательно хоть раз в жизни оказывается знаком лично</span></span>.</p>
+
+ <p>У этого понятия, как и вообще у всего на Свете, а на духовном Пути – особенно, есть два различных уровня понимания и две различные логики происхождения, которые, не смотря на то, что происходят из одинакового “духовного корня”, отличаются друг от друга, относительно человека, получающего опыт жизни “этого мира”, что называется, “как восток от запада”. Первая форма “помощи от обратного” касается ситуации, когда мужчина и женщина оказываются связаны природой “этого мира”, в первую очередь, а уже во вторую (и совсем не обязательно) – их схожей “мировоззренческой” самоидентификацией как учеников каббалистов. Сюда входит как случай вступления человеком в отношения с женщиной до того, как он принял решение всерьез заниматься “духовной работой”, так и случай вступления в отношения уже во время этого, но без предварения намерением доставить этим наслаждение Творцу, в первую очередь, а самому себе или партнеру – только во вторую, если это будет угодно Творцу<span class="fnwrap"><a class="fn" id="r-3" href="#n-3"><sup>3</sup></a><span class="fn-pop">Причем, это условие отношений должно быть “само собой разумеющимся” не только для мужчины, которому свойственно “витать в облаках”, не отражая реальности с ним происходящего, в особенности, когда речь идет о женщинах, - но и, в одинаковой мере и степени, для его “второй половинки”, с которой они, предположительно, выстраивают “духовный союз” по законам Пути Творца</span></span>. В этом случае их положение относительно друг друга, в терминах Науки Каббала называется “спиной к спине” (ахор бе ахор), что означает, что они “по жизни” смотрят, по существу, “в разные стороны”, хотя и находятся в непосредственной близости друг с другом (понятие “спины” здесь не имеет отношения к их физическим телам). Польза от отношений такого рода для человека будет заключаться (если он удостоится продолжить Путь дальше “разделительной линии”, называемой, как правило, “точкой невозврата”, или, по-научному, “махсом” - условная граница, за которой для человека заканчивается “игра в духовное” и начинается “игра на полном серьезе”) в том, что посредством завершения этих отношений (не обязательно, но чаще всего, физически, но обязательно - внутренне, по сути испытываемых друг к другу чувств и намерений), женщина поможет человеку завершить не только их, но вместе с ними – отношения человека с “обществом этого мира” в принципе, происходящих по законам и правилам “этого мира”, и начать такие отношения со всем остальным миром, кроме ближнего Круга единомышленников, которые будут происходить исключительно по законам и правилам Пути Творца.</p>
+
+ <p>Не стоит недооценивать значение этой помощи для человека, по факту, оно – огромно. Мы всегда, к сожалению, недооцениваем помощь, получаемую от Творца в “обратном виде”, даже тогда, когда нам уже становится очевидной ее истинное значение и природа, т.е. когда помощь уже получена, и практического значения для самого себя от открывшегося ему понимания человек уже не испытывает. Чем дальше человек идет по этому Пути, тем более конкретно перед ним открывается простая истина, достоверная для всех и всегда, в 100% наблюдаемых случаев: единственное, что мешает человеку, вне зависимости от обстоятельств его существования, имеющегося у него опыта, особенностей характера, знаний, дисциплинированности, и т.д., незамедлительно, то есть, прямо “здесь и сейчас”, раскрыть Творца, и быть способным ощутить, познать и совершить все то, о чем он читает и размышляет в процессе своих занятий Каббалой, это - придавливающие его к “Земле”, не дающие ему подняться ни на волос “выше знания и понимания этого мира”, то есть в духовное, - мертвецки прочные узы привычек, увесистые гири привязанностей и плотные шоры стереотипов, которые он тащит на себе, пыхтя и надрываясь, но не решаясь бросить, потому что ему жалко самого себя, из состояния бытия социально - активной личности этого мира, в состояние бытия, к которому он хочет придти посредством духовной работы в методике и Науке Каббала.</p>
+
+ <p>Ваш покорный слуга, к примеру, долго недоумевал, как могло его на десять лет “выкинуть” из Каббалы, - уже после того, как он “постиг состояние катнута” во всей полноте и важности, то есть, достиг состояния “полного праведника”, способного использовать свое “злое начало” во благо духовной работы, наслаждая Творца в тех ситуациях, в которых другие (он сам за полгода до этого, например) опускают руки и смиряются с “падением”?... Эзер кенегдо, к которому я был тогда очень привязан, и которое, как я только сейчас, - пройдя Милостью Творца через ад и обратно в “десятку”, чтобы никогда уже в этот Ад не возвращаться<span class="fnwrap"><a class="fn" id="r-4" href="#n-4"><sup>4</sup></a><span class="fn-pop">Если только это не будет желанием Творца, а я, почему-то, уверен, что никогда уже не будет, потому что ни мне, ни Ему, ни, тем более, другим “идущим”, хотеть этого незачем</span></span>, - ясно понимаю, оглядываясь назад, с четкостью часового механизма “швейцарских часов”, - когда я завершил получение определенной ступени своего опыта, и пришло время завершать получение другой, еще более объемлющей, включающей в себя все мое “сознательное” существование среди людей в своей жизни, - перевела “стрелки” моей судьбы прямо на ходу паровоза, и я уехал вместе с ней за 2000 км от места, где занимались Каббалой, уже близкие и любимые мной к тому времени, ученики каббалистов, в место, в котором серьезно заниматься в обществе “духовного типа” не было никакой возможности, как в виду его принципиального отсутствия, так и в виду жизненных обстоятельств. Лишь пройдя через огонь, воду и медные трубы, раскрыв Творца, и встретив, благодаря этому, новую, уже “настоящую”, любовь всей своей жизни<span class="fnwrap"><a class="fn" id="r-5" href="#n-5"><sup>5</sup></a><span class="fn-pop">Которая оказалась прирожденной каббалисткой, созданной Творцом, чтобы оказывать помощь идущим по этому Пути, совершенно не заботясь о том, что ей лично будет от этого</span></span><span class="fnwrap"><a class="fn" id="r-6" href="#n-6"><sup>6</sup></a><span class="fn-pop">Если бы я жил на 100 лет позже, уже имея “под рукой” подробное описание роли, выполняемой женщиной “этого мира” в духовной работе мужчины-каббалиста, я бы своим отношением к Его подаркам на Пути (да и к самой женщине, выполнявшей в моей жизни роль “помощницы” ахор бе ахор, с которой я к тому времени навсегда расстался) доставлял Ему больше радости, поскольку радовался бы сам, и радовал “ближних”, понимая, как все мудро и совершенно в мире и человеке Творцом устроено. Это, наверное, основная причина, побудившая меня к столь подробному описанию своего личного опыта</span></span>, я удостоился действительно не грешить перед Творцом в том, что касается моих мыслей о собственном Пути на длительном, внешне “пустом”, и казавшимся низменным, его отрезке, между началом и продолжением Пути ученика Каббалы<span class="fnwrap"><a class="fn" id="r-7" href="#n-7"><sup>7</sup></a><span class="fn-pop">Пути Высшего управления Творцом действительностью, в том, что касается процессов, происходящих с Единой Душой Адама на протяжении времени “этого мира”, более объемлющего, чем жизнь самого человека, небезосновательно остаются скрытыми от нас, даже тогда, когда мы удостаиваемся раскрытия Его самых сокровенных тайн, временно ощущая себя на равных с великими мудрецами Торы. Это “нормально”, однако, как говорится, “чем не вариант” – вдруг мне предстоит родиться в этом мире снова (то есть, очевидно, уже не “мне”, но, в некотором роде, следующей ступени той же духовной сущности), и тогда мне “как воздух” потребуется, чтобы все существенные моменты получаемого мной “тогдашним” опыта были описаны мой “сегодняшним” подробно и доступно, чтобы не приходилось тратить драгоценное время на приобретение значимой для принятия решений информации прохождением уже “освоенного” опыта в свойствах “от обратного”</span></span><span class="fnwrap"><a class="fn" id="r-8" href="#n-8"><sup>8</sup></a><span class="fn-pop">Хотя это намерение разуму и представляется однозначно “эгоистическим”, на самом деле, оно таковым не является, поскольку, на данный момент, отсутствуют условия, которые могли бы сделать для меня возможным получение знания или чувства, подтверждающего обоснованность высказанного предположения практически. Намерение, в основе которого лежит использование “веры выше знания”, как имеющегося у человека Кли (инструмента духовного Пути), не является эгоистическим по определению. Однако, одного такого намерения недостаточно, чтобы действие с ним имело “подобие свойств Творцу” – а для этого нужно, чтобы человек поставил перед собой соответствующую цель, сопровождающуюся этим намерением, исходя из желания доставить наслаждение Творцу и творениям, еще до того, как к нему пришло “рациональное” осмысление предполагаемой пользы того же самого действия, даже “ради себя”.</span></span>.</p>
+ </div>
+ </section>
+
+ <section>
+ <h2 id="s2"><a href="#top">Мужчиной и Женщиной Он создал Их</a></h2>
+
+ <div class="epi">
+ <p>27: И сотворил Бог человека по Своему образу, по образу Бога сотворил Он их, сотворил их мужчиной и женщиной.</p>
+ <p>28: Бог благословил их — сказал им Бог: “Плодитесь и размножайтесь, заполняйте землю и овладевайте ею. Владычествуйте над рыбами морскими, над птицами небесными и над всеми зверями, снующими по земле”<span class="fnwrap"><a class="fn" id="r-9" href="#n-9"><sup>9</sup></a><span class="fn-pop">Моисей, Тора, Берешит, 1:</span></span></p>
+ </div>
+
+ <div class="music-label">Рекомендуемая музыка:</div>
+ <div class="track">
+ <button class="track-head ui" type="button" onclick="toggleTrack(this)">
+ <span class="track-arrow">▶</span>
+ <span class="track-name">НЮША — Цунами</span>
+ <a class="track-ext" href="https://www.youtube.com/watch?v=84kbG2ExdZs" target="_blank" rel="noopener" onclick="event.stopPropagation">↗</a>
+ </button>
+ <div class="track-body" data-embed="84kbG2ExdZs"></div>
+ </div>
+
+ <div class="body">
+ <p>На тему отношений "паним бе паним" (лицом к лицу), мы продолжим разговор в Группе ФБ "Круг Жизни"<span class="fnwrap"><a class="fn" id="r-10" href="#n-10"><sup>10</sup></a><span class="fn-pop">Группа ФБ "Круг Жизни" — <a href="https://www.facebook.com/groups/bneiadam/" target="_blank" rel="noopener">facebook.com/groups/bneiadam</a></span></span>.
+ На данный момент рекомендуем Вам ознакомиться (а то и прокомментировать) c рядом<span class="fnwrap"><a class="fn" id="r-11" href="#n-11"><sup>11</sup></a><span class="fn-pop">Подборка статей на тему «Мужчиной и Женщиной Он создал их» — </span></span> уже написанных нами статей на эту тему
+ <span class="fnwrap"><a class="fn" id="r-12" href="#n-12"><sup>12</sup></a><span class="fn-pop">Письмо подруге (категория 18+)</span></span>
+ <span class="fnwrap"><a class="fn" id="r-13" href="#n-13"><sup>13</sup></a><span class="fn-pop">"Мать одалживает Свои одежды дочери"...</span></span>
+ <span class="fnwrap"><a class="fn" id="r-14" href="#n-14"><sup>14</sup></a><span class="fn-pop">КТО ОНА, ...?</span></span>
+ <span class="fnwrap"><a class="fn" id="r-15" href="#n-15"><sup>15</sup></a><span class="fn-pop">Желание получать ради отдачи...</span></span>
+ <span class="fnwrap"><a class="fn" id="r-16" href="#n-16"><sup>16</sup></a><span class="fn-pop">Срываем покровы часть 1</span></span>
+ <span class="fnwrap"><a class="fn" id="r-17" href="#n-17"><sup>17</sup></a><span class="fn-pop">Срываем покровы, ч.2</span></span>
+ <span class="fnwrap"><a class="fn" id="r-18" href="#n-18"><sup>18</sup></a><span class="fn-pop">Срываем покровы, часть 3</span></span>
+ <span class="fnwrap"><a class="fn" id="r-19" href="#n-19"><sup>19</sup></a><span class="fn-pop">Срываем покровы: часть последняя</span></span>
+ <span class="fnwrap"><a class="fn" id="r-20" href="#n-20"><sup>20</sup></a><span class="fn-pop">Ценность и смысл каждой человеческой жизни...</span></span>
+ <span class="fnwrap"><a class="fn" id="r-21" href="#n-21"><sup>21</sup></a><span class="fn-pop">"Возлюби ближнего своего, как самого себя"...</span></span>
+ <span class="fnwrap"><a class="fn" id="r-22" href="#n-22"><sup>22</sup></a><span class="fn-pop">Зачем Творец разбивает Кли</span></span>
+ <span class="fnwrap"><a class="fn" id="r-23" href="#n-23"><sup>23</sup></a><span class="fn-pop">Распространение "взрослой", т.е. уровня гадлут...</span></span>
+ <span class="fnwrap"><a class="fn" id="r-24" href="#n-24"><sup>24</sup></a><span class="fn-pop">Как я могу понять, что мои усилия, ...?</span></span>
+ <span class="fnwrap"><a class="fn" id="r-25" href="#n-25"><sup>25</sup></a><span class="fn-pop">Мужчина - желание отдавать. Женщина - ....</span></span>
+ <span class="fnwrap"><a class="fn" id="r-26" href="#n-26"><sup>26</sup></a><span class="fn-pop">ЕСТЬ ЗОАР И ЕСТЬ РОЗА</span></span>
+ <span class="fnwrap"><a class="fn" id="r-27" href="#n-27"><sup>27</sup></a><span class="fn-pop">Письмо другу (категория 18+)</span></span>
+ <span class="fnwrap"><a class="fn" id="r-28" href="#n-28"><sup>28</sup></a><span class="fn-pop">"Образ Всесильного" Человека Говорящего</span></span></p>
+
+ <p class="shout">Сделаем и услышим!</p>
+
+ <div class="added">
+ <span class="lbl ui">Дополнено · 2022.03.07</span>
+ <p>Благодарю Тебя, Господь, за Милость Твою к рабу Твоему, за Твое Абсолютное и Совершенное Непостижимое, но практически осуществимое Тобой над человеком, находящимся с Тобой в сотрудничестве, Твоей Благословенной Милостью, Мудрое и Справедливое, всеми возможными и невозможными видами Совершенства, Мудрости и Справедливости, равно как и всех прочих существующих и не существующих в человеческом языке качеств, свойств, и эпитетов Полноты, Цельности, Наполненности и Осуществленности, Высшее Святое Личное Управление Твоим рабом, и его, Милостью Твоей, возлюбленной, Твоей Благословенной Возлюбленной, как Один Человек с Одним Сердцем, Мужчиной и Женщиной Ты создал Их, и ТЕБЕ ЭТО ПОНРАВИЛОСЬ (а уж Им то и подавно, тут вообще не о чем говорить), посредством Которого Ты даруешь Свое Благословение и Благоволение человеку "этого мира", получающему опыт Жизни посредством нахождения с Тобой в сотрудничестве на Твоем Благословенном Пути Воина^Исраэль Твоей Благословенной Милостью, позволяя ему последовательно раскрывать и одновременно "получая, отдавать" это Благословение явным и открытым образом в "Келим" "этого", и "Будущего" Твоего благословенного Мира, равно как и всех других созданных Тобой во Имя и во Славу Твоих Благословенных Миров и их Келим, служащих Тебе посредством чувственного восприятия жизни из Любви к Свободе, "здесь и сейчас", позволяя молиться Тебе в форме "молитвы Духовного Общества" и "Единого Адама", Мужчиной и Женщиной Ты создал Их, и получать в облачении вышеназванных и не названных Твоих благословенных Келим Твое Святое наполнение Твоим Животворящим и Наполняющим создаваемые Тобой Миры и Души, Светом Жизни Любви, Свободы и Мудрости, облекаясь Твоей Благословенной Милостью намерением "не ради себя", дарующим благословенную форму Духовной Веры, становящуюся Ключом, открывающим "взрослую" ступень "Гадлут" человека и Круга Жизни, посредством собираемых Тобой духовных Воинов^Исраэль, единомышленников, стремящихся доставить Тебе наслаждение, доставляя Твое наслаждение Духовной Половой Любви создаваемым Твоим творениям "этого", "будущего", и любого иного Твоего Благословенного Мира, посредством его "получения" с ними в "хитколелуте", Мужчиной и Женщиной Ты создал Их, И НИКТО ИЗ НИХ БОЛЬШЕ НЕ ПРИТВОРЯЛСЯ, ЧТО ОН НЕ ЗНАЕТ, ЗНАЕТ ОН ИЛИ НЕ ЗНАЕТ, ЧТО ЕМУ И ЕЙ ЭТО ДЕЙСТВИТЕЛЬНО НРАВИТСЯ, ПОТОМУ ЧТО ЭТО НРАВИТСЯ ТЕБЕ, И ОНИ ЭТО ЗНАЮТ, ПОСКОЛЬКУ ИМЕЮТ ЛИЧНОЕ ОТНОШЕНИЕ К ОБСУЖДАЕМОЙ СТУПЕНИ И НЕ МОГУТ НЕ ЗНАТЬ ТОГО, ЧТО ТЫ С НЕЙ ДЕЛАЕШЬ ТЕМ ГЛАЗОМ, КОТОРЫЙ НЕ ВИДЕЛ И НЕ УВИДИТ ВСЕСИЛЬНОГО, НО ЛИШЬ ТЕБЯ. Да будет так, как хочешь Ты, чтобы было, вовеки и воистину, и да случится с Твоими творениями, благословенными Тобой и совершенными, поскольку созданы Совершенным Благословенным Творцом Истины вовеки, только самое-самое-самое-самое-самое-самое клевое, сильное, личное, теплое и трепетное, что, случившись, порвет их "этот мир" в клочья Твоей Благословенной Милостью, и даст "собрать" из его "ошметков" новый, гораздо более Реальный, Настоящий, Правдивый, Благой и Совершенный, чем кто-либо из действующих лиц мог подумать, представить, захотеть, вознамериться и осмелиться СОЗДАТЬ, МЕЧТАЯ О ТВОЕЙ ЛЮБВИ ПО^НАСТОЯЩЕМУ, ощущая эту Любовь "здесь и сейчас" открыто и явно, когда либо ранее. СДЕЛАЕМ И УСЛЫШИМ, УСЛЫШИМ И СДЕЛАЕМ ВСЕ НАОБОРОТ, ПОЛУЧИВ В ТОЧНОСТИ ВСЕ ТО, ЧТО И ТРЕБОВАЛОСЬ!</p>
+ <div class="seealso ui">См. также: Дано Творцу право Любить; Зеир Арихович Анпин — </div>
+ </div>
+
+ <p class="tags ui">Будущий мир<span>·</span>Круг Жизни<span>·</span>Зеир Арихович Анпин</p>
+ </div>
+ </section>
+
+ <section>
+ <h2 id="s3"><a href="#top">Праведник, оживляющий Миры</a></h2>
+
+ <div class="epi">
+ <p>91: Сказал он в ответ: «И Бнайяу, сын Йеояды бен Иш Хай, Рав Пэалим, Микавцеэль» – это высказывание приводится, чтобы обратить наше внимание на высшие тайны Торы. И Имя Бнайяу, сына Йеояды, указывает на скрытую мудрость. Это указывает на скрытие, которое вызвано этим Именем. «Бен Иш Хай (сын человека живого)» – это Праведник, оживляющий Миры. «Рав Пэалим (многодействующий)» – т.е. Он Властелин всех деяний и всех высших воинств, так как все они исходят от Него. Он называется «Творец воинств», будучи знамением во всех Его воинствах, – знаменит Он и величественней всех.<span class="fnwrap"><a class="fn" id="r-29" href="#n-29"><sup>29</sup></a><span class="fn-pop">РАШБИ, Зоар, Погонщик ослов, п.91</span></span></p>
+ </div>
+
+ <div class="body">
+ <p>Жизненная Сила человека (Свет его Души) всегда<span class="fnwrap"><a class="fn" id="r-30" href="#n-30"><sup>30</sup></a><span class="fn-pop">То есть, в каждый отдельно взятый момент, или период приобретения им определенного жизненного опыта… (полный текст — в примечании 30 ниже)</span></span><span class="fnwrap"><a class="fn" id="r-31" href="#n-31"><sup>31</sup></a><span class="fn-pop">В Книге Зоар первый уровень опыта называется "НАРАН"… (полный текст — в примечании 31 ниже)</span></span><span class="fnwrap"><a class="fn" id="r-32" href="#n-32"><sup>32</sup></a><span class="fn-pop">Рош Арих Анпин, Атик Йомин, Свят Благословен Он… (полный текст — в примечании 32 ниже)</span></span><span class="fnwrap"><a class="fn" id="r-33" href="#n-33"><sup>33</sup></a><span class="fn-pop">Да будет так по Воле Его Святой… (полный текст — в примечании 33 ниже)</span></span> подчинена одной, единственной и единой, "высшей", так или иначе, в его собственном, "сакральном" внутреннем ощущении, жизненной Цели. Даже когда самому человеку сложно заподозрить за собой ее наличие, - этот порядок является следствием "духовных корней", поэтому человеческое мнение здесь не учитывается.</p>
+
+ <p class="shout">ТОЛЬКО ВМЕСТЕ, МЫ - СИЛА!</p>
+ </div>
+ </section>
+
+ <section>
+ <h2 id="notes"><a href="#top">Примечания</a></h2>
+ <div class="notes">
+
+ <div class="note" id="n-1"><span class="num">1</span><span class="txt">Моисей, Тора, Берешит, 2: 18 — <a href="http://www.torah.booknik.ru/bereshit/bereshit/glava2/" target="_blank" rel="noopener">torah.booknik.ru/bereshit/bereshit/glava2</a> <a class="back" href="#r-1">↩</a></span></div>
+
+ <div class="note" id="n-2"><span class="num">2</span><span class="txt">В мирском обществе принято за правило, что польза другим от действий человека, является “приятным дополнением” к той пользе от своих действий, которую человек извлекает для самого себя. В “духовной работе”, все в точности наоборот: польза самому человеку от его действий и прикладываемых им усилий на Пути, является “приятным дополнением” к той пользе, которую они приносят другим людям, с которыми человек совсем не обязательно хоть раз в жизни оказывается знаком лично <a class="back" href="#r-2">↩</a></span></div>
+
+ <div class="note" id="n-3"><span class="num">3</span><span class="txt">Причем, это условие отношений должно быть “само собой разумеющимся” не только для мужчины, которому свойственно “витать в облаках”, не отражая реальности с ним происходящего, в особенности, когда речь идет о женщинах, - но и, в одинаковой мере и степени, для его “второй половинки”, с которой они, предположительно, выстраивают “духовный союз” по законам Пути Творца <a class="back" href="#r-3">↩</a></span></div>
+
+ <div class="note" id="n-4"><span class="num">4</span><span class="txt">Если только это не будет желанием Творца, а я, почему-то, уверен, что никогда уже не будет, потому что ни мне, ни Ему, ни, тем более, другим “идущим”, хотеть этого незачем <a class="back" href="#r-4">↩</a></span></div>
+
+ <div class="note" id="n-5"><span class="num">5</span><span class="txt">Которая оказалась прирожденной каббалисткой, созданной Творцом, чтобы оказывать помощь идущим по этому Пути, совершенно не заботясь о том, что ей лично будет от этого <a class="back" href="#r-5">↩</a></span></div>
+
+ <div class="note" id="n-6"><span class="num">6</span><span class="txt">Если бы я жил на 100 лет позже, уже имея “под рукой” подробное описание роли, выполняемой женщиной “этого мира” в духовной работе мужчины-каббалиста, я бы своим отношением к Его подаркам на Пути (да и к самой женщине, выполнявшей в моей жизни роль “помощницы” ахор бе ахор, с которой я к тому времени навсегда расстался) доставлял Ему больше радости, поскольку радовался бы сам, и радовал “ближних”, понимая, как все мудро и совершенно в мире и человеке Творцом устроено. Это, наверное, основная причина, побудившая меня к столь подробному описанию своего личного опыта <a class="back" href="#r-6">↩</a></span></div>
+
+ <div class="note" id="n-7"><span class="num">7</span><span class="txt">Пути Высшего управления Творцом действительностью, в том, что касается процессов, происходящих с Единой Душой Адама на протяжении времени “этого мира”, более объемлющего, чем жизнь самого человека, небезосновательно остаются скрытыми от нас, даже тогда, когда мы удостаиваемся раскрытия Его самых сокровенных тайн, временно ощущая себя на равных с великими мудрецами Торы. Это “нормально”, однако, как говорится, “чем не вариант” – вдруг мне предстоит родиться в этом мире снова (то есть, очевидно, уже не “мне”, но, в некотором роде, следующей ступени той же духовной сущности), и тогда мне “как воздух” потребуется, чтобы все существенные моменты получаемого мной “тогдашним” опыта были описаны мой “сегодняшним” подробно и доступно, чтобы не приходилось тратить драгоценное время на приобретение значимой для принятия решений информации прохождением уже “освоенного” опыта в свойствах “от обратного” <a class="back" href="#r-7">↩</a></span></div>
+
+ <div class="note" id="n-8"><span class="num">8</span><span class="txt">Хотя это намерение разуму и представляется однозначно “эгоистическим”, на самом деле, оно таковым не является, поскольку, на данный момент, отсутствуют условия, которые могли бы сделать для меня возможным получение знания или чувства, подтверждающего обоснованность высказанного предположения практически. Намерение, в основе которого лежит использование “веры выше знания”, как имеющегося у человека Кли (инструмента духовного Пути), не является эгоистическим по определению. Однако, одного такого намерения недостаточно, чтобы действие с ним имело “подобие свойств Творцу” – а для этого нужно, чтобы человек поставил перед собой соответствующую цель, сопровождающуюся этим намерением, исходя из желания доставить наслаждение Творцу и творениям, еще до того, как к нему пришло “рациональное” осмысление предполагаемой пользы того же самого действия, даже “ради себя”. <a class="back" href="#r-8">↩</a></span></div>
+
+ <div class="note" id="n-9"><span class="num">9</span><span class="txt">Моисей, Тора, Берешит, 1: <a class="back" href="#r-9">↩</a></span></div>
+
+ <div class="note" id="n-10"><span class="num">10</span><span class="txt">Группа ФБ "Круг Жизни" — <a href="https://www.facebook.com/groups/bneiadam/" target="_blank" rel="noopener">facebook.com/groups/bneiadam</a> <a class="back" href="#r-10">↩</a></span></div>
+
+ <div class="note" id="n-11"><span class="num">11</span><span class="txt">Подборка статей на тему «Мужчиной и Женщиной Он создал их» — <a class="back" href="#r-11">↩</a></span></div>
+
+ <div class="note" id="n-12"><span class="num">12</span><span class="txt">Письмо подруге (категория 18+) <a class="back" href="#r-12">↩</a></span></div>
+ <div class="note" id="n-13"><span class="num">13</span><span class="txt">"Мать одалживает Свои одежды дочери"... <a class="back" href="#r-13">↩</a></span></div>
+ <div class="note" id="n-14"><span class="num">14</span><span class="txt">КТО ОНА, ...? <a class="back" href="#r-14">↩</a></span></div>
+ <div class="note" id="n-15"><span class="num">15</span><span class="txt">Желание получать ради отдачи... <a class="back" href="#r-15">↩</a></span></div>
+ <div class="note" id="n-16"><span class="num">16</span><span class="txt">Срываем покровы часть 1 <a class="back" href="#r-16">↩</a></span></div>
+ <div class="note" id="n-17"><span class="num">17</span><span class="txt">Срываем покровы, ч.2 <a class="back" href="#r-17">↩</a></span></div>
+ <div class="note" id="n-18"><span class="num">18</span><span class="txt">Срываем покровы, часть 3 <a class="back" href="#r-18">↩</a></span></div>
+ <div class="note" id="n-19"><span class="num">19</span><span class="txt">Срываем покровы: часть последняя <a class="back" href="#r-19">↩</a></span></div>
+ <div class="note" id="n-20"><span class="num">20</span><span class="txt">Ценность и смысл каждой человеческой жизни... <a class="back" href="#r-20">↩</a></span></div>
+ <div class="note" id="n-21"><span class="num">21</span><span class="txt">"Возлюби ближнего своего, как самого себя"... <a class="back" href="#r-21">↩</a></span></div>
+ <div class="note" id="n-22"><span class="num">22</span><span class="txt">Зачем Творец разбивает Кли <a class="back" href="#r-22">↩</a></span></div>
+ <div class="note" id="n-23"><span class="num">23</span><span class="txt">Распространение "взрослой", т.е. уровня гадлут... <a class="back" href="#r-23">↩</a></span></div>
+ <div class="note" id="n-24"><span class="num">24</span><span class="txt">Как я могу понять, что мои усилия, ...? <a class="back" href="#r-24">↩</a></span></div>
+ <div class="note" id="n-25"><span class="num">25</span><span class="txt">Мужчина - желание отдавать. Женщина - .... <a class="back" href="#r-25">↩</a></span></div>
+ <div class="note" id="n-26"><span class="num">26</span><span class="txt">ЕСТЬ ЗОАР И ЕСТЬ РОЗА <a class="back" href="#r-26">↩</a></span></div>
+ <div class="note" id="n-27"><span class="num">27</span><span class="txt">Письмо другу (категория 18+) <a class="back" href="#r-27">↩</a></span></div>
+ <div class="note" id="n-28"><span class="num">28</span><span class="txt">"Образ Всесильного" Человека Говорящего <a class="back" href="#r-28">↩</a></span></div>
+
+ <div class="note" id="n-29"><span class="num">29</span><span class="txt">РАШБИ, Зоар, Погонщик ослов, п.91 <a class="back" href="#r-29">↩</a></span></div>
+
+ <div class="note" id="n-30"><span class="num">30</span><span class="txt">То есть, в каждый отдельно взятый момент, или период приобретения им определенного жизненного опыта, а опыт человек продолжает приобретать всегда - в этом тоже заключена важная часть "духовного" содержания наших жизней. На получении определенного опыта человеком, процесс его приобретения не заканчивается, т.к. сразу после этого, и благодаря этому, человек переходит "в следующий класс", где он будет учиться этот опыт "отдавать", то есть, помогать другим людям приобретать его, также, как он сам приобрел его в прошлом, Милостью Благословенного. А после того, как он успешно освоил и этот этап, он "переходит" в следующий "класс", "последний", относительно логики "этого мира": человек сам становится неотъемлемой частью "духовного" механизма, единой "квантово - семантической" системы - души человечества "Адам Ришон", благодаря которому получение и передача этого опыта становится в последующем для всех людей тем, что ими приобретается "автоматически" в процессе прохождения социализации, а не чем-то таким, чему человек должен уделять особое время и внимание осознанно <a class="back" href="#r-30">↩</a></span></div>
+
+ <div class="note" id="n-31"><span class="num">31</span><span class="txt">В Книге Зоар первый уровень опыта называется "НАРАН", души праведников этого мира, которые "поднимаются" в Мир Исправления, где они проходят обучение тому, как человек приобретает "подобие свойств Творцу", то есть отпечатывают в себе матрицу определенного опыта, позволяющего идентифицировать себя и действовать в "этом мире" определенным образом, который подразумевает приобретаемое "подобие". Эта ступень уже называется "ЗОН", на которую "облачаются" НАРАН, "поднимаясь" из "миров БЕА" в Мир Ацилут. Сами же ЗОН, благодаря этому, обретают "Гадлут" ступени "ЦЕЛЕМ Элоким" ("Образа Всесильного" Книги Зоар), поднимаясь сами в своем "подобии свойств" со ступени "пророков" (НЕХИ) на ступень АВИ, "праотцов" (ХАГАТ). Малхут Мира Ацилут, последняя сфира, Нуква всего Зеир Анпина (ХАГАТ+НЕХИ), является "средней линией", которая "поднимается и опускается" со ступени на ступень в процессе своего роста и развития "от своего образования и до завершения большого состояния (Гадлут), длящегося на протяжении 6000 лет" (Зоар, Роза). Все различие между этими тремя ступенями (ХАГАТ = АВИ, НЕХИ = ЗОН де АВИ, и Нуква = НАРАН из миров БЕА) заключается в том, какую позицию занимает тот или иной человек, или совокупность людей, соединенных посредством процесса приобретения опыта (раскрытия Творца творениями "этого мира"), в Единой, и, по сути, органически взаимосвязанной внутри себя, не делящейся на "первых и последних", кроме как в сознании самого человека, которое постоянно меняется по мере прохождения этого процесса по 4 стадиям постижения ими своего собственного Святого Имени Творца АВАЯ. Относительно Самого Творца, Света Бесконечности ГАР Хохма, светящего "над экраном", то есть, не облачающегося "Сам по Себе" в "Келим этого мира", но производящего в них, и вместе с ними, всю производимую ими работу, все 3 составляющие Кли - "Бина, Тиферет, Малхут" - ЗОН и АВИ мира Ацилут, включающиеся друг в друга, вместе со включенными в них "душами праведников", являются Единым Целым, называющимся "6 дней начала творения", включенные в 7-й день, Арих Анпин, Единый Кетер Мира Ацилут, который "скрыт и упрятан для праведников в будущем мире", поскольку именно праведники, последняя, и самая важная, ступень процесса АВАЯ, сами должны раскрыть его, посредством приобретения ими опыта "сотворения Мира из ничего Творцом", поднимаясь на ступень Творца, то есть, "облачая Арих Анпин" и его ЗАТ, ЦЕЛЕМ Элоким, как Захар и Нуква, Мужчина и Женщина, являющиеся Единым и неделимым Адамом, называющимся "Элоким", "Восходящие" и "Нисходящие" по лестнице духовных миров, чтобы доставить этим наслаждение Творцу и творениям, находящиеся "в едином соединении и в единой связи" с остальными "праведниками этого мира", чтобы "стать Светом для народов" и передать благословение Творца и Его духовный опыт, сначала своим "ближним" в Круге Жизни, а потом и всему человечеству <a class="back" href="#r-31">↩</a></span></div>
+
+ <div class="note" id="n-32"><span class="num">32</span><span class="txt">Рош Арих Анпин, Атик Йомин, Свят Благословен Он, также, как и Адам Ришон - это древняя душа, вознесенная над свойствами "пространства и времени", но, в то же время, продолжающая быть связанной с нами "подобием свойств", которое мы Его Милостью приобретаем в процессе духовного развития, образовывая "Круги Жизни", и стремясь провести Свет Творца в "этот мир", когда мы делаем это "в подобии свойств" с теми свойствами, которыми создан Он Сам - "Мужчиной и Женщиной Он создал Их", то есть, создал Арих Анпин, подняв Свою Малхут в Хохму и установившись в Ней навечно в качестве "Сфиры Даат", чтобы светить всем мирам Светом Любви и Жизни Мира Ацилут, производя исправление и наполнение творения Высшим наслаждением, которое Он хочет нам дать, и которое мы получаем одновременно с Ним, становясь таким же, как Он Сам, вечными, бесконечными, и Всемогущими "Творцами этого мира" (точнее, "Творцом", потому что "во Вселенной нет толп", по выражению героя трудов Карлоса Кастанеды, "нагваля" Дона Хуана Матуса). Это самая высокая духовная ступень, относительно "творения этого мира", которую может испытать, и в которую может "подняться" сам человек, в процессе своего духовного роста. Эта ступень соответствует общему Концу Исправления, когда благодаря Ей все творение, "от мала до велика", будет объединено Им в едином, величественном, непостижимом восхождении и объединении, возносящем всех и каждого, Светом Ехида, которым является, если можно так выразиться, "в пределе", то, чем является более "привычный", на данном этапе прохождения нами этого Пути, Свет Любви и Жизни - Ор Хохма 32 путей Мира Ацилут. Этот Свет (ВАК де Ехида, ступень Атик Йомин) несет в Себе уже "настоящее" подобие ГАР Хохма, Свету АБ-САГ де АК, Который создал все, и Который движет всем, не облачаясь в творение, но производя в нас, и "вместе с нами", всю полезную (равно как и кажущуюся нам пока "бесполезной", в виду нашей временной, тоже кажущейся, разумеется, когнитивной закомплексованности) работу <a class="back" href="#r-32">↩</a></span></div>
+
+ <div class="note" id="n-33"><span class="num">33</span><span class="txt">Да будет так по Воле Его Святой, как хочет Он, чтобы было: чтобы насладилось Творение, получая и отдавая Свет Любви и Жизни Творца, Своим товарищам и подругам в Кругах Жизни, как Мужчина и Женщина "этого мира", объединенные единой Целью и сильным стремлением доставить наслаждение Творцу, собранные и выстроенные Им как Единое Кли Его Единому Свету, поднимаемому Малхут Мира Бесконечности на Экране 10 сфирот "Акудим", исправленном включеним в него МАН "праведников и праведниц этого мира", молящихся Ему об этом исправлении, путем объединения себя и своих товарищей и подруг в Круге Жизни, чтобы раскрыть всему человечеству совершенство и благодать Света и Пути Творца, Который они сами получают "здесь и сейчас", в органах и ощущениях "этого мира", вновь становясь Единым Целым Адамом, "как и вначале", но только в 613 раз больше и сильнее, поскольку они, объединяясь "как положено" с "противоположным полом" ради Высшей Цели Творца, удостаиваются превратить механизм, служивший людям ранее только для "животного размножения", в чудодейственное средство раскрытия Высшего духовного Совершенства Творца, поднимаясь на ежедневных семинарах "Сделаем и услышим!" от "первой" и до "последней" ступени духовного развития человека, где их всех, то есть нас с Вами, ожидает что-то настолько возвышенное и неописуемое, что это невозможно осмысленно передать словами, но можно только захотеть ПОЛУЧИТЬ ВО ЧТО БЫ ТО НИ СТАЛО, потому что, поверьте опыту Первого "экспериментального" "смешанного" Круга Жизни, ничего важнее этого, или хотя бы отдаленно приближающегося по степени важности, нет ни для одного живого существа во всей Вселенной, независимо от моего "особого мнения" по этому поводу. Амен ве Амен. <a class="back" href="#r-33">↩</a></span></div>
+
+ </div>
+ </section>
+
+ <p class="closing ui">ОДНИМ СЛОВОМ ; БУДУЩЕЕ ^ ЗА НАМИ;</p>
+
+ <nav class="pager">
+ <a class="prev" href="17DB.html">
+ <span class="dir">← Предыдущая</span>
+ <span class="ttl">Пойдем к Фараону</span>
+ </a>
+ <a class="next" href="1CIA.html">
+ <span class="dir">Следующая →</span>
+ <span class="ttl">Радость ответной Любви</span>
+ </a>
+ </nav>
+
+ <footer>
+ <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+ <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+ </footer>
+
+</div>
+
+<script>
+ function toggleTrack(btn){
+ var b=btn.nextElementSibling;
+ if(b.classList.contains('open')){b.classList.remove('open');btn.classList.remove('open');return;}
+ if(!b.dataset.loaded){
+ var id=b.getAttribute('data-embed');
+ var f=document.createElement('iframe');
+ f.src='https://www.youtube.com/embed/'+id;
+ f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+ f.setAttribute('allowfullscreen','');
+ f.loading='lazy';
+ b.appendChild(f);
+ b.dataset.loaded='1';
+ }
+ b.classList.add('open');btn.classList.add('open');
+ }
+ document.querySelectorAll('.fnwrap').forEach(function(w){
+ w.addEventListener('mouseenter',function{
+ var p=w.querySelector('.fn-pop');
+ if(!p)return;
+ p.classList.remove('below');
+ var r=w.getBoundingClientRect;
+ var ph=p.offsetHeight;
+ if(r.top-ph-14<0){p.classList.add('below');}
+ });
+ });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+ "scheme": "editorial",
+ "form": "проза",
+ "rationale": "Статья — теоретическая каббалистическая проза (эссе с обширным научным аппаратом сносок, цитатами-эпиграфами из Торы и Зоара, личным нарративом и одной большой молитвенной вставкой). Стихотворных форм нет, поэтому выбран редакторский широкий лонгрид, а не узкий манускрипт. Колонку сделал ~2/3 окна (clamp до 1080px) с выключкой по ширине и комфортным кеглем 18px; заголовки — крупный засечный шрифт, UI и мета — гротеск, палитра светлая (кремовый фон, терракотовый акцент).\n\nПограничные решения: заголовком-H1 взял название из метаданных «Праведник, оживляющий Миры», а первую строку текста «Чем помогает Творец…» подал подзаголовком-лидом, чтобы ничего не потерять при дублировании; одноимённый третий раздел оставил как есть. Множественные группы сносок (ezer-kenegdo, b-a, atik-elion и нумерованные «Полезные ссылки») свёл в единый сквозной аппарат 1–33 с попапами по наведению (с авто-переворотом над/под маркером) и обратными ссылками; музыкальные ссылки [2] и [4] из «Полезных ссылок» вынес как ленивые сворачиваемые YouTube-плееры на их местах с меткой «Рекомендуемая музыка» — их всего два, поэтому сводный музыкальный раздел не делал. Висячие маркеры *2/*3 без тел убрал, структурные импорт-метки «Цитата Эпиграф » и «Пост скриптум» не выводил как мусор разметки; КАПС, авторские глифы (^, ;) и кавычки сохранил дословно.",
+ "features": ["music", "footnotes", "toc"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -443,16 +881,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

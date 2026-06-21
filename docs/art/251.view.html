@@ -7,8 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Правильно мыслишь</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе из цикла Конфронтология Духа о единстве мира, иллюзии отдельных объектов, роли разума и чувств, природе сознания и пути воина к Цели Орла.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/251.html">
+<meta property="og:title" content="Правильно мыслишь">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/251.html">
+<meta property="og:description" content="Эссе из цикла Конфронтология Духа о единстве мира, иллюзии отдельных объектов, роли разума и чувств, природе сознания и пути воина к Цели Орла.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Правильно мыслишь">
+<meta name="twitter:description" content="Эссе из цикла Конфронтология Духа о единстве мира, иллюзии отдельных объектов, роли разума и чувств, природе сознания и пути воина к Цели Орла.">
+
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +155,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="251" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="251" data-theme="swiss"
   data-art-section="confront" data-art-type="dialog"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +169,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +178,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="251.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -220,6 +230,374 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f6f2ea;
+    --paper:#fffdf8;
+    --ink:#211c16;
+    --muted:#6d6356;
+    --accent:#9c2b1f;
+    --accent-soft:#c06a4a;
+    --rule:#ddd2c0;
+    --hl:#fbe8c4;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    font-size:18px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{
+    width:66vw;
+    max-width:1180px;
+    margin:0 auto;
+    padding:34px 28px 80px;
+  }
+  @media(max-width:1000px){
+    .page{width:100%;padding:22px 18px 60px;}
+  }
+  /* chrome / sans elements */
+  .sans{font-family:"Helvetica Neue",Arial,system-ui,sans-serif;}
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,system-ui,sans-serif;
+    font-size:.9rem;
+    letter-spacing:.02em;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:12px;
+    margin-bottom:30px;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span.sep{margin:0 .5em;color:var(--accent-soft);}
+
+  header.head{margin-bottom:18px;}
+  h1{
+    font-size:2.25rem;
+    line-height:1.15;
+    margin:.1em 0 .15em;
+    letter-spacing:-.01em;
+  }
+  .dateline{
+    font-family:"Helvetica Neue",Arial,system-ui,sans-serif;
+    font-size:.85rem;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    color:var(--muted);
+    margin:0 0 8px;
+  }
+  .accent-rule{
+    width:64px;height:4px;background:var(--accent);
+    border:0;margin:18px 0 26px;
+  }
+
+  /* reading column */
+  .prose{max-width:780px;margin:0 auto;}
+  .prose p{margin:0 0 1.25em;}
+  .dialogue p{
+    padding-left:1.1em;
+    text-indent:-1.1em;
+  }
+  blockquote{
+    margin:1.6em 0;
+    padding:.6em 0 .6em 1.3em;
+    border-left:4px solid var(--accent-soft);
+    background:linear-gradient(90deg,rgba(192,106,74,.07),transparent);
+    font-style:italic;
+    color:#33291f;
+  }
+  .takoc{font-variant:small-caps;}
+
+  .tag{
+    display:inline-block;
+    margin-top:2.4em;
+    font-family:"Helvetica Neue",Arial,system-ui,sans-serif;
+    font-size:.8rem;letter-spacing:.18em;
+    color:var(--muted);
+    border:1px solid var(--rule);
+    padding:3px 10px;border-radius:3px;
+  }
+
+  /* music */
+  .music{max-width:780px;margin:1.8em auto;}
+  .music-label{
+    font-family:"Helvetica Neue",Arial,system-ui,sans-serif;
+    font-size:.78rem;
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    color:var(--accent);
+    margin-bottom:8px;
+  }
+  details.yt{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:8px;
+    margin-bottom:8px;
+    overflow:hidden;
+  }
+  details.yt summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:13px 16px;
+    font-family:"Helvetica Neue",Arial,system-ui,sans-serif;
+  }
+  details.yt summary::-webkit-details-marker{display:none;}
+  .track-name{font-weight:600;font-size:1rem;}
+  .track-artist{color:var(--muted);font-size:.95rem;}
+  .track-artist::before{content:"— ";}
+  .yt-arrow{
+    margin-left:auto;
+    color:var(--accent-soft);
+    transition:transform .2s ease;
+    font-size:.9rem;
+  }
+  details.yt[open] .yt-arrow{transform:rotate(180deg);}
+  .yt-ext{
+    color:var(--accent);
+    text-decoration:none;
+    font-size:1.05rem;
+    padding:0 2px;
+  }
+  .yt-ext:hover{color:var(--accent-soft);}
+  .yt-frame{position:relative;width:100%;}
+  .yt-frame:not(:empty){padding-top:56.25%;}
+  .yt-frame iframe{
+    position:absolute;top:0;left:0;width:100%;height:100%;border:0;
+  }
+
+  /* footnote markers */
+  .fn-ref{
+    text-decoration:none;
+    color:var(--accent);
+    font-weight:600;
+    font-size:.85em;
+    padding:0 1px;
+  }
+  .fn-ref sup{font-size:.85em;}
+  .fn-ref:hover{color:var(--accent-soft);}
+
+  #fn-popup{
+    display:none;
+    position:absolute;
+    z-index:50;
+    max-width:340px;
+    background:#2a241c;
+    color:#f4ecdd;
+    font-family:"Helvetica Neue",Arial,system-ui,sans-serif;
+    font-size:.92rem;
+    line-height:1.5;
+    padding:11px 14px;
+    border-radius:7px;
+    box-shadow:0 8px 26px rgba(0,0,0,.28);
+  }
+  #fn-popup a{color:#f0b48f;}
+
+  /* notes section */
+  .notes{max-width:780px;margin:3em auto 0;}
+  .notes h2{
+    font-size:1.4rem;
+    border-bottom:2px solid var(--accent);
+    padding-bottom:6px;
+    display:inline-block;
+  }
+  .notes ol{padding-left:1.4em;}
+  .notes li{
+    margin:.8em 0;
+    font-size:.97rem;
+    line-height:1.6;
+    padding:4px 6px;
+    border-radius:5px;
+    scroll-margin-top:80px;
+  }
+  .notes li:target{background:var(--hl);}
+  .fn-back{
+    text-decoration:none;
+    color:var(--accent);
+    font-weight:700;
+    margin-right:.4em;
+  }
+  .notes a{color:var(--accent);word-break:break-word;}
+
+  /* footer nav */
+  .corpus-nav{
+    max-width:780px;margin:3.4em auto 0;
+    display:flex;justify-content:space-between;gap:18px;
+    border-top:1px solid var(--rule);
+    padding-top:20px;
+    font-family:"Helvetica Neue",Arial,system-ui,sans-serif;
+  }
+  .corpus-nav a{
+    text-decoration:none;color:var(--accent);
+    max-width:46%;
+  }
+  .corpus-nav a:hover{text-decoration:underline;}
+  .corpus-nav .lbl{
+    display:block;font-size:.72rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:3px;
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    max-width:780px;margin:2.6em auto 0;
+    border-top:1px solid var(--rule);
+    padding-top:18px;
+    font-family:"Helvetica Neue",Arial,system-ui,sans-serif;
+    font-size:.85rem;
+    color:var(--muted);
+  }
+  footer.colophon a{color:var(--accent);}
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №251</span>
+<div class="page">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <header class="head">
+    <p class="dateline">1 мая 2022 г.</p>
+    <h1>Правильно мыслишь<a class="audio-link" href="https://t.me/art_017_tracks/437" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <hr class="accent-rule">
+  </header>
+
+  <article class="prose">
+
+    <div class="dialogue">
+      <p>—в мире нет отдельных объектов, которые существуют сами по себе, хотя мы, сообразно своему опыту, воспринимаем наш мир как мир предметов и явлений. На самом же деле мир отдельных объектов и явлений не существует. Есть лишь единая вселенная, образованная эманациями Орла.</p>
+      <p>—Хорошо уговорил. Мы с тобой едины. Но это не значит что у единого, не может быть частей.</p>
+      <p>—Может даже мы с тобой когда ни будь сольемся ты и я, в форме пернатого змея. Если я раньше не помру.</p>
+    </div>
+
+    <div class="music">
+      <div class="music-label">Музыка под настроение</div>
+      <details class="yt" data-embed="mpLE30Nadfs">
+        <summary>
+          <span class="track-name">Моя Звезда</span>
+          <span class="track-artist">Бутусов <a href="#fn1" id="fnref1" class="fn-ref" data-fn="fn1"><sup>[1]</sup></a></span>
+          <span class="yt-arrow">▾</span>
+          <a class="yt-ext" href="https://youtu.be/mpLE30Nadfs" target="_blank" rel="noopener" aria-label="Открыть на YouTube">↗</a>
+        </summary>
+        <div class="yt-frame"></div>
+      </details>
+    </div>
+
+    <p>Правильно мыслишь.</p>
+
+    <p>Их не просто есть, их не может не быть. Поскольку развитие всего мироздания происходит по принципу эволюции от простого к сложному. Это значит, что ничто не вылезает "из под куста сразу взрослым и свободным", а в начале производится процедура самосопряжения на множестве элементарных составляющих, результатом которой является, собственно, "создание" или рождение принципиально нового качественно уровня сознания и эволюционно совершенного проявления абсолютного совершенства, имеющегося в Корне, из которого вся эта эволюция происходит - Мире Бесконечности (эйн соф). Там особенно ревностных борцунов с летунами ждет настоящее долгожданное счастье слияния - поскольку в Нем едины и неделимы Жизнь и Сознание, являющиеся в дальнейшем посредством восприятия мира "противоборствующими" принципами, такими, как летуны (разум), и безмолвное знание (чувства), причем, первая из этих ступеней определяется как неживая, хотя это сложно понять с позиции логики этого мира. Для нас то, что обладает сознанием - автоматически должно считаться живым. А в реальном мире нет, причем строго наоборот::обладание сознанием является "духовно мертвой" чертой явления, поскольку жизнь определяется активностью собственной воли, являющейся действием, использующим разум самым непочтительным образом (см. стихотворение "Не так" на пред. странице) - т.е. действуя вопреки ему, строго против "интертности" и "рутинности", говоря более привычными словами, нарушая привычный распорядок настолько часто и действенно, насколько воин может себе это позволить, продолжая при этом осознавать себя и помнить последовательным образом о поставленной перед собой им самим жизненной Цели. Разум, в свою очередь, хотя мы не понимаем этого (такое понимание мешало бы нам эффективно "выполнять" то, что требуется, используя разум в качестве ступени по мере собственного "создания из ничего" вместе с Орлом), требует от всех участников полного отказа от ответственности за производимые действия и принимаемые решения, в Силу того, что механизм "создания из ничего реального мира" группой людей, не важно, насколько большой и насколько осознанной, предполагает задействование между ними механизма по типу "духовного поручительства" (или круговой поруки, как хочешь, хотя я бы назвал это просто "неделанием первого внимания"), работающий посредством принятия на себя ответственности за поступки и решения "ближнего", а свои собственные поступки и решения, соответственно, делегируя другому. Настоящая причина того, почему именно этот механизм воинам потребуется использовать практически для "выведения себя из этого мира" проста, и заключается в том, что достижение Цели Орла - развитие осознанности - достигается посредством осознания в точности того, что у человека уже имеется в "этом мире" - а в этом мире у человека имеется в точности вышеописанное, только он себе не отдает в этом отчета, что также понятно, поскольку, в свою очередь, исходит из основного принципа, настройки восприятия, который я озвучивал в посте "Конфронтология..."<a href="#fn2" id="fnref2" class="fn-ref" data-fn="fn2"><sup>[2]</sup></a>, и который заключается в следующем:</p>
+
+    <blockquote>
+      <p>"точка сборки" действует не по команде "использовать эманации Х, У и Я", а по обратной ей команде "не использовать (функционально окончательно и немедленно заблокировать) эманации Х, У", причем эта команда "выполняется" на "аппаратном уровне" в условиях неизменной "аппаратной среды", которая состоит функционально из эманаций Х, У и Я, которые можно указывать в параметрах "команды Орла", только эта команда не переводится на "естественный язык" разума как "настроить то-то и то-то", а переводится как "забыть про то-то и то-то", что является тем же самым, что "опосредовать настройку Я по комплементарному принципу, заблокировав Х и У, чтобы получить ***- ХУ = Я на выходе</p>
+    </blockquote>
+
+    <p>Либо, в переводе на рабоче-крестьянский, "Сделаем и услышим, услышав и сделав все в точности наоборот, чтобы получить посредством этого в точности то, что и требуется", "что ни делает дурак, все он делает не так". "Тот, кто не боится выглядеть дырявым горшком, с легкостью может стать безупречным нагвалем, нужно лишь только найти недостающую пару в виде женского/мужского воина, чтобы в них могло раскрыться подобие целого, которое не делится на свои составные части, а является целым, называемым словом "нагваль" или "адам" явлением, только когда эти части правильным образом практически сопряжены с Намерением Духа. <span class="takoc">Такоц!</span></p>
+
+    <div class="music">
+      <div class="music-label">Музыка под настроение</div>
+      <details class="yt" data-embed="cLlhdsT5Mko">
+        <summary>
+          <span class="track-name">Жить Вопреки</span>
+          <span class="track-artist">Кипелов</span>
+          <span class="yt-arrow">▾</span>
+          <a class="yt-ext" href="https://youtu.be/cLlhdsT5Mko" target="_blank" rel="noopener" aria-label="Открыть на YouTube">↗</a>
+        </summary>
+        <div class="yt-frame"></div>
+      </details>
+    </div>
+
+    <span class="tag">#AA251</span>
+
+  </article>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1"><a href="#fnref1" class="fn-back" title="Вернуться к тексту">↑</a> См. также: Моя Звезда. Бутусов. <a href="https://youtu.be/mpLE30Nadfs" target="_blank" rel="noopener">https://youtu.be/mpLE30Nadfs</a></li>
+      <li id="fn2"><a href="#fnref2" class="fn-back" title="Вернуться к тексту">↑</a> См. также: Конфронтология человеческого Духа. Зеир Арихович Анпин. <a href="http://proza.ru/2022/04/08/350" target="_blank" rel="noopener">http://proza.ru/2022/04/08/350</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="2CO.html"><span class="lbl">← Предыдущая</span>Один, Единственный и Единый</a>
+    <a class="next" href="25O.html"><span class="lbl">Следующая →</span>Да, я дурак</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<div id="fn-popup"></div>
+
+<script>
+  // Lazy YouTube embeds
+  document.querySelectorAll('details.yt').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open){
+        var f=d.querySelector('.yt-frame');
+        if(!f.dataset.loaded){
+          var id=d.dataset.embed;
+          f.innerHTML='<iframe src="https://www.youtube.com/embed/'+id+'" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+          f.dataset.loaded='1';
+        }
+      }
+    });
+  });
+  // External link inside summary should not toggle player
+  document.querySelectorAll('.yt-ext').forEach(function(a){
+    a.addEventListener('click',function(e){e.stopPropagation();});
+  });
+
+  // Footnote popups
+  var pop=document.getElementById('fn-popup');
+  document.querySelectorAll('.fn-ref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      var note=document.getElementById(ref.dataset.fn);
+      if(!note)return;
+      var html=note.innerHTML.replace(/<a[^>]*class="fn-back"[^>]*>[\s\S]*?<\/a>/,'');
+      pop.innerHTML=html;
+      pop.style.display='block';
+      var r=ref.getBoundingClientRect();
+      var pr=pop.getBoundingClientRect();
+      var top=r.top-pr.height-8;
+      if(top<8){top=r.bottom+8;}
+      var left=r.left+r.width/2-pr.width/2;
+      left=Math.max(8,Math.min(left,window.innerWidth-pr.width-8));
+      pop.style.top=(top+window.scrollY)+'px';
+      pop.style.left=(left+window.scrollX)+'px';
+    });
+    ref.addEventListener('mouseleave',function(){
+      pop.style.display='none';
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой прозу: короткий диалог, переходящий в плотное философско-эзотерическое рассуждение с длинными периодами и вставной цитатой о «команде Орла». Стихотворных форм нет (есть лишь упоминание стихотворения «Не так» на другой странице), поэтому выбрана редакторская широкая схема: контейнер ~2/3 ширины окна, а внутри — комфортная читаемая колонка ~780px, чтобы сверхдлинные предложения не теряли меру строки. Палитра тёплая светлая с глубоким терракотово-красным акцентом для книжно-журнального longread-характера; засечный Georgia для тела, гротеск для служебных элементов (крошки, метки музыки, навигация).\n\nРазвилки: подзаголовков в тексте нет, поэтому оглавление не делал — только раздел «Примечания». Музыкальных ссылок две (Бутусов и Кипелов), что не превышает порога «более двух», поэтому сводный раздел музыки не создавал — оставил два раскрывающихся плеера на их местах с ленивой загрузкой iframe. Сноски * и ** имеют тела (блок «См. также») — оформлены как [1] и [2] с popup при наведении и двусторонней навигацией; ссылка сноски [1] совпадает с YouTube первого трека, что сохранено. Маркер *** в формуле «получить ***- ХУ = Я» оставлен дословно как авторский глиф/плейсхолдер внутри формулы, а не удалён, так как его удаление исказило бы запись равенства; явного тела-сноски у него нет. Дубль заголовка «Правильно мыслишь.» в тексте сохранён как реплика диалога, при этом H1 взят из метаданных.",
+  "features": ["music", "footnotes"]
+}
+</script>
+
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -365,16 +743,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

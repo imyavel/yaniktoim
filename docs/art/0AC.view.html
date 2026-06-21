@@ -7,8 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Каббала от А до Я</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Статья из цикла Роза Среди Шипов о каббалистическом описании мироздания через десять сфирот и связи духовного корня с материальной ветвью.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/0AC.html">
+<meta property="og:title" content="Каббала от А до Я">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/0AC.html">
+<meta property="og:description" content="Статья из цикла Роза Среди Шипов о каббалистическом описании мироздания через десять сфирот и связи духовного корня с материальной ветвью.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Каббала от А до Я">
+<meta name="twitter:description" content="Статья из цикла Роза Среди Шипов о каббалистическом описании мироздания через десять сфирот и связи духовного корня с материальной ветвью.">
+
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +155,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="0AC" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="0AC" data-theme="swiss"
   data-art-section="shoshana" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +169,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +178,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="0AC.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -196,6 +206,211 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#23201b;
+    --muted:#6f675a;
+    --accent:#8a5a2b;
+    --accent-soft:#c9a06a;
+    --rule:#e2d8c6;
+    --link:#915c22;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{-webkit-text-size-adjust:100%;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Georgia","Iowan Old Style","Palatino Linotype",serif;
+    line-height:1.75;
+    font-size:20px;
+  }
+  a{color:var(--link);text-decoration:none;border-bottom:1px solid var(--accent-soft);}
+  a:hover{color:var(--accent);border-bottom-color:var(--accent);}
+
+  .wrap{
+    width:66%;
+    max-width:980px;
+    min-width:0;
+    margin:0 auto;
+    padding:34px 28px 80px;
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:26px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .crumbs a{border-bottom:none;color:var(--accent);}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs .sep{margin:0 .55em;color:var(--accent-soft);}
+
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 14px;
+  }
+
+  h1{
+    font-size:2.4rem;
+    line-height:1.12;
+    font-weight:700;
+    margin:0 0 34px;
+    letter-spacing:-.01em;
+    color:#1c1814;
+  }
+  h1::after{
+    content:"";
+    display:block;
+    width:72px;
+    height:3px;
+    margin-top:22px;
+    background:var(--accent);
+  }
+
+  article{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:4px;
+    padding:40px 48px;
+    box-shadow:0 1px 0 rgba(0,0,0,.02);
+  }
+  article p{
+    margin:0 0 1.5em;
+    text-align:justify;
+    hyphens:auto;
+  }
+  article p:first-of-type::first-letter{
+    font-size:3.5em;
+    line-height:.82;
+    float:left;
+    padding:.05em .12em 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+  article p:last-child{margin-bottom:0;}
+
+  .endtag{
+    margin-top:2.2em;
+    text-align:right;
+    font-family:"Courier New",monospace;
+    letter-spacing:.18em;
+    color:var(--accent-soft);
+    font-size:.85rem;
+  }
+
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    margin-top:46px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    display:block;
+    max-width:46%;
+    border-bottom:none;
+    color:var(--accent);
+  }
+  .corpus-nav .lbl{
+    display:block;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .corpus-nav .ttl{font-size:1.05rem;font-weight:600;}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer{
+    margin-top:40px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+  footer a{color:var(--accent);}
+  footer .attrib{margin:0 0 8px;}
+  footer .license{margin:0;}
+
+  @media (max-width:900px){
+    .ya-old{font-size:18px;}
+    .wrap{width:100%;max-width:100%;padding:22px 18px 60px;}
+    article{padding:26px 22px;}
+    h1{font-size:1.9rem;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav a{max-width:100%;}
+    .corpus-nav .next{text-align:left;}
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №0AC</span>
+<div class="wrap">
+
+  <nav class="crumbs" aria-label="Хлебные крошки">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <p class="dateline">12 октября 2020 г.</p>
+
+  <h1>Каббала от А до Я<a class="audio-link" href="https://t.me/art_017_tracks/529" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <article>
+    <p>В скрытой науке вся действительность, как скрытая, так и раскрытая каждому, от самой «высшей инстанции», называемой Миром Бесконечности (МБ) и до «конечного пользователя», называемого «душа человека, облаченная в тела этого мира», описывается языком особых свойств «сфирот» Высшей управляющей Силы, или Творца, реальность которого непостижима с помощью ума и органов чувств, но вполне ощущаема человеком при определенных условиях по ее частным проявлениям относительно него самого. По аналогии с компьютерой системой этот «уровень» сродни силе электрического тока, который «оживляет» все и выполняет абсолютно всю работу, которая выполняется компьютерной системой, в чем бы она не заключалась. В этом качестве работа, «выполняемая» электричеством, происходит «одновременно» с той работой, которую выполняют пользователи со всех сторон экрана и во все времена, создавая, программируя, настраивая и пользуясь компьютерной системой. Основная разница в том, что электричество мы включаем и выключаем сами (и если уж на то пошло, сами создаем условия для его возникновения, получения и использования), а в случае Творца эта Сила создает все последующие «уровни» в общей Системе всего мироздания путем «сокращения и скрытия» Своей изначальной абсолютной и включающей все в Себя реальности посредством 10 ступеней «сфирот», называемых «Кетер» (корона), «Хохма» (мудрость), «Бина» (понимание) - КАХАБ, «Тиферет» (красота), «Малхут» (царство) - ТУМ. Число 10 используется потому, что сфира «Тиферет» включает в себя 6 «сфирот», которые называются «Хесед» (милосердие), «Гвура» (мужество), «Тиферет» (их общее свойство) – ХАГАТ, «Нецах» (победа), «Ход» (величие), «Есод» (основа) – НЕХИ. Все многообразие мироздания, как духовного, так и материального, включено в эти 10 сфирот или свойств Высшего Света, проходящего последовательно через ряд «скрытий» Самого Себя ради того, чтобы творения, то есть мы, созданные этим Светом «из ничего» путем материальной эволюции, смогли преодолеть ограничения материи и подняться в подобие своему Создателю, соединив воедино все мироздание и возглавив его, став «венцом творения» своего Творца, подобно тому, как сын, возмужав и обучившись, и получив требуемый опыт и мудрость, принимает от Отца руководство созданной Им международной корпорацией. В нашем мире о таких случаях ходит множество баек и написано множество фильмов с сюжетами разной степени бульварности и скандальности, мы рекомендуем на эту тему фильм «Начало». Наш мир выстроен в полном подобии со свойствами Света Творца и формами Его распространения от МБ до «этого мира» (10 сфирот), но он является лишь подобием, копирующим во всем форму духовного (реального) мироздания, так как не содержит ничего, кроме этой формы, являясь своего рода «пародией на реальность» в своем «изначальном» виде, приобретенном в результате «естественного» развития, до того, как человек на уровне всей цивилизации начинает осознавать себя и использовать это подобие по «прямому назначению», о котором мы еще будем говорить далее. Поэтому высокая и величественная «ветвь» (относительно своего духовного «корня») нередко представляется чем угодно в диапазоне от своей полной противоположности по содержанию, и далее на всем диапазоне проявлений, до крайне редко встречающихся «чистых» образцов, которые и послужили «эталоном» данной формы существующего в «материальном» порядка вещей.</p>
+
+    <p>Это продиктовано необходимостью, исходящей из огромной разницы между Творцом и творением, которое в соответствии с Его Замыслом должно получить ступень Творца, уподобившись Ему по свойствам, то есть создавать «объективную реальность этого мира», а не быть ее функцией, не способной повлиять ни на что, и не понимающей, почему все устроено так, как устроено, понять причину и цель своего существования и высшую Цель всего происходящего, в результате страдающей от бесцельности и безблагодатности происходящего с человеком и вокруг него, претерпевающей множество трагических поворотов своей истории, как для каждой отдельной личности, так и для всего человечества в целом, до того, как сам человек «захочет» пробудиться «навстречу» желающему его возвышения Творцу, реальность которого от человека полностью скрыта, пока он сам не предпримет определенный объем целенаправленных, точных и требующих предельной решимости усилий и действий, направленных на раскрытие реальности этой Силы. К счастью, Творец приготовил для нас, в особенности, в нашем «последнем» в некотором смысле, о котором мы еще будем говорить далее, поколении, все необходимое для осуществления этих усилий, решений и действий руководство, включая методику раскрытия Творца и вместе с Ним, ответов на все «сложные вопросы» своего существования, равно как и существования мира и человечества в целом, так, что человеку не нужно ломать над всем этим голову (чаще всего безрезультатно), а достаточно взять и использовать, и обнаружить, «что благ Творец», что Его Путь находится прямо перед человеком и что все, что осталось для прекращения «проблемного» участка бесконечно достойного и возвышенного пути – делать понятные вещи понятным образом, прилагая тот объем усилий внутренних и внешних, на которые человек способен в данный конкретный момент, начиная из любого состояния, каким бы оно ни было, чтобы двигаться напрямую к конечной Цели – слияния с Творцом (в духовном мире, то есть в реальной действительности, совпадение двух сущностей по свойствам, то есть, образу действия и результатам действия, намерений и целей, ведет к их слиянию, поскольку их не разделяет ничего кроме этой разницы, т.к. все «духовное» предшествует «материи», в которой затем «отпечатывается» и проявляется «по образу и подобию»). Это руководство называется «Наука Каббала» или «Книга Зоар» (Зоар означает «сияние». Речь о том сиянии, которым обладает приведенный в соответствие своей высшей природе человеческий разум, генерирующий смыслы и создающий миры).</p>
+
+    <p class="endtag">#AA0AC</p>
+  </article>
+
+  <nav class="corpus-nav" aria-label="Навигация по корпусу">
+    <a class="prev" href="16E.html">
+      <span class="lbl">← Предыдущая</span>
+      <span class="ttl">Ева</span>
+    </a>
+    <a class="next" href="152.html">
+      <span class="lbl">Следующая →</span>
+      <span class="ttl">Знание, смерть, наука и истина</span>
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой сплошную прозу — философско-теоретическое эссе о каббалистической системе сфирот, состоящее из двух очень длинных абзацев без стихотворных строк. Согласно правилу, проза верстается в редакторской широкоформатной схеме, поэтому выбран editorial с основной колонкой примерно 2/3 ширины окна (66%, ограничено 980px ради комфортной меры строки при очень плотном тексте). Манускрипт отвергнут, так как нет ни стихов, ни поэм.\n\nПодразделов нет (только дата, заголовок и два абзаца), поэтому оглавление не строилось. Сносок, музыкальных ссылок и голых URL в тексте нет — соответствующая обвязка не требуется, features пуст. Заметная развилка — финальный токен «#AA0AC»: он похож на авторскую метку/подпись, а не на мусор импорта, поэтому сохранён дословно как тихая концовка с приглушённым моноширинным стилем. Палитра тёплая книжная (кремовая бумага, коричневый акцент) — отсылает к каббалистической теме, оставаясь в рамках светлого редакторского лонгрида; буквица и тонкая линейка под H1 структурируют монолитный текст."
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -341,16 +556,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

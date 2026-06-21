@@ -7,8 +7,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ВХОД В ПОРУЧИТЕЛЬСТВО</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе о каббалистическом понятии духовного поручительства в Круге учеников: молитвенное принятие на себя последствий поступков товарищей.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/21L.html">
+<meta property="og:title" content="ВХОД В ПОРУЧИТЕЛЬСТВО">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/21L.html">
+<meta property="og:description" content="Эссе о каббалистическом понятии духовного поручительства в Круге учеников: молитвенное принятие на себя последствий поступков товарищей.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ВХОД В ПОРУЧИТЕЛЬСТВО">
+<meta name="twitter:description" content="Эссе о каббалистическом понятии духовного поручительства в Круге учеников: молитвенное принятие на себя последствий поступков товарищей.">
+<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/21L.jpg">
+<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/21L.jpg">
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +156,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="21L" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="21L" data-theme="swiss"
   data-art-section="confront" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +170,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +179,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="21L.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -209,6 +220,407 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#241f1a;
+    --soft:#5a5249;
+    --accent:#9a2c2c;
+    --accent2:#1f5a52;
+    --rule:#d9d0c2;
+    --hl:#fcefc7;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;
+    font-size:20px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(154,44,44,.35);}
+  a:hover{border-bottom-color:var(--accent);}
+
+  .wrap{
+    max-width:1180px;
+    width:88%;
+    margin:0 auto;
+    padding:32px 0 80px;
+  }
+  /* editorial wide: content uses ~2/3 of viewport on desktop */
+  .lede, .content, header.masthead, .breadcrumbs, .endnav, footer.colophon{
+    max-width:none;
+  }
+  .colwide{
+    width:100%;
+  }
+  .measure{
+    max-width:980px;
+  }
+
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--soft);
+    text-transform:uppercase;
+    margin-bottom:22px;
+  }
+  .breadcrumbs a{color:var(--soft);border-bottom:none;}
+  .breadcrumbs a:hover{color:var(--accent);}
+  .breadcrumbs span.sep{margin:0 .55em;color:var(--rule);}
+
+  .article-image{margin:0 0 30px;}
+  .article-image img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border:1px solid var(--rule);
+  }
+
+  .eyebrow{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+    letter-spacing:.03em;
+    color:var(--accent2);
+    margin:0 0 10px;
+    line-height:1.5;
+  }
+  .eyebrow div{margin:.1em 0;}
+
+  h1{
+    font-size:46px;
+    line-height:1.12;
+    letter-spacing:.01em;
+    margin:.15em 0 .35em;
+    font-weight:700;
+  }
+  .titlerule{
+    border:none;
+    border-top:3px double var(--accent);
+    width:240px;
+    margin:0 0 38px;
+  }
+
+  .verse{
+    font-style:italic;
+    color:var(--soft);
+    font-size:21px;
+    line-height:1.75;
+    margin:34px 0 40px;
+    padding:6px 0 6px 26px;
+    border-left:3px solid var(--accent2);
+    max-width:760px;
+  }
+  .verse .stanza{margin:0 0 1em;}
+  .verse .stanza:last-child{margin-bottom:0;}
+
+  .content p{margin:0 0 1.4em;}
+  .content .measure{}
+
+  .shout{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    letter-spacing:.08em;
+    font-size:24px;
+    color:var(--accent);
+    margin:38px 0 10px;
+  }
+
+  /* footnote markers */
+  .fnref{
+    font-size:.72em;
+    vertical-align:super;
+    line-height:0;
+    border-bottom:none;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    padding:0 1px;
+    position:relative;
+  }
+  .fntip{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:135%;
+    width:300px;
+    max-width:78vw;
+    background:var(--ink);
+    color:#f3ece0;
+    font-family:Georgia,serif;
+    font-style:normal;
+    font-weight:400;
+    font-size:15px;
+    line-height:1.5;
+    letter-spacing:0;
+    padding:11px 14px;
+    border-radius:6px;
+    box-shadow:0 8px 26px rgba(0,0,0,.28);
+    z-index:50;
+    white-space:normal;
+    vertical-align:baseline;
+  }
+  .fntip.below{bottom:auto;top:135%;}
+  .fnref:hover .fntip{display:block;}
+
+  /* notes section */
+  .notes{
+    margin-top:56px;
+    padding-top:8px;
+    border-top:1px solid var(--rule);
+  }
+  .notes h2{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:22px;
+    letter-spacing:.05em;
+    color:var(--accent2);
+    text-transform:uppercase;
+  }
+  ol.fnlist{
+    list-style:none;
+    counter-reset:fn;
+    padding:0;
+    margin:0;
+    max-width:980px;
+  }
+  ol.fnlist li{
+    position:relative;
+    padding:14px 0 14px 44px;
+    border-bottom:1px dotted var(--rule);
+    font-size:17px;
+    line-height:1.6;
+  }
+  ol.fnlist li::before{
+    content:"*" counter(fn);
+    counter-increment:fn;
+    position:absolute;
+    left:0;
+    top:14px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    color:var(--accent);
+  }
+  .backref{
+    margin-left:.4em;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    border-bottom:none;
+  }
+  .fnlist li:target{
+    background:var(--hl);
+    border-radius:6px;
+    transition:background .4s;
+  }
+
+  /* lazy player */
+  .player{margin:12px 0 4px;max-width:640px;}
+  .player .head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:10px 14px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .player .head:hover{border-color:var(--accent);}
+  .player .arrow{color:var(--accent);transition:transform .25s;font-size:13px;}
+  .player.open .arrow{transform:rotate(90deg);}
+  .player .ttl{flex:1;}
+  .player .ttl b{color:var(--ink);}
+  .player .ext{border-bottom:none;font-size:15px;}
+  .player .frame{display:none;margin-top:8px;}
+  .player.open .frame{display:block;}
+  .player .frame .ratio{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    border-radius:8px;
+    overflow:hidden;
+    background:#000;
+  }
+  .player .frame iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+  }
+
+  /* bottom nav */
+  .endnav{
+    margin-top:64px;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    border-top:1px solid var(--rule);
+    padding-top:24px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .endnav a{display:block;max-width:46%;border-bottom:none;}
+  .endnav .dir{
+    font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--soft);
+  }
+  .endnav .t{font-size:18px;color:var(--accent);}
+  .endnav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:48px;
+    color:var(--soft);
+    font-size:15px;
+    line-height:1.55;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  footer.colophon a{color:var(--accent2);}
+
+  @media (max-width:760px){
+    .ya-old{font-size:18px;}
+    .wrap{width:90%;}
+    h1{font-size:34px;}
+    .endnav{flex-direction:column;}
+    .endnav a, .endnav .next{max-width:100%;text-align:left;margin-left:0;}
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №21L</span>
+<div class="wrap">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <div class="article-image">
+    <img src="../img/21L.jpg" alt="">
+  </div>
+
+  <header class="masthead">
+    <div class="eyebrow">
+      <div>Получение Торы. Часть 2.<a class="fnref" id="ref1" href="#fn1">*1<span class="fntip">См. также: Получение Торы. Часть 1.</span></a></div>
+      <div>Аль Таасе. Часть 2.<a class="fnref" id="ref2" href="#fn2">*2<span class="fntip">См. также: Аль Таасе. Часть 1.</span></a></div>
+    </div>
+    <h1>ВХОД В ПОРУЧИТЕЛЬСТВО<a class="fnref" id="ref4" href="#fn4">*4<span class="fntip">См. также: Уроки Книги «Жизни Вопреки». Урок 5. Первая Заповедь Воина^Исраэль</span></a><a class="audio-link" href="https://t.me/art_017_tracks/412" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <hr class="titlerule">
+  </header>
+
+  <div class="content colwide">
+
+    <div class="verse">
+      <div class="stanza">
+        Я же своей рукою<br>
+        Сердце Твое прикрою<br>
+        Можешь лететь, и не бояться больше ничего
+      </div>
+      <div class="stanza">
+        Сердце Твое двулико<br>
+        Сверху оно набито<br>
+        Мягкой травой, а снизу - каменное, каменное дно.<a class="fnref" id="ref3" href="#fn3">*3<span class="fntip">Чёрная луна. Агата Кристи.</span></a>
+      </div>
+    </div>
+
+    <div class="measure">
+      <p>Главный "секрет" достижения Кругом ("десяткой" учеников Каббалистов "смешанного типа" - Мужчиной и Женщиной Он создал их) "духовного поручительства", являющегося тем же самым в точности, что и выполнение человеком в Круге первой и главной "Заповеди Творца, Свят Благословен Он" "возлюби ближнего своего, как самого себя", выполняемой человеком в форме "от обратного" как "не делай другому то, что ненавистно тебе" (аl taase lekhavercha ma shesanu aleycha), достигаемой человеком в процессе регулярной совместной "духовной работы Творца, Свят Благословен Он", объединяющимся с единомышленниками в каббалистических "Кругах" и "десятках", заключается в том, что никаких "договоров" оно от Круга и человека заключать не требует, а "полный успех", равно как и "неуспех", в нем человека вообще никак не зависит от того, как воспринимается этот процесс кем бы то ни было еще, включая товарищей и подруг по Кругу, не зависит от их "успехов" и вообще желания и настроения входить с человеком в эту форму практически "здесь и сейчас", а зависит только от твердой решимости самого человека "поручиться" за них перед Творцом, Свят Благословен Он, в молитве, сделав это действие посредством последовательного повторения "привычкой, ставшей второй натурой" в Круге и по-жизни, когда человек молится за товарищей и подруг определенным образом, которым он сообщает Творцу, Свят Благословен Он (без кавычек) о своем намерении принять на себя все возможные и невозможные гипотетические, и вполне реальные, все без каких либо исключений, "негативные последствия" предполагаемых "небезупречных поступков", мыслей, решений и т.д. и т.п. своих товарищей. Не важно совершенно, есть они или нет, важно намерение и практическая форма молитвы за конкретных товарищей и подруг, являющихся единомышленниками человека по Кругу/десятке в регулярной совместной "духовной работе", поименно и детально проговаривая Творцу, Свят Благословен Он, свои намерения принять на себя все возможные последствия того, что можно было бы назвать "кармой", или еще каким-то образом "нежелательным" для "оберегаемого" товарища, если они есть, были или будут, т.е. "если что-то такое должно случиться с ней/ним, то пусть, Господь, это произойдет не с ним/ней, а со мной, прими, Господь, желание моего сердца и мое свободное волеизъявление, храни и береги моих дорогих и любимых сердцу моему товарищей и подруг от того, чтобы я чувствовал от них что либо кроме совершенной и абсолютной Твоей благословенной любви, независимо от того, что говорят об этом мои "неисправленные" пока еще "органы ощущений" и внешний разум "этого мира", поскольку я знаю абсолютно точно, Твоей Благословенной Милостью, что именно это их отношение ко мне является Истиной, а мое ощущение, будто в товарище или подруге есть какой-либо изъян или несовершенство, являются ложью и созданы Тобой специально для того, чтобы я мог, отталкиваясь от этого, удостоиться стать самостоятельным творением, имеющим свободную Волю стремиться в жизни и Пути только доставлять наслаждение Тебе, Господь, и возлюбленным подругам и товарищам, явно и чувственно, здесь и сейчас. Благословенный, да поможет ближнему! Амен ве Амен".</p>
+
+      <p class="shout">СДЕЛАЕМ И УСЛЫШИМ!</p>
+    </div>
+
+    <section class="notes">
+      <h2>ССЫЛКИ И ПОЯСНЕНИЯ</h2>
+      <ol class="fnlist">
+        <li id="fn1">См. также: Получение Торы. Часть 1. <a href="http://proza.ru/2022/01/20/1056">http://proza.ru/2022/01/20/1056</a><a class="backref" href="#ref1">↩</a></li>
+        <li id="fn2">См. также: <a href="1AS.html">Аль Таасе. Часть 1</a>.<a class="backref" href="#ref2">↩</a></li>
+        <li id="fn3">Чёрная луна. Агата Кристи. <a href="https://youtu.be/NSNUcKritNw">https://youtu.be/NSNUcKritNw</a><a class="backref" href="#ref3">↩</a>
+          <div class="player" data-yt="NSNUcKritNw">
+            <div class="head" onclick="togglePlayer(this)">
+              <span class="arrow">▶</span>
+              <span class="ttl"><b>Чёрная луна</b> — Агата Кристи</span>
+              <a class="ext" href="https://youtu.be/NSNUcKritNw" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a>
+            </div>
+            <div class="frame"><div class="ratio"></div></div>
+          </div>
+        </li>
+        <li id="fn4">См. также: Уроки Книги "Жизни Вопреки". Урок 5. Первая Заповедь Воина^Исраэль <a href="https://youtu.be/x2Uv0vHav4w">https://youtu.be/x2Uv0vHav4w</a><a class="backref" href="#ref4">↩</a>
+          <div class="player" data-yt="x2Uv0vHav4w">
+            <div class="head" onclick="togglePlayer(this)">
+              <span class="arrow">▶</span>
+              <span class="ttl"><b>Уроки Книги "Жизни Вопреки". Урок 5. Первая Заповедь Воина^Исраэль</b></span>
+              <a class="ext" href="https://youtu.be/x2Uv0vHav4w" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a>
+            </div>
+            <div class="frame"><div class="ratio"></div></div>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+  </div>
+
+  <nav class="endnav">
+    <a class="prev" href="21K.html">
+      <div class="dir">← Предыдущая</div>
+      <div class="t">Получение Торы ч. 1</div>
+    </a>
+    <a class="next" href="1AP.html">
+      <div class="dir">Следующая →</div>
+      <div class="t">Зеркало, которое не светит</div>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  function togglePlayer(head){
+    var p = head.closest('.player');
+    var open = p.classList.toggle('open');
+    if(open){
+      var ratio = p.querySelector('.ratio');
+      if(!ratio.querySelector('iframe')){
+        var id = p.getAttribute('data-yt');
+        var f = document.createElement('iframe');
+        f.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
+        f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        f.allowFullscreen = true;
+        ratio.appendChild(f);
+      }
+    }
+    p.querySelector('.arrow').textContent = open ? '▶' : '▶';
+  }
+
+  // footnote tooltip above/below based on viewport edge
+  document.querySelectorAll('.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter', function(){
+      var tip = ref.querySelector('.fntip');
+      if(!tip) return;
+      var r = ref.getBoundingClientRect();
+      if(r.top < 170){ tip.classList.add('below'); }
+      else { tip.classList.remove('below'); }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья почти целиком — одна большая прозаическая конструкция (развёрнутое богословско-каббалистическое рассуждение о духовном поручительстве), плюс короткая четырёхстрочная цитата-эпиграф из песни. Доминирует проза, поэтому выбрана редакторская широкоформатная схема, а не узкий манускрипт: стих здесь лишь врезка-эпиграф и не задаёт форму статьи. Контейнер сделан широким (max-width 1180px, ~88% окна), при этом длинный абзац ограничен комфортной мерой (.measure ~980px), чтобы сохранить читаемость; страница использует ширину осмысленно — эпиграф вынесен в левую врезку, заголовок крупный, поля широкие.\nДве вводные строки («Получение Торы. Часть 2.» / «Аль Таасе. Часть 2.») оформлены как надзаголовок-eyebrow со своими сносками *1 и *2, а главный заголовок — H1 «ВХОД В ПОРУЧИТЕЛЬСТВО» со сноской *4; декоративная линия из символов заменена двойной типографской чертой. Оглавление не делал: фактических подразделов меньше двух (основной текст + аппарат сносок), TOC был бы искусственным. Сносок четыре, реализованы с переходами вниз/вверх, подсветкой цели и hover-popup, который сам переключается над/под маркером у края экрана. Аудиоссылок ровно две (*3 — песня «Чёрная луна» Агаты Кристи, *4 — видеоурок), это не больше двух, поэтому отдельный сводный раздел музыки не создавался; YouTube-ссылки внутри сносок оформлены как лениво-подгружаемые сворачиваемые плееры со значком внешней ссылки. КАПС, кавычки, глиф ^ в «Воина^Исраэль» и латиница в скобках сохранены дословно.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -354,16 +766,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

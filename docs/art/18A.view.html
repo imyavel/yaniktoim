@@ -7,8 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ВЫСШАЯ ШКОЛА МАГИИ И КАББАЛЫ «АЦИЛУТ»</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе-анонс школы Ацилут: размышление о значениях слов школа, магия, каббала и Ацилут в контексте каббалистического учения и Мира Исправления.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/18A.html">
+<meta property="og:title" content="ВЫСШАЯ ШКОЛА МАГИИ И КАББАЛЫ «АЦИЛУТ»">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/18A.html">
+<meta property="og:description" content="Эссе-анонс школы Ацилут: размышление о значениях слов школа, магия, каббала и Ацилут в контексте каббалистического учения и Мира Исправления.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ВЫСШАЯ ШКОЛА МАГИИ И КАББАЛЫ «АЦИЛУТ»">
+<meta name="twitter:description" content="Эссе-анонс школы Ацилут: размышление о значениях слов школа, магия, каббала и Ацилут в контексте каббалистического учения и Мира Исправления.">
+
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +155,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="18A" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="18A" data-theme="swiss"
   data-art-section="shoshana" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +169,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +178,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="18A.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -221,6 +231,362 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f8f5ef;
+    --paper:#fffdf8;
+    --ink:#23201b;
+    --muted:#6b6357;
+    --accent:#8c2f23;
+    --accent-soft:#b9543f;
+    --line:#e2d9c8;
+    --hl:#ffe9b0;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{
+    width:66%;
+    max-width:980px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 28px 80px;
+  }
+  @media(max-width:1100px){ .wrap{width:80%;} }
+  @media(max-width:760px){ .wrap{width:100%; padding:20px 18px 60px; font-size:18px;} .ya-old{font-size:18px;} }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--line);
+    padding-bottom:14px;
+    margin-bottom:26px;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 8px;color:#bdb4a3;}
+
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent-soft);
+    margin:0 0 10px;
+  }
+
+  h1{
+    font-size:2.05em;
+    line-height:1.2;
+    font-weight:700;
+    margin:0 0 28px;
+    letter-spacing:.01em;
+  }
+  h1 .fn{font-size:.55em;}
+
+  .lead p, article p{margin:0 0 1.25em;}
+
+  .num{
+    counter-reset:none;
+  }
+  .point{
+    position:relative;
+    padding-left:2.4em;
+    margin:0 0 1.4em;
+  }
+  .point .pn{
+    position:absolute;
+    left:0; top:0;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    color:var(--accent);
+    font-size:1.05em;
+  }
+  .point b{color:var(--ink);}
+
+  .closing{
+    font-size:1.25em;
+    font-weight:700;
+    color:var(--accent);
+    margin:1.6em 0 1.2em;
+    text-align:center;
+    letter-spacing:.02em;
+  }
+
+  hr.sep{
+    border:none;
+    height:1px;
+    background:var(--line);
+    margin:2.4em 0;
+  }
+
+  /* music */
+  .music-block{margin:2em 0;}
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--muted);
+    margin-bottom:8px;
+  }
+  .track{
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--paper);
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#fbf6ec;}
+  .track-arrow{
+    transition:transform .2s;
+    color:var(--accent);
+    font-size:.85em;
+  }
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-title{flex:1;}
+  .track-title .perf{color:var(--muted);}
+  .track-ext{color:var(--accent);text-decoration:none;font-size:1.05em;}
+  .track-body{display:none;padding:0 16px 16px;}
+  .track.open .track-body{display:block;}
+  .track-body .frame{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .track-body iframe{
+    position:absolute;top:0;left:0;width:100%;height:100%;border:0;
+  }
+
+  /* notes */
+  .notes{margin-top:2.4em;}
+  .notes h2{
+    font-size:1.35em;
+    border-bottom:2px solid var(--accent);
+    padding-bottom:6px;
+    margin-bottom:18px;
+    cursor:pointer;
+  }
+  .notes a{color:var(--accent);}
+  .fnitem{
+    font-size:.95em;
+    margin:0 0 1em;
+    padding:6px 10px;
+    border-radius:6px;
+    transition:background .4s;
+  }
+  .fnitem:target{background:var(--hl);}
+  .see-also{margin:1.2em 0 .4em;font-weight:700;color:var(--muted);}
+  .linklist{list-style:none;padding:0;margin:0 0 1em;}
+  .linklist li{margin:0 0 .5em;}
+
+  a.fn, a.backref{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+  }
+  sup a.fn{font-size:.7em;}
+
+  /* footnote popup */
+  .fn{position:relative;}
+  .fn-pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:1.6em;
+    width:280px;
+    max-width:72vw;
+    background:#2b2620;
+    color:#f4eedf;
+    font-family:Georgia,serif;
+    font-weight:400;
+    font-size:14px;
+    line-height:1.5;
+    padding:10px 12px;
+    border-radius:7px;
+    box-shadow:0 6px 22px rgba(0,0,0,.3);
+    z-index:50;
+  }
+  .fn-pop a{color:#ffcf8f;}
+  .fn-pop.below{bottom:auto;top:1.6em;}
+  sup.fnmark:hover .fn-pop{display:block;}
+
+  /* bottom nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:3em;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .corpus-nav a{
+    color:var(--accent);
+    text-decoration:none;
+    max-width:46%;
+  }
+  .corpus-nav .lbl{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);}
+  .corpus-nav .nx{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:2.4em;
+    padding-top:18px;
+    border-top:1px solid var(--line);
+    font-size:14px;
+    color:var(--muted);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent);}
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №18A</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span>/</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <p class="dateline">10 августа 2021 г.</p>
+
+  <h1>ВЫСШАЯ ШКОЛА МАГИИ И КАББАЛЫ «АЦИЛУТ»<sup class="fnmark"><a class="fn" id="ref1" href="#fn1">*1</a><span class="fn-pop">Страница ФБ «Ацилут» <a href="https://www.facebook.com/atsilut">facebook.com/atsilut</a></span></sup><a class="audio-link" href="https://t.me/art_017_tracks/561" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <article>
+
+    <div class="point"><span class="pn">1)</span><b>Высшая?</b> Выше нету (только Мир Бесконечности, Мир Ацилут — «Рош» Кава Света Бесконечности)</div>
+
+    <div class="point"><span class="pn">2)</span><b>Школа?</b> Школа. Творения-души учатся в этой «школе» быть по свойствам подобными Творцу, Свят Благословен Он (ступени Бины, духовной отдачи). То, что мы учим здесь, «в этом мире», это уже следствие, и «постольку поскольку».</div>
+
+    <div class="point"><span class="pn">3)</span><b>Магии?</b> МИГ и ГАМ, МАМА, ИМАМ, ИМ, ГАММА, ГАГ, АГА, МИГА. ИМЯ, ЯМА, МАЙ, ЯГА:<br>
+    ИМЯ — МИ. ИМ Я МАМА. ГАММА МИГОМ ИМ МОЯ. ИМ — МАГАМ, АГА.<br>
+    МИ — это чистые Хасадим согласно Книге Зоар (отдача ради отдачи). Его Корень — Бина, Высшая Святая Мать. Это свойство данного Мира (Ацилут, Мир Исправления) — Простой Белый Свет Отдачи, в Котором творения производят хитколелут, он же издохехут, пока не сравниваются по свойствам с этим Светом (Гамма), научившись «правильно» взаимодействовать под «личным управлением» Творца, Свят Благословен Он, т.е. «мигом», ага :)</div>
+
+    <div class="point"><span class="pn">4)</span><b>Каббалы?</b> Каббала — означает «получение» (Света Хохма) (вариант: восприятие). Причем, «Хохма» указывает на «Хохму 32 Путей Мира Ацилут», потому что «первоначальная Хохма» — не раскрывается в «самом» Ацилуте вовсе, а «заперта» (Хохма Стимаа) в ЗАТ Бины Мира Адам Кадмон (читай в Мире Бесконечности). И это весь Свет Жизни, Который был, есть и будет у творений (Бааль Сулам, Птиха), хотя, если быть по-настоящему въедливым и ворчливым, то это никакой не Свет, а его Кли, а Кли не относятся к сути Мира Ацилут никаким образом (кроме душ, которые поднимаются туда на короткое время), поскольку Ацилут — это Свет «средней линии», в Котором Келим находятся в тайне взаимовключения творения и Творца, Свят Благословен Он, в действие «создадим человека по образу нашему». Без «получения» — никуда. Мы уже пытались, на чистой «отдаче», ничего хорошего не построишь. Хотя начинают обучение всегда с нее.</div>
+
+    <div class="point"><span class="pn">5)</span><b>Ацилут</b> — означает «Благородство» (посвящение в сан дворянства, ивр.). Это непередаваемое свойство Света АБ-САГ, которое не может существовать в нашем мире, Которым в действительности является «Хохма 32 Путей» (а значит и все остальное творение), но Который «скрыт» посредством совершения «двух сокращений» в действии Малхут, поднимающей этот Свет в сотрудничестве с Ним, еще до того, как произошло «разбиение Экрана Акудим (Малхут Бесконечности)» в ЗАТ Бины де Адам Кадмон. И уж тем более Он в мирах проявляется явно крайне редко. Но период «Конечного Исправления» (третьего тысячелетия — уже начался, Милостью Господа) меняет все с ног на голову и обратно несчетное число раз. Поэтому мы уже видели, и еще не раз увидим, как этот Свет почти что явно бывает замечен творениями в том или ином процессе произведения Им Своей работы «этого мира», без которой «этот остров» действительно был бы «необитаем», во всех возможных и невозможных смыслах.</div>
+
+    <p class="closing">Сделаем и услышим!</p>
+
+  </article>
+
+  <hr class="sep">
+
+  <div class="music-block">
+    <div class="music-label">Музыка под настроение</div>
+    <div class="track" id="track1">
+      <div class="track-head" onclick="toggleTrack(this)">
+        <span class="track-arrow">▶</span>
+        <span class="track-title"><span class="perf">Prodigy</span> — Omen</span>
+        <a class="track-ext" href="https://www.youtube.com/watch?v=xMVTKOoy1uk" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a>
+      </div>
+      <div class="track-body">
+        <div class="frame" data-embed="https://www.youtube.com/embed/xMVTKOoy1uk"></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="notes">
+    <h2 onclick="window.scrollTo({top:0,behavior:'smooth'})">Пояснения и ссылки</h2>
+
+    <p class="fnitem" id="fn1"><a class="backref" href="#ref1">*1</a> Страница ФБ «Ацилут» <a href="https://www.facebook.com/atsilut">https://www.facebook.com/atsilut</a></p>
+
+    <p class="see-also">См. также:</p>
+    <ul class="linklist">
+      <li>Учение Десяти Сфирот, Бааль Сулам</li>
+      <li>Маска Ворона II, Виктор Венский — <a href="http://proza.ru/2012/10/02/266">proza.ru/2012/10/02/266</a></li>
+      <li>Кто создал их, по Элияу (Книга Зоар) — <a href="https://imyavel.github.io/zohar-sulam/akdama/004.html">akdama/004</a></li>
+    </ul>
+
+    <ul class="linklist">
+      <li>Я летала — <a href="http://proza.ru/2021/08/04/142">proza.ru/2021/08/04/142</a></li>
+      <li><a href="18MA.html">Сделаем и услышим</a>!</li>
+      <li>Урок 1 — <a href="19E.html">«Урок 1 Меняем восприятие Реальности»</a></li>
+    </ul>
+
+    <p class="see-also">См. также: См. также:</p>
+    <ul class="linklist">
+      <li></li>
+    </ul>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="pv" href="18H.html"><span class="lbl">← Предыдущая</span>Место Силы изменить нельзя</a>
+    <a class="nx" href="176.html"><span class="lbl">Следующая →</span>5 стадий развития малого духовного Кли</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggleTrack(head){
+    var track = head.parentElement;
+    track.classList.toggle('open');
+    if(track.classList.contains('open')){
+      var frame = track.querySelector('.frame');
+      if(frame && !frame.querySelector('iframe')){
+        var iframe = document.createElement('iframe');
+        iframe.src = frame.getAttribute('data-embed');
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+        frame.appendChild(iframe);
+      }
+    }
+  }
+  // footnote popup positioning (above / below)
+  document.querySelectorAll('sup.fnmark').forEach(function(m){
+    m.addEventListener('mouseenter',function(){
+      var pop = m.querySelector('.fn-pop');
+      if(!pop) return;
+      var r = m.getBoundingClientRect();
+      if(r.top < 160){ pop.classList.add('below'); }
+      else{ pop.classList.remove('below'); }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — анонс-манифест (прозаический разбор названия школы по пунктам 1–5 с пояснениями и финальной формулой «Сделаем и услышим!»). Стихотворных строф нет, доминирует проза, поэтому выбрана редакторская широкая схема с колонкой около 2/3 ширины окна и серифной книжной типографикой, тёплый светлый фон и бордовый акцент под каббалистический манускриптный дух, но в журнальном лонгрид-формате. Пронумерованные пункты оформлены как висячие номера-абзацы, чтобы сохранить авторскую структуру без добавления своих заголовков.\n\nРазвилки: оглавление не делал — содержательно один смысловой блок и раздел «Пояснения и ссылки», то есть фактически менее двух подразделов. Музыкальная ссылка одна (Prodigy — Omen, YouTube), поэтому сводный раздел музыки не создавался (порог — более двух треков), но трек оформлен свёрнутым ленивым плеером с внешней ссылкой ↗. Сноска *1 на заголовке сделана кликабельной с подсветкой цели и popup при наведении (над маркером, с переключением вниз у верхней кромки экрана). Прочие «См. также»-ссылки оставлены как список ссылок, голые URL обёрнуты в анкоры, КАПС и глиф ':)' сохранены дословно.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -366,16 +732,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

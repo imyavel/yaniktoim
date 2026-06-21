@@ -7,8 +7,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ЗОЛУШКА</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе на основе народной сказки о Золушке, поясняющее принцип духовного Пути воина и движения между состояниями сознания согласно идеям Карлоса Кастанеды.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/15E.html">
+<meta property="og:title" content="ЗОЛУШКА">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/15E.html">
+<meta property="og:description" content="Эссе на основе народной сказки о Золушке, поясняющее принцип духовного Пути воина и движения между состояниями сознания согласно идеям Карлоса Кастанеды.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ЗОЛУШКА">
+<meta name="twitter:description" content="Эссе на основе народной сказки о Золушке, поясняющее принцип духовного Пути воина и движения между состояниями сознания согласно идеям Карлоса Кастанеды.">
+<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/15E.jpg">
+<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/15E.jpg">
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +156,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="15E" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="15E" data-theme="swiss"
   data-art-section="dabudet" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +170,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +179,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="15E.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -209,6 +220,323 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --muted:#6b6258;
+    --accent:#9a3b27;
+    --accent2:#2f5d66;
+    --rule:#ddd4c6;
+    --shadow:rgba(40,30,15,0.10);
+  }
+  *{box-sizing:border-box;}
+  .ya-old{-webkit-text-size-adjust:100%;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    line-height:1.7;
+    font-size:19px;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{
+    width:min(1180px,92vw);
+    margin:0 auto;
+    padding:0 16px;
+  }
+  /* ===== Editorial wide grid ===== */
+  .page{
+    width:min(1180px,94vw);
+    margin:0 auto;
+    padding:28px 0 60px;
+  }
+  .masthead{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    border-bottom:2px solid var(--ink);
+    padding-bottom:10px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:12px;
+    color:var(--muted);
+  }
+  .masthead .sec{font-weight:700;color:var(--accent2);}
+  .crumbs a{color:var(--muted);}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs span{margin:0 .5em;color:var(--rule);}
+
+  .hero{
+    margin:30px 0 6px;
+    text-align:center;
+  }
+  .hero img{
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border:1px solid var(--rule);
+    box-shadow:0 8px 30px var(--shadow);
+  }
+
+  header.title-block{
+    text-align:center;
+    margin:26px auto 8px;
+    max-width:900px;
+  }
+  h1{
+    font-size:clamp(40px,6vw,68px);
+    line-height:1.02;
+    margin:.2em 0 .15em;
+    letter-spacing:.01em;
+    font-weight:700;
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.22em;
+    font-size:12px;
+    color:var(--accent);
+    margin-bottom:10px;
+  }
+  .dateline{
+    font-style:italic;
+    color:var(--muted);
+    font-size:17px;
+  }
+  .rule-orn{
+    width:120px;height:1px;background:var(--rule);
+    margin:22px auto;position:relative;
+  }
+  .rule-orn::after{
+    content:"❖";position:absolute;top:-12px;left:50%;
+    transform:translateX(-50%);background:var(--bg);
+    padding:0 10px;color:var(--accent);font-size:15px;
+  }
+
+  /* main two-thirds column inside wide page */
+  .content{
+    width:66%;
+    max-width:760px;
+    margin:10px auto 0;
+  }
+  @media(max-width:900px){
+    .content{width:100%;max-width:none;}
+    .ya-old{font-size:18px;}
+  }
+  .content p{margin:0 0 1.25em;text-align:justify;hyphens:auto;}
+  .content > p:first-of-type::first-letter{
+    font-size:3.4em;
+    line-height:.82;
+    float:left;
+    padding:.02em .12em 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+
+  /* ===== Music player ===== */
+  .music{
+    margin:30px 0;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    box-shadow:0 4px 18px var(--shadow);
+  }
+  .music .mlabel{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    font-size:11px;
+    color:#fff;
+    background:var(--accent2);
+    padding:7px 14px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .music .mlabel::before{content:"♪";font-size:14px;}
+  .track{border-top:1px solid var(--rule);}
+  .track:first-of-type{border-top:none;}
+  .track summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 14px;
+    user-select:none;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .track .arrow{
+    transition:transform .2s ease;
+    color:var(--accent);
+    font-size:13px;
+    flex:0 0 auto;
+  }
+  .track[open] .arrow{transform:rotate(90deg);}
+  .track .tinfo{flex:1 1 auto;}
+  .track .tname{font-weight:700;}
+  .track .tartist{color:var(--muted);font-size:.92em;font-style:italic;}
+  .track .ext{
+    flex:0 0 auto;color:var(--accent2);font-size:15px;
+    text-decoration:none;padding:2px 6px;
+  }
+  .track .ext:hover{color:var(--accent);}
+  .player{padding:0 14px 14px;}
+  .player .frame{
+    position:relative;padding-bottom:56.25%;height:0;overflow:hidden;
+    background:#000;
+  }
+  .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+  /* ===== bottom nav ===== */
+  .corpus-nav{
+    width:66%;max-width:760px;margin:48px auto 0;
+    display:flex;justify-content:space-between;gap:16px;
+    border-top:1px solid var(--rule);padding-top:22px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  @media(max-width:900px){.corpus-nav{width:100%;max-width:none;}}
+  .corpus-nav a{
+    display:block;max-width:46%;
+    font-size:13px;line-height:1.35;
+  }
+  .corpus-nav .dir{
+    text-transform:uppercase;letter-spacing:.14em;font-size:10px;
+    color:var(--muted);display:block;margin-bottom:4px;
+  }
+  .corpus-nav .nxt{text-align:right;margin-left:auto;}
+  .corpus-nav .ttl{font-family:Georgia,serif;font-style:italic;font-size:16px;}
+
+  footer.colophon{
+    width:66%;max-width:760px;margin:40px auto 0;
+    border-top:2px solid var(--ink);padding-top:18px;
+    font-size:14px;color:var(--muted);
+  }
+  @media(max-width:900px){footer.colophon{width:100%;max-width:none;}}
+  footer .attrib{margin:.2em 0;font-style:italic;}
+  footer .license{margin:.4em 0 0;font-size:13px;}
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №15E</span>
+<div class="page">
+
+  <nav class="masthead">
+    <div class="crumbs">
+      <a href="../index.html">Главная</a><span>/</span><a class="sec" href="../dabudet/index.html">Да будет Свет!</a>
+    </div>
+    <div class="issue">Эссе</div>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/15E.jpg" alt="Иллюстрация к статье «Золушка»">
+  </div>
+
+  <header class="title-block">
+    <div class="kicker">Путь воина · разбор сюжета</div>
+    <h1>ЗОЛУШКА<a class="audio-link" href="https://t.me/art_017_tracks/373" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <div class="dateline">Написано 14 мая 2021 г. на форуме ЛЛ</div>
+  </header>
+
+  <div class="rule-orn"></div>
+
+  <article class="content">
+
+    <p>Поясним принцип, лежащий в основе духовного Пути человека и "воина", на примере сюжетной линии народной сказки про Золушку. Для начала вспомним, согласно КК, первое следствие “обучения магии”: движение между состояниями сознания. Именно движение, то есть постоянное изменение одного на другой, а не установка в каком-либо одном, “предпочтительно”. Это единственный “неизменный” в Реальности вечного изменения и текучести “эманаций Орла”, “магический” принцип, заключающийся в том, что на Пути нет ничего неизменного, установленного раз и навсегда для всех одинаковым образом, кроме того, что место, в котором человек находится сегодня, завтра будет совершенно другим. Не важно, “лучше” или “хуже”, ближе или дальше от умозрительной “цели” (если воин все еще занимается такими глупостями, как самооценка себя на Пути посредством слов и мыслей), но совершенно точно максимально разным, и чем дальше человек заходит на этом Пути, тем более широкой становится амплитуда, а более частыми резкие изменения.</p>
+
+    <p>Именно здесь находится центральный водораздел между людьми и магами, или “точка невозврата к глупости своей” (она же, только “с другой стороны” своего достижения воином, с легкой руки Кипелова, “точка невозврата из мечты”), поскольку Намерение людей, независимо от успешности усилий, прилагаемых на Пути воином во всевозможных “неделаниях”, его ТС возвращает (медленно, но неизменно и неуклонно) в то же самое стойло, из которого кормятся все остальные окружающие воина люди. Когда воин становится магом, он включается в работу Намерения принципиально иного типа, влияние которого на ТС воина носит в точности противоположный характер, постоянно “выталкивая” его ТС из насиженной позиции, какой бы она не была, при этом, делая это легко и естественно, “без потрясений и навязчивых идей”, независимо от сложности каждого конкретного шага. Это называется “быть взятым под крыло Птицей Свободы”, или жить в Мифе, являясь частью Правила, или, быть знакомым с Намерением по принципу Второго Кольца Силы. По большому счету, этот “водораздел” либо включает человека в реальность Намерения Духа, либо выталкивает его из этой Реальности обратно в мир людей, являющийся миром безблагодатной и серой безысходной рутины, пустотности и абсолютной власти лжи и глупости. Разумеется, Дух не по причине каких-либо “садистских наклонностей” отталкивает от Себя человека, а ради пользы самого человека, поскольку если бы этот вход был открытым для всех автоматически, то вместо достижения этого состояния целой жизни упорной борьбы, чтобы никогда и ни за что его не потерять и не обменять ни на что на Свете, человек бы либо ходил туда-обратно через “точку невозврата”, как через “проходной двор”, в итоге оставляя себе все меньше и меньше шансов в этой жизни к чему-то придти вообще, либо, столкнувшись с Реальностью, более серьезной и “конкретной” на порядок, чем его собственные усилия по встрече с Ней, банально слетит с катушек, с тем же самым итогом для всей жизни и Пути в целом. Однако, с развитием общего цивилизационного процесса, который проходит человечество, с каждым новым поколением, а, в особенности, в новом тысячелетии и новой эпохе, доступность все более “настоящих” и “внутренних” форм Пути, равно как и их “человеко-ориентированность” (user-friendly usability), неуклонно и ощутимо повышается.</p>
+
+    <div class="music">
+      <div class="mlabel">Музыка под настроение</div>
+      <details class="track">
+        <summary>
+          <span class="arrow">▶</span>
+          <span class="tinfo">
+            <span class="tname">Точка невозврата из мечты</span><br>
+            <span class="tartist">Валерий Кипелов</span>
+          </span>
+          <a class="ext" href="https://www.youtube.com/watch?v=f1xADw21Lx4" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+        </summary>
+        <div class="player" data-embed="https://www.youtube-nocookie.com/embed/f1xADw21Lx4"></div>
+      </details>
+    </div>
+
+    <p>Возвращаясь к Золушке. Во всех вариантах сюжета, начинается он с того, что жизнь ГГ (человек, ступающий на Путь перерождения) становится систематически невыносимой, под сопровождением того, как он видит, своих прежних друзей и знакомых, получающих всевозможные блага и радости жизни, поскольку “не занимаются всякими глупостями”, и продолжают жить “как все”. Это испытание воин должен выдержать, чтобы Страж порога (Знающий Тайны того, как человек последовательно переходит с этапа на этап) пропустил его дальше. Знаком окончания испытания, становится весть о том, что Королевич собирается устраивать святочный бал. Общеизвестно, что далеко “не каждый, желающий приблизиться к Творцу, сможет приблизиться к Нему”. Не потому, что Творец не желает приближать человека, а наоборот, поскольку человек на первом же перекрестке продает эту возможность на своем Пути за первую же подкинутую судьбой красивую иллюзию – деньги, счастливая семейная жизнь, карьерный рост, известность. Поэтому перед тем, как отправиться на бал, Золушка должна показать серьезность своего намерения участвовать в “жеребьевке Духа”. Редко кому, до настоящего времени, это реально удавалось завершить и реально “войти во дворец Царя”, фактически, это были, в каждой из отдельных традиций, или “линий передачи знания”, “единицы из поколения”, “избранные среди избранных”, перед которыми ставилась цель сохранить линию передачи, и не дать исчезнуть накопленному поколениями духовному опыту и исключительным знаниям о человеке и мире; но не “просто так”, потому что он родился человеком и это его судьба – учиться воспринимать Мир таким, каким он в действительности является, достигая реальной “магической” ступени при жизни “в этом мире”, как это становится возможным (пока еще, главным образом, потенциально) в наше время и далее, в Силу изменений в “невидимой” обывателю, не смотря на полное управление его жизнью и судьбой, частей Реальности, “выписавших пропуск” к переходу на следующий этап, являющийся этим самым “святочным балом”, уже не какому-то отдельному человеку, а всему человечеству как одному единому энергоинформационному явлению, или “тоналю времени”, развивающемуся из поколения в поколение как в частном, так и в целом, и имеющем четкую и выверенную до мелочей логику и точность осуществления каждого своего шага, предопределенного изначальным включением в него “стратегии Бенефактора”, Намерением Которого этот единый Процесс был когда-то запущен, равно как и продолжает свой ход на каждом конкретном шаге, проявляясь в конкретных людях, становящихся его локальными “драйверами” согласно конкретному месту, задаче и времени.</p>
+
+    <p>Все, что Золушка делала, стремясь доказать Мачехе (инертность я-личности “этого мира”, нормальный и здоровый эгоизм, чувство собственной важности и жалости к себе), что она должна пропустить свою воспитанницу на Бал вместе с ее “родными” дочерьми (желаниями в сердце человека, продолжающими впечатляться и воодушевляться от открывающейся перспективы материальных благ, приобретений и успеха), оказалось “напрасно”, потому что Мачеха изначально не планировала давать Золушке карт-бланш на какое-либо проявление самостоятельности. Победа принципов воина для эго-личности означает личное полное эволюционное поражение в схватке за жизненную Силу воина “не на жизнь, а на смерть”, поэтому, “принимая решения” отнюдь не “словами”, вяло прокручивающими в монологе с самим собой то, к чему ей человека необходимо склонить, перед тем, как он об этом должен будет принимать “собственное, свободное и абсолютно независимое ни от кого” “разумное” решение, “злое начало”, являющееся ничем иным, нежели совокупной волей самого человека быть взрослой и адекватной (бессмертной и непрерывной, само собой) личностью повседневного мира, которая всегда выполняет роль “злого полицейского” в спектакле экзистенциальной драмы человеческой формы, выписывающей бесконечные фигурки перед зеркалом, пока человек не принимает решение это зеркало разбить со всего размаха ногой, следует простому и рациональному до предела принципу “бритвы оккама”, сначала закрывая перед воином все шлагбаумы, до которых только может дотянуться, а потом уже начиная с ним торговаться об “объективных внешних причинах”, которые никогда не дадут воину через них пройти, “как бы ему не хотелось этого”.</p>
+
+    <p>Такое безжалостное и точное поведение эго-личности лишает человека выбора – т.к. закрепляет себя в позиции своего непримиримого противника, хотя он, в действительности, пока еще хочет “как все” испытать счастье, не особенно надеясь на какой-либо успех. И, вынудив “злое начало” раскрыть карты, то есть, дать понять, что на Бал его пускать не станет ни при каких условиях, а все “обстоятельства”, которые воин уже преодолел, являлись пустым маскарадом, он находит другого “союзника”, который с радостью помогает воину совершить задуманное, причем, сделав это гораздо лучше, чем могло бы быть в принципе, если бы ему “помогала” все та же “Мачеха”, таким образом, она действительно ему “помогла”, поскольку “летуны” свои “услуги” никому не “навязывают” вопреки желанию сердца, но только сам человек выбирает, с какой Силой он хочет советоваться и искать поддержки и помощи, чтобы у него были духовные и материальные силы совершать все то, что необходимо, чтобы достичь задуманного. И человек, не зная никакой другой Силы в принципе, до самого конца “кошмарит” своего единственного “союзника” – “летуна”, “здоровый взрослый эгоизм” человека этого мира, не являющийся каким-то “злом” сам по себе, но занимающий свое строго конкретное “место” в цепочке питания “беспризорным” осознанием человека, предпочитающего всю жизнь оставаться тупой деревянной куклой, в глубине души отлично зная, что вся его жизнь – сплошной унылый и позорный маскарад. Как только воин осознает, что он сам в ответе за свою судьбу, и его решение отменить не в силах даже смерть, он сам перестает по каждому поводу лезть “советоваться” к “голосу разума”, читай “летуну”, и начинает учиться вместо этого постоянно быть чутким к тихому безмолвному, безразличному к пользе или вреду получаемых посредством него “советов”, голосу сердца, которое всегда чувствует заранее исход любого Пути, по которому идет человек, или только готовится на него ступить, потому что знает главную Тайну. Именно этим делая свои “услуги” полностью лишенными привлекательности для человека в быту личностью этого мира, которому нет до этого никакого дела.</p>
+
+    <p>Новый найденный “союзник” прозрачно намекает на неожиданное обнаружение воином определенной “волшебной” генеалогии, о которой он “ни слухом, ни Духом” не догадывался, разумеется, потому, что “вакантное место” “говорящего осла” было постоянно занято “старым союзником”. А именно, к Золушке является фея-крестная, производящая “мановением волшебной палочки” “цветную революцию” в отношении Золушки к окружающим ее “обычным”, привычным по “повседневной серости” простым вещам. Которые оказываются то каретой, то конями, то извозчиком, что указывает на то, что человек учится “создавать мир”, наполненный совершенно другими чувствами, намерениями и смыслом, используя те же самые “подручные” вещи, которые всем остальным продолжают казаться тем же, чем они были всегда – “элементами серого безблагодатного повседневного болота, в котором живут все люди, а я не лучше и не хуже остальных”. Но и здесь, чтобы жизнь медом не казалась (еще рано для “меда”), появляется новая напасть – “лишь только часы пробьют полночь…”, как контр-революционные силы Намерения первого Кольца Силы берут власть над “нетрадиционно ориентированными”, молодыми и робкими, попытками человека построить из “подручных средств” “магическую картину мира”. Больше всего в этот момент Золушка мечтает оказаться как можно дальше от Принца, хотя, откровенного говоря, это зря – поскольку, если бы она наоборот Ему во всем “призналась”, и осталась бы с ним, то они бы уж как нибудь решили бы ”проблему 12 часов”. Например, приказали бы бросить в топку все часы в Королевстве, или запретили часам бить 12 под страхом превращения навечно в деревяного Щелкунчика. Поскольку Принц в этой Сказке – не какой нибудь заурядный паяц из “золотой молодежи”, пресыщенный жалким подобием полноценной Жизни, в которой все есть, потому что все возможные желания на Свете давно переисполнены царственным Папой, а Сила, Которая дает человеку шанс “поставить на Карту самого себя и выиграть”, либо проиграть, не испытывая сожалений в обоих случаях, чтобы уже никогда не оглядываться назад.</p>
+
+    <div class="music">
+      <div class="mlabel">Музыка под настроение</div>
+      <details class="track">
+        <summary>
+          <span class="arrow">▶</span>
+          <span class="tinfo">
+            <span class="tname">Песня О Настоящем Индейце</span><br>
+            <span class="tartist">Ноль</span>
+          </span>
+          <a class="ext" href="https://youtu.be/mLC5Dt0HQRw" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+        </summary>
+        <div class="player" data-embed="https://www.youtube-nocookie.com/embed/mLC5Dt0HQRw"></div>
+      </details>
+    </div>
+
+  </article>
+
+  <nav class="corpus-nav">
+    <a class="prv" href="15F.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="ttl">Абстрактные Ядра Сказок о Силе</span>
+    </a>
+    <a class="nxt" href="15FA.html">
+      <span class="dir">Следующая →</span>
+      <span class="ttl">Сказка о мертвой царевне</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('details.track').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open){
+        var box=d.querySelector('.player');
+        if(box && !box.dataset.loaded){
+          var src=box.getAttribute('data-embed');
+          var f=document.createElement('div');
+          f.className='frame';
+          f.innerHTML='<iframe src="'+src+'?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+          box.appendChild(f);
+          box.dataset.loaded='1';
+        }
+      }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — цельное эзотерическое эссе-разбор сюжета сказки про Золушку в терминологии Кастанеды: сплошные длинные прозаические абзацы, никаких стихотворных строф. Поэтому однозначно выбрана редакторская (журнальная) широкоформатная схема, а не узкий манускрипт. Страница построена как широкий лонгрид: внешний контейнер ~1180px с мастхедом-крошками на всю ширину, а сама колонка чтения занимает ~66% (2/3) ширины для комфортной меры строки длинных абзацев; на мобильных всё разворачивается на полную ширину.\nПодразделов и заголовков внутри статьи нет (только название и датлайн), поэтому оглавление не делалось — оно требуется лишь при более чем одном подразделе. Сносок в тексте нет. Музыкальных ссылок ровно две (Кипелов и Ноль), обе на YouTube и обе с собственной меткой «Музыка под настроение» в разных местах текста — поэтому каждая оформлена отдельным свёрнутым ленивым плеером на своём месте; сводный раздел не создавался, так как он нужен только при более чем двух треках. Палитра — тёплая бумажная (светлый фон, терракотовый акцент и приглушённый сине-зелёный), засечный шрифт для тела и гротеск для служебных надписей; буквица в первом абзаце задаёт журнальный тон. Капс в названии и авторские кавычки сохранены дословно.",
+  "features": ["music"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -354,16 +682,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

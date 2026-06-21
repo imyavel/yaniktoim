@@ -1696,7 +1696,10 @@ export function renderArticleHtml(ctx) {
   const artType = (p.fm.type || "prose").trim();
   const artSection = ctx.rec.section || "other";
   const resolved = resolveDisplay(ctx.displayConfig || null, artSection, artType, fmTheme, fmWidth);
-  const theme = resolved.design;
+  // «old» НИКОГДА не печём статикой (url-unification §8.3): no-JS/краулер всегда видят
+  // индексируемый ZML-рендер с OG. design==="old" применяет boot оверлеем в рантайме
+  // (из data-fm-theme/display.json), а запечённая тема — ZML-дефолт A_editorial.
+  const theme = resolved.design === "old" ? "A_editorial" : resolved.design;
   const widthRaw = resolved.width.toLowerCase();
   // dropcap: буквицы per-article. Default ON (no frontmatter mention needed);
   // `dropcap: off` opts out → .no-dropcap on .wrap, theme CSS gates on it.
@@ -1725,6 +1728,13 @@ export function renderArticleHtml(ctx) {
   // Flat layout: article at docs/art/<art>.html → section index is one level up.
   html = replaceAllLiteral(html, "{{SECTION_HREF}}", `../${ctx.rec.section || "other"}/index.html`);
   html = replaceAllLiteral(html, "{{ILLUSTRATION}}", illustration);
+  // OG/twitter image (P3): абсолютный URL той же иллюстрации (fm.image) — ради
+  // богатого раскрытия в Telegram. Нет картинки → плейсхолдер пуст (OG падёт на title).
+  const ogImage = p.fm.image
+    ? `<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/${p.fm.image}">\n` +
+      `<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/${p.fm.image}">`
+    : "";
+  html = replaceAllLiteral(html, "{{OG_IMAGE}}", ogImage);
   html = replaceAllLiteral(html, "{{NUMBER}}", ctx.rec.art);
   html = replaceAllLiteral(html, "{{DATE_DISPLAY}}", htmlEscape(dateDisplay));
   html = replaceAllLiteral(html, "{{ORIGIN_URL}}", originUrl);
@@ -1740,6 +1750,16 @@ export function renderArticleHtml(ctx) {
   html = replaceAllLiteral(html, "{{PREV_LINK}}", prevLink);
   html = replaceAllLiteral(html, "{{NEXT_LINK}}", nextLink);
   html = replaceAllLiteral(html, "{{LAST_EDIT}}", lastEdit);
+  // Индексируемость (P3/url-unification): сам отрендеренный NNN.html — теперь
+  // ЕДИНСТВЕННЫЙ публичный адрес и должен попадать в Pagefind (раньше искался
+  // старый html). Атрибут оставлен в шаблоне ради синка docs/editor/data/
+  // (служебную копию шаблона Pagefind индексировать не должен), а из вывода убираем.
+  html = replaceAllLiteral(html, ' data-pagefind-ignore="all"', '');
+  // «old»-носитель: тело архивного старого html. build_views.mjs наполняет
+  // ctx.legacyBody (вынимает из cms-revival/legacy_html/); в браузерном редакторе
+  // его нет → пусто, и boot прячет опцию «оригинал». Подставляем ПОСЛЕДНИМ —
+  // содержимое архива не должно перехватываться другими плейсхолдерами.
+  html = replaceAllLiteral(html, "{{LEGACY_BODY}}", ctx.legacyBody || "");
   return html;
 }
 

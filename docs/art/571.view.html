@@ -7,8 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Смерть в Сказках, ч. 1</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Статья-размышление Элиягу Бар Малея о роли смерти в сказках как транзитного перехода сюжета, с примерами от Пушкина до Гарри Поттера и Евангелия.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/571.html">
+<meta property="og:title" content="Смерть в Сказках, ч. 1">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/571.html">
+<meta property="og:description" content="Статья-размышление Элиягу Бар Малея о роли смерти в сказках как транзитного перехода сюжета, с примерами от Пушкина до Гарри Поттера и Евангелия.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Смерть в Сказках, ч. 1">
+<meta name="twitter:description" content="Статья-размышление Элиягу Бар Малея о роли смерти в сказках как транзитного перехода сюжета, с примерами от Пушкина до Гарри Поттера и Евангелия.">
+
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +155,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="571" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="571" data-theme="swiss"
   data-art-section="dabudet" data-art-type="dialog"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +169,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +178,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="571.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -278,6 +288,386 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --soft:#5a5048;
+    --accent:#8a2b1f;
+    --accent2:#b5532b;
+    --rule:#d9cfbf;
+    --hl:#fff0c9;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+  }
+  .wrap{
+    width:66%;
+    max-width:980px;
+    margin:0 auto;
+    padding:40px 32px 80px;
+  }
+  @media(max-width:1100px){.wrap{width:78%;}}
+  @media(max-width:760px){
+    .ya-old{font-size:18px;}
+    .wrap{width:100%;padding:24px 18px 60px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--soft);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:30px;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 8px;color:#bcae9a;}
+
+  h1.title{
+    font-size:38px;
+    line-height:1.15;
+    margin:.2em 0 .15em;
+    font-weight:700;
+    letter-spacing:-.01em;
+  }
+  .byline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+    color:var(--soft);
+    margin:0 0 4px;
+  }
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:#9a8d7c;
+    margin:0 0 28px;
+  }
+
+  /* TOC */
+  .toc{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-left:4px solid var(--accent);
+    border-radius:3px;
+    padding:14px 22px 18px;
+    margin:0 0 40px;
+  }
+  .toc summary{
+    cursor:pointer;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--soft);
+    font-weight:600;
+  }
+  .toc ol{
+    margin:14px 0 2px;
+    padding-left:24px;
+  }
+  .toc li{margin:6px 0;}
+  .toc a{color:var(--accent);text-decoration:none;}
+  .toc a:hover{text-decoration:underline;}
+
+  h2.sec{
+    font-size:27px;
+    margin:48px 0 18px;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--rule);
+    scroll-margin-top:14px;
+  }
+  h2.sec a{color:inherit;text-decoration:none;}
+  h2.sec a:hover{color:var(--accent);}
+  h3.sub{
+    font-size:21px;
+    margin:34px 0 12px;
+    color:var(--accent);
+    font-style:italic;
+  }
+
+  p{margin:0 0 18px;}
+
+  blockquote{
+    margin:24px 0;
+    padding:6px 24px;
+    border-left:3px solid var(--accent2);
+    color:var(--soft);
+    font-style:italic;
+  }
+  .verse{
+    font-style:normal;
+    margin:14px 0;
+    line-height:1.5;
+  }
+
+  .dialogue{
+    margin:18px 0;
+    padding:4px 22px;
+    border-left:3px solid var(--rule);
+    color:#3a332b;
+  }
+
+  .end{
+    text-align:center;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    font-size:14px;
+    color:var(--soft);
+    margin:50px 0 10px;
+  }
+
+  /* footnote markers */
+  sup.fn{font-size:.72em;line-height:0;}
+  sup.fn a{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    padding:0 1px;
+  }
+  sup.fn a:hover{text-decoration:underline;}
+
+  .fnref{position:relative;}
+  .fnref .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    bottom:140%;
+    transform:translateX(-50%);
+    width:300px;
+    max-width:78vw;
+    background:#2a241d;
+    color:#f3ece0;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    font-weight:400;
+    line-height:1.5;
+    font-style:normal;
+    text-align:left;
+    padding:11px 14px;
+    border-radius:6px;
+    box-shadow:0 8px 26px rgba(0,0,0,.32);
+    z-index:40;
+  }
+  .fnref .pop::after{
+    content:"";
+    position:absolute;
+    top:100%;left:50%;
+    transform:translateX(-50%);
+    border:7px solid transparent;
+    border-top-color:#2a241d;
+  }
+  .fnref.below .pop{bottom:auto;top:140%;}
+  .fnref.below .pop::after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:#2a241d;}
+  .fnref .pop a{color:#f0b98a;}
+  .fnref:hover .pop{display:block;}
+
+  /* notes section */
+  .notes{
+    margin-top:54px;
+    border-top:2px solid var(--rule);
+    padding-top:20px;
+  }
+  .notes h2{
+    font-size:23px;
+    margin:0 0 18px;
+  }
+  .notes h2 a{color:inherit;text-decoration:none;}
+  .notes h2 a:hover{color:var(--accent);}
+  .notes ol{padding-left:26px;margin:0;}
+  .notes li{
+    margin:0 0 14px;
+    font-size:16.5px;
+    line-height:1.6;
+    color:#3a332b;
+    scroll-margin-top:20px;
+  }
+  .notes li:target{
+    background:var(--hl);
+    border-radius:4px;
+    padding:6px 10px;
+    margin-left:-10px;
+  }
+  .notes a{color:var(--accent);word-break:break-word;}
+  .notes .back{
+    margin-left:6px;
+    text-decoration:none;
+    font-size:14px;
+    color:var(--accent2);
+  }
+
+  /* corpus nav */
+  .corpusnav{
+    margin-top:60px;
+    border-top:1px solid var(--rule);
+    padding-top:24px;
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .corpusnav a{
+    color:var(--accent);
+    text-decoration:none;
+    max-width:46%;
+  }
+  .corpusnav a:hover{text-decoration:underline;}
+  .corpusnav .nx{text-align:right;margin-left:auto;}
+  .corpusnav .lbl{display:block;color:#9a8d7c;font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;}
+
+  footer.colofon{
+    margin-top:40px;
+    border-top:1px solid var(--rule);
+    padding-top:18px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    color:var(--soft);
+    line-height:1.6;
+  }
+  footer.colofon a{color:var(--accent);}
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №571</span>
+<div class="wrap" id="top">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>/</span><a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <p class="byline">Элиягу Бар Малей</p>
+  <h1 class="title">Смерть в Сказках, ч. 1<a class="audio-link" href="https://t.me/art_017_tracks/358" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <p class="dateline">01.07.2025 · г. Санкт-Петербург</p>
+
+  <details class="toc" open>
+    <summary>Оглавление</summary>
+    <ol>
+      <li><a href="#epigraf">Эпиграф</a></li>
+      <li><a href="#chast1">Часть 1. Сон</a></li>
+      <li><a href="#chast2">Часть 2. Евангелие</a></li>
+      <li><a href="#notes">Примечания</a></li>
+    </ol>
+  </details>
+
+  <h2 class="sec" id="epigraf"><a href="#top">Эпиграф</a><sup class="fn fnref"><a href="#note1" id="ref1">*1</a><span class="pop">Источник: <a href="https://www.inpearls.ru/509553">inpearls.ru/509553</a></span></sup></h2>
+
+  <blockquote>
+    <p>"Ты, конечно, помнишь эту ужасную бесконечную историю про попа и его несчастную собаку:</p>
+    <div class="verse">
+      У попа была собака,<br>
+      Он ее любил.<br>
+      Она съела кусок мяса —<br>
+      Он ее убил.<br>
+      И в землю закопал.<br>
+      И надпись написал:<br>
+      «У попа была собака,<br>
+      Он ее любил…»
+    </div>
+    <p>и так далее. Это стихотворение никогда не кончается, потому что все время возвращается к своему началу..."</p>
+  </blockquote>
+
+  <h2 class="sec" id="chast1"><a href="#top">Часть 1. Сон</a></h2>
+
+  <p>Сплю сейчас... И оказался в каком-то Круге. Представь себе: мужик там, который, как бы, Нагваль [лидер, ведущий], вот они сидят, и я сижу тоже. И каждому [он] задает вопрос. Какие-то разные [вопросы], по его [того, кому задает] "части". И когда до меня дошла очередь, он меня спросил следующее.</p>
+
+  <div class="dialogue">"- Что означает смерть в сказках?"</div>
+
+  <p>Вот так, по-моему. Я ему ответил, не запинаясь:</p>
+
+  <div class="dialogue">"- Смерть в сказках, чаще всего, является транзитным переходом сюжетной лини."</div>
+
+  <p>Вот. То есть, она, как бы, является, не "смертью", как таковой, а она является чем-то таким вот, что потом оказывается, чем-то не окончательным. То есть, она не имеет "собственного" смысла. Как-бы, эта смерть, она не имеет собственного смысла, она имеет всегда какой-то дальнейший смысл, и является, очень часто, не окончательной.</p>
+
+  <p>Например, Мертвая Царевна<sup class="fn fnref"><a href="#note2" id="ref2">*2</a><span class="pop">См. также: Сказка о Мертвой Царевне, А.С. Пушкин — <a href="https://ilibrary.ru/text/457/p.1/index.html">ilibrary.ru</a></span></sup>. Она не умерла, она "заснула", а потом ее, как бы, "пробудили". Есть, например, Волан-де-морт<sup class="fn fnref"><a href="#note3" id="ref3">*3</a><span class="pop">См. также: Гарри Поттер. Джоан Роулинг</span></sup>. И тут, фактически, обратная ситуация, т.е., есть антигерой. Он умирает, но, именно, умирает, производя транзитный переход сюжета из одной части в другую.</p>
+
+  <h2 class="sec" id="chast2"><a href="#top">Часть 2. Евангелие</a></h2>
+
+  <p>Вот, кстати, еще интересный сюжет... Даже два сюжета одновременно. Вот в этой Сказке, которая называется "Евангелие", в ней два сюжета одновременно, которые связаны с этой тематикой.</p>
+
+  <p>Во-первых, это смерть и воскрешение Христа, да? В ней скрыто, на самом деле, то же самое, что скрыто в этих эзотерических сюжетах сказок. Но только "скрыто" другим языком. И, одновременное, второе - это "страшный суд всех мертвецов". Который обязан быть в последствии - т.е., уже во времена "Апокалипсиса"...</p>
+
+  <p>...Когда будет, так сказать, произведена "эксгумация"... Эксгумация трупов. На эту тему у меня, в моих Сказках, тоже есть две темы... В начале, "Летопись Живого Огня"<sup class="fn fnref"><a href="#note4" id="ref4">*4</a><span class="pop">См. также: <a href="182.html">Летопись Живого Огня</a>, ЭБМ</span></sup>, там есть про "эксгумацию", но еще немножко не в том ключе... И второй, конечно же, это "Костер"<sup class="fn fnref"><a href="#note5" id="ref5">*5</a><span class="pop">См. также: <a href="337.html">Костер</a>, ЭБМ</span></sup>, и, вообще говоря, эта ситуация...</p>
+
+  <p>Но она уже, даже, восходит, именно к тому, что я сейчас говорил: "страшный суд всех мертвецов", на самом деле, эта "смерть" - это "оживление мертвого". Т.е., в сказке, необходимо, чтобы сначала происходило... Чтобы человек, как бы, "заснул", или "умер". А потом, чтобы его, каким-то образом, "вернули к жизни". Это потому, что требования сюжетной линии, чтобы она была целостной, полноценной, необходимо показать, с чем мы имеем дело: что мы имеем дело с состоянием смерти или сна. Но так...</p>
+
+  <p>Так, можно ли считать ребенка - существо, у которого еще нету самостоятельности, как у "творения", которое еще не является повзрослевшим творением... Он гораздо больше похож на "солнечный зайчик", о котором я говорил, [что] у которого "точка сборки" [КК], постоянно скачет "туда-сюда".</p>
+
+  <p>Пока у него еще нету "идеи себя", нету "личной истории", он, может быть, еще и не "говорит с собой". А, после этого, происходит то, что он становится [у него появляется] самостоятельность, у него появляется вот этот "авиют"<sup class="fn fnref"><a href="#note6" id="ref6">*6</a><span class="pop">См. также: Введение в Науку Каббала, Бааль Сулам — <a href="https://w.wiki/_oRLq">w.wiki/_oRLq</a></span></sup>, [который] он приобретает. На самом деле, в данном случае, "авиют" означает умерщвление. Как ни странно, да?</p>
+
+  <p>И вот эти все толпы, "ходячих мертвецов"<sup class="fn fnref"><a href="#note8" id="ref8">*8</a><span class="pop">См. также: <a href="384.html">Катехизис Детей Вечной Весны</a>, ЭБМ</span></sup> - это мы, то есть, вот в "этом мире", да? - они, на самом деле, "судимы"... Ну, это мной описано в "Костре", достаточно красиво...</p>
+
+  <p>Ну вот, так что, это целых две, два "вхождения" этой ситуации, в сценарии [Евангелия]. Сам Иисус Христос, Его "история личная", и то, как, в последствии, какую роль Он играет в "конечном исправлении" - в исправлении Мира.</p>
+
+  <h3 class="sub">П.С.</h3>
+
+  <p>...Этот сюжет, понятное дело, что он имеет отношение к "Маасе Берешит"<sup class="fn fnref"><a href="#note7" id="ref7">*7</a><span class="pop">См. также: <a href="26O.html">Модус Операнди</a>, ЭБМ</span></sup>, он имеет отношение к "раскрытию" этого явления, в процессе человеческой жизни. Это является "законченным", правильным вариантом, вот этой вот, "сказки", половинчатый вариант которой описан (в эпиграфе к первой части статьи) - в виде "дурной бесконечности". "У попа была собака, он ее убил (1). Она съела кусок мяса, он ее убил (2). В землю закопал (3)..." и так далее...</p>
+
+  <p>"На самом деле", тут все немного по-другому. "Вторая часть", должна быть "в точности наоборот", о том, что он [поп] ее "выкопал из земли (1), оживил (2), и накормил (3) мясом", вот так вот :). И дальше, они стали "жить вместе, долго и счастливо". Чтобы не закралась крамольная мысль о том, что потом все повторяется заново, только с первого акта...</p>
+
+  <p class="end">Конец первой части</p>
+
+  <section class="notes" id="notes">
+    <h2><a href="#top">Примечания</a></h2>
+    <ol>
+      <li id="note1"><a href="#ref1" class="back" title="Вернуться к тексту">↑</a> Источник: <a href="https://www.inpearls.ru/509553">https://www.inpearls.ru/509553</a></li>
+      <li id="note2"><a href="#ref2" class="back" title="Вернуться к тексту">↑</a> См. также: Сказка о Мертвой Царевне, А.С. Пушкин <a href="https://ilibrary.ru/text/457/p.1/index.html">https://ilibrary.ru/text/457/p.1/index.html</a></li>
+      <li id="note3"><a href="#ref3" class="back" title="Вернуться к тексту">↑</a> См. также: Гарри Поттер. Джоан Роулинг</li>
+      <li id="note4"><a href="#ref4" class="back" title="Вернуться к тексту">↑</a> См. также: <a href="182.html">Летопись Живого Огня</a>, ЭБМ</li>
+      <li id="note5"><a href="#ref5" class="back" title="Вернуться к тексту">↑</a> См. также: <a href="337.html">Костер</a>, ЭБМ</li>
+      <li id="note6"><a href="#ref6" class="back" title="Вернуться к тексту">↑</a> См. также: Введение в Науку Каббала, Бааль Сулам <a href="https://w.wiki/_oRLq">https://w.wiki/_oRLq</a></li>
+      <li id="note7"><a href="#ref7" class="back" title="Вернуться к тексту">↑</a> См. также: <a href="26O.html">Модус Операнди</a>, ЭБМ</li>
+      <li id="note8"><a href="#ref8" class="back" title="Вернуться к тексту">↑</a> См. также: <a href="384.html">Катехизис Детей Вечной Весны</a>, ЭБМ</li>
+    </ol>
+  </section>
+
+  <nav class="corpusnav">
+    <a href="574.html" class="pv"><span class="lbl">← Предыдущая</span>Каббала Смерть в Сказках, ч. 2</a>
+    <a href="2CK.html" class="nx"><span class="lbl">Следующая →</span>Новая сказка о Золотой Рыбке</a>
+  </nav>
+
+  <footer class="colofon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // dynamic popup side: show below if near top of viewport
+  document.querySelectorAll('.fnref').forEach(function(el){
+    el.addEventListener('mouseenter',function(){
+      var r=el.getBoundingClientRect();
+      if(r.top<170){el.classList.add('below');}else{el.classList.remove('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой записанный устный размышлительно-эзотерический монолог (проза с диалоговыми вставками и постскриптумом), а не стихотворную форму. Единственный стихотворный фрагмент — народный куплет про попа и собаку — служит лишь эпиграфом-цитатой и не определяет жанр целого, поэтому выбрана редакторская широкая схема (контейнер ~66% ширины окна) для журнального лонгрида.\n\nРазвилки: эпиграфический куплет оформлен как verse внутри blockquote, чтобы сохранить строки, но не переключать всю страницу в манускрипт. Поскольку разделов больше одного (Эпиграф, Часть 1, Часть 2 с П.С., Примечания), добавлено сворачиваемое оглавление, а заголовки кликабельны для возврата наверх. Восемь сносок (*1–*8, в тексте *8 встречается раньше *7 — порядок сохранён как в оригинале) реализованы с переходами вниз/вверх, подсветкой цели и hover-popup, сторона которого вычисляется по близости к верху окна. Музыкальных ссылок нет, поэтому music-блок не создавался. Палитра тёплая бумажная со сдержанным бордовым акцентом — под книжно-эзотерический тон без избыточной декоративности."
+  ,
+  "features": ["footnotes", "toc"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -423,16 +813,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

@@ -7,8 +7,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ОДИН ДЕНЬ ИЗ ЖИЗНИ ДЕЛЬФИНОВ.</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Каббалистическая сказка о расе разумных водных рептилий идулей на планете Ялмез, выборе между Верой и Умом, духовном Пути и судьбе главных героев Нипны и Анибе.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/18AA.html">
+<meta property="og:title" content="ОДИН ДЕНЬ ИЗ ЖИЗНИ ДЕЛЬФИНОВ.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/18AA.html">
+<meta property="og:description" content="Каббалистическая сказка о расе разумных водных рептилий идулей на планете Ялмез, выборе между Верой и Умом, духовном Пути и судьбе главных героев Нипны и Анибе.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ОДИН ДЕНЬ ИЗ ЖИЗНИ ДЕЛЬФИНОВ.">
+<meta name="twitter:description" content="Каббалистическая сказка о расе разумных водных рептилий идулей на планете Ялмез, выборе между Верой и Умом, духовном Пути и судьбе главных героев Нипны и Анибе.">
+<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/18AA.jpg">
+<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/18AA.jpg">
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +156,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="18AA" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="18AA" data-theme="swiss"
   data-art-section="dabudet" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +170,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +179,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="18AA.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -281,6 +292,403 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#1f2a2e;
+    --muted:#5d6b6f;
+    --accent:#1f6f78;
+    --accent-deep:#114a52;
+    --rule:#d8d0c2;
+    --hl:#fce9b8;
+    --maxw:min(1180px,92vw);
+    --col:66%;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-text-size-adjust:100%;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 24px 60px;
+  }
+  .grid{
+    display:block;
+    width:var(--col);
+    margin:0;
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:26px 0 18px;
+    border-bottom:1px solid var(--rule);
+    margin-bottom:26px;
+  }
+  .crumbs a{color:var(--accent-deep);}
+  .crumbs span{color:var(--muted);padding:0 .5em;}
+
+  .lead-img{display:block;max-width:100%;width:auto;height:auto;margin:0 0 30px;border-radius:3px;}
+
+  h1{
+    font-size:2.05rem;
+    line-height:1.18;
+    letter-spacing:.01em;
+    margin:.2em 0 .35em;
+    color:var(--accent-deep);
+    font-weight:700;
+  }
+  .subtitle{
+    font-style:italic;
+    font-size:1.2rem;
+    color:var(--muted);
+    margin:0 0 .4em;
+  }
+  .artmeta{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    letter-spacing:.03em;
+    margin:0 0 1.2em;
+  }
+  .pub{
+    font-size:.97rem;
+    color:var(--muted);
+    border-left:3px solid var(--accent);
+    padding:.4em 0 .4em 1em;
+    margin:0 0 2.2em;
+  }
+
+  /* TOC */
+  .toc{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:5px;
+    padding:.4em 1.2em 1em;
+    margin:0 0 2.6em;
+  }
+  .toc summary{
+    cursor:pointer;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-size:.82rem;
+    font-weight:700;
+    color:var(--accent-deep);
+    padding:.6em 0;
+  }
+  .toc ol{margin:.3em 0 0;padding-left:1.4em;}
+  .toc li{margin:.32em 0;}
+  .toc a{color:var(--ink);}
+
+  section{margin:0 0 2.4em;}
+  h2{
+    font-size:1.5rem;
+    color:var(--accent-deep);
+    border-bottom:2px solid var(--rule);
+    padding-bottom:.25em;
+    margin:1.8em 0 .8em;
+    letter-spacing:.01em;
+  }
+  h2 a{color:inherit;}
+  h2 a:hover{text-decoration:none;color:var(--accent);}
+  p{margin:0 0 1.15em;}
+
+  .afterword p{margin:0;}
+  .afterword{font-style:italic;color:#33424a;line-height:1.85;}
+  .afterword .signoff{font-style:normal;font-weight:700;color:var(--accent-deep);margin-top:1em;}
+
+  /* footnote markers */
+  .fn-ref{
+    font-size:.72em;
+    vertical-align:super;
+    line-height:0;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    padding:0 1px;
+    cursor:pointer;
+  }
+  .fn-ref::before{content:"[";}
+  .fn-ref::after{content:"]";}
+  .fn-back{font-size:.8em;margin-left:.5em;text-decoration:none;}
+
+  /* footnote popup */
+  #fn-pop{
+    position:absolute;
+    z-index:50;
+    max-width:360px;
+    background:#16323a;
+    color:#f3efe6;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px;
+    line-height:1.5;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 8px 26px rgba(0,0,0,.28);
+    display:none;
+    pointer-events:none;
+  }
+  #fn-pop a{color:#9fe0e8;}
+
+  .notes ol{padding-left:1.5em;}
+  .notes li{margin:.55em 0;color:#33424a;font-size:.97rem;}
+  .notes li:target{background:var(--hl);border-radius:4px;padding:.2em .4em;animation:flash 1.6s ease;}
+  .anon-note{list-style:none;margin-left:-1em;}
+  @keyframes flash{0%{background:#ffd35a;}100%{background:var(--hl);}}
+
+  /* music player */
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.07em;
+    font-size:.8rem;
+    font-weight:700;
+    color:var(--muted);
+    margin:0 0 .6em;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:6px;
+    background:var(--paper);
+    margin:0 0 .4em;
+    overflow:hidden;
+  }
+  .track summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:.6em;
+    padding:.85em 1em;
+    font-size:1.02rem;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .track .tname{font-weight:700;color:var(--accent-deep);}
+  .track .tart{color:var(--muted);}
+  .track .arrow{
+    margin-left:auto;
+    transition:transform .2s;
+    color:var(--accent);
+    font-size:.9em;
+  }
+  .track[open] .arrow{transform:rotate(180deg);}
+  .track .ext{color:var(--muted);text-decoration:none;font-size:1.05em;}
+  .player{padding:0 1em 1em;}
+  .player .frame{position:relative;padding-bottom:56.25%;height:0;border-radius:5px;overflow:hidden;background:#000;}
+  .player iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+
+  /* bottom nav */
+  .corpus-nav{
+    width:var(--col);
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    border-top:1px solid var(--rule);
+    padding-top:22px;
+    margin-top:38px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{display:block;max-width:46%;}
+  .corpus-nav .lbl{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);}
+  .corpus-nav .nx{text-align:right;margin-left:auto;}
+  footer{
+    width:var(--col);
+    margin-top:30px;
+    padding-top:18px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer a{color:var(--accent-deep);}
+
+  @media(max-width:900px){
+    :host{--col:100%;}
+    .ya-old{font-size:17.5px;}
+    .grid,.corpus-nav,footer{width:100%;}
+    h1{font-size:1.7rem;}
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №18AA</span>
+<a id="top"></a>
+<div class="wrap">
+  <div class="grid">
+
+    <nav class="crumbs">
+      <a href="../index.html">Главная</a><span>/</span><a href="../dabudet/index.html">Да будет Свет!</a>
+    </nav>
+
+    <img class="lead-img" src="../img/18AA.jpg" alt="Иллюстрация к статье">
+
+    <h1>ОДИН ДЕНЬ ИЗ ЖИЗНИ ДЕЛЬФИНОВ.<a class="audio-link" href="https://t.me/art_017_tracks/387" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <p class="subtitle">Каббалистическая сказка с прекрасным концом.</p>
+    <p class="artmeta">Арт. #AA18A, написано 10 Августа 2021 г.</p>
+    <p class="pub">Опубликовано впервые на форуме<a class="fn-ref" id="ref2" href="#fn2" data-note="ccastaneda.ru/viewtopic.php?id=3191&amp;p=3#p63327">2</a> Учения «левой линии» (нагвализма) в рамках локального конкурса «сказки о Силе»</p>
+
+    <details class="toc" open>
+      <summary>Содержание</summary>
+      <ol>
+        <li><a href="#s-vstup">Вступление</a></li>
+        <li><a href="#s-p1">ЧАСТЬ 1</a></li>
+        <li><a href="#s-p2">ЧАСТЬ 2</a></li>
+        <li><a href="#s-posle">Послесловие</a></li>
+        <li><a href="#s-music">Музыка под настроение</a></li>
+        <li><a href="#s-notes">Пояснения</a></li>
+      </ol>
+    </details>
+
+    <section id="s-vstup">
+      <h2><a href="#top">Вступление</a></h2>
+      <p>Где-то на очень далекой планете с именем странным «Ялмез». Жила-тужила разумная раса водных рептилий, называющих себя «идул». Или «кеволечество»...</p>
+    </section>
+
+    <section id="s-p1">
+      <h2><a href="#top">ЧАСТЬ 1</a></h2>
+      <p>Был у идулей совет мудрецов. Он в глубоководье в дни важные для всех кеволечей. Но большинство идулей, как это обычно всегда бывает, не горели желанием решать судьбы мира, да и вообще - «меньше знаешь, крепче спишь». А спали идули крепко.</p>
+      <p>И вот поворотный момент наступил. Развивается новый духовный Путь. Мир Ума рушится на глазах, мир Веры никогда не будет использован молчаливым большинством.</p>
+      <p>Хозяева Ялмаза выступали от имени всех подводных разумных рептилий. Им оппонировала небольшая группа идулей, называющих себя Тулица. Они были убеждены, что в сложившихся обстоятельствах, только абсолютная Вера способна спасти остатки расы идулей от вымирания и прекращения рода Кеволечей. Хозяева подводного мира настаивали на строительстве «субмарин», т.е. на действии по обстоятельствам.</p>
+      <p>И был среди малочисленных Тулица один кеволеч, носивший кличку Нипна. Он был у них неформальным лидером. У него была напарница, с которой они были ближе, чем родственники. «Тулица очень скоро должны будут сделать выбор - каждый и каждая, равно как и все остальные идули, каждый кеволеч.»</p>
+      <p>«У него или у нее будет 2 варианта» - излагал Нипна подруге, которую звали Анибе, краткое положение дел. - «Тулица сделают ставку на слепую веру, все остальные идули - перебазируются глубже внутрь океана, ничего по сути не меняя. И этим выбором каждый определит свой Путь. Тем, кто пойдет по Пути Тулица, окажется с другими идулями не по Пути. Но выбор этот будет произведен не явным опросом, а как обычная ситуация подводного мира. Поэтому кеволеч не сможет выбирать сознательно, какому Пути следовать.»</p>
+      <p>Тут следует сделать одно пояснение. У Анибе был сын среди идулей, и он был серьезно и неизлечимо болен расстройством Ума. Поэтому к Тулица присоединиться не мог.</p>
+      <p>Нипна с лицом, напоминающим кирпич, поведал Анибе: «ты в проверке 'свой/чужой' выберешь Путь идулей из-за сына автоматически. И не сможешь идти дальше со мной и с Тулица. А если решишь выбрать Веру/'знание вопреки Вселенной', то за тобой не сможет пойти твой сын, и ты больше не сможешь помочь ему.»</p>
+      <p>А, тем временем, Нипна вооружил всех приверженцев Тулица необходимыми материалами и инструкциями, сам своим личным примером показал, как «простая вера» чудесным образом спасает от неминуемой гибели. Ему сложно было принять жестокую судьбу - что его самая ближняя в Тулице кеволеч остается «на том берегу».</p>
+      <p>Как вдруг, он «вспомнил» о том, что в основе верований Тулица лежало убеждение о двух «первородных» идулях, мужского и женского пола, которые были не совсем идулями, а, скорее, чем-то глобальным, (существующим) в единственном числе на всем Ялмезе. Их звали Мада и Аве. И Мада был, по сути, далек от всех прочих идулей, а близок к Абсолюту, из Которого он выплыл когда-то.</p>
+      <p>Аве же, его жена, вместе с ними проходила все невзгоды Пути, которых было не мало, поскольку Путь этот был длинным, и далеко не всегда Ума кеволечей, вообще говоря, хватало на то, чтобы что-либо в нем разобрать отчетливо кроме истрепанных кораллов под носом, худо-бедно служивших им домом. Но Цель этого Пути была очень возвышена и высока, и поднимала всех идулей как одного кеволеча на уровень Мада, при этом не убирая их нынешней формы, а совершенствуя ее.</p>
+      <p>Но пока эта Цель оставалась отдаленной мечтой (хоть и гораздо более близкой, чем когда-то, благодаря усилиям и удаче Нипна и Анибе, создавших движение Тулица буквально «из ничего»; разумеется, им в этом сильно помогал Сам Мада, и они это знали). Но все равно, море не выглядело даже отдаленно напоминающим чистые предвечные воды Абсолюта, а идули в массе своей и знать ничего про какую-то там «Высшую Цель» Кеволечества не хотели, ведя образ жизней, мало отличающийся от такового их ближайшего «эволюционного родственника» - дельфина кеволечеподобного.</p>
+      <p>Но «сверхзадача» Нипна и Анибе, а, соответственно, и Мада и Аве, поскольку именно Их задачи выполняли первые двое, было раскрытие реальности, полностью противоположной этому, и тут, что называется, морской конь не дрейфовал. И вот Нипна, размышляя над своим горем и судьбой Анибе, внезапно понял, что у Аве тоже есть единственный сын - это Кеволеч, включающий всех идулей, достигающий Цели своей долгой, и богатой на злоключения, эволюции и Пути.</p>
+      <p>И этот единственный Сын - очевидно, в настоящий момент, т.е., если верить глазам и эхо-локаторам (а кто в здравом Уме усомниться достоверности ощущений другого Кеволеча?), этот сын неизлечимо болен психически, ментально, и не способен, если бы Аве не помогала ему, скрывая свое участие в судьбе идулей по большей части, он бы не выжил, и не смог достичь Цели своего Пути, и порадовать этим Мада, своего Отца.</p>
+    </section>
+
+    <section id="s-p2">
+      <h2><a href="#top">ЧАСТЬ 2</a></h2>
+      <p>В следующий миг (скорость течения их судеб была настолько стремительной, что Нипна и Анибе давно принимали перевороты Океана вверх дном как будничное дело, и не удивлялись ничему) Нипна вспомнил свою собственную, не далее, чем вчерашнего дня, (формулировку) про то, как кеволечам правильно формировать намерение на достижение Цели Пути. Ему самому это действие удалось когда-то, результатом чего стало возникновение Тулица. Но сами идули, приверженцы Тулица, были всего лишь работниками, выполняющими работу Мада и Аве, а Цель этой работы, и ее смысл, касались не самих Тулица, а всех идулей, в их будущем состоянии достижения Цели Пути.</p>
+      <p>Из этого следовало, и Нипна в этот миг это кристально ясно эхо-лоцировал, то, что сами Тулица должны, вопреки своим локаторам, установкам, и его же собственным, не далее, чем вчерашним, инструкциям (поэтому он и не любил составлять планы и инструкции) - не следовать в гордом одиночестве Путем Веры, а «отменить себя», и этой же Верой дать себе знать, вопреки всем водам окияна, что именно идули, плавающие в прибрежных водах, и мало отличимые от дельфинов - совершенны исключительно во всем, но только в самих Тулица есть изъян, который мешает им стать частью имеющегося у всех идулей совершенства, чтобы вместе как один Кеволеч порадовать Мада и Аве достижением Цели Пути.</p>
+      <p>Это значит, что Нипна должен попросить у Мада об выправлении себя снова, только уже от Имени всех Тулица, и принять, вопреки всей очевидности океанских вод, то решение, которое есть у идулей, выше, чем собственное «особое мнение» приверженцев Тулица. И он действительно сделал это (ему это было не впервой, и прошло без заминок, так ему, во всяком случае, показалось). И Мада еще раз изменил Реальность Тулица, повернув их лицами в одну сторону с остальными идулями.</p>
+      <p>Они спаслись! Но, в новой Реальности, у самих Нипна и Анибе, было больше вопросов, чем ответов. Но в этом-то и была вся прелесть Пути в авангарде всех остальных идулей к Высшей Цели кеволечей, достигая Ее чуть-чуть раньше всех остальных, и имея поэтому этот непередаваемый миг восторга от раскрытия нового знания о состоянии, в котором все идули уже находятся, но которое именно Тулица в целом, и Нипна и Анибе, в частности, должны раскрыть и выяснить, для того, чтобы восполнить свою часть в этом (совершенстве) как полагается, и этим достичь Цели, порадовать Мада и Аве, и, вместе со всеми идулями, как одним Кеволечем, отплыть в неизвестное и невообразимое будущее в чистых и прозрачных водах первозданного Абсолютного Океана.</p>
+    </section>
+
+    <section id="s-posle" class="afterword">
+      <h2><a href="#top">Послесловие</a></h2>
+      <p>Мать, у которой сын болен шизой.<br>
+      Но которая бросить его - ни за что.<br>
+      И остается поэтому в первом внимании.<br>
+      А в последний момент<br>
+      Оказывается, что Госпожа, что со мной была рядом 2 года -<br>
+      Ева, душа Первоматерь для «этого мира»,<br>
+      «Погоняет ослов»<a class="fn-ref" id="ref1" href="#fn1" data-note="См. также: Погонщик ослов, п. 85, со слов «Сошли рабби Эльазар и рабби Аба со своих ослов...» и далее">1</a> за праведниками и праведницами.<br>
+      Сын болен шизой - но «у него большое будущее»<br>
+      духовное. Еще бы.</p>
+      <p style="margin-top:1em;">Бина Илаа. Теперь «исправлен» у нас будет весь «этот мир». Поэтому...</p>
+      <p class="signoff">Сделаем и услышим!</p>
+    </section>
+
+    <section id="s-music">
+      <h2><a href="#top">Музыка под настроение</a></h2>
+      <p class="music-label">Музыка под настроение:</p>
+      <details class="track" data-embed="https://www.youtube.com/embed/nj4mXWKgKXc">
+        <summary>
+          <span class="tname">«REQUIEM FOR A DREAM»</span>
+          <span class="tart">— Hans Zimmer Orchestra</span>
+          <a class="ext" href="https://youtu.be/nj4mXWKgKXc" target="_blank" rel="noopener" title="Открыть на YouTube" onclick="event.stopPropagation();">↗</a>
+          <span class="arrow">▾</span>
+        </summary>
+        <div class="player"><div class="frame"></div></div>
+      </details>
+    </section>
+
+    <section id="s-notes" class="notes">
+      <h2><a href="#top">Пояснения</a></h2>
+      <ol>
+        <li id="fn1">См. также: Погонщик ослов, п. 85, со слов «Сошли рабби Эльазар и рабби Аба со своих ослов...» и далее <a href="https://imyavel.github.io/zohar-sulam/akdama/012.html" target="_blank" rel="noopener">akdama/012</a> <a class="fn-back" href="#ref1" title="Вернуться к тексту">↩</a></li>
+        <li id="fn2"><a href="https://ccastaneda.ru/viewtopic.php?id=3191&amp;p=3#p63327" target="_blank" rel="noopener">ccastaneda.ru/viewtopic.php?id=3191&amp;p=3#p63327</a> <a class="fn-back" href="#ref2" title="Вернуться к тексту">↩</a></li>
+      </ol>
+    </section>
+
+  </div>
+
+  <nav class="corpus-nav">
+    <a class="pv" href="262.html"><span class="lbl">← Предыдущая</span>Небесная Дорога</a>
+    <a class="nx" href="2CG.html"><span class="lbl">Следующая →</span>Сам такой ДНА 3</a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+</div>
+
+<div id="fn-pop"></div>
+
+<script>
+// Lazy YouTube player
+document.querySelectorAll('.track[data-embed]').forEach(function(d){
+  d.addEventListener('toggle',function(){
+    if(d.open){
+      var f=d.querySelector('.frame');
+      if(f && !f.querySelector('iframe')){
+        var ifr=document.createElement('iframe');
+        ifr.src=d.getAttribute('data-embed')+'?autoplay=1';
+        ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        ifr.allowFullscreen=true;
+        f.appendChild(ifr);
+      }
+    }
+  });
+});
+
+// Footnote popup
+(function(){
+  var pop=document.getElementById('fn-pop');
+  document.querySelectorAll('.fn-ref').forEach(function(m){
+    m.addEventListener('mouseenter',function(){
+      pop.textContent=m.getAttribute('data-note')||'';
+      pop.style.display='block';
+      var r=m.getBoundingClientRect();
+      var pw=pop.offsetWidth, ph=pop.offsetHeight;
+      var sx=window.scrollX, sy=window.scrollY;
+      var left=r.left+sx+r.width/2-pw/2;
+      left=Math.max(8+sx,Math.min(left,sx+document.documentElement.clientWidth-pw-8));
+      var top;
+      if(r.top>ph+12){ top=r.top+sy-ph-8; }
+      else { top=r.bottom+sy+8; }
+      pop.style.left=left+'px';
+      pop.style.top=top+'px';
+    });
+    m.addEventListener('mouseleave',function(){ pop.style.display='none'; });
+  });
+})();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — каббалистическая притча в прозе («сказка о Силе») с абзацной повествовательной структурой, поэтому выбрана редакторская широкоформатная схема, а не узкий манускрипт. Единственный квази-стихотворный фрагмент — «Послесловие» — занимает лишь малую долю объёма и не меняет доминирующую форму; я отдал ему построчную вёрстку через <br> внутри прозаической колонки, не переключая всю страницу в манускрипт. Основная колонка ограничена ~66% ширины окна для журнального лонгрида; на мобильном — полная ширина.\n\nПалитра морская (глубокий teal на тёплом светлом фоне) — тематически отвечает океану/дельфинам. Сносок две (*1 и *2), обе с реальными ссылками в теле; маркеры даны как кликабельные [1]/[2] с переходом вниз, возвратом ↩ и hover-popup, позиция которого вычисляется JS (над маркером, либо под ним у верхней кромки). Музыкальный трек один (REQUIEM FOR A DREAM, YouTube) — оформлен ленивым раскрывающимся плеером; сводный раздел музыки не создавал, так как распознанная аудио-ссылка лишь одна (порог >2 не достигнут). Заголовок статьи дан капсом как в оригинале — регистр сохранён; голые URL обёрнуты в ссылки. Подразделов больше одного, поэтому добавлено сворачиваемое оглавление, а каждый H2 ведёт обратно наверх.",
+  "features": ["music", "footnotes", "toc"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -426,16 +834,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

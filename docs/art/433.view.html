@@ -7,8 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Парадокс Очистителя</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе о каббалистических понятиях Малхут, Зеир Анпин и Арих Анпин через метафору телесной близости, с отсылками к учению Дона Хуана и Карлоса Кастанеды.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/433.html">
+<meta property="og:title" content="Парадокс Очистителя">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/433.html">
+<meta property="og:description" content="Эссе о каббалистических понятиях Малхут, Зеир Анпин и Арих Анпин через метафору телесной близости, с отсылками к учению Дона Хуана и Карлоса Кастанеды.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Парадокс Очистителя">
+<meta name="twitter:description" content="Эссе о каббалистических понятиях Малхут, Зеир Анпин и Арих Анпин через метафору телесной близости, с отсылками к учению Дона Хуана и Карлоса Кастанеды.">
+
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +155,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="433" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="433" data-theme="swiss"
   data-art-section="other" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +169,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +178,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="433.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -205,6 +215,211 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#23201b;
+    --muted:#6f6657;
+    --accent:#9a3b22;
+    --accent2:#3a5a78;
+    --rule:#d8cfbd;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{-webkit-text-size-adjust:100%;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+  }
+  .wrap{
+    width:66%;
+    max-width:1100px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 40px 80px;
+  }
+  a{color:var(--accent2);text-decoration:none;border-bottom:1px solid rgba(58,90,120,.35);}
+  a:hover{border-bottom-color:var(--accent2);}
+
+  /* breadcrumbs */
+  .crumbs{
+    font-size:.82em;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:28px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .crumbs a{color:var(--muted);border-bottom:none;}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs span.sep{margin:0 .5em;opacity:.6;}
+
+  h1{
+    font-size:2.4em;
+    line-height:1.15;
+    font-weight:600;
+    margin:.2em 0 .1em;
+    letter-spacing:-.01em;
+  }
+  .kicker{
+    color:var(--accent);
+    font-style:italic;
+    font-size:1.05em;
+    margin:0 0 1.6em;
+  }
+  .article{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:4px;
+    padding:44px 56px;
+    box-shadow:0 2px 18px rgba(60,45,20,.05);
+  }
+  .article > p{margin:0 0 1.25em;}
+  .article > p:first-of-type{
+    font-size:1.06em;
+  }
+  .article > p:first-of-type::first-letter{
+    float:left;
+    font-size:3.3em;
+    line-height:.82;
+    padding:.05em .12em 0 0;
+    color:var(--accent);
+    font-weight:600;
+  }
+  .signature{
+    font-style:italic;
+    text-align:right;
+    color:var(--muted);
+    margin-top:2em;
+  }
+  .seealso{
+    margin-top:2.4em;
+    padding-top:1.4em;
+    border-top:1px solid var(--rule);
+  }
+  .seealso h2{
+    font-size:1.05em;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--muted);
+    margin:0 0 .6em;
+  }
+  .seealso ul{margin:0;padding-left:1.2em;}
+  .seealso li{margin:.3em 0;}
+
+  /* bottom corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    margin-top:48px;
+  }
+  .corpus-nav a{
+    flex:1;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:4px;
+    padding:14px 18px;
+    color:var(--ink);
+    border-bottom:1px solid var(--rule);
+  }
+  .corpus-nav a:hover{border-color:var(--accent);}
+  .corpus-nav .dir{
+    display:block;
+    font-size:.72em;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--muted);
+    margin-bottom:.25em;
+  }
+  .corpus-nav .next{text-align:right;}
+
+  footer.colophon{
+    margin-top:46px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:.82em;
+    color:var(--muted);
+    line-height:1.5;
+  }
+  footer.colophon a{color:var(--muted);}
+
+  @media (max-width:900px){
+    .ya-old{font-size:18px;}
+    .wrap{width:100%;max-width:100%;padding:20px 16px 56px;}
+    .article{padding:26px 20px;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav .next{text-align:left;}
+    h1{font-size:1.9em;}
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №433</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../other/index.html">Без категории</a>
+  </nav>
+
+  <h1>Парадокс Очистителя<a class="audio-link" href="https://t.me/art_017_tracks/602" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <article class="article">
+    <p>Зеркало. Которое не светит, Светом, Который не отражается в зеркалах. Это Малхут Мира Бесконечности. Орел. Творец, Свят Благословен Он. Что Он творит? Кроме сказок о двух созданных Им нагвалях (Мужчиной и Женщиной Он создал Их)?</p>
+
+    <p>Он творит то, что испытывает мужчина, когда, извините меня за мой хранцузский, который, во-первых, на самом деле, совсем не мой, а, во-вторых, нравится мне, потому что я люблю Его (только не спрашивайте, Кого, во Что, и Чем. Пожалуйста!!!111). Когда мужчина засовывает Сами-Знаете-Что Сами-Знаете-Куда, предварительно подготовив это место любовными поцелуями к данной взаимоприятной процедуре.</p>
+
+    <p>Вам всегда казалось, что это самое низменное место и занятие, которыми только можно заниматься на белом Свете. На самом деле отнюдь. Точнее говоря, Вы частично правы, но более прав, чем Вы, я. Потому что мне открыта полная картина, а Вам она открыта совершенно не полностью, а только от части. Причем, эта часть, в данной Катрине, далеко не главная. Она, лишь является вспомогательной (хотя, и очень важной, и необходимой для нас) ПРАКТИЧЕСКОЙ частью.</p>
+
+    <p>Потому что Он, равно как и То, что Он делает в Это, - непроявленное. Это суть того, что Карлос Кастанеда, вслед за своим Учителем - Доном Хуаном Матусом, - называл Нагваль. С БОЛЬШОЙ буквы, а не с маленькой. С маленькой буквы, в Науке Каббала, это явление называется Зеир Анпин - "карлик", "крошечный лик". Почему "крошечный"? Потому, что "подобный тому, как Это и То, Это Дело производят в Реальном Мире. Который "Большой". То есть "Арих Анпин". На этом, пока что, завершим наш небольшой экскурс в Науку Каббала. Встретимся через 2 недели.</p>
+
+    <p class="signature">Искренне Ваш, Зеир Арихович Анпин.</p>
+
+    <section class="seealso">
+      <h2>См. также:</h2>
+      <ul>
+        <li><a href="2BK.html">Парадок Создателя</a></li>
+        <li><a href="416B.html">Очиститель</a></li>
+      </ul>
+    </section>
+  </article>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="443.html">
+      <span class="dir">← Предыдущая</span>
+      Трое сокроются в Сердце Моем
+    </a>
+    <a class="next" href="3CM.html">
+      <span class="dir">Следующая →</span>
+      Мне давно уже не больно
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — короткое прозаическое эссе-провокация в свободной форме, без стихотворных строк, поэтому выбрана редакторская (широкая) схема, а не узкий манускрипт для стихов. Контент-колонка задана на ~66% ширины окна (с разумным max-width, чтобы мера строки оставалась читаемой), что соответствует требованию занять примерно 2/3 экрана.\n\nРазвилки: подразделов в статье фактически нет — есть лишь блок «См. также», поэтому оглавление не строил (требуется только при более чем одном подразделе). Музыкальных меток и сносок в тексте нет, поэтому плеер и аппарат сносок не добавлялись. Два голых URL в блоке «См. также» обёрнуты в гиперссылки с сохранением подписей. КАПС («ПРАКТИЧЕСКОЙ», «БОЛЬШОЙ», «Сами-Знаете-Что») и авторская пунктуация («!!!111») сохранены дословно. Подпись автора оформлена курсивом справа как естественное завершение, без добавления собственных заголовков.",
+  "features": []
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -350,16 +565,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

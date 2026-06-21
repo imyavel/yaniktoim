@@ -7,8 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>КТО СОЗДАЛ ИХ</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Статья из цикла Роза Среди Шипов о духовном и материальном проявлении принципа получения ради отдачи в каббалистическом понимании зачатия и творения.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/0BCA.html">
+<meta property="og:title" content="КТО СОЗДАЛ ИХ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/0BCA.html">
+<meta property="og:description" content="Статья из цикла Роза Среди Шипов о духовном и материальном проявлении принципа получения ради отдачи в каббалистическом понимании зачатия и творения.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="КТО СОЗДАЛ ИХ">
+<meta name="twitter:description" content="Статья из цикла Роза Среди Шипов о духовном и материальном проявлении принципа получения ради отдачи в каббалистическом понимании зачатия и творения.">
+
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +155,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="0BCA" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="0BCA" data-theme="swiss"
   data-art-section="shoshana" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +169,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +178,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="0BCA.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -223,6 +233,397 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#22201b;
+    --muted:#6a6356;
+    --accent:#8a5a2b;
+    --accent2:#b6802f;
+    --rule:#ddd5c5;
+    --hl:#fff1c4;
+    --maxw:1200px;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{-webkit-text-size-adjust:100%;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    line-height:1.72;
+    font-size:19px;
+  }
+  a{color:var(--accent);text-decoration:underline;text-decoration-thickness:.5px;text-underline-offset:2px;}
+  a:hover{color:var(--accent2);}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:26px 0 0;
+  }
+  .crumbs a{color:var(--muted);text-decoration:none;}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs span{margin:0 .5em;color:var(--rule);}
+
+  /* layout: wide editorial, content ~2/3 */
+  .masthead{
+    border-bottom:2px solid var(--ink);
+    margin-top:18px;
+    padding-bottom:22px;
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:14px;
+  }
+  h1{
+    font-size:54px;
+    line-height:1.05;
+    margin:.1em 0 .15em;
+    font-weight:700;
+    letter-spacing:-.01em;
+  }
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;color:var(--muted);letter-spacing:.03em;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:minmax(0,2fr) minmax(0,1fr);
+    gap:60px;
+    margin-top:40px;
+  }
+  .content{min-width:0;}
+  aside.rail{
+    min-width:0;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  aside.rail .sticky{position:sticky;top:28px;}
+  .rail-card{
+    border-top:3px solid var(--ink);
+    padding-top:14px;
+    font-size:14.5px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+  .rail-card h4{
+    font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    margin:0 0 10px;color:var(--accent);
+  }
+
+  .content p{margin:0 0 1.25em;}
+  .content > p:first-of-type::first-letter{
+    font-size:4.1em;
+    line-height:.82;
+    float:left;
+    padding:.02em .12em 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+  .epigraph{
+    margin:0 0 1.8em;
+    padding:14px 0 14px 26px;
+    border-left:3px solid var(--accent2);
+    font-style:italic;
+    color:#3a352c;
+    font-size:21px;
+  }
+  .epigraph .src{
+    display:block;
+    font-style:normal;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--muted);margin-top:8px;
+  }
+  .closing{
+    margin-top:2.2em;
+    padding-top:1.2em;
+    border-top:1px solid var(--rule);
+    font-style:italic;
+    color:#3a352c;
+    text-align:center;
+    font-size:20px;
+  }
+  .cont{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);text-align:center;margin:2em 0;
+  }
+
+  /* footnote markers */
+  sup.fnm{line-height:0;}
+  a.fn-ref{
+    text-decoration:none;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.72em;
+    font-weight:700;
+    color:var(--accent);
+    padding:0 1px;
+  }
+  a.fn-ref:hover{color:var(--accent2);}
+
+  /* notes */
+  .notes{
+    margin-top:48px;
+    padding-top:8px;
+    border-top:3px solid var(--ink);
+    clear:both;
+  }
+  .notes h2{
+    font-size:14px;letter-spacing:.16em;text-transform:uppercase;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    color:var(--accent);margin:14px 0 18px;
+  }
+  ol.fn-list{padding-left:1.4em;margin:0;}
+  .fn-list li{
+    margin:0 0 1.1em;
+    font-size:17px;
+    line-height:1.62;
+    color:#33302a;
+  }
+  .fn-anon{
+    list-style:none;
+    margin:0 0 1.1em 0;
+    padding-left:1.4em;
+    font-size:17px;line-height:1.62;color:#33302a;
+  }
+  .fn-anon::before{content:"*";color:var(--accent);margin-right:.5em;}
+  .fn-list li:target,.fn-anon:target{
+    background:var(--hl);
+    box-shadow:0 0 0 6px var(--hl);
+    border-radius:2px;
+  }
+  a.fn-back{
+    text-decoration:none;color:var(--accent);font-weight:700;
+    margin-left:6px;font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+
+  /* popup */
+  #fn-pop{
+    position:absolute;
+    z-index:50;
+    max-width:360px;
+    background:#2a2620;
+    color:#f4efe4;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px;
+    line-height:1.5;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 8px 28px rgba(0,0,0,.28);
+    display:none;
+  }
+  #fn-pop a{color:#f0c878;}
+  #fn-pop::after{
+    content:"";position:absolute;left:var(--ax,20px);
+    border:8px solid transparent;
+  }
+  #fn-pop.below::after{top:-16px;border-bottom-color:#2a2620;}
+  #fn-pop.above::after{bottom:-16px;border-top-color:#2a2620;}
+
+  /* footer nav */
+  .pager{
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    margin:54px 0 0;
+    border-top:2px solid var(--ink);
+    padding-top:22px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .pager a{
+    text-decoration:none;
+    display:block;
+    max-width:46%;
+    color:var(--ink);
+  }
+  .pager .lbl{
+    font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--accent);display:block;margin-bottom:4px;
+  }
+  .pager .nxt{text-align:right;margin-left:auto;}
+  .pager a:hover .ttl{color:var(--accent2);}
+  .pager .ttl{font-size:17px;}
+
+  footer.colophon{
+    background:#efe9dc;
+    border-top:1px solid var(--rule);
+    margin-top:40px;
+    padding:30px 0 46px;
+    color:var(--muted);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    line-height:1.6;
+  }
+  footer .attrib{margin:0 0 .5em;}
+  footer .license{margin:0;}
+
+  @media (max-width:980px){
+    .grid{grid-template-columns:1fr;gap:34px;}
+    aside.rail .sticky{position:static;}
+  }
+  @media (max-width:680px){
+    .ya-old{font-size:18px;}
+    .wrap{padding:0 18px;}
+    h1{font-size:38px;}
+    .epigraph{font-size:19px;}
+    .content > p:first-of-type::first-letter{font-size:3.4em;}
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №0BCA</span>
+<div class="wrap">
+
+  <nav class="crumbs" aria-label="Хлебные крошки">
+    <a href="../index.html">Главная</a><span>/</span><a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <header class="masthead">
+    <div class="kicker">Роза Среди Шипов</div>
+    <h1>КТО СОЗДАЛ ИХ<a class="audio-link" href="https://t.me/art_017_tracks/512" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <div class="dateline">12 ноября 2020 г.</div>
+  </header>
+
+  <div class="grid">
+    <main class="content">
+
+      <blockquote class="epigraph">
+        «Если не исправляется правитель, не исправляется народ»
+        <span class="src">Книга Зоар<sup class="fnm"><a class="fn-ref" id="ref5" href="#fn5">5</a></sup></span>
+      </blockquote>
+
+      <p>«Материальный корень» «получения ради отдачи» — это получение (женщиной) от мужчины (зачатие), чтобы потом дать ему (ребенка).</p>
+
+      <p>Этот процесс, в основном, происходит в «скрытом» виде, то есть, не явно, и зачатие, и внутриутробное развитие плода, а раскрывается это действие только когда ребенок рождается. И этот процесс не происходит сразу, он раскрывается в последовательности времен, действий, отношений, состояний и процессов. Так развивается все творение. Из этого нам нужно понять и научиться тому, что и в духовном «получение ради отдачи» не совершается и не реализуется в одном времени и в одном состоянии и в одном намерении (потому что мы, творения Творца, существуем в свойствах «этого мира», и даже «поднимаясь в духовное», мы не «отрываемся», не «отказываемся» от «этого мира», а «поднимаем его» в духовный мир Ацилут, мир «исправленный», мир Исправления). А происходит это путем определенной последовательности развития состояний, в котором участвует человек, его Круг (общество человека, товарищи и ближние) и Творец. «В целом» этот духовный (и «материальный» тоже, потому что они подобны один другому во всех деталях) процесс в науке Каббала обозначается как «четырехбуквенное Имя Творца» (Зеир Анпина, являющегося «высшим духовным корнем» состояния «этот мир») — , АВАЯ<sup class="fnm"><a class="fn-ref" id="ref6" href="#fn6">6</a></sup>.</p>
+
+      <p>«Вначале» в Нем (в процессе, или «в Имени Творца», или «в распространении Света (жизни и любви) от Творца к творениям», или в «создании мира», «создании человека» — все это разные способы говорить об одном и том же) действует Сам Творец, скрытно (вначале) от человека, а потом, Он предоставляет человеку возможность Его раскрыть, то есть дает поле для деятельности, для приложения усилий, чтобы построить «кли» своей следующей «более исправленной» духовной (и/или материальной) ступени. Если исходить из «материальных корней», то это «внутренний, духовный» процесс, посредством которого Творец, через «общество» соединяет мужчину и женщину чувством любви. По сути, это действие является прямым распространением Света Жизни к творениям. Любовь «этого мира» действительно «рождается», как и сам человек, в Высшем, духовном Свете (не смотря на то, что она кажется нам «материальной»).</p>
+
+      <p>Следующий этап — это зачатие. Это, как мы уже говорили, действие «получения ради отдачи», в которое включены две действующие Силы, одна «получает», другая «отдает». С т.з. «материи», отдает мужчина, а получает женщина. С т.з. «духовной» наоборот (потому что «духовное» и «материальное» подобны печати и отпечатку, «переворачивающему» все содержимое печати «наоборот», но с сохранением мельчайших деталей отпечатка). Или можно сказать, что «получение» происходит в «скрытой» форме, в то время, как «отдача» в явной, что также соответствует наблюдаемой действительности — «этот мир» мы видим и раскрываем происходящее в нем с нами и вокруг нас «явно», посредством собственных 5 органов чувств, а то, что «параллельно с этим» происходит в «духовном» скрыто от нас, и мы «раскрываем» это только посредством специального отдельного инструмента и навыка, «кли», «подобия свойств» — «верой выше знания», «духовным объединением в Круге». В «материальном» момент беременности и развития плода мы тоже можем отслеживать только с помощью специальных инструментов, УЗИ, томографов, пальпации и т.д.</p>
+
+      <p>Следующая стадия — формирование «материальной ступени», или раскрытие нового «духовного» состояния Кли — тела организма ребенка внутри организма матери в «этом мире», или совместные усилия, прилагаемые «собранием товарищей» ради того, чтобы «выяснить» свое объединенное намерение, то есть, «желание получать» (ради отдачи) на следующей, более «исправленной» ступени духовной работы. в результате этого процесса происходит «разбиение сосудов», или «переворот изнутри наружу», выход во внешнее Кли. В «материальном» это, понятное дело, роды. Ребенок, который был слит с организмом матери, и был, фактически, его неотъемлемой частью, становится разделенным с ней, что ими обоими на тот момент воспринимается, как мы знаем, как значительное потрясение, и в физическом, и в «духовном» смысле. Однако, без этого «потрясения» и «разбиения келим» невозможно двигаться дальше, завершить «цель Творца», то есть, «создавать новую жизнь, наслаждая», «родителей» в этом мире, и/или Творца, «в духовной работе». Круг учеников каббалистов здесь должен выяснить, разобраться, и решить для себя, «как один человек с одним сердцем», что они готовы, каждый из них по отдельности и все вместе, «получать» от Творца Свет Любви и Жизни без всяких условий и оговорок, здесь и сейчас, ради того, чтобы иметь возможность «на деле, а не на словах» доставлять наслаждение Творцу и товарищам, проводя Его Свет в «этот мир», а это подразумевает безусловную готовность и желание получать его во что бы то ни стало, «предав» и «отказавшись» от главенствовавшего ранее в Круге убеждения «по умолчанию», что они собираются «для того, чтобы отдавать, а не получать». Этот процесс, в зависимости от обстоятельств, может происходить либо контролируемо и относительно гладко, либо приводить к различного масштаба «трагическим» эффектам вроде разбиения кли (ухода из Круга части товарищей) или даже выхода Кли из «материнской», породившей его, структуры (как это было у нас в «десятке»). Либо, в зависимости от уровня духовного развития (ступени) внешнего «мирового» Кли, в котором эти процессы могут происходить «словно впервые», а могут быть отлаженным и тщательно контролируемым на каждом этапе процессом, когда «старшие товарищи» бдительно и трепетно следят за тем, чтобы «процесс родов и рождения» проходил как надо — и (я уверен, что так это и будет у нас происходить в скором будущем милостью Творца) поэтому приводить к минимальным «болезненным» эффектам, позволяя всем участникам Круга и самому Кругу как части от общего, более широкого «Мирового Кли» проходить желаемые, необходимые и неизбежные процессы с минимальным «ущербом» для себя, и сохраняя единство и целостность во всех отношениях. В «этом мире» мы видим такую же закономерность развития келим — чем более «развитым» становится общество, принимающее роды у женщины, тем меньше вероятность осложнений, тем меньше болезненных эффектов и тем выше вероятность благоприятного для всех хорошего исхода. Нет ни малейшей травинки в этом мире, над которой не было бы поставлено ангела свыше, который бьет эту травинку и говорит ей «расти!»<sup class="fnm"><a class="fn-ref" id="ref1" href="#fn1">1</a></sup></p>
+
+      <p>На следующей ступени происходит раскрытие Света Любви от Творца к творениям, которая родилась и появилась благодаря достигнутой ступени «подобия свойств» его родителями и получила «взрослую» ступень благодаря родам, родившись «в этот мир». Именно на этом этапе раскрывается «содержание» предыдущих трех, то есть явное переживание родителями радости от того, что у них появился ребенок, радость всех их родным и знакомым, от того, что в их обществе появился новый человечек и так далее. В духовном это — получение «взрослого» состояния и статуса (Гадлут) «Кругом Жизни», то есть «десяткой», имеющей «ЦЕЛЕМ Элоким», то есть подобие свойств, позволяющее ей «получать» и распространять Свет Хохма 32 путей, или «любовь товарищей», или «поручительство»<sup class="fnm"><a class="fn-ref" id="ref2" href="#fn2">2</a></sup>. Они выводят Свет своей следующей ступени для Кли, частью которого все они являются, то есть для общества «этого мира», для всех людей, включаясь в реализацию Замысла Творца и становясь «Его сотрудниками»<sup class="fnm"><a class="fn-ref" id="ref3" href="#fn3">3</a></sup>.</p>
+
+      <p class="cont">Продолжение следует</p>
+
+      <p class="closing">Да будет, Милостью Творца Благословенного, Свет Книги Зоар сиять в Круге Жизни Адама Ришон и сыновей Его вовеки</p>
+
+      <section class="notes" id="notes">
+        <h2>Примечания</h2>
+        <ol class="fn-list">
+          <li id="fn1">Бааль Сулам, Учение 10 сфирот, часть 4, гл. 1, Ор пними, п.2 <a class="fn-back" href="#ref1" title="Вернуться к тексту">↩</a></li>
+          <li id="fn2">На самом деле Сам Творец еще на первой стадии (Хохма) описываемого процесса, но тогда еще «в скрытом виде» для них, «распространяет» в Кли «десятки» этот Свет, благодаря которому они входят в состояние «любви к ближнему» фактически, без чего было бы невозможно «поднятие МАН» на следующей стадии (Бина) для «внутриутробного развития» — Тиферет — их «взрослого» состояния Круга Жизни, в котором этот Свет уже раскрывается явно («по желанию нижних») и может уже «создавать плоды и порождения», то есть выполнять духовные действия, приводящие к исправлению, объединению, развитию и наполнению их «внешнего кли», которое у них есть милостью Творца, в которое они отдают, и благодаря этому и в этом существуют, ведь в духовном ничто и никто не существует, не ради того, чтобы давать Свет и любовь другим, понимая конкретно, что и как они делают для этого, а ради чего-либо другого. Разница между этими 2 стадиями распространения Света Жизни в Книге Зоар, в «Заповедях Торы» отражена 9-й и 10-й заповедью<sup class="fnm"><a class="fn-ref" href="#fn3">3</a></sup>, и, относительно «методики Круга последнего поколения» считаются как «катнут» и «гадлут». Это может показаться странным, но так и есть — в действительности, когда в более широком, «объемлющем» Кли есть Жизнь и Любовь, то и «катнут» происходит не в «мальком свете» отдачи ради отдачи, а в «Свете большой любви», но в начале развития этой формы, в форме скрытия и неявно для тех, кто этот процесс еще не испытывал на опыте. Также может показаться странным, что буквальный «материальный корень» духовного понятия «катнут» — это не «детство», как можно подумать, а внутриутробное развитие плода внутри организма матери. Катнут как самостоятельная ступень в духовном не существует, а только как часть «материнского Кли». Роды переводят «ребенка» в статус самостоятельного Круга, то есть «человеком» они становятся уже во «взрослом состоянии», когда сами получают возможность заниматься распространением Света Хохма, а не идей и намерений своей «старшей ступени», перед которой они «отменяются, как плод в утробе матери». Как мне кажется, как минимум нам следует задуматься о том, к чему может привести «задержка» такого внутриутробного состояния, когда вместо того, чтобы рождаться «естественным образом», плод внутри матери желает в ней оставаться вечно, и мать этому желанию потворствует. Как мне кажется, Природа в этом случае вынуждена поступать с ними довольно жестко и именно такие ситуации приводят к болезненным и негативным эффектам «разбиения келим». <a class="fn-back" href="#ref2" title="Вернуться к тексту">↩</a></li>
+          <li id="fn3">Заповедь девятая <a href="https://imyavel.github.io/zohar-sulam/akdama/029.html" rel="noopener" target="_blank">akdama/029</a>, Заповедь десятая <a href="https://imyavel.github.io/zohar-sulam/akdama/030.html" rel="noopener" target="_blank">akdama/030</a>, РАШБИ, Книга Зоар, Том 1 (Предисловия) <a class="fn-back" href="#ref3" title="Вернуться к тексту">↩</a></li>
+          <li id="fn5">«Кто создал их», по Элияу, Книга Зоар, РАШБИ, п. 13 <a href="https://imyavel.github.io/zohar-sulam/akdama/004.html" rel="noopener" target="_blank">akdama/004</a> <a class="fn-back" href="#ref5" title="Вернуться к тексту">↩</a></li>
+          <li id="fn6">В этом же смысл того, что в «7 днях начала творения» действие Творца и «Свет, который давал Творец каждому дню», не проявляется в первые 3 дня, а проявился только на 4-й день. см. Погонщик ослов, РАШБИ, Книга Зоар, Том 1 (Предисловия), п. 75 <a href="https://imyavel.github.io/zohar-sulam/akdama/012.html" rel="noopener" target="_blank">akdama/012</a> <a class="fn-back" href="#ref6" title="Вернуться к тексту">↩</a></li>
+        </ol>
+        <div class="fn-anon">Со Мной ты в сотрудничестве <a href="https://imyavel.github.io/zohar-sulam/akdama/011.html" rel="noopener" target="_blank">akdama/011</a>, РАШБИ, Книга Зоар, Том 1 (Предисловия)</div>
+      </section>
+
+    </main>
+
+    <aside class="rail">
+      <div class="sticky">
+        <div class="rail-card">
+          <h4>Об этом тексте</h4>
+          <p>Заметка из цикла «Роза Среди Шипов» о духовном «получении ради отдачи», уподобленном зачатию, внутриутробному развитию и рождению — и о работе Круга учеников-каббалистов.</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <nav class="pager" aria-label="Навигация по разделу">
+    <a class="prv" href="14U.html">
+      <span class="lbl">← Предыдущая</span>
+      <span class="ttl">Сияй, бриллиант безрассудный!</span>
+    </a>
+    <a class="nxt" href="14N.html">
+      <span class="lbl">Следующая →</span>
+      <span class="ttl">Надо становиться зеркалом</span>
+    </a>
+  </nav>
+
+</div>
+
+<footer class="colophon">
+  <div class="wrap">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </div>
+</footer>
+
+<div id="fn-pop" role="tooltip"></div>
+
+<script>
+(function(){
+  var pop = document.getElementById('fn-pop');
+  var refs = document.querySelectorAll('a.fn-ref[href^="#fn"]');
+  function bodyFor(href){
+    var el = document.querySelector(href);
+    if(!el) return '';
+    var clone = el.cloneNode(true);
+    var back = clone.querySelector('.fn-back');
+    if(back) back.remove();
+    return clone.innerHTML.trim();
+  }
+  function show(a){
+    var html = bodyFor(a.getAttribute('href'));
+    if(!html) return;
+    pop.innerHTML = html;
+    pop.style.display = 'block';
+    var r = a.getBoundingClientRect();
+    var sx = window.scrollX, sy = window.scrollY;
+    var pw = pop.offsetWidth, ph = pop.offsetHeight;
+    var left = sx + r.left + r.width/2 - pw/2;
+    var maxLeft = sx + document.documentElement.clientWidth - pw - 10;
+    if(left < sx + 10) left = sx + 10;
+    if(left > maxLeft) left = maxLeft;
+    var above = r.top - ph - 14;
+    if(above > 4){
+      pop.classList.remove('below'); pop.classList.add('above');
+      pop.style.top = (sy + r.top - ph - 12) + 'px';
+    } else {
+      pop.classList.remove('above'); pop.classList.add('below');
+      pop.style.top = (sy + r.bottom + 12) + 'px';
+    }
+    pop.style.left = left + 'px';
+    var ax = (sx + r.left + r.width/2) - left;
+    pop.style.setProperty('--ax', Math.max(12, Math.min(pw-24, ax)) + 'px');
+  }
+  function hide(){ pop.style.display='none'; }
+  refs.forEach(function(a){
+    a.addEventListener('mouseenter', function(){ show(a); });
+    a.addEventListener('mouseleave', hide);
+    a.addEventListener('focus', function(){ show(a); });
+    a.addEventListener('blur', hide);
+  });
+  pop.addEventListener('mouseenter', function(){ pop.style.display='block'; });
+  pop.addEventListener('mouseleave', hide);
+})();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья целиком прозаическая — это богословско-каббалистическое рассуждение об уподоблении духовного «получения ради отдачи» зачатию, беременности и родам. Никаких стихотворных форм нет, поэтому выбрана редакторская широкоформатная схема: широкий контейнер (1200px) с сеткой, где основная колонка занимает ~2/3 ширины, а правая узкая колонка-врезка несёт сжатую справку о тексте, не добавляя нового содержания. От узкого «манускрипта» отказался, так как он предназначен для стихов.\n\nРазвилки: эпиграф «Если не исправляется правитель…» вынес в отдельный blockquote с источником, не меняя текста. Дату «12 ноября 2020 г.*» подал без висячей звёздочки — у неё нет тела сноски, это мусор импорта. Сноска *4 («Со Мной ты в сотрудничестве…») не имеет маркера в тексте — оформлена как анонимная, без номера, в конце списка примечаний. Ссылка *3 встречается и в теле сноски *2 — сохранил как внутреннюю ссылку. Все голые goo.su-адреса обёрнуты в гиперссылки. Музыкальных треков нет, поэтому раздел музыки не создавался. Оглавление не делал: фактически один сплошной текстовый раздел плюс «Примечания», то есть подразделов не больше одного. Сноски снабжены двунаправленной навигацией, подсветкой цели через :target и popup при наведении с выбором стороны (над/под) по границе окна.",
+  "features": ["footnotes"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -368,16 +769,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

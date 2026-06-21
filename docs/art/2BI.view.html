@@ -7,8 +7,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Письмо Нипна к Анибе</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе-письмо Нипна к Анибе о начале новой ступени Пути Воина^Исраэль, основах Конечного Исправления и взаимной работе с СДПЛ в Новом Мире.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/2BI.html">
+<meta property="og:title" content="Письмо Нипна к Анибе">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/2BI.html">
+<meta property="og:description" content="Эссе-письмо Нипна к Анибе о начале новой ступени Пути Воина^Исраэль, основах Конечного Исправления и взаимной работе с СДПЛ в Новом Мире.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Письмо Нипна к Анибе">
+<meta name="twitter:description" content="Эссе-письмо Нипна к Анибе о начале новой ступени Пути Воина^Исраэль, основах Конечного Исправления и взаимной работе с СДПЛ в Новом Мире.">
+<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/2BI.jpg">
+<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/2BI.jpg">
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +156,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="2BI" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="2BI" data-theme="swiss"
   data-art-section="dabudet" data-art-type="prose_num"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +170,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +179,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="2BI.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -221,6 +232,317 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f7f5f0;
+    --paper:#fffdf9;
+    --ink:#1d1b18;
+    --muted:#6b6256;
+    --rule:#d8d0c2;
+    --accent:#7a2e25;
+    --accent2:#2f5d57;
+    --hl:#fcefb8;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+  }
+  .wrap{
+    width:clamp(320px,66vw,980px);
+    margin:0 auto;
+    padding:32px 28px 80px;
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:24px;
+  }
+  .crumbs a{color:var(--accent2);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span.sep{margin:0 .5em;color:var(--rule);}
+  /* hero image */
+  .hero{margin:0 0 26px;}
+  .hero img{display:block;max-width:100%;width:auto;height:auto;border:1px solid var(--rule);}
+  /* headings */
+  h1{
+    font-family:"Segoe UI",Helvetica,Arial,sans-serif;
+    font-weight:700;
+    font-size:2.05rem;
+    line-height:1.18;
+    margin:.2em 0 .15em;
+    color:var(--ink);
+  }
+  .subtitle{
+    font-family:"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:1.05rem;
+    color:var(--muted);
+    font-style:italic;
+    margin:0 0 8px;
+  }
+  .docnum{
+    font-family:"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:.9rem;
+    letter-spacing:.08em;
+    color:var(--accent);
+    text-transform:uppercase;
+    margin:0 0 26px;
+  }
+  hr.major{border:none;border-top:2px solid var(--accent);width:64px;margin:30px 0;}
+  .salut{font-style:italic;font-size:1.15rem;margin:0 0 18px;}
+  .letter p{margin:0 0 1.25em;text-align:justify;hyphens:auto;}
+  .pnum{
+    font-family:"Segoe UI",Helvetica,Arial,sans-serif;
+    font-weight:700;
+    color:var(--accent);
+    margin-right:.35em;
+  }
+  .sign{margin-top:1.8em;font-style:italic;line-height:1.5;}
+  .sign .name{font-style:normal;font-weight:700;}
+  /* footnote markers */
+  sup.fnref{font-size:.72em;line-height:0;}
+  sup.fnref a{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    padding:0 1px;
+  }
+  sup.fnref a:hover{text-decoration:underline;}
+  .fnmarker{position:relative;}
+  .fnpop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:140%;
+    width:min(360px,80vw);
+    background:#2b2722;
+    color:#f4efe6;
+    font-family:"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:14px;
+    font-weight:400;
+    line-height:1.5;
+    text-align:left;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 6px 22px rgba(0,0,0,.32);
+    z-index:50;
+  }
+  .fnpop a{color:#9ed3cb;}
+  .fnmarker.below .fnpop{bottom:auto;top:140%;}
+  .fnmarker:hover .fnpop{display:block;}
+  /* music */
+  .music{margin:32px 0;}
+  .music-label{
+    font-family:"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:.82rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin:0 0 8px;
+  }
+  .track{border:1px solid var(--rule);border-radius:8px;background:var(--paper);overflow:hidden;}
+  .track-head{
+    display:flex;align-items:center;gap:10px;
+    padding:13px 15px;cursor:pointer;
+    font-family:"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  .track-head .tw{flex:1;}
+  .track-head .ttl{font-weight:600;}
+  .track-head .art{color:var(--muted);font-size:.92em;}
+  .track-head .art a{color:var(--accent2);text-decoration:none;}
+  .track-head .art a:hover{text-decoration:underline;}
+  .track-head .chev{transition:transform .25s;color:var(--accent);font-size:1.05em;}
+  .track.open .chev{transform:rotate(180deg);}
+  .track-head .ext{color:var(--muted);text-decoration:none;font-size:1.05em;}
+  .track-head .ext:hover{color:var(--accent);}
+  .track-body{display:none;}
+  .track.open .track-body{display:block;}
+  .track-body .frame{position:relative;padding-bottom:56.25%;height:0;}
+  .track-body iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+  /* notes */
+  .notes{margin-top:46px;border-top:1px solid var(--rule);padding-top:22px;}
+  .notes h2{
+    font-family:"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:1.3rem;color:var(--accent);margin:0 0 14px;
+  }
+  ol.fnlist{padding-left:1.4em;margin:0;}
+  ol.fnlist li{
+    margin:0 0 1em;
+    font-size:16px;
+    line-height:1.6;
+    color:#2a2722;
+  }
+  ol.fnlist li a.back{color:var(--accent);text-decoration:none;margin-left:.35em;font-weight:700;}
+  ol.fnlist li a.back:hover{text-decoration:underline;}
+  ol.fnlist li:target{background:var(--hl);border-radius:5px;padding:6px 8px;margin-left:-8px;}
+  .seealso{list-style:none;padding:0;margin:.4em 0 0;}
+  .seealso li{margin:.25em 0;}
+  .seealso a{color:var(--accent2);}
+  /* corpus nav */
+  .corpusnav{
+    display:flex;justify-content:space-between;gap:16px;
+    margin-top:54px;border-top:1px solid var(--rule);padding-top:22px;
+    font-family:"Segoe UI",Helvetica,Arial,sans-serif;font-size:15px;
+  }
+  .corpusnav a{color:var(--accent2);text-decoration:none;display:block;max-width:46%;}
+  .corpusnav a:hover{text-decoration:underline;}
+  .corpusnav .lbl{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);}
+  .corpusnav .nx{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:40px;border-top:1px solid var(--rule);padding-top:18px;
+    font-family:"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:13.5px;color:var(--muted);line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent2);}
+  @media(max-width:760px){
+    .wrap{width:100%;padding:20px 16px 60px;}
+    .ya-old{font-size:18px;}
+    h1{font-size:1.7rem;}
+    .letter p{text-align:left;}
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №2BI</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/2BI.jpg" alt="">
+  </div>
+
+  <h1>Письмо Нипна к Анибе<a class="audio-link" href="https://t.me/art_017_tracks/390" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <p class="docnum">№228111</p>
+  <p class="subtitle">Продолжение «Одного Дня из Жизни Дельфинов»<sup class="fnref"><span class="fnmarker"><a id="ref6a" href="#fn6">6</a><span class="fnpop">См. также (Зеир А"А): «Один День из Жизни Дельфинов», «22 Буквы Пути Воина^Исраэль», «Диалог Нипна к Анибе», «Небесная Дорога», «Песнь Ступеней», «Бина Анеле».</span></span></sup></p>
+
+  <hr class="major">
+
+  <div class="letter">
+    <p class="salut">Дорогая Анибе,</p>
+
+    <p><span class="pnum">1.</span>Отвечая на твой вопрос, считаю должным сообщить нижеследующее. Наше с тобой, "первое" соединение, произошло так, как произошло, и завершилось так, как завершилось, по достаточно веской и объективной причине - потому что мы начали этим действием новую ступень в своей собственной, и не только, жизни, Пути, эволюции, развитии и росте как единой формы Нового Мира<sup class="fnref"><span class="fnmarker"><a id="ref1" href="#fn1">1</a><span class="fnpop">Мне этот термин начинает нравится больше, чем термин "Будущий Мир", но по сути это то же самое, с поправкой на то, что подразумеваемые контекстом употребления явления, как минимум, в виде "зачатков и корней" в Этом Мире, ощущаемом "здесь и сейчас" объективно уже имеются, пускай и в "скрытой" от большинства ныне живущих форме и качестве, но открытой и явной для тех, кто работает с открытой формой СДПЛ и имеет ЦЕЛЕМ, необходимый для взаимодействия с Будущим Миром, находясь в отношении его "создания", "сотрудником" Творца, Свят Благословен Он</span></span></sup>. А начинается каждая ступень с заложения основ своей собственной будущей формы "Конечного Исправления", производимого нами посредством правильного и адекватного Реальности и Пути Творца, Свят Благословен Он<sup class="fnref"><span class="fnmarker"><a id="ref2" href="#fn2">2</a><span class="fnpop">Т.е. "выполняя Его Волю и содержа Его СДПЛ как 1Ч1С"</span></span></sup>, "отражения" происходящего в собственных Келим, посредством методики ПВИ<sup class="fnref"><span class="fnmarker"><a id="ref3" href="#fn3">3</a><span class="fnpop">ПВИ = Путь Воина^Исраэль</span></span></sup> и навыков духовной самоотмены и опыта "жизни вопреки", чем мы и занимаемся в данный конкретный момент с тобою вместе с Творцом, Свят Благословен Он, Его Благословенной Милостью, находясь в этих выяснениях и в этой особенной и характерной взаимной позиции в диалогах и по жизни в общем.</p>
+
+    <p><span class="pnum">2.</span>Т.е. мы в настоящий момент с тобой находимся в самом начале Пути к "Конечному Исправлению", личному, равно как и общему, на этапе, когда "период подготовки" уже раскрыл перед нами все свои "карты", выглядящие более, чем убедительным, Милостью Творца, Свят Благословен Он, "свидетельством против" совершения того же самого действия, и стремления раскрыть на самом деле ту Реальность на своем опыте "здесь и сейчас", в точности таким же образом во второй раз, но уже по своей собственной, абсолютно свободной от чьих либо "особо важных мнений", включая, в первую очередь, свое собственное, свободной осознанной Воле, то есть делая действие, основанное целиком на Вере в то, что "Он Единолично и непосредственно правит всем Миром, и Его Имя, неизменное относительно "плохих" и "хороших"<sup class="fnref"><span class="fnmarker"><a id="ref4" href="#fn4">4</a><span class="fnpop">нашего постоянно меняющегося восприятия Этого Мира, как дарующего нам ощущаемым образом "Благословение", Милостью Творца, Свят Благословен Он, или "проклятие", не дай Бог</span></span></sup> - Добрый, Совершенный, Благой и Мудрый, Милосердный и Справедливый для каждого и каждой, во все времена, в любом действии и в любом этапе и состоянии, поскольку Он Один совершает, совершал, и будет совершать все действия". А это значит, что то, что мы чувствуем в отношении друг друга, не говоря уже об остальных Кеволечах, то, что мы привыкли "автоматически" класть в основу своих намерений и действий "здесь и сейчас" в течение всей предшествующей жизни, поскольку так поступает всегда и везде кеволеч этого мира, которым мы всю свою жизнь до момента совершения нами этого действия осознанно и по своей воле являлись, поскольку эта ступень является базовой, и останется таковой, в настоящей кеволеческой эволюции навеки, навсегда, и с ней ничего не сделается посредством "общего Конца Исправления", поскольку так и должно быть, чтобы новые души могли объективно стремиться к тому, чтобы совершить собственный взлет, "поднимаясь" над подобными себе, но менее удачливыми по жизни, в смысле того, что значит "быть призванным и избранным" Самого Творца, Свят Благословен Он, Его работником и возлюбленным, - в начале.</p>
+
+    <p><span class="pnum">3.</span>А затем, ступень "кеволеча этого Мира" должна будет оставаться такой же, в относительном, т.е. "абстрактном", положении и смысле, каковой она является сейчас относительно тебя и меня, для того, чтобы прошедшие "базовое формирование" "ячейки общества" кеволечества Будущего<sup class="fnref"><span class="fnmarker"><a id="ref5" href="#fn5">5</a><span class="fnpop">МЖОСИ, форма Мада и Аве по Кн. Роаз (=ЦЕЛЕМ Элоким)</span></span></sup>, и взошедшие в состояние "гадлут", всегда находили для себя окружающую их Реальность такой, изменить и "усовершенствовать" которую они хотят всем сердцем, и видят в этом свое предназначение и свой Путь, идя по нему, и который им уготован Свыше, включая ту работу, которую они в "этом Мире" выполняют, занимаясь "распространением" и "путешествуя в Будущее на Плавниках Намерения Духа". Поскольку кеволеч "Этого Мира" рождается "диким окунем" не просто так, а для того, чтобы САМОМУ САМОСТОЯТЕЛЬНО сформировать Самого Себя, то есть быть с Творцом, Свят Благословен Он, "в сотрудничестве" в этом с самого нуля, быть единоличным "Архитектором, Хозяином и Творцом, Свят Благословен Он" собственной судьбы и жизни уже после того, как он раскрывает, путем приложения своих собственных значительных усилий и стремлений всей своей жизни, "взрослое" состояние "Гадлут", соединяющая Мада и Аве в Высших водах, равно как и подобных им "Нипна и Анибе" в водах "нижних", то есть нас с тобой. А действовать "независимо" от чего либо, то есть по своей собственной свободной Воле, это означает в точности "действовать строго от обратного, поступая вопреки самому себе", то есть той реальности, которая у него имеется здесь и сейчас, то есть в "катнуте", который и является ступенью и состоянием, характерным для рядового Кеволеча.</p>
+
+    <p>Надеюсь, что я достаточно развернуто и доходчиво ответил на заданные мне Тобой вопросы, равно как и на те, которые не были заданы, но подразумевались.</p>
+
+    <p class="sign">Люблю и Целую,<br><br>
+    <span class="name">Твой Нипна</span></p>
+  </div>
+
+  <div class="music">
+    <p class="music-label">Песнь Ступеней<sup class="fnref"><span class="fnmarker"><a id="ref6b" href="#fn6">6</a><span class="fnpop">См. также (Зеир А"А): «Один День из Жизни Дельфинов», «22 Буквы Пути Воина^Исраэль», «Диалог Нипна к Анибе», «Небесная Дорога», «Песнь Ступеней», «Бина Анеле».</span></span></sup>:</p>
+    <div class="track" data-vid="YUqGg6pYLKw">
+      <div class="track-head" onclick="toggleTrack(this)">
+        <div class="tw">
+          <span class="ttl">Давай Представим Этот Мир Другим</span>
+          <span class="art">— Саша Н.</span>
+        </div>
+        <span class="chev">▾</span>
+        <a class="ext" href="https://www.youtube.com/watch?v=YUqGg6pYLKw" target="_blank" rel="noopener" title="Открыть на YouTube" onclick="event.stopPropagation()">↗</a>
+      </div>
+      <div class="track-body"></div>
+    </div>
+  </div>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol class="fnlist">
+      <li id="fn1" value="1">Мне этот термин начинает нравится больше, чем термин "Будущий Мир", но по сути это то же самое, с поправкой на то, что подразумеваемые контекстом употребления явления, как минимум, в виде "зачатков и корней" в Этом Мире, ощущаемом "здесь и сейчас" объективно уже имеются, пускай и в "скрытой" от большинства ныне живущих форме и качестве, но открытой и явной для тех, кто работает с открытой формой СДПЛ и имеет ЦЕЛЕМ, необходимый для взаимодействия с Будущим Миром, находясь в отношении его "создания", "сотрудником" Творца, Свят Благословен Он <a class="back" href="#ref1">↩</a></li>
+      <li id="fn2" value="2">Т.е. "выполняя Его Волю и содержа Его СДПЛ как 1Ч1С" <a class="back" href="#ref2">↩</a></li>
+      <li id="fn3" value="3">ПВИ = Путь Воина^Исраэль <a class="back" href="#ref3">↩</a></li>
+      <li id="fn4" value="4">нашего постоянно меняющегося восприятия Этого Мира, как дарующего нам ощущаемым образом "Благословение", Милостью Творца, Свят Благословен Он, или "проклятие", не дай Бог <a class="back" href="#ref4">↩</a></li>
+      <li id="fn5" value="5">МЖОСИ, форма Мада и Аве по Кн. Роаз (=ЦЕЛЕМ Элоким) <a class="back" href="#ref5">↩</a></li>
+      <li id="fn6" value="6">См. также (Зеир А"А):
+        <ul class="seealso">
+          <li><a href="18AA.html">Один День из Жизни Дельфинов</a></li>
+          <li>22 Буквы Пути Воина^Исраэль — <a href="185A.html" target="_blank" rel="noopener">«22 Буквы Кли Средней Линии»</a></li>
+          <li><a href="1CF.html">Диалог Нипна к Анибе</a></li>
+          <li><a href="262.html">Небесная Дорога</a></li>
+          <li>Песнь Ступеней — <a href="2BG.html" target="_blank" rel="noopener">«П-е-с-н-ь C-т-у-п-е-н-е-й»</a></li>
+          <li><a href="1BI.html">Бина Анеле</a></li>
+        </ul>
+        <a class="back" href="#ref6a">↩</a>
+      </li>
+    </ol>
+  </section>
+
+  <nav class="corpusnav">
+    <a class="pv" href="1CF.html"><span class="lbl">← Предыдущая</span>Диалог Нипна к Анибе</a>
+    <a class="nx" href="55D.html"><span class="lbl">Следующая →</span>ДНА - Стрела Времени часть 1</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+function toggleTrack(head){
+  var t=head.parentElement;
+  var body=t.querySelector('.track-body');
+  if(!t.classList.contains('open')){
+    if(!body.dataset.loaded){
+      var vid=t.getAttribute('data-vid');
+      body.innerHTML='<div class="frame"><iframe src="https://www.youtube.com/embed/'+vid+'?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
+      body.dataset.loaded='1';
+    }
+    t.classList.add('open');
+  }else{
+    t.classList.remove('open');
+  }
+}
+/* footnote popup flip near top edge */
+document.querySelectorAll('.fnmarker').forEach(function(m){
+  m.addEventListener('mouseenter',function(){
+    var r=m.getBoundingClientRect();
+    if(r.top<170){m.classList.add('below');}else{m.classList.remove('below');}
+  });
+});
+/* highlight target footnote */
+function hl(){
+  if(location.hash){
+    var el=document.querySelector(location.hash);
+    if(el&&el.tagName==='LI'){
+      document.querySelectorAll('.fnlist li').forEach(function(li){li.style.background='';});
+    }
+  }
+}
+window.addEventListener('hashchange',hl);
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст представляет собой эпистолярную прозу — письмо Нипна к Анибе с пронумерованными прозаическими абзацами (1, 2, 3), без какой-либо стихотворной/строфической организации. Поэтому выбрана редакторская (широкая) схема: основная колонка занимает ~66vw с верхним пределом ~980px, чтобы сохранить комфортную меру строки при широкоформатной подаче, как требует инструкция для прозы. Манускриптная узкая схема была бы уместна только для стихов и тут отвергнута.\n\nРазвилки: единственный музыкальный трек («Давай Представим Этот Мир Другим», Саша Н., YouTube) оформлен как одиночный ленивый раскрывающийся плеер с меткой «Песнь Ступеней:»; сводный музыкальный раздел не создавался, так как распознанная аудио-ссылка всего одна (порог — более двух). Оглавление не делалось: в теле письма нет именованных подразделов (нумерованные абзацы — не заголовки), а добавлять собственные заголовки запрещено. Сноски: маркер «*» при «Нового Мира» сопоставлен примечанию *1 по смыслу (термин «Новый/Будущий Мир»), повторяющийся маркер *6 (в подзаголовке и у «Песнь Ступеней») ведёт к единому примечанию со списком связанных статей, голые URL обёрнуты в ссылки. Реализованы переходы вниз/вверх, hover-popup с авто-переворотом у верхнего края. Палитра — тёплая бумажная со сдержанным бордовым и тёмно-бирюзовым акцентами; КАПС и авторские глифы (^, 1Ч1С, СДПЛ) сохранены дословно.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -366,16 +688,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

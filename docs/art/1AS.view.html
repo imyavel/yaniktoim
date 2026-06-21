@@ -7,8 +7,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Аль Таасе часть 1</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе о заповеди не делай ближнему того, что ненавистно тебе: личный опыт автора, связь со Сделаем и услышим и объединением в духовной работе.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/1AS.html">
+<meta property="og:title" content="Аль Таасе часть 1">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/1AS.html">
+<meta property="og:description" content="Эссе о заповеди не делай ближнему того, что ненавистно тебе: личный опыт автора, связь со Сделаем и услышим и объединением в духовной работе.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Аль Таасе часть 1">
+<meta name="twitter:description" content="Эссе о заповеди не делай ближнему того, что ненавистно тебе: личный опыт автора, связь со Сделаем и услышим и объединением в духовной работе.">
+<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/1AS.jpg">
+<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/1AS.jpg">
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +156,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="1AS" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="1AS" data-theme="swiss"
   data-art-section="confront" data-art-type="prose"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +170,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +179,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="1AS.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -230,6 +241,361 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+ :host{
+ --bg:#f6f3ec;
+ --paper:#fffdf8;
+ --ink:#23211c;
+ --muted:#6a6457;
+ --accent:#8a3324;
+ --accent2:#9c6b1e;
+ --rule:#d8d0bf;
+ --hl:#fbe7a1;
+ }
+ *{box-sizing:border-box;}
+ .ya-old{scroll-behavior:smooth;}
+ .ya-old{
+ margin:0;
+ background:var(--bg);
+ color:var(--ink);
+ font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+ font-size:19px;
+ line-height:1.72;
+ -webkit-font-smoothing:antialiased;
+ }
+ .wrap{
+ width:66%;
+ max-width:1040px;
+ min-width:0;
+ margin:0 auto;
+ padding:38px 46px 70px;
+ background:var(--paper);
+ box-shadow:0 0 0 1px var(--rule), 0 18px 50px rgba(40,30,10,.06);
+ }
+ @media (max-width:900px){
+ .wrap{width:100%;max-width:none;padding:24px 18px 50px;box-shadow:none;}
+ .ya-old{font-size:18px;}
+ }
+
+ /* breadcrumbs */
+ .crumbs{
+ font-family:Georgia,serif;
+ font-size:15px;
+ letter-spacing:.02em;
+ color:var(--muted);
+ border-bottom:1px solid var(--rule);
+ padding-bottom:12px;
+ margin-bottom:22px;
+ }
+ .crumbs a{color:var(--accent);text-decoration:none;}
+ .crumbs a:hover{text-decoration:underline;}
+ .crumbs span.sep{margin:0 .5em;color:#b9b09c;}
+
+ /* hero image */
+ .hero{margin:0 0 26px;text-align:center;}
+ .hero img{max-width:100%;width:auto;height:auto;border:1px solid var(--rule);}
+
+ h1{
+ font-family:"Iowan Old Style",Palatino,Georgia,serif;
+ font-size:2.05rem;
+ line-height:1.18;
+ font-weight:700;
+ margin:.1em 0 .15em;
+ color:var(--ink);
+ letter-spacing:.005em;
+ }
+ .dateline{
+ font-family:Georgia,serif;
+ font-size:14.5px;
+ color:var(--muted);
+ margin:0 0 18px;
+ font-style:italic;
+ }
+ .epigraph{
+ border-left:3px solid var(--accent2);
+ padding:6px 0 6px 18px;
+ margin:0 0 34px;
+ }
+ .epigraph .ru{
+ font-size:1.3rem;
+ font-weight:600;
+ line-height:1.35;
+ color:var(--accent);
+ }
+ .epigraph .tr{
+ font-style:italic;
+ color:var(--muted);
+ font-size:1.02rem;
+ margin-top:6px;
+ }
+
+ /* .ya-old paragraphs */
+ article p{margin:0 0 1.25em;text-align:justify;hyphens:auto;}
+ article p.num{position:relative;padding-left:2.4em;}
+ article p.num .pn{
+ position:absolute;left:0;top:.02em;
+ font-family:Georgia,serif;
+ font-weight:700;
+ color:var(--accent2);
+ font-size:1.05em;
+ }
+
+ /* footnote markers */
+ a.fnmark{
+ color:var(--accent);
+ text-decoration:none;
+ font-weight:700;
+ font-size:.82em;
+ vertical-align:super;
+ line-height:0;
+ padding:0 1px;
+ cursor:pointer;
+ }
+ a.fnmark:hover{color:#c0432e;}
+
+ /* footnote popup */
+ #fnpop{
+ position:absolute;
+ z-index:50;
+ max-width:360px;
+ background:#2a2620;
+ color:#f3ecdc;
+ font-family:Georgia,serif;
+ font-size:15px;
+ line-height:1.5;
+ padding:12px 14px;
+ border-radius:6px;
+ box-shadow:0 10px 30px rgba(0,0,0,.3);
+ display:none;
+ }
+ #fnpop a{color:#ffd27a;}
+ #fnpop:after{
+ content:"";position:absolute;left:var(--ax,20px);
+ border:7px solid transparent;
+ }
+ #fnpop.above:after{bottom:-14px;border-top-color:#2a2620;}
+ #fnpop.below:after{top:-14px;border-bottom-color:#2a2620;}
+
+ .end-mark{
+ text-align:center;
+ font-family:Georgia,serif;
+ letter-spacing:.18em;
+ color:var(--accent);
+ font-weight:700;
+ margin:2.2em 0 1.4em;
+ font-size:1rem;
+ }
+ hr.div{border:none;border-top:1px solid var(--rule);margin:2em 0;}
+
+ /* music player */
+ .music{margin:1.6em 0;}
+ .music .mlabel{
+ font-family:Georgia,serif;font-style:italic;color:var(--muted);
+ margin-bottom:.5em;font-size:1rem;
+ }
+ .track{
+ border:1px solid var(--rule);
+ border-radius:8px;
+ background:#fbf7ee;
+ overflow:hidden;
+ }
+ .track .thead{
+ display:flex;align-items:center;gap:10px;
+ padding:12px 14px;cursor:pointer;user-select:none;
+ }
+ .track .thead:hover{background:#f3ecdb;}
+ .track .arrow{transition:transform .2s;color:var(--accent2);font-size:.9em;}
+ .track.open .arrow{transform:rotate(90deg);}
+ .track .tname{font-weight:600;color:var(--ink);flex:1;}
+ .track .tname .artist{font-weight:400;color:var(--muted);font-style:italic;}
+ .track .ext{color:var(--accent);text-decoration:none;font-size:1.05em;}
+ .track .player{display:none;padding:0 14px 14px;}
+ .track.open .player{display:block;}
+ .track .player .frame{position:relative;padding-bottom:56.25%;height:0;}
+ .track .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:6px;}
+
+ /* notes */
+ .ps{font-family:Georgia,serif;font-weight:700;letter-spacing:.06em;color:var(--muted);margin:2.2em 0 .4em;}
+ .notes{
+ margin-top:.4em;
+ border-top:1px solid var(--rule);
+ padding-top:1em;
+ font-size:.96rem;
+ }
+ .notes ol{padding-left:1.6em;margin:0;}
+ .notes li{margin:0 0 .9em;}
+ .notes li:target{background:var(--hl);border-radius:4px;padding:4px 6px;margin-left:-6px;}
+ .notes .anon{list-style:none;margin:.4em 0 0;padding-left:0;}
+ .notes a.back{color:var(--accent);text-decoration:none;margin-left:.35em;font-weight:700;}
+ .notes a{color:var(--accent);}
+
+ /* corpus nav */
+ .corpusnav{
+ display:flex;justify-content:space-between;gap:18px;
+ margin-top:3em;padding-top:18px;border-top:1px solid var(--rule);
+ font-family:Georgia,serif;
+ }
+ .corpusnav a{color:var(--accent);text-decoration:none;max-width:46%;}
+ .corpusnav a:hover{text-decoration:underline;}
+ .corpusnav .dir{display:block;font-size:13px;color:var(--muted);letter-spacing:.05em;}
+ .corpusnav .nx{text-align:right;}
+
+ footer.colophon{
+ margin-top:2.4em;padding-top:16px;border-top:1px solid var(--rule);
+ font-family:Georgia,serif;font-size:13.5px;color:var(--muted);line-height:1.6;
+ }
+ footer.colophon a{color:var(--accent);}
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №1AS</span>
+<div class="wrap">
+
+ <nav class="crumbs">
+ <a href="../index.html">Главная</a>
+ <span class="sep">›</span>
+ <a href="../confront/index.html">Конфронтология Духа</a>
+ </nav>
+
+ <div class="hero">
+ <img src="../img/1AS.jpg" alt="Иллюстрация к статье">
+ </div>
+
+ <h1>Аль Таасе часть 1<a class="audio-link" href="https://t.me/art_017_tracks/408" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+ <p class="dateline">28 октября 2022 г.</p>
+
+ <div class="epigraph">
+ <div class="ru">Не делай своему другу того, что он ненавидит в тебе</div>
+ <div class="tr">(аl taase lekhavercha ma shesanu aleycha)</div>
+ </div>
+
+ <article>
+ <p class="num"><span class="pn">1.</span>Перевод в названии поста предложен мне Гуглом в ответ на оригинальную цитату. Я бы лучше перевести не смог : )) Особенно учитывая то, что я с Ивритом знаком только "шапочно". Особенно учитывая то, что древний Иврит, на котором написаны все "оригинальные" Заповеди и тексты Торы и Книги Зоар, это, фактически "мертвый язык", на котором 2 тысячи лет до воссоздания Государства Израиль "говорили" только в очень узких кругах специально обученные люди, по большому счету являющиеся "не от мира сего". А сейчас мы пытаемся трактовать их значение и смысл, исходя из своего "будничного" понимания смысла слов, форм связей между ними, и их привычных нам сочетаний.</p>
+
+ <p class="num"><span class="pn">2.</span>Корректное понимание этой фразы не менее сложно и комплексно, чем ее "светлого двойника" - Возлюби ближнего своего, как самого себя. "По идее", поскольку эта форма относится к форме "не делай", то есть "ахораим", а не "паним", или "сделаем", а не "услышим", ее исполнение должно было бы быть более доступным и понятным, нежели выполнение второй формы, которая должна являться "следствием" первой и выполняться для нас Творцом, Свят Благословен Он, "автоматически", в результате корректного выполнения нами первой. Но здесь далеко не все так просто, как кажется на первый взгляд, и в этом, критически важном, вне всякого сомнения, вопросе, нам необходимо тщательно разобраться, исследовав предложенную форму, на личном опыте, и разъяснив полученный результат так, чтобы у желающих следовать путями Творца, Свят Благословен Он, не оставалось сомнений в правильном ее понимании и адекватности собственного исполнения ради служения Ему и выполнению предписанного. Форма Сделаем и услышим! является базовой, самой первой и главной предпосылкой понимания и выполнения всего, о чем мы читаем в Книге Зоар. Наш успех в выполнении работы Творца, Свят Благословен Он, напрямую зависит от того, насколько успешно мы справимся с освоением и пониманием этого базового принципа<sup><a class="fnmark" id="ref1" href="#fn1" data-fn="1">1</a></sup>.</p>
+
+ <p class="num"><span class="pn">3.</span>Я буду говорить, исходя из собственного опыта и той "духовной ступени", которая нашла в этом опыте свою практическую реализацию - "Мужчиной и Женщиной Он создал их". Это значит, что все выше- и нижеизложенное касается практической "духовной работы" объединения стремящихся к Творцу, Свят Благословен Он ("воинов-исраэль"), в основе которого лежит соединение в одном Кли (ощущении, которое появляется у человека в процессе совместного выполнения "духовной работы") двух противоположных "носителей" - Света Хохма и Света Хасадим (света любви и света милосердия) - мужчины и женщины "этого мира", соединяющихся для доставления наслаждения Творцу, Свят Благословен Он, путем приведения творения к Его благословенной Цели. Сначала в самих себе, в узком кругу единомышленников "собрании Исраэля" (Кнессет Исраэль) - Кругах и Десятках учеников Каббалы, а потом во всех, кому смогут быть полезны, "становясь Светом Творца для народов мира".</p>
+
+ <p class="num"><span class="pn">4.</span>Исходя из вышеописанного, "хавером" следует считать не человека мужчину и другого мужчину в "духовном" объединении мужчин, а человека мужчину и женщину как единое Кли, находящееся в образе "Адама Ришон", подобно созданному Творцом, Свят Благословен Он, "человека говорящего", праобразом Единой Души, существующей в "духовном мире" "над" свойствами пространства и времени, реализация Замысла Которой происходит "внутри" этих свойств, определяя последовательность и содержание реализации ступеней становления и развития человеческой цивилизации, равно как и всего творения, в том же самом порядке, в котором проходит и развитие каждой "индивидуальной" живой души, где бы она не находилась, в каком времени, культуре и обстоятельствах не существовала, поскольку все едино и подобно этой изначальной форме и повторяет ее изначальные путевые вехи от форме к форме, от случая к случаю, от жизни к жизни этого мира, от ступени к ступени, меняются только действующие лица, которые "вписывают" в этот сценарий свои имена, продолжая вечный и неизменный процесс распространения Света Творца, Свят Благословен Он, возвращаясь к Своему Источнику и раскрывая Его "совершенство действий и имен". Да будет так вовеки, как хочет Высший, Скрытый, Недоступный, совершенный, милосердный и мудрый непостижимо всеми видами совершенства, милосердия и мудрости, Царь Всего, Предводитель Живых Станов, Атик Йомин, Свят Благословен Он. А хочет Он, чтобы творения, то есть мы с Вами, дали ему подходящее "по свойствам" Кли - единого Человека Говорящего, не созданного в отдельности друг от друга мужчиной и женщиной "этого мира", но только вместе объединившихся во Имя Славы Его, как Свет и Кли, подобного и равного Ему, сосуда Его Света Жизни, вновь единого в союзе и таинстве действия и слышания и ощущающего Свой Корень и Причину Причин. Амен ве Амен.</p>
+
+ <p class="num"><span class="pn">5.</span>Сделаем и услышим - это форма "исправления разбитого Кли", которое "разбилось" (Малхут де Малхут Мира Бесконечности - ЗАТ Бины Мира Адам Кадмон) и должно быть нами "приведено к своей изначальной форме", то есть "починено" и восстановлено в Своем изначальном единстве, по мере того, как происходит наше личное и общее становление человеком и человечеством этого мира, "человеком говорящим", воспринимающим и чувствующим существом, создаваемым "как нечто из ничего" на "периоде подготовки", или в своем становлении человеческой личностью в обществе этого мира, чтобы в последствии быть созданным "как сущее из сущего" Творцом, Свят Благословен Он, делающим это действие (создадим человека по образу нашему) вместе с человеком, "делающим свою команду командой Орла"<sup><a class="fnmark" id="ref2" href="#fn2" data-fn="2">2</a></sup>, или "поднимающим МАН (каббалистическую молитву духовного общества, о поднятии Святой Шхины из праха, исправляя этим собственное "желание получать ради себя" на "желание получать ради отдачи" в "Келим этого мира") в образе Целем Элоким<sup><a class="fnmark" id="ref3" href="#fn3" data-fn="3">3</a></sup> (Образ Всесильного) к Творцу, Свят Благословен Он". Соединяя этим Мужчину и Женщину "этого мира" в Единое Кли Адама (человека, подобного Творцу) Ришон (Нагваля Орла) - создавая их вместе с Творцом, Свят Благословен Он, "мужчиной и женщиной", находящимися в сотрудничестве с Творцом и раскрывающими совершенство Его Света осознанной Любви, Жизни и Мудрости творениям "этого мира".</p>
+
+ <p class="num"><span class="pn">6.</span>Рождаясь в этом мире и приступая к осознанной части выполнения собственной задачи и цели на Пути Творца, Свят Благословен Он, мы "изначально" имеем форму, обратную желаемой, что является необходимым и желательным условием для начала собственного включение в наше "создание Творцом, Свят Благословен Он" и раскрывая этим истинную форму, историю, цель и задачу, нас самих, этого мира, Реального мира, и Творца, Свят Благословен Он, по сути, поднимаясь до Его ступени, спускаясь обратно, уже наполненными всеми благами мира, чтобы отдавать эти блага Миру и радовать Творца, Свят Благословен Он, и Его творения, делая их Путь к Творцу, Свят Благословен Он, понятнее, приятнее и короче. Да будет так по Воле Единого, как хочет Он, чтобы было, и да будут Его желания раскрываться в нас по нашей воле, предваряя молитвой каждое наше действие, которым мы хотим доставить наслаждение Ему, раскрыв, что то, к чему мы стремились всегда, даже не осознавая этого и не говоря об этом, но чувствуя, что это именно то, что и Ему нравится, ведь Он добрый и творит только добро Своим творениям. Амен.</p>
+
+ <p class="num"><span class="pn">7.</span>Понимание того, как в точности "работает" и устроена эта "обратная" форма, то есть мы сами, когда мы соединяемся, как мужчина и женщина этого мира для выполнения "духовной работы", со временем становящейся гораздо более объемлющим и важным понятием, чем все остальные формы и занятия "этого мира", является ключем ко всему духовному Пути, не важно, как именно называется Его конкретное облачение в конкретных свойствах "мир, год, душа", то есть Именем Школы, традиции, названием ступеней, формы практик, стремлений и словесных формулировок "вечных истин". Нам следует понять это, что называется, "интуитивным задним умом", не настаивая на том, чтобы иметь "явное свидетельство очевидца" этому факту, поскольку он никогда не станет явным и очевидным нам, независимо от степени достижения личного успеха в Пути посредством самореализации ее "правильного использования", о котором речь, Милостью Благословенного и Его Высшей Матери, Хозяйки Будущего Мира, Святой Шхины, пойдет далее.</p>
+
+ <p class="num"><span class="pn">8.</span>Начиная духовную работу как мужчина и женщина, с целью насладить этим Творца, Свят Благословен Он, мы очень скоро обнаруживаем, что далеки от предполагаемой формы "правильного соединения между нами" настолько, насколько это только возможно. Но это так только тогда, когда мы действуем обособленно от Кли, с которым соединяемся, чтобы доставить этим наслаждение Творцу, Свят Благословен Он. То есть, когда делаем это не вместе с другими единомышленниками, с которыми нас соединяет Творец, Свят Благословен Он, в процессе практического выполнения Его работы. Когда же мы соединяемся в Круге "смешанного типа" Жизни с другими практикующими Его "интегральную духовную методику самореализации", по известным принципам и под Его непосредственным руководством, выполняя этим Его Волю, о которой нам, главным образом, сообщают наши товарищи и подруги, то есть, о которой мы узнаем не "прямо от Него", что невозможно по определению, а "от обратного", в качестве "веры выше знания" и особой методики самоотмены и развития духовной способности "знать вопреки глазам и ушам очевидца", называемой в учении "левой линии" ("Пути Толтеков" (людей знания" Карлоса Кастанеды) "несгибаемым намерением", делая это непосредственно во время наших объединительных практик и действий "распространения".</p>
+
+ <p class="num"><span class="pn">9.</span>Здесь наша задача - не унывать и не падать духом, укрепляя в самих себе решимость выстоять, быть твердыми как скала, идти до последнего, оставаясь верным Ему, то есть, исходя из Высшей Цели "доставить наслаждение Творцу, Свят Благословен Он, и Его творениям в этом мире", выполняя Его Волю и будучи Его работниками, созданными для служения Высшим, непостижимым Силам и принципам, находящимся в недоступной для непосредственного наблюдения человеком этого мира категории Реальности - Мире Бесконечности, Мире Адам Кадмон, Мире Ацилут, чье "месторасположение" невозможно обозначить точкой или областью на карте любых рациональных или просто разумных исследований известного, или даже неведомого человеку, независимо от его "духовного уровня", степени развития души, или "энергетического потенциала". Так создано специально, и в этом важное условие неизбежности и выверенности нашего достижения этой Цели во что бы то ни стало, именно таким, какой есть, а не каким либо другим, совершенным и желаемым образом, каким мы идем, включая все, что с нами уже произошло, происходит, или же будет происходить в будущем.</p>
+
+ <p class="end-mark">КОНЕЦ ПЕРВОЙ ЧАСТИ</p>
+
+ <div class="music">
+ <div class="mlabel">Музыка под настроение:</div>
+ <div class="track" data-vid="9OydVHXO4CM">
+ <div class="thead">
+ <span class="arrow">▶</span>
+ <span class="tname">Моя Звезда Всегда Со Мной</span>
+ <a class="ext" href="https://youtu.be/9OydVHXO4CM" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+ </div>
+ <div class="player"><div class="frame"></div></div>
+ </div>
+ </div>
+
+ <p class="ps">П.С.</p>
+
+ <div class="notes">
+ <ol>
+ <li id="fn1"><a class="back" href="#ref1" title="Вернуться к тексту">↑</a> См. также: Общее выяснение всех четырнадцати заповедей и как они соотносятся с семью днями начала творения, п. 1, том 1, Книга Зоар, перуш Сулам, Предисловия </li>
+ <li id="fn2"><a class="back" href="#ref2" title="Вернуться к тексту">↑</a> См. также: Правило Нагваля, Дар Орла, Карлос Кастанеда</li>
+ <li id="fn3"><a class="back" href="#ref3" title="Вернуться к тексту">↑</a> См. также: <a href="11H.html">Катнут Образа Всесильного</a></li>
+ </ol>
+ <p class="anon">См. также: </p>
+ </div>
+ </article>
+
+ <nav class="corpusnav">
+ <a href="1AQ.html"><span class="dir">← Предыдущая</span>Нихт Ферштейн</a>
+ <a class="nx" href="1AT.html"><span class="dir">Следующая →</span>Дорогая Передача</a>
+ </nav>
+
+ <footer class="colophon">
+ <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+ <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+ </footer>
+</div>
+
+<div id="fnpop"></div>
+
+<script>
+// ---- collapsible lazy YouTube ----
+document.querySelectorAll('.track').forEach(function(t){
+ var head=t.querySelector('.thead');
+ head.addEventListener('click',function(e){
+ if(e.target.closest('a.ext'))return;
+ var open=t.classList.toggle('open');
+ if(open){
+ var frame=t.querySelector('.frame');
+ if(!frame.querySelector('iframe')){
+ var vid=t.getAttribute('data-vid');
+ var f=document.createElement('iframe');
+ f.src='https://www.youtube.com/embed/'+vid+'?rel=0';
+ f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+ f.allowFullscreen=true;
+ frame.appendChild(f);
+ }
+ }
+ });
+});
+
+// ---- footnote popup ----
+var pop=document.getElementById('fnpop');
+function fnText(n){
+ var li=document.getElementById('fn'+n);
+ if(!li)return '';
+ var clone=li.cloneNode(true);
+ var b=clone.querySelector('.back'); if(b)b.remove;
+ return clone.innerHTML.trim;
+}
+document.querySelectorAll('a.fnmark').forEach(function(m){
+ m.addEventListener('mouseenter',function{
+ pop.innerHTML=fnText(m.getAttribute('data-fn'));
+ pop.style.display='block';
+ var r=m.getBoundingClientRect;
+ var sx=window.scrollX, sy=window.scrollY;
+ var pw=pop.offsetWidth, ph=pop.offsetHeight;
+ var left=r.left+sx - 20;
+ var maxleft=sx+document.documentElement.clientWidth-pw-10;
+ if(left>maxleft)left=maxleft;
+ if(left<sx+8)left=sx+8;
+ pop.style.left=left+'px';
+ var ax=r.left+sx-left+ (r.width/2)-7;
+ pop.style.setProperty('--ax',Math.max(10,ax)+'px');
+ if(r.top>ph+16){
+ pop.classList.add('above');pop.classList.remove('below');
+ pop.style.top=(r.top+sy-ph-12)+'px';
+ }else{
+ pop.classList.add('below');pop.classList.remove('above');
+ pop.style.top=(r.bottom+sy+12)+'px';
+ }
+ });
+ m.addEventListener('mouseleave',function{pop.style.display='none';});
+});
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+ "scheme": "editorial",
+ "form": "проза",
+ "rationale": "Текст — это сплошное прозаическое эссе из девяти пронумерованных абзацев каббалистического толка, без стихотворной строфики, поэтому выбрана редакторская широкая схема: основная колонка занимает ~2/3 ширины окна (66% с ограничением 1040px), что даёт комфортную меру для длинных, тяжёлых синтаксических периодов автора. Манускрипт-схему отверг, так как форма не стихотворная. Палитра — тёплая бумажная (кремовый фон, тёмно-сепийный текст, кирпично-красный акцент) для книжного, но журнального характера; засечный шрифт Iowan/Palatino поддерживает медитативное чтение.",
+ "rationale_extra": "Развилки: оглавление не делал — нет именованных подразделов, только нумерация абзацев, поэтому TOC избыточен. Музыкальный трек один (YouTube), сводный раздел не нужен (порог >2 не достигнут), реализован один свёрнутый ленивый плеер на своём месте перед П.С.; метку \u00abМузыка под настроение\u00bb поставил как дефолтную атрибуцию. Сноски *1,*2,*3 связаны с маркерами и снабжены popup (над/под маркером по месту) и обратными стрелками; висячая анонимная ссылка \u00abСм. также: bneiadam\u00bb выведена без номера. Дату из текста (2022) сохранил как контент, заголовок взял из метаданных.",
+ "features": ["music", "footnotes"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -375,16 +741,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });

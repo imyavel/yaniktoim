@@ -7,8 +7,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Принцип Голубого Кафе</title>
-<meta name="description" content="">
-<meta name="robots" content="noindex">
+<meta name="description" content="Эссе о Пути Сердца, иерархии авиюта и самостоятельности воина: размышления о роли старших, правильного тоналя и собственного выбора.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/27H.html">
+<meta property="og:title" content="Принцип Голубого Кафе">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/27H.html">
+<meta property="og:description" content="Эссе о Пути Сердца, иерархии авиюта и самостоятельности воина: размышления о роли старших, правильного тоналя и собственного выбора.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Принцип Голубого Кафе">
+<meta name="twitter:description" content="Эссе о Пути Сердца, иерархии авиюта и самостоятельности воина: размышления о роли старших, правильного тоналя и собственного выбора.">
+
 <link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
@@ -145,7 +155,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 .viewbar .vb-edit[hidden]{display:none;}
 </style>
 </head>
-<body class="article-page" data-art="27H" data-theme="swiss" data-pagefind-ignore="all"
+<body class="article-page" data-art="27H" data-theme="swiss"
   data-art-section="confront" data-art-type="dialog"
   data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
 <div class="wrap w-wide">
@@ -159,6 +169,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -167,7 +178,6 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="27H.html?orig=1">Оригинал</a>
   <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
@@ -198,6 +208,357 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f6f4ee;
+    --paper:#fffdf8;
+    --ink:#1f1c17;
+    --muted:#6b6457;
+    --rule:#d9d2c4;
+    --accent:#9a5b2c;
+    --accent-soft:#c98a4f;
+    --quote-bg:#efe9dc;
+    --hl:#ffe9b8;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    line-height:1.72;
+    font-size:19px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:min(66vw,1080px);
+    margin:0 auto;
+    padding:32px 28px 80px;
+  }
+  @media(max-width:1000px){
+    .wrap{width:100%;padding:24px 18px 64px;}
+    .ya-old{font-size:18px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding-bottom:18px;
+    margin-bottom:26px;
+    border-bottom:1px solid var(--rule);
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs .sep{margin:0 .5em;color:var(--accent-soft);}
+
+  h1{
+    font-size:2.15rem;
+    line-height:1.18;
+    font-weight:700;
+    margin:.2em 0 .1em;
+    letter-spacing:.005em;
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    color:var(--accent);
+    margin-bottom:6px;
+  }
+  .lede-rule{
+    width:64px;height:3px;background:var(--accent);
+    margin:22px 0 34px;border:0;
+  }
+
+  .speaker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    font-size:.92rem;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:34px 0 10px;
+  }
+  blockquote.said{
+    margin:0 0 28px;
+    padding:16px 24px;
+    background:var(--quote-bg);
+    border-left:4px solid var(--accent-soft);
+    font-style:italic;
+    color:#2c2820;
+    border-radius:0 6px 6px 0;
+  }
+  blockquote.said p{margin:.4em 0;}
+
+  p{margin:0 0 1.25em;}
+  article p:first-of-type::first-letter{
+    font-size:1px;/* no drop cap intrusion */
+  }
+
+  a.txt{color:var(--accent);}
+
+  /* footnote marker */
+  sup.fn{font-size:.72em;line-height:0;}
+  a.fnref{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    padding:0 1px;
+  }
+  a.fnref:hover{text-decoration:underline;}
+  .fn-wrap{position:relative;display:inline;}
+  .fn-pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:1.6em;
+    width:min(340px,80vw);
+    background:var(--paper);
+    border:1px solid var(--rule);
+    box-shadow:0 8px 26px rgba(0,0,0,.16);
+    padding:12px 14px;
+    border-radius:8px;
+    font-size:.86rem;
+    font-style:normal;
+    line-height:1.5;
+    z-index:40;
+    text-align:left;
+  }
+  .fn-pop.below{bottom:auto;top:1.6em;}
+  .fn-wrap:hover .fn-pop{display:block;}
+
+  /* notes section */
+  .notes{
+    margin-top:54px;
+    padding-top:22px;
+    border-top:2px solid var(--rule);
+  }
+  .notes h2{
+    font-size:1.15rem;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--accent);
+    margin:0 0 18px;
+  }
+  .note{
+    display:flex;
+    gap:12px;
+    margin:0 0 16px;
+    font-size:.95rem;
+    scroll-margin-top:20px;
+  }
+  .note .marker{color:var(--accent);font-weight:700;flex:0 0 auto;}
+  .note:target{background:var(--hl);border-radius:6px;padding:8px 10px;}
+  .backref{color:var(--accent);text-decoration:none;margin-left:6px;font-weight:700;}
+
+  /* music player */
+  .player{
+    border:1px solid var(--rule);
+    border-radius:10px;
+    background:var(--paper);
+    overflow:hidden;
+    max-width:560px;
+  }
+  .player summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 16px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .player summary::-webkit-details-marker{display:none;}
+  .player .arrow{
+    color:var(--accent);
+    transition:transform .2s ease;
+    font-size:.9em;
+  }
+  .player[open] .arrow{transform:rotate(90deg);}
+  .player .tk{display:flex;flex-direction:column;line-height:1.3;}
+  .player .tk .t{font-weight:700;font-size:.98rem;}
+  .player .tk .a{font-size:.85rem;color:var(--muted);}
+  .player .ext{
+    margin-left:auto;
+    color:var(--accent);
+    text-decoration:none;
+    font-size:1.1rem;
+  }
+  .player .frame{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    background:#000;
+    border-top:1px solid var(--rule);
+  }
+  .player .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+  /* corpus nav */
+  .corpusnav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:60px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpusnav a{
+    text-decoration:none;
+    color:var(--accent);
+    max-width:46%;
+    display:flex;
+    flex-direction:column;
+  }
+  .corpusnav a:hover .ttl{text-decoration:underline;}
+  .corpusnav .lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
+  .corpusnav .ttl{font-size:.98rem;font-weight:700;}
+  .corpusnav .next{text-align:right;align-items:flex-end;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:40px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-size:.84rem;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer.colophon a{color:var(--accent);}
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №27H</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <div class="kicker">Конфронтология Духа</div>
+  <h1>Принцип Голубого Кафе<a class="audio-link" href="https://t.me/art_017_tracks/445" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <hr class="lede-rule">
+
+  <article>
+
+    <div class="speaker">Велена написал(а):</div>
+    <blockquote class="said">
+      <p>Дело в то, что старшие своей энергетикой, взглядом (картиной мира), прямым присутствием (правильным тоналем) могут сильно помочь на пути.</p>
+      <p>Большинство кастанедовцев этого лишены.</p>
+    </blockquote>
+
+    <div class="speaker">Авель написал(а):</div>
+
+    <p>Наверное, ты права. Большинство людей ищет именно этого. Возможно, мои идеи не находят активного отклика в сердцах (на данный момент), потому что я в них исхожу совсем из другой "модус вивенди", чем ты описала. Давать это "прибежище", а не искать его, считая, как следствие, его присутствие "благословением", а отсутствие - отсутствием благословения и "лишением". Все, кто за нас объясняет нам что либо, "успокаивая" некоторые "эманации" в нас, побуждающие нас к изменению "уютного" рутинного состояния, и "Поиску", отнимают у нас очень важную часть собственной свободы выбора, являющейся неизбежным "ингредиентом" "реально найденного" (а не "искомого" и не "проверяемого - есть оно или нет", и т.п.) Пути Сердца - наличие собственного "особого мнения", не просто не обязанного быть "в согласии" с мнением всех и каждого (причем, чем "авторитетнее" мнение этого "каждого", тем в более заметной степени), а функционально и конструктивно выстроенного строго "напротив" этого мнения, имеющегося у всевозможных "старших", "людей с правильным тоналем" и "сильной энергетикой" (активно подогреваемой убеждениями их апологетов, чаще всего неосознанно, в том, что у них таковое "на самом деле" имеется).</p>
+
+    <p>Хотя, такие люди, которые для самих себя все хорошо понимают про "старших" и их "правильные тонали" и "грамотную информированную помощь", сами таковую "помощь" и "информацию" совсем даже "не против" предоставлять тем, кто испытывает в ней потребность и естественную необходимость, а не как они сами, стойкое понимание что реальное направление "мне туда надо" выстраивается в конечном итоге строго напротив всевозможных имеющихся в распоряжении воина "мудрых советов старших с правильным тоналем и сильной энергетикой", равно как и всех тех источников, которыми эти сами "старшие", чаще всего, чуть ли не подстрочно руководствуются, при раздаче подобного рода "рекомендаций", "объяснений" и "помощи". И это нормально, потому что в Мире существует очень четко очерчиваемая иерархия уровней "авиюта" (снова этот термин, уже в немного другом значении наиболее близким к понятию уровня ответственности за свои поступки, уровня самоосознания или "уровня развития души" ;)), причем, они, во-первых, выстроены за счет тесного взаимодействия между собой, фактически, находясь на "самообеспечении" без "необходимости вмешиваться" энергиям с более высоких "уровней", не опосредованных своим "облачением" в конкретных человеков этого мира. Т.е. нам нельзя пренебрегать ничем и никем, но одновременно нужно понимать разницу между собой и большинством, что она реальная и огромная, но заключается она именно и только в уровне развития собственного "желания" (т.е. самостоятельности звена связи Намерения Духа и себя - не активности и не "чистоты", а именно самостоятельности, т.е. полной функциональной независимости и самодостаточности от любых иных "технических баз" и "особых мнений", заодно с их "правильными тоналями"). У кого-то есть и проявляется в действии желание быть "взрослым" творением, выбирающим свой собственный Путь не потому что он "правильный или не правильный", а потому что их собственное сердце лежит к этому Пути (а не чье либо еще сердце), и не по причине того, что оно "звучит в унисон" с другими сердцами, а потому что еще до того, как оно стало в этом "унисоне" находиться, оно выбрало находиться в нем преднамеренно, а затем осознанно реализовало свой выбор. Равно как и все, что касается их "технической базы" и прочего. И есть те, у кого такого желания не проявляется. По факту просто не проявляется. Для них естественно, что "человек должен сам созреть для того-то или сего-то", им симпатичны идеи "избранности" своих"учителей" (хотя самим учителям они не симпатичны, но это не мешает ученикам "гнуть свою линию"), для них естественно искать и получать "помощь" от людей с сильной энергетикой, подпитывая им эту энергетику и решая по сути не свои собственные жизненные задачи и цели, а помогая этим людям достичь целей своих, о которых "помогающим" принципиально неизвестно, потому что с ними либо не делятся "лишней" информацией, либо делятся постоянно, но они (в Силу отсутствия желания соотв-го уровня "авиюта") оказываются последовательно неспособными ее воспринять.</p>
+
+    <p>Так или иначе, эта "иерархия" в человечестве объективно существует, и "воин", намеревающийся вырасти из "пеленок" "ученика" и стать "магом", "человеком знания", или кем бы то ни было еще, обязан учитывать ее существование, и осознавать свое нахождение на том или ином ее уровне, потому что в конечном итоге (до него нам еще далеко, почти вся предстоящая эпоха "третьего тысячелетия" уйдет на полную масштабную трансформацию сознания) нахождение человека в той или иной объективной "страте" не делает что либо, с ним связанное, более или менее важным, чем что либо, связанное с кем-то еще, где бы он ни находился. "Это Мир счастья, где между вещами нет различия, потому что там некому о нем спрашивать". Все уже к тому моменту будет выяснено, что составляет суть и конкретику наших ужасающих "глупости и невежества" здесь и сейчас. Более того, нахождение в страте с более высоким "авиютом" (вариант: социальной орбите, только если рассматривать человеческий социум как единое явление, без разделения на "духовные" и "материальные" существующие в нем механизмы и "отсеки") - является, и будет являться (потому что это Закон Орла, обусловленный Правилом) достаточной причиной единственно к тому "отличию", ты ты живешь, "идешь", стремишься и чувствуешь, действуешь и прилагаешь усилия в процессе жизни - не "ради себя", т.е. не прямым образом, "потому-то и потому-то", тебе это что то знакомо и понятно в соответствии с твоим собственным желанием, на располагаемым его уровне "авиюта", а в соответствии с тем, как это раскрывается в желании других людей, с которыми ты посредством этого действия и стремления связываешься и соединяешься в одно целое "энергетическое существо", являясь "донором", который получает удовольствие и ощущает собственную реализованность в жизни и на Пути не посредством достижения собственных целей, а посредством достижения тех целей и реализаций, которые имеются у тех, кто с ними взаимодействует по принципу "голубого кафе"<span class="fn-wrap"><a class="fnref" id="ref1" href="#fn1"><sup class="fn">*</sup></a><span class="fn-pop" id="pop1"><strong>Chris Rea — The Blue Cafe.</strong> Музыкальная отсылка к названию текста (см. плеер в примечаниях).</span></span>. А другие, т.е. те, с кем они взаимодействуют, получают, т.е. ощущают по жизни, удовлетворение и реализованность от "прямого достижения" таковых желаний, состояний и целей в самих себе, разумеется, с "мудрой авторитетной информированной помощью" старших товарищей и с правильными тоналями и сильной энергетикой...</p>
+
+    <p>А не имеет это никакого значения в сущности в конечном итоге потому, что целью и результатом общего Пути и тех и других является соединение в метасущество более высокого порядка, превосходящее по уровню сознания и восприятия все, что известно, или может быть известно, любому из своих "собственных составляющих" до того, как они "соединили руки в момент покидания этого мира". Об "уровне желания" и говорить не приходится, поскольку это преимущественно "наша" (т.е. человеческих существ) фишка, особенность и опция. Но это имеет огромное значение в том смысле, что это должен понимать и об этом должен помнить - воин, да и вообще любой человек, стремящийся быть информированным на самом деле о том, в каком объеме реальности, каким образом, и как именно, он существует в этом мире в том объеме чувственного восприятия, в котором существует, и что из этого следует. Потому что это основа существования нашего Мира, как и любого другого Мира в принципе, населенного "живыми организмами", форма и фактическая цель жизнедеятельности которых, с точки зрения Орла, не отличается нисколько, хотя и отличается всем, чем только может отличаться, в том, что касается их собственного восприятия, если таковое вообще сопряжено с явлением разума, являющегося по сути механизмом самоотражения "построения фигурок перед зеркалом". Просто фигурки бывают пустые, глупые и бесполезные. А бывают содержательные и полезные, когда их производящий делает то, что делает, учитывая описанный выше аспект Правила, т.е. "не ради себя" и не сам по себе.</p>
+
+    <p>Жаль, что не получается излагать свою мысль коротко. Но это объективное свойство того объема информации, который я стремлюсь описать, точнее, его принципиального отличия от тех распространенных форм "магических описаний мира", равно как и вообще от любых мне известных. И тем не менее это именно так и есть, точнее, я описал только очень малую часть реальности, о которой большинство из нас не имеет никакого представления вообще, будь мы маги, йоги, обыватели или кто либо еще.</p>
+
+  </article>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <div class="note" id="fn1">
+      <span class="marker">*</span>
+      <div>
+        <details class="player" data-embed="https://www.youtube-nocookie.com/embed/GCQ0ndJdYNc">
+          <summary>
+            <span class="arrow">▶</span>
+            <span class="tk">
+              <span class="t">The Blue Cafe</span>
+              <span class="a">Chris Rea</span>
+            </span>
+            <a class="ext" href="https://www.youtube.com/watch?v=GCQ0ndJdYNc" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+          </summary>
+          <div class="frame"></div>
+        </details>
+        <a class="backref" href="#ref1" title="Вернуться к тексту">↩</a>
+      </div>
+    </div>
+  </section>
+
+  <nav class="corpusnav">
+    <a class="prev" href="2CL.html">
+      <span class="lbl">← Предыдущая</span>
+      <span class="ttl">Тыр-пыр 9 дыр части 1-3</span>
+    </a>
+    <a class="next" href="43O.html">
+      <span class="lbl">Следующая →</span>
+      <span class="ttl">Не хочешь, не верь мне</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // lazy-load YouTube embed only when opened
+  document.querySelectorAll('details.player').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open){
+        var frame=d.querySelector('.frame');
+        if(frame && !frame.querySelector('iframe')){
+          var ifr=document.createElement('iframe');
+          ifr.src=d.dataset.embed+'?autoplay=1&rel=0';
+          ifr.allow='accelerator; autoplay; encrypted-media; picture-in-picture';
+          ifr.allowFullscreen=true;
+          frame.appendChild(ifr);
+        }
+      }
+    });
+  });
+
+  // footnote popup: flip below if not enough room above
+  document.querySelectorAll('.fn-wrap').forEach(function(w){
+    var pop=w.querySelector('.fn-pop');
+    w.addEventListener('mouseenter',function(){
+      pop.classList.remove('below');
+      var r=w.getBoundingClientRect();
+      if(r.top<200){pop.classList.add('below');}
+    });
+  });
+
+  // highlight targeted note
+  function hl(){
+    var h=location.hash;
+    if(h){var el=document.querySelector(h);if(el){el.style.transition='background .4s';}}
+  }
+  window.addEventListener('hashchange',hl);hl();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст представляет собой философско-эпистолярную прозу: реплика Велены и развёрнутый ответ Авеля длинными аналитическими абзацами. Никаких стихотворных форм нет, поэтому однозначно выбрана редакторская (широкая) схема лонгрида, а не узкий манускрипт. Колонку задал как min(66vw,1080px), чтобы на десктопе контент занимал примерно две трети окна, но при этом мера строки оставалась читаемой; на мобильном — полная ширина. Реплику Велены оформил как цитату-blockquote с подписью спикера, ответ Авеля — обычными абзацами, сохранив все кавычки, КАПС, авторский смайл ;) и пунктуацию дословно.",
+    "rationale2": "",
+  "rationale_note": "Единственная аудиоссылка (Chris Rea — The Blue Cafe) привязана к сноске-звёздочке после слов 'голубого кафе', поэтому она реализована как тело сноски, содержащее ленивый раскрывающийся YouTube-плеер; сводный раздел музыки не создавался, так как трек всего один (порог >2). Оглавление не делалось — подразделов в тексте нет, есть лишь один аппарат примечаний. Сноска поддерживает переход вниз/вверх, подсветку цели и popup при наведении с переворотом стороны у края экрана.",
+  "features": ["music", "footnotes"]
+}
+</script>
+
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -343,16 +704,68 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });
