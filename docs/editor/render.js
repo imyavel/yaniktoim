@@ -423,8 +423,8 @@ function resolveInternals(s, manifestByArt) {
     const rec = manifestByArt[art];
     if (!rec) return `<a class="broken" href="#">[[${art}]]</a>`;
     const title = rec.title || art;
-    // Flat layout: ZML-вью соседствуют с оригиналами в docs/art/ → same dir.
-    const href = `${art}.view.html`;
+    // url-unification: единственный публичный адрес статьи — NNN.html (тот же dir).
+    const href = `${art}.html`;
     return `<a class="internal" href="${href}">${htmlEscape(title)}</a>`;
   });
 }
@@ -1343,7 +1343,7 @@ function renderShir(b, ctx) {
         const rec = manifestByArt[id];
         const label = override || (rec && rec.title) || id;
         const cls = rec ? "internal" : "broken";
-        links.push(`<a class="${cls}" href="${base}${id}.view.html">${htmlEscape(label)}</a>`);
+        links.push(`<a class="${cls}" href="${base}${id}.html">${htmlEscape(label)}</a>`);
       }
     }
     const linksHtml = links.join(' <span class="sep">♪</span> ');
@@ -1494,11 +1494,11 @@ function siblings(rec, manifest) {
   let nextHtml = "";
   if (idx > 0) {
     const p = sibs[idx - 1];
-    prevHtml = `<a href="${p.art}.view.html">← ${htmlEscape(p.title || p.art)}</a>`;
+    prevHtml = `<a href="${p.art}.html">← ${htmlEscape(p.title || p.art)}</a>`;
   }
   if (idx < sibs.length - 1) {
     const nx = sibs[idx + 1];
-    nextHtml = `<a href="${nx.art}.view.html">${htmlEscape(nx.title || nx.art)} →</a>`;
+    nextHtml = `<a href="${nx.art}.html">${htmlEscape(nx.title || nx.art)} →</a>`;
   }
   return [prevHtml, nextHtml];
 }
@@ -1856,8 +1856,6 @@ export function renderIndexHtml(ctx) {
 export function renderSectionIndexHtml(ctx) {
   const { slug, structure, manifestByArt, template, buildDate } = ctx;
   const cssV = ctx.cssVersion || CSS_VERSION;
-  const forced = ctx.forced || {};            // art → "zml"|"html" (forced_views.json)
-  const defNew = ctx.defaultView === "new";   // глобальный default_view (display.json)
   const secs = activeSections(structure);
   const pos = secs.findIndex((s) => s.slug === slug);
   if (pos < 0) return null;
@@ -1871,12 +1869,8 @@ export function renderSectionIndexHtml(ctx) {
     // ещё нет → фолбэк на поля самой записи structure (a.title/a.date).
     const title = htmlEscape(rec.title || a.title || a.art);
     const date = fmtDateRu(rec.date_chosen || rec.date || a.date || "");
-    // ссылка: forced (zml→.view.html / html→.html) перебивает default_view; та же
-    // логика, что и build_views.targetFor → браузерная пересборка не «теряет»
-    // форс и не ведёт на отсутствующий .html у zml-only статей.
-    const f = forced[a.art];
-    const useView = f ? f === "zml" : defNew;
-    const href = useView ? `../art/${a.art}.view.html` : `../art/${a.art}.html`;
+    // url-unification: единственный адрес статьи — NNN.html (форсы/default_view упразднены).
+    const href = `../art/${a.art}.html`;
     return `<li><span class="num">#${htmlEscape(a.num || a.art)}</span>` +
       `<a href="${href}">${title}</a>` +
       `<span class="meta">${date}</span></li>`;

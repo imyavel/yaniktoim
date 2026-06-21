@@ -136,12 +136,9 @@ mkdirSync(join(docsRoot, "config"), { recursive: true });
 writeFileSync(join(docsRoot, "config", "forced_views.json"), JSON.stringify(forced) + "\n");
 console.log("forced_views.json:", Object.keys(forced).length, "переопределений");
 
-const defNew = displayConfig.default_view === "new";
-const targetFor = (art) => {
-  const f = forced[art];
-  const useView = f ? f === "zml" : defNew;
-  return useView ? `../art/${art}.view.html` : `../art/${art}.html`;
-};
+// url-unification: единственный адрес статьи — NNN.html. Регэксп ниже схлопывает
+// и старые .view.html-хвосты в индексах разделов на .html.
+const targetFor = (art) => `../art/${art}.html`;
 const sections = [...new Set(manifest.map((r) => r.section).filter(Boolean))];
 let touched = 0;
 for (const sec of sections) {
