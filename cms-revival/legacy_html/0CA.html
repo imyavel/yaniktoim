@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Я летала</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf9;
+    --ink:#22202a;
+    --muted:#6a6577;
+    --accent:#4b3b8f;
+    --accent2:#8a2b46;
+    --line:#e2dcd0;
+    --hl:#fff4c2;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Georgia","Iowan Old Style",Cambria,serif;
+    font-size:19px;
+    line-height:1.72;
+  }
+  .container{
+    width:68%;
+    max-width:1180px;
+    margin:0 auto;
+    padding:28px 0 70px;
+  }
+  @media (max-width:1000px){
+    .container{width:90%;}
+  }
+  @media (max-width:600px){
+    .container{width:100%;padding:18px 16px 50px;}
+    body{font-size:18px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--line);
+    padding-bottom:14px;
+    margin-bottom:22px;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 8px;color:#bbb;}
+
+  .lead-img{display:block;max-width:100%;width:auto;height:auto;margin:0 auto 26px;border-radius:3px;box-shadow:0 6px 28px rgba(0,0,0,.12);}
+
+  h1{
+    font-size:2.35rem;
+    line-height:1.18;
+    font-weight:700;
+    margin:0 0 6px;
+    color:var(--ink);
+    letter-spacing:-.01em;
+  }
+  .date{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    margin:0 0 34px;
+  }
+
+  .epigraph-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin:0 0 10px;
+  }
+  .epigraph{
+    font-style:italic;
+    color:#403a52;
+    border-left:3px solid var(--accent);
+    padding:4px 0 4px 22px;
+    margin:0 0 8px;
+    line-height:1.55;
+  }
+  .epigraph p{margin:0;}
+  .epi-source{
+    font-style:normal;
+    font-size:.85em;
+    color:var(--muted);
+    margin:6px 0 38px;
+    padding-left:22px;
+  }
+
+  p{margin:0 0 1.25em;}
+
+  .content a{color:var(--accent);}
+
+  /* music */
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin:30px 0 8px;
+  }
+  .track{
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--paper);
+    margin:0 0 10px;
+    overflow:hidden;
+  }
+  .track-head{display:flex;align-items:center;}
+  .track-toggle{
+    flex:1;
+    display:flex;align-items:center;gap:10px;
+    background:none;border:none;cursor:pointer;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;color:var(--ink);
+    text-align:left;padding:13px 14px;
+  }
+  .track-toggle:hover{background:#f1ecff;}
+  .arrow{color:var(--accent);transition:transform .2s;display:inline-block;font-size:14px;}
+  .track.open .arrow{transform:rotate(90deg);}
+  .track-name .artist{font-weight:600;}
+  .track-ext{
+    text-decoration:none;color:var(--accent);
+    padding:0 16px;font-size:18px;align-self:stretch;
+    display:flex;align-items:center;
+    border-left:1px solid var(--line);
+  }
+  .track-ext:hover{background:#f1ecff;}
+  .track-player{display:none;}
+  .track.open .track-player{display:block;}
+  .track-player iframe{
+    width:100%;height:340px;border:0;display:block;
+    border-top:1px solid var(--line);
+  }
+  @media (max-width:600px){.track-player iframe{height:215px;}}
+
+  /* footnote refs */
+  sup.fnref{font-size:.7em;line-height:0;}
+  sup.fnref a{
+    color:var(--accent2);text-decoration:none;font-weight:700;
+    padding:0 1px;
+  }
+  sup.fnref a:hover{text-decoration:underline;}
+
+  .fn-tooltip{
+    display:none;position:absolute;z-index:50;
+    max-width:380px;
+    background:#2b2738;color:#f3f0ea;
+    font-size:15px;line-height:1.5;
+    padding:12px 15px;border-radius:8px;
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
+    font-family:"Georgia",serif;
+  }
+  .fn-tooltip a{color:#c7b9ff;}
+
+  /* sections */
+  .section-title{
+    font-size:1.5rem;
+    margin:48px 0 18px;
+    padding-bottom:8px;
+    border-bottom:2px solid var(--accent);
+    color:var(--accent);
+  }
+  a.section-title{display:block;text-decoration:none;}
+  a.section-title:hover{color:var(--accent2);border-color:var(--accent2);}
+
+  ol.notes{padding-left:0;list-style:none;counter-reset:none;margin:0;}
+  ol.notes li{
+    position:relative;
+    padding:12px 14px;
+    margin:0 0 6px;
+    border-radius:6px;
+    font-size:17px;line-height:1.6;
+  }
+  ol.notes li:target{background:var(--hl);box-shadow:inset 0 0 0 1px #e8d77a;}
+  .fn-num{font-weight:700;color:var(--accent2);margin-right:8px;}
+  .fn-back{margin-left:6px;text-decoration:none;color:var(--accent);font-weight:700;}
+
+  .tbc{font-style:italic;color:var(--accent);font-weight:600;margin-top:1.6em;}
+
+  footer{
+    margin-top:60px;
+    border-top:1px solid var(--line);
+    padding-top:22px;
+  }
+  .nav-corpus{
+    display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+    margin-bottom:30px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .nav-corpus a{
+    display:block;max-width:46%;
+    text-decoration:none;color:var(--accent);
+    font-size:15px;line-height:1.4;
+  }
+  .nav-corpus a:hover{text-decoration:underline;}
+  .nav-corpus .lbl{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+  .nav-next{text-align:right;margin-left:auto;}
+  @media (max-width:600px){.nav-corpus a{max-width:100%;}.nav-next{text-align:left;}}
+
+  .colophon{font-family:"Helvetica Neue",Arial,sans-serif;font-size:13.5px;color:var(--muted);line-height:1.6;}
+  .colophon a{color:var(--accent);}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/0CA.html">
+<meta name="description" content="Эссе о духовных мирах в каббале: соотношение Мира Бесконечности и Мира Ацилут, движение душ и природа желания получать.">
+<meta property="og:title" content="Я летала">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/0CA.html">
+<meta property="og:description" content="Эссе о духовных мирах в каббале: соотношение Мира Бесконечности и Мира Ацилут, движение душ и природа желания получать.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Я летала">
+<meta name="twitter:description" content="Эссе о духовных мирах в каббале: соотношение Мира Бесконечности и Мира Ацилут, движение душ и природа желания получать.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №0CA</span>
+<div class="container">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>›</span><a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <img class="lead-img" src="../img/1BQ.jpg" alt="">
+
+  <h1>Я летала<sup class="fnref"><a id="ref5" href="#fn5" data-fn="5">5</a></sup><a class="audio-link" href="https://t.me/art_017_tracks/356" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <p class="date">10 декабря 2020г.</p>
+
+  <div class="content">
+
+    <p class="epigraph-label">Эпиграф</p>
+    <div class="epigraph">
+      <p>А я все летала<br>
+      Но я так и знала<br>
+      Что мечты лишь мало<br>
+      Для любви ла-ла-ла</p>
+    </div>
+    <p class="epi-source">Блестящие<sup class="fnref"><a id="ref1" href="#fn1" data-fn="1">1</a></sup></p>
+
+    <p>Ребята, все, что мы читаем о духовном, имеет точное подобие свойств в материальном, разница - не в "материале желания", поскольку материал у желания везде одинаков - это желание получать, созданное "из ничего", а все, кроме этого желания, что есть в творении - это только Сам Свет. Актуальная для нас разница в том, что в духовном нет времени и все, существует одновременно и сразу, "здесь и сейчас", хотя, надо сказать, что "духовное от духовного" Само по Себе очень сильно отличается: например, Мир Бесконечности, самое Высшее состояние и Источник Всего, Мир Ацилут - гуф (тело), то есть место, хоть и не "поддерживающее" "границы Кли" в привычном нам понимании, и находящееся "в прямом Свете, который поднимается снизу-вверх от этого мира к МБ, через все 4 мира АБЕА, и который называется "КАВ (Луч) Света из Мира Бесконечности", являясь, по сути, "Рош" этого Кава. В этом месте (Ацилут) все заполнено "простым белым Светом", но это уже не Свет Бесконечности, это Свет, в Котором творения, как в некоем инкубационном "бассейне" под прямым управлением Творца проходят процедуру "очистки" от авиюта путем объединения в Единое Кли Простого Белого Света (до этого у каждого "творения-желания" был свой отличный более "грубый" Свет, мешающий ему соединиться с другими желаниями, но эта "питательная среда", плюс "желание получать", действующее в этом месте "в обратном направлении", и поэтому "поднимающее" душу человека, а не опускающее - поскольку суть Мира Ацилут - подъем и подслащение Малхут в Бине).</p>
+
+    <p>"Под ним", этим мирозданием "простого белого Света", находится "пол", то есть то, что попадает в этот мир снизу, и то, что собирается покинуть этот мир "сверху вниз", оказывается на некотором плато, ниже которого нет, но, тем не менее, изменение в свойствах "желания получать" каким-то образом перемещает души из одного состояния "Кава Бесконечности" в другое "Мир Ацилут", также, как из состояния "Мир Ацилут" в состояние "Мир Бесконечности" (после того, как "подопечные" собранные в Круг Жизни желания очистятся и соединяться поручительстве в совершенной любви, стерев границы между своими желаниями и уподобившись по форме Самому этому Свету, Который тоже "разлит повсюду, однородно и равномерно"), а потом обратно, из "Мира Бесконечности", в Мир Ацилут (причем, это уже стадия "отраженного Света", Который опускается сверху-вниз, из Мира Бесконечности до "этого мира". Почему направления перевернуты относительно "классических" описаний каббалистов - подумаем на досуге вместе в комментариях :)), где уже, после произведения "исправления" их желания получать, это Мир, который находился в момент подъема и исправления в свойствах чистого "желания отдавать", то есть тотального и прямого управления всем Самого Творца, образуется некоторое подобие "обитаемого пространства", то есть, буквально "проходы и комнаты", о которых пишет Зоар, и, перед "отправкой назад", человек воспринимает уже не аморфные капли энергии разных окрасок, а "нормальные человеческие тела", вроде бы даже вполне одетые. Хотя сами "комнаты" выглядят чем-то похожим на продолговатые бункеры - "гаражи" из стекла или прозрачного пластика.</p>
+
+    <p class="music-label">Музыка под настроение:</p>
+    <div class="track" data-embed="https://www.youtube.com/embed/ZWHgeMX4RcA">
+      <div class="track-head">
+        <button class="track-toggle" aria-expanded="false">
+          <span class="arrow">▸</span>
+          <span class="track-name"><span class="artist">Георгий Свиридов</span> — Время, вперед</span>
+        </button>
+        <a class="track-ext" href="https://www.youtube.com/watch?v=ZWHgeMX4RcA" target="_blank" rel="noopener">↗</a>
+      </div>
+      <div class="track-player"></div>
+    </div>
+
+    <p>В начале Пути из "этого мира" в Каве Прямого Света снизу-вверх до попадания в пространство Мира Исправления не было ничего особенного, кроме того, что он начинался в сновидении, в котором человека каким-то известным Ему Одному образом находит Свет АБ-САГ, а дальше с человеком "начинает происходить что-то откровенно волшебное", и не подчиняющееся "законам притяжения" - желания получать "этого мира". И начинает действовать "Свет возвращающий души к Источнику", великолепие и Высшее благородство Которого невозможно передать словами<sup class="fnref"><a id="ref3" href="#fn3" data-fn="3">3</a></sup>. Сразу после этого душа попадает в узкий транспортный канал, представление о котором можно получить из клипа "Its All One"<sup class="fnref"><a id="ref2" href="#fn2" data-fn="2">2</a></sup>. Примечательное происходит на пути обратно (часть, относящуюся к Рош Кава описана выше). В целом, спуск до "этого мира", происходит тем же способом, что и подъем - по тому же самому "лучу", только в обратном направлении (и завершается приземлением там же, где и начинался подъем - в сновидении). Но на этот раз на этом пространстве на протяжении всего Пути обратно человек слышит голос, создающий впечатление совершенно ясного повествования о том, что именно означает все, что означает пройденный процесс для человека. Хотя после пробуждения, разумеется, человек ни одного "ясного слова" вспомнить не может ; - очевидно, в виду отсутствия у него пока еще ступени "подобия свойств"<sup class="fnref"><a id="ref4" href="#fn4" data-fn="4">4</a></sup> его Кли и "говорящей" ступени Света. По всей видимости, не будет заблуждением сказать, что "вспомнить и описать" весь этот процесс словами человеку сможет впоследствии Голос Круга, то есть Творец через товарищей на семинарах в Круге Жизни, когда дойдет дело в "этом мире" до его практического построения, а до этого "дело" обязательно дойдет, поскольку Творец не делает половинчатых или "случайных", не говоря уже "ошибочных" не дай Бог, действий. Его творения, и все их действия совершенны, настолько же, насколько совершенен Он Сам (абсолютно и непостижимо). Но в нас это совершенство отделено от "здесь и сейчас" барьерами времени, ступенями подобия свойств Света и Кли и скоростью восприятия...</p>
+
+    <p class="tbc">To be continued. Вместе Мы - Сила!</p>
+
+    <h2 class="section-title">Музыка под настроение</h2>
+
+    <div class="track" data-embed="https://www.youtube.com/embed/ZWHgeMX4RcA">
+      <div class="track-head">
+        <button class="track-toggle" aria-expanded="false">
+          <span class="arrow">▸</span>
+          <span class="track-name"><span class="artist">Георгий Свиридов</span> — Время, вперед</span>
+        </button>
+        <a class="track-ext" href="https://www.youtube.com/watch?v=ZWHgeMX4RcA" target="_blank" rel="noopener">↗</a>
+      </div>
+      <div class="track-player"></div>
+    </div>
+
+    <div class="track" data-embed="https://www.youtube.com/embed/fQqhRHucLHE">
+      <div class="track-head">
+        <button class="track-toggle" aria-expanded="false">
+          <span class="arrow">▸</span>
+          <span class="track-name"><span class="artist">Блестящие</span> — А я все летала</span>
+        </button>
+        <a class="track-ext" href="https://youtu.be/fQqhRHucLHE" target="_blank" rel="noopener">↗</a>
+      </div>
+      <div class="track-player"></div>
+    </div>
+
+    <div class="track" data-embed="https://www.youtube.com/embed/3H5gVP-doac?start=232">
+      <div class="track-head">
+        <button class="track-toggle" aria-expanded="false">
+          <span class="arrow">▸</span>
+          <span class="track-name"><span class="artist">Tony Kosinec</span> — Its All One (Кав)</span>
+        </button>
+        <a class="track-ext" href="https://youtu.be/3H5gVP-doac?t=232" target="_blank" rel="noopener">↗</a>
+      </div>
+      <div class="track-player"></div>
+    </div>
+
+    <div class="track" data-embed="https://www.youtube.com/embed/3H5gVP-doac?start=162">
+      <div class="track-head">
+        <button class="track-toggle" aria-expanded="false">
+          <span class="arrow">▸</span>
+          <span class="track-name"><span class="artist">Tony Kosinec</span> — Its All One (Центральная точка, МБ)</span>
+        </button>
+        <a class="track-ext" href="https://youtu.be/3H5gVP-doac?t=162" target="_blank" rel="noopener">↗</a>
+      </div>
+      <div class="track-player"></div>
+    </div>
+
+    <div class="track" data-embed="https://www.youtube.com/embed/CJI7_-3PVCM">
+      <div class="track-head">
+        <button class="track-toggle" aria-expanded="false">
+          <span class="arrow">▸</span>
+          <span class="track-name"><span class="artist">Tubular Bells</span> — Except for the sound of Tubular Bells</span>
+        </button>
+        <a class="track-ext" href="https://youtu.be/CJI7_-3PVCM" target="_blank" rel="noopener">↗</a>
+      </div>
+      <div class="track-player"></div>
+    </div>
+
+    <h2 class="section-title">Примечания</h2>
+    <ol class="notes">
+      <li id="fn1"><div class="fn-content"><span class="fn-num">1.</span>А я все летала. Блестящие <a href="https://youtu.be/fQqhRHucLHE" target="_blank" rel="noopener">https://youtu.be/fQqhRHucLHE</a></div><a class="fn-back" href="#ref1">↑</a></li>
+      <li id="fn2"><div class="fn-content"><span class="fn-num">2.</span>Its All One. Tony Kosinec.<br>Кав: <a href="https://youtu.be/3H5gVP-doac?t=232" target="_blank" rel="noopener">https://youtu.be/3H5gVP-doac?t=232</a><br>Центральная точка (МБ): <a href="https://youtu.be/3H5gVP-doac?t=162" target="_blank" rel="noopener">https://youtu.be/3H5gVP-doac?t=162</a></div><a class="fn-back" href="#ref2">↑</a></li>
+      <li id="fn3"><div class="fn-content"><span class="fn-num">3.</span>Except for the sound of Tubular Bells <a href="https://youtu.be/CJI7_-3PVCM" target="_blank" rel="noopener">https://youtu.be/CJI7_-3PVCM</a></div><a class="fn-back" href="#ref3">↑</a></li>
+      <li id="fn4"><div class="fn-content"><span class="fn-num">4.</span>"Мужчиной и Женщиной Он создал Их" - Творец, Свят Благословен Он, создал "Адама", не являющегося по отдельности мужчиной или женщиной "этого мира", но только вместе с теми душами праведников и праведниц "этого" и "будущего" мира, которым, а точнее, вместе с которыми, их удостаивает Творец, Свят Благословен Он, соединяться во Имя Его Благословенной Цели для наполнения Келим этого мира Светом Жизни и Любви Творца, Свят Благословен Он, "как один Человек с одним сердцем". Сделаем и услышим! См. также: <a href="11H.html">Катнут "Образа Всесильного</a>" Адама Ришон, <a href="19UA.html">Гадлут "Образа Всесильного</a>, см. также: Книга Зоар, Том 1, Предисловия, Заповеди 9 и 10 <a href="https://imyavel.github.io/zohar-sulam/akdama/029.html" target="_blank" rel="noopener">akdama/029</a>, <a href="https://imyavel.github.io/zohar-sulam/akdama/030.html" target="_blank" rel="noopener">akdama/030</a></div><a class="fn-back" href="#ref4">↑</a></li>
+      <li id="fn5"><div class="fn-content"><span class="fn-num">5.</span>Этот "подъем" и "спуск" со мной случился еще до того, как я был знаком с Наукой Каббала. В нее меня привело стремление выяснить, что же со мной на самом деле происходило в этом опыте, что это все значит, что мне говорил "Голос Видения" в уши по мере того, как я возвращался "обратно" из МБ в "этот мир", и оказалось, что именно в Науке Каббала есть теоретические и практические инструменты, которые позволяют ответить на этот вопрос и на все прочие вопросы, которые могут теоретически и практически возникнуть у человека, желающего осознать и реализовать практически свое Высшее и благородное во всех смыслах предназначение, определившее жизненный путь человека и всех остальных людей, равно как и всего человечества в целом, задолго до его рождения "в этом мире", и включающее в себя гораздо больше, чем объем отдельной человеческой жизни, или даже жизни отдельного народа или "духовного учения", поскольку включает в Себя по сути (Замысел Творца насладить творения, или, говоря языком КК, Намерение Орла увековечить осознание посредством Своего Дара, Правила и Партии Нагваля)</div><a class="fn-back" href="#ref5">↑</a></li>
+    </ol>
+
+  </div>
+
+  <footer>
+    <nav class="nav-corpus">
+      <a class="nav-prev" href="47O.html"><span class="lbl">← Предыдущая</span>Стенограмма 6-7 Урока 2 по статье Шамати 3</a>
+      <a class="nav-next" href="574.html"><span class="lbl">Следующая →</span>Каббала Смерть в Сказках, ч. 2</a>
+    </nav>
+    <div class="colophon">
+      <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+      <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // music players (lazy iframe)
+  document.querySelectorAll('.track-toggle').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var track=btn.closest('.track');
+      var player=track.querySelector('.track-player');
+      var open=track.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open);
+      if(open && !player.querySelector('iframe')){
+        var f=document.createElement('iframe');
+        f.src=track.dataset.embed;
+        f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        f.setAttribute('allowfullscreen','');
+        player.appendChild(f);
+      }
+    });
+  });
+
+  // footnote tooltip
+  var tip=document.createElement('div');
+  tip.className='fn-tooltip';
+  document.body.appendChild(tip);
+  document.querySelectorAll('.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      var id=ref.querySelector('a').getAttribute('data-fn');
+      var body=document.getElementById('fn'+id);
+      if(!body) return;
+      tip.innerHTML=body.querySelector('.fn-content').innerHTML;
+      tip.style.display='block';
+      var r=ref.getBoundingClientRect();
+      var tr=tip.getBoundingClientRect();
+      var top=r.top-tr.height-8;
+      if(top<8){ top=r.bottom+8; }
+      var left=r.left+r.width/2-tr.width/2;
+      left=Math.max(8,Math.min(left,window.innerWidth-tr.width-8));
+      tip.style.top=(top+window.scrollY)+'px';
+      tip.style.left=(left+window.scrollX)+'px';
+    });
+    ref.addEventListener('mouseleave',function(){ tip.style.display='none'; });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой прозаическое эссе-размышление о каббалистическом опыте «подъёма и спуска» через миры; стихотворная часть присутствует лишь как короткий эпиграф (песня «Блестящие»), а основной объём — длинные прозаические абзацы. Поэтому доминирующая форма — проза, и выбрана редакторская широкоформатная схема с колонкой около 2/3 ширины окна (width:68%, max-width 1180px), на мобильных — полная ширина. Засечный шрифт для тела даёт комфортное медленное чтение длинных абзацев, индигово-винная палитра поддерживает мистическую тематику, оставаясь контрастной на светлом фоне.\n\nРазвилки: TOC не делал — основной текст не разбит на несколько именованных подразделов (есть лишь эпиграф и единый поток мысли), поэтому оглавление было бы искусственным. Музыки распознано более двух ссылок (Свиридов в теле + три ссылки на YouTube в сносках), поэтому добавлен сводный раздел «Музыка под настроение» перед «Примечаниями», собирающий все треки как ленивые раскрывающиеся плееры; внутри сносок YouTube-ссылки оставлены обычными гиперссылками, чтобы не дублировать аппарат. Сноски пронумерованы по авторской маркировке (1–5), реализованы переходы вниз/вверх, подсветка цели и всплывающий popup над/под маркером. Авторские глифы (:)) и КАПС сохранены дословно.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>

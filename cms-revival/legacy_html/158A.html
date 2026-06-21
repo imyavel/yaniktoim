@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Вечное здесь и сейчас</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#22201c;
+    --muted:#6b6356;
+    --accent:#8a5a2b;
+    --accent2:#b8742f;
+    --rule:#ddd4c4;
+    --link:#9a5a1f;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    font-size:19px;
+    line-height:1.7;
+  }
+  a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(154,90,31,.35);}
+  a:hover{border-bottom-color:var(--link);}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:28px 40px 80px;
+  }
+  .page{
+    width:66%;
+    max-width:880px;
+    margin:0 auto;
+  }
+  @media(max-width:900px){
+    .wrap{padding:20px 18px 60px;}
+    .page{width:100%;}
+    body{font-size:18px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:26px;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--rule);
+  }
+  .crumbs a{border-bottom:none;color:var(--accent);}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs .sep{color:var(--rule);margin:0 .5em;}
+
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 14px;
+  }
+  h1{
+    font-size:42px;
+    line-height:1.12;
+    font-weight:700;
+    margin:0 0 30px;
+    letter-spacing:-.01em;
+  }
+  h1::after{
+    content:"";
+    display:block;
+    width:84px;
+    height:4px;
+    background:var(--accent2);
+    margin-top:20px;
+  }
+  @media(max-width:900px){ h1{font-size:32px;} }
+
+  .qa{margin:0 0 26px;}
+  .label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    font-weight:700;
+    color:var(--accent2);
+    display:block;
+    margin-bottom:4px;
+  }
+  p{margin:0 0 22px;}
+  .replica{
+    background:var(--paper);
+    border-left:4px solid var(--rule);
+    padding:18px 22px;
+    margin:0 0 28px;
+    color:var(--muted);
+    font-style:italic;
+  }
+  .replica p{margin:0;}
+  .lead p:first-of-type{font-size:20px;}
+
+  .exclaim{
+    font-size:24px;
+    font-weight:700;
+    text-align:center;
+    color:var(--accent);
+    margin:34px 0 26px;
+    letter-spacing:.01em;
+  }
+
+  /* music player */
+  .player{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    background:var(--paper);
+    margin:0 0 24px;
+    overflow:hidden;
+  }
+  .player summary{
+    list-style:none;
+    cursor:pointer;
+    padding:14px 18px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .player summary::-webkit-details-marker{display:none;}
+  .player .arrow{
+    transition:transform .2s ease;
+    color:var(--accent2);
+    font-size:13px;
+  }
+  .player[open] .arrow{transform:rotate(90deg);}
+  .player .title{flex:1;color:var(--ink);}
+  .player .title small{display:block;color:var(--muted);font-size:13px;margin-top:2px;}
+  .player .ext{color:var(--accent);border-bottom:none;font-size:16px;}
+  .player .frame{
+    position:relative;
+    width:100%;
+    padding-top:56.25%;
+    background:#000;
+  }
+  .player .frame iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+  }
+
+  .seealso{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    margin:26px 0 0;
+  }
+
+  /* bottom nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:54px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    border-bottom:none;
+    max-width:48%;
+  }
+  .corpus-nav .dir{
+    display:block;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .corpus-nav .t{color:var(--accent);font-size:17px;}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer{
+    margin-top:44px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer a{color:var(--accent);}
+  footer .attrib{margin:0 0 8px;}
+  footer .license{margin:0;}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/158A.html">
+<meta name="description" content="Эссе о единстве противоположностей в каббале и традиции Кастанеды: Орёл как Намерение Духа, вечное здесь и сейчас, Дар Орла и путь воина.">
+<meta property="og:title" content="Вечное здесь и сейчас">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/158A.html">
+<meta property="og:description" content="Эссе о единстве противоположностей в каббале и традиции Кастанеды: Орёл как Намерение Духа, вечное здесь и сейчас, Дар Орла и путь воина.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Вечное здесь и сейчас">
+<meta name="twitter:description" content="Эссе о единстве противоположностей в каббале и традиции Кастанеды: Орёл как Намерение Духа, вечное здесь и сейчас, Дар Орла и путь воина.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №158A</span>
+<div class="wrap">
+<div class="page">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <p class="kicker">8 мая 2021 г. ·</p>
+  <h1>Вечное здесь и сейчас<a class="audio-link" href="https://t.me/art_017_tracks/424" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <div class="qa">
+    <span class="label">Реплика</span>
+    <div class="replica">
+      <p>(Орел - это Дьявол) Зверь, скрещенный с рептилией. Он один из злых богов, которые едят людей. Кроме него тут говорят есть Обезьяна, Собака, Рептилия и может еще кто.</p>
+    </div>
+  </div>
+
+  <div class="qa lead">
+    <span class="label">Ответ</span>
+    <p>Дьявол - это страшилка для умов недалеких представителей беззубой фауны социального "мира людей". В Боге, или Творце, Свят Благословен Он, называемом также Орлом, Намерением Духа, в традиции КК, равно как и Малхут (Небесное Царство) Мира Бесконечности в духовной Науке Каббала, являющейся "корнем" и источником всех развившихся в последствии форм авраамического (монотеистического) религиозного культа, все формы, или явления, представляющиеся нам "обратными" друг другу, и противоречащими изначальному и вечному, бесконечному и совершенному Единству Всего, такие как добро и зло, Бог и Дьявол, грех и праведность, и т.д. - являются одним целым, единым и неделимым свойством, которое является, на Своем высоком и непостижимом для человека "этого мира" духовном уровне, одним и единственным "творением", созданным Творцом, Свят Благословен Он, или общим совокупным свойством "Высшего Я" всех творений, существующих, существовавших, или будущих существовать, поскольку на этом уровне Реальности время не существует, но все существа и все времена и и формы их существования, включено в вечное "здесь и сейчас" "простым", неделимым, совершенно конкретным, и в то же время предельно абстрактным, и абсолютно непостижимым, образом. Именно эта ступень, или явление, называется в учении КК Орлом. Именно Она совершает действие, в котором "создает нагваля в виде женщины и мужчины, отправляемых в этот мир видеть и собирать партию воинов", посредством чего создаются необходимые условия для получения творениями "этого мира" "Дара Орла", являющегося центральным понятием во всем мироописании и намерении Пути Знания в традиции КК "новых видящих". Тора (Библия, Ветхий завет), книга Берешит (Бытие), и Книга Зоар - масштабный каббалистический комментарий на Тору, являющийся основой всей последующей истории развития и становления Науки Каббала на протяжении двух тысячелетий, называет это действие и эту ступень "Мужчиной и Женщиной Он создал их", и она действительно является базовой, основополагающей формой "подобия свойств", или условием, которое должен обеспечить человек, чтобы его стремление раскрыть Высшую Силу, и "получить" от Нее (каббала=получение) вышеупомянутый Дар, по причине Ее желания, чтобы он "удостоился" практически понять и принять его, производимое в свойствах "этого мира", как минимум, в качестве отправной точки и "места обитания" группы воинов, производилось им в соответствии с реальностью того, ради чего они были созданы и приведены этой Силой к Своему Пути и Своему раскрытию, в соответствии с реальностью "третьего тысячелетия", которое характерно совершенно особым, новым состоянием готовности, всего творения, т.е. человечества, как единого целого (7.5 млрд существуют только в нашей голове, существующей только в нашем сне, существующем только во Сне Той Единой и Единственной ступени, "собственный" уровень сознания Которой непостижим человеческим разумом), к более осознанному и самостоятельному "сотрудничеству" с этой Силой в деле практического "получения" Ее Дара, чем когда-либо раньше.</p>
+  </div>
+
+  <p class="exclaim">Сделаем и услышим!</p>
+
+  <details class="player" id="track1">
+    <summary>
+      <span class="arrow">▶</span>
+      <span class="title">YouTube
+        <small>www.youtube.com/watch?v=-6Xl9tBWt54</small>
+      </span>
+      <a class="ext" href="https://www.youtube.com/watch?v=-6Xl9tBWt54" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </summary>
+    <div class="frame" data-embed="https://www.youtube.com/embed/-6Xl9tBWt54"></div>
+  </details>
+
+  <p class="seealso">См. также: </p>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="15J.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="t">Красное и Белое</span>
+    </a>
+    <a class="next" href="0C2.html">
+      <span class="dir">Следующая →</span>
+      <span class="t">Целостность духовной методики</span>
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+</div>
+
+<script>
+  document.querySelectorAll('.player').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open){
+        var f=d.querySelector('.frame');
+        if(f && !f.querySelector('iframe')){
+          var if_=document.createElement('iframe');
+          if_.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+          if_.setAttribute('allowfullscreen','');
+          if_.src=f.getAttribute('data-embed')+'?autoplay=1';
+          f.appendChild(if_);
+        }
+      }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой реплику и развёрнутый прозаический ответ — философско-каббалистический комментарий из одного очень длинного абзаца плюс восклицание и ссылки. Стихотворных форм нет, поэтому по правилу «проза → редакторский широкий» выбрана editorial-схема с основной колонкой около 2/3 ширины окна (ограничена ~880px для комфортной меры строки при гигантском абзаце). Реплику оформил приглушённой врезкой-цитатой, ответ — основным текстом с маркерами-лейблами «Реплика»/«Ответ», которые в исходнике заданы словами и не являются авторскими заголовками статьи, а служат структурой диалога.\n\nЕдинственная YouTube-ссылка (без метки-атрибуции и без названия трека в тексте) подана как свёрнутый ленивый плеер: iframe вставляется только при раскрытии. Поскольку аудио-ссылка одна (не более двух), сводный раздел музыки не создавался. Подразделов в тексте нет — оглавление не требуется; сносок тоже нет. Голые URL (включая «См. также») обёрнуты в гиперссылки. Палитра — тёплая книжно-редакторская на светлом фоне с охристым акцентом, перекликающаяся с каббалистической темой, но в журнальной подаче.",
+  "features": ["music"]
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Часть 3 Сын своего Отца</title>
+<style>
+  :root{
+    --ink:#1f1a14;
+    --soft:#5a5046;
+    --bg:#f7f3ea;
+    --paper:#fffdf8;
+    --accent:#9a3b2e;
+    --accent2:#36607a;
+    --line:#e0d6c4;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    line-height:1.72;
+    font-size:19px;
+  }
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  .shell{
+    width:66%;
+    margin:0 auto;
+  }
+  @media(max-width:980px){
+    .shell{width:100%;}
+    .wrap{padding:0 18px;}
+    body{font-size:18px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--soft);
+    padding:26px 0 18px;
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs a{color:var(--accent2);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 .5em;color:#bcae98;}
+
+  .hero{margin:26px 0 8px;}
+  .hero img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    margin:0 auto;
+    border-radius:3px;
+    box-shadow:0 10px 30px rgba(60,45,25,.18);
+  }
+
+  .series{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:34px 0 6px;
+    font-weight:700;
+  }
+  .subseries{
+    font-style:italic;
+    color:var(--soft);
+    margin:0 0 14px;
+    font-size:17px;
+  }
+  h1{
+    font-size:42px;
+    line-height:1.15;
+    margin:0 0 10px;
+    font-weight:700;
+    letter-spacing:-.01em;
+  }
+  @media(max-width:980px){h1{font-size:32px;}}
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--soft);
+    margin:0 0 30px;
+    padding-bottom:24px;
+    border-bottom:2px solid var(--ink);
+  }
+
+  article p{margin:0 0 22px;}
+
+  .epigraph{
+    font-style:italic;
+    color:var(--soft);
+    border-left:3px solid var(--accent);
+    padding:4px 0 4px 22px;
+    margin:0 0 28px;
+  }
+  .epigraph .lbl{
+    font-style:normal;
+    font-weight:700;
+    color:var(--accent);
+  }
+
+  .block-quote{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:18px 24px;
+    margin:0 0 26px;
+    box-shadow:0 3px 14px rgba(60,45,25,.05);
+  }
+  .lead-tag{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    letter-spacing:.03em;
+    color:var(--accent2);
+  }
+
+  /* music */
+  .music-wrap{
+    margin:40px 0 10px;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  .track{
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:var(--paper);
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#f1ead9;}
+  .arrow{
+    transition:transform .25s;
+    color:var(--accent2);
+    font-size:14px;
+    flex:0 0 auto;
+  }
+  .track.open .arrow{transform:rotate(90deg);}
+  .track-title{flex:1 1 auto;font-size:18px;}
+  .track-title .artist{color:var(--soft);font-style:italic;}
+  .ext{
+    color:var(--accent2);
+    text-decoration:none;
+    font-size:18px;
+    flex:0 0 auto;
+  }
+  .ext:hover{color:var(--accent);}
+  .player{
+    display:none;
+    padding:0 18px 18px;
+  }
+  .track.open .player{display:block;}
+  .player .frame{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .player iframe{
+    position:absolute;
+    top:0;left:0;
+    width:100%;height:100%;
+    border:0;
+  }
+
+  /* bottom nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin:54px 0 0;
+    padding-top:26px;
+    border-top:2px solid var(--ink);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    color:var(--accent2);
+    max-width:46%;
+  }
+  .corpus-nav a:hover{color:var(--accent);}
+  .corpus-nav .dir{
+    display:block;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--soft);
+    margin-bottom:4px;
+  }
+  .corpus-nav .t{font-size:16px;line-height:1.3;}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer{
+    margin:40px 0 60px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--soft);
+    line-height:1.6;
+  }
+  footer a{color:var(--accent2);}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/17C.html">
+<meta name="description" content="Третья часть дневника воина Исраэль: эссе о подлинной радости как слиянии с Творцом, о различии между радостью за себя и за другого.">
+<meta property="og:title" content="Часть 3 Сын своего Отца">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/17C.html">
+<meta property="og:description" content="Третья часть дневника воина Исраэль: эссе о подлинной радости как слиянии с Творцом, о различии между радостью за себя и за другого.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Часть 3 Сын своего Отца">
+<meta name="twitter:description" content="Третья часть дневника воина Исраэль: эссе о подлинной радости как слиянии с Творцом, о различии между радостью за себя и за другого.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №17C</span>
+<div class="wrap">
+  <div class="shell">
+
+    <nav class="crumbs">
+      <a href="../index.html">Главная</a><span>›</span><a href="../dabudet/index.html">Да будет Свет!</a>
+    </nav>
+
+    <div class="hero">
+      <img src="../img/17C.jpg" alt="">
+    </div>
+
+    <div class="series">ДА БУДЕТ СВЕТ!</div>
+    <div class="subseries">Дневник воина^Исраэль</div>
+    <h1>ЧАСТЬ 3: СЫН СВОЕГО ОТЦА<a class="audio-link" href="https://t.me/art_017_tracks/367" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <div class="dateline">Написано 12 июля 2021 г. на форуме «левой линии»</div>
+
+    <article>
+      <p class="epigraph"><span class="lbl">Эпиграф:</span> Да, я сын моего Отца, и буду всегда делать то, что делает Он, следуя зову Сердца, а не голосу Разума. My Father's Son, Joe Cocker</p>
+
+      <p class="block-quote"><span class="lead-tag">Цитата (моя, с форума):</span> «подходить с позиции "радость во вселенной от всего одинакова" — это вопиюще(!) ошибочно.»</p>
+
+      <p><span class="lead-tag">Вопрос:</span> «Почему???»</p>
+
+      <p><span class="lead-tag">Ответ:</span> Настоящая радость в Том, Кто дает человеку радость, и кому сам человек поэтому дает радость, а не в том, что он сам испытывает или нет.</p>
+
+      <p>Главная разница, которая есть реально в типах радости, это разница в том, радуется человек за себя ("просто так" и "за вселенскую гармонию" это тоже за себя) или за другого. Радость за другого включает (но не ограничивается) тем, что мы называем "Любовь". Во всех возможных смыслах. Именно здесь в действительности (все вышесказанное больше полезно, чтобы не дать себе заснуть) проходит водораздел между тем путем, который человека уничтожает (либо будет уничтожать в будущем, а сейчас пока представляется ему "сладким"), и тем, по которому он идет, и сердце его радуется. Поскольку сердце радуется по настоящему только тогда, когда оно знает, что радуется другое сердце близкого воину человека, и эта радость называется "слиянием", и в нем заключается Суть Духовной Любви, которая начинается с уровня этого мира как заповедь "Возлюби ближнего, как самого себя", и поднимает человека, по мере того, как он практически учится "правильно радоваться", до уровня Любви Творца, то есть "простого" ощущения Высшей могущественной Силы, не имеющей материального носителя, но соединяющей в Себе по мощности все, которые есть, и воин чувствует, что эта Сила РЕАЛЬНО ЛЮБИТ ЕГО, и Она ЕГО СОЗДАЛА для того, чтобы эту любовь сделать ВЗАИМНОЙ и НЕЗАВИСИМОЙ ЛЮБОВЬЮ НА РАВНЫХ, то есть, чтобы поднять человека на уровень Творца, на уровень Орла и Намерения Духа, чьим "совместным творчеством" является вся реальность, доступная восприятию. Именно эта радость, которая исходит из непосредственного "получения" человеком в полном ощущении, осознании и памяти себя, являющегося ВОЗЛЮБЛЕННЫМ ТВОРЦА, СВЯТ БЛАГОСЛОВЕН ОН, является настоящей, а вся остальная радость — суть блеклая, тусклая тень Радости настоящей, подделка под нее более или менее высокого качества исполнения. Только "восстановив" ЛИЧНЫЙ контакт с ТЕМ, КТО ДАЕТ СВОЙ ДАР ВСЕМ ЖИВЫМ СОЗДАНИЯМ, возможно ощущение и "раскрытие" смысла жизни и цели существования Мира, формы его существования, принципов его возникновения, природы того, чем является сам человек и чем является Мир, зачем он родился и что будет, когда он умрет, какова его цель в данный конкретный момент и в целом всей жизни, какая цель у всех остальных людей, что между ними общего, как это связано с Даром Вечной Жизни, почему существует и что собой представляет ПРАВИЛО И КАРТА, кто такой Нагваль, Кто такой Орел, почему Он создал Нагваля именно таким (М и Ж), почему Он приказал им забыть, почему не написано про остальных воинов также как про Нагваля, что Орел "их создал такими-то", почему они должны делать именно то, что должны, и т.д. и т.п. И все остальные вероятные и невероятные вопросы, которые могут родиться в человеке, находящемся на абсолютно любых этапах Пути Воина, равно как и Пути Творца, Свят Благословен Он, или Пути Свободы от Ангела Смерти, являющегося между ними общим определением, разрешаются одним "получением" этого Света, т.е. действием установления связи с Ним Лично, поскольку только Он Лично этот Свет человеку Дает, а все остальные "посредники", которых между ним и человеком этого мира не мало, они не дают никакого Света, они только СКРЫВАЮТ этот Свет от человека, пока он объективно не готов его получать с пользой для себя. Услышим и сделаем!</p>
+
+      <div class="music-wrap">
+        <div class="music-label">Музыка</div>
+        <div class="track" id="track1">
+          <div class="track-head" onclick="toggleTrack('track1','i8WoZOdin-k')">
+            <span class="arrow">▶</span>
+            <span class="track-title">Сын своего отца <span class="artist">— Джо Кокер</span></span>
+            <a class="ext" href="https://youtu.be/i8WoZOdin-k" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+          </div>
+          <div class="player"><div class="frame"></div></div>
+        </div>
+      </div>
+    </article>
+
+    <nav class="corpus-nav">
+      <a class="prev" href="1AM.html">
+        <span class="dir">← Предыдущая</span>
+        <span class="t">Часть 6 Письмо Счастья</span>
+      </a>
+      <a class="next" href="17U.html">
+        <span class="dir">Следующая →</span>
+        <span class="t">Часть 5 Точка Невозврата</span>
+      </a>
+    </nav>
+
+    <footer>
+      <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+      <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+function toggleTrack(id, vid){
+  var el=document.getElementById(id);
+  var open=el.classList.toggle('open');
+  if(open){
+    var fr=el.querySelector('.frame');
+    if(!fr.querySelector('iframe')){
+      var f=document.createElement('iframe');
+      f.src='https://www.youtube.com/embed/'+vid+'?rel=0';
+      f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen=true;
+      fr.appendChild(f);
+    }
+  }
+}
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — прозаическая запись из «дневника воина»: эпиграф, цитата-вопрос-ответ и один большой рассуждающий абзац. Стихотворных форм нет, поэтому выбрана редакторская широкая схема с основной колонкой ~66% ширины окна и широким контейнером; на мобильных — полная ширина. Доминирующая форма однозначно проза/эссе, развилки «манускрипт vs editorial» не было.\n\nПалитру взял тёплую бумажную (светлый фон, тёмно-коричневые чернила, кирпичный и сине-стальной акценты) — под «дневниковый» интимный тон при умеренном контрасте заголовков и текста. Эпиграф вынесен в курсивную врезку с боковой линией, цитата с форума — в карточку-quote, маркеры «Вопрос/Ответ» подсвечены, чтобы сохранить авторскую диалоговую структуру без добавления своих заголовков. КАПС оставлен дословно. Подразделов нет (один сплошной текст), поэтому оглавление не делал. Единственный музыкальный трок имеет ссылку на YouTube → оформлен сворачиваемым ленивым плеером с метой «Музыка»; сводный раздел не создавал, так как трек один (порог — более двух). Сносок в тексте нет.",
+  "features": ["music"]
+}
+</script>
+</body>
+</html>

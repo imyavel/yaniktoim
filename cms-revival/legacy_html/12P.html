@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Начало Нового Цикла</title>
+<style>
+ :root{
+ --bg:#faf8f4;
+ --ink:#1c1b18;
+ --soft:#54504a;
+ --rule:#ddd6c9;
+ --accent:#7a2e2e;
+ --accent2:#3a5a55;
+ --paper:#fffdf9;
+ }
+ *{box-sizing:border-box;}
+ html{scroll-behavior:smooth;}
+ body{
+ margin:0;
+ background:var(--bg);
+ color:var(--ink);
+ font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+ font-size:19px;
+ line-height:1.72;
+ -webkit-font-smoothing:antialiased;
+ }
+ a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;}
+ a:hover{color:var(--accent2);}
+ .wrap{
+ width:min(66vw,900px);
+ margin:0 auto;
+ padding:32px 24px 80px;
+ }
+ @media(max-width:1100px){.wrap{width:auto;max-width:760px;}}
+ @media(max-width:680px){.wrap{padding:18px 16px 60px;}body{font-size:18px;}}
+
+ /* breadcrumbs */
+ .crumbs{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:14px;
+ letter-spacing:.02em;
+ color:var(--soft);
+ border-bottom:1px solid var(--rule);
+ padding-bottom:14px;
+ margin-bottom:28px;
+ }
+ .crumbs a{color:var(--soft);text-decoration:none;}
+ .crumbs a:hover{color:var(--accent);text-decoration:underline;}
+ .crumbs .sep{margin:0 .5em;color:#b9b1a3;}
+
+ .kicker{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:13px;
+ text-transform:uppercase;
+ letter-spacing:.16em;
+ color:var(--accent);
+ margin:0 0 10px;
+ }
+ h1{
+ font-size:2.05rem;
+ line-height:1.18;
+ font-weight:700;
+ margin:0 0 8px;
+ letter-spacing:.01em;
+ }
+ h1 .starmark{font-size:1rem;vertical-align:super;}
+ .lede-rule{
+ width:64px;height:3px;background:var(--accent);
+ margin:18px 0 30px;border:0;
+ }
+
+ p{margin:0 0 1.25em;}
+ .body p{text-align:justify;}
+ .shout{
+ font-size:1.25rem;
+ font-weight:700;
+ text-align:center;
+ color:var(--accent2);
+ margin:1.6em 0;
+ letter-spacing:.01em;
+ }
+
+ /* footnote markers */
+ sup.fn{font-size:.7em;line-height:0;}
+ a.fnref{
+ text-decoration:none;
+ color:var(--accent);
+ font-weight:700;
+ padding:0 1px;
+ cursor:pointer;
+ }
+ a.fnref:hover{color:var(--accent2);}
+
+ .fn-popup{
+ position:fixed;
+ z-index:50;
+ max-width:360px;
+ background:var(--paper);
+ color:var(--ink);
+ border:1px solid var(--rule);
+ border-left:3px solid var(--accent);
+ box-shadow:0 8px 28px rgba(40,30,20,.18);
+ padding:12px 15px;
+ font-size:15.5px;
+ line-height:1.55;
+ border-radius:4px;
+ }
+ .fn-popup a{word-break:break-word;}
+
+ /* TOC */
+ details.toc{
+ background:var(--paper);
+ border:1px solid var(--rule);
+ border-radius:6px;
+ padding:8px 18px;
+ margin:0 0 36px;
+ }
+ details.toc summary{
+ cursor:pointer;
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:13px;
+ text-transform:uppercase;
+ letter-spacing:.12em;
+ color:var(--soft);
+ font-weight:700;
+ list-style:none;
+ padding:6px 0;
+ }
+ details.toc summary::-webkit-details-marker{display:none;}
+ details.toc summary::after{content:" ▾";color:var(--accent);}
+ details.toc[open] summary::after{content:" ▴";}
+ details.toc ol{margin:6px 0 10px;padding-left:1.4em;}
+ details.toc li{margin:.3em 0;}
+ details.toc a{font-family:"Helvetica Neue",Arial,sans-serif;font-size:15px;text-decoration:none;color:var(--accent2);}
+ details.toc a:hover{text-decoration:underline;}
+
+ h2.section{
+ font-size:1.4rem;
+ margin:2.4em 0 .8em;
+ padding-top:.4em;
+ border-top:1px solid var(--rule);
+ }
+ h2.section a{color:inherit;text-decoration:none;}
+ h2.section a:hover{color:var(--accent);}
+
+ /* music */
+ .music-label{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:13px;text-transform:uppercase;letter-spacing:.12em;
+ color:var(--accent);margin:0 0 12px;
+ }
+ details.player{
+ background:var(--paper);
+ border:1px solid var(--rule);
+ border-radius:6px;
+ margin:0 0 10px;
+ overflow:hidden;
+ }
+ details.player summary{
+ cursor:pointer;
+ list-style:none;
+ display:flex;
+ align-items:center;
+ gap:10px;
+ padding:13px 16px;
+ font-size:17px;
+ }
+ details.player summary::-webkit-details-marker{display:none;}
+ details.player .arrow{color:var(--accent);transition:transform .2s;font-size:.9em;}
+ details.player[open] .arrow{transform:rotate(90deg);}
+ details.player .track-name{flex:1;}
+ details.player .ext{text-decoration:none;font-weight:700;color:var(--accent2);}
+ .embed-wrap{position:relative;width:100%;aspect-ratio:16/9;background:#000;}
+ .embed-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+ /* notes */
+ ol.notes{
+ padding-left:0;
+ list-style:none;
+ counter-reset:none;
+ font-size:16.5px;
+ line-height:1.6;
+ }
+ ol.notes li{
+ margin:0 0 1em;
+ padding:4px 8px 4px 10px;
+ border-left:2px solid transparent;
+ display:flex;
+ gap:.5em;
+ }
+ ol.notes li:target{
+ background:#fff6e0;
+ border-left:2px solid var(--accent);
+ border-radius:3px;
+ }
+ .note-num{font-weight:700;color:var(--accent);min-width:1.8em;flex:none;}
+ .note-body{flex:1;}
+ .note-body a{word-break:break-word;}
+ .backref{text-decoration:none;color:var(--accent);font-weight:700;margin-left:.3em;}
+
+ /* footer nav */
+ .corpus-nav{
+ display:flex;
+ justify-content:space-between;
+ gap:16px;
+ margin:48px 0 0;
+ padding-top:22px;
+ border-top:1px solid var(--rule);
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:15px;
+ }
+ .corpus-nav a{text-decoration:none;display:block;max-width:46%;}
+ .corpus-nav .lbl{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--soft);margin-bottom:3px;}
+ .corpus-nav .nx{text-align:right;margin-left:auto;}
+ footer.colophon{
+ margin-top:40px;
+ padding-top:20px;
+ border-top:1px solid var(--rule);
+ font-size:14px;
+ color:var(--soft);
+ line-height:1.55;
+ }
+ footer.colophon a{color:var(--soft);}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/12P.html">
+<meta name="description" content="Эссе о начале нового цикла в практике Круга Жизни 10: понятие осознанного эгрегора, сфира Даат, раскрытие Книги Зоар и Правило Орла.">
+<meta property="og:title" content="Начало Нового Цикла">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/12P.html">
+<meta property="og:description" content="Эссе о начале нового цикла в практике Круга Жизни 10: понятие осознанного эгрегора, сфира Даат, раскрытие Книги Зоар и Правило Орла.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Начало Нового Цикла">
+<meta name="twitter:description" content="Эссе о начале нового цикла в практике Круга Жизни 10: понятие осознанного эгрегора, сфира Даат, раскрытие Книги Зоар и Правило Орла.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial" id="top">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №12P</span>
+<div class="wrap">
+
+ <nav class="crumbs">
+ <a href="../index.html">Главная</a>
+ <span class="sep">/</span>
+ <a href="../confront/index.html">Конфронтология Духа</a>
+ </nav>
+
+ <p class="kicker">25 февраля 2021 г.</p>
+ <h1>НАЧАЛО НОВОГО ЦИКЛА<sup class="fn"><a class="fnref starmark" id="fnref-star" href="#fn-star" data-note="fn-star">*</a></sup><a class="audio-link" href="https://t.me/art_017_tracks/489" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+ <hr class="lede-rule">
+
+ <details class="toc" open>
+ <summary>Содержание</summary>
+ <ol>
+ <li><a href="#music">Музыка под настроение</a></li>
+ <li><a href="#notes">Примечания</a></li>
+ </ol>
+ </details>
+
+ <div class="body">
+ <p>Творец в Каббале - не "внешнее" относительно Группы практикующих понятие, а внутреннее "выстраиваемое в связи между их намерениями" - "Второе Кольцо Силы". Его нет нигде вовне Группы (Круга), он формируется посредством методики объединения самими практикующими, как единый "энергетический кокон", кристалл-многогранник<sup class="fn"><a class="fnref" id="fnref1" href="#fn1" data-note="fn1">1</a></sup>, в котором, как минимум, 6 самостоятельных "точек сборки". И, при этом, есть одна "универсальная" "точка сборки" - их совместная "суперпозиция сознания" в то время, когда они эффективно объединяются в процессе совместной практики.</p>
+
+ <p>В общей эзотерической традиции это явление принято называть "эргрегором". Однако, у эзотериков отсутствует понятие "осознанного" эргрегора, у которого нет "центра управления", а который сам, как-бы, является своеобразной "точкой сборки" относительно своего "внешнего Кли", то есть, в общем смысле, всего остального человечества. "Обыкновенный" эргрегор в Каббале соответствует понятию "ВАК без РОШ" (Царство без короны) - это форма существования человеческого общества до его перехода в осознанную стадию развития. То есть энерго-информационная форма "повседневного мира". "Осознанный" эргрегор в Каббале соответствует понятию "сфиры Даат" (Даат от слова "познание"). Эти понятия, точнее, их практическая часть, связанная с реализацией в "этом мире", были скрыты в Каббале на протяжении многих веков, как минимум, с момента разбиения Храмов и до нашего времени. Наша Группа (Круг Жизни<sup class="fn"><a class="fnref" id="fnref10" href="#fn10" data-note="fn10">10</a></sup> - КЖ), осмелюсь предположить, первой раскрыла содержание Книги Зоар<sup class="fn"><a class="fnref" id="fnref2" href="#fn2" data-note="fn2">2</a></sup> в такой форме, которая позволяет не просто "читать и удивляться" Каббалистическим описаниям Реальности, "не видя за деревьями леса", и неизбежно уклоняясь либо "вправо" (в форму "мирской веры"), либо влево (в форму культивации безжизненных знаний), от "средней линии", которая позволяет участникам Круга раскрывать на практике Свет Хохма и "распространять Свет Творца творениям этого мира".</p>
+
+ <p>Разумеется, все каббалисты<sup class="fn"><a class="fnref" id="fnref7" href="#fn7" data-note="fn7">7</a></sup> работают не "внутри себя" и не "ради себя". Это происходит не потому, что им реально есть дело до окружающего мира (хотя и это не исключается, но это не главное), а потому, что им хорошо известна та часть Правила Орла, которая требует от практикующих (любых типов "духовных" методик, включая и любые формы знания "этого мира") построения в "этом мире" своей "следующей ступени" перед тем, как Орел позволит им отправиться в "непостижимое". Наиболее очевидная "причина" такого порядка в том, что Сам Орел (Малхут Мира Бесконечности) - не делится на части, а является Единым сверхсознанием, Одним и Единственным во всей Реальности. И если Он кому-то делает Свой Дар, то Он делает его сразу всему "творению" как единому целому, а не конкретно какой-то "когорте магов" или группе практикующих. Другое дело, что на Его уровне (где Он "Один, Единственный, Единый" и "Нет никого, кроме Него") времени нет, поэтому весь процесс "получения Дара Орла творениями" происходит сразу же, в тот самый момент, когда Орел им дает этот Дар, а в "этом мире"<sup class="fn"><a class="fnref" id="fnref6" href="#fn6" data-note="fn6">6</a></sup> процесс его получения "разложен на составляющие по времени" на протяжении нескольких тысяч лет<sup class="fn"><a class="fnref" id="fnref5" href="#fn5" data-note="fn5">5</a></sup>, и имеет собственную, не всегда очевидную, и скрытую, как правило, от всех людей (включая самих "магов" и "каббалистов", независимо от величины уровня постижения), логику происхождения и развития по уровням, периодам и ступеням. Если верить той информации, которой обладает наша Группа<sup class="fn"><a class="fnref" id="fnref4" href="#fn4" data-note="fn4">4</a></sup>, мы в настоящее время (начало 2021 г. по Р.Х.) находимся в самом начале формирования "Нового Цикла" (обе древние традиции, Наука Каббала (НК) и Путь Толтеков, одновременно и независимо, хотя и косвенно, подтверждают это, указывая на наше время и поколение как на "начало Нового Цикла, который должен образоваться сам собой" (КК), а на "период Конечного Исправления и раскрытия Книги Зоар" (НК)), который значительно отличается по логике своего развития от предшествующих форм, которые, в силу этого же самого факта, завершили свое существование и потеряли (как минимум, прежнюю) актуальность на момент начала 2020 года. Наша Группа проходила свое формирование по форме и методике "Розы "взрослого" состояния (Гадлут)" Книги Зоар<sup class="fn"><a class="fnref" id="fnref3" href="#fn3" data-note="fn3">3</a></sup>, в период 2020 года +- несколько месяцев. За этот период ее участники (Ваш покорный слуга – один из них) прошли невообразимый путь личностного “духовного” роста, который в других обстоятельствах человек едва ли проходит в течение всей жизни. Этим мы обязаны объединению в такой форме, которая позволяет раскрывать Свет Хохма, по мере ежедневной практической духовной работе Круга, и этот Свет (хорошо известный каббалистам по названию, но мало кому известный практически, опять же, до нашего времени) является синонимом “раскрытия Творца творениям в этом мире”, то есть формой личного, поразительного во всех смыслах, непрерывного и открытого управления Духом каждым из участников Круга, равно как и развития самого Круга как единого интегрального Целого. Наша задача (КЖ), на данном этапе, когда это развитие (“Розы” “Гадлута”) базово завершилось, распространить полученные нами новые знания и новую форму практической “духовной” работы всем людям, а также, собрать, обучить, и сопровождать до получения собственного “Гадлута”, как минимум еще одну команду практикующих. Чем мы и пытаемся заниматься в меру своих сил и тех возможностей, которые постепенно предоставляются нам Творцом ака Орлом, в соответствии с течением времени и логикой развертывания общей последовательности реальности “Нового Цикла” - “Конечного Исправления” в самом Круге и в остальных “Келим” этого мира.</p>
+
+ <p>Реальность Новой начавшейся эпохи расширяет смыслы и цели “распространения”, имевшихся у каждой из прошлых “магических групп” и линий передачи знания, с “локальной” формы до “глобальной”, включающей в Себя все творения (все келим, эргрегоры, учения, общества и т.д.), поскольку в этом состоит суть начавшегося периода, который мы бы назвали “Эпохой Великого Объединения”. Распространенное выражение гласит, что есть “время разбрасывать камни”, и есть “время собирать камни” – эта точная метафора хорошо описывает суть происходящих на наших глазах объективных изменений. В частности, наша локальная форма (КЖ) началась с соединения мужчины и женщины на духовном Пути, как единого “Адама Ришон” (“Образ Всесильного” Книги Зоар<sup class="fn"><a class="fnref" id="fnref9" href="#fn9" data-note="fn9">9</a></sup>), необходимого “абстрактного ядра”, требуемого для образования любой каббалистической Группы уровня “Розы”, согласно методике Книги Зоар, в Круге, изначально созданном по методике “правой лини” старого типа, который за это время совершил несколько “оборотов на 360 градусов”, изменений формы и состава, пока “Роза” не завершила свое “создание и взросление” объединением “правой” и “левой” линии в “среднюю линию” – методики Каббалы и учения Дона Хуана, в форме единого неделимого Кли, то есть инструмента духовного Пути человека, причем, таким образом, что по мере прохождения Пути к этому объединению, мы выявили на собственном опыте неустранимую “ущербность” следования каждой из методик в отрыве от логики их совмещения на Пути – каждая из методик позволяет человеку достичь определенных результатов, по сравнению с уровнем “обычного человека” – бесспорно значимых и интересных (и необходимых в итоге на начальном этапе Пути), но, после достижения им заранее известного, и достаточно низкого “потолка”, человек не имеет никакой возможности, согласно логике имеющейся “линии” двигаться дальше (причем, зачастую, принципиально неспособен это осознать или принять, что является в определенном смысле серьезной проблемой, или вызовом, который стоит перед нами, но который нам в одиночку принять невозможно, без объединения усилий как с “правой”, так и с “левой” стороны, о чем мы и пытались, главным образом, сообщить в первоначальном “Воззвании”<sup class="fn"><a class="fnref" id="fnref8" href="#fn8" data-note="fn8">8</a></sup>).</p>
+
+ <p class="shout">Сделаем и услышим!!</p>
+ </div>
+
+ <h2 class="section" id="music"><a href="#top">Музыка под настроение</a></h2>
+ <p class="music-label">Музыка под настроение:</p>
+ <details class="player" data-embed="https://www.youtube.com/embed/_WbFR-weSLA">
+ <summary>
+ <span class="arrow">▶</span>
+ <span class="track-name">Rafaele Castiglione — Once Again</span>
+ <a class="ext" href="https://www.youtube.com/watch?v=_WbFR-weSLA" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+ </summary>
+ <div class="embed-wrap"></div>
+ </details>
+
+ <h2 class="section" id="notes"><a href="#top">Примечания</a></h2>
+ <ol class="notes">
+ <li id="fn1">
+ <span class="note-num">1</span>
+ <span class="note-body">Что-то наподобие этого показано в начале клипа Pink Floyd – Shine on you Crazy Diamond <a href="https://www.youtube.com/watch?v=cWGE9Gi0bB0" target="_blank" rel="noopener">https://www.youtube.com/watch?v=cWGE9Gi0bB0</a><a class="backref" href="#fnref1" title="Вернуться к тексту">↩</a></span>
+ </li>
+ <li id="fn2">
+ <span class="note-num">2</span>
+ <span class="note-body">Книга Зоар , с комментарием “Перуш сулам” Йегуды Ашлага, получившего в честь этого труда псевдоним Бааль Сулама (обладатель лестницы - Сулам), является основополагающим источником всей современной Науки Каббала, включая как старые ее формы, так и новые<a class="backref" href="#fnref2" title="Вернуться к тексту">↩</a></span>
+ </li>
+ <li id="fn3">
+ <span class="note-num">3</span>
+ <span class="note-body">см. также: Роза, Том 1, Предисловия, Книга Зоар, РАШБИ. <a href="https://imyavel.github.io/zohar-sulam/akdama/001.html" target="_blank" rel="noopener">akdama/001</a><a class="backref" href="#fnref3" title="Вернуться к тексту">↩</a></span>
+ </li>
+ <li id="fn4">
+ <span class="note-num">4</span>
+ <span class="note-body">А не верить ей оснований нет, поскольку она следует из непосредственного опыта практической включенности в рассматриваемые и описываемые процессы<a class="backref" href="#fnref4" title="Вернуться к тексту">↩</a></span>
+ </li>
+ <li id="fn5">
+ <span class="note-num">5</span>
+ <span class="note-body">Или нескольких десятков тысяч, если верить хронологической карте ДХ про период деятельности "древних видящих"<a class="backref" href="#fnref5" title="Вернуться к тексту">↩</a></span>
+ </li>
+ <li id="fn6">
+ <span class="note-num">6</span>
+ <span class="note-body">Вообще во всех мирах, поскольку вышеупомянутое состояние "единства и вечности" "миром" назвать затруднительно по вполне очевидным причинам<a class="backref" href="#fnref6" title="Вернуться к тексту">↩</a></span>
+ </li>
+ <li id="fn7">
+ <span class="note-num">7</span>
+ <span class="note-body">Если они "на самом деле" каббалисты, а не шарлатаны, использующие громкое название для завлечения "любителей духовности"<a class="backref" href="#fnref7" title="Вернуться к тексту">↩</a></span>
+ </li>
+ <li id="fn8">
+ <span class="note-num">8</span>
+ <span class="note-body">“Воззвание” Круга Жизни, главным образом, разделено на 2 части, значительно разнесенные во времени – 18 июня 2020 мы написали воззвание к нашим друзьям из “правой лини” (<a href="https://www.facebook.com/1000343231.../posts/287613079059462" target="_blank" rel="noopener">https://www.facebook.com/1000343231.../posts/287613079059462</a>), и 23 февраля 2021 – “Воззвание к Воинам Духа”<a class="backref" href="#fnref8" title="Вернуться к тексту">↩</a></span>
+ </li>
+ <li id="fn9">
+ <span class="note-num">9</span>
+ <span class="note-body">“Заповедь десятая”, Том 1, Предисловия, Книга Зоар, РАШБИ <a href="https://imyavel.github.io/zohar-sulam/akdama/030.html" target="_blank" rel="noopener">akdama/030</a><a class="backref" href="#fnref9" title="Вернуться к тексту">↩</a></span>
+ </li>
+ <li id="fn10">
+ <span class="note-num">10</span>
+ <span class="note-body">Страница “Сделаем и услышим!” <a href="https://www.facebook.com/naasenishma/" target="_blank" rel="noopener">https://www.facebook.com/naasenishma/</a>, группа Круг Жизни <a href="https://www.facebook.com/groups/bneiadam/" target="_blank" rel="noopener">https://www.facebook.com/groups/bneiadam/</a> Фейсбука, профиль Вашего покорного слуги <a href="https://www.facebook.com/zeyr.anpin/" target="_blank" rel="noopener">https://www.facebook.com/zeyr.anpin/</a>, емейл: <a href="mailto:privatierdve2@gmail.com">privatierdve2@gmail.com</a><a class="backref" href="#fnref10" title="Вернуться к тексту">↩</a></span>
+ </li>
+ <li id="fn-star">
+ <span class="note-num">*</span>
+ <span class="note-body">См. также: <a class="backref" href="#fnref-star" title="Вернуться к тексту">↩</a></span>
+ </li>
+ <li>
+ <span class="note-num">**</span>
+ <span class="note-body">См. также: "<a href="23T.html">Воля Творца, Свят Благословен Он</a>.</span>
+ </li>
+ </ol>
+
+ <nav class="corpus-nav">
+ <a href="24I.html"><span class="lbl">← Предыдущая</span>Вступление</a>
+ <a class="nx" href="0CP.html"><span class="lbl">Следующая →</span>Наука Каббала один из миллиона возможных путей</a>
+ </nav>
+
+ <footer class="colophon">
+ <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+ <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+ </footer>
+
+</div>
+
+<script>
+ // footnote hover popups
+ (function{
+ var tip=document.createElement('div');
+ tip.className='fn-popup';tip.style.display='none';
+ document.body.appendChild(tip);
+ document.querySelectorAll('.fnref').forEach(function(ref){
+ ref.addEventListener('mouseenter',function{
+ var note=document.getElementById(ref.dataset.note);
+ if(!note)return;
+ var body=note.querySelector('.note-body');
+ tip.innerHTML=body.innerHTML;
+ tip.style.display='block';
+ var r=ref.getBoundingClientRect;
+ var tr=tip.getBoundingClientRect;
+ var top=r.top-tr.height-8;
+ if(top<8){top=r.bottom+8;}
+ var left=r.left+r.width/2-tr.width/2;
+ left=Math.max(8,Math.min(left,window.innerWidth-tr.width-8));
+ tip.style.top=top+'px';
+ tip.style.left=left+'px';
+ });
+ ref.addEventListener('mouseleave',function{tip.style.display='none';});
+ });
+ });
+
+ // lazy YouTube players
+ document.querySelectorAll('details.player').forEach(function(d){
+ d.addEventListener('toggle',function{
+ if(d.open){
+ var w=d.querySelector('.embed-wrap');
+ if(w && !w.dataset.loaded){
+ var f=document.createElement('iframe');
+ f.src=d.dataset.embed;
+ f.title='YouTube';
+ f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+ f.setAttribute('allowfullscreen','');
+ w.appendChild(f);
+ w.dataset.loaded='1';
+ }
+ }
+ });
+ });
+ document.querySelectorAll('details.player summary a.ext').forEach(function(a){
+ a.addEventListener('click',function(e){e.stopPropagation;});
+ });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+ "scheme": "editorial",
+ "form": "проза (эзотерическое эссе)",
+ "rationale": "Статья — это сплошной прозаический теоретический текст в четыре крупных абзаца с развитым аппаратом сносок, без какой-либо стихотворной структуры; поэтому однозначно выбрана редакторская широкоформатная схема, а не узкая манускриптная. Колонку задал через width:min(66vw,900px) — на десктопе это около двух третей окна, но с разумным потолком, чтобы строки длинного оправданного текста оставались читаемыми; на планшете/мобиле падает в полную ширину. Палитра светлая, тёплая бумажная с бордовым акцентом и приглушённым тёмно-зелёным для второстепенных ссылок — спокойный книжно-журнальный тон под медитативное содержание.",
+ "rationale_more": "Развилки: оглавление формально требуется при более чем одном подразделе, но собственных заголовков внутри прозы нет — я не стал их выдумывать, а собрал минимальный сворачиваемый TOC только из реально существующих именованных секций «Музыка под настроение» и «Примечания», заголовки которых возвращают к началу. Музыкальных аудио-ссылок по сути одна с явной атрибуцией (Rafaele Castiglione) — её сделал ленивым раскрывающимся плеером; ссылка на Pink Floyd живёт внутри сноски *1 как иллюстрация и оставлена обычной гиперссылкой, поэтому сводный раздел музыки не создавался (порог «более двух треков» не достигнут). Сноску при заголовке-звёздочке (*) связал с её телом, анонимную ** без отсылки в тексте вывел в конце без номера, как требуют правила. Обрезанные '...' в YouTube-URL очищены до валидных адресов/идентификаторов плеера.",
+ "features": ["music", "footnotes", "toc"]
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ода начавшемуся Концу Исправления Этого Мира</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#26221c;
+    --muted:#6f6657;
+    --accent:#8a5a2b;
+    --accent-soft:#b98b54;
+    --rule:#dcd3c2;
+    --hl:#fbecc8;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.72;
+  }
+  .wrap{
+    width:66vw;
+    max-width:1180px;
+    min-width:0;
+    margin:0 auto;
+    padding:0 28px 80px;
+  }
+  @media (max-width:1100px){
+    .wrap{width:84vw;}
+  }
+  @media (max-width:760px){
+    body{font-size:18px;}
+    .wrap{width:100%;padding:0 18px 60px;}
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(138,90,43,.35);}
+  a:hover{color:var(--accent-soft);border-bottom-color:var(--accent-soft);}
+
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:28px 0 18px;
+    border-bottom:1px solid var(--rule);
+    margin-bottom:34px;
+  }
+  .breadcrumbs a{border:none;color:var(--muted);}
+  .breadcrumbs a:hover{color:var(--accent);}
+  .breadcrumbs .sep{margin:0 .55em;color:var(--accent-soft);}
+
+  header.article-head{margin-bottom:30px;}
+  .eyebrow{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:14px;
+  }
+  h1{
+    font-size:2.35rem;
+    line-height:1.18;
+    font-weight:700;
+    margin:0 0 18px;
+    letter-spacing:-.01em;
+  }
+  .pubdate{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.05em;
+    color:var(--muted);
+    margin:0 0 6px;
+  }
+  .lede{
+    font-size:1.18rem;
+    color:#3c352b;
+    font-style:italic;
+    border-left:3px solid var(--accent-soft);
+    padding:6px 0 6px 22px;
+    margin:26px 0 0;
+  }
+
+  hr.divider{
+    border:none;
+    border-top:1px solid var(--rule);
+    margin:38px 0;
+  }
+  .ornament{
+    text-align:center;
+    color:var(--accent-soft);
+    letter-spacing:.5em;
+    font-size:1.1rem;
+    margin:34px 0;
+  }
+
+  .prayer p{margin:0 0 1.5em;text-align:justify;}
+  .prayer .opening::first-letter{
+    font-size:3.4em;
+    line-height:.8;
+    float:left;
+    padding:.06em .12em .02em 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+
+  /* footnote marker + popup */
+  .fnref{
+    font-size:.72em;
+    vertical-align:super;
+    line-height:0;
+    color:var(--accent);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    border:none;
+    cursor:pointer;
+    position:relative;
+  }
+  .fnref a{border:none;color:var(--accent);font-weight:700;}
+  .fnref .pop{
+    position:absolute;
+    left:50%;
+    bottom:140%;
+    transform:translateX(-50%);
+    width:min(320px,72vw);
+    background:var(--paper);
+    color:var(--ink);
+    border:1px solid var(--accent-soft);
+    box-shadow:0 8px 26px rgba(60,40,15,.22);
+    border-radius:8px;
+    padding:12px 14px;
+    font-size:15px;
+    line-height:1.5;
+    font-style:normal;
+    text-align:left;
+    font-family:Georgia,serif;
+    vertical-align:baseline;
+    opacity:0;
+    visibility:hidden;
+    transition:opacity .15s ease;
+    z-index:30;
+    pointer-events:none;
+  }
+  .fnref .pop.below{bottom:auto;top:140%;}
+  .fnref:hover .pop{opacity:1;visibility:visible;}
+
+  /* music */
+  .music-group{
+    margin:34px 0;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    padding:18px 20px;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:10px;
+  }
+  .track{border-top:1px dotted var(--rule);}
+  .track:first-of-type{border-top:none;}
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 2px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head .arrow{
+    color:var(--accent-soft);
+    transition:transform .2s ease;
+    font-size:.85em;
+  }
+  .track.open .track-head .arrow{transform:rotate(90deg);}
+  .track-title{flex:1;}
+  .track-title b{font-weight:700;}
+  .track-title .by{color:var(--muted);}
+  .track-ext{color:var(--accent);border:none;font-size:1.05em;}
+  .player{display:none;padding:0 2px 14px;}
+  .track.open .player{display:block;}
+  .player .frame{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    overflow:hidden;
+    border-radius:8px;
+  }
+  .player iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+
+  .seealso{
+    margin:30px 0;
+    font-size:1.02rem;
+    color:var(--muted);
+  }
+
+  /* footnotes apparatus */
+  .notes{
+    margin-top:48px;
+    padding-top:22px;
+    border-top:2px solid var(--rule);
+  }
+  .notes h2{
+    font-size:1.2rem;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 16px;
+  }
+  ol.notelist{margin:0;padding-left:1.3em;}
+  ol.notelist li{
+    font-size:16px;
+    line-height:1.55;
+    color:#3c352b;
+    margin-bottom:10px;
+    padding:4px 6px;
+    border-radius:6px;
+    transition:background .4s ease;
+  }
+  ol.notelist li:target{background:var(--hl);}
+  .backref{margin-left:.5em;font-size:.9em;}
+
+  /* bottom nav */
+  .corpus-nav{
+    margin-top:54px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    border:none;
+    display:block;
+    max-width:46%;
+  }
+  .corpus-nav .dir{
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:block;
+    margin-bottom:4px;
+  }
+  .corpus-nav .nx{text-align:right;margin-left:auto;}
+  .corpus-nav .ttl{font-family:Georgia,serif;font-size:1.05rem;}
+
+  footer.colophon{
+    margin-top:46px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-size:14px;
+    line-height:1.55;
+    color:var(--muted);
+  }
+  footer.colophon a{color:var(--muted);}
+  footer.colophon .attrib{margin:0 0 8px;}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/075.html">
+<meta name="description" content="Молитвенная ода Бааля Сулама о Начале Конца исправления мира, обращение к Творцу о соединении душ в Едином Теле Нового Адама.">
+<meta property="og:title" content="Ода начавшемуся Концу Исправления Этого Мира">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/075.html">
+<meta property="og:description" content="Молитвенная ода Бааля Сулама о Начале Конца исправления мира, обращение к Творцу о соединении душ в Едином Теле Нового Адама.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ода начавшемуся Концу Исправления Этого Мира">
+<meta name="twitter:description" content="Молитвенная ода Бааля Сулама о Начале Конца исправления мира, обращение к Творцу о соединении душ в Едином Теле Нового Адама.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №075</span>
+<div class="wrap">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <header class="article-head">
+    <div class="eyebrow">Молитва · Ода</div>
+    <h1>Ода начавшемуся Концу Исправления Этого Мира<a class="audio-link" href="https://t.me/art_017_tracks/580" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <p class="pubdate">5 июля 2020 г.</p>
+    <p class="lede">Если следовать логике Бааля Сулама<span class="fnref"><a id="ref1" href="#fn1">*</a><span class="pop">Бейт Шаар Каванот, п.20</span></span>, «Начало Конца» является той же самой ступенью, что и «Конец Начала». Что бы это могло значить? ;</p>
+  </header>
+
+  <div class="ornament">✦ ✦ ✦</div>
+
+  <section class="prayer">
+    <p class="opening">Господь, Ты Свят, Велик и Милостив, Ты создал все это, Ты все это оживляешь, удостаиваешь развиться в великолепный светящийся Твоим Светом Жизни духовный парцуф, Своими действиями непрестанно воздающий хвалу Тебе и прославляющий Твое Святое Великое Имя, которое дал ему Ты по Милости Своей и доброте. Ты удостоил нас родиться в этом чудесном времени, когда все тайное становится явным, а явное — очевидным, и собрал нас в этом удивительном Месте, названном Именем Твоим, чтобы благословлять нас Своей Любовью и раскрывать нам Свои Пути для того, чтобы мы их раскрывали Творениям и передавали Любовь Твою творениям «этого мира», являющегося лучшим и важнейшим из всех созданных Тобой миров. Помоги всем нам, всем людям и всем душам людей, удостаивать друг друга служить Тебе Нуквой, Обителью Твоего Благословенного Высшего Света Божественной Твоей Любви и Милости, животворя, возводя и сооружая вместе, как один человек с одним сердцем, в едином соединении посредством Света Любви, здание Единого Тела Нового Адама, являющееся обителью Единого Света Его Души. Удостой нас Светом Своей Любви, чтобы все и каждый из нас шли к Тебе в радости, испытывая глубокую и сильную потребность в их сердцах, стремиться лишь наслаждать Твоим Светом Любви своих друзей и ближних, и всех людей, являющихся маленьким подобием Твоего Большого Имени, данного Тобой Человеку при создании его, а поэтому бесценным и важным участником и компонентом грядущего избавления и совершения во Имя Твое всего Твоего Творения. Благословенно Царство Твоей Славы, Малхут, и благословенно Царство Твоих Святых Небес, Бина, благословенна Божественная Мудрость Твоей Истины, Хохма, благословенна непостижимость великолепия Твоих Путей, которыми Ты проводишь нас, животворя и благословляя каждый Твой День как новую Книгу Жизни, Тиферет, Благословен Свят Ты Один, Возвышенный и Скрытый, Животворящий Миры и Утирающий слезы угнетенных, Единственный и Единый Верховный Военачальник, Бесконечный, Вездесущный, Всемогущий и Всенаполняющий Простой Свет, из Которого все произошло и в Который возвратится, чтобы продолжить возглашение Славы Твоей в мирах и пространствах, коснуться которых неспособна ни мысль, ни ощущение, ни воображение ни созидательная сила сотворенных Тобой творений по образу и подобию Единой Малхут Твоего Мира Бесконечности, Амен ве Амен, да изольется в Тело Жизни Нового Адама Твой Высший Белый Простой Свет, и станет в Нем Душой Вселенной Единый Новый Человек.</p>
+  </section>
+
+  <div class="music-group">
+    <div class="music-label">Музыка под настроение</div>
+    <div class="track" data-embed="https://www.youtube.com/embed/yKvIBkr6RZs">
+      <div class="track-head">
+        <span class="arrow">▶</span>
+        <span class="track-title"><b>Blessed</b> <span class="by">— Elton John</span></span>
+        <a class="track-ext" href="https://youtu.be/yKvIBkr6RZs" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="player"></div>
+    </div>
+  </div>
+
+  <p class="seealso">См. также: </p>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol class="notelist">
+      <li id="fn1">Бейт Шаар Каванот, п.20 <a class="backref" href="#ref1" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="pv" href="12L.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="ttl">Воззвание к Воинам Духа</span>
+    </a>
+    <a class="nx" href="11T.html">
+      <span class="dir">Следующая →</span>
+      <span class="ttl">Молитва Сыновей Адама</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // lazy-load YouTube player on first expand
+  document.querySelectorAll('.track').forEach(function(tr){
+    var head=tr.querySelector('.track-head');
+    head.addEventListener('click',function(e){
+      if(e.target.closest('.track-ext'))return;
+      var open=tr.classList.toggle('open');
+      var pl=tr.querySelector('.player');
+      if(open && !pl.dataset.loaded){
+        var src=tr.getAttribute('data-embed');
+        pl.innerHTML='<div class="frame"><iframe src="'+src+'" title="YouTube player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>';
+        pl.dataset.loaded='1';
+      }
+    });
+  });
+
+  // footnote popup side decision
+  document.querySelectorAll('.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      var pop=ref.querySelector('.pop');
+      if(!pop)return;
+      pop.classList.remove('below');
+      var r=ref.getBoundingClientRect();
+      if(r.top<180){pop.classList.add('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой молитву-оду в прозе: одна большая прозаическая молитвенная единица с предваряющим рассуждением и одной сноской-источником. Это прозаическая форма, а не стих или поэма, поэтому выбрана редакторская широкая схема с колонкой примерно в 2/3 ширины окна (66vw, ограничено max-width для очень больших экранов) и полной шириной на мобильных. Заголовок в тексте дублировал название статьи, поэтому он подан единственным H1, а вводная фраза с маркером сноски вынесена в лид перед прозаическим телом; буквица оформляет начало молитвы как книжный лонгрид.",
+  "rationale_extra": "Оглавление не делалось, так как фактический подраздел один (сплошная молитва); деление на разделы отсутствует. Единственный трек оформлен ленивым раскрывающимся YouTube-плеером без сводного раздела (треков не больше двух). Единственная сноска снабжена переходами вниз/вверх, подсветкой цели и hover-popup с выбором стороны у верхнего края. Голый URL 'См. также' и ссылка на YouTube обёрнуты в нормальные гиперссылки; авторский глиф ';' и кавычки сохранены.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дальше действовать будем Мы</title>
+<style>
+  :root{
+    --bg:#f4f1ea;
+    --paper:#fbf9f4;
+    --ink:#1f1c18;
+    --muted:#6b635a;
+    --accent:#9a2b1f;
+    --accent2:#3a5a78;
+    --rule:#d8d0c2;
+    --hl:#ffe9a8;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1040px;
+    min-height:100vh;
+    margin:0 auto;
+    background:var(--paper);
+    padding:48px 64px 72px;
+    box-shadow:0 0 60px rgba(0,0,0,.06);
+  }
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:28px;
+  }
+  .crumbs a{color:var(--accent2);text-decoration:none;border-bottom:1px solid transparent;}
+  .crumbs a:hover{border-bottom-color:var(--accent2);}
+  .crumbs span{margin:0 .5em;color:var(--rule);}
+  .lead-img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    margin:0 auto 36px;
+    border:1px solid var(--rule);
+  }
+  .artmeta{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px;
+    color:var(--muted);
+    letter-spacing:.02em;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:Georgia,serif;
+    font-size:2.15rem;
+    line-height:1.18;
+    font-weight:700;
+    color:var(--accent);
+    margin:.1em 0 1.4em;
+    letter-spacing:.01em;
+  }
+  article p{margin:0 0 1.3em;text-align:justify;hyphens:auto;}
+  .closing{
+    font-weight:700;
+    font-size:1.15rem;
+    color:var(--accent);
+    text-align:center;
+    margin:1.6em 0 2em;
+  }
+
+  /* footnote markers */
+  .fnref{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.72em;
+    vertical-align:super;
+    line-height:0;
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    padding:0 1px;
+    position:relative;
+    cursor:pointer;
+  }
+  .fnref:hover{color:#c4392b;}
+  .fnref .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:150%;
+    width:300px;
+    max-width:78vw;
+    background:#2a2620;
+    color:#f4efe6;
+    font-family:Georgia,serif;
+    font-size:15px;
+    line-height:1.5;
+    font-weight:400;
+    text-align:left;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 8px 28px rgba(0,0,0,.35);
+    z-index:40;
+    vertical-align:baseline;
+  }
+  .fnref .pop::after{
+    content:"";position:absolute;top:100%;left:50%;
+    transform:translateX(-50%);
+    border:7px solid transparent;border-top-color:#2a2620;
+  }
+  .fnref.below .pop{bottom:auto;top:150%;}
+  .fnref.below .pop::after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:#2a2620;}
+  .fnref:hover .pop{display:block;}
+  .fnref .pop a{color:#ffd9a0;}
+
+  /* music */
+  .music{
+    margin:2.2em 0 1.2em;
+    border-top:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+    padding:18px 0;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin-bottom:12px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    background:#fff;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#faf6ec;}
+  .arrow{
+    font-family:Arial,sans-serif;
+    color:var(--accent);
+    transition:transform .2s;
+    font-size:14px;
+  }
+  .track.open .arrow{transform:rotate(90deg);}
+  .track-title{flex:1;}
+  .track-title b{font-weight:700;}
+  .track-title span{color:var(--muted);}
+  .ext{
+    color:var(--accent2);
+    text-decoration:none;
+    font-size:18px;
+    padding:0 4px;
+  }
+  .ext:hover{color:var(--accent);}
+  .player{display:none;padding:0 16px 16px;}
+  .track.open .player{display:block;}
+  .player .frame{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .player iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+
+  /* notes */
+  .notes{
+    margin-top:3em;
+    padding-top:1.2em;
+    border-top:2px solid var(--rule);
+  }
+  .notes h2{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 1em;
+  }
+  .notes ol{padding-left:1.4em;margin:0;}
+  .notes li{
+    font-size:16.5px;
+    line-height:1.6;
+    margin-bottom:.7em;
+    color:#37322b;
+  }
+  .notes li:target{background:var(--hl);transition:background .4s;border-radius:3px;}
+  .notes a.back{color:var(--accent);text-decoration:none;margin-left:.4em;font-weight:700;}
+  .notes a{color:var(--accent2);word-break:break-word;}
+
+  /* corpus nav */
+  .corpusnav{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    margin-top:3em;
+    padding-top:1.4em;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpusnav a{
+    text-decoration:none;
+    color:var(--accent2);
+    max-width:46%;
+    font-size:15px;
+  }
+  .corpusnav a:hover{color:var(--accent);}
+  .corpusnav .dir{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+  .corpusnav .next{text-align:right;margin-left:auto;}
+  footer{
+    margin-top:2.6em;
+    padding-top:1.2em;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer a{color:var(--accent2);}
+
+  @media(max-width:900px){
+    .wrap{width:100%;max-width:none;padding:30px 22px 50px;box-shadow:none;}
+    body{font-size:18px;}
+    h1{font-size:1.7rem;}
+    .corpusnav{flex-direction:column;}
+    .corpusnav a{max-width:100%;}
+    .corpusnav .next{text-align:left;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/26Q.html">
+<meta name="description" content="Эссе о сдвоенной позиции сновидения, контроле над сном через его создание и выходе из мира зомби в Жизнь через союз мужчины и женщины.">
+<meta property="og:title" content="Дальше действовать будем Мы">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/26Q.html">
+<meta property="og:description" content="Эссе о сдвоенной позиции сновидения, контроле над сном через его создание и выходе из мира зомби в Жизнь через союз мужчины и женщины.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Дальше действовать будем Мы">
+<meta name="twitter:description" content="Эссе о сдвоенной позиции сновидения, контроле над сном через его создание и выходе из мира зомби в Жизнь через союз мужчины и женщины.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №26Q</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span>›</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <img class="lead-img" src="../img/26Q.jpg" alt="">
+
+  <div class="artmeta">Арт.#AA26Q (26 Июня 2022 г.) на форуме<span class="fnref below"><a class="fnref below" href="#fn1" id="ref1">*</a><span class="pop">По адресу: <a href="https://ccastaneda.ru/viewtopic.php?id=3344#p69628">https://ccastaneda.ru/viewtopic.php?id=3344#p69628</a></span></span> ККО</div>
+
+  <h1>ДАЛЬШЕ ДЕЙСТВОВАТЬ БУДЕМ МЫ !!<a class="audio-link" href="https://t.me/art_017_tracks/416" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <article>
+    <p>Сдвоенная позиция сновидения, это реальная методика прохода из "детской песочницы" внимания сновидения, которое человек кроме м.б. суперкласс-магов соотв. типа, не создает и не контролирует, даже когда память и внешняя видимость контроля присутствует, на самом деле ее нет, как и в "материнском" состоянии "первого внимания", из которого он в это сновидение засыпает. Общий принцип контроля над сном я бы сформулировал так. Контролирует сон тот, кто его создает. Это и есть настоящий контроль, а не игры летунов в мысли и чувства самого человека в его голове, частью которых наиболее распространенное понимание "контроля" по большому счету является. Чтобы создать сон, нужно в него родиться, это мы более менее можем понять на примере нас самих и нашего первого внимания этого мира сновидения наяву, в которое мы сами создаем посредством рождения в него отцом и матерью, совершающими половой акт преследующий цель воспроизведения себя в потомках. Результатом становится мать и сын, в начале являющимися одним, потом делящиеся на два, но продолжающими быть одним с точки зрения Духа. Мужчина всю жизнь продолжает быть энергетически (кармически/конфронтологически) привязан к формирующей базовые формообразующие черты его реальности. Отвязаться, не привязавшись к другой, он не может. С точки зрения Духа он ничего и не меняет этим. Потому что любая точка зрения человека этого мира -это Его точка зрения в сути, а самого человека просто не существует на Свете, потому что он не знает и не хочет знать, нафига ему это могло бы быть нужно. Разумеется, при отсутствии того, кто мог бы использовать некоторый мир и его внимание как либо в точности намеренно и поэтому помнить и осознавать себя, а не быть мешком с помоями, наполненным бессвязным типичным набором клише и реакций на условные сигналы таких же веселых зомби, посылаемых и отражаемых одинаковыми типичными па перед зеркальными панелями мониторов и смартфонов через канализационные шлюзы соцсетей и мессенжеров - нечего говорить и о каком либо контроле, в Силу того, что предмет контроля еще не родился и продолжает думать или не думать о страхе смерти вместо того, чтобы сделать шаг в сторону от коллективной могилы ходячих, лайкающих и фолловящих, донатящих хейтящих, френдящих, банящих и т.п. веселых мертвяков, марширующих под дирижерством кучки скучающих некромантов с врожденной шизофренией и социопатией в силу деликатных  особенностей своего "выделенного" положения и обладания чуть большим видом на соответствующую картину производимой ими же мерзости. Разумеется, они сами марионетки и ничем в реальности не управляют.</p>
+
+    <p>Потому что нельзя управлять тем, что ты ненавидишь. Управлять можно только тем, что любишь всем сердцем, душой и существом. Тогда только человек начинает жить. Когда он перестает интересоваться актуальной повесткой мира мертвых, и начинает сам создавать повестку для мира живых. Даже если этих живых пока еще совсем не так много. Даже если этот Мир наяву еще не сновидел никто, кроме него самого и нескольких "избранных" Духом единомышленников. Для того, чтобы начать жить, достаточно двух человек М и Ж, твердо намеренных выбрать Жизнь и быть живыми посредством собственного распятия в Духе на кресте этого мира с последующим воскресением в мире магов, где все выглядит также, пока кто-то не открывает рот, и не оказывается, что он не настоящий. А Икстлан настоящий. Потому что ты создаешь его сам, получив это "задание" от Духа, посредством просьбы и ответа на просьбу действием, в котором тебе реальность ответа раскрывается на собственном опыте. Того, чего в мире мертвых не может быть. Мертвым не нужны Бенефакторы с их дерзкими стратегиями пролезания через игольное ушко, просто чтобы выполнить требование безупречности, которое устанавливаешь не ты, но именно ты выбираешь, будешь ли ты его любить, или высокомерно пренебрегать им с плохо скрываемым презрением, потому что это наивные детские игры в убегание от реального мира, который выглядит в точности так, каковым и является на самом деле. И вообще не нужно забивать голову пустой философией. Лучше пойти в фейсбук и поставить очередной лайк посту с картинками о смешных котиках или заняться серьезной работой по перепихиванию бесполезного г-на из одних карманов в другие наиболее экологичным способом. Мертвым не нужны миры, создаваемые человеком Силой мечты о настоящей Любви, которой он боится, как огня, и выдумывает все что угодно, чтобы продолжать быть никем, таким же как миллионы других никто, быть незачем, также как и миллионы других фантомов, не понимающих, зачем Хенаро нужен этот злосчастный Икстлан, когда у них есть еда, пиво и возможность пойти на футбол. Или...</p>
+
+    <p>Мы повторяемся в своих ритуалах и одержимы манией величия, которая не имеет оправдания. Мы месиво<span class="fnref"><a class="fnref" href="#fn2" id="ref2">**</a><span class="pop">См. также: Кэррол Тиггс, Плод Вечной Весны. </span></span>. Смердящее мессиво, водящее хороводы вокруг выгребной параши, называемой с благоговением "душа", "совесть" и "родина". Но мы изменимся. Мы уже меняемся. Мы уже рождены и теряем невинность в боях за Любовь с прочно вьевшимися в подкорку запретами и шаблонами, запрещающими любить кого либо кроме френдоф и фолловеров, ретвитящих наши лайки в паблики со своими каментами. Даже родителей и детей мы не умеем любить, зато панически боимся "навредить развитию" в такого же здорового трупного монстра, каким являемся мы сами. Мы перестаем бежать от смерти, не имея цели и смысла собственной жизни, мы перестаем искать щадящего забвения, чтобы не нести ответственность за все то, что мы сами в приступах дурного ослиного бешенства и упрямости в слепоте и глухоте наворотили за 2 тысячи лет. Наше время наступает. Дальше действовать будем Мы.</p>
+
+    <p class="closing">Только вместе, Мы - Сила!!</p>
+  </article>
+
+  <section class="music">
+    <div class="music-label">Песнь Ступеней</div>
+    <div class="track" id="trk1">
+      <div class="track-head" onclick="toggleTrack(this,'l4eJXnx2tf0')">
+        <span class="arrow">▶</span>
+        <span class="track-title"><b>Дальше действовать будем Mы</b> <span>— Кино</span></span>
+        <a class="ext" href="https://youtu.be/l4eJXnx2tf0" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a>
+      </div>
+      <div class="player"><div class="frame"></div></div>
+    </div>
+  </section>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1">По адресу: <a href="https://ccastaneda.ru/viewtopic.php?id=3344#p69628">https://ccastaneda.ru/viewtopic.php?id=3344#p69628</a> <a class="back" href="#ref1" title="Вернуться к тексту">↑</a></li>
+      <li id="fn2">См. также: Кэррол Тиггс, Плод Вечной Весны.  <a class="back" href="#ref2" title="Вернуться к тексту">↑</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpusnav">
+    <a class="prev" href="1AP.html"><span class="dir">← Предыдущая</span>Зеркало, которое не светит</a>
+    <a class="next" href="2AT.html"><span class="dir">Следующая →</span>Точка невозврата к глупости своей</a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+function toggleTrack(head, id){
+  var track = head.parentElement;
+  var frame = track.querySelector('.frame');
+  if(!track.classList.contains('open')){
+    if(!frame.querySelector('iframe')){
+      var f=document.createElement('iframe');
+      f.src='https://www.youtube.com/embed/'+id;
+      f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen=true;
+      frame.appendChild(f);
+    }
+    track.classList.add('open');
+  } else {
+    track.classList.remove('open');
+  }
+}
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — сплошной публицистико-философский прозаический поток из трёх крупных абзацев плюс короткая ударная строка-кода и музыкальная атрибуция. Никаких стихотворных форм нет, поэтому однозначно выбрана редакторская широкая схема: контейнер ~66% ширины окна на десктопе, полная ширина на мобильном. Заголовков-подразделов в тексте нет, поэтому оглавление не строилось (требуется более одного подраздела). Палитра — тёплый кремовый лист с тёмной краской текста и приглушённо-кирпичным акцентом для заголовка и маркеров, синеватый акцент для навигации: спокойный книжно-журнальный контраст на светлом фоне.",
+  "rationale_extra": "Двe сноски (* и **) оформлены как кликабельные маркеры с переходом вниз, обратной стрелкой и popup при наведении (первая сноска у самой верхней строки выводит popup снизу, чтобы не уходить за край окна). Музыкальный трек один (меньше трёх), поэтому сводный раздел музыки не создавался — только встроенный ленивый плеер YouTube с атрибуцией «Песнь Ступеней». Голые URL обёрнуты в ссылки, КАПС-заголовок и авторская пунктуация сохранены дословно.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>

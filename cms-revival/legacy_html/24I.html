@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Вступление</title>
+<style>
+  :root{
+    --bg:#f7f5f0;
+    --paper:#fffefb;
+    --ink:#23201c;
+    --muted:#6b6358;
+    --accent:#8a5a2b;
+    --accent-dark:#6a4320;
+    --rule:#ddd6c8;
+    --hl:#fbe9c8;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;
+    font-size:20px;
+    line-height:1.72;
+  }
+  .wrap{
+    width:66%;
+    max-width:1040px;
+    min-width:0;
+    margin:0 auto;
+    padding:48px 40px 80px;
+  }
+  @media (max-width:1100px){ .wrap{width:82%;} }
+  @media (max-width:760px){
+    body{font-size:18px;}
+    .wrap{width:100%;padding:28px 20px 60px;}
+  }
+
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:30px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .breadcrumbs a{color:var(--accent);text-decoration:none;}
+  .breadcrumbs a:hover{text-decoration:underline;}
+  .breadcrumbs span.sep{margin:0 .5em;color:var(--rule);}
+
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    letter-spacing:.03em;
+    margin:0 0 14px;
+  }
+
+  h1{
+    font-family:Georgia,serif;
+    font-weight:700;
+    font-size:2.5em;
+    line-height:1.15;
+    letter-spacing:.02em;
+    margin:0 0 28px;
+    color:var(--ink);
+  }
+  h1::after{
+    content:"";
+    display:block;
+    width:90px;
+    height:3px;
+    background:var(--accent);
+    margin-top:22px;
+  }
+
+  h2{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    font-size:1.18em;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent-dark);
+    margin:54px 0 22px;
+  }
+
+  article p{
+    margin:0 0 1.4em;
+    text-align:justify;
+    hyphens:auto;
+  }
+
+  /* numbered paragraphs */
+  .num{
+    position:relative;
+    padding-left:2.6em;
+  }
+  .num .n{
+    position:absolute;
+    left:0;
+    top:.02em;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    font-size:.82em;
+    color:var(--accent);
+    line-height:1.9;
+  }
+
+  .caps{
+    font-weight:600;
+    letter-spacing:.01em;
+    background:linear-gradient(transparent 62%, #f3ead6 62%);
+    text-align:left;
+  }
+
+  .shout{
+    text-align:center;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    letter-spacing:.12em;
+    font-size:1.15em;
+    color:var(--accent-dark);
+    margin:40px 0;
+  }
+
+  a.txtlink{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule);}
+  a.txtlink:hover{border-bottom-color:var(--accent);}
+
+  /* footnote markers */
+  sup.fnref{
+    font-size:.62em;
+    line-height:0;
+    vertical-align:super;
+  }
+  sup.fnref a{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    padding:0 1px;
+  }
+  sup.fnref a:hover{color:var(--accent-dark);}
+
+  /* hover popup */
+  .fnref{position:relative;}
+  .fnref .pop{
+    visibility:hidden;
+    opacity:0;
+    position:absolute;
+    left:50%;
+    bottom:140%;
+    transform:translateX(-50%);
+    width:320px;
+    max-width:78vw;
+    background:#2c271f;
+    color:#f4efe5;
+    font-family:Georgia,serif;
+    font-size:15px;
+    font-weight:400;
+    line-height:1.5;
+    letter-spacing:0;
+    text-transform:none;
+    text-align:left;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 8px 26px rgba(0,0,0,.32);
+    z-index:40;
+    transition:opacity .14s ease;
+    pointer-events:none;
+  }
+  .fnref .pop a{color:#e9b877;}
+  .fnref.below .pop{bottom:auto;top:140%;}
+  .fnref:hover .pop{visibility:visible;opacity:1;}
+
+  /* notes */
+  .notes{
+    margin-top:64px;
+    padding-top:26px;
+    border-top:2px solid var(--rule);
+  }
+  .notes h2{margin-top:0;}
+  .notes ol{
+    list-style:none;
+    counter-reset:fn;
+    padding:0;margin:0;
+  }
+  .notes li{
+    position:relative;
+    padding-left:2.2em;
+    margin-bottom:18px;
+    font-size:.92em;
+    line-height:1.6;
+    color:#3a352d;
+  }
+  .notes li .mk{
+    position:absolute;
+    left:0;
+    font-weight:700;
+    color:var(--accent);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .notes li:target{
+    background:var(--hl);
+    border-radius:5px;
+    box-shadow:0 0 0 8px var(--hl);
+  }
+  .notes a.back{
+    color:var(--accent);
+    text-decoration:none;
+    margin-left:.4em;
+    font-weight:700;
+  }
+  .notes a.back:hover{color:var(--accent-dark);}
+
+  /* bottom nav */
+  .corpusnav{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    margin-top:60px;
+    padding-top:26px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpusnav a{
+    display:block;
+    text-decoration:none;
+    color:var(--accent);
+    max-width:46%;
+  }
+  .corpusnav .lbl{
+    display:block;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:5px;
+  }
+  .corpusnav .ttl{font-size:.95em;line-height:1.3;}
+  .corpusnav a:hover .ttl{text-decoration:underline;}
+  .corpusnav .next{text-align:right;margin-left:auto;}
+
+  footer{
+    margin-top:46px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    line-height:1.55;
+    color:var(--muted);
+  }
+  footer a{color:var(--accent);}
+  footer .attrib{margin:0 0 6px;}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/24I.html">
+<meta name="description" content="Вступительная статья о практике Круга Жизни на основе книги Зоар и учения Кастанеды, о совместной работе группы по раскрытию Света Жизни.">
+<meta property="og:title" content="Вступление">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/24I.html">
+<meta property="og:description" content="Вступительная статья о практике Круга Жизни на основе книги Зоар и учения Кастанеды, о совместной работе группы по раскрытию Света Жизни.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Вступление">
+<meta name="twitter:description" content="Вступительная статья о практике Круга Жизни на основе книги Зоар и учения Кастанеды, о совместной работе группы по раскрытию Света Жизни.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №24I</span>
+<div class="wrap">
+
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <p class="dateline">18 Aпреля 2022г. 18:13</p>
+
+  <h1>ВСТУПЛЕНИЕ.<sup class="fnref" id="ref2"><a href="#fn2">**</a><span class="pop">См. также: </span></sup><a class="audio-link" href="https://t.me/art_017_tracks/488" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <article>
+
+    <p class="num"><span class="n">1.</span>Книга Зоар<sup class="fnref" id="ref1"><a href="#fn1">*</a><span class="pop">Книга Зоар (перуш Сулам)::РАШБИ-Бааль Сулам <a href="https://imyavel.github.io/zohar-sulam/akdama/001.html">akdama/001</a></span></sup> - это описание практического взаимодействия группы магов, являющееся одновременно инструментом, позволяющим такую группу создать и самобучиться этому взаимодействию, используя Зоар в качестве "рабочего инструмента" регулярной совместной практики, которую мы называем Круг Жизни, имея в виду цель объединения - явное раскрытие человеку этого мира "здесь и сейчас" Света Жизни (ор хохма - каб.ивр.), который у К.Кастанеды называется термином "Внутренний Огонь", и который был "скрыт" от человека последние тысячи лет, поскольку отсутствовали условия для его явно раскрытия и ощущения, кроме как посредством завершения жизненного Пути, что отражено в Кастанедовском определении "сгореть огнем изнутри". Однако Орел создал Свой Дар Орла, и "создал нагвалей" и т.д. не для того, чтобы они постигали этот Свет только на краткий миг, в момент покидания этого мира, при этом абсолютно не имея представления или знания о том, что именно будет происходить после этого. Для "магических линий" завершившегося Нового Цикла видящих это было нормально и неизбежно, для начавшегося с началом третьего тысячелетия Новейшего Цикла, "современных видящих", в котором мы с вами находимся, этого недостаточно и критически мало для того, чтобы находиться "в тренде" Намерения Духа и действительного "получения" Дара Орла.</p>
+
+    <p class="num"><span class="n">2.</span>Для этого требуется активно "познакомиться" с этим Светом уже при жизни, причем, само таковое "знакомство" должно происходить не "абы как", а по собственному внутреннему свободному и преднамеренному побуждению, подкрепленному изрядным количеством приложенных воинами усилий. Кроме этого, необходимо, чтобы таковые усилия прикладывались воинами не по отдельности, каждый в своей "скорлупе" этого мира, как это пытаемся делать мы все по понятной инерции, а посредством приложения практических усилий к выстраиванию соответствующей структуры (магической группы, собственного "Круга Жизни") еще до того, строго до того, как им самим окажется доступен этот Свет "здесь и сейчас", и они смогут поэтому убедиться в адекватности, истинности и точности имеющихся у них намерений и производимой для их реализации работы и прилагаемый к этому усилий, только после того, как базовый объем "внутренней работы" будет ими проделан практически, поскольку "Огонь Изнутри" не является и не может являться "достоянием" одного конкретного мага или воина, каким бы "крутым" и безупречным он ни был объективно "сам по себе", а является продуктом объединения в существо иного абстрактного порядка, называемое у Кастанеды "пернатый змей", а в традиции древних мудрецов Каббалы - "кнессет Исраэль", собрание Израиля, имея в виду древнее значение слова "Исраэль", которое состоит из двух слов "Яшар" и "Эль", прямо ввысь, или "прямо к Творцу" (Творец и Орел это в общем случае одно и то же понятие, также называемое "Малхут Мира Бесконечности" в Каббале).</p>
+
+    <h2>ОБ ЭТОЙ ВЕТКЕ</h2>
+
+    <p class="num"><span class="n">3.</span>В этой ветке, при наличии Воли к этому у Духа и Орла, и с их "благословения" и позволения, мы будем выкладывать "уроки", записи "рабочих встреч", на которых происходит обсуждение методики, деталей и аспектов, понятий, целей и намерений, которые возникают или могут возникнуть у человека и группы людей, единомышленников, которые находятся внутри вышеописанного процесса "здесь и сейчас", имея, либо желая приобрести таковой опыт, и посредством этого продвигающихся "от ступени к ступени" в совместном объединении с намерением "получения" Дара Орла, и его "распространения" с целью "увековечивания" в "келим этого мира", поскольку настоящим "получателем" Дара Орла является все человечество, как одна большая "осознающая и чувствующая единица".</p>
+
+    <p class="num"><span class="n">4.</span>Осознающая и чувствующая единица, состоящая из огромного числа взаимосвязанных и взаимодействующих "собственных составляющих", подобная "когорте нагваля", в деталях и частностях, но несравнимо превышающая по уровню задействованных энергий, понимая, что истинная роль, работа и предназначение любой "магической группы" в любом поколении - подготовка почвы для достижения такого состояния всеми людьми как одним целым, что в наше время уже не является "тайной за семью печатями", и вполне просматривается реальными "видящими" разнообразных мастей и принадлежностей, как бы они сами себя не называли, и в каких бы терминах об этом не говорили, одно остается общим и понятным всем, кто имеет глаза, чтобы видеть, уши, чтобы слышать, а главное - голову и рот, чтобы рассказывать об этом и, в меру сил, обстоятельств и возможностей, способствовать этому::</p>
+
+    <p class="num caps"><span class="n">5.</span>ВМЕСТЕ, МЫ ^ СИЛА, А КАЖДЫЙ САМ ПО СЕБЕ - ТОЛЬКО ПИЩА ОРЛА И НЕ БОЛЕЕ, "ОДИНОЧКАМ" ПРОХОД МИМО ОРЛА ЗАКРЫТ, ПОСКОЛЬКУ ИХ ОРЕЛ ДАЖЕ НЕ УВИДИТ СВОИМ "ПРОНЗИТЕЛЬНЫМ ГЛАЗОМ", ПОСКОЛЬКУ ИХ НА САМОМ ДЕЛЕ НЕТ В РЕАЛЬНОМ МИРЕ РАСПРОСТРАНЕНИЯ ОРЛОМ СВЕТА ЖИЗНИ ЧУВСТВУЮЩИМ СУЩЕСТВАМ, Т.К. ЧТОБЫ В НЕМ СУЩЕСТВОВАТЬ РЕАЛЬНО, НУЖНО ЯВЛЯТЬСЯ ДЕЙСТВУЮЩИМ ЗВЕНОМ ЭТОГО ПРОЦЕССА, Т.Е. "ОТДАВАТЬ" "ПОЛУЧАЕМЫЙ" СВЕТ ЧЕЛОВЕЧЕСТВУ ВМЕСТЕ С ОРЛОМ.</p>
+
+    <p class="shout">СДЕЛАЕМ И УСЛЫШИМ!</p>
+
+  </article>
+
+  <section class="notes" aria-label="Примечания">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1"><span class="mk">*</span>Книга Зоар (перуш Сулам)::РАШБИ-Бааль Сулам <a class="txtlink" href="https://imyavel.github.io/zohar-sulam/akdama/001.html">akdama/001</a><a class="back" href="#ref1" title="Вернуться к тексту">↩</a></li>
+      <li id="fn2"><span class="mk">**</span>См. также: <a class="back" href="#ref2" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpusnav" aria-label="Навигация по разделу">
+    <a class="prev" href="12PA.html">
+      <span class="lbl">← Предыдущая</span>
+      <span class="ttl">Про действие без ожидания награды...</span>
+    </a>
+    <a class="next" href="12P.html">
+      <span class="lbl">Следующая →</span>
+      <span class="ttl">Начало Нового Цикла</span>
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // flip footnote popup below marker if not enough room above
+  document.querySelectorAll('.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      var pop=ref.querySelector('.pop');
+      if(!pop)return;
+      ref.classList.remove('below');
+      var r=ref.getBoundingClientRect();
+      if(r.top<160){ ref.classList.add('below'); }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — связная эзотерическая проза (вступление-манифест с нумерованными абзацами и одним подзаголовком), без каких-либо стихотворных форм, поэтому однозначно выбрана редакторская широкая схема: основная колонка занимает ~2/3 ширины окна, с журнальной засечной типографикой Georgia для тела и компактным санс-серифом для служебных элементов (крошки, номера абзацев, подзаголовок). Заголовков и врезок не добавлял; нумерация 1–5 сохранена как авторская и вынесена в висячие номера слева, чтобы не плодить новых заголовков.\n\nОглавление не делал намеренно: содержательный подзаголовок в тексте лишь один («ОБ ЭТОЙ ВЕТКЕ»), а условие TOC — более одного подраздела. КАПС в абзаце 5 и заголовке оставлен дословно, авторский глиф «^» и двойные двоеточия «::» сохранены без изменений. Две сноски привязаны к своим маркерам: «*» к слову «Зоар» и «**» к названию «ВСТУПЛЕНИЕ.»; реализованы переходы вниз/вверх, подсветка цели через :target и наводящийся popup с автоматическим переворотом под маркер у верхней кромки экрана. Голые URL обёрнуты в ссылки. Музыки в тексте нет, поэтому соответствующий блок отсутствует."
+,
+  "features": ["footnotes"]
+}
+</script>
+</body>
+</html>

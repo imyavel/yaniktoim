@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Не ради себя</title>
+<style>
+  :root {
+    --bg: #f7f4ee;
+    --paper: #fffdf8;
+    --ink: #1f1b16;
+    --muted: #6b6256;
+    --accent: #9a3b2e;
+    --accent-soft: #c9a96a;
+    --rule: #e0d8c8;
+    --shadow: rgba(60,45,25,0.08);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-size: 20px;
+    line-height: 1.72;
+  }
+  .page {
+    width: 66%;
+    max-width: 980px;
+    min-width: 0;
+    margin: 0 auto;
+    padding: 48px 56px 80px;
+    background: var(--paper);
+    box-shadow: 0 2px 40px var(--shadow);
+  }
+  /* Breadcrumbs */
+  .breadcrumbs {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .breadcrumbs a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .breadcrumbs a:hover { border-bottom-color: var(--accent); }
+  .breadcrumbs .sep { margin: 0 10px; color: var(--accent-soft); }
+
+  .lead-image {
+    display: block;
+    margin: 0 auto 34px;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    box-shadow: 0 2px 18px var(--shadow);
+  }
+
+  h1 {
+    font-size: 42px;
+    line-height: 1.18;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    margin: 0 0 36px;
+    color: var(--ink);
+    text-align: left;
+  }
+  h1::after {
+    content: "";
+    display: block;
+    width: 92px;
+    height: 3px;
+    margin-top: 20px;
+    background: var(--accent);
+  }
+
+  article p {
+    margin: 0 0 1.35em;
+    text-align: justify;
+    hyphens: auto;
+  }
+  article p:first-of-type::first-letter {
+    font-size: 3.6em;
+    line-height: 0.82;
+    float: left;
+    padding: 6px 12px 2px 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Music */
+  .music-section { margin: 46px 0 10px; }
+  .music-label {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .track {
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: #fbf8f1;
+    overflow: hidden;
+  }
+  .track summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+  .track summary::-webkit-details-marker { display: none; }
+  .track .arrow {
+    transition: transform 0.2s ease;
+    color: var(--accent);
+    font-size: 14px;
+  }
+  .track[open] .arrow { transform: rotate(90deg); }
+  .track .title { font-weight: 600; font-size: 17px; }
+  .track .artist { color: var(--muted); font-size: 16px; }
+  .track .ext {
+    margin-left: auto;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 18px;
+  }
+  .track .ext:hover { color: var(--accent-soft); }
+  .player {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+  .player iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* Bottom nav */
+  .corpus-nav {
+    margin-top: 56px;
+    padding-top: 26px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    gap: 22px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+  }
+  .corpus-nav a {
+    color: var(--accent);
+    text-decoration: none;
+    max-width: 46%;
+  }
+  .corpus-nav a:hover { color: var(--accent-soft); }
+  .corpus-nav .dir {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .corpus-nav .next { text-align: right; margin-left: auto; }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  footer a { color: var(--accent); }
+
+  @media (max-width: 900px) {
+    body { font-size: 18px; }
+    .page {
+      width: 100%;
+      max-width: 100%;
+      padding: 28px 20px 56px;
+      box-shadow: none;
+    }
+    h1 { font-size: 32px; }
+    .corpus-nav { flex-direction: column; }
+    .corpus-nav a, .corpus-nav .next { max-width: 100%; text-align: left; margin-left: 0; }
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/1B7.html">
+<meta name="description" content="Эссе о смысле жизни как осознании уже имеющегося, о работе ради будущих поколений и о роли слова в творении миров согласно каббалистическому взгляду.">
+<meta property="og:title" content="Не ради себя">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/1B7.html">
+<meta property="og:description" content="Эссе о смысле жизни как осознании уже имеющегося, о работе ради будущих поколений и о роли слова в творении миров согласно каббалистическому взгляду.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Не ради себя">
+<meta name="twitter:description" content="Эссе о смысле жизни как осознании уже имеющегося, о работе ради будущих поколений и о роли слова в творении миров согласно каббалистическому взгляду.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №1B7</span>
+<div class="page">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <img class="lead-image" src="../img/1B7.jpg" alt="">
+
+  <h1>Не ради себя<a class="audio-link" href="https://t.me/art_017_tracks/551" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <article>
+    <p>Мы ни к чему не стремимся, у нас нет никакой Цели Жизни кроме того, чтобы понять, где мы УЖЕ находимся, чем УЖЕ обладаем, что УЖЕ делаем без какого-либо изъяна в этом, совершенно и полностью осознанно, по своей свободной воле и с широко открытыми глазами.</p>
+
+    <p>Однако, в этом не было бы никакого смысла, если бы по мере того, как мы начинаем обретать понимание того, что мы делаем и как мы это делаем, мы не приходили бы к чему-то, принципиально новому, и более совершенному, чем то, с чего начинали, уже имея все, к чему затем будем в поте лица стремиться, "умирая не получив и половину желаемого", и т.д.</p>
+
+    <p>Мы получилим следующую ступень. Нукву. Мы создадим Творца, Свят Благословен Он, "из ничего", чтобы, благодаря этому, Милостью Благословенного, получить возможность Ему отдавать, и, благодаря этой возможности, быть живыми и получить право на жизнь вечную, поскольку эта жизнь будет ощущаться не нами, а теми, кто будет идти за нами, используя наш опыт и нашу бесконечную любовь по их прямому назначению - получать то, что Творец хочет дать, потому что Его Цель творения - насладить создания Светом Любви и "поднять" их на Свой уровень, то есть самим стать как Творцы миров и родители цивилизаций, архитекторы жизненных волн, наместники Того, у Кого нет Имен, потому что Его некому называть по Имени, поставленные управлять миром по собственной неограниченной ничем, кроме голоса собственного сердца, очищенного и живого, властвующие над Законами Вселенной как в "материальном мире", так и в "духовных мирах", и научившиеся правильно совмещать одно с другим.</p>
+
+    <p>Весь мир существует по вышеописанному принципу, то есть живет ради целей, и совершает работу, "вкушать плоды" которой предстоит не ему, а его наследникам - тем, кто будет жить в последующих поколениях, новым душам и новым людям, более совершенным, чем их предшественники, превосходящим их во всем, и не слишком беспокоящиеся о том, чтобы оказывать им должный почет, - и это правильно, потому что они работали не для того, чтобы им оказывали почет, увязая ногами и руками в прошлом, которое давно ушло и в котором нет никакой жизни, в ущерб будущему, создаваемому "здесь и сейчас" в намерении и действии, прилагая усилия ради того, чтобы наши дети стартовали с более сильных позиций, и их инструментарий позволял достичь принципиально большего, положив в основу те достижения, знания и опыт, которые уже имеются у нас, и на приобретение которых мы потратили без остатка свои жизни.</p>
+
+    <p>Но только когда мы обретем глубокое чувственное осознание этого, а не просто умозрительный образ, мы поймем, как в действительности устроен этот мир, увидим, что время подобно туннелю в пространстве, соединяющему прошлое и будущее, а человек говорящий ("вначале было слово"), вроде летящего по этому туннелю шарика, выпущенного из стрелкового орудия огромной поражающей силы. Слово создает миры, слово наполняет их жизнью, давая Имена, и этим раскрывая совершенство действий, мудрость, доброту, благородство и великолепие Замысла Творца, Свят Благословен Он, Который находится "над" всеми мирами и не "опускается в них", поскольку Мир - означает "скрытие" (альма) Творца, Свят Благословен Он, единой непознаваемой абсолютной, совершенной Высшей Силы, Которая обладает "сознанием" бесконечно большим и могущественным, чем наш разум, являющийся всего лишь бледной копией того Бесконечно Восходящего Потока Абсолютной Энергии, который возносится ввысь, ничем не ограничиваемый, потому что все, что будет сотворено, что существует или не существует, что реально или нереально, постижимо или непостижимо, является Его следствием, формой Его облачения, т.е. скрытия за действиями Высших и низших вместе, включения в эти действия в качестве творческой Силы и источника вдохновения, одна тень Которого способна заставить мертвеца петь сонеты Шекспира, сгорая от несчастной любви.</p>
+
+    <p>В Реальном Мире времени нет, пространства нет, нет ни начал, ни окончаний, а есть вечное порождающее Слово, АУМ, или АВАЯ, дарующее жизнь мирам, и оживляющее их заново с новым смыслом, когда приходит время человеку и человечеству подняться на следующую ступень осознания своего предназначения и того великого Дара, Которым Творец, Свят Благословен Он, наделяет человека, говорящего с Ним вместе, на Его месте, чтобы с теми, кого он будет любить больше, чем что либо в этом мире, больше собственной жизни, когда они будут созданы Творцом, Свят Благословен Он, и Творец, Свят Благословен Он, приведет их к человеку, чтобы воспитывать, заботиться, оберегать, и отпускать с Миром, давая стать полностью самостоятельными, раскрыть заложенный в них Творцом, Свят Благословен Он, создающим их вместе с Папой и Мамой все время с момента зачатия и до "взросления", в "обратной форме", изначальное совершенство и ослепительное благородство и величие Которой они раскроют по мере становления взрослыми, подготавливая себя к тому, чтобы повторить и усовершенствовать величественный Путь их родителей, чтобы приумножить то, что Творец, Свят Благословен Он, дает человеку из поколения в поколение стремящемуся к лучшему, мудрому, справедливому, милосердному, истинному и совершенному, поскольку таковы свойства Изначальной Всемогущей Абсолютной Силы, движущей всем мирозданием посредством Вдохновения, интереса к новому, стремления и желания жить и давать жить другим, раскрывая все новые и новые грани этого бесконечного мира счастья, где сам человек творит свою судьбу, даруя тем, кто будет идти его стопами, свое благословение и благоволение, и проходя по этому Пути с ними вместе, как один человек с одним сердцем, находясь в слиянии с Творцом, Свят Благословен Он, увековечивая этим жизнь и осознание. Сделаем и услышим!</p>
+  </article>
+
+  <section class="music-section">
+    <div class="music-label">Музыка</div>
+    <details class="track" id="track-1">
+      <summary>
+        <span class="arrow">▶</span>
+        <span class="title">Far above the clouds</span>
+        <span class="artist">— Mike Oldfield</span>
+        <a class="ext" href="https://youtu.be/sSRJvq4Wd48" target="_blank" rel="noopener" title="Открыть на YouTube" onclick="event.stopPropagation()">↗</a>
+      </summary>
+      <div class="player" data-embed="https://www.youtube.com/embed/sSRJvq4Wd48"></div>
+    </details>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="05D.html">
+      <span class="dir">← Предыдущая</span>
+      Абе ве Има, Зеир Анпин и Нуква
+    </a>
+    <a class="next" href="1BH.html">
+      <span class="dir">Следующая →</span>
+      17 мгновений Вечной Весны
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.track').forEach(function(t){
+    t.addEventListener('toggle', function(){
+      if (t.open) {
+        var p = t.querySelector('.player');
+        if (p && !p.querySelector('iframe')) {
+          var f = document.createElement('iframe');
+          f.src = p.getAttribute('data-embed') + '?autoplay=1';
+          f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          f.allowFullscreen = true;
+          p.appendChild(f);
+        }
+      }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой цельный прозаический текст-эссе духовно-философского содержания: шесть длинных абзацев со сложным синтаксисом, без стихотворной разбивки на строки. По правилу выбора схемы проза идёт в редакторский широкоформатный стиль, поэтому выбран editorial с основной колонкой ~66% ширины окна и читаемым ограничением max-width для сверхширокого монитора. Текст оформлен крупной засечной гарнитурой с буквицей в первом абзаце и justify-вёрсткой для журнального лонгрид-вида; акцентный кирпично-красный цвет работает с тёплым кремовым фоном.",
+  "rationale2": "",
+  "features": ["music"]
+}
+</script>
+</body>
+</html>

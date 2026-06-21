@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сказка со счастливым концом</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --muted:#6b6258;
+    --accent:#9a3b2e;
+    --accent2:#b9893a;
+    --rule:#ddd4c4;
+    --link:#8a3326;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(138,51,38,.32);}
+  a:hover{border-bottom-color:var(--link);}
+
+  .wrap{
+    width:66%;
+    max-width:980px;
+    min-height:100vh;
+    margin:0 auto;
+    background:var(--paper);
+    padding:42px 64px 70px;
+    box-shadow:0 0 60px rgba(60,45,25,.08);
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:26px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .crumbs a{border:none;color:var(--accent);}
+  .crumbs a:hover{color:var(--ink);}
+  .crumbs .sep{margin:0 .55em;color:var(--accent2);}
+
+  .lead-img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    margin:0 auto 30px;
+    border-radius:3px;
+    box-shadow:0 6px 26px rgba(40,30,15,.16);
+  }
+
+  header.title{
+    text-align:center;
+    margin:8px 0 40px;
+  }
+  h1{
+    font-size:38px;
+    line-height:1.18;
+    font-weight:600;
+    letter-spacing:.01em;
+    margin:0 0 14px;
+  }
+  h1::after{
+    content:"";
+    display:block;
+    width:120px;
+    height:2px;
+    margin:20px auto 0;
+    background:linear-gradient(90deg,transparent,var(--accent2),transparent);
+  }
+  .subtitle{
+    font-style:italic;
+    color:var(--muted);
+    font-size:18px;
+  }
+
+  article p{
+    margin:0 0 1.45em;
+    text-align:justify;
+    hyphens:auto;
+  }
+  article p:first-of-type::first-letter{
+    float:left;
+    font-size:4.1em;
+    line-height:.82;
+    padding:.04em .12em 0 0;
+    color:var(--accent);
+    font-weight:600;
+  }
+
+  /* music */
+  .music{
+    margin:48px 0 8px;
+    padding:22px 26px 8px;
+    background:#faf5ea;
+    border:1px solid var(--rule);
+    border-left:4px solid var(--accent2);
+    border-radius:4px;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:12px;
+  }
+  .track{margin-bottom:14px;}
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+    user-select:none;
+    padding:8px 4px;
+  }
+  .track-head .caret{
+    transition:transform .2s;
+    color:var(--accent2);
+    font-size:14px;
+    flex:0 0 auto;
+  }
+  .track.open .track-head .caret{transform:rotate(90deg);}
+  .track-name{font-weight:600;}
+  .track-by{color:var(--muted);font-style:italic;}
+  .track-ext{
+    margin-left:auto;
+    border:none;
+    font-size:16px;
+    color:var(--accent);
+  }
+  .player{
+    overflow:hidden;
+    height:0;
+    transition:height .25s ease;
+  }
+  .player.open{height:auto;}
+  .player iframe{
+    display:block;
+    width:100%;
+    aspect-ratio:16/9;
+    border:0;
+    border-radius:4px;
+    margin:6px 0 10px;
+  }
+
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    margin:54px 0 0;
+    padding-top:26px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .corpus-nav a{
+    border:none;
+    max-width:46%;
+    display:block;
+  }
+  .corpus-nav .lbl{
+    display:block;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:3px;
+  }
+  .corpus-nav .pv{text-align:left;}
+  .corpus-nav .nx{text-align:right;margin-left:auto;}
+  .corpus-nav .ttl{color:var(--accent);font-weight:600;}
+
+  footer.colophon{
+    margin-top:36px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent);}
+  footer.colophon .attrib{margin:0 0 6px;}
+
+  @media (max-width:900px){
+    .wrap{width:100%;max-width:100%;padding:26px 20px 50px;box-shadow:none;}
+    body{font-size:18px;}
+    h1{font-size:30px;}
+    article p{text-align:left;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/Z46.html">
+<meta name="description" content="Эссе о разбиении единой души Адам, восприятии объективной реальности и переходе к признанию власти Творца как пути исправления.">
+<meta property="og:title" content="Сказка со счастливым концом">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/Z46.html">
+<meta property="og:description" content="Эссе о разбиении единой души Адам, восприятии объективной реальности и переходе к признанию власти Творца как пути исправления.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Сказка со счастливым концом">
+<meta name="twitter:description" content="Эссе о разбиении единой души Адам, восприятии объективной реальности и переходе к признанию власти Творца как пути исправления.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №Z46</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <img class="lead-img" src="../img/Z46.jpg" alt="Иллюстрация к статье">
+
+  <header class="title">
+    <h1>СКАЗКА СО СЧАСТЛИВЫМ КОНЦОМ<a class="audio-link" href="https://t.me/art_017_tracks/380" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <div class="subtitle">Написано 06.04.19 в Келим этого мира</div>
+  </header>
+
+  <article>
+    <p>Есть у каждого человека мир вокруг, созданный Творцом специально ради его исправления, чтобы мог взять то, чего вполне может коснуться его рука и использовать это для достижения немыслимого блага. Ведь миллионы и миллиарды частей единого желания "адам" (такой, как Творец) опустились в одинаково далекое от своего Корня состояние получения и греха, не для того, чтобы суровостью наказания своего прославить букву Закона, а для того, чтобы раскрытое в каждом желание получать ради себя, созданное Творцом для его наполнения, привести к ступени пригодности к непосредственному получению бесконечного блага от своего Создателя. Ведь до того, как разбиться, было у АДАМ желание отдавать лишь на той ступени, ниже которой было установлено в нем силами природы ограничение на любое получение Света, и поэтому не мог он с этим желанием при всей своей святости сделать каждую свою часть пригодной для выполнения желания Творца, и потому перешел в следующее состояние, подготовленное Творцом для того, чтобы раскрылось наслаждение в душах значительно больше прежнего. А тайна этого раскрытия содержится в том, что раскрылось в восприятии единой души АДАМ из-за разбиения экрана ощущение, подобное тому, что существует сам по себе вокруг него окружающий мир неживых объектов, а также "условно живых" (поскольку все, что вне себя, не ощущается внутри скрытия как живое) подобных ему самому созданий, якобы в мириадах чуть-чуть отличающихся копий существующих отдельно одно от другого.</p>
+
+    <p>И пока проходит эта душа полностью и частично каждое из предназначенных ей состояний, является для неё такое ощущение "объективной реальностью", а попытка взглянуть на это с точки зрения Единого Творца - недостойной разумного существа глупой выдумкой. И более того, как будто бы теряет "свою власть", становясь слепой, безвольной, лишенной души марионеткой безымянных сил хаоса и деградации. И предначертано это состояние свыше, поскольку если бы могли это сделать произвольно, то соединились бы тут же обратно в систему АДАМ с её исходным уровнем экрана и авиют, исправленных на уровне отдачи ради отдачи. Но поскольку целью разбиения души было иное, создана была Творцом преднамеренно в душах естественная сила, исключающая возможность для них вернуться в исходное состояние до того, как возьмут власть над своим сердцем и разумом в свои руки и отдадут её своими руками под власть Творца, признавая Его власть над собой и всем миром, и более того, обязуясь всю свою жизнь и все что в их силах и свыше них посвятить тому, чтобы раскрывалась эта власть внутри их ощущения бесконечным добром и совершенством по отношению к каждой мельчайшей части творения, как в целом, так и на любом отдельно взятом промежутке его пути.</p>
+
+    <p>И исчезает тогда из их мира реальность, казавшаяся до этого объективным неизменным законом существования, и становится для них единственным и неприкосновенным Законом то, что до этого казалось уделом павших и убогих. Открывается им тогда, что воспринимаемое ими как чужое, либо враждебное, либо как минимум безразличное, желание другого человека является вместе с ними частью единой волшебной реальности, существующей над "парсой" - границей в мироздании Творца, отделяющей волшебную сказку безграничного осознания от безраздельной власти страданий, сожалений и серой безысходности, которую они ещё вчера считали единственной объективной реальностью, существующей независимо от них вокруг в результате действий слепых материальных сил, не содержащих в себе ни замысла, ни цели, ни смысла.</p>
+
+    <p>И мало того, что это казавшееся "чужим" желание оказывается вместе с ним частью целого, но и целое это оказывается недостижимым без того, чтобы принять в своем разуме и сердце это "чужое" как главную, превыше самой жизни любимую часть себя, не оставаясь равнодушным к малейшим её чувствам и желаниям. Настолько, что свои собственные потребности замечаются и удовлетворяются лишь в размере минимально необходимом для обеспечения жизни тела. А все остальное, что остается у человека после уделения неизбежного для поддержания жизни внимания к себе, должен он захотеть всем сердцем и душой отдать и посвятить удовлетворению "чужого" желания, с которым его тело и животная душа абсолютно ничем не связаны. И сделав так, в чем нет никакой сложности по сути, кроме той, что установлена Творцом и мешает даже начать всерьез думать в этом направлении, человек моментально удостаивается постижения конечной цели своего создания, цели создания всего мира, цели того, почему он рождается и проходит в кругооборотах многочисленные состояния и ощущения, кажущиеся настолько далекими от определения "добрый и творящий добро", насколько это возможно, и неизбежно заканчивающиеся смертью животного тела (не говоря уже о том, что и пока оно не умерло, основным смысловым наполнением его "жизни" становится переживание смерти родных и близких, а в окружающем его мире правят бал бессмысленные и массовые убийства подобными ему друг друга).</p>
+
+    <p>И вот, установив раз и навсегда в своем сердце и разуме "чужие" желания, потребности других людей и всего мира, выше собственных желаний, удовлетворять которые ему разрешено лишь в мере, от которой нельзя отказаться, продолжая удовлетворять желания ближнего на том же уровне, что и прежде, раскрывает он методом прямого постижения о том, что все то, о чем он молился Творцу: дать ему силы поверить выше знания, что весь мир управляется Единой Силой, и что это управление в каждом малейшем своем проявлении несет абсолютное добро "подопечным" творениям, ведя их наикратчайшим и совершеннейшим путем к гарантированному им заранее состоянию абсолютного добра, в котором они пребудут в слиянии с Творцом вовеки. И удостаивается он в этом обещанного вознаграждения за выполнение заповедей в будущем мире, и видит он Высший мир не покидая жизни, и постигает сокрытые пути управления миром Творца, которые скрыты от нижних чтобы не навредить их наикратчайшему пути исправления. И не имеет все это для него ровным счетом никакого значения, поскольку он уже добился постоянной молитвой такого усилия собственной веры, что открытое видение управления Творца миром ничего к его мнению не добавило и не убавило. И поэтому достиг он ступени абсолютной любви, являющейся конечной в исправлении своей души: потому что увидел Творец, что бессмысленно скрываться от него, ведь уже он видит весь мир находящимся в конечном исправлении благодаря вымоленной им у Творца абсолютной ступени веры, и поэтому раскрывается ему Творец и свидетельствует о нем Знающий Тайны, что не вернется больше к глупости своей.</p>
+  </article>
+
+  <section class="music" aria-label="Музыка под настроение">
+    <div class="music-label">Музыка под настроение</div>
+    <div class="track" data-embed="https://www.youtube.com/embed/Wfrp8xHiqU8">
+      <div class="track-head" onclick="toggleTrack(this)">
+        <span class="caret">▶</span>
+        <span class="track-name">Много неясного в странной стране</span>
+        <span class="track-by">— В. Высоцкий</span>
+        <a class="track-ext" href="https://youtu.be/Wfrp8xHiqU8" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="player"></div>
+    </div>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="pv" href="17Q.html">
+      <span class="lbl">← Предыдущая</span>
+      <span class="ttl">Сказка о Рыбаке и Рыбке</span>
+    </a>
+    <a class="nx" href="17D.html">
+      <span class="lbl">Следующая →</span>
+      <span class="ttl">Царь Салтан</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+function toggleTrack(head){
+  var track=head.closest('.track');
+  var player=track.querySelector('.player');
+  var open=track.classList.toggle('open');
+  if(open){
+    if(!player.dataset.loaded){
+      var url=track.dataset.embed+'?autoplay=1';
+      player.innerHTML='<iframe src="'+url+'" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+      player.dataset.loaded='1';
+    }
+    player.classList.add('open');
+  }else{
+    player.classList.remove('open');
+    player.innerHTML='';
+    delete player.dataset.loaded;
+  }
+}
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — цельный философско-каббалистический прозаический текст из пяти длинных абзацев без стихотворной разбивки, поэтому выбрана редакторская широкая схема: основная колонка ~66% ширины окна (с потолком ~980px ради комфортной меры строки), книжный засечный шрифт, светлый кремовый фон бумаги и тёплая красно-охряная акцентная палитра, перекликающаяся со сказочно-манускриптной темой текста, но в журнальной подаче. Буквица в первом абзаце задаёт тон 'сказки', выравнивание по ширине усиливает книжность.",
+  "rationale_extra": "",
+  "features": ["music"]
+}
+</script>
+</body>
+</html>

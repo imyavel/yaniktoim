@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Откуда берутся дети - инфографика</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf9;
+    --ink:#1f1b16;
+    --muted:#6a6055;
+    --accent:#9c2b1b;
+    --accent2:#b8742a;
+    --rule:#e0d8c8;
+    --link:#9c2b1b;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .container{
+    width:66vw;
+    max-width:1040px;
+    min-width:320px;
+    margin:0 auto;
+    padding:38px 28px 80px;
+    background:var(--paper);
+    box-shadow:0 0 60px rgba(40,30,15,.06);
+  }
+  @media(max-width:980px){
+    .container{width:100%;max-width:100%;padding:24px 18px 60px;}
+    body{font-size:18px;}
+  }
+
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:22px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .breadcrumbs a{color:var(--muted);text-decoration:none;border-bottom:1px solid transparent;}
+  .breadcrumbs a:hover{color:var(--accent);border-bottom-color:var(--accent);}
+  .breadcrumbs span.sep{margin:0 .5em;color:var(--accent2);}
+
+  .lead-img{display:block;max-width:100%;width:auto;height:auto;margin:0 auto 30px;border:1px solid var(--rule);}
+
+  a{color:var(--link);}
+  a:hover{color:var(--accent2);}
+
+  /* title block */
+  header.article{
+    text-align:center;
+    margin-bottom:34px;
+  }
+  h1{
+    font-size:34px;
+    line-height:1.22;
+    font-weight:700;
+    letter-spacing:.01em;
+    margin:.2em 0 .35em;
+    color:var(--ink);
+  }
+  .subtitle{
+    font-style:italic;
+    font-size:21px;
+    color:var(--accent);
+    margin:0 0 .5em;
+  }
+  .artmeta{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  @media(max-width:980px){ h1{font-size:27px;} .subtitle{font-size:19px;} }
+
+  /* TOC */
+  .toc{
+    border:1px solid var(--rule);
+    background:#fbf7ef;
+    padding:6px 22px 14px;
+    margin:0 0 38px;
+  }
+  .toc summary{
+    cursor:pointer;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    padding:8px 0;
+    outline:none;
+  }
+  .toc ol{margin:.4em 0 .2em;padding-left:1.4em;}
+  .toc li{margin:.32em 0;}
+  .toc a{text-decoration:none;border-bottom:1px solid transparent;}
+  .toc a:hover{border-bottom-color:var(--accent2);}
+
+  h2{
+    font-size:23px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--accent);
+    border-bottom:2px solid var(--rule);
+    padding-bottom:.25em;
+    margin:2.2em 0 .9em;
+    cursor:pointer;
+  }
+  h2 a.anchor{color:inherit;text-decoration:none;}
+  h2 a.anchor:hover{color:var(--accent2);}
+
+  /* epigraph three-voice grid */
+  .epigraph{
+    margin:1.2em 0 1.4em;
+  }
+  .voices{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:26px;
+    font-style:italic;
+    font-size:18px;
+    line-height:1.55;
+    color:#2c2620;
+  }
+  .voices .voice{
+    border-left:2px solid var(--accent2);
+    padding-left:16px;
+  }
+  .voices .voice p{margin:0;}
+  @media(max-width:720px){
+    .voices{grid-template-columns:1fr;gap:18px;}
+  }
+
+  p{margin:0 0 1.15em;text-align:justify;}
+  .para{position:relative;}
+  .para .num{
+    color:var(--accent);
+    font-weight:700;
+    margin-right:.15em;
+  }
+
+  .seealso{
+    margin:1.6em 0;
+    padding:16px 20px;
+    background:#fbf7ef;
+    border:1px solid var(--rule);
+    font-size:17px;
+  }
+  .seealso p{margin:.35em 0;text-align:left;}
+  .seealso .label{color:var(--muted);font-style:italic;}
+
+  /* footnotes */
+  sup.fnref{font-size:.72em;line-height:0;}
+  sup.fnref a{
+    text-decoration:none;
+    color:var(--accent);
+    font-weight:700;
+    padding:0 1px;
+  }
+  .fnref{position:relative;}
+  .fnref .fnpopup{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:1.6em;
+    width:min(420px,80vw);
+    background:#2b2620;
+    color:#f7f1e6;
+    font-size:15px;
+    font-style:normal;
+    line-height:1.5;
+    text-align:left;
+    padding:12px 15px;
+    border-radius:6px;
+    box-shadow:0 8px 26px rgba(0,0,0,.3);
+    z-index:30;
+  }
+  .fnref .fnpopup a{color:#f0c98a;}
+  .fnref.below .fnpopup{bottom:auto;top:1.6em;}
+  .fnref:hover .fnpopup{display:block;}
+
+  .notes{margin-top:1em;}
+  .notes ol{padding-left:1.6em;}
+  .notes li{
+    margin:.7em 0;
+    font-size:16.5px;
+    line-height:1.6;
+    color:#332d25;
+  }
+  .notes li.anon{list-style:none;margin-left:-1em;}
+  .notes li:target{
+    background:#fcefa8;
+    box-shadow:0 0 0 6px #fcefa8;
+    border-radius:3px;
+  }
+  .backref{text-decoration:none;color:var(--accent);font-weight:700;margin-left:.3em;}
+
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:56px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    display:block;
+    max-width:46%;
+  }
+  .corpus-nav .dir{
+    display:block;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:3px;
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:42px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:14.5px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent);}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/1CI.html">
+<meta name="description" content="Статья-эссе о том, откуда берутся дети и куда уходят: размышление о пропасти между телесным и духовным, о памяти души и границах личности.">
+<meta property="og:title" content="Откуда берутся дети - инфографика">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/1CI.html">
+<meta property="og:description" content="Статья-эссе о том, откуда берутся дети и куда уходят: размышление о пропасти между телесным и духовным, о памяти души и границах личности.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Откуда берутся дети - инфографика">
+<meta name="twitter:description" content="Статья-эссе о том, откуда берутся дети и куда уходят: размышление о пропасти между телесным и духовным, о памяти души и границах личности.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №1CI</span>
+<div class="container">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <img class="lead-img" src="../img/1CI.jpg" alt="Иллюстрация к статье">
+
+  <header class="article">
+    <h1>ОТКУДА БЕРУТСЯ ДЕТИ, И КУДА ОНИ ПОТОМ ДЕВАЮТСЯ<a class="audio-link" href="https://t.me/art_017_tracks/338" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <p class="subtitle">Наглядное пособие для взрослых и не только (6+)</p>
+    <p class="artmeta">Арт. #AA1CI, написано 18 Декабря 2021 г.</p>
+  </header>
+
+  <details class="toc" open>
+    <summary>Содержание</summary>
+    <ol>
+      <li><a href="#epigraph">Эпиграф</a></li>
+      <li><a href="#predislovie">Предисловие</a></li>
+      <li><a href="#notes">Примечания</a></li>
+    </ol>
+  </details>
+
+  <section id="epigraph" class="epigraph">
+    <h2><a class="anchor" href="#top">Эпиграф</a><sup class="fnref" id="ref1"><a href="#fn1">1</a><span class="fnpopup">См. также: #AP1B5 «<a href="1B5.html">Знание !! Сила</a>» (Зеир Арихович Анпин)</span></sup></h2>
+    <div class="voices">
+      <div class="voice">
+        <p>Если бы ты только знал<br>
+        Что тебя ждет впереди<br>
+        Ты бы никому не дал<br>
+        У тебя встать на Пути</p>
+      </div>
+      <div class="voice">
+        <p>Если бы ты только знала<br>
+        Что тебя ждет впереди<br>
+        То как в детстве бы создала<br>
+        Этот Мир Силой Мечты</p>
+      </div>
+      <div class="voice">
+        <p>Если бы я только знал<br>
+        Что меня ждет впереди<br>
+        Я б об этом написал<br>
+        Чтобы ждали вместе мы</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="predislovie">
+    <h2><a class="anchor" href="#top">ПРЕДИСЛОВИЕ</a></h2>
+
+    <p class="para"><span class="num">1.</span>Современные взрослые, которым их дети задают вопрос "откуда берутся дети", испытывают неловкость, как им кажется, связанную с тем, что запрашиваемая информация преждевременна для охраны здорового развития детской психики, в итоге либо врут, выдумывая "альтернативные" варианты ответа, наподобие аистов, либо пускаются в витийствования, пытаясь скрыть пару простых фактов и описаний за лесом формальной научной терминологии, если дети по-старше, чтобы максимально пустить этим пыль в глаза ребенку, в итоге оставляя этот основополагающий "раздел" в детской картине мира настолько же туманным и запутанным, насколько он является таковым в их собственных представлениях, поскольку все, что человек "получает" в детстве, закладывает основу для всего дальнейшего здания взрослой личности и не поддается дальнейшему сознательному "перепрограммированию". В действительности причина этого проста, но крайне неудобна для человека "взрослого": она заключается в том, что он сам не знает, "откуда дети берутся" по-настоящему, если убрать в сторону чисто технический аспект полового акта, и физиологический аспект того, как они сами этот акт производят практически, в сущности, не связывая одно и другое чувственно, то есть, по настоящему. Для человека получается, что половое наслаждение - это одно, а его последствия, это уже дело другое, рассматриваемое и "планируемое" отдельно. Между этими двумя "реальностями" в сознании человека пролегает пропасть, обычно называемая "подсознанием", или "бессознательным", в которую человек в 99% случаев не надеется когда-либо пролить Свет и внести ясность.</p>
+
+    <p class="para"><span class="num">2.</span>Вопрос "откуда берутся дети" тесно связан (хотя это может не быть очевидно) с вопросом о том, что происходит с человеком посредством окончания жизни. То есть, буквально "куда эти дети потом деваются". Поскольку, для мудрого человека совершенно очевидно, что "дети" не перестают быть детьми и после того, как становятся взрослыми, и даже после того, как у них появляются собственные дети и даже внуки. Они лишь учатся создавать внешнюю видимость социально заимствованного образа, который соответствует в их сознании явлению "взрослый" или "родитель", или даже "умудренный годами" человек. Под этой видимостью зияет все та же самая пропасть, которую они пронесут через всю жизнь и с которой покинут этот мир - не понимая, кто они на самом деле, откуда пришли, зачем, куда уходят, и что все это значит в целом, за границами осмысления отдельно взятой жизни и личности "этого мира". Этот порядок обуславливает в значительной степени непроницаемую стену во всем, что касается "памяти" или "способности чувствовать" событий или явлений, превосходящих узкие рамки жизни их конкретного физического тела, которая распространяется и на многочисленные "духовные методики саморазвития", большинство из которых, либо игнорирует факт неизбежности смерти, если это "саморазвитие" касается личности человека этого мира, либо использует его "по-хитрому", эксплуатируя это незнание, по сути, как, например, "Путь Воина" К.Кастанеды, который использует идею неизбежной скорой смерти как "подстегивающий" фактор в "магическом развитии" "воина" и "человека знания". И/или рисуют красивые картинки сказочной страны на этой непроницаемой стене, выстраивая идею стремления к некоторой цели, которая превосходит жизнь человека, ожидаемо оказывающуюся в 99.9% случаев не более, чем красивой выдумкой, не имеющей с Реальностью ничего общего по определению "материала" из которого эта идея состоит (ее строит разум, посредством той же самой фантазии, которая задействуется им, чтобы сделать из общего вопиющего невежества современного человека подобие целостной непрерывной "взрослой" коллективной реальности объективного мира).</p>
+
+    <p class="para"><span class="num">3.</span>Для того, чтобы человек и человечество действительно смогли сделать шаг вперед по направлению к реальному "взрослению" и осознанию себя, - что неминуемо начнет происходить в самом скором времени, и этот процесс будет эволюционировать не с меньшим темпом и влиянием на все стороны человеческого быта и самосознания, чем происходивший последние несколько веков процесс развития "естественных наук", производя еще более масштабную и сущностную трансформацию человека и мира, - человек и человечество должны перестать удовлетворяться "наследственным" смирением с невозможностью получить и дать ответ собственным детям на два вышеназванных базовых вопроса их собственной жизни, равно как и жизней всех остальных людей: откуда берутся дети, и "куда они деваются" после того, как проживут отведенные им судьбой годы жизни. Ваш покорный слуга смиренно надеется занять скромное место в ряду тех просветителей, которые создадут новые формы упрощенного, понятного, сведенного до сути вещей, - описания "духовных" / "метафизических" / "магических" / "божественных" явлений и процессов, как они на сегодняшний день называются, не будучи пока затронутыми областями знания, которые принято называть "точной наукой", амбициозно претендующей на "эталон" в достоверности и важности содержащейся в них информации о человеке и мире, - и которые лягут в основу дальнейшего, все более и более глубокого и сущностного по сути и степени, проникновения человека и человечества в реально имеющие место в действительности процессы и явления, лежащие в самой основе жизни, сознания, эволюции, восприятия, судьбы, разума, общества, цивилизации, которые до настоящего времени от человечества скрыты завесой тайны и непроницаемой стеной "наследственно поощряемого невежества", которое мешает человеку всерьез задаваться базовыми вопросами, с правильных, достоверных и значимых ответов на которые должен начинаться процесс ознакомления со всеми остальными вопросами и ответами на них, формирующими здания уже накопленной человечеством за века просвещенности, осведомленности и мудрости в том, что происходит с каждым и с каждой из нас "здесь и сейчас", от рождения, до смерти и далее, как бы его или ее ни звали, каким бы именем не называлось это "здесь", и какой бы цифрой не обозначалось "сейчас".</p>
+
+    <p class="para"><span class="num">4.</span>Приведенная инфографика, по скромному разумению автора, в самых общих чертах показывает основополагающий цикл непрерывного кругооборота нематериальной сущности, составляющей суть и содержание всего, чем некоторый человек "является" на протяжении всей своей жизни и судьбы этого мира - назовем ее "душой", следуя распространенному литературному названию и образу, которому душа, как реальное явление, "при первом приближении", достаточно точно соответствует, во всяком случае, достаточно для того, чтобы использование этого "имени" не привело к предвидимым ошибкам в понимании формы и сути приводимого процесса, его смысла и значения для человека.</p>
+
+    <div class="seealso">
+      <p class="label">Полный слайд смотрите по ссылке:</p>
+      <p><a href="https://disk.yandex.ru/i/uDOuLyb7XZ-uRA">disk.yandex.ru/i/uDOuLyb7XZ-uRA</a></p>
+      <p class="label">См. также: Мир Бесконечности (слайд)</p>
+      <p><a href="https://disk.yandex.ru/i/v8zbGkdscixF2g">disk.yandex.ru/i/v8zbGkdscixF2g</a></p>
+      <p class="label">См. также: <a href="0CA.html">Я летала</a> (Зеир Арихович Анпин)</p>
+      <p></p>
+    </div>
+  </section>
+
+  <section id="notes" class="notes">
+    <h2><a class="anchor" href="#top">Примечания</a></h2>
+    <ol>
+      <li id="fn1">См. также: #AP1B5 "<a href="1B5.html">Знание !! Сила</a>" (Зеир Арихович Анпин) <a class="backref" href="#ref1" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="64P.html">
+      <span class="dir">← Предыдущая</span>
+      Уровни авиюта в развитии Человечества
+    </a>
+    <a class="next" href="255A.html">
+      <span class="dir">Следующая →</span>
+      Предисловие к началу серии Добрая речь
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // adjust footnote popup side if not enough room above
+  document.querySelectorAll('.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      var rect=ref.getBoundingClientRect();
+      if(rect.top<180){ref.classList.add('below');}else{ref.classList.remove('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой публицистическое эссе-предисловие к инфографике: четыре крупных пронумерованных абзаца сплошной прозы плюс служебные ссылки. Стихотворный элемент здесь только один — короткий трёхголосый эпиграф, который по объёму и функции вторичен, поэтому доминирующая форма — проза, и выбрана широкая редакторская схема (контейнер ~66vw с разумным потолком ширины и читаемой мерой строки за счёт более крупного кегля).\n\nПограничные решения: эпиграф разверстан в три параллельные колонки-голоса (мужской/женский/авторский), как он подан в исходнике, с переходом в один столбец на узких экранах. Маркер сноски стоял у слова «написано*» без тела примечания — висячий маркер удалён, звёздочка снята. Сноска *1 у слова «Эпиграф» сохранена с двусторонней навигацией, подсветкой цели и hover-popup, выбирающим сторону по краю окна. Музыкальных треков (YouTube/атрибуций «Музыка под настроение») в тексте нет — ссылки «См. также» оформлены как обычные гиперссылки в блоке отсылок, плеер и сводный музыкальный раздел не создавались. Голые URL обёрнуты в анкоры. Оглавление сделано (Эпиграф/Предисловие/Примечания — более одного подраздела), сворачиваемое и открытое по умолчанию; клик по заголовку раздела возвращает наверх.",
+  "features": ["footnotes", "toc"]
+}
+</script>
+</body>
+</html>

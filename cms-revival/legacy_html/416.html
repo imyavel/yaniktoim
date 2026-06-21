@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ощущение недовольства</title>
+<style>
+  :root {
+    --bg: #f7f4ee;
+    --paper: #fffdf8;
+    --ink: #20242b;
+    --muted: #6b6f78;
+    --accent: #9a3b2e;
+    --accent-soft: #c46a4c;
+    --rule: #ddd6c8;
+    --quote-bg: #f0ece1;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    line-height: 1.7;
+    font-size: 20px;
+  }
+  a { color: var(--accent); }
+  a:hover { color: var(--accent-soft); }
+
+  .wrap {
+    width: 66%;
+    max-width: 960px;
+    min-width: 0;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+  }
+
+  /* breadcrumbs */
+  .crumbs {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 14px;
+    margin-bottom: 30px;
+  }
+  .crumbs a { color: var(--muted); text-decoration: none; }
+  .crumbs a:hover { color: var(--accent); }
+  .crumbs span.sep { margin: 0 .5em; color: var(--accent-soft); }
+
+  h1 {
+    font-family: Georgia, serif;
+    font-weight: 700;
+    font-size: 2.4rem;
+    line-height: 1.15;
+    margin: 0 0 .2em;
+    letter-spacing: -0.01em;
+  }
+  .source {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    margin: 0 0 40px;
+  }
+  .source a { color: var(--muted); }
+
+  article {
+    background: var(--paper);
+    padding: 40px clamp(20px, 5vw, 56px);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    box-shadow: 0 1px 0 #fff inset, 0 2px 18px rgba(40,30,10,.04);
+  }
+
+  .forum-meta {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    margin: 0 0 6px;
+  }
+  .author {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0 0 10px;
+  }
+
+  .forum-quote {
+    background: var(--quote-bg);
+    border-left: 4px solid var(--accent-soft);
+    padding: 18px 24px;
+    margin: 0 0 36px;
+    border-radius: 0 3px 3px 0;
+  }
+  .forum-quote p { margin: 0; }
+
+  hr.divider {
+    border: none;
+    border-top: 1px dashed var(--rule);
+    margin: 36px 0;
+  }
+
+  .reply-label {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 14px;
+  }
+  article p { margin: 0 0 1.2em; }
+  article p:last-child { margin-bottom: 0; }
+
+  /* corpus nav */
+  .corpus-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+  .corpus-nav a {
+    text-decoration: none;
+    color: var(--accent);
+    max-width: 46%;
+  }
+  .corpus-nav .lbl {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .corpus-nav .ttl { font-size: 17px; }
+  .corpus-nav .next { text-align: right; margin-left: auto; }
+
+  footer {
+    margin-top: 44px;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  footer a { color: var(--muted); }
+  footer .attrib { margin: 0 0 .5em; }
+  footer .license { margin: 0; }
+
+  @media (max-width: 860px) {
+    body { font-size: 18px; }
+    .wrap { width: 100%; max-width: 100%; padding: 20px 16px 60px; }
+    h1 { font-size: 1.9rem; }
+    article { padding: 26px 18px; }
+    .corpus-nav { flex-direction: column; }
+    .corpus-nav a, .corpus-nav .next { max-width: 100%; text-align: left; margin-left: 0; }
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/416.html">
+<meta name="description" content="Статья-реплика с форума о природе ощущения недовольства, его связи с ЧСВ и позицией точки сборки в практике воина.">
+<meta property="og:title" content="Ощущение недовольства">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/416.html">
+<meta property="og:description" content="Статья-реплика с форума о природе ощущения недовольства, его связи с ЧСВ и позицией точки сборки в практике воина.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ощущение недовольства">
+<meta name="twitter:description" content="Статья-реплика с форума о природе ощущения недовольства, его связи с ЧСВ и позицией точки сборки в практике воина.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №416</span>
+  <div class="wrap">
+    <nav class="crumbs">
+      <a href="../index.html">Главная</a>
+      <span class="sep">/</span>
+      <a href="../confront/index.html">Конфронтология Духа</a>
+    </nav>
+
+    <h1>Ощущение недовольства<a class="audio-link" href="https://t.me/art_017_tracks/447" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <p class="source">С форума KKO <a href="http://ccasraneda.ru" rel="noopener">ccasraneda.ru</a></p>
+
+    <article>
+      <p class="author">Jannnu написал(а):</p>
+      <div class="forum-quote">
+        <p>Заметил, что, если что-то идёт не так и по этому поводу ощущаю недовольство это еще не значит, что я уже понимаю, что на самом деле происходит не так как нужно мне.</p>
+        <p style="margin-top:1em;">Скорее ощущение означает что работает ЧСВ.</p>
+      </div>
+
+      <hr class="divider">
+
+      <p class="reply-label">Реплика</p>
+      <p>Ощущение недовольства (пусть будет НД) к ЧСВ относится весьма косвенно. НД скорее говорит о том, что у воина недостаточно воли / личной силы для полноценного нахождения в той ПТС где он находится. ПТС это не какая то статичная фишка типа свойства осознания здесь и сейчас (хотя и оно то же, просто разные ракурсы), а скорее определенная канва цепочки событий, происходящих с воином в течение определенного периода времени произвольной длительности. Я в своей модели Каббалы это явление называю АВАЯ. Объяснить его в двух словах не получится. Но суть его всегда в том, что приобретению опыта и следовательно увеличению личной силы на объем этого полезного практического опыта, связанного с полноценным осознанным нахождением в той или иной позиции ТС, всегда предшествует прохождение этой же цепочки с примерным наступлением на все расставленные по периметру заботливо Духом грабли, от больших и увесистых, как для уборки стогов сена, вплоть до самых маленьких садовых тяпочек  :D Именно этот Путь "по граблям" и формирует основу, приобретаемой в результате прохождения и завершения этого конкретного АВАЯ, обьема воли /личной силы и полезного опыта. И именно для этого этапа, характерно ощущение недовольства, каждый раз в момент контакта лба с граблями, что ни разу не удивительно. Но исходя из природы механизма, описанного выше, ясно следует отсутствие явных парралелей между НД и ЧСВ.</p>
+    </article>
+
+    <nav class="corpus-nav">
+      <a class="prev" href="43O.html">
+        <span class="lbl">← Предыдущая</span>
+        <span class="ttl">Не хочешь, не верь мне</span>
+      </a>
+      <a class="next" href="2CQ.html">
+        <span class="lbl">Следующая →</span>
+        <span class="ttl">Пролетая над гнездом Кукушки</span>
+      </a>
+    </nav>
+
+    <footer>
+      <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+    </footer>
+  </div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой короткий прозаический обмен на форуме: реплика пользователя Jannnu и развёрнутый ответ-реплика. Это рассуждение/эссе в прозе, без стихотворных форм, поэтому выбрана редакторская широкоформатная схема с основной колонкой около 66% ширины окна (ограниченной max-width для комфортной меры строки). Развилок по форме не было — стихов нет. Цитату форумчанина я выделил как блок-quote с левой акцентной линией, а ответ пометил неброским надзаголовком 'Реплика' (это слово есть в исходном тексте, я его не добавлял, а оформил как метку секции). Авторский глиф ':D' сохранён дословно, кавычки и регистр (ЧСВ, НД, ПТС, ТС, АВАЯ) оставлены как есть. Голый адрес форума обёрнут в ссылку. Подразделов нет, сносок и музыки нет — оглавление и аппарат не требуются. Палитра тёплая бумажная на светлом фоне с терракотовым акцентом, засечный шрифт для основного текста и гротеск для служебных подписей.",
+  "features": []
+}
+</script>
+</body>
+</html>

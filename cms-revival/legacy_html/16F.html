@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Город, Которого нет</title>
+<style>
+  :root{
+    --bg:#faf7f0;
+    --ink:#241f18;
+    --muted:#6b6253;
+    --rule:#e3dac6;
+    --gold:#a9791a;
+    --gold-deep:#7c5610;
+    --accent:#1c3d5a;
+    --quote-bg:#f3eddd;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .container{
+    width:66%;
+    max-width:1080px;
+    margin:0 auto;
+    padding:32px 24px 80px;
+  }
+  @media (max-width:1000px){
+    .container{width:92%;}
+  }
+  @media (max-width:640px){
+    body{font-size:17.5px;}
+    .container{width:100%;padding:20px 18px 60px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:30px;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 8px;color:var(--gold);}
+
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:10px;
+  }
+
+  h1{
+    font-size:2.5rem;
+    line-height:1.12;
+    font-weight:700;
+    letter-spacing:.005em;
+    margin:.1em 0 .15em;
+    color:var(--ink);
+  }
+  .subtitle{
+    font-size:1.35rem;
+    font-style:italic;
+    color:var(--gold-deep);
+    margin:0 0 8px;
+    line-height:1.3;
+  }
+  .title-rule{
+    width:90px;height:3px;background:var(--gold);
+    border:0;margin:22px 0 36px;
+  }
+  @media (max-width:640px){
+    h1{font-size:1.95rem;}
+    .subtitle{font-size:1.1rem;}
+  }
+
+  h2.section{
+    font-size:1.5rem;
+    color:var(--accent);
+    border-bottom:2px solid var(--rule);
+    padding-bottom:6px;
+    margin:48px 0 24px;
+    letter-spacing:.01em;
+  }
+
+  p{margin:0 0 1.25em;text-align:justify;}
+  .lead{font-size:1.02em;}
+
+  /* epigraphs */
+  .epigraphs{margin:0 0 10px;}
+  blockquote.epi{
+    margin:0 0 26px;
+    padding:16px 22px;
+    background:var(--quote-bg);
+    border-left:4px solid var(--gold);
+    border-radius:2px;
+    font-size:.97em;
+  }
+  blockquote.epi p{margin:0 0 .4em;text-align:left;}
+  blockquote.epi .verse{
+    white-space:pre-line;
+    font-style:italic;
+    line-height:1.55;
+    margin-bottom:.4em;
+  }
+  blockquote.epi cite{
+    display:block;
+    font-style:normal;
+    font-size:.86em;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-align:right;
+  }
+
+  .acclaim{
+    text-align:center;
+    font-size:1.18rem;
+    font-weight:700;
+    letter-spacing:.04em;
+    color:var(--gold-deep);
+    margin:42px 0;
+    padding:18px 12px;
+    border-top:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+  }
+
+  /* music */
+  .music-attr{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.95rem;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 14px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:6px;
+    background:#fff;
+    margin-bottom:10px;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 16px;
+    cursor:pointer;
+    user-select:none;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .track-head:hover{background:#faf6ec;}
+  .track-idx{
+    font-weight:700;
+    color:var(--gold);
+    min-width:18px;
+  }
+  .track-title{flex:1;font-size:1.02rem;}
+  .track-arrow{color:var(--accent);transition:transform .25s;font-size:.9rem;}
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-ext{
+    color:var(--muted);
+    text-decoration:none;
+    font-size:1.05rem;
+  }
+  .track-ext:hover{color:var(--gold-deep);}
+  .track-player{display:none;background:#000;}
+  .track.open .track-player{display:block;}
+  .track-player .frame{
+    position:relative;
+    width:100%;
+    padding-bottom:56.25%;
+    height:0;
+  }
+  .track-player iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+  }
+
+  .tag-code{
+    font-family:"Courier New",monospace;
+    font-size:.8rem;
+    color:var(--muted);
+    letter-spacing:.05em;
+    margin-top:40px;
+  }
+
+  /* bottom nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:56px;
+    padding-top:24px;
+    border-top:2px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    display:block;
+    text-decoration:none;
+    color:var(--accent);
+    max-width:46%;
+    font-size:.95rem;
+  }
+  .corpus-nav a:hover{color:var(--gold-deep);}
+  .corpus-nav .lbl{
+    display:block;
+    font-size:.74rem;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--muted);
+    margin-bottom:3px;
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:44px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-size:.86rem;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent);}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/16F.html">
+<meta name="description" content="Эссе о тоске человека по утраченному единству с Творцом, образе небесного Иерусалима и пути возвращения через шаманские и каббалистические образы.">
+<meta property="og:title" content="Город, Которого нет">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/16F.html">
+<meta property="og:description" content="Эссе о тоске человека по утраченному единству с Творцом, образе небесного Иерусалима и пути возвращения через шаманские и каббалистические образы.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Город, Которого нет">
+<meta name="twitter:description" content="Эссе о тоске человека по утраченному единству с Творцом, образе небесного Иерусалима и пути возвращения через шаманские и каббалистические образы.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №16F</span>
+<div class="container">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>/</span><a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <div class="dateline">15 июня 2021 г.</div>
+
+  <h1>ГОРОД, КОТОРОГО НЕТ<a class="audio-link" href="https://t.me/art_017_tracks/469" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <p class="subtitle">И ПУТЬ К НЕМУ, КОТОРЫЙ ПРЕБУДЕТ ВЕЧНО</p>
+  <hr class="title-rule">
+
+  <section class="epigraphs">
+    <h2 class="section">Эпиграф</h2>
+
+    <blockquote class="epi">
+      <p>Радовался, когда сказали: в дом Господа пойдем. Стоят ноги наши в воротах ИЕРУСАЛИМА, ГОРОДА ОТСТРОЕННОГО, СЛИТОГО ВОЕДИНО. Просите мира Иерусалиму. Да будет Мир в нем. Ради братьев моих и ближних скажу: мир тебе! Ради дома Господа Бога нашего просить буду блага тебе.</p>
+      <cite>Царь Давид, Псалом 122</cite>
+    </blockquote>
+
+    <blockquote class="epi">
+      <p>– Я никогда не дойду до Икстлана, – твердо, но очень-очень тихо, едва слышно проговорил он. – Иногда бывает – я чувствую, что вот-вот, еще немного, еще один шаг – и я дойду. Но этого не будет никогда.</p>
+      <cite>Путешествие в Икстлан, Карлос Кастанеда</cite>
+    </blockquote>
+
+    <blockquote class="epi">
+      <div class="verse">Иерусалим мой золотой,
+Из меди, камня и лучей.
+Я буду арфой всех напевов
+Красы Твоей.</div>
+      <cite>Золотой Иерусалим (Наоми Шемер, перевод Л. Владимировой)</cite>
+    </blockquote>
+
+    <blockquote class="epi">
+      <p>Шаманизм — это путешествие с целью возвращения. Воин, одержав победу, возвращается к Духу, спускаясь при этом в ад. И из ада он приносит трофеи. Одним из таких трофеев является понимание.</p>
+      <cite>Колесо Времени, Карлос Кастанеда</cite>
+    </blockquote>
+
+    <blockquote class="epi">
+      <div class="verse">День за днём, то теряя, то путая след,
+Я иду в этот город, которого нет...
+Там для меня горит очаг,
+Как вечный знак забытых истин.
+Мне до него последний шаг,
+И этот шаг длиннее жизни...</div>
+      <cite>Город, которого нет, Игорь Корнелюк</cite>
+    </blockquote>
+  </section>
+
+  <article>
+    <p class="lead">В жизни человека, созданного Творцом в форме разделенной на множество “материальных” носителей, временных по сути своей, быстротечных, и постоянно находящихся в движении и самоизменении, в стремлении и преодолении, в достижении и радости слияния с мечтой, со следующей ступенью, с теми людьми, которых мы любим и которыми дорожим, и с которыми хотим быть вместе навсегда, во что бы то ни стало, а в последствии понимая, что все эти ощущения между нами (между мужчиной и женщиной) являются лишь слабым отголоском того утраченного единства, и той древней и неизбывной тоски по нему, которая есть у каждого человека по состоянию единства с Творцом – Высшей Силой, совершенной, могущественной, вечной, непостижимой и святой Любви, в Которой и с Которой мы когда-то находились в абсолютном и неразделимом единстве и слиянии, которое невозможно утратить, поскольку в Реальности не исчезает ничто – а только появляется нечто новое, по сути не меняющее старое ни в чем, но служащее дополнительным инструментом и возможностью то совершенство, которое в Нем уже имеется, раскрывать еще сильнее и полнее, распространяя власть Творца, Свят Благословен Он, даже на такие, казалось бы, как восток от запада далекие и антагонистические Ему состояния, как “этот материальный мир” действий и следствий, в котором Сила, управляющая всем открыто и явно, больше не ощущается, а человек, такой же единый, единственный и могущественный (Всесильный – Зоар), как и эта Сила, поскольку создан Ею в подобие Себе, и чтобы быть Своим проводником, провозвестником и “правой рукой”, чтобы раскрывать Ее изначальное и вечное совершенство и непостижимое благо мирам и всем созданиям, созданным Отцом, Хозяином и Создателем, - опустился в своем сознании и существовании до уровня миллионов и миллиардов разрозненных “материальных”, не имеющих внешне никакой взаимосвязи между собой, тел, жизней и судеб, проходя “заново” процесс своего создания из ничего Творцом, Свят Благословен Он, снова и снова, как ему кажется, лишь для того, чтобы умереть, и снова начать проходить Путь заново.</p>
+
+    <p>Ничего не происходит “ради себя”, то есть, ради него самого. Хотя он и думает, что делает все ради каким-то личным образом понимаемых им принципов, намерений и целей, исходя из каких-то “объективных”, реально существующих в Мире, в котором существует он сам, и еще миллиард себе подобных “самостоятельных и независимых” друг от друга тел мужчин и женщин, в действительности это не так. В действительности им самим, равно как и всеми остальными “миллиардами тел”, руководит единая, могущественная, скрытая, до начала “конечного исправления”, то есть, до начала эпохи великого объединения и возрождения единства Единой и Единственной Души, существующей вечно и являющейся по природе Своей совершенной, бесконечной Жизни, подобной Творцу, создавшему Ее, Свету Восходящему и Возносящему, Свету Животворящему и Оживляющему Миры, скрытому внутри самой скрытой из всех скрытых ступеней мироздания, Свету Машиаха, Свету Мира Бесконечности, Который действует во всем, не облачаясь в келим, потому что их еще не существует, но готовому облачиться в них в любой момент, когда они пройдут процесс своего формирования Творцом, Свят Благословен Он, “из ничего” и захотят объединиться, вновь став единым целым, и раскрыв благодаря этому Творца, соединившись с Ним, и встав “по правую руку” на одной и той же “открытой и явной” ступени Мира Исправленного и Наполненного Светом Творца.</p>
+
+    <p>Весь процесс развития, сложный и эволюционно обусловленный необходимостью делать множество, на первый взгляд, излишних, или “ошибочных” движений, подобных возвратам и “неудавшимся” попыткам, за которыми следует неизбежное и полное падение, внешне равнозначное потере всего накопленного тяжким трудом и занявшими много “потерянного” времени усилиями, на самом деле организован стройно, выверенно и абсолютно логично и четко, и проходит в полном соответствии с изначальным, совершенным и неуязвимым во всех мыслимых и немыслимых отношениях, Замыслом творения, являющимся действием, в котором был создан человек, в самом высшем Своем изначальном смысле единой и единственной Души, подобной Создателю, в “желании отдавать”, наслаждать, оживлять и питать Миры и души творений Творцом, Свят Благословен Он. Это действие, как и Мысль, Его осуществившая, не является частью какой-то “прошлой истории”. Не является Оно, и эта Сила не является, в той же мере, чем-то, чему только предстоит произойти, когда человечество будет готово к этому. Это действие и эта Сила должны быть определены, чтобы быть адекватно описаны и поняты, словом, глаголом, категория времени которого отсутствует в естественном человеческом языке, но может быть косвенным образом описана как “вечное происходящее, прямо сейчас, впервые, непосредственно со мной, ради других” (из себя вовне, отражая Свет к Источнику) и чтобы отдавать другим, Любовь, которая является сутью Жизни, благословением, которое позволяет мирам и творениям существовать, чтобы неизбежно раскрыть Меня, и чтобы вновь стать Мной, подобной Мне вечной и совершенной Силой, Единой и Единственной Душой всех творений и сутью всех миров, действующей Силой, включенной во все и являющейся всем, и в то же время, ничем, которая была и есть всегда, и которая пребудет вечно, и в то же время, которой не существует и не может существовать в Мире открыто и явно, поскольку “не могут два правителя пользоваться одной Короной”, до тех пор, пока все творения не раскроют Меня “от мала до велика”, и не наполнится Земля знанием Моим, и соединится со Мной навечно слиянием Души и Тела, Творца и Творения, Мужчины и Женщины, Отца и Сына, Учителя и Ученика, Веры и Знания, Силы Преодоления и радости от того, что раскрывается посредством его совершения Творцом, Свят Благословен Он, в виде чудесного подарка Свыше человеку, верному и преданному Ему, и выполняющему Его Волю осознанно и целенаправленно, в молитве и соединении сердец, стремящихся быть как Один Человек с одним сердцем и разумом, единой душой и телом, служащим верным помощником на Пути раскрытии Творца, Свят Благословен Он, из самого себя, товарищей и подруг, Мира и вечного совершенного Путешествия с Целью Возвращения Домой.</p>
+
+    <p>Имеет вид восходящей спирали. Одновременно с этой спиралью, и являясь одним Целым с ней, по сути, являясь той же самой Спиралью, существует спираль нисходящая, полная зеркальная копия, которая “ввинчивается” по мере Своего нисхождения от Корня, Источника распространения Жизни, сквозь все миры, до самой нижней точки, пока не достигает человека этого мира, души, облаченной в тело, и замыкая этим Кольцо Силы, поскольку поднимает “этот мир”, вместе с человеком, который в нем, на уровень Источника, в Рош Мира Ацилут, Малхут Которого (aka Орел) как раз и является Той ступенью, Которая совершает действие отдачи, во имя творений, Света Творца, Свят Благословен Он, совершающего это действие вместе с Ней, но скрыто, не проявляя Себя в нем явно, пока оно не завершено полным и абсолютным слиянием двух миров – Города, Которого Нет, и Города, Который Был Всегда и Пребудет Вечно, в одно, единое и единственное, самостоятельное и полноправное творение Творца, Свят Благословен Он, находящееся на Своем Месте – в конце всех ступеней Света Мира Бесконечности, являющееся Его Нуквой – целью и получателем, всего блага и совершенства, ради чего “этот Мир” был создан и существует в реальности Творцом, Свят Благословен Он, во времени, и не существует в вечности, чтобы затем, посредством “печати и отпечатка”, но только в обратном направлении, стать существующим вечно, не существовавшим никогда, чтобы быть Светом, несущим Свет Любви, Оживляющей Миры и души, в них проходящие свое развитие и формирование из ничего Творцом, Свят Благословен Он, в подобие Себе по свойствам, и это Кольцо не имело начала, и не будет иметь Конца, и называется оно Третье Кольцо Силы, а состояние человека, единого и слитого с Творцом в вечном и совершенном Конце Исправления, называется “третьим вниманием”, и первое внимание и второе внимание не существуют отдельно от него, но являются его сутью, двумя противонаправленными спиралями, одна из которых ведет человека от победы к победе, а другая – от падения к падению, чтобы каждая победа и каждый новый подъем, имели Силу происходящего “впервые, непосредственно со мной, ради других”. Да будет так Милостью Благословенного Творца, как хочет Он, чтобы было, вовеки и воистину, и да раскроется Его непостижимое Величие мирам и душам, и возродится к Жизни Вечной Его Единое творение, плоть от плоти Его Единой и Единственной Души, Адам Ришон и Ева, в Которой Он скрыт в течение 6000 лет, пока в творениях не начинается процесс осознанного Возвращения Домой, происходящий посредством великого объединения келим этого мира Светом Жизни и Мудрости Творцом, Свят Благословен Он, посредством Круга Жизни, который Он создал Мужчиной и Женщиной, между которыми и в соединении которых “не ради себя” Творец, Свят Благословен Он, выходит из многовекового скрытия, чтобы стать самым явным из всех явных ступеней во всем мироздании, открытом и близком, желанным и соединенным с каждым, кто когда-либо жил, раскрывая Его благословенные Келим Свету Любви, живет, и, воссоединившись с Ним, как и Он Сам, будет жить вечно.</p>
+
+    <p class="acclaim">ТОЛЬКО ВМЕСТЕ, МЫ – СИЛА! СДЕЛАЕМ И УСЛЫШИМ!</p>
+  </article>
+
+  <section>
+    <h2 class="section">Рекомендуемая музыка</h2>
+
+    <div class="track" data-yt="A2KcBLXdlNk">
+      <div class="track-head" onclick="toggleTrack(this)">
+        <span class="track-idx">1</span>
+        <span class="track-title">Jerusalem of Gold</span>
+        <span class="track-arrow">▶</span>
+        <a class="track-ext" href="https://www.youtube.com/watch?v=A2KcBLXdlNk" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="track-player"><div class="frame"></div></div>
+    </div>
+
+    <div class="track" data-yt="iSb8RkSfWys">
+      <div class="track-head" onclick="toggleTrack(this)">
+        <span class="track-idx">2</span>
+        <span class="track-title">Город, которого нет</span>
+        <span class="track-arrow">▶</span>
+        <a class="track-ext" href="https://www.youtube.com/watch?v=iSb8RkSfWys" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="track-player"><div class="frame"></div></div>
+    </div>
+
+    <div class="track" data-yt="Eqilin4Cv08">
+      <div class="track-head" onclick="toggleTrack(this)">
+        <span class="track-idx">3</span>
+        <span class="track-title">Chronologie, pt. 4</span>
+        <span class="track-arrow">▶</span>
+        <a class="track-ext" href="https://youtu.be/Eqilin4Cv08" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="track-player"><div class="frame"></div></div>
+    </div>
+  </section>
+
+  <p class="tag-code">#АА16F</p>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="227A.html">
+      <span class="lbl">← Предыдущая</span>
+      Тайны Второго Внимания. Часть 2. Сосуд не -я
+    </a>
+    <a class="next" href="26E.html">
+      <span class="lbl">Следующая →</span>
+      Место Силы изменить нельзя
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+function toggleTrack(head){
+  var track=head.closest('.track');
+  var open=track.classList.toggle('open');
+  var holder=track.querySelector('.frame');
+  if(open && !holder.querySelector('iframe')){
+    var id=track.getAttribute('data-yt');
+    var f=document.createElement('iframe');
+    f.src='https://www.youtube.com/embed/'+id+'?rel=0&autoplay=1';
+    f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    f.allowFullscreen=true;
+    holder.appendChild(f);
+  }
+}
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Тело статьи — это длинная мистико-философская проза (несколько объёмных, плотных абзацев), хотя начинается она с подборки эпиграфов, среди которых есть стихотворные фрагменты (Наоми Шемер, Корнелюк). Доминирующая форма — прозаическая, поэтому выбрана редакторская широкоформатная схема, а не узкий манускрипт; стихотворные эпиграфы оформлены отдельными врезками-blockquote с сохранением разбивки строк. Колонка задана как 66% ширины окна с потолком 1080px, чтобы соблюсти требование 2/3 экрана и при этом не уводить меру строки в нечитаемое. Палитра тёплая (кремовый фон, золотой акцент в духе 'Иерусалима золотого' и тёмно-синий для ссылок/заголовков), КАПС в тексте ('ИЕРУСАЛИМА', 'ТОЛЬКО ВМЕСТЕ...') оставлен как есть. Маркер сноски '*1' стоял без тела примечания, поэтому удалён согласно правилу о висячих маркерах. Треков три (все YouTube, включая youtu.be) — собраны в единый раздел 'Рекомендуемая музыка' (по авторской атрибуции) с ленивой подгрузкой плеера только при раскрытии. Оглавление не делалось: фактически один содержательный раздел прозы плюс эпиграфы и музыка — самостоятельных подразделов внутри текста нет. Хвостовой код '#АА16F' сохранён мелкой служебной строкой."
+,
+  "features": ["music"]
+}
+</script>
+</body>
+</html>

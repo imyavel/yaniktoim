@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Внутренний Огонь</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#241f1a;
+    --muted:#6c6258;
+    --accent:#9a2f1f;
+    --accent2:#b8742a;
+    --rule:#ddd4c4;
+    --shadow:0 2px 18px rgba(60,45,25,.08);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"PT Serif","Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66vw;
+    max-width:1040px;
+    min-width:0;
+    margin:0 auto;
+    padding:34px 30px 90px;
+  }
+  @media (max-width:900px){
+    .wrap{width:100%;max-width:680px;padding:22px 18px 70px;}
+    body{font-size:18px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.78em;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:26px;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 .5em;color:var(--rule);}
+
+  /* header */
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.82em;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin-bottom:6px;
+  }
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.8em;
+    color:var(--muted);
+    margin-bottom:18px;
+  }
+  h1{
+    font-size:2.55em;
+    line-height:1.1;
+    margin:0 0 .35em;
+    font-weight:700;
+    letter-spacing:.01em;
+  }
+  .lead-rule{
+    width:90px;height:3px;background:var(--accent);
+    margin:0 0 34px;
+  }
+
+  /* TOC */
+  .toc{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:7px;
+    box-shadow:var(--shadow);
+    padding:6px 22px;
+    margin:0 0 40px;
+  }
+  .toc summary{
+    cursor:pointer;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.8em;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    padding:10px 0;
+    font-weight:700;
+    list-style:none;
+  }
+  .toc summary::-webkit-details-marker{display:none;}
+  .toc summary::before{content:"▸ ";}
+  .toc[open] summary::before{content:"▾ ";}
+  .toc ol{margin:0 0 14px;padding:0 0 0 1.4em;}
+  .toc li{margin:.3em 0;}
+  .toc a{color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--rule);}
+  .toc a:hover{color:var(--accent);}
+
+  h2{
+    font-size:1.5em;
+    margin:2em 0 .6em;
+    line-height:1.2;
+    border-top:1px solid var(--rule);
+    padding-top:.9em;
+  }
+  h2 a{color:var(--accent);text-decoration:none;}
+  h2 a:hover{color:var(--accent2);}
+
+  p{margin:0 0 1.15em;}
+
+  .epigraph{
+    font-style:italic;
+    color:#3a332b;
+    border-left:3px solid var(--accent2);
+    padding-left:22px;
+    margin-left:0;
+  }
+  .attrib-src{
+    display:block;
+    font-style:normal;
+    font-size:.86em;
+    color:var(--muted);
+    margin-top:.4em;
+  }
+  .caps-block{
+    letter-spacing:.005em;
+  }
+  .refrain{
+    font-weight:700;
+    letter-spacing:.05em;
+    color:var(--accent);
+    text-align:center;
+    margin:1.3em 0;
+  }
+  .ps{margin-top:1.5em;}
+
+  a.txtlink{color:var(--accent);}
+
+  /* footnote markers */
+  .fnref{
+    font-size:.72em;
+    vertical-align:super;
+    line-height:0;
+    position:relative;
+  }
+  .fnref > a{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    padding:0 1px;
+  }
+  .fnref .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:1.6em;
+    width:300px;
+    max-width:72vw;
+    background:#2b2620;
+    color:#f3ece0;
+    font-size:13px;
+    font-style:normal;
+    font-weight:400;
+    line-height:1.5;
+    letter-spacing:normal;
+    text-align:left;
+    padding:11px 14px;
+    border-radius:6px;
+    box-shadow:0 6px 22px rgba(0,0,0,.3);
+    z-index:50;
+    vertical-align:baseline;
+  }
+  .fnref .pop a{color:#f6b96a;}
+  .fnref.show .pop{display:block;}
+  .fnref.below .pop{bottom:auto;top:1.6em;}
+
+  /* footnotes list */
+  .notes ol{padding-left:1.6em;}
+  .notes li{margin:.7em 0;font-size:.94em;color:#3a332b;}
+  .notes li:target{
+    background:#fbeecb;
+    border-radius:4px;
+    box-shadow:0 0 0 6px #fbeecb;
+    transition:background .3s;
+  }
+  .anon-note{margin:.7em 0;font-size:.94em;color:#3a332b;}
+  .backref{text-decoration:none;color:var(--accent);font-weight:700;margin-left:.3em;}
+  .backref:hover{color:var(--accent2);}
+
+  /* music */
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.74em;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin:1.6em 0 .5em;
+  }
+  .track{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:7px;
+    box-shadow:var(--shadow);
+    margin:0 0 1.2em;
+    overflow:hidden;
+  }
+  .track summary{
+    cursor:pointer;
+    list-style:none;
+    padding:14px 18px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .track .arrow{color:var(--accent);transition:transform .2s;font-size:.9em;}
+  .track[open] .arrow{transform:rotate(90deg);}
+  .track .tname{font-weight:700;}
+  .track .tartist{color:var(--muted);font-size:.9em;}
+  .track .ext{margin-left:auto;color:var(--muted);text-decoration:none;font-size:1.1em;}
+  .track .ext:hover{color:var(--accent);}
+  .track .frame{padding:0 18px 16px;}
+  .track .frame iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:5px;}
+
+  /* footer nav */
+  .seq-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:60px;
+    border-top:1px solid var(--rule);
+    padding-top:22px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.9em;
+  }
+  .seq-nav a{
+    color:var(--accent);
+    text-decoration:none;
+    max-width:46%;
+  }
+  .seq-nav a:hover{text-decoration:underline;}
+  .seq-nav .lbl{display:block;font-size:.8em;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
+  .seq-nav .nx{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:46px;
+    border-top:1px solid var(--rule);
+    padding-top:22px;
+    font-size:.82em;
+    color:var(--muted);
+  }
+  footer.colophon a{color:var(--accent);}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/17QA.html">
+<meta name="description" content="Эссе о внутреннем огне и духовной работе: размышления автора о Каббале, учении Кастанеды и природе сексуальной энергии в контексте Абсолютной Свободы.">
+<meta property="og:title" content="Внутренний Огонь">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/17QA.html">
+<meta property="og:description" content="Эссе о внутреннем огне и духовной работе: размышления автора о Каббале, учении Кастанеды и природе сексуальной энергии в контексте Абсолютной Свободы.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Внутренний Огонь">
+<meta name="twitter:description" content="Эссе о внутреннем огне и духовной работе: размышления автора о Каббале, учении Кастанеды и природе сексуальной энергии в контексте Абсолютной Свободы.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №17QA</span>
+<div class="wrap" id="top">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>/</span><a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <div class="kicker">Школа Ацилут<sup class="fnref" id="fnref4"><a href="#fn4">*4</a><span class="pop">Школа Ацилут:  · <a href="https://www.facebook.com/search/top?q=" target="_blank" rel="noopener">facebook.com/search</a> · См. таже: </span></sup></div>
+  <div class="dateline">26 июля 2021 г.</div>
+
+  <h1>ВНУТРЕННИЙ ОГОНЬ<a class="audio-link" href="https://t.me/art_017_tracks/479" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <div class="lead-rule"></div>
+
+  <details class="toc" open>
+    <summary>Содержание</summary>
+    <ol>
+      <li><a href="#s-pre">Предисловие автора</a></li>
+      <li><a href="#s-ep1">Эпиграф (Кэррол Тиггс)</a></li>
+      <li><a href="#s-ep2">Эпиграф (Круг Жизни)</a></li>
+      <li><a href="#s-letter">Письмо другу, 25-07-21</a></li>
+      <li><a href="#s-music">Рекомендуемая музыка</a></li>
+      <li><a href="#s-notes">Примечания</a></li>
+    </ol>
+  </details>
+
+  <h2 id="s-pre"><a href="#top">Предисловие автора.</a></h2>
+  <p>В глазах автора выяснения, на которые указывает эта статья, имеют сущтностно неизмеримую важность, фактически, большую, чем все остальные вопросы вместе взятые, как для него, так и для всех остальных людей без исключения. Причем нет другой темы, которая в умах воинов, или учеников имеющихся форм Каббалы (не говоря уже о умах рядовых обывателей) была бы более передернута, перевернута, скрыта и запутана, хотя и по понятным причинам. Я лелею надежду на то, что статья вызовет конструктивные отклики студентов и практиков всевозможных сторон спектра духовно-магического "лагеря", не важно, с критикой или поддержкой, и мы продвинемся в нашей общей работе вперед во имя человеческого Духа, делая это из любви к Абсолютной Свободе.</p>
+
+  <h2 id="s-ep1"><a href="#top">Эпиграф.</a></h2>
+  <p class="epigraph">Последний виток этой бесконечной цепи возможностей заключается в том, что Шошопаншоко - я не знаю имя бросившего вызов смерти как мужчины - жила ради еще одной цели. Она сказала, что жила тысячи лет не потому, что была жадной до жизни, а потому, что любила жизнь и человечество. Ее собственный сон, который не имел ничего общего с борьбой за существование, заключался в том, чтобы помочь человечеству достичь такого уровня разума и понимания, которым мы не обладаем.
+  <span class="attrib-src">Кэррол Тиггс, Лекция в городе Толлан<sup class="fnref" id="fnref1a"><a href="#fn1">*1</a><span class="pop">См. также: Плод вечной весны <a href="http://www.nagualink.narod.ru/pages/vesna.htm" target="_blank" rel="noopener">nagualink.narod.ru/pages/vesna.htm</a></span></sup>, 1995.</span></p>
+
+  <h2 id="s-ep2"><a href="#top">Эпиграф.</a></h2>
+  <p class="epigraph">Для начала восхождения по ступеням духовной эволюции, человек должен узнать и согласиться (что такое возможно), что существует еще неисследованный, не регистрируемый «внешними» приборами и инструментами, объединяющий все живые существа во Вселенной в единое интегральное поле гомеостазиса, суть которого – находиться во взаимной отдаче, без порывов получать пользу от работы своего разума и приложенных каждым усилий для самого себя, общий Закон интегральной отдачи.
+  <span class="attrib-src">Для начала восхождения, Круг Жизни, 2020 г.<sup class="fnref" id="fnref3"><a href="#fn3">*3</a><span class="pop">Для начала восхождения..., Круг Жизни, 17.03.20 <a href="https://docs.google.com/.../2PACX.../pub" target="_blank" rel="noopener">docs.google.com/.../2PACX.../pub</a></span></sup></span></p>
+
+  <h2 id="s-letter"><a href="#top">Письмо другу, 25-07-21.</a></h2>
+  <p><strong>Реплика</strong> (на тему лекции Кэррол Тиггс<sup class="fnref" id="fnref1b"><a href="#fn1">*1</a><span class="pop">См. также: Плод вечной весны <a href="http://www.nagualink.narod.ru/pages/vesna.htm" target="_blank" rel="noopener">nagualink.narod.ru/pages/vesna.htm</a></span></sup>): Почему контакт происходит, через животную формулу (вагина), это (ведь) низкие энергии? В сексуальной энергии есть высший спектр, творчество. Союз без принуждения и обусловленности. А (здесь) она попадает в сладострастный захват, где уже практически не оставлена свобода выбора. Хотя (есть) внешний посыл и призыв к самостоятельному выбору.</p>
+
+  <p><strong>Ответ:</strong> Забудь про "животные формы", их нет в Реале, это темный сон разума в желании получать то, чего нет и никогда не было.</p>
+
+  <p>В Реале ВСЕ имеет чистую, высшую, совершенную световую природу</p>
+
+  <p>И превыше всего, что есть в Реале, ее имеет Супервлагалище, внутри которого мы появились на Свет, и проходим все наши жизни, как в обычном смысле человека этого мира, так и в смысле светящегося существа, в полном подобии происходящего на абсолютно разных уровнях сознания и Реальности. Ее имя (Высшей Матери Всего = Орла) - Малхут Мира Бесконечности. Малхут это Нуква (пассивное, "получающее", женское начало в мироздании), то, о чем принято всегда заботиться и уважать, поскольку если бы не Она, ни нас, ни Творца, Свят Благословен Он, бы на Свете было.</p>
+
+  <p>В момент прохождения Махсома (прыжок в пропасть у КК) происходит ТОЛЬКО ОДНО человек приобретает контроль над сексуальной энергией, называемой в Каббале желанием получать (наслаждения от слияния возлюбленных в великой любви), а у Кастанеды - Внутренний Огонь.</p>
+
+  <p>И тогда оказывается, что весь этот "огромный необъятный монстр 99% мозга", личного и коллективного бессознательного - на самом деле жалкий комаришка (по семантической мощности  механизмов управления этой энергией человеком).</p>
+
+  <p class="caps-block">И, как это не неприятно тебе будет слышать, а мне неприятно тебя расстраивать и вызывать непонимание, но чтобы "проснуться",  мужчина должен в первую очередь начать женские половые органы уважать как мощное духовное Кли (способность, инструмент, центр), праобраз Кли, в котором живет и существует Вселенная, пока человек не "исправит" (не очистит звено связи с Духом - КК) себя в требуемой мере, чтобы быть "достойным" быть рожденным в Реальный Мир, НАСТОЯЩИМ ТВОРЦОМ-ЧЕЛОВЕКОМ ЗНАНИЯ, ПРАВЕДНИКОМ, ОЖИВЛЯЮЩИМ МИРЫ, ВСЕСИЛЬНЫМ, ВЕЧНЫМ И СОВЕРШЕННЫМ БЛАГОДАРЯ ТОМУ, ЧТО ЛЮБОВЬ К НЕМУ ЕГО ЖЕНЩИНЫ, КОТОРАЯ ТЕЧЕТ В ЕГО ЖИЛАХ, И КОТОРАЯ ЦИРКУЛИРУЕТ ПО ЕГО ВЕНАМ, И КОТОРОЙ ОНИ НАПОЛНЯЮТ ТВОРЕНИЯ, ЧТОБЫ СОЗДАТЬ СЕБЕ НАСЛЕДНИКА ПО ОБРАЗУ И ПОДОБИЮ СВОЕМУ, ОБЛАДАЕТ, ОДНА СИЛА ВО ВСЕЙ ВСЕЛЕННОЙ - ЛЮБОВЬ ЖЕНЩИНЫ И МУЖЧИНЫ, СВОЙСТВОМ САМОВОСПРОИЗВОДИТЕЛЬНОСТИ ВЫСШЕГО ДУХОВНОГО КОРНЯ (НАМЕРЕНИЯ ДУХА - ПРИНЦИПА ЧИСТОЙ ЭНЕРГИИ ЖИЗНИ И СОЗНАНИЯ, ВОЗНОСЯЩЕЙСЯ В БЕСКОНЕЧНОСТЬ) ВО ВСЕХ СВОИХ ВЕТВЯХ, ВО ВСЕХ КЕЛИМ, КОТОРЫХ КОСНЕТСЯ ЭТОТ СВЕТ, БУДЕТ ЧЕРЕЗ 9 МЕСЯЦЕВ ВЕЛИКИЙ ПРАЗДНИК И ПОПОЛНЕНИЕ, РАСКРЫВАЮЩЕЕ СОВЕРШЕНСТВО ДЕЙСТВИЙ ТВОРЦА, КОТОРЫЙ ЛЮБИТ НАС, ТО ЕСТЬ "ЖИВЕТ НАС" В ЭТОМ МИРЕ, РАВНО КАК И ВО ВСЕХ ОСТАЛЬНЫХ МИРАХ, ПОКА МЫ НЕ НАКОПИМ ОПЫТ, КАК РЕБЕНОК МАЛЫЙ ХОДИТ ТОЛЬКО ВМЕСТЕ С РОДИТЕЛЯМИ, КОТОРОГО БУДЕТ ДОСТАТОЧНО, ЧТОБЫ ПОРАДОВАТЬ ВЗРОСЛЫХ И НАЧАТЬ БЕГАТЬ ПО ЗЕМЛЕ СВОИМИ НОЖКАМИ, НЕ ОГЛЯДЫВАЯСЬ ПОСЛЕ КАЖДОГО ШАГА, ЕСТЬ ЛИ РЯДОМ ПАПА И МАМА.</p>
+
+  <p class="refrain">СДЕЛАЕМ И УСЛЫШИМ!</p>
+
+  <div id="s-music">
+    <div class="music-label">Рекомендуемая музыка:</div>
+    <details class="track" data-embed="https://www.youtube.com/embed/NL2BUrPFUE0">
+      <summary>
+        <span class="arrow">▶</span>
+        <span><span class="tname">Дыхание</span> · <span class="tartist">Вячеслав Бутусов</span></span>
+        <a class="ext" href="https://youtu.be/NL2BUrPFUE0" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </summary>
+      <div class="frame"></div>
+    </details>
+  </div>
+
+  <p class="ps"><strong>П.С.</strong> А мужские половые органы, точнее, орган - отражают детальное функциональное и сущностное строение парцуфа<sup class="fnref" id="fnref2"><a href="#fn2">*2</a><span class="pop">Духовный парцуф ( - ивр.) - процесс и результат настройки восприятия (perception) какого-либо Реального Мира.</span></sup> Атик Йомин, Свят Благословен Он. Поэтому Его и называют самый скрытый из всех скрытых ступеней в Мире Бесконечности (Адам Кадмон). А Его скрытая Святая Хохма - парцуф Арих Анпин - это любовный огонь, который испытывают влюбленные при физической близости. В нем, и только в нем, заключен секрет Жизни Жизней, поскольку Сила, с которой этот Огонь происходит с человеком осознанно, когда уже не он управляет разумом человека и его желаниями, а сам человек посредством его контролируемого получения от Творца, Свят Благословен Он, управляет тем, как управление совершенное и доброе, выше которого нет, им самим ТВОРЦА, при помощи предварения всего на Свете молитвой к Нему и разговором с Ним, в результате чего в итоге для каббалиста реальным остается только "получение" им от Творца Света осознанной Любви, оживляющей его мир и дающей возможность совершать действия отдачи не в уме, и не формально, а ощутимо и материально, становясь Светом для народов мира и прокладывая Путь, по которому вслед за ним по цепочке пройдут все каббалисты будущих поколений вплоть до полного КИ.</p>
+
+  <p class="refrain">Сделаем и услышим!</p>
+
+  <section class="notes">
+    <h2 id="s-notes"><a href="#top">Примечания</a></h2>
+    <ol>
+      <li id="fn1">См. также: Плод вечной весны <a class="txtlink" href="http://www.nagualink.narod.ru/pages/vesna.htm" target="_blank" rel="noopener">http://www.nagualink.narod.ru/pages/vesna.htm</a> <a class="backref" href="#fnref1a">↩</a></li>
+      <li id="fn2">Духовный парцуф ( - ивр.) - процесс и результат настройки восприятия (perception) какого-либо Реального Мира. <a class="backref" href="#fnref2">↩</a></li>
+      <li id="fn3">Для начала восхождения..., Круг Жизни, 17.03.20 <a class="txtlink" href="https://docs.google.com/.../2PACX.../pub" target="_blank" rel="noopener">https://docs.google.com/.../2PACX.../pub</a> <a class="backref" href="#fnref3">↩</a></li>
+      <li id="fn4">Школа Ацилут: <br><a class="txtlink" href="https://www.facebook.com/search/top?q=" target="_blank" rel="noopener">https://www.facebook.com/search/top?q=</a><br>См. таже:  <a class="backref" href="#fnref4">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="seq-nav">
+    <a class="pv" href="1BK.html"><span class="lbl">← Предыдущая</span>Кто такая Женщина-Нагваль?</a>
+    <a class="nx" href="17G.html"><span class="lbl">Следующая →</span>Как объединение усиливает намерение</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // Lazy-load YouTube players on expand
+  document.querySelectorAll('.track').forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if(d.open){
+        var frame = d.querySelector('.frame');
+        if(frame && !frame.querySelector('iframe')){
+          var ifr = document.createElement('iframe');
+          ifr.src = d.getAttribute('data-embed') + '?autoplay=1&rel=0';
+          ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          ifr.allowFullscreen = true;
+          frame.appendChild(ifr);
+        }
+      }
+    });
+  });
+
+  // Footnote popups: hover, decide above/below
+  document.querySelectorAll('.fnref').forEach(function(ref){
+    var show = function(){
+      ref.classList.add('show');
+      var pop = ref.querySelector('.pop');
+      ref.classList.remove('below');
+      var r = pop.getBoundingClientRect();
+      if(r.top < 6){ ref.classList.add('below'); }
+    };
+    var hide = function(){ ref.classList.remove('show'); };
+    ref.addEventListener('mouseenter', show);
+    ref.addEventListener('mouseleave', hide);
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — мировоззренческое эссе с предисловием, двумя эпиграфами и развёрнутым письмом другу; стихотворных форм нет, поэтому по правилу доминирующей формы выбрана редакторская широкая схема, а не узкий манускрипт. Контент-колонка задана как 66vw с потолком ~1040px для сохранения читаемой меры строки; на мобильном — полная ширина. Палитра — тёплый кремовый фон с кирпично-красным акцентом и охрой, что отвечает 'огненной' теме и держит контраст на светлом.\nЭпиграфы вынесены курсивной врезкой с боковой линейкой и обособленной атрибуцией. Подразделов более одного (предисловие, два эпиграфа, письмо, музыка, примечания) — сделано сворачиваемое оглавление, а клик по любому заголовку раздела возвращает к началу. Сносок четыре (*1 цитируется дважды — оба маркера ведут в одно тело, бэклинк указывает на первое упоминание); добавлены hover-popup с авто-выбором стороны и подсветка цели. Музыкальный трек один (Бутусов, ссылка на YouTube), поэтому сводный раздел музыки не создавался — только ленивый раскрывающийся плеер на своём месте с меткой 'Рекомендуемая музыка'. Капс и авторские формулировки сохранены дословно.",
+  "features": ["music", "footnotes", "toc"]
+}
+</script>
+</body>
+</html>

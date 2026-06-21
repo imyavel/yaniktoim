@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дорогая Передача</title>
+<style>
+ :root{
+ --bg:#f6f3ec;
+ --paper:#fffdf8;
+ --ink:#1d1b16;
+ --muted:#6a6358;
+ --rule:#d9d2c4;
+ --accent:#9a2b1e;
+ --accent2:#2f5d50;
+ --hl:#fff1b8;
+ }
+ *{box-sizing:border-box;}
+ html{scroll-behavior:smooth;}
+ body{
+ margin:0;
+ background:var(--bg);
+ color:var(--ink);
+ font-family:Georgia,"Iowan Old Style","PT Serif",serif;
+ line-height:1.7;
+ font-size:20px;
+ -webkit-font-smoothing:antialiased;
+ }
+ .wrap{
+ width:66%;
+ max-width:1100px;
+ min-height:100vh;
+ margin:0 auto;
+ background:var(--paper);
+ padding:38px 64px 80px;
+ box-shadow:0 0 0 1px var(--rule), 0 20px 60px rgba(40,33,20,.08);
+ }
+ a{color:var(--accent);text-decoration:none;}
+ a:hover{text-decoration:underline;}
+
+ /* breadcrumbs */
+ .crumbs{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:14px;
+ letter-spacing:.04em;
+ text-transform:uppercase;
+ color:var(--muted);
+ border-bottom:1px solid var(--rule);
+ padding-bottom:14px;
+ margin-bottom:30px;
+ }
+ .crumbs a{color:var(--accent2);}
+ .crumbs span{color:var(--muted);margin:0 .5em;}
+
+ /* title block */
+ .kicker{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ text-transform:uppercase;
+ letter-spacing:.22em;
+ font-size:13px;
+ color:var(--accent);
+ margin:0 0 14px;
+ }
+ h1{
+ font-size:42px;
+ line-height:1.12;
+ margin:0 0 6px;
+ font-weight:700;
+ letter-spacing:-.01em;
+ }
+ .intitle{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-weight:700;
+ text-transform:uppercase;
+ letter-spacing:.06em;
+ font-size:19px;
+ color:var(--ink);
+ margin:26px 0 4px;
+ }
+ .dateline{
+ font-style:italic;
+ color:var(--muted);
+ font-size:16px;
+ margin:0 0 30px;
+ }
+ hr.flourish{
+ border:0;
+ height:1px;
+ background:linear-gradient(90deg,transparent,var(--rule) 20%,var(--rule) 80%,transparent);
+ margin:30px 0;
+ }
+
+ .body p{margin:0 0 1.2em;}
+ .body p.lead{font-size:21px;}
+ .body em.shout{font-style:normal;}
+
+ /* section headers */
+ h2.sec{
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ text-transform:uppercase;
+ letter-spacing:.1em;
+ font-size:17px;
+ color:var(--accent2);
+ border-top:2px solid var(--rule);
+ padding-top:20px;
+ margin:54px 0 18px;
+ }
+
+ /* music */
+ .track{
+ border:1px solid var(--rule);
+ border-radius:10px;
+ background:#fbf8f1;
+ margin:0 0 10px;
+ overflow:hidden;
+ }
+ .track-row{display:flex;align-items:center;gap:6px;}
+ .track-head{
+ flex:1;
+ display:flex;
+ align-items:center;
+ gap:12px;
+ background:none;
+ border:0;
+ cursor:pointer;
+ padding:13px 16px;
+ text-align:left;
+ font-family:inherit;
+ font-size:16px;
+ color:var(--ink);
+ }
+ .track-head .tg{
+ color:var(--accent);
+ transition:transform .2s;
+ font-size:13px;
+ }
+ .track-head[aria-expanded="true"] .tg{transform:rotate(180deg);}
+ .track-name{font-weight:600;}
+ .track-name small{color:var(--muted);font-weight:400;font-style:italic;}
+ .track-ext{
+ padding:0 16px;
+ color:var(--accent2);
+ font-size:18px;
+ align-self:center;
+ }
+ .track-body{display:none;padding:0 16px 16px;}
+ .track-body iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:8px;}
+
+ /* notes */
+ ol.notes{
+ padding-left:1.4em;
+ font-size:17px;
+ color:#2c2820;
+ }
+ ol.notes li{margin:0 0 10px;}
+ ol.notes li:target{
+ background:var(--hl);
+ border-radius:5px;
+ box-shadow:0 0 0 6px var(--hl);
+ }
+ .anon-note{
+ font-size:17px;
+ color:#2c2820;
+ border-top:1px dotted var(--rule);
+ padding-top:12px;
+ margin-top:14px;
+ }
+ .backref{font-size:.8em;margin-left:4px;}
+
+ /* bottom nav */
+ .corpus-nav{
+ display:flex;
+ justify-content:space-between;
+ gap:20px;
+ border-top:2px solid var(--rule);
+ margin-top:60px;
+ padding-top:20px;
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ }
+ .corpus-nav a{display:block;max-width:46%;}
+ .corpus-nav .lbl{
+ display:block;
+ font-size:12px;
+ text-transform:uppercase;
+ letter-spacing:.1em;
+ color:var(--muted);
+ }
+ .corpus-nav .nx{text-align:right;margin-left:auto;}
+ footer.colophon{
+ margin-top:46px;
+ border-top:1px solid var(--rule);
+ padding-top:20px;
+ font-family:"Helvetica Neue",Arial,sans-serif;
+ font-size:14px;
+ color:var(--muted);
+ line-height:1.5;
+ }
+ footer.colophon a{color:var(--accent2);}
+
+ @media (max-width:860px){
+ body{font-size:18px;}
+ .wrap{width:100%;max-width:none;padding:24px 18px 60px;box-shadow:none;}
+ h1{font-size:32px;}
+ .corpus-nav{flex-direction:column;}
+ .corpus-nav a,.corpus-nav .nx{max-width:100%;text-align:left;margin-left:0;}
+ }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/1AT.html">
+<meta name="description" content="Эссе из цикла Конфронтология Духа в форме письма из палаты №6 о двух принципах общества — осознанных и управляемом стаде.">
+<meta property="og:title" content="Дорогая Передача">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/1AT.html">
+<meta property="og:description" content="Эссе из цикла Конфронтология Духа в форме письма из палаты №6 о двух принципах общества — осознанных и управляемом стаде.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Дорогая Передача">
+<meta name="twitter:description" content="Эссе из цикла Конфронтология Духа в форме письма из палаты №6 о двух принципах общества — осознанных и управляемом стаде.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №1AT</span>
+<div class="wrap">
+
+ <nav class="crumbs">
+ <a href="../index.html">Главная</a><span>/</span><a href="../confront/index.html">Конфронтология Духа</a>
+ </nav>
+
+ <p class="kicker">Письмо в Спортлото</p>
+ <h1>Дорогая Передача<a class="audio-link" href="https://t.me/art_017_tracks/409" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+ <p class="intitle">ПИСЬМО В СПОРТЛОТО</p>
+ <p class="dateline">Написано, 29.10.21, палата №6, Канатчикова Дача</p>
+
+ <hr class="flourish">
+
+ <div class="body">
+ <p class="lead">Общество "этого мира" должно быть организовано таким образом, и вообще его реальность общая, чтобы в ней могли жить те, кто осознают себя, и те, кто себя осознавать НЕ ХОЧЕТ. Потому, что насильно осознавать себя не заставишь. А это значит, что в ней должны существовать абсолютно противонаправленные и противоположные принципы, реализованные ОДНОВРЕМЕННО. Как это делается? Только так: вводятся, как бы, намерение, смысл, как бы, стремления, которое в точности противоположно тому, которое НАСТОЯЩЕЕ, осознанное. И те, кто смог преодолеть себя, чтобы послать в вечность "санитаров", а потом и самого себя туда же послать, и делать вопреки всему, просто ВОПРЕКИ, не "почему-то" и "потому-то", а потому, что ЕМУ ЭТО НРАВИТСЯ, - это осознанная часть, и она идет с "открытыми глазами" вперед, против всего, что есть вокруг. Другая часть, которая этого не сделала, и которая этого делать не хочет, она, так сказать, и является УПРАВЛЯЕМЫМ СТАДОМ, неосознанным. Тоже идет вперед каким-то образом. Но, не всегда приятно. Не всегда понятно. И умирает, конечно же, потому что ее жизнь очень опасна. Нихт Ферштейн?</p>
+ </div>
+
+ <h2 class="sec">Музыка под настроение</h2>
+
+ <div class="track">
+ <div class="track-row">
+ <button class="track-head" aria-expanded="false" data-yt="oAycSf8COQo">
+ <span class="tg">▾</span>
+ <span class="track-name">Welcome Home (Sanitarium) — Metallica</span>
+ </button>
+ <a class="track-ext" href="https://www.youtube.com/watch?v=oAycSf8COQo" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+ </div>
+ <div class="track-body"></div>
+ </div>
+
+ <div class="track">
+ <div class="track-row">
+ <button class="track-head" aria-expanded="false" data-yt="hz4YfY4agT8">
+ <span class="tg">▾</span>
+ <span class="track-name">Верхом на звезде — Найк Борзов</span>
+ </button>
+ <a class="track-ext" href="https://www.youtube.com/watch?v=hz4YfY4agT8" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+ </div>
+ <div class="track-body"></div>
+ </div>
+
+ <div class="track">
+ <div class="track-row">
+ <button class="track-head" aria-expanded="false" data-yt="ngH0fkiNo-g">
+ <span class="tg">▾</span>
+ <span class="track-name">You Don't Know — Eminem</span>
+ </button>
+ <a class="track-ext" href="https://www.youtube.com/watch?v=ngH0fkiNo-g" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+ </div>
+ <div class="track-body"></div>
+ </div>
+
+ <div class="track">
+ <div class="track-row">
+ <button class="track-head" aria-expanded="false" data-yt="pX06wlCAcUI">
+ <span class="tg">▾</span>
+ <span class="track-name">Дорогая передача — Владимир Высоцкий</span>
+ </button>
+ <a class="track-ext" href="https://www.youtube.com/watch?v=pX06wlCAcUI" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+ </div>
+ <div class="track-body"></div>
+ </div>
+
+ <nav class="corpus-nav">
+ <a href="1AS.html"><span class="lbl">← Предыдущая</span>Аль Таасе часть 1</a>
+ <a class="nx" href="21LA.html"><span class="lbl">Следующая →</span>Аль Таасе. Часть 2</a>
+ </nav>
+
+ <footer class="colophon">
+ <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+ <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+ </footer>
+
+</div>
+
+<script>
+// lazy YouTube players
+document.querySelectorAll('.track-head').forEach(function(btn){
+ btn.addEventListener('click', function(){
+ var body = btn.closest('.track').querySelector('.track-body');
+ var open = btn.getAttribute('aria-expanded') === 'true';
+ if(open){
+ btn.setAttribute('aria-expanded','false');
+ body.style.display='none';
+ body.innerHTML='';
+ }else{
+ btn.setAttribute('aria-expanded','true');
+ body.style.display='block';
+ if(!body.querySelector('iframe')){
+ var id = btn.getAttribute('data-yt');
+ var f = document.createElement('iframe');
+ f.src = 'https://www.youtube.com/embed/'+id+'?rel=0';
+ f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+ f.allowFullscreen = true;
+ body.appendChild(f);
+ }
+ }
+ });
+});
+
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+ "scheme": "editorial",
+ "form": "проза",
+ "rationale": "Текст — короткое прозаическое эссе-«письмо» в одном плотном абзаце с авторской датировкой, поэтому выбрана редакторская широкая схема (журнальный лонгрид), а не узкая манускриптная колонка для стихов. Заголовок страницы взят из метаданных proza.ru («Дорогая Передача»), а внутреннее авторское название «ПИСЬМО В СПОРТЛОТО» сохранено дословно как надзаголовок/kicker внутри полосы, чтобы не потерять и не дублировать смысл.\n\nГлавная развилка — статус четырёх YouTube-ссылок: они оформлены автором как сноски (*1–*4), но по сути являются музыкальными отсылками. Поэтому ссылки сведены в единый раздел «Музыка под настроение» с ленивыми раскрывающимися плеерами; отдельный аппарат «Примечаний» и инлайн-маркеры сносок убраны как избыточные. Названия треков приведены каноническими (название — исполнитель) по сводному реестру «Песнь Ступеней»: Welcome Home (Sanitarium) — Metallica, Верхом на звезде — Найк Борзов, You Don't Know — Eminem, Дорогая передача — Владимир Высоцкий. Оглавление не делалось: содержательный подраздел один (тело статьи), остальное — аппарат. Палитра — тёплый бумажный фон, тёмные чернила, приглушённый кармин и зелёный для акцентов, засечный шрифт для чтения и гротеск для служебных элементов.",
+ "features": ["music"]
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Принцип ОВД</title>
+<style>
+  :root{
+    --bg:#f6f4ef;
+    --paper:#fffdf9;
+    --ink:#1f1c18;
+    --muted:#6b6258;
+    --accent:#8a3324;
+    --accent-soft:#b9745c;
+    --rule:#ddd5c8;
+    --hl:#f6e6b8;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    line-height:1.7;
+    font-size:19px;
+  }
+  .wrap{
+    width:66%;
+    max-width:960px;
+    margin:0 auto;
+    padding:32px 28px 80px;
+  }
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:22px;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--rule);
+  }
+  .breadcrumbs a{color:var(--accent);text-decoration:none;}
+  .breadcrumbs a:hover{text-decoration:underline;}
+  .breadcrumbs span{margin:0 8px;color:var(--accent-soft);}
+  .lead-img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    margin:0 auto 28px;
+    border:1px solid var(--rule);
+  }
+  h1{
+    font-size:40px;
+    line-height:1.15;
+    font-weight:700;
+    margin:10px 0 6px;
+    letter-spacing:-.01em;
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent-soft);
+    margin-bottom:30px;
+  }
+  article p{
+    margin:0 0 1.4em;
+    text-align:justify;
+    hyphens:auto;
+  }
+  article p:first-of-type::first-letter{
+    font-size:3.4em;
+    line-height:.8;
+    float:left;
+    padding:6px 10px 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+  sup.fn{
+    font-size:.62em;
+    vertical-align:super;
+    line-height:0;
+  }
+  sup.fn a{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    padding:0 1px;
+  }
+  /* popup */
+  .fnref{position:relative;}
+  .fnref .popup{
+    visibility:hidden;
+    opacity:0;
+    position:absolute;
+    left:50%;
+    bottom:140%;
+    transform:translateX(-50%);
+    width:min(340px,80vw);
+    background:var(--ink);
+    color:#f4efe6;
+    font-family:Georgia,serif;
+    font-size:15px;
+    line-height:1.5;
+    text-align:left;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 8px 24px rgba(0,0,0,.28);
+    z-index:30;
+    transition:opacity .15s ease;
+    pointer-events:none;
+  }
+  .fnref:hover .popup{visibility:visible;opacity:1;}
+  .fnref.below .popup{bottom:auto;top:140%;}
+  .fnref .popup::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:100%;
+    transform:translateX(-50%);
+    border:7px solid transparent;
+    border-top-color:var(--ink);
+  }
+  .fnref.below .popup::after{
+    top:auto;
+    bottom:100%;
+    border-top-color:transparent;
+    border-bottom-color:var(--ink);
+  }
+  .notes{
+    margin-top:48px;
+    padding-top:20px;
+    border-top:2px solid var(--rule);
+  }
+  .notes h2{
+    font-size:16px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 14px;
+  }
+  .notes ol{margin:0;padding-left:1.3em;}
+  .notes li{font-size:16.5px;line-height:1.55;margin-bottom:10px;color:var(--muted);}
+  .notes li:target{
+    background:var(--hl);
+    border-radius:4px;
+    padding:4px 8px;
+    color:var(--ink);
+  }
+  .notes a.back{color:var(--accent);text-decoration:none;margin-left:6px;}
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:56px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    display:block;
+    max-width:46%;
+    text-decoration:none;
+    color:var(--accent);
+    font-size:15px;
+  }
+  .corpus-nav .lbl{
+    display:block;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent-soft);
+    margin-bottom:4px;
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.5;
+  }
+  footer.colophon a{color:var(--accent);}
+  @media(max-width:880px){
+    .wrap{width:100%;padding:22px 18px 60px;}
+    h1{font-size:30px;}
+    body{font-size:18px;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/352.html">
+<meta name="description" content="Эссе о принципе ОВД в конфронтологии духа: внутренний диалог как энерго-программа, два внимания и роль цели в действии человека.">
+<meta property="og:title" content="Принцип ОВД">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/352.html">
+<meta property="og:description" content="Эссе о принципе ОВД в конфронтологии духа: внутренний диалог как энерго-программа, два внимания и роль цели в действии человека.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Принцип ОВД">
+<meta name="twitter:description" content="Эссе о принципе ОВД в конфронтологии духа: внутренний диалог как энерго-программа, два внимания и роль цели в действии человека.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №352</span>
+<div class="wrap">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a><span>/</span><a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <img class="lead-img" src="../img/352.jpg" alt="">
+
+  <header>
+    <h1>Принцип ОВД<a class="audio-link" href="https://t.me/art_017_tracks/455" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <div class="kicker">Конфронтология Духа</div>
+  </header>
+
+  <article>
+    <p>...то, что в общем-то лежит на поверхности, но большинство челов считает, что если они не думают о чем-то с какой-то неудобной им стороны, то фактическим наличием этой стороны можно без серьезных последствий пренебречь. В частности, что ВД - это ничто иное, как управляющая последовательность выполнения нейро-лингвистических кодов, управляющей их опытом чувственного восприятия энерго-программы. Если что-либо существует в реальном мире, то есть происходит в реальности, потому что неизменяющегося непрерывно чего-то нет нигде кроме построений ума, то у него есть программа, которая управляет этим выполнением, производя его и одновременно наблюдая за тем, как это происходит. Это первое и второе внимание человека. Второе производит, первое наблюдает и строит умозрительные конструкты, в которых то, что она наблюдает, происходит последовательно и непрерывно посредством причинно-следственных связей, которые включены в данный конструкт, затем называемый "реальным миром"...</p>
+
+    <p>И нет действующего без Цели. Наблюдающему не нужна Цель, чтобы с ним могло начать происходить то, что он наблюдает. А вот делающему без Цели и Намерения, которые и становятся Сутью данной "программы", по мере ее развертывания во времени наблюдателя, ни сделать ни шага. Делающего без цели и намерения просто не существует. Его нет, это робот, потерявший связь с центром управления. Если в него заложена какая-то оперативная память с программой ближайших действий, то он ее может продолжить производить, но дальше он прекратит работу и станет куском бесполезного высокотехнологичного мусора.</p>
+
+    <p>И, фактически, то, что хочет сделать "воин, останавливающий ВД" - это заблокировать управление самим собой управляющей им посредством ВД энерго-программы. Но "раз он никогда об этом так не думал", то он противится осознанию факта отсутствия у него не только "собственной" энерго-программы "на замену" той, которая сейчас производит то, что он называет "самим собой" со всеми его привычными следствиями, но и не подозревает, что он сам - это не "сферический говорящий осел в вакууме", сам собой выползший из под куста, под который он заполз сам собой накануне, перебрав с волшебным элексиром до полного самозабвения, - а нечто гораздо более сложно организованное, хоть и не отражающее того, каким образом в точности, чем или кем конкретно и ради чего именно происходящее, но полностью самодостаточное и самостоятельное в том смысле, который касается самого происхождения, то есть действия, которым является последовательно меняющееся чувственное восприятие, из которого затем рассудок выстраивает образ непрерывности "своего существования", то есть существования того, что не является чем-либо иным в сущности, чем результат процессов внутри некоторой окружающей среды, формирующей внутри себя поле с нужными свойствами, посредством их направленного неосознанного взаимодействия вслепую требуемым для достижения неизвестной им до последнего функционально заложенной в это взаимодействие цели. Которая не выражается в понятиях и смыслах какой либо отдельно взятой взаимодействующей с собой внутри себя частицей, которая внутри самой себя из происходящих с ней взаимодействий строит собственную, никак не связанную с "реально объективно" имеющейся, непротиворечивую (в ее сне) непрерывную "личную историю", где происходящие с ней формируемые и поизводимые целенаправленно с ней извне взаимодействия, линейно связаны своим происхождением по причине и вследствие друг друга характерным образом, содержащимся в этой связи одновременно в виде их образа чувственного восприятия и самого этого восприятия, происходящего строго между ними, и имеющего собственную светимость, называемую "неорганическим сознанием".</p>
+  </article>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1">Остановка Внутреннего Диалога (КК)<a class="back" href="#fnref1" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="34TA.html"><span class="lbl">← Предыдущая</span>По чем стоит Мир</a>
+    <a class="next" href="35Q.html"><span class="lbl">Следующая →</span>АЯ ПЧФ</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // Заголовок ОВД несёт маркер сноски — вставляем его в H1 как надстрочный знак
+  (function(){
+    var h1=document.querySelector('h1');
+    if(h1 && h1.textContent.indexOf('Принцип ОВД')===0){
+      h1.innerHTML='Принцип ОВД<sup class="fn fnref" id="fnref1"><a href="#fn1">*</a><span class="popup">Остановка Внутреннего Диалога (КК)</span></sup>';
+    }
+    // выбор стороны popup в зависимости от места на экране
+    document.querySelectorAll('.fnref').forEach(function(el){
+      el.addEventListener('mouseenter',function(){
+        var r=el.getBoundingClientRect();
+        if(r.top<180){el.classList.add('below');}else{el.classList.remove('below');}
+      });
+    });
+  })();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст представляет собой плотный философско-эзотерический прозаический фрагмент в три абзаца, без стихотворной строфики, поэтому выбрана редакторская (широкая) схема: основная колонка занимает ~2/3 ширины окна с ограничением max-width для удержания комфортной меры строки при длинных абзацах. Журнальная подача с буквицей и засечным шрифтом подчёркивает медитативно-эссеистический характер, а юстировка по ширине уместна для сплошных длинных рассуждений.\n\nЕдинственная развилка — оформление сноски: маркер '*' стоит при самом заголовке 'Принцип ОВД*', а тело сноски ('Остановка Внутреннего Диалога (КК)') дано в конце. Я привязал маркер к H1, сделал его кликабельным со скроллом вниз/вверх, добавил popup при наведении с автоматическим выбором стороны у верхней кромки окна и подсветкой целевой сноски через :target. Оглавление не делалось — подраздел в статье один (сами Примечания), музыки нет."
+}
+</script>
+</body>
+</html>

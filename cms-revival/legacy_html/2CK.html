@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Новая сказка о Золотой Рыбке</title>
+<style>
+  :root{
+    --ink:#2a2018;
+    --ink-soft:#5a4c3c;
+    --gold:#a87b25;
+    --gold-deep:#7d5a14;
+    --paper:#fbf6ec;
+    --paper-edge:#f1e7d3;
+    --rule:#d8c8a6;
+    --accent:#8a2f1d;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 20% 10%, #fdfaf2, transparent 60%),
+      radial-gradient(circle at 80% 90%, #f6efdd, transparent 55%),
+      var(--paper);
+    color:var(--ink);
+    font-family:"Georgia","Times New Roman",serif;
+    line-height:1.7;
+    font-size:19px;
+  }
+  .page{
+    max-width:820px;
+    margin:0 auto;
+    padding:34px 30px 70px;
+  }
+  /* Breadcrumbs */
+  .crumbs{
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:26px;
+  }
+  .crumbs a{
+    color:var(--gold-deep);
+    text-decoration:none;
+    border-bottom:1px dotted var(--gold);
+  }
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs span.sep{margin:0 .5em;color:var(--rule);}
+
+  h1{
+    font-size:33px;
+    line-height:1.25;
+    text-align:center;
+    font-weight:600;
+    margin:.2em 0 .15em;
+    color:var(--ink);
+    letter-spacing:.01em;
+  }
+  h1::after{
+    content:"❧";
+    display:block;
+    color:var(--gold);
+    font-size:24px;
+    margin-top:.35em;
+  }
+
+  /* TOC */
+  .toc{
+    margin:30px auto;
+    max-width:560px;
+    background:var(--paper-edge);
+    border:1px solid var(--rule);
+    border-radius:4px;
+    padding:6px 22px 16px;
+  }
+  .toc summary{
+    cursor:pointer;
+    font-variant:small-caps;
+    letter-spacing:.08em;
+    font-size:18px;
+    color:var(--gold-deep);
+    padding:10px 0;
+    list-style:none;
+  }
+  .toc summary::-webkit-details-marker{display:none;}
+  .toc summary::before{content:"☞ ";color:var(--gold);}
+  .toc ol{margin:.3em 0 0;padding-left:1.4em;}
+  .toc li{margin:.3em 0;}
+  .toc a{
+    color:var(--ink-soft);
+    text-decoration:none;
+    border-bottom:1px dotted var(--gold);
+  }
+  .toc a:hover{color:var(--accent);}
+
+  h2{
+    font-size:25px;
+    text-align:center;
+    color:var(--gold-deep);
+    font-weight:600;
+    margin:2.4em 0 .2em;
+    letter-spacing:.02em;
+  }
+  h2 a{
+    color:inherit;
+    text-decoration:none;
+  }
+  h2::after{
+    content:"";
+    display:block;
+    width:120px;
+    height:1px;
+    margin:.5em auto 0;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  }
+
+  .stanza{
+    margin:0 auto 1.55em;
+    max-width:560px;
+    white-space:pre-line;
+    text-align:left;
+    font-size:19px;
+    line-height:1.62;
+    color:var(--ink);
+  }
+  .stanza:first-letter{
+  }
+
+  /* bottom nav */
+  .endnav{
+    margin-top:60px;
+    border-top:1px solid var(--rule);
+    padding-top:24px;
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    font-size:16px;
+  }
+  .endnav a{
+    color:var(--gold-deep);
+    text-decoration:none;
+    border-bottom:1px dotted var(--gold);
+    max-width:46%;
+  }
+  .endnav a:hover{color:var(--accent);}
+  .endnav .next{text-align:right;margin-left:auto;}
+  .endnav .lbl{display:block;font-size:13px;color:var(--ink-soft);font-variant:small-caps;letter-spacing:.08em;}
+
+  footer{
+    margin-top:40px;
+    border-top:1px solid var(--rule);
+    padding-top:18px;
+    font-size:14px;
+    color:var(--ink-soft);
+    line-height:1.5;
+  }
+  footer a{color:var(--gold-deep);}
+  footer .license{font-size:13px;}
+
+  @media (max-width:600px){
+    body{font-size:18px;}
+    .page{padding:22px 16px 50px;}
+    h1{font-size:27px;}
+    h2{font-size:22px;}
+    .endnav{flex-direction:column;}
+    .endnav a{max-width:100%;}
+    .endnav .next{text-align:left;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/2CK.html">
+<meta name="description" content="Стихотворная сказка-притча о мальчике и Золотой Рыбке с авторским разбором отличия его поступка от выбора пушкинского старика.">
+<meta property="og:title" content="Новая сказка о Золотой Рыбке">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/2CK.html">
+<meta property="og:description" content="Стихотворная сказка-притча о мальчике и Золотой Рыбке с авторским разбором отличия его поступка от выбора пушкинского старика.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Новая сказка о Золотой Рыбке">
+<meta name="twitter:description" content="Стихотворная сказка-притча о мальчике и Золотой Рыбке с авторским разбором отличия его поступка от выбора пушкинского старика.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="manuscript">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №2CK</span>
+<div class="page" id="top">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <h1>Новая сказка о Золотой Рыбке<a class="audio-link" href="https://t.me/art_017_tracks/359" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <details class="toc" open>
+    <summary>Оглавление</summary>
+    <ol>
+      <li><a href="#part1">Часть 1. Сказка</a></li>
+      <li><a href="#part2">Часть 2. Намек</a></li>
+    </ol>
+  </details>
+
+  <h2 id="part1"><a href="#top">Часть 1. Сказка</a></h2>
+
+  <div class="stanza">Мальчик рыбешку ловил на пруду.
+Вдруг натянулась, задергалась леска
+Мальчик, с трудом удержав силой рук
+Удочку, выловил нечто на берег.</div>
+
+  <div class="stanza">Нечто живым было чем-то, и Свет
+Вокруг себя золотистый и яркий
+Распространяло. "Волшебный предмет"
+Яростно бился, но безрезультатно.</div>
+
+  <div class="stanza">Когда затихли попытки "уплыть",
+Выловленного парнишкою "чуда"
+Мальчик приблизился, чтобы открыть,
+Что за удача ему улыбнулась.</div>
+
+  <div class="stanza">Молвило Чудо прекрасным девичьим
+Голосом: "Мальчик, проси, чего хочешь!"
+"Сделаю все, я волшебная Рыбка!"
+"Только дай снова мне броситься в воду..."</div>
+
+  <div class="stanza">Мальчик сказал: "Ты уж больно прекрасна,"
+"Я с тебя требовать плату не буду."
+"Если захочешь мне вновь показаться,"
+"То стань девчонкой, я ждать тебя буду!".</div>
+
+  <div class="stanza">И, отцепив от удила рыбешку,
+Бросил обратно в глубокие воды.
+И, как ни в чем не бывало, продолжил
+Рыбу ловить, не жалея нисколько.</div>
+
+  <div class="stanza">Вдруг пошел волнами омут, стемнело
+Грянул раскат грозовой, и все смолкло.
+И, не стыдясь, голой вышла на берег
+Дивной красы молодая девчонка.</div>
+
+  <div class="stanza">Мальчик смотрел на Нее, не моргая,
+Удочку выронил, и не заметил.
+Была Ее красота неземная
+Краше всего, что он видел на Свете.</div>
+
+  <div class="stanza">"Ты меня спас", голоском бесподобным
+Молвила девочка, подойдя ближе.
+"Не только тем, что вернул меня в воду,"
+"Но и что сделал живою, влюбившись"</div>
+
+  <div class="stanza">"В мой лишь один тонкий голос девичий."
+"Сделав обязанной за избавленье"
+"Мне твоей девушкой стать настоящей"
+"Чтобы тебе дать любить себя вечно."</div>
+
+  <h2 id="part2"><a href="#top">Часть 2. Намек</a></h2>
+
+  <div class="stanza">Мальчик обрел дар потерянной речи,
+И побежал за одеждой в избушку. 
+В чем же, вопрос встает закономерный,
+Он всем известного "старче" был лучше?</div>
+
+  <div class="stanza">Ведь, вроде как, и дела, и стремленья,
+В обоих случаях были похожи.
+"А ничем", я Вам отвечу на это
+Кроме их возраста, и их "старухи".</div>
+
+  <div class="stanza">Первый (старик) привязал себя крепко
+Собственным "в жены взять" давним решеньем.
+Что до мальчишки - период лишь первый
+Будучи матерью, а не подругой</div>
+
+  <div class="stanza">Лучшей, всей жизни сознательной, прочно
+Закрыв мужчине Пути и дороги
+Кроме единственной той безысходной,
+Что своей собственной "свободной волей"
+Сделал "старик", взяв "старуху" женою.</div>
+
+  <nav class="endnav">
+    <a class="prev" href="571.html"><span class="lbl">← Предыдущая</span>Смерть в Сказках, ч. 1</a>
+    <a class="next" href="12F.html"><span class="lbl">Следующая →</span>Чем помогает Творец мужчине-каббалисту.</a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "стих",
+  "rationale": "Текст целиком стихотворный — две части («Сказка» и «Намек»), написанные строфами по четыре-пять строк с рифмой и ровным метром, поэтому однозначно выбрана узкая «манускриптная» схема (~820px) для медленного книжного чтения, а не широкий редакторский лонгрид. Колонку строф дополнительно сузил до ~560px, чтобы строки стихов не разрывались и держали единую меру; засечный шрифт Georgia, тёплая бумажная палитра и золотые акценты поддерживают сказочно-рукописный характер. Каждую строфу обернул в блок с white-space:pre-line, чтобы дословно сохранить авторскую разбивку строк, кавычки и пунктуацию.",
+  "rationale_extra": "",
+  "form_note": "",
+  "features": ["toc"]
+}
+</script>
+</body>
+</html>

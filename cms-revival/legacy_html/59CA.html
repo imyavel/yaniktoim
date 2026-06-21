@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Волшебник</title>
+<style>
+  :root{
+    --bg:#faf7f2;
+    --paper:#ffffff;
+    --ink:#23201c;
+    --muted:#6f675c;
+    --accent:#8a5a2b;
+    --accent-soft:#b98a52;
+    --line:#e4dccf;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    line-height:1.7;
+    font-size:19px;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(138,90,43,.35);}
+  a:hover{color:var(--accent-soft);border-bottom-color:var(--accent-soft);}
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 32px;
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:28px 0 18px;
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs a{border:none;color:var(--muted);}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs span.sep{margin:0 .55em;color:var(--accent-soft);}
+  /* layout */
+  .lead-img{
+    display:block;
+    width:auto;
+    max-width:100%;
+    height:auto;
+    margin:34px auto 0;
+    border-radius:3px;
+    box-shadow:0 8px 30px rgba(60,40,20,.16);
+  }
+  .article{
+    background:var(--paper);
+    margin:34px auto 60px;
+    padding:54px clamp(28px,6vw,86px);
+    border:1px solid var(--line);
+    border-radius:4px;
+    box-shadow:0 2px 24px rgba(80,60,30,.05);
+    /* editorial: content column ~ 2/3 of window */
+    max-width:none;
+  }
+  .article .col{
+    max-width:760px;
+    margin:0 auto;
+  }
+  h1{
+    font-size:clamp(2.1rem,4.2vw,3rem);
+    line-height:1.12;
+    margin:.1em 0 .35em;
+    font-weight:600;
+    letter-spacing:.01em;
+  }
+  .feat{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.05em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:34px;
+  }
+  .feat a{color:var(--muted);border-bottom-color:rgba(111,103,92,.4);}
+  h2{
+    font-size:1.7rem;
+    margin:2.4em 0 .2em;
+    font-weight:600;
+    color:var(--accent);
+    letter-spacing:.01em;
+  }
+  h3{
+    font-size:1.25rem;
+    font-style:italic;
+    font-weight:400;
+    color:var(--muted);
+    margin:.1em 0 1.2em;
+  }
+  .epigraph{
+    font-style:italic;
+    color:var(--muted);
+    border-left:3px solid var(--accent-soft);
+    padding:.1em 0 .1em 1.2em;
+    margin:1.6em 0 2em;
+  }
+  .epigraph .lbl{
+    display:block;
+    font-style:normal;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent-soft);
+    margin-bottom:.4em;
+  }
+  p{margin:0 0 1.25em;}
+  .part-divider{
+    text-align:center;
+    color:var(--accent-soft);
+    margin:2.6em 0;
+    font-size:1.4rem;
+    letter-spacing:.6em;
+  }
+  .seealso{
+    margin-top:3em;
+    padding-top:1.4em;
+    border-top:1px solid var(--line);
+    font-style:italic;
+    color:var(--muted);
+  }
+  /* corpus nav */
+  .corpusnav{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 32px 30px;
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    flex-wrap:wrap;
+  }
+  .corpusnav a{
+    flex:1 1 260px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:16px 20px;
+    border-bottom:1px solid var(--line);
+  }
+  .corpusnav a:hover{border-color:var(--accent-soft);}
+  .corpusnav .dir{
+    display:block;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--accent-soft);
+    margin-bottom:.3em;
+  }
+  .corpusnav .t{color:var(--ink);font-size:1.05rem;}
+  .corpusnav a.next{text-align:right;}
+  footer{
+    background:#f3ede3;
+    border-top:1px solid var(--line);
+    padding:34px 0 46px;
+  }
+  footer .wrap{font-size:15px;color:var(--muted);}
+  footer .attrib{margin:0 0 .6em;font-style:italic;}
+  footer .license{margin:0;font-size:14px;line-height:1.6;}
+  footer a{color:var(--accent);}
+  @media(max-width:680px){
+    body{font-size:17px;}
+    .article{padding:34px 22px;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/59CA.html">
+<meta name="description" content="Эссе-сказка о Волшебнике, который мечтал о Новом Мире Любви, и о детях Югианне и Северьяне, принесённых феями для созидания этого мира.">
+<meta property="og:title" content="Волшебник">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/59CA.html">
+<meta property="og:description" content="Эссе-сказка о Волшебнике, который мечтал о Новом Мире Любви, и о детях Югианне и Северьяне, принесённых феями для созидания этого мира.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Волшебник">
+<meta name="twitter:description" content="Эссе-сказка о Волшебнике, который мечтал о Новом Мире Любви, и о детях Югианне и Северьяне, принесённых феями для созидания этого мира.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №59CA</span>
+
+  <nav class="crumbs wrap" aria-label="Хлебные крошки">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <div class="wrap">
+    <img class="lead-img" src="../img/59CA.jpg" alt="Иллюстрация к статье «Волшебник»">
+  </div>
+
+  <article class="article">
+    <div class="col">
+      <h1>Волшебник<a class="audio-link" href="https://t.me/art_017_tracks/385" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+      <p class="feat">feat. Bina Anele (<a href="https://t.me/anele_bina" target="_blank" rel="noopener">t.me/anele_bina</a>)</p>
+
+      <div class="epigraph">
+        <span class="lbl">Эпиграф</span>
+        Приветствую. Начну свое утро и общение с тобой со сказки.
+      </div>
+
+      <p>Не знаю Где и не знаю Когда. Жил Волшебник. Жил он уединенно, сторонился шума города и общения с людьми. Чем занимался Волшебник, я тоже не знаю. Описать догадки «себе дороже», так говорят люди, которые не желают быть уличены во лжи.</p>
+
+      <p>У Волшебника не было семьи, друзей, но волшебник Мечтал о Мире, в котором будут жить Волшебники Папы и Волшебницы Мамы, и у них будут рождаться мальчики и девочки Волшебники, которые будут уметь строить Новые Миры.</p>
+
+      <p>Волшебник знал тайну Жизни, которую для людей создает Любовь и эта нисходит в его Мир волшебства и в Мир людей, и проявляется, как сладкий нектар, невидимый эфир Непостигаемого Создателя.</p>
+
+      <p>Волшебник также знал, что ощутить и познать эту любовь, а значит саму Бесконечную Жизнь, то есть познать и ощутить сладостное соединение с Самим Создателем, смогут только те, кто своим страстным желанием призовут Вседержителя Миров в союз, который начинается между девочкой и мальчиком, которые соединяются друг с другом Духом Любви. Только они! смогут строить Новые Миры Жизни, где Любовь Творца, Свят Благословен Он, Любовь мальчика и девочки, мужчины и женщины, объединенные в Круг Жизни-Новый Мир, будут той самой Премудростью, в которой Создатель будет Един со Своим Творением. Так жил и Мечтал Волшебник.</p>
+
+      <p>Но в один из дней в Мир к Волшебнику прилетела Фея. Она прилетела с маленькой девочкой на руках.</p>
+
+      <p>Взволнованная Фея рассказала, что эту девочку она спасла из Мира Юга, который был затоплен. Фея преклонила колено перед Волшебником, вознесла молитву Любви и, поцеловав девочку, улетела.</p>
+
+      <p>Все произошло так быстро, что Волшебник не смог произнести ни одного слова. Все внутри его замерло… Кажется, даже само сердце перестало биться. Он смотрел на девочку, и слезы Любви текли по его щекам.</p>
+
+      <p>Девочка, которой было не больше двух лет, подошла и взяла Волшебника за руку и повела его к дому, как будто она была сама из этого дома и всё давно знала об этом доме. Волшебник назвал девочку Югианна.</p>
+
+      <p>В доме волшебника началась новая жизнь. Волшебник и девочка стали строить Новый Мир.</p>
+
+      <p>Внезапно в один из дней в дом Волшебника и Югианны снова прилетела Фея и на ее руках был мальчик. Фея опустила мальчика на землю, преклонила колено перед Волшебником и Югианной и сказала, что этот мальчик из Мира Севера, который уничтожил огонь.</p>
+
+      <p>Затем фея вознесла молитву Любви и улетела. Волшебник, Югианна и мальчик стояли и молча взирали друг на друга. Они стояли, как завороженные, ощущая, как неизвестно откуда появившееся тепло обняло их тела и вошло в их сердца.</p>
+
+      <p>Югианна подошла к мальчику взяла его за руку, как когда-то взяла первый раз за руку Волшебника, и они трое пошли к дому.</p>
+
+      <p>Волшебник и Югианна стали звать мальчика Северьян. С появлением в доме мальчика Саверьяна, Волшебник позволил детям Саверьяну и Югианне строить свой Новый Мир...</p>
+
+      <div class="part-divider">✦ ✦ ✦</div>
+
+      <h2>Часть II</h2>
+      <h3>Я и моя Возлюбленная</h3>
+
+      <div class="epigraph">
+        <span class="lbl">Эпиграф</span>
+        Трое сокроются в сердце моем.
+      </div>
+
+      <p>Меня зовут Северьян. Я жил и рос вместе со своей Возлюбленной Югианной в доме Волшебника.</p>
+
+      <p>Мы выросли в Мире Волшебника, где нам были открыты все двери ощущений свойств Жизни, Любви, Вечности.</p>
+
+      <p>Мы были людьми и в то же время мы не были ими, потому что наш Мир Волшебника это другой мир – Мир Мечты, у которой нет начала и нет конца... Мир, в котором мы ощущали легкость полета, который стал для нас естеством всей нашей Будущей Жизни. И это легкость…..</p>
+
+      <p>Волшебник распахнул нам не только двери для наших ощущений, но и даровал возможность в них входить и выходить. Он распахнул все двери своего Мира Мечты. Мы много играли, веселились, шкодничали, мирились и ссорились, плакали и смеялись. Мы знали, что Волшебник где-то рядом, но он не входил со своим мнением или своим суждением или порицанием, даже с радостью, он не входил и не вмешивался в Наш Мир.</p>
+
+      <p>В минуты печали, грусти, когда я и моя Возлюбленная не находили общего согласия в наших размышлениях или играх мы отдалялись друг от друга иногда на минуты, иногда на часы, а иногда и на дни. Тогда я оставался в глубоком погружении в нечто такое, что моим чувствам, моему естеству восприятия не было привычным. Волшебник, вдруг внезапно появлялся в такие минуты и дни. И видя мое настроение, называл это состояние входом в безмолвное знание.</p>
+
+      <p>На мой вопрос, что это такое, безмолвное знание, Волшебник только улыбался и говорил, ну-ну, и исчезал, оставляя меня в задумчивости. И вдруг! откуда-то прорывалось безумное желание увидеть свою Возлюбленную Югианну.</p>
+
+      <p>Я, словно закрученный вихрь, срывался с места, бежал по дому, выкрикивая имя своей Возлюбленной Югианны, призывая её страстным желанием увидеть, обнять, поцеловать, соединиться.</p>
+
+      <p>Когда я входил в состояние вот этого вожделенного возбуждения, я просто ощущал, как крылья с шумом хлопают за моей спиной, они хлопают и направляют меня туда, где я мог найти свою Возлюбленную, свое Сердце, свою Жизнь.</p>
+
+      <p>Когда я и моя Возлюбленная могли привлечь Волшебника в свой Мир, он упоминал о неком Свете Духовной Половой Любви, мы старались расспросить его, что такое Свет Духовно-Половой Любви и как он действует, и вообще, что он собой представляет, и как нам его привлечь в свой Мир, в свои игры? Волшебник улыбался на наши вопросы, смотрел на нас таким теплым очень, очень теплым глубоким взглядом, он словно ласкал нас по нашим головам, обнимал нас своим взглядом и улыбался. И он нам сказал: «Вы увидите, вы ощутите, вы Его постигнете и насладитесь Им, Он Сам вас найдет…»</p>
+
+      <p class="seealso">См. также: <a href="5BP.html" target="_blank" rel="noopener">Гром и Молния</a></p>
+    </div>
+  </article>
+
+  <nav class="corpusnav" aria-label="Навигация по корпусу">
+    <a class="prev" href="5BP.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="t">Гром и Молния</span>
+    </a>
+    <a class="next" href="262.html">
+      <span class="dir">Следующая →</span>
+      <span class="t">Небесная Дорога</span>
+    </a>
+  </nav>
+
+  <footer>
+    <div class="wrap">
+      <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+      <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+    </div>
+  </footer>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — прозаическая сказка-притча в двух частях («Волшебник» и «Часть II. Я и моя Возлюбленная»), без единой стихотворной строки, поэтому выбрана редакторская широкоформатная схема: широкий контейнер до 1180px с белым «листом» статьи и читаемой колонкой текста около 760px по центру, что даёт основной колонке ощутимо более 2/3 экрана при комфортной мере строки. Манускриптную узкую полосу отверг как предназначенную для стихов и поэм.\n\nTOC сознательно не делал: в тексте лишь один реальный авторский заголовок («Часть II» с подзаголовком «Я и моя Возлюбленная»), а изобретать заголовок для первой безымянной части запрещено правилами верности тексту, так что условие «более одного подраздела» строго не выполняется. Музыки и сносок в тексте нет — features пуст. Голые URL (телеграм-канал автора и ссылка «См. также: Гром и Молния») обёрнуты в нормальные гиперссылки. Палитра тёплая книжная (кремовый фон, коричнево-охристый акцент, засечный шрифт), что поддерживает интонацию сказки про Любовь и Свет, оставаясь контрастной на светлом фоне. КАПС и авторская пунктуация (многоточия, восклицания) сохранены дословно."
+  ,
+  "features": []
+}
+</script>
+</body>
+</html>

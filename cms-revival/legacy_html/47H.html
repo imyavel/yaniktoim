@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Стенограмма 5 Урока 2 по статье Шамати 3</title>
+<style>
+  :root{
+    --bg:#f6f4ef;
+    --paper:#fffdf9;
+    --ink:#22201c;
+    --muted:#6b655c;
+    --accent:#8a3324;
+    --accent-soft:#b8542f;
+    --line:#ddd6c8;
+    --hl:#ffe9a8;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Georgia","Iowan Old Style",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:920px;
+    min-width:0;
+    margin:0 auto;
+    padding:34px 26px 70px;
+  }
+  @media(max-width:1100px){.wrap{width:80%;}}
+  @media(max-width:760px){
+    body{font-size:18px;}
+    .wrap{width:100%;padding:20px 16px 50px;}
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(138,51,36,.32);}
+  a:hover{color:var(--accent-soft);border-bottom-color:var(--accent-soft);}
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    margin-bottom:26px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs a{border-bottom:none;color:var(--muted);}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs span.sep{margin:0 .5em;opacity:.6;}
+
+  h1{
+    font-size:33px;
+    line-height:1.2;
+    margin:.2em 0 .15em;
+    font-weight:700;
+    letter-spacing:-.01em;
+  }
+  .sub-meta{
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    line-height:1.55;
+    margin:0 0 30px;
+    padding-bottom:24px;
+    border-bottom:1px solid var(--line);
+  }
+  .sub-meta a{color:var(--accent);}
+
+  .lead-block{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-left:4px solid var(--accent);
+    padding:16px 22px;
+    margin:0 0 30px;
+    font-size:16.5px;
+    line-height:1.6;
+    border-radius:3px;
+  }
+  .lead-block p{margin:.35em 0;}
+  .lead-block .ttl{font-weight:700;color:var(--ink);}
+  .parts{
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:15px;
+  }
+  .timing{font-style:italic;color:var(--muted);}
+
+  p{margin:0 0 1.15em;}
+  .speaker{font-weight:700;color:var(--accent);}
+
+  .endmark{
+    text-align:center;
+    font-style:italic;
+    color:var(--muted);
+    margin:34px 0;
+    font-size:16px;
+  }
+
+  /* music */
+  .music{
+    margin:26px 0;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:14px 18px;
+  }
+  .music .label{
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:12.5px;
+    text-transform:uppercase;
+    letter-spacing:.09em;
+    color:var(--accent);
+    margin-bottom:8px;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head .arrow{
+    transition:transform .2s;
+    color:var(--muted);
+    font-size:13px;
+    flex:0 0 auto;
+  }
+  .track.open .track-head .arrow{transform:rotate(90deg);}
+  .track-title{
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:16px;
+    flex:1 1 auto;
+  }
+  .track-title .artist{color:var(--muted);}
+  .ext{flex:0 0 auto;color:var(--muted);border-bottom:none;font-size:15px;}
+  .ext:hover{color:var(--accent);}
+  .player{margin-top:12px;display:none;}
+  .track.open .player{display:block;}
+  .player .frame{
+    position:relative;
+    width:100%;
+    padding-bottom:56.25%;
+    height:0;
+    border-radius:5px;
+    overflow:hidden;
+    background:#000;
+  }
+  .player iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+
+  /* notes */
+  .notes{
+    margin-top:50px;
+    padding-top:22px;
+    border-top:2px solid var(--line);
+  }
+  .notes h2{
+    font-size:21px;
+    margin:0 0 16px;
+  }
+  .seealso{
+    font-style:italic;
+    color:var(--muted);
+    margin:30px 0 10px;
+  }
+  ol.fnlist{padding-left:1.4em;margin:0;}
+  ol.fnlist li{
+    margin-bottom:14px;
+    font-size:16.5px;
+    line-height:1.6;
+    padding:4px 6px;
+    border-radius:4px;
+  }
+  li.fn-target{background:var(--hl);transition:background 1.4s;}
+  .backref{margin-left:6px;border-bottom:none;font-size:14px;}
+
+  /* footnote markers */
+  sup.fnm{line-height:0;}
+  a.fnref{
+    border-bottom:none;
+    font-weight:700;
+    font-size:.72em;
+    color:var(--accent);
+    padding:0 1px;
+  }
+  a.fnref:hover{color:var(--accent-soft);}
+  .fn-pop{
+    display:none;
+    position:absolute;
+    z-index:50;
+    width:300px;
+    max-width:80vw;
+    background:#2b2823;
+    color:#f4efe6;
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:14px;
+    font-weight:400;
+    line-height:1.5;
+    padding:11px 14px;
+    border-radius:7px;
+    box-shadow:0 8px 26px rgba(0,0,0,.32);
+  }
+  .fn-pop a{color:#ffcf8f;border-bottom:1px solid rgba(255,207,143,.4);}
+
+  /* nav bottom */
+  .corpus-nav{
+    margin-top:54px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:15px;
+  }
+  .corpus-nav a{
+    display:block;
+    max-width:46%;
+    border-bottom:none;
+  }
+  .corpus-nav .dir{
+    display:block;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--muted);
+    margin-bottom:3px;
+  }
+  .corpus-nav .nx{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--muted);}
+  footer.colophon a:hover{color:var(--accent);}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/47H.html">
+<meta name="description" content="Стенограмма пятой части второго урока по статье Бааль Сулама Шамати 3 о сути духовного постижения с комментариями ведущих Элиягу Бар Малея и Бины Анеле.">
+<meta property="og:title" content="Стенограмма 5 Урока 2 по статье Шамати 3">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/47H.html">
+<meta property="og:description" content="Стенограмма пятой части второго урока по статье Бааль Сулама Шамати 3 о сути духовного постижения с комментариями ведущих Элиягу Бар Малея и Бины Анеле.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Стенограмма 5 Урока 2 по статье Шамати 3">
+<meta name="twitter:description" content="Стенограмма пятой части второго урока по статье Бааль Сулама Шамати 3 о сути духовного постижения с комментариями ведущих Элиягу Бар Малея и Бины Анеле.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №47H</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <h1>Стенограмма 5 Урока 2 по статье Шамати 3<a class="audio-link" href="https://t.me/art_017_tracks/353" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <div class="sub-meta">
+    Телеграм-канал <a href="https://t.me/binazone" target="_blank" rel="noopener">Путь Восходящей Звезды</a>
+  </div>
+
+  <div class="lead-block">
+    <p class="ttl">Урок 02.06.2024 по статье Шамати 3 «Суть духовного постижения»</p>
+    <p>Благословенного праведника и мудреца Каббалы Йегуды Лейб Алеви Ашлага (Бааль Сулам)</p>
+    <p>Ведущие Элиягу Бар Малей (ЭБМ) и Бина Анеле (БА)</p>
+    <p>Ссылка на урок: <a href="https://t.me/binazone/499" target="_blank" rel="noopener">https://t.me/binazone/499</a></p>
+  </div>
+
+  <div class="lead-block parts">
+    <p>Часть 1: <a href="462.html" target="_blank" rel="noopener">«Стенограмма 1 Урока 2 по статье Шамати 3»</a></p>
+    <p>Часть 2: <a href="463.html" target="_blank" rel="noopener">«Стенограмма 2 Урока 2 по статье Шамати 3»</a></p>
+    <p>Часть 3: <a href="464.html" target="_blank" rel="noopener">«Стенограмма 3 Урока 2 по статье Шамати 3»</a></p>
+    <p>Часть 4: <a href="46L.html" target="_blank" rel="noopener">«Стенограмма 4 Урока 2 по статье Шамати 3»</a></p>
+    <p class="timing">Часть 5:  (20:20 - 24:14)</p>
+  </div>
+
+  <!-- music track 1 -->
+  <div class="music">
+    <div class="label">Музыка под настроение</div>
+    <div class="track" data-yt="aDdOnl0bHO4">
+      <div class="track-head" onclick="toggleTrack(this)">
+        <span class="arrow">▶</span>
+        <span class="track-title"><span class="artist">Joan Osborne</span> — One of us</span>
+        <a class="ext" href="https://www.youtube.com/watch?v=aDdOnl0bHO4" target="_blank" rel="noopener" title="Открыть на YouTube" onclick="event.stopPropagation()">↗</a>
+      </div>
+      <div class="player"></div>
+    </div>
+  </div>
+
+  <p><span class="speaker">ЭБМ:</span> Но, мы этого чаще всего не видим. Находясь в «катнуте», т.е. как «средний человек», по терминологии Карлоса Кастанеды (КК), то есть тот, кто еще не находится на Пути «взрослого» мага и каббалиста, и так далее – тот, кто еще не находится в Круге (в Группе, Мандале, «собрании», Ковене, Когорте, и т.д. и т.п. – комм. ЭБМ) – типа «Розы»<sup class="fnm"><a class="fnref" id="ref1" href="#fn1" data-fn="fn1">*1</a></sup> Книги Зоар, в состоянии «гадлут».</p>
+
+  <p>Фактически, очень мало кто, на нашем (Человечества – комм. ЭБМ) этапе нашего развития, в этом состоянии находится, но, тем не менее, предпосылки для этого все уже есть – для того, чтобы любой человек, точнее говоря, группа людей, инициативных, могла это сделать: взять, просто, и сделать. А иначе мы бы с тобой, Леночка, сейчас бы здесь не сидели, и не говорили всего этого. Это было бы бессмысленно, это было бы сотрясение воздуха.</p>
+
+  <p>Ну вот. А подтверждением тому являемся мы сами, потому что ничего «особенного» в нас, во мне так точно, не было, до того, как так получилось, что мы взяли, и собрались в этот «Круг», Милостью Творца, Свят Благословен Он, разумеется, посредством того, что у Него на нас были планы. Но, так абсолютно любого можно «взять», и поднять на этот уровень, и сделать «магом». Вернее, он сам может это сделать, если он захочет.</p>
+
+  <p>Но, на самом деле, его одного желания, конечно, недостаточно, но, с этого желания все начинается, опять же, потому что мы говорим о том, что, как ты сказала, Леночка, что Высшее управление находится в этом мире (Асия – комм. ЭБМ), и «бразды» этого управления находятся в руках человека, просто «Человек», это несколько более сложное явление, чем мы привыкли представлять себе...</p>
+
+  <p>Человек – это не один человек, а Человек – это несколько человек. Несколько человек, скажем так, шесть человек – уже вполне себе точно могут взять, и составить из себя Человека Говорящего. Т.е. «Сын Человеческий» - вот то, что Иисус Христос, и традиция Христианства, называет «Сын Человеческий». «Сын Живого Человека» по терминологии Книги Зоар<sup class="fnm"><a class="fnref" id="ref2" href="#fn2" data-fn="fn2">*2</a></sup>. Это, на самом деле, вот этот «образ Целем Элоким»<sup class="fnm"><a class="fnref" id="ref3" href="#fn3" data-fn="fn3">*3</a></sup>, Адама Ришон (АР), он не составляется в одиночку, даже вдвоем (М и Ж – комм. ЭБМ) он не составляется. Но вшестером, да?</p>
+
+  <p><span class="speaker">БА:</span> Ну да.</p>
+
+  <p><span class="speaker">ЭБМ:</span> Вшестером объективно составляется. И здесь все в наших руках. Вот. И, соответственно, «сделав все как полагается»<sup class="fnm"><a class="fnref" id="ref4" href="#fn4" data-fn="fn4">*4</a></sup>, пройдя определенный Путь выяснения того, как это - «как полагается», и приложив определенную долю усилий «против самих себя», собравшись в это объединение, Человек получает бразды правления самим собой<sup class="fnm"><a class="fnref" id="ref5" href="#fn5" data-fn="fn5">*5</a></sup>.</p>
+
+  <p>Вот эти «бразды правления», они переходят от системы чистой «Ситра Ахра», к системе «смешанной». На данный момент, смешанной, потому, что, получается, что у этой Группы, или у ее членов, скажем так, в течение некоторого времени, попеременно, может быть... Возникают эти ситуации, когда у них, когда они находятся под «личным управлением» полностью.</p>
+
+  <p>И они ощущают это, и они ощущают такие явления, как «видение», в терминах КК, еще что-нибудь, «второе внимание», они раскрывают все это, они раскрывают тайны Каббалы. Они удивляются, они поражаются, как выстраиваются обстоятельства их личной судьбы, и так далее.</p>
+
+  <p>Вот. Но, тем не менее, общее Кли (АР), оно остается в том же состоянии, в котором оно было. Из которого они вышли. А поэтому они не могут в этом (новом – комм. ЭБМ) состоянии находиться стабильным образом. Поэтому, это (их новое – комм. ЭБМ) состояние, оно приходит и уходит, поэтому, наш Круг был разрушен, он был создан, скажем так, выполнил какую-то часть работы, предполагающейся вот этим вот «изначальным замыслом» (см. оригинальную статью БС – комм. ЭБМ), о котором здесь пишет Бааль Сулам, - он реализуется в течение 800 лет (период «конечного исправления» - см. первый том кн. Зоар – комм. ЭБМ), а в наше время он только начал раскрываться, по сути, с создания нашего Круга...</p>
+
+  <!-- music track 2 -->
+  <div class="music">
+    <div class="label">Музыка под настоение</div>
+    <div class="track" data-yt="wyn7gfcbqEQ">
+      <div class="track-head" onclick="toggleTrack(this)">
+        <span class="arrow">▶</span>
+        <span class="track-title"><span class="artist">Мираж</span> — Новый герой</span>
+        <a class="ext" href="https://www.youtube.com/watch?v=wyn7gfcbqEQ" target="_blank" rel="noopener" title="Открыть на YouTube" onclick="event.stopPropagation()">↗</a>
+      </div>
+      <div class="player"></div>
+    </div>
+  </div>
+
+  <p class="endmark">Конец 5 части Стенограммы (24:14)</p>
+
+  <section class="notes">
+    <p class="seealso">См. также:</p>
+    <h2>Примечания</h2>
+    <ol class="fnlist">
+      <li id="fn1">Роза, Книга Зоар, Том 1, РАШБИ-Бааль Сулам <a href="https://imyavel.github.io/zohar-sulam/akdama/001.html" target="_blank" rel="noopener">akdama/001</a><a class="backref" href="#ref1" title="Вернуться к тексту">↩</a></li>
+      <li id="fn2">Погонщик Ослов, Книга Зоар, Том 1, РАШБИ-Бааль Сулам <a href="https://imyavel.github.io/zohar-sulam/akdama/012.html" target="_blank" rel="noopener">akdama/012</a><a class="backref" href="#ref2" title="Вернуться к тексту">↩</a></li>
+      <li id="fn3">См. заповеди 9 и 10, Книга Зоар, Том 1, РАШБИ-Бааль Сулам <a href="https://imyavel.github.io/zohar-sulam/akdama/029.html" target="_blank" rel="noopener">akdama/029</a> <a href="https://imyavel.github.io/zohar-sulam/akdama/030.html" target="_blank" rel="noopener">akdama/030</a><a class="backref" href="#ref3" title="Вернуться к тексту">↩</a></li>
+      <li id="fn4">См. также, книгу и/или фильм (лучше старый, Польский 1996 immdfm «Ведьмак» - комм. ЭБМ) Анжея Сапковского «Меч предназначения или последнее желание» (Ведьмак)<a class="backref" href="#ref4" title="Вернуться к тексту">↩</a></li>
+      <li id="fn5">См. также:  <a href="1AA.html">Бремя Власти Небес</a>, ЭБМ<a class="backref" href="#ref5" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a href="46L.html" class="pv"><span class="dir">← Предыдущая</span>Стенограмма 4 Урока 2 по статье Шамати 3</a>
+    <a href="5C4.html" class="nx"><span class="dir">Следующая →</span>Раскрытие СДПЛ</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggleTrack(head){
+    var t=head.parentElement;
+    var open=t.classList.toggle('open');
+    if(open){
+      var p=t.querySelector('.player');
+      if(!p.dataset.loaded){
+        var id=t.dataset.yt;
+        p.innerHTML='<div class="frame"><iframe src="https://www.youtube.com/embed/'+id+'?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
+        p.dataset.loaded='1';
+      }
+    }
+  }
+
+  // footnote popups
+  (function(){
+    var pop=null;
+    function makePop(text){
+      var d=document.createElement('div');
+      d.className='fn-pop';
+      d.innerHTML=text;
+      d.style.display='block';
+      document.body.appendChild(d);
+      return d;
+    }
+    document.querySelectorAll('a.fnref').forEach(function(m){
+      m.addEventListener('mouseenter',function(){
+        var li=document.getElementById(m.dataset.fn);
+        if(!li)return;
+        var html=li.innerHTML.replace(/<a class="backref"[\s\S]*?<\/a>/,'');
+        pop=makePop(html);
+        var r=m.getBoundingClientRect();
+        var sx=window.scrollX, sy=window.scrollY;
+        var pw=pop.offsetWidth, ph=pop.offsetHeight;
+        var left=r.left+sx+r.width/2-pw/2;
+        if(left<6)left=6;
+        if(left+pw>window.innerWidth-6)left=window.innerWidth-pw-6;
+        var top=r.top+sy-ph-9;
+        if(r.top-ph-9<0){top=r.bottom+sy+9;}
+        pop.style.left=left+'px';
+        pop.style.top=top+'px';
+      });
+      m.addEventListener('mouseleave',function(){
+        if(pop){pop.remove();pop=null;}
+      });
+    });
+    // highlight on jump down
+    document.querySelectorAll('a.fnref').forEach(function(m){
+      m.addEventListener('click',function(){
+        var li=document.getElementById(m.dataset.fn);
+        if(!li)return;
+        document.querySelectorAll('.fn-target').forEach(function(x){x.classList.remove('fn-target');});
+        setTimeout(function(){li.classList.add('fn-target');},60);
+      });
+    });
+  })();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — стенограмма устного урока (диалог ЭБМ и БА) с комментариями и аппаратом сносок, то есть преобладает прозаическая форма, а не стих или поэма. Поэтому выбрана редакторская широкоформатная схема с основной колонкой около 2/3 ширины окна и засечным шрифтом для длинного чтения; манускриптная узкая колонка не подошла бы, так как стихотворных форм здесь нет.\nПограничные решения: вступительный блок (телеграм, данные урока, ведущие, ссылки на части) оформлен как служебные врезки, отделённые от тела диалога, без добавления собственных заголовков. Подразделов в тексте нет (один сплошной поток с примечаниями), поэтому оглавление не строилось. Музыкальных ссылок ровно две — обе YouTube, оформлены как лениво подгружаемые свёрнутые плееры с метками на своих местах; сводный раздел музыки не создавался, так как требуется более двух треков. Реплики ЭБМ/БА выделены как имена говорящих, регистр КАПС и авторские глифы сохранены дословно. Сноски *1–*5 все имеют тела и ссылки — реализованы переходы вниз/вверх, подсветка цели и hover-popup с автоматическим выбором стороны.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>

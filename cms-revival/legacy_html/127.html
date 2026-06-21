@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Развитие малого духовного Кли</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#23201a;
+    --muted:#6e675a;
+    --accent:#9a5b2e;
+    --accent-soft:#c89b6a;
+    --rule:#e0d8c6;
+    --hl:#fbe9c8;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.7;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .wrap{
+    width:100%;
+    max-width:1280px;
+    margin:0 auto;
+    padding:0 5vw;
+  }
+  /* Editorial: основная колонка ~2/3 ширины окна на десктопе */
+  .page{
+    width:66%;
+    max-width:880px;
+    min-width:0;
+    margin:0 auto;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:4px;
+    padding:48px 56px 40px;
+    box-shadow:0 2px 26px rgba(60,45,20,.06);
+  }
+  @media(max-width:1000px){
+    .page{width:92%;padding:34px 26px 30px;}
+    body{font-size:18px;}
+  }
+  @media(max-width:600px){
+    .wrap{padding:0 3vw;}
+    .page{width:100%;padding:24px 16px 26px;}
+    body{font-size:17px;}
+  }
+
+  /* Breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:26px 0 18px;
+  }
+  .crumbs a{color:var(--muted);}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs .sep{margin:0 .5em;color:var(--accent-soft);}
+
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:14px;
+  }
+
+  h1{
+    font-size:34px;
+    line-height:1.25;
+    font-weight:700;
+    margin:.1em 0 .8em;
+    letter-spacing:.005em;
+  }
+  h1::after{
+    content:"";
+    display:block;
+    width:80px;
+    height:3px;
+    background:var(--accent);
+    margin-top:18px;
+  }
+  @media(max-width:600px){h1{font-size:27px;}}
+
+  h2{
+    font-size:23px;
+    margin:2em 0 .7em;
+    color:var(--accent);
+    letter-spacing:.01em;
+  }
+
+  p{margin:0 0 1.15em;}
+
+  .lead{
+    font-size:20.5px;
+    color:#2c281f;
+  }
+
+  ol.stages{
+    list-style:none;
+    counter-reset:st;
+    margin:1.6em 0 1.8em;
+    padding:0;
+  }
+  ol.stages>li{
+    position:relative;
+    padding:14px 18px 14px 64px;
+    margin:0 0 12px;
+    background:#fbf7ee;
+    border-left:3px solid var(--accent-soft);
+    border-radius:0 4px 4px 0;
+  }
+  ol.stages>li .name{font-weight:700;color:var(--accent);}
+  ol.stages>li::before{
+    counter-increment:st;
+    content:counter(st);
+    position:absolute;
+    left:16px;
+    top:14px;
+    width:32px;height:32px;
+    line-height:32px;
+    text-align:center;
+    background:var(--accent);
+    color:#fff;
+    border-radius:50%;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+    font-weight:600;
+  }
+
+  .colophon-line{
+    text-align:center;
+    font-style:italic;
+    font-size:21px;
+    color:var(--accent);
+    margin:2em 0;
+  }
+
+  /* Footnotes */
+  sup.fnref{font-size:.72em;line-height:0;}
+  sup.fnref a{
+    font-weight:700;
+    padding:0 1px;
+    border-radius:3px;
+  }
+  .fnref:hover .pop{visibility:visible;opacity:1;}
+  .fnref{position:relative;}
+  .pop{
+    visibility:hidden;opacity:0;
+    transition:opacity .15s;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:1.6em;
+    width:300px;
+    max-width:78vw;
+    background:#2b271f;
+    color:#f4efe4;
+    font-family:Georgia,serif;
+    font-size:15px;
+    line-height:1.5;
+    font-weight:400;
+    text-align:left;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 6px 20px rgba(0,0,0,.28);
+    z-index:20;
+    pointer-events:none;
+  }
+  .pop.below{bottom:auto;top:1.6em;}
+  .pop::after{
+    content:"";position:absolute;left:50%;transform:translateX(-50%);
+    border:7px solid transparent;
+  }
+  .pop:not(.below)::after{top:100%;border-top-color:#2b271f;}
+  .pop.below::after{bottom:100%;border-bottom-color:#2b271f;}
+
+  .notes{
+    margin-top:2.4em;
+    padding-top:1em;
+    border-top:1px solid var(--rule);
+  }
+  .notes ol,.notes .note{
+    font-size:16.5px;
+    color:#3a352b;
+    line-height:1.6;
+  }
+  .note{
+    margin:0 0 1em;
+    padding:8px 12px;
+    border-radius:5px;
+    scroll-margin-top:20px;
+  }
+  .note .num{font-weight:700;color:var(--accent);margin-right:.4em;}
+  .note .back{margin-left:.4em;font-size:.85em;}
+  .note:target{background:var(--hl);}
+
+  .seealso{
+    margin-top:1.6em;
+    font-size:16.5px;
+    color:var(--muted);
+  }
+  .tag{
+    margin-top:1.4em;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.08em;
+    color:var(--accent-soft);
+  }
+
+  /* corpus bottom nav */
+  .corpusnav{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:2.6em;
+    padding-top:1.4em;
+    border-top:2px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpusnav a{
+    display:block;
+    max-width:48%;
+    font-size:15px;
+  }
+  .corpusnav .lbl{
+    display:block;
+    font-size:12px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:3px;
+  }
+  .corpusnav .next{text-align:right;margin-left:auto;}
+
+  footer.colofon{
+    margin-top:2.2em;
+    padding-top:1.2em;
+    border-top:1px solid var(--rule);
+    font-size:14.5px;
+    line-height:1.55;
+    color:var(--muted);
+  }
+  footer.colofon .attrib{margin:0 0 .5em;font-style:italic;}
+  footer.colofon .license{margin:0;}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/127.html">
+<meta name="description" content="Статья о пяти стадиях развития малого духовного Кли (Катнут): глина, железо, медь, серебро, золото — этапы очищения желания к духовному.">
+<meta property="og:title" content="Развитие малого духовного Кли">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/127.html">
+<meta property="og:description" content="Статья о пяти стадиях развития малого духовного Кли (Катнут): глина, железо, медь, серебро, золото — этапы очищения желания к духовному.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Развитие малого духовного Кли">
+<meta name="twitter:description" content="Статья о пяти стадиях развития малого духовного Кли (Катнут): глина, железо, медь, серебро, золото — этапы очищения желания к духовному.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №127</span>
+<div class="wrap">
+  <article class="page">
+
+    <nav class="crumbs">
+      <a href="../index.html">Главная</a>
+      <span class="sep">/</span>
+      <a href="../confront/index.html">Конфронтология Духа</a>
+    </nav>
+
+    <div class="dateline">7 февраля 2021 г.</div>
+
+    <h1>ПЯТЬ СТАДИЙ РАЗВИТИЯ МАЛОГО ДУХОВНОГО КЛИ<a class="audio-link" href="https://t.me/art_017_tracks/476" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+    <p class="lead">Путь приобретения человеком духовного уровня (Путь Творца, Свят Благословен Он) подразделяется на 2 больших основных этапа. Первый этап соответствует задаче очищения места для получения человеком нового наполнения в Келим<sup class="fnref"><a href="#fn1" id="ref1">*1</a><span class="pop">Кли (мн.ч. Келим, ивр.) – сосуд, вместилище, инструмент, средство, желание, способ, “матчасть”. Духовная основа для наполнения определенным содержанием души человека – того, что обыкновенно называют “подсознанием” и не ощущают явно.</span></sup>, что наиболее доступно описывается при помощи понятия “силы желания”. Духовное желание, которое есть у человека, можно условно подразделить на 5 характерных разновидности: глина, железо, медь, серебро, золото. В общем, мы говорим о желании у человека стремиться к достижению известной духовной цели, в противовес любым другим желаниям, намерениям и интенциям, которые могут иметь место в сердце человека (сердцем условно называем общее Кли, в котором “находятся” и проявляются все перечисляемые виды “желаний”).</p>
+
+    <ol class="stages">
+      <li><span class="name">Глина.</span> Желание к духовному невыяснено, слабо, то исчезает, то появляется в общей превалирующей массе всевозможных других желаний, относящихся к “этому миру”.</li>
+      <li><span class="name">Железо.</span> Желание выяснено и человек учится с ним работать целенаправленно. Однако, оно продолжает находится в условиях доминирования разнообразных желаний этого мира, вызывая временами отчаяние от ощущения невозможности реального самоизменения.</li>
+      <li><span class="name">Медь.</span> Желание к духовному находится в условиях “благоприятной питательной среды”, благодаря чему оно обретает силу, и уже может, какую-то часть времени, доминировать над аморфной массой желаний “этого мира”. Однако, такие состояния неизбежно сменяются его реакционным подавлением, когда состояние возвращается к описанному в предыдущем пункте. Кроме этого, “усиление” духовного желания вызывает неизбежное “прилипание” к нему эгоистических “клипот”, то есть, желаний этого мира, маскирующихся под духовность, поскольку таким образом они получают подпитку и власть.</li>
+      <li><span class="name">Серебро.</span> Желание к духовному прошло очистку и уже имеет свой собственный “малый духовный уровень” – Катнут. Здесь от него “отшулушиваются” наслоения прилипившихся клипот, и в моменты доминирования его над ними оно подавляет их полностью, так что состояния человека становятся выраженно полярными. Однако, все также характерна невозможность установить стабильную власти желания к духовному, которая не подвергалась бы регулярным “падениям” во власть материального.</li>
+      <li><span class="name">Золото.</span> Человек сказал этому миру “прощай” и остался наедине с наработанными духовными Келим. Его основная жизнедеятельность замкнута на духовное общество, он избавился от всех привычек проводить время так, как это делают все обычные люди. Их мнение и понимание для него ничего не значат. Он умер для этого мира, и родился для духовного Пути Творца, Свят Благословен Он. Состояния падения служат духовной Цели; он точно знает, чего он хочет достичь в жизни, и точно знает, что ничто другое, то есть весь “этот мир” с его соблазнами и иллюзорными наслаждениями, его не интересует.</li>
+    </ol>
+
+    <p>Человек должен понять и принять (по началу - принять на веру, потом понять разумом, когда соответствующий этап в собственном опыте уже пройден), что именно эта вышеприведенная классификация, и именно предмет, который она ранжирует, являются сутью и смыслом всего его Пути на начальном этапе, и ничто не имеет значение для него до тех пор, пока не станет ясно, как ему самому, так и его спутникам и помощникам, что в отношении нее он уже прочно освоил последнюю ступень, и потерял интерес к этому миру, только тогда для него откроется Путь дальше, только тогда что-либо кроме кропотливой и долгой работы над собственным Кли “малой духовной ступени” будет иметь для него какой-либо реальный практический смысл. При этом, он также должен отдавать себе отчет в том, что его разум будет систематически целенаправленно пытаться убедить его в том, что это не так. Он будет рисовать ему множество якобы “высокодуховных” привлекательных “здесь и сейчас” целей и намерений, добиваясь, таким образом, чтобы этот человек сбился с Пути на какое-то время (в идеале, навсегда), влекомый “ложными огнями”. То есть забывая о том, на каком этапе развития собственного желания “точки в сердце” он находится в данный момент своей жизни объективно, и о том, что ничто кроме стремления усилить это желание и достичь следующей ступени, или укрепиться на имеющейся, не имеет для него ровным счетом никакого значения, независимо от того, насколько оно выглядит сладко и “высокодуховно”, поскольку его собственный разум и сердце на этом этапе являются его врагами, а не помощниками, и он вынужден с информацией, получаемой от них, поступать строго “от обратного”, т.е. не благодаря, а “вопреки” ей.</p>
+
+    <p>Следует также понимать и не заблуждаться в том, что каждый человек обязан в своем духовном развитии пройти каждый из вышеперечисленных пяти стадий или этапов. Никто не может “перепрыгнуть” через ступеньку и “сразу” получить желание, например, уровня “Серебро”. Поэтому сразу настраиваем себя на долгую кропотливую работу над собой, результатом которой должен стать последовательный и поступенный планомерный подъем от ступеньки к ступеньке, отчетливо выделяющихся для самого человека и его духовного окружения.</p>
+
+    <p>Также следует понимать, что пройти на последующие, “взрослые” этапы духовного Пути, человек не сможет, пока у него не будет полностью завершенного желания, прошедшего свое формирование и развитие, фактически “из ничего” до состояния “Золото”, поскольку весь последующий Путь базируется на этом “Золотом” Кли как на ежедневном и ежемоментном инструменте (Кли), посредством использования которого человек выстраивает все здание собственной Души на всех уровнях, включая, разумеется, самые “продвинутые”. Если “вынуть” этот камень из основы здания своего Пути, то все здание рухнет и человек окажется под его завалинами, не способный продолжать Путь ни в духовном, ни в материальном мире<sup class="fnref"><a href="#fn2" id="ref2">*2</a><span class="pop">Это чисто гипотетическая ситуация, в реальности таких “экстерминатусов” на Пути человека не бывает. Кли Катнута характерно тем, что, будучи единожды приобретено человеком, оно остается с ним навсегда, и его уже не смогут повредить никакие будущие шторма и падения, которых на его Пути будет не мало.</span></sup>.</p>
+
+    <p class="colophon-line">Сделаем и услышим!</p>
+
+    <section class="notes">
+      <h2>Пояснения</h2>
+      <div class="note" id="fn1"><span class="num">*1</span>Кли (мн.ч. Келим, ивр.) – сосуд, вместилище, инструмент, средство, желание, способ, “матчасть”. Духовная основа для наполнения определенным содержанием души человека – того, что обыкновенно называют “подсознанием” и не ощущают явно. Каббалисты учатся выводить 100% своего “подсознания” к явному раскрытию и пониманию, путем применения точной практической методики.<a class="back" href="#ref1">↩</a></div>
+      <div class="note" id="fn2"><span class="num">*2</span>Это чисто гипотетическая ситуация, в реальности таких “экстерминатусов” на Пути человека не бывает. Кли Катнута характерно тем, что, будучи единожды приобретено человеком, оно остается с ним навсегда, и его уже не смогут повредить никакие будущие шторма и падения, которых на его Пути будет не мало.<a class="back" href="#ref2">↩</a></div>
+    </section>
+
+    <p class="seealso">См. также: </p>
+
+    <div class="tag">#AA177</div>
+
+    <nav class="corpusnav">
+      <a class="prev" href="158.html"><span class="lbl">← Предыдущая</span>Путь Воина - Исраэль</a>
+      <a class="next" href="25G.html"><span class="lbl">Следующая →</span>Нет действующего без Цели</a>
+    </nav>
+
+    <footer class="colofon">
+      <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+    </footer>
+
+  </article>
+</div>
+
+<script>
+  // Позиционирование popup сноски: над маркером, либо под ним у верхнего края окна
+  document.querySelectorAll('.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      var pop=ref.querySelector('.pop');
+      if(!pop)return;
+      pop.classList.remove('below');
+      var r=ref.getBoundingClientRect();
+      if(r.top<150){pop.classList.add('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — концептуальное прозаическое эссе о пяти стадиях развития духовного Кли, без стихотворных форм, поэтому выбрана редакторская широкоформатная схема с основной колонкой около 2/3 ширины окна и максимумом ~880px для комфортной меры строки. Развилка была вокруг оглавления: формально в тексте лишь один смысловой блок плюс раздел «Пояснения», то есть подразделов не «более одного» в осмысленном понимании, поэтому TOC не вводил, чтобы не плодить искусственную навигацию из двух пунктов.\n\nПятиэлементное перечисление стадий (глина–золото) оформил как нумерованный список с акцентными медальонами — это подача, а не добавление заголовков, текст пунктов дословный. Палитра тёплая, книжно-журнальная (кремовая бумага, охристо-коричневый акцент) на светлом фоне, засечный шрифт для основного текста. Сносок две (*1, *2), реализованы с переходом вниз/вверх, подсветкой :target и hover-popup, который при близости к верху окна разворачивается вниз. Музыкальных треков в тексте нет, поэтому music-функционал не задействован. Голый URL форума обёрнут в гиперссылку.",
+  "features": ["footnotes"]
+}
+</script>
+</body>
+</html>

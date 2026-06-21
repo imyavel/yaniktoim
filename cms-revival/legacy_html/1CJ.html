@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ты ничего не знаешь про существование души...</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --muted:#6b6256;
+    --accent:#7a2e1d;
+    --accent2:#b5482f;
+    --rule:#d9d0bf;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    line-height:1.7;
+    font-size:20px;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(122,46,29,.35);}
+  a:hover{color:var(--accent2);border-bottom-color:var(--accent2);}
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:28px 0 0;
+  }
+  .crumbs a{border-bottom:none;color:var(--muted);}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs .sep{margin:0 .55em;color:#bdb4a3;}
+
+  header.masthead{
+    padding:18px 0 10px;
+    border-bottom:3px double var(--rule);
+    margin-bottom:46px;
+  }
+  h1{
+    font-size:clamp(30px,4.4vw,52px);
+    line-height:1.12;
+    font-weight:700;
+    margin:.35em 0 .15em;
+    letter-spacing:-.01em;
+    max-width:16ch;
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin-top:6px;
+  }
+
+  /* content layout — wide editorial, content ~2/3 */
+  .layout{
+    display:grid;
+    grid-template-columns:minmax(0,2fr) 1fr;
+    gap:60px;
+    align-items:start;
+  }
+  article{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:3px;
+    padding:48px 56px;
+    box-shadow:0 1px 0 rgba(0,0,0,.02),0 18px 40px -28px rgba(60,40,20,.35);
+  }
+  aside.rail{
+    position:sticky;
+    top:28px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    color:var(--muted);
+    font-size:14.5px;
+    line-height:1.6;
+  }
+  aside.rail .railbox{
+    border-top:3px solid var(--accent);
+    padding-top:16px;
+  }
+  aside.rail .date{
+    font-size:15px;
+    color:var(--ink);
+    font-weight:600;
+    letter-spacing:.02em;
+  }
+  aside.rail p{margin:.6em 0;}
+
+  article p{margin:0 0 1.25em;}
+  article p:first-child{margin-top:0;}
+
+  .lead{
+    font-size:1.06em;
+    color:#2a241d;
+  }
+  article p:first-of-type::first-letter{
+    /* nothing special by default */
+  }
+
+  /* quoted forum posts */
+  .post{
+    margin:0 0 1.6em;
+    padding:14px 22px;
+    border-left:4px solid var(--rule);
+    background:#faf6ec;
+    border-radius:0 4px 4px 0;
+  }
+  .post .who{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:.4em;
+    font-weight:600;
+  }
+  .post p{margin:0 0 .7em;font-style:italic;color:#4a4136;}
+  .post p:last-child{margin-bottom:0;}
+
+  /* drop cap on first body paragraph after exchange */
+  .body-start::first-letter{
+    float:left;
+    font-size:3.4em;
+    line-height:.82;
+    padding:.04em .09em 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+
+  .seealso{
+    margin-top:2.2em;
+    padding-top:1.1em;
+    border-top:1px solid var(--rule);
+    font-size:.95em;
+    color:var(--muted);
+  }
+
+  /* bottom corpus nav */
+  nav.corpus{
+    margin:54px 0 0;
+    display:flex;
+    gap:18px;
+    justify-content:space-between;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  nav.corpus a{
+    flex:1 1 0;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:4px;
+    padding:16px 20px;
+    line-height:1.35;
+  }
+  nav.corpus a:hover{border-color:var(--accent);}
+  nav.corpus .dir{
+    display:block;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin-bottom:5px;
+  }
+  nav.corpus .t{font-family:Georgia,serif;font-size:18px;color:var(--ink);}
+  nav.corpus a.next{text-align:right;}
+
+  footer.colophon{
+    max-width:var(--maxw);
+    margin:46px auto 60px;
+    padding:26px 32px 0;
+    border-top:1px solid var(--rule);
+    color:var(--muted);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    line-height:1.6;
+  }
+  footer .attrib{margin:0 0 .5em;font-weight:600;color:#4a4136;}
+  footer .license{margin:0;}
+
+  @media (max-width:920px){
+    .layout{grid-template-columns:1fr;gap:30px;}
+    aside.rail{position:static;order:-1;}
+    article{padding:30px 24px;}
+    body{font-size:18px;}
+  }
+  @media (max-width:520px){
+    .wrap{padding:0 16px;}
+    h1{max-width:none;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/1CJ.html">
+<meta name="description" content="Полемическая статья-ответ о природе души, ограничениях учения Кастанеды и Реальном Мире за пределами первого и второго внимания.">
+<meta property="og:title" content="Ты ничего не знаешь про существование души...">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/1CJ.html">
+<meta property="og:description" content="Полемическая статья-ответ о природе души, ограничениях учения Кастанеды и Реальном Мире за пределами первого и второго внимания.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ты ничего не знаешь про существование души...">
+<meta name="twitter:description" content="Полемическая статья-ответ о природе души, ограничениях учения Кастанеды и Реальном Мире за пределами первого и второго внимания.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №1CJ</span>
+
+<div class="wrap">
+  <nav class="crumbs" aria-label="Хлебные крошки">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <header class="masthead">
+    <h1>Ты ничего не знаешь про существование души...<a class="audio-link" href="https://t.me/art_017_tracks/464" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <div class="kicker">Конфронтология Духа</div>
+  </header>
+
+  <div class="layout">
+    <article>
+
+      <div class="post">
+        <div class="who">В**** написал(а):</div>
+        <p>Авель<br>Ты вообще не делаешь попыток понять, что тебе пишут. Вот вроде опубликовал пост, а в нем один сплошной лепет.</p>
+      </div>
+
+      <div class="post">
+        <div class="who">Авель написал(а):</div>
+        <p>реальный выход души из тела.</p>
+      </div>
+
+      <div class="post">
+        <div class="who">В**** написал(а):</div>
+        <p>Вот это больше всего нравится. Выйти может внимание. А души... Ее нет. В смысле как какой-то «частички целого», или там «сияющей искорки». Внимание может мотаться, где ему надо. И часто это миры, выдуманные собственным умом. На практикуме это видят все участники.</p>
+        <p>Про нижний мир ,может, потом напишу. Если соответствие будет. Можешь сам написать. В рамках, конечно.</p>
+      </div>
+
+      <p class="lead body-start">Ты ничего не знаешь про существование души потому, что при жизни как правило человек никогда не сталкивается с ее реальным проявлением на опыте. Душа создает сновидение этого мира, соединяясь с физическим телом и разотождествляясь с ним, в подавляющем большинстве случаев, только в момент покидания этого мира. А помнить то, что происходит «между» этими сновидениями мы пока что не научились. И не научимся, если будем также наплевательски относиться к попыткам до себя достучаться тем, у кого имеется важная информация и желание ее донести, без каких либо умалчиваний или скрываемых намерений, что само по себе на Пути встречается не очень часто. «Целое», частью которого душа является, не существует ни в первом, ни во втором внимании. А испытывать явления, реальность которых выходит за эти рамки, мы пока не научились. И, по всей видимости, уже не научимся.</p>
+
+      <p>Карлос и ДХ нам не сообщили и половины правде о Реальном Мире. В других Учениях ее в готовом и удобоваримом виде тоже нет. То тут, то там разбросаны бессистемные части сложной мозаики. Гораздо более сложной, чем рисует нам картина мира, оставшаяся от «новых видящих» через КК. То, что написано в их книгах, безнадежно фрагментированно, и чаще всего передано таким языком и способом, для расшифровки которого человек должен уже обладать опытом восприятия или совершения того, о чем там написано. Разумеется, среднестатистический «воен», встретив такую инфу, покрутит пальцем у виска и пойдет дальше верить в орлов и летунов, создавая этим намерением вокруг себя ту самую безжалостную Вселенную хищников, в которую он выбрал верить, не подвергая прочитанное попыткам критического анализа. В то время, как на самом деле Мир — это что-то бесконечно более совершенное, близкое сердцу человека, когда оно очищено от страхов и шелухи этого мира и социальной реальности «коллективного пути воинов». В итоге вы живете в мире, основанном на чужих болезненных фантазиях и не понимаете этого. И не хотите понимать. Ценой упрямства в невежестве будет повторный круг этого мира. Может быть в следующий раз нам повезет больше. Я буду рад, если мы снова встретимся при других обстоятельствах, и попробуем начать выстраивать взаимопонимание заново, в другом настроении относительно друг друга.</p>
+
+      <p>Я не зря называю и буду называть Силу, управляющую всем скрыто от человека, равно как и от «воина» в большинстве случаев, Творцом, Свят Благословен Он. Разбаньте мой главный ник и смиритесь с тем, что я пишу то, что я считаю нужным, а не то, что вам нравится или не нравится. Я обязуюсь общаться вежливо, избегать оскорблений и стремиться писать на темы, обсуждение которых происходит в тех ветках, в которых пишу. Но это далеко не всегда означает, что связь написанного мной и темы ветки автоматически будет понятна ВАМ. Если бы это было не так, полезного смысла в нашем взаимодействии действительно было бы не много. Почесать раскормленное ЧСВ друг дружке вы всегда сможете и без меня.</p>
+
+      <p>Не поддавайтесь соблазну испытывать полумеры и тянуть кошку за хвост, забаньте меня навсегда, если вам не нравится, что я то явление, которое КК называет Орел, называю Творец, Свят Благословен Он, и не намерен прекращать этого делать, вне зависимости от вашего отношения к этой форме, поскольку оно основано на печальной смеси глупости и невежества, а не является вашей осознанной волей, только вы не понимаете этого. Жизнь слишком коротка, чтобы биться головой в закрытые двери. Если дверь не открывается, значит мне туда не надо, куда она ведет. Иначе бы она давно открылась и даже разговора на эту тему в таком ключе и тоне бы не было.</p>
+
+      <p class="seealso">См. также: </p>
+
+    </article>
+
+    <aside class="rail">
+      <div class="railbox">
+        <p class="date">19 декабря 2021 г.</p>
+        <p>Полемический ответ на форуме — о душе, внимании и Реальном Мире.</p>
+      </div>
+    </aside>
+  </div>
+
+  <nav class="corpus" aria-label="Навигация по разделу">
+    <a class="prev" href="1CIC.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="t">Действуя посредством воли...</span>
+    </a>
+    <a class="next" href="215A.html">
+      <span class="dir">Следующая →</span>
+      <span class="t">Ресурсность АВАЯ 2</span>
+    </a>
+  </nav>
+</div>
+
+<footer class="colophon">
+  <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+</footer>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — прозаический форумный ответ-полемика (реплики собеседников плюс развёрнутый монолог автора), без единой стихотворной строки, поэтому выбрана редакторская широкоформатная схема, а не узкий манускрипт. Контент уложен в двухколоночную сетку (2fr основная колонка к 1fr боковой рейл), что даёт основному тексту ~2/3 ширины окна на десктопе; в рейл вынесена дата публикации и краткая ориентирующая подпись, чтобы не оставлять широкую пустоту и не сочинять врезок внутри самого текста.\n\nПограничное решение — подача начальных реплик: исходные сообщения «В****» и «Авель» оформлены как цитатные посты (italic, левая планка), чтобы визуально отделить диалоговую завязку от основного авторского монолога, который начинается одноимённым с заголовком абзацем и помечен буквицей. Заголовков, оглавления, сносок и музыки в исходнике нет — TOC не нужен (раздел один), поэтому features ограничен пустыми возможностями; единственная служебная ссылка (голый URL «См. также») обёрнута в нормальный анкор. Палитра — тёплая бумажная на светлом фоне с приглушённо-кирпичным акцентом, нейтрально подходящая к эзотерико-полемическому тону без избыточной декоративности.",
+  "features": []
+}
+</script>
+
+</body>
+</html>

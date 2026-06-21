@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Воля Творца, Свят Благословен Он</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --muted:#6b6258;
+    --accent:#8a5a2b;
+    --accent-soft:#c9a05a;
+    --rule:#e2d8c6;
+    --link:#7a4a1c;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    line-height:1.72;
+    font-size:19px;
+  }
+  a{color:var(--link);text-decoration:none;border-bottom:1px solid var(--accent-soft);}
+  a:hover{border-bottom-color:var(--accent);}
+
+  .wrap{
+    width:66%;
+    max-width:1000px;
+    min-width:0;
+    margin:0 auto;
+    padding:40px 28px 80px;
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:26px;
+  }
+  .crumbs a{border:none;color:var(--accent);}
+  .crumbs a:hover{color:var(--ink);}
+  .crumbs span{color:var(--muted);margin:0 .5em;}
+
+  figure.lead{margin:0 0 30px;}
+  figure.lead img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border:1px solid var(--rule);
+  }
+
+  h1{
+    font-size:40px;
+    line-height:1.18;
+    font-weight:700;
+    margin:0 0 8px;
+    letter-spacing:-.01em;
+  }
+  .subtitle{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    font-style:normal;
+    letter-spacing:.03em;
+    margin:0 0 36px;
+    padding-bottom:26px;
+    border-bottom:2px solid var(--rule);
+  }
+
+  .epigraph{
+    margin:0 0 40px;
+    padding:4px 0 4px 26px;
+    border-left:3px solid var(--accent-soft);
+    font-style:italic;
+    color:#3a342c;
+    font-size:18px;
+    line-height:1.7;
+  }
+  .epigraph .src{
+    display:block;
+    margin-top:14px;
+    font-style:normal;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.03em;
+    color:var(--muted);
+  }
+
+  .body p{margin:0 0 1.5em;}
+
+  .num{
+    counter-increment:para;
+    position:relative;
+    padding-left:3.2em;
+  }
+  .num::before{
+    content:counter(para);
+    position:absolute;
+    left:0;
+    top:.05em;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    font-size:15px;
+    color:var(--accent);
+    background:var(--paper);
+    border:1px solid var(--accent-soft);
+    width:2.1em;
+    height:2.1em;
+    line-height:2em;
+    text-align:center;
+    border-radius:50%;
+  }
+  .body{counter-reset:para;}
+
+  .acclaim{
+    text-align:center;
+    font-weight:700;
+    font-size:24px;
+    letter-spacing:.04em;
+    color:var(--accent);
+    margin:48px 0 10px;
+  }
+
+  /* music */
+  .music{
+    margin:46px 0 10px;
+    padding:26px 28px;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:4px;
+  }
+  .music .label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--accent);
+    margin:0 0 14px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:4px;
+    overflow:hidden;
+    background:#fff;
+  }
+  .track summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:.7em;
+    padding:14px 16px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .track .arrow{
+    color:var(--accent);
+    transition:transform .2s ease;
+    font-size:14px;
+  }
+  .track[open] .arrow{transform:rotate(90deg);}
+  .track .tname{font-weight:700;font-size:16px;color:var(--ink);}
+  .track .tartist{color:var(--muted);font-size:15px;}
+  .track .ext{
+    margin-left:auto;
+    border:none;
+    color:var(--accent);
+    font-size:16px;
+  }
+  .player{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    background:#000;
+    border-top:1px solid var(--rule);
+  }
+  .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+  /* corpus nav */
+  .corpus-nav{
+    margin-top:60px;
+    padding-top:28px;
+    border-top:2px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    border:none;
+    max-width:46%;
+    display:block;
+  }
+  .corpus-nav .dir{
+    display:block;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--muted);
+    margin-bottom:5px;
+  }
+  .corpus-nav .ti{font-size:16px;color:var(--accent);line-height:1.4;}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer{
+    margin-top:46px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer a{color:var(--accent);}
+  footer .attrib{margin:0 0 .6em;}
+
+  @media(max-width:900px){
+    .wrap{width:100%;max-width:680px;padding:28px 20px 60px;}
+    body{font-size:18px;}
+    h1{font-size:31px;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav a,.corpus-nav .next{max-width:100%;text-align:left;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/23T.html">
+<meta name="description" content="Эссе о Воле Творца как законе самопреодоления: человек действует вопреки восприятию, становясь инструментом Намерения через дисциплину Пути воина.">
+<meta property="og:title" content="Воля Творца, Свят Благословен Он">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/23T.html">
+<meta property="og:description" content="Эссе о Воле Творца как законе самопреодоления: человек действует вопреки восприятию, становясь инструментом Намерения через дисциплину Пути воина.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Воля Творца, Свят Благословен Он">
+<meta name="twitter:description" content="Эссе о Воле Творца как законе самопреодоления: человек действует вопреки восприятию, становясь инструментом Намерения через дисциплину Пути воина.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №23T</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>/</span><a href="../best/index.html">Избранное</a>
+  </nav>
+
+  <figure class="lead">
+    <img src="../img/23T.jpg" alt="">
+  </figure>
+
+  <h1>ВОЛЯ ТВОРЦА, СВЯТ БЛАГОСЛОВЕН ОН<a class="audio-link" href="https://t.me/art_017_tracks/277" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <p class="subtitle">Написано 22.03.29 рукой скорописца</p>
+
+  <div class="epigraph">
+    <strong>Эпиграф</strong><br><br>
+    «"Тогда пробуждается Творец на ступенях Своих и ударяет по небосводам, и содрогаются двенадцать тысяч миров, и разносится Его призыв и плач. Как сказано: "Творец из высей возгремит, из святого жилища Своего вознесет голос Свой, громко взывает Он над обителью Своей", и Он помнит Исраэль", что они в изгнании, "и роняет две слезы в великое море, и тогда вспыхивает пламя одно на северной стороне. И один ветер на северной стороне соединяется с этим пламенем, и это пламя начинает распространяться по миру. И в этот час разделяется ночь, и пламя ударяет по крыльям петуха, и он кричит. И тогда входит Творец в Эденский сад"».
+    <span class="src">Книга Зоар, Ваякель, п. 21, том 5</span>
+  </div>
+
+  <div class="body">
+    <p class="num">Воля Творца, Свят Благословен Он - в том, чтобы творение (человек) совершало усилия самопреодоления, поступая не "благодаря", а "вопреки" всему на Свете, что оно только может воспринять или вообразить, как часть "объективно существующего вокруг него мироздания", действующего определенным образом, который человек посредством органов ощущений и опыта привык называть "реальным миром".</p>
+
+    <p class="num">Этот "Закон Орла" является одновременно Его Даром Полной Свободы, поскольку в результате всех таких усилий, человек преодолевает абсолютно все внутренние сдерживающие факторы, обуславливающие его восприятие, делая так потому, что по-другому действовать просто не может, обладая Волей не напрямую, а опосредовано, через Намерение Второго Кольца Силы, в той мере, в которой он этим обладанием выполняет работу и является инструментом реализации Воли Орла, т.е. Творца, Свят Благословен Он.</p>
+
+    <p class="num">Человек не входит в контакт с Намерением, а Намерение, т.е. Дух, или Творец, Свят Благословен Он, "входит в контакт" с человеком, по мере его собственного развития и формирования на том Пути, на Котором человек по Воле и Милости Творца, Свят Благословен Он, находится, живет и действует в течение жизни, осуществляя этим контактом "личное управление" человеком, опосредуя его волю Своей Волей, являющейся Безмолвным Знанием для человека, который соприкасается с Ним, и является Абсолютным Законом прямого действия, истинность которого не допускает апелляций (не является предметом человеческих соглашений) - то есть является "энергетическим фактом", следующим напрямую из "видения потоков энергии, как они текут во Вселенной".</p>
+
+    <p class="num">Чтобы понять, в требуемом для полноценного осознанного выполнения своей жизненной задачи человеком объеме и точности, чем является этот "реальный мир", реальный в кавычках, - поскольку его реальность как раз таки является предметом этих самих человеческих соглашений, причем, не важно, это соглашения "среднего человека", или же группы магов - и те и другие для восприятия мира используют модель ака интерпретацию, позволяющую осуществлять целеполагание и осознанное взаимодействие с Намерением посредством Воли, не имеющей взаимно однозначного отображения в пространство слов, утверждений и смыслов, только одни интерпретируют Намерение как "реальный мир объектов", а другие - как "Вселенную эманаций Орла", используя для этого Правило и "дисциплину Пути воина", - удобно использовать аналогию с созданными человеком системами знания - "Келим (инструментарий) этого мира", поскольку, следуя этому же принципу, все, что человек делает, независимо от внутренних мотивов, побуждений и смыслов, равно как и от понимания и "особого мнения" о том, чем и зачем что-то является "на самом деле в действительности", включая действия самого человека в первую очередь.</p>
+
+    <p class="num">Мир подобен программному компьютерному коду, посредством которого, выполняющий его "центральный процессор", - то есть сам человек, идущий по Путям своей жизни, и получающий "опыт всех опытов" "здесь и сейчас", опять же, не важно, использует он на данном этапе своего Пути "магическую" или "обычно-человеческую" интерпретацию Намерения Духа, - достигает заранее заложенной в этот код Программистом Цели - собственного создания и формирования, с дальнейшим "пробуждением" в Реальный Мир, что у Кастанеды называется "проскочить мимо Орла, чтобы стать свободным". А в Науке Каббала - Конечное Исправление. Понятно, что процессор имеет заранее известный набор "свойств", таких как, тактовая частота (скорость восприятия), оперативная память, пропускная способность систем коммуникации и так далее. Повлиять на это он не имеет никакой возможности (если вообще в этой аналогии уместно говорить о том, что "процессор", являющийся не более чем инструментом реализации определенного набора команд, что-то "имеет", или "не имеет").</p>
+
+    <p class="num">Кроме вышесказанного, процессор запущен на выполнение кода, к которому сам не имеет доступа ни для чего другого, кроме непосредственного выполнения. То есть "с точки зрения" процессора, то, "что с ним происходит", является следствием независимых внешних "электрических слепых Сил" и прочих физических Законов Природы. Но Программист, Который написал и отладил код, и Который внимательно следит за корректностью его выполнения, знает, что за каждым "событием" стоит единая логика, Его Собственная логика, которую он вложил в компьютер, и передал на выполнение процессору. И в ней нет никакой случайности, если только она не предусмотрена программным сценарием и не находится под полным контролем Программиста.</p>
+
+    <p class="num">Таковым "программным кодом" является этот мир, вся совокупность происходящих с человеком и человечеством исторических эволюционных изменений, процессов и явлений, по мере их фактического происхождения, является "интегрированной средой выполнения", в которой происходит выполнение точной и четкой программы, результат которой, общие характеристики времени и этапов выполнения, вплоть до мельчайших микрокоманд и битов данных, известны Программисту заранее, но скрыты от пользователя, которым, в данном случае, является сам выполняющий программу и находящийся "внутри" создаваемой ей программной среды компьютер. Именно поток выполнения этой программы "пользователем-компьютером" называется у Кастанеды и мистиков "Волей, скрытой способностью взаимодействовать с Реальным Миром, находящейся у большинства людей в спящем состоянии, но пробуждаемая посредством целенаправленной и точной дисциплины посредством Пути Воина". Чем является Реальный Мир "на самом деле", до того, как программа будет нами выполнена на 100%, посредством чего мы сами будем созданы и сформированы, и готовы для "перехода на следующий уровень", качественно отличающийся от всего, с чем мы были ранее знакомы, на неприводимый порядок, - мы знать не можем в принципе, поскольку наше функциональное предназначение, которое каждый из "чувствующих существ", созданных Орлом, имеет и опосредует собственной жизнью, включая сюда все, что в этой жизни может иметь место в принципе, вплоть до самых "незначительных" и незаметных мелочей, не предполагает наличия у нас этого знания, но предполагает и совершает практически последовательный и точный процесс достижения того, что этим знанием опосредуется, и что из него напрямую проистекает - то есть, мы созданы/рождены для того, чтобы действовать, а не задавать вопросы. Какое либо магическое "Знание" Реального Мира является не более, чем приятным, но не обязательным во всех смыслах элементом, который у Магов/Каббалистов появляется по мере того, как возникает практическая необходимость в его использовании "здесь и сейчас" для выполнения той практической задачи, которую они, равно как и все остальные живые существа, созданные Орлом, совершают и выполняют посредством жизненного Пути. И по определению любое таковое знание является фрагментарным, частичным и не отражающим ни в коей мере истинной картины Реальности, которую мы обнаружим, когда исполним "предначертанное" до самой последней "программной инструкции".</p>
+
+    <p class="acclaim">СДЕЛАЕМ И УСЛЫШИМ!!</p>
+  </div>
+
+  <div class="music">
+    <p class="label">Музыка под настроение</p>
+    <details class="track" ontoggle="if(this.open){var p=this.querySelector('.player');if(!p.querySelector('iframe')){p.innerHTML='&lt;iframe src=\'https://www.youtube.com/embed/5njp0jlu72E?autoplay=1\' allow=\'autoplay; encrypted-media\' allowfullscreen&gt;&lt;/iframe&gt;';}}">
+      <summary>
+        <span class="arrow">▶</span>
+        <span class="tname">The Riddler</span>
+        <span class="tartist">— Nightwish</span>
+        <a class="ext" href="https://youtu.be/5njp0jlu72E" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </summary>
+      <div class="player"></div>
+    </details>
+  </div>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="06I.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="ti">Воззвание к друзьям-каббалистам</span>
+    </a>
+    <a class="next" href="247.html">
+      <span class="dir">Следующая →</span>
+      <span class="ti">Конфронтология человеческого Духа</span>
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — философско-эзотерическое эссе из семи пронумерованных абзацев с эпиграфом из Зоар; это сплошная проза рассуждения, а не стихотворная форма, поэтому выбрана редакторская широкоформатная схема с основной колонкой около 2/3 ширины окна. Нумерованные пункты оформлены не как самостоятельные озаглавленные разделы, а как пронумерованные тезисы единого текста, поэтому оглавление не строилось: формальных подзаголовков в тексте нет, и сочинять их было бы нарушением верности тексту.\n\nКапитализированные фрагменты (название, 'СДЕЛАЕМ И УСЛЫШИМ!!') сохранены как есть. Единственный музыкальный трек снабжён меткой 'Музыка под настроение' и ведёт на YouTube, поэтому он сделан сворачиваемым плеером с ленивой загрузкой iframe только при раскрытии; сводный раздел музыки не создавался, так как трек всего один (порог — более двух). Сносок в тексте нет, аппарат примечаний не требовался. Палитра — тёплая 'манускриптно-журнальная' на светлом фоне с коричнево-золотыми акцентами, перекликающаяся с каббалистической темой, но в широкой редакторской подаче."
+}
+</script>
+</body>
+</html>

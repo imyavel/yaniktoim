@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Про игры, в которые играют воины</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#24211c;
+    --muted:#6b6356;
+    --accent:#8a4b2f;
+    --accent2:#b9742e;
+    --line:#e0d8c8;
+    --quote-bg:#f1ece0;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.75;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(138,75,47,.35);}
+  a:hover{border-bottom-color:var(--accent);}
+
+  .wrap{
+    width:66%;
+    max-width:1100px;
+    min-height:100vh;
+    margin:0 auto;
+    background:var(--paper);
+    padding:34px 64px 64px;
+    box-shadow:0 0 40px rgba(0,0,0,.05);
+  }
+
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--line);
+    padding-bottom:14px;
+    margin-bottom:26px;
+  }
+  .breadcrumbs a{color:var(--muted);border-bottom:none;}
+  .breadcrumbs a:hover{color:var(--accent);}
+  .breadcrumbs .sep{margin:0 .5em;opacity:.5;}
+
+  .lead-img{
+    display:block;
+    margin:0 auto 30px;
+    max-width:100%;
+    width:auto;
+    height:auto;
+  }
+
+  h1{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    font-size:38px;
+    line-height:1.18;
+    letter-spacing:-.01em;
+    margin:0 0 8px;
+    color:#1c1a16;
+  }
+  .kicker{
+    width:60px;height:4px;background:var(--accent2);
+    margin:18px 0 36px;border-radius:2px;
+  }
+
+  .article p{margin:0 0 1.25em;}
+
+  /* forum dialogue */
+  .speaker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--accent);
+    margin:1.6em 0 .5em;
+  }
+  blockquote.msg{
+    margin:0 0 1.4em;
+    padding:.5em 0 .5em 1.3em;
+    border-left:3px solid var(--line);
+    color:#3a352d;
+    font-style:italic;
+  }
+  blockquote.msg p{margin:0;}
+
+  .body-prose{margin-top:2.2em;}
+
+  /* footer nav */
+  .pagenav{
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    margin-top:54px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .pagenav a{
+    display:block;
+    max-width:46%;
+    font-size:15px;
+    line-height:1.4;
+  }
+  .pagenav .lbl{
+    display:block;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--muted);
+    margin-bottom:4px;
+    border:none;
+  }
+  .pagenav .next{text-align:right;margin-left:auto;}
+
+  footer{
+    margin-top:40px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+  footer a{color:var(--muted);}
+  footer .attrib{margin:0 0 .5em;}
+
+  @media (max-width:900px){
+    .wrap{width:100%;max-width:none;padding:24px 20px 48px;box-shadow:none;}
+    body{font-size:18px;}
+    h1{font-size:29px;}
+    .pagenav{flex-direction:column;}
+    .pagenav a,.pagenav .next{max-width:100%;text-align:left;margin-left:0;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/27J.html">
+<meta name="description" content="Полемическая заметка-реплика на форумном диалоге о пути воина, критика коллективного самообмана последователей КК и идея индивидуального Пути Сердца.">
+<meta property="og:title" content="Про игры, в которые играют воины">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/27J.html">
+<meta property="og:description" content="Полемическая заметка-реплика на форумном диалоге о пути воина, критика коллективного самообмана последователей КК и идея индивидуального Пути Сердца.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Про игры, в которые играют воины">
+<meta name="twitter:description" content="Полемическая заметка-реплика на форумном диалоге о пути воина, критика коллективного самообмана последователей КК и идея индивидуального Пути Сердца.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №27J</span>
+<div class="wrap">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../other/index.html">Без категории</a>
+  </nav>
+
+  <img class="lead-img" src="../img/27J.jpg" alt="">
+
+  <h1>Про игры, в которые играют воины<a class="audio-link" href="https://t.me/art_017_tracks/623" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <div class="kicker"></div>
+
+  <article class="article">
+
+    <div class="speaker">Авель написал(а):</div>
+    <blockquote class="msg">
+      <p>Женщин знакомых у меня в "реале" нету. Если вдруг тебя это "интересует". Как, впрочем, и "мужиков". Меня вообще нету в "реале".</p>
+    </blockquote>
+
+    <div class="speaker">Margosha написал(а):</div>
+    <blockquote class="msg">
+      <p>Ещё раз убедилась, что реал не для слабаков. Я не про тех интересующихся, которые играют в воинов.</p>
+    </blockquote>
+
+    <div class="speaker">Авель написал(а):</div>
+    <blockquote class="msg">
+      <p>Сожалею, пубертатные откровения о "путях воинов" приросших попой к гнезду кумушек-наседок мне не интересны. Мне давно не интересно быть воином, равно как и быть кем угодно еще. Мне гораздо важнее, что я делаю при этом. По своей собственной, не включающей "особое мнение" легиона "отрешенных, правильных и опытных" подсказчиков, кроме как вот таким образом, как прямо сейчас, свободной воле.</p>
+    </blockquote>
+
+    <div class="body-prose">
+      <p>Те женщины и мужчины, с которыми я реально взаимодействую, представляют определенную опасность для "первого внимания" и тех кто взаимодействует с ними в нем. Да и делать здесь пока им особо него, в имеющейся де факто эволюционной реальности, пока еще нечего. Когда-то именно они, поведут вперед и вверх по бесконечному Пути Восходящей Звезды пробужденное человечество. А не больные шизофренией несчастные глупцы, пытающиеся одновременно быть кем-то, не зная и не понимая кем и как именно, не говоря уже о том, НАФИГА, и идти бодрым шагом в никуда, то есть не быть никем, кем могли бы быть, если бы молились папе Карло не коллективно на форумах, "под дудку" "летуна", помогая друг другу перемалывать оставшуюся оболочку от "Знания толтеков" в мелкую кашицу, которая "глотается сама" независимо от сознательности и желания окормляемого, а молились индивидуально, в закрытых группах под управлением Духа, выстраивая вместе с Ним реальный Путь Сердца, и одновременно постигая и раскрывая этот Путь и его Знание заново, совсем не похоже на что либо, что "раскрывают" в сухих репортажах КК о своем, достойном почетного места в книге рекордов Гиннеса, индульгировании в нежелании быть магом и воином, участники интернет-форумов, или тем более "одиночки". Продолжая де факто тайно молиться на те тропы, в которые вросли корнями они сами, равно как и их учителя и тюремщики - "черные маги", все люди общества этого мира - Родные и близкие, семья, друзья, контакты. Самая поганая, страшная и сильная из сект, называемая "обществом этого мира".</p>
+    </div>
+
+  </article>
+
+  <nav class="pagenav">
+    <a class="prev" href="27GA.html">
+      <span class="lbl">← Предыдущая</span>
+      Потеря человеческой формы и самораспятие в Круге
+    </a>
+    <a class="next" href="27K.html">
+      <span class="lbl">Следующая →</span>
+      Я люблю тебя, поэтому, прощай навеки
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — короткая полемическая проза в форме форумной переписки (реплики «Авель» и «Margosha») с финальным развёрнутым прозаическим монологом. Это прозаическая форма без стихотворной разбивки, поэтому выбрана редакторская широкая схема, а не узкий манускрипт. Колонка задана в 66% ширины окна с ограничением max-width, чтобы на больших экранах мера строки оставалась читаемой. Реплики оформлены как чередование имени-говорящего и цитаты-blockquote, что сохраняет диалоговую природу источника без добавления собственных заголовков; финальный авторский абзац визуально отделён, но остаётся частью статьи.",
+  "rationale_extra": "",
+  "features": []
+}
+</script>
+</body>
+</html>

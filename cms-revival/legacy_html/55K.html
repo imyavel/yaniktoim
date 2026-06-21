@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Мама, ты иди к подружкам...</title>
+<style>
+  :root{
+    --paper:#faf5e9;
+    --paper2:#f3ebd8;
+    --ink:#2a2118;
+    --ink-soft:#5a4d3c;
+    --accent:#7a2230;
+    --accent2:#a8762a;
+    --rule:#d8c9a8;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Palatino Linotype","Book Antiqua",Palatino,Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.62;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{
+    max-width:820px;
+    margin:0 auto;
+    padding:34px 30px 70px;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* breadcrumbs */
+  .crumbs{
+    font-size:0.82em;
+    letter-spacing:0.04em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:12px;
+    margin-bottom:26px;
+  }
+  .crumbs a{color:var(--ink-soft);}
+  .crumbs .sep{margin:0 8px;color:var(--accent2);}
+
+  /* title */
+  h1{
+    font-size:2.05em;
+    line-height:1.18;
+    font-weight:600;
+    text-align:center;
+    margin:0.2em 0 0.15em;
+    color:var(--ink);
+  }
+  .kicker{
+    text-align:center;
+    font-style:italic;
+    color:var(--accent);
+    letter-spacing:0.05em;
+    font-size:1.05em;
+    margin:0 0 6px;
+  }
+  .titlerule{
+    width:120px;height:0;border:none;border-top:2px solid var(--accent2);
+    margin:18px auto 30px;
+    position:relative;
+  }
+  .titlerule::after{
+    content:"❧";
+    position:absolute;left:50%;top:-0.72em;transform:translateX(-50%);
+    background:var(--paper);padding:0 10px;color:var(--accent2);font-size:0.9em;
+  }
+
+  /* TOC */
+  .toc{
+    background:var(--paper2);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    padding:8px 22px 18px;
+    margin:0 auto 34px;
+    max-width:520px;
+  }
+  .toc summary{
+    cursor:pointer;
+    font-variant:small-caps;
+    letter-spacing:0.06em;
+    color:var(--accent);
+    font-size:1.05em;
+    padding:8px 0;
+    list-style:none;
+  }
+  .toc summary::-webkit-details-marker{display:none;}
+  .toc summary::before{content:"☰  ";color:var(--accent2);}
+  .toc ol{margin:6px 0 0;padding-left:1.4em;}
+  .toc li{margin:5px 0;}
+  .toc a{color:var(--ink-soft);}
+
+  /* sections */
+  .act{margin:48px 0 0;}
+  .act h2{
+    font-size:1.5em;
+    font-weight:600;
+    color:var(--accent);
+    text-align:center;
+    margin:0 0 4px;
+    cursor:pointer;
+  }
+  .act h2 a{color:inherit;}
+  .act h2 a:hover{text-decoration:none;color:var(--accent2);}
+  .stagedir{
+    text-align:center;
+    font-style:italic;
+    color:var(--ink-soft);
+    margin:0 auto 22px;
+    max-width:560px;
+  }
+  .speaker{
+    font-variant:small-caps;
+    letter-spacing:0.08em;
+    color:var(--accent2);
+    font-size:1.1em;
+    margin:26px 0 8px;
+  }
+
+  /* verse */
+  .verse{
+    margin:0 auto;
+    max-width:600px;
+  }
+  .stanza{
+    margin:0 0 1.35em;
+  }
+  .verse .line{
+    display:block;
+    line-height:1.5;
+  }
+  .quote{
+    border-left:3px solid var(--accent2);
+    padding-left:20px;
+    margin:0 auto;
+    max-width:620px;
+  }
+  .ellipsis{
+    text-align:center;
+    color:var(--accent2);
+    letter-spacing:0.3em;
+    font-size:1.3em;
+    margin:30px 0;
+  }
+
+  /* music */
+  .music{
+    margin:30px auto;
+    max-width:560px;
+  }
+  .music .label{
+    font-variant:small-caps;
+    letter-spacing:0.05em;
+    color:var(--accent);
+    font-size:0.96em;
+    margin-bottom:8px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:6px;
+    background:var(--paper2);
+    overflow:hidden;
+  }
+  .track summary{
+    list-style:none;
+    cursor:pointer;
+    padding:12px 15px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:0.98em;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .track .arr{
+    color:var(--accent2);
+    transition:transform .2s;
+    flex:0 0 auto;
+  }
+  .track[open] .arr{transform:rotate(90deg);}
+  .track .tname{flex:1 1 auto;}
+  .track .tname b{font-weight:600;}
+  .track .tname span{color:var(--ink-soft);}
+  .track .ext{flex:0 0 auto;color:var(--accent);font-size:1.05em;}
+  .track .player{padding:0 12px 12px;}
+  .track .player iframe{
+    width:100%;
+    aspect-ratio:16/9;
+    border:0;
+    border-radius:4px;
+  }
+
+  /* bottom nav */
+  .pagenav{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:60px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-size:0.92em;
+  }
+  .pagenav .pn{max-width:46%;}
+  .pagenav .pn.next{text-align:right;margin-left:auto;}
+  .pagenav .dir{
+    display:block;
+    font-variant:small-caps;
+    letter-spacing:0.06em;
+    color:var(--ink-soft);
+    font-size:0.85em;
+  }
+
+  footer{
+    margin-top:42px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:0.82em;
+    color:var(--ink-soft);
+    line-height:1.5;
+  }
+  footer a{color:var(--accent);}
+
+  @media (max-width:640px){
+    body{font-size:17px;}
+    .wrap{padding:22px 16px 50px;}
+    h1{font-size:1.6em;}
+    .pagenav{flex-direction:column;}
+    .pagenav .pn,.pagenav .pn.next{max-width:100%;text-align:left;margin-left:0;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/55K.html">
+<meta name="description" content="Пьеса в двух актах: монолог матери, заставшей дочь с парнем, и ответный монолог дочери о свободе, страхе и родовых цепях.">
+<meta property="og:title" content="Мама, ты иди к подружкам...">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/55K.html">
+<meta property="og:description" content="Пьеса в двух актах: монолог матери, заставшей дочь с парнем, и ответный монолог дочери о свободе, страхе и родовых цепях.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Мама, ты иди к подружкам...">
+<meta name="twitter:description" content="Пьеса в двух актах: монолог матери, заставшей дочь с парнем, и ответный монолог дочери о свободе, страхе и родовых цепях.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="manuscript">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №55K</span>
+<div class="wrap" id="top">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../dreamon/index.html">Мечтай!!</a>
+  </nav>
+
+  <p class="kicker">Пьеса в 2 актах</p>
+  <h1>Мама, ты иди к подружкам...</h1>
+  <hr class="titlerule">
+
+  <details class="toc" open>
+    <summary>Оглавление</summary>
+    <ol>
+      <li><a href="#act1">Акт 1</a></li>
+      <li><a href="#act2">Акт 2</a></li>
+      <li><a href="#after">Послесловие</a></li>
+    </ol>
+  </details>
+
+  <section class="music">
+    <div class="label">Музыка под настроение:</div>
+    <details class="track" data-embed="https://www.youtube-nocookie.com/embed/rFvV5_UnSeM">
+      <summary>
+        <span class="arr">▶</span>
+        <span class="tname"><b>Мама Люба</b> — <span>Серебро</span></span>
+        <a class="ext" href="https://www.youtube.com/watch?v=rFvV5_UnSeM" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </summary>
+      <div class="player"></div>
+    </details>
+  </section>
+
+  <section class="act" id="act1">
+    <h2><a href="#top">Акт 1</a></h2>
+    <p class="stagedir">Мама, без стука зайдя в закрытую комнату дочки</p>
+    <div class="verse quote">
+      <p class="stanza">
+        <span class="line">"*** ЛЕТ ЧТО ЭТО, НАТАША?</span>
+        <span class="line">ТЫ ЧТО, ГОЛАЯ, КТО ЭТО?</span>
+        <span class="line">ОН ЧТО, ЭТО С ТОБОЙ СДЕЛАЛ?</span>
+        <span class="line">АААА!!!! ВОССТАНЬТЕ, МАМА!</span>
+        <span class="line">ТУТ ТВОРЯТ РАЗВРАТ ИЗМЕНЫ</span>
+        <span class="line">БЛАГОЧЕСТИЕ ПОРОЧАТ</span>
+        <span class="line">ВАШ ЗАВЕТ, ПЕРЕДАН ТОЧНО,</span>
+        <span class="line">НО УСЛЫШАВ СОГЛАСИВШИСЬ</span>
+        <span class="line">И ОТ КУХНИ НА ДВА ШАГА</span>
+        <span class="line">НА УМЕ ОПЯТЬ ЛИШЬ ЭТА</span>
+        <span class="line">И ДРУГАЯ ОДНА МЕРЗОСТЬ,</span>
+        <span class="line">ТО ЕСТЬ МАЛЬЧИКИ, И ФРАЗЫ,</span>
+        <span class="line">ОТ КОТОРЫХ СРАЗУ К ДЕЛУ,</span>
+        <span class="line">ЗА КОТОРОЕ ВЫ, МАМА,</span>
+        <span class="line">НЕ КОЛЕБЛЯСЬ ДЛЯ НАЧАЛА</span>
+        <span class="line">ДАЛИ Б РОЗГАМИ ПО ГОЛОЙ,</span>
+        <span class="line">МЕРЗКОЙ НЕПОСЛУШНОЙ ПОПЕ,</span>
+        <span class="line">А ПОТОМ ПИНКОМ ТУДА ЖЕ</span>
+        <span class="line">ВЫГНАТЬ ВОН ИЗ ПОМЕЩЕНЬЯ,</span>
+        <span class="line">ГДЕ В ЧЕСТИ С ПОЧЕТОМ СТАРШИХ,</span>
+        <span class="line">БЛАГОЧЕСТИИ И ДОЛГЕ</span>
+        <span class="line">ВОСПИТАЛИСЬ ПОКОЛЕНЬЯ</span>
+        <span class="line">РОДОМ ИЗ АРИСТОКРАТОВ,</span>
+        <span class="line">ВЫСШИМ ОБЩЕСТВОМ СЛУЖИВШИХ</span>
+        <span class="line">ТЕМ ПРАВИТЕЛЯМ И СТРАНАМ,</span>
+        <span class="line">ГДЕ ИХ ЖИЗНИ ПРОХОДИЛИ,</span>
+        <span class="line">ЧТОБЫ СДЕЛАТЬ ДОМ - ТОЙ БАЗОЙ,</span>
+        <span class="line">ИЗ КОТОРОЙ В МИР ВЫХОДЯТ</span>
+        <span class="line">ПОДГОТОВЛЕННЫМИ К ЖИЗНИ</span>
+        <span class="line">ИМЕНИ СВОЕГО РОДА</span>
+        <span class="line">БЫТЬ ДОСТОЙНЫМИ МОГЛИ В НЕЙ,</span>
+        <span class="line">И ЕГО ЧЕСТЬ СОХРАНИЛИ,</span>
+        <span class="line">И УМНОЖИЛИ ПРЕСТИЖНОСТЬ,</span>
+        <span class="line">А НЕ ГЛУПОСТЬЮ ПОРОЧНОЙ,</span>
+        <span class="line">СДЕЛАННОЙ ПО МАЛОЛЕТСТВУ</span>
+        <span class="line">СЕБЕ ВОЛЧИЙ БИЛЕТ СРАЗУ</span>
+        <span class="line">НА ВСЮ ДОЛГУЮ ЖИЗНЬ ВЗЯЛИ,</span>
+        <span class="line">ЛИШЬ РАДИ МИНУТ КАКИХ-ТО</span>
+        <span class="line">ТО, ЧТО И НЕ ПАХЛО КАЙФОМ,</span>
+        <span class="line">ПОКА НЕ НАШЛИСЬ ПРИЧИНЫ,</span>
+        <span class="line">ЧТОБЫ МАТЬ, ЗАЙДЯ ЗА РАМКИ,</span>
+        <span class="line">ЗА КОТОРЫМИ ГЛУПЦЫ ЛИШЬ</span>
+        <span class="line">ДУМАЮТ, ЧТО ЕСТЬ ЗАЩИТА</span>
+        <span class="line">ТАМ, ГДЕ - НЕ ИМЕЕШЬ ПРАВА,</span>
+        <span class="line">ЧТОБЫ БЫТЬ НЕБЛАГОДАРНОЙ</span>
+        <span class="line">ЗА ВСЕ ТО, ЧЕМ ТЫ ЛИШЬ ВЗРОСЛЫМ</span>
+        <span class="line">ЕЩЕ ДОЛГО БЫТЬ ПРОДОЛЖИШЬ</span>
+        <span class="line">ЗА ЕДУ, ЗА КРОВ, ЗА ТО, ЧТО</span>
+        <span class="line">ПОЛУЧАЕШЬ ВОСПИТАНЬЕ,</span>
+        <span class="line">ХОДИШЬ В ШКОЛУ, ЖИВЕШЬ В РАДОСТЬ,</span>
+        <span class="line">И ТУТ НА ТЕБЕ - РАСПУТСТВО!</span>
+        <span class="line">В *** ЛЕТ, МАМОЧКА, ЧТО ДАЛЬШЕ?</span>
+        <span class="line">ЧТО ЖЕ МНЕ ТЕПЕРЬ С НЕЙ ДЕЛАТЬ?..."</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="act" id="act2">
+    <h2><a href="#top">Акт 2</a></h2>
+    <div class="verse">
+      <p class="stanza">
+        <span class="line">ДВОЕ, ПОЛНОСТЬЮ ОДЕТЫХ,</span>
+        <span class="line">И СОБРАВШИХ ВЕЩИ НАСПЕХ,</span>
+        <span class="line">У ДВЕРЕЙ ВХОДНЫХ СМОТРЕЛИ</span>
+        <span class="line">НА ТРАГЕДИЮ БЕДНЯЖКИ,</span>
+        <span class="line">У КОТОРОЙ ТЕПЕРЬ ВЫБОР -</span>
+        <span class="line">ПОЙТИ СПАТЬ, В СВОЕЙ КРОВАТИ</span>
+        <span class="line">ТЕПЛОЙ, ЧАЙ ПОПИВ ГОРЯЧИЙ,</span>
+        <span class="line">ИЛИ ПОЙТИ СМОТРЕТЬ ДАЛЬШЕ</span>
+        <span class="line">СЕРИАЛ ДОМОХОЗЯЕК?...</span>
+      </p>
+    </div>
+
+    <div class="speaker">Дочь:</div>
+    <div class="verse quote">
+      <p class="stanza">
+        <span class="line">"МАМА, ТЫ ИДИ К ПОДРУЖКАМ,</span>
+        <span class="line">НА ПЛЕЧЕ ПОПЛАЧЬ РАССКАЗОМ</span>
+        <span class="line">КАК ТЫ БЕДНАЯ НЕСЧАСТЬЕМ</span>
+        <span class="line">ВСЯ ОБЪЯТА ДО ОТКАЗА.</span>
+      </p>
+      <p class="stanza">
+        <span class="line">ЗАОДНО ПРО МЕНЯ ГАДОСТЬ</span>
+        <span class="line">ИМ ПОВЕДАЙ СВОИМ МЕРЗКИМ,</span>
+        <span class="line">ОТВРАТИТЕЛЬНЫМ ПОГАНЫМ</span>
+        <span class="line">ЯЗЫКОМ, КОТОРЫЙ СЛУЖИТ</span>
+      </p>
+      <p class="stanza">
+        <span class="line">ДЛЯ ТОГО, ЧТОБЫ У МЕРТВЫХ</span>
+        <span class="line">ПРЕДКОВ ЛИЗАТЬ ПОПЫ,</span>
+        <span class="line">САПОГИ И РОДОВЫЕ</span>
+        <span class="line">ПРОЧИЕ ИХ АТРИБУТЫ.</span>
+      </p>
+      <p class="stanza">
+        <span class="line">ТЫ ПРОТИВНА И НЕ СТОИШЬ</span>
+        <span class="line">НИ ОБИДЫ, НИ ПРОКЛЯТИЙ,</span>
+        <span class="line">НИЧЕГО ВООБЩЕ, ЛИШЬ ТОЛЬКО,</span>
+        <span class="line">ТОЙ СУДЬБЫ, КОТОРОЙ С ДЕТСТВА</span>
+      </p>
+      <p class="stanza">
+        <span class="line">ВСЛЕД ЗА МАМОЙ И ПРАБАБКОЙ</span>
+        <span class="line">ОБЛАДАЕШЬ, ЖИВЯ МЫШЬЮ,</span>
+        <span class="line">СЕРОЙ И ПОЛНОЙ ТЕХ СТРАХОВ,</span>
+        <span class="line">О КОТОРЫХ СЕЙЧАС ПЛАЧЕШЬ,</span>
+      </p>
+      <p class="stanza">
+        <span class="line">ПОТОМУ ЧТО ТЫ - ТУПАЯ,</span>
+        <span class="line">И БЕЗВОЛЬНАЯ НАСЕДКА,</span>
+        <span class="line">ЧЬЯ СУДЬБА - СТРАДАТЬ ОТ СКУКИ</span>
+        <span class="line">И ПОТОМ ОТ ГЕМОРРОЯ,</span>
+      </p>
+      <p class="stanza">
+        <span class="line">ТВОЯ ЖИЗНЬ - ЭТО БЕГ В КЛЕТКЕ,</span>
+        <span class="line">У КОТОРОГО НЕТ СМЫСЛА</span>
+        <span class="line">И НЕТ ЦЕЛИ КРОМЕ ТЕХ, ЧТО</span>
+        <span class="line">ЗА ТЕБЯ ОПРЕДЕЛИЛИ</span>
+      </p>
+      <p class="stanza">
+        <span class="line">КТО УГОДНО, ПРИ УСЛОВЬИ -</span>
+        <span class="line">ЧТО ТЕБЯ СПРОСИТЬ ЗАБЫЛИ,</span>
+        <span class="line">И ТЫ НЕ СПОСОБНА МЫСЛИ</span>
+        <span class="line">ДОПУСТИТЬ, ЧТО ЖИЗНЬ НЕ ЭТО -</span>
+      </p>
+      <p class="stanza">
+        <span class="line">ЭТО, ****СТВО И РАСТРАТА</span>
+        <span class="line">ДРАГОЦЕННОГО РЕСУРСА</span>
+        <span class="line">И УПУЩЕННЫЙ МИГ ШАНСА</span>
+        <span class="line">СТАТЬ НА ПУТЬ, ВЕДУЩИЙ В НЕБО,</span>
+      </p>
+      <p class="stanza">
+        <span class="line">ПОТОМУ ЧТО ЭТО СТРАШНО,</span>
+        <span class="line">ЭТО ВЗДОРНО И ОПАСНО,</span>
+        <span class="line">ЭТО НЕИЗВЕСТНО, ДОЛГО,</span>
+        <span class="line">ТРУДНО И СОВСЕМ НЕ ЯСНО,</span>
+      </p>
+      <p class="stanza">
+        <span class="line">ЧТО ОТ ЭТОГО НАСЕДКЕ,</span>
+        <span class="line">В ЖИЗНИ ЧЬЕЙ ОДНО ЛИШЬ ДЕЛО -</span>
+        <span class="line">НЕ МЕШАЙ, КОРМИ, ДАЙ ДЕНЕГ</span>
+        <span class="line">ПОКА ДЕТИ НЕ ЗАКОНЧАТ</span>
+      </p>
+      <p class="stanza">
+        <span class="line">ОБУЧЕНИЕ И СКАЖУТ</span>
+        <span class="line">ТЕБЕ ЗА ДАРЫ СПАСИБО,</span>
+        <span class="line">ПОЖЕЛАЮТ В ЖИЗНИ СЧАСТЬЯ</span>
+        <span class="line">И УЙДУТ, ЧТОБЫ ВОТ ЭТО</span>
+      </p>
+      <p class="stanza">
+        <span class="line">ВОТ ЧТО ОКРУЖАЕТ СТЕНЫ,</span>
+        <span class="line">ОБСТАНОВКА, СЕРВИРОВКА,</span>
+        <span class="line">ТВОИ ПОЛНЫЕ ЛЖИ МЕРЗКОЙ,</span>
+        <span class="line">СЛЕЗ ПРОЛИТЫХ О ЗЛОЙ ДОЛЕ,</span>
+      </p>
+      <p class="stanza">
+        <span class="line">ПОДЛЫХ АКТОВ ИЗМЕН ЧЕСТИ</span>
+        <span class="line">И ВСЕМУ, ЧТО БЫЛО В ДОЛГЕ,</span>
+        <span class="line">О КОТОРОМ ТЕБЕ ДЕТИ</span>
+        <span class="line">НЕ ПОДПИСЫВАЛИ ФОРМУ,</span>
+      </p>
+      <p class="stanza">
+        <span class="line">ЧТО ОНИ, ТЯП ЛЯП, В ТАКОМ ТО</span>
+        <span class="line">ОБЯЗУЮТСЯ ЧТО БУДУТ</span>
+        <span class="line">ПЕРЕД ТЕМ, КАК ЖИТЬ РЕШИТЬСЯ,</span>
+        <span class="line">ВОПРЕКИ ПОРЯДКАМ ЗОМБИ,</span>
+      </p>
+      <p class="stanza">
+        <span class="line">ПОТОМУ ЧТО ЗОМБИ МАМА,</span>
+        <span class="line">ОЧЕНЬ ВЫСОКО ЦЕНИЛА</span>
+        <span class="line">ЗОМБИ БАБУШКИНЫ ЦЕПИ,</span>
+        <span class="line">И ВСЮ ЖИЗНЬ БРЯЦАЛА ИМИ,</span>
+      </p>
+      <p class="stanza">
+        <span class="line">И В НИХ В ГРОБ СОШЛА, ЧТОБ ПОМНИЛ</span>
+        <span class="line">И ХРАНИЛ НАСЛЕДНЫЙ ТИТУЛ</span>
+        <span class="line">И ЕГО СИМВОЛЫ ВЕРЫ,</span>
+        <span class="line">НА КОТОРЫХ КРОВЬ ТЕХ ПРЕДКОВ,</span>
+      </p>
+      <p class="stanza">
+        <span class="line">КТО НОСИЛ ИХ ЧТОБЫ БЫЛО</span>
+        <span class="line">ИМ ОТ ИХ ПОГАНОЙ ЖИЗНИ</span>
+        <span class="line">БОЛЬНО И ДУШЕ И ТЕЛУ,</span>
+        <span class="line">И ГАРМОНИИ ДОБИВШИСЬ,</span>
+      </p>
+      <p class="stanza">
+        <span class="line">С ЭТИМ И РЕШИЛ ДОБИТЬСЯ</span>
+        <span class="line">ОТ ПОТОМКОВ, ЧТОБ НЕСТИ ИМ</span>
+        <span class="line">ВМЕСТЕ С НИМ ТУ РАДОСТЬ В ЖИЗНИ</span>
+        <span class="line">ВПЕРЕД, СОБОЙ ГОРДИЛИСЬ</span>
+      </p>
+      <p class="stanza">
+        <span class="line">ЧТОБЫ ВСЕ, КТО МЕРТВ И СГНИВШИЙ,</span>
+        <span class="line">И НЕ МОЖЕТ ДАТЬ СОВЕТА</span>
+        <span class="line">ТЕМ, ЧЬЯ ЖИЗНЬ ПРОХОДИТ В ЭТОМ,</span>
+        <span class="line">РОДОВОМ ФАМИЛЬНОМ СКЛЕПЕ,</span>
+      </p>
+      <p class="stanza">
+        <span class="line">ГДЕ ПРИЖИЗНЕННЫЕ ПРЕДКИ</span>
+        <span class="line">ХРАНЯТ ЧЕСТЬ И ДОЛГ, И НЕТУ</span>
+        <span class="line">СРЕДИ НИХ РАСПУТНЫХ ДЕВОК,</span>
+        <span class="line">У КОТОРЫХ В *** ЛЕТ НЕТУ</span>
+      </p>
+      <p class="stanza">
+        <span class="line">НИКАКИХ ПРАВ, КРОМЕ ТЕХ, ЧТО</span>
+        <span class="line">ИМ НАВЯЗАНЫ ДРУГИМИ,</span>
+        <span class="line">ОТ КОТОРЫХ НЕСЕТ СМЕРТЬЮ</span>
+        <span class="line">И КОТОРЫМ ЛУЧШЕ ГДЕ-ТО</span>
+      </p>
+      <p class="stanza">
+        <span class="line">БЫТЬ ОТДЕЛЬНО, В ПОМЕЩЕНЬЯХ,</span>
+        <span class="line">ГДЕ ОПАСНО БЫТЬ ЖИВЫМИ."</span>
+      </p>
+    </div>
+    <div class="ellipsis">…</div>
+  </section>
+
+  <section class="act" id="after">
+    <h2><a href="#top">Послесловие</a></h2>
+    <div class="verse quote">
+      <p class="stanza">
+        <span class="line">"МАМА РОТ ОТКРЫВ СТОЯЛА И СМОТРЕЛА КАК ЗА НИМИ</span>
+        <span class="line">ДВЕРЬ ЗАХЛОПНУЛАСЬ ВХОДНАЯ, И ОНИ, УЖЕ ИМЕЯ</span>
+        <span class="line">ТОЧНЫЙ ПЛАН И ВАРИАНТЫ ВСЕХ ПРОДУМАННЫХ ЗДЕСЬ ДЕЙСТВИЙ</span>
+        <span class="line">И УВЕРЕННОСТЬ В ТОМ ФАКТЕ, ЧТО ОНИ САМЫЙ ОПАСНЫЙ</span>
+      </p>
+      <p class="stanza">
+        <span class="line">В ЖИЗНИ МИГ СВОЕЙ - ТОТ ВЫБОР, ЧТО ИМЕЛСЯ У НИХ КАЖДЫМ</span>
+        <span class="line">КОГДА РЯД ПРИНЯТЬ РЕШЕНИЙ ТРЕБОВАЛОСЬ ДОЛГОСРОЧНЫХ</span>
+        <span class="line">И ОНИ РЕШИЛИ, ВЗЯВШИСЬ ЗА РУКИ, ЧТО КАК БЫ НЕ БЫЛ</span>
+        <span class="line">ПРИНЯТЫМ КАКОЙ-ТО ВЫБОР КЕМ-ТО ИЗ ДВОИХ, ТО ВМЕСТЕ</span>
+      </p>
+      <p class="stanza">
+        <span class="line">В НЕМ ОНИ БУДУТ ВСЕХ ДЕЙСТВИЙ И ИХ СЛЕДСТВИЙ ДЕЛИТЬ РЯДОМ</span>
+        <span class="line">ТЕ ПОСЛЕДСТВИЯ, КОТОРЫМ ПРЕДСТОИТ ВЗИМАТЬ ОПЛАТУ</span>
+        <span class="line">ЗА ТО ПРАВО, НЕВОЗМОЖНО ЛИШИТЬ ОТ ПРИРОДЫ ФАКТОМ</span>
+        <span class="line">НАДЕЛЕННОГО - СВОБОДНОЙ ВОЛЕЙ ОБЛАДАЯ, ДЕЛАТЬ ВЫБОР</span>
+      </p>
+      <p class="stanza">
+        <span class="line">ОСОЗНАВ ОЧЕНЬ ПРОСТОЕ, НО ЛИШЬ ТЕМ, КТО В ЭТОЙ ЖИЗНИ</span>
+        <span class="line">НЕ ИМЕЕТ ЗА ПЛЕЧАМИ НИЧЕГО ЦЕННЕЕ ЛИЧНОЙ</span>
+        <span class="line">ТРОПЫ, ПРОЙДЕННОЙ ЗА ГОДЫ, ПОЛНЫЕ БОРЬБЫ, ПАДЕНИЙ, НАСТУПЛЕНИЯ НА ГРАБЛИ,</span>
+        <span class="line">ОТ КОТОРЫХ ЕЩЕ ПРЕЖНИЙ НЕ ИСЧЕЗ СИНЯК ПРИЛИЧНЫЙ,</span>
+      </p>
+      <p class="stanza">
+        <span class="line">НО ТЫ ВСЕ РАВНО УПРЯМО ТОПАЕШЬ ТУДА, ГДЕ ВЕРИШЬ,</span>
+        <span class="line">ЧТО ТЫ ВСЕ СДЕЛАЛ КАК НАДО, И ПРИЛОЖИШЬ ВСЕХ УСИЛИЙ</span>
+        <span class="line">ЧТО ИМЕЕШЬ, ЧТОБЫ ДАЛЬШЕ ПРОДОЛЖАЛ ИДТИ, НЕ ХНЫЧА</span>
+        <span class="line">КАК ДОМАШНИЕ ТУПЫЕ КУРЫ НА СВОИХ НАСЕСТАХ</span>
+      </p>
+      <p class="stanza">
+        <span class="line">А ИДЯ ВПЕРЕД И ЗНАЯ: ТРУДНО ТОЛЬКО ПО НАЧАЛУ,</span>
+        <span class="line">А ПОТОМ ТЫ ЗАБЫВАЕШЬ, ЧТО БЫВАЕТ В ЖИЗНИ ЛЕГЧЕ,</span>
+        <span class="line">И ПОЭТОМУ В ТОМ МЕСТЕ ГДЕ ТЫ ЕСТЬ, НАХОДИШЬ СРЕДСТВО</span>
+        <span class="line">И СТРЕМИШЬСЯ ДЕЛАТЬ ДЕЛО, ЧТОБЫ ШАНС ИМЕТЬ ВСПЛЫТЬ КВЕРХУ,</span>
+      </p>
+      <p class="stanza">
+        <span class="line">ВЕДЬ РАЗ УТОНУЛ СНАЧАЛА, ЗНАЧИТ ТЫ НЕ ТО, ЧТО В РЕЧКАХ</span>
+        <span class="line">ТЕМ ИЗВЕСТНО, ЧТО НЕ ТОНЕТ, И РАЗ ТЫ СМОГ УПАСТЬ ПРЕЖДЕ,</span>
+        <span class="line">ЗНАЧИТ СМОЖЕШЬ ВНОВЬ ПОДНЯТЬСЯ, И НА ЭТОТ РАЗ ЗА ЭТИМ</span>
+        <span class="line">НЕ ПОСЛЕДУЕТ СЦЕНАРИЙ, СЛЕДОВАВШИЙ ИЗ ПРОШЕДШЕЙ</span>
+      </p>
+      <p class="stanza">
+        <span class="line">МОЖНО ТАК СКАЗАТЬ СЛУЧАЙНО НАСТУПИВШЕЙ ПЕРЕДЫШКИ</span>
+        <span class="line">В ТОМ, КАК ТЫ УЖЕ БЫВАЛЫМ СТАЛ НА ДНЕ, ГДЕ ОПУСТИЛСЯ.</span>
+      </p>
+    </div>
+  </section>
+
+  <nav class="pagenav">
+    <a class="pn prev" href="341.html">
+      <span class="dir">← Предыдущая</span>
+      Новая Песнь Хозяйки Ночи
+    </a>
+    <a class="pn next" href="24C.html">
+      <span class="dir">Следующая →</span>
+      Обладательница крыльев
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.track').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open){
+        var box=d.querySelector('.player');
+        if(box && !box.querySelector('iframe')){
+          var f=document.createElement('iframe');
+          f.src=d.dataset.embed+'?autoplay=1&rel=0';
+          f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          f.allowFullscreen=true;
+          box.appendChild(f);
+        }
+      }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "стих",
+  "rationale": "Текст целиком — стихотворная пьеса в двух актах с послесловием: реплики персонажей и нарратив выстроены строками и строфами (преимущественно четверостишиями), монологи написаны капслоком. Доминирующая форма — стих/поэма, поэтому выбрана манускриптная схема с узкой книжной полосой (~820px) и засечным шрифтом для медленного вертикального чтения; редакторский широкий лонгрид тут разрушил бы строки. Колонку стиха дополнительно сузил до ~600px, чтобы длинные капслочные строки (особенно в Послесловии) не переносились хаотично, а монологи персонажей выделил вертикальной линейкой-цитатой.\n\nКапс сохранён дословно, как и цензурные звёздочки (*** ЛЕТ, ****СТВО) и многоточия. Разделов больше одного (Акт 1, Акт 2, Послесловие) — сделал сворачиваемое оглавление с возвратом наверх по клику на заголовок раздела. Музыкальный трек один, поэтому сводный раздел музыки не создавал; единственный плеер (YouTube «Мама Люба» — Серебро) оформлен свёрнутым с ленивой подгрузкой iframe при раскрытии и значком внешней ссылки. Сносок в тексте нет — аппарат примечаний не вводил. Палитра — пергаментный фон, тёмная сепия-чернила и бордово-золотые акценты для книжно-рукописного характера."
+,
+  "features": ["music", "toc"]
+}
+</script>
+</body>
+</html>

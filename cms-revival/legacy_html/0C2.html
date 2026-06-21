@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Целостность духовной методики</title>
+<style>
+  :root{
+    --bg:#f6f4ef;
+    --panel:#fffdf9;
+    --ink:#22201c;
+    --muted:#6b655c;
+    --accent:#7a4b1e;
+    --accent2:#b5651d;
+    --rule:#e0d8ca;
+    --hl:#fdf0c8;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+  }
+  .wrap{
+    width:66%;
+    max-width:1100px;
+    min-width:0;
+    margin:0 auto;
+    padding:48px 40px 80px;
+  }
+  a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;}
+  a:hover{color:var(--accent2);}
+
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    margin-bottom:36px;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+  }
+  .crumbs a{color:var(--muted);text-decoration:none;}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs .sep{margin:0 .5em;opacity:.6;}
+
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:10px;
+  }
+  h1{
+    font-size:42px;
+    line-height:1.18;
+    font-weight:700;
+    margin:0 0 6px;
+    letter-spacing:-.01em;
+  }
+  .rule-under{
+    width:88px;
+    height:3px;
+    background:var(--accent2);
+    margin:22px 0 40px;
+    border-radius:2px;
+  }
+
+  article p{
+    margin:0 0 1.5em;
+    text-align:justify;
+    hyphens:auto;
+  }
+  article p:first-of-type::first-letter{
+    font-size:3.6em;
+    line-height:.82;
+    float:left;
+    padding:6px 12px 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+
+  /* footnotes */
+  .fnref{
+    font-size:.78em;
+    vertical-align:super;
+    line-height:0;
+    color:var(--accent2);
+    text-decoration:none;
+    font-weight:700;
+    padding:0 1px;
+    cursor:pointer;
+    position:relative;
+  }
+  .fnref:hover{color:var(--accent);}
+  .fnref .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:1.6em;
+    width:320px;
+    max-width:72vw;
+    background:var(--panel);
+    border:1px solid var(--rule);
+    box-shadow:0 8px 26px rgba(0,0,0,.16);
+    border-radius:8px;
+    padding:12px 14px;
+    font-size:15px;
+    line-height:1.5;
+    font-weight:400;
+    color:var(--ink);
+    text-align:left;
+    z-index:30;
+    vertical-align:baseline;
+    white-space:normal;
+  }
+  .fnref.below .pop{bottom:auto;top:1.6em;}
+  .fnref:hover .pop{display:block;}
+  .fnref .pop a{word-break:break-all;}
+
+  .notes{
+    margin-top:56px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+  }
+  .notes h2{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 16px;
+  }
+  .notes ol{
+    margin:0;
+    padding-left:1.4em;
+    font-size:16px;
+    line-height:1.6;
+  }
+  .notes li{margin-bottom:10px;}
+  .notes li a{word-break:break-all;}
+  .notes li:target{
+    background:var(--hl);
+    border-radius:6px;
+    padding:4px 8px;
+    margin-left:-8px;
+  }
+  .backref{
+    margin-left:.4em;
+    font-size:.85em;
+    text-decoration:none;
+  }
+
+  nav.corpus{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    margin-top:64px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  nav.corpus a{
+    text-decoration:none;
+    color:var(--accent);
+    max-width:46%;
+  }
+  nav.corpus .lbl{
+    display:block;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  nav.corpus .next{text-align:right;margin-left:auto;}
+
+  footer{
+    margin-top:48px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+  footer a{color:var(--muted);}
+  footer .attrib{margin:0 0 6px;}
+
+  @media(max-width:900px){
+    .wrap{width:100%;padding:28px 20px 60px;}
+    body{font-size:18px;}
+    h1{font-size:32px;}
+    nav.corpus{flex-direction:column;}
+    nav.corpus a{max-width:100%;}
+    nav.corpus .next{text-align:left;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/0C2.html">
+<meta name="description" content="Статья о целостности духовной методики: автор обсуждает единый источник сил мироздания, роль Каббалы и интеграцию учений в единую систему Адама.">
+<meta property="og:title" content="Целостность духовной методики">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/0C2.html">
+<meta property="og:description" content="Статья о целостности духовной методики: автор обсуждает единый источник сил мироздания, роль Каббалы и интеграцию учений в единую систему Адама.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Целостность духовной методики">
+<meta name="twitter:description" content="Статья о целостности духовной методики: автор обсуждает единый источник сил мироздания, роль Каббалы и интеграцию учений в единую систему Адама.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №0C2</span>
+<div class="wrap">
+
+  <div class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </div>
+
+  <div class="dateline">2 декабря 2020 г.</div>
+  <h1>Целостность духовной методики<a class="audio-link" href="https://t.me/art_017_tracks/425" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <div class="rule-under"></div>
+
+  <article>
+    <p>Я считаю досадным заблуждением, основным следствием отсутствия целостности в "духовной" методике или учении - описание такой картины мира, при которой в нем есть место силам, не имеющим единого "корня", то есть источника их происхождения в более высоком уровне сознания, включающем в себя всю "программу" их последующего "нисхождения" (т.е. "разделения" посредством снижения "уровня сознания"), объясненную ясным языком, чтобы нам понять причину этого "нисхождения", его желательность и неизбежность ради единой конечной цели работы, выполняемой по-отдельности (как нам по началу кажется), каждой из этих форм, включая их "противоборство" друг с другом. В Каббале это есть, и серьезно занимающийся этой методикой, поставивший перед собой цель "раскрыть Творца" во что бы то ни стало, подтверждает все выводы и описания, данные каббалистами, на собственном "духовном" опыте.</p>
+
+    <p>Что нового мы можем открыть и добавить к тому, что уже было сказано предшественниками, как в Каббале, так и во всех остальных учениях? На самом деле, очень много, у нас есть широкое поле для деятельности, поле необъятное и щедрое на открытия, поскольку нам необычайно повезло родиться в это время и участвовать в этих процессах, когда начинает происходить интеграция всего, что было создано, сказано, сделано, описано, осуществлено, постигнуто, передано, пережито и т.д. всеми людьми до нас, как "духовными" практиками, так и любой личностью "этого мира", которая когда-либо появлялась на свет, в одну единую и целостную картину постижения "конечного состояния", которое в течение 6000 лет было скрыто "в начальном замысле", то есть было раскрыто "постигающим" на более высоких "уровнях сознания", на которых прошлое, настоящее и будущее - едины и одновременны, а этот мир, как и любые другие миры - не более, чем следствие "объективной реальности", в которой нет ни жизни, ни смерти, ни перемен, ни созданий (кроме одного - Малхут Бесконечности). Именно это единство, целостность и совершенство всего мы и "открываем" сейчас милостью Творца, благодаря всем усилиям "периода подготовки", которые осуществляли идущие до нас, и наша задача состоит в том, чтобы объединять, интегрировать, все учения, практики, отдельные формы, как духовные, так и материальные, в единую систему "Адама" - объединенного сознания уровня всего человечества, духовными "органами" и процессами Которого, по сути, мы все, и все созданные нами инструменты и знания, являемся, и ради приведения Которого в действие, "оживление", создание и построение, пробуждение, совершали, совершают и будут совершать все усилия и стремления все люди, независимо от того, что каждый из нас думает в момент совершения этих усилий и действий, поскольку логика происходящего существует на 3 уровнях как минимум, "независимо" на каждом из них - если брать за основу модель "3 типов вниманий" Кастанеды, причем "высший", старший, и, вследствие этого, наиболее "истинный" из них, то есть уровень единства и совершенства всего сущего, раскрывается человеку только в самом конце, когда мы будем Единым Кли, подобным "по свойствам" единой и абсолютной Высшей Силе, по Воле и Желанию Которой все это окружающее нас великолепие существует, живет и развивается.<span class="fnref"><a class="fnref" href="#fn1" id="ref1">*</a><span class="pop">Ссылки: ; <a href="https://www.facebook.com/arykhanpin/posts/405833737237395">facebook.com/arykhanpin/posts/405833737237395</a></span></span></p>
+  </article>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1">
+        <br>
+        <a href="https://www.facebook.com/arykhanpin/posts/405833737237395">https://www.facebook.com/arykhanpin/posts/405833737237395</a>
+        <a class="backref" href="#ref1" title="Вернуться к тексту">↩</a>
+      </li>
+    </ol>
+  </section>
+
+  <nav class="corpus">
+    <a class="prev" href="158A.html">
+      <span class="lbl">← Предыдущая</span>
+      Вечное здесь и сейчас
+    </a>
+    <a class="next" href="22R.html">
+      <span class="lbl">Следующая →</span>
+      Услышим и сделаем!
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // flip footnote popup below the marker when there's not enough room above
+  document.querySelectorAll('.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      var pop=ref.querySelector('.pop');
+      if(!pop)return;
+      ref.classList.remove('below');
+      var top=ref.getBoundingClientRect().top;
+      if(top<240){ref.classList.add('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой цельное прозаическое эссе-размышление из двух плотных абзацев без стихотворной формы, поэтому выбрана редакторская широкоформатная схема: основная колонка занимает ~66% ширины окна на десктопе и полную ширину на мобильных. Узкая манускриптная полоса здесь была бы неуместна, так как текст состоит из очень длинных аналитических периодов, которым нужна комфортная журнальная мера строки.\n\nПодразделов в тексте нет (это сплошное эссе), поэтому оглавление не делалось. Единственная развилка — сноска: в конце второго абзаца стоит маркер '*', а его телом служат две голые ссылки (форум и facebook), которые я объединил в одно примечание с переходами вниз/вверх, подсветкой цели и popup при наведении (с автоматическим переворотом под маркер у верхней границы окна). Голые URL обёрнуты в гиперссылки. Музыкальных треков в тексте нет, поэтому раздел музыки отсутствует. Дату '2 декабря 2020 г.' оставил как датлайн над заголовком, не считая её частью основного текста.",
+  "features": ["footnotes"]
+}
+</script>
+</body>
+</html>

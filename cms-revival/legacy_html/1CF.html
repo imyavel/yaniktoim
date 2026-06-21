@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Диалог Нипна к Анибе</title>
+<style>
+  :root{
+    --ink:#1c1a17;
+    --paper:#faf7f1;
+    --paper2:#f3ede2;
+    --accent:#8a5a2b;
+    --accent2:#b9852f;
+    --rule:#d9cdb8;
+    --muted:#6a6155;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:Georgia,"PT Serif","Times New Roman",serif;
+    font-size:20px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(138,90,43,.35);}
+  a:hover{color:var(--accent2);border-bottom-color:var(--accent2);}
+
+  .wrap{
+    width:66%;
+    max-width:1180px;
+    min-width:0;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    width:66%;
+    max-width:1180px;
+    margin:0 auto;
+    padding:26px 28px 0;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+  }
+  .crumbs a{color:var(--muted);border:none;}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs .sep{margin:0 .5em;color:var(--rule);}
+
+  .hero{
+    width:66%;
+    max-width:1180px;
+    margin:18px auto 0;
+    padding:0 28px;
+  }
+  .hero img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border:1px solid var(--rule);
+    box-shadow:0 8px 30px rgba(60,40,20,.12);
+  }
+
+  header.article{
+    width:66%;
+    max-width:1180px;
+    margin:0 auto;
+    padding:30px 28px 8px;
+  }
+  h1{
+    font-size:42px;
+    line-height:1.18;
+    font-weight:700;
+    margin:.4em 0 .2em;
+    letter-spacing:-.01em;
+  }
+  .subtitle{
+    font-size:21px;
+    font-style:italic;
+    color:var(--muted);
+    margin:0;
+  }
+  .rule-orn{
+    width:66%;
+    max-width:1180px;
+    margin:26px auto 8px;
+    padding:0 28px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    color:var(--accent2);
+  }
+  .rule-orn::before,.rule-orn::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:linear-gradient(90deg,transparent,var(--rule),transparent);
+  }
+  .rule-orn span{font-size:18px;}
+
+  main p{margin:0 0 1.25em;}
+  main .lead{font-size:1.05em;}
+
+  /* footnote markers */
+  .fnref{
+    font-size:.72em;
+    vertical-align:super;
+    line-height:0;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    color:var(--accent);
+    border:none;
+    font-weight:700;
+    padding:0 1px;
+    cursor:pointer;
+    position:relative;
+  }
+  .fnref:hover{color:var(--accent2);}
+  /* popup */
+  .fnref .fnpop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:1.6em;
+    width:300px;
+    max-width:74vw;
+    background:#fffdf8;
+    color:var(--ink);
+    border:1px solid var(--rule);
+    box-shadow:0 10px 34px rgba(60,40,20,.22);
+    padding:12px 14px;
+    border-radius:6px;
+    font-size:15px;
+    line-height:1.5;
+    font-family:Georgia,serif;
+    font-weight:400;
+    vertical-align:baseline;
+    z-index:50;
+    white-space:normal;
+  }
+  .fnref .fnpop.below{bottom:auto;top:1.6em;}
+  .fnref:hover .fnpop,.fnref:focus .fnpop{display:block;}
+
+  /* footnotes section */
+  .notes{
+    width:66%;
+    max-width:1180px;
+    margin:40px auto 0;
+    padding:24px 28px 0;
+    border-top:1px solid var(--rule);
+  }
+  .notes h2{
+    font-size:24px;
+    letter-spacing:.01em;
+    margin:0 0 .6em;
+  }
+  .notes ol{padding-left:1.4em;margin:0;}
+  .notes li{
+    font-size:16px;
+    line-height:1.6;
+    color:#2a2722;
+    margin:0 0 .85em;
+    scroll-margin-top:20px;
+  }
+  .notes li.anon{list-style:none;margin-left:-1.4em;padding-left:1.4em;}
+  .fn-back{
+    margin-left:.4em;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    border:none;
+  }
+  li:target{
+    background:#fbeecb;
+    box-shadow:0 0 0 8px #fbeecb;
+    border-radius:3px;
+    transition:background .4s;
+  }
+
+  /* corpus nav */
+  .corpusnav{
+    width:66%;
+    max-width:1180px;
+    margin:42px auto 0;
+    padding:22px 28px;
+    border-top:1px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpusnav a{
+    display:block;
+    border:none;
+    max-width:46%;
+  }
+  .corpusnav .lbl{
+    display:block;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--muted);
+    margin-bottom:3px;
+  }
+  .corpusnav .ttl{font-size:18px;color:var(--accent);}
+  .corpusnav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    width:66%;
+    max-width:1180px;
+    margin:10px auto 60px;
+    padding:20px 28px 0;
+    border-top:1px solid var(--rule);
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--muted);}
+
+  @media (max-width:900px){
+    body{font-size:18px;}
+    .wrap,.crumbs,.hero,header.article,.rule-orn,.notes,.corpusnav,footer.colophon{
+      width:100%;
+      max-width:100%;
+    }
+    h1{font-size:32px;}
+    .corpusnav{flex-direction:column;}
+    .corpusnav a{max-width:100%;}
+    .corpusnav .next{text-align:left;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/1CF.html">
+<meta name="description" content="Монолог Нипна, обращённый к Анибе: благодарность Господу и спутнице, размышления о совместном Пути двух кеволеч в форме Целем Элоким не ради себя.">
+<meta property="og:title" content="Диалог Нипна к Анибе">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/1CF.html">
+<meta property="og:description" content="Монолог Нипна, обращённый к Анибе: благодарность Господу и спутнице, размышления о совместном Пути двух кеволеч в форме Целем Элоким не ради себя.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Диалог Нипна к Анибе">
+<meta name="twitter:description" content="Монолог Нипна, обращённый к Анибе: благодарность Господу и спутнице, размышления о совместном Пути двух кеволеч в форме Целем Элоким не ради себя.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №1CF</span>
+
+  <nav class="crumbs" aria-label="Хлебные крошки">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/1CF.jpg" alt="">
+  </div>
+
+  <header class="article">
+    <h1>Пост-Скриптум к&nbsp;«Одному дню из&nbsp;жизни дельфинов»<span class="fnref"><a class="fnref" href="#fn2" id="ref2">*2</a><span class="fnpop">См. также: <a href="18AA.html">Один день из жизни дельфинов</a></span></span><a class="audio-link" href="https://t.me/art_017_tracks/389" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <p class="subtitle">Диалог Нипна к&nbsp;Анибе (точнее, монолог Нипна).</p>
+  </header>
+
+  <div class="rule-orn"><span>✦</span></div>
+
+  <main class="wrap">
+
+    <p class="lead">Благодарю Тебя, Господь, благодарю Тебя за слова добрые Анибе. Благодарю Тебя, Господь. Благодарю тебя, Анибе. Я тебе скажу, что по моему опыту, хотя, у меня гораздо меньше опыта, чем у тебя, но гораздо важнее (чем «просто» мужчине и женщине быть вместе на Пути)…</p>
+
+    <p>Понятно, что два «просто так» кеволеча, они так не сойдутся. Да? Но, когда они сошлись, когда это те два кеволеча, которые должны были, очевидно, да, сойтись, потому что «это судьба», это «та самая» «добрая судьба», на которую Господь кладет руку кеволеча. Но кеволеч должен ее «взять» именно грамотно, именно «находиться в сотрудничестве с Господом» в этом, Милостью Господа.</p>
+
+    <p>Может быть, эта форма (форма молитвы<span class="fnref"><a class="fnref" href="#fn1" id="ref1">*1</a><span class="fnpop">См. также: <a href="11H.html">Катнут свойства «Целем Элоким</a></span></span>), она не единственная, я не знаю. Других я не знаю. Но, знаешь, если я со своим опытом других форм не знаю, то это уже о чем-то говорит, правда? Но, главное, у нас с тобой, то, что мы оба понимаем, и адекватно оцениваем то, что это благословение у нас у обоих от Господа. То, что мы находимся в определенной «форме». Вот в этой форме «Целем Элоким»<span class="fnref"><a class="fnref" href="#fn4" id="ref4">*4</a><span class="fnpop">См. также: Книга Зоар, том 1, Заповедь девятая <a href="https://imyavel.github.io/zohar-sulam/akdama/029.html">akdama/029</a></span></span>. Мы посвящаем свои жизни, одновременно с тем, что мы все это испытываем «ради себя», мы понимаем, что это все «не ради себя», и мы раскрываем, что это все «не ради себя», и мы продолжаем Путь, мы четко знаем, что мы идем именно таким вот образом. Что все, что мы раскроем «для себя», оно будет раскрыто нами «не ради себя», для того, чтобы это смогли испытать другие.</p>
+
+    <p>И по этому Пути мы идем, Милостью Господа, и в этом Пути есть Его благословение. Его благословение и благоволение. Это не мог быть Путь, в котором два кеволеча «закрываются», и, типа, им там счастливо вдвоем друг с другом. А на весь Мир они «положили болт». Этого просто не бывает.</p>
+
+    <p>Просто не бывает. Два кеволеча, у которых есть все данные, для того, чтобы «вырасти» в то, во что вырасли мы, понимаешь, если они не смогут найти вот эту вот единую и единственную дорогу, счастья… Дорогу счастья, в которой они включаются в Пути развития единой Души, и того счастья, которое должно быть у этой Души раскрыто, на гораздо большем уровне, в гораздо большем масштабе, в конечном итоге. И, Милостью Господа, молятся об этом, и прилагают, в меру своих сил, и в меру своего «статуса», и своего места, усилия определенные, правильные усилия, — раскрывают эти усилия, выполняют эти усилия, и «удостаиваются» определенных результатов на этом Пути, — в этой мере они раскрывают и собственное счастье, которое есть у них, посредством этого.</p>
+
+    <p>Потому, что, при всех «одинаковых равных», я тебе скажу, что, вот, у меня есть опыт в жизни. При всех «одинаковых равных», этот Путь — он превращается в кошмар<span class="fnref"><a class="fnref" href="#fn3" id="ref3">*3</a><span class="fnpop">См. также: Эзер Кенегдо <a href="https://adam.fandom.com/ru/wiki/Эзер_кенегдо">adam.fandom.com</a></span></span>. При том, что эти два кеволеча, они идеально подходят друг другу, да, у них подходящий уровень Силы, потенциала, и так далее. Но, при этом, их жизнь превращается в кошмар. Если хотя бы один из них не готов к тому, чтобы раскрываться. Раскрываться для Мира, и испытывать счастье для того, чтобы его могли испытать другие.</p>
+
+    <p>Поэтому, я благодарю Господа за это благословение. Я благодарю тебя, Анибе, за то, что мы вместе. За то, что ты «удостоила» меня всего этого. Ты уже сделала меня «лучшим», Анибе. Ты меня уже сделала «лучшим». И, тут мы уже будем вместе стараться, чтобы «поднять» друг друга еще выше, уже в рамках того, чего мы «удостоились», чтобы максимально раскрыть то состояние, то благословение, которое уже есть. Которое мы уже «получили», и которое мы стремимся передать. Которое мы стремимся «раскрыть», которое мы стремимся испытать еще сильнее. Испытать и «удостоиться», поскольку все «раскрытие», оно идет через нас, все то раскрытие, которого мы удостаиваемся, оно проходит через нас… Я уже слишком много наговорил, я люблю тебя, я люблю Господа. Амен ве Амен.</p>
+
+  </main>
+
+  <section class="notes" aria-label="Примечания">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1">См. также: <a href="11H.html">Катнут свойства «Целем Элоким</a><a class="fn-back" href="#ref1" title="Вернуться к тексту">↩</a></li>
+      <li id="fn2">См. также: <a href="18AA.html">Один день из жизни дельфинов</a><a class="fn-back" href="#ref2" title="Вернуться к тексту">↩</a></li>
+      <li id="fn3">См. также: Эзер Кенегдо <a href="https://adam.fandom.com/ru/wiki/Эзер_кенегдо">https://adam.fandom.com/ru/wiki/Эзер_кенегдо</a><a class="fn-back" href="#ref3" title="Вернуться к тексту">↩</a></li>
+      <li id="fn4">См. также: Книга Зоар, том 1, Заповедь девятая <a href="https://imyavel.github.io/zohar-sulam/akdama/029.html">akdama/029</a><a class="fn-back" href="#ref4" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpusnav" aria-label="Навигация по разделу">
+    <a class="prev" href="2CG.html">
+      <span class="lbl">← Предыдущая</span>
+      <span class="ttl">Сам такой ДНА 3</span>
+    </a>
+    <a class="next" href="2BI.html">
+      <span class="lbl">Следующая →</span>
+      <span class="ttl">Письмо Нипна к Анибе</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+<script>
+  // Динамический выбор стороны popup (над/под маркером)
+  document.querySelectorAll('.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter', function(){
+      var pop = ref.querySelector('.fnpop');
+      if(!pop) return;
+      pop.classList.remove('below');
+      var rect = ref.getBoundingClientRect();
+      if(rect.top < 180){ pop.classList.add('below'); }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст представляет собой прозаический монолог-молитву (пост-скриптум, обращение к Анибе), без стихотворной разбивки на строки и без поэтической формы, поэтому выбрана редакторская широкая схема: контентная колонка занимает ~66% ширины окна на десктопе и полную ширину на мобильных. Палитра тёплая «бумажная» (кремовый фон, коричневые акценты) — поддерживает медитативно-духовную интонацию текста, но контраст остаётся высоким на светлом фоне. От манускриптной узкой колонки отказался, так как стихов нет.\nОглавление не делал: в статье единственный связный раздел без подзаголовков, поэтому TOC по правилам не требуется. Музыкальных ссылок в тексте нет — раздел музыки отсутствует. Четыре сноски (*1–*4) реализованы как кликабельные надстрочные маркеры с переходом вниз к телам, обратной стрелкой ↩ наверх, подсветкой целевой сноски и hover-popup, сторона которого (над/под) выбирается скриптом по близости к верху окна. Маркер *2 стоит в заголовке H1 — сохранил его там дословно. Голые URL обёрнуты в ссылки и в тексте, и в аппарате примечаний."
+,
+  "features": ["footnotes"]
+}
+</script>
+</body>
+</html>

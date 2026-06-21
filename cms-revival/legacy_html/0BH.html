@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кто Она</title>
+<style>
+  :root{
+    --bg:#faf7f1;
+    --ink:#211c17;
+    --muted:#6b6258;
+    --accent:#8c2b2f;
+    --accent-soft:#c9a96a;
+    --rule:#e3dccd;
+    --paper:#fffdf8;
+    --hl:#fbeec7;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .page{
+    width:clamp(320px, 66vw, 1140px);
+    margin:0 auto;
+    padding:34px 28px 90px;
+  }
+
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.03em;
+    color:var(--muted);
+    text-transform:uppercase;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:30px;
+  }
+  .breadcrumbs a{color:var(--muted);}
+  .breadcrumbs a:hover{color:var(--accent);}
+  .breadcrumbs .sep{margin:0 .55em;color:var(--accent-soft);}
+
+  h1{
+    font-size:2.55rem;
+    line-height:1.12;
+    font-weight:600;
+    margin:.1em 0 .15em;
+    letter-spacing:-.01em;
+  }
+  .dateline{
+    font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    letter-spacing:.04em;
+    margin:0 0 1.6em;
+  }
+  .lead{
+    font-size:1.32rem;
+    line-height:1.5;
+    color:#3a322a;
+    font-style:italic;
+    border-left:3px solid var(--accent-soft);
+    padding-left:1em;
+    margin:1.4em 0 2em;
+  }
+
+  /* TOC */
+  .toc{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    padding:.4em 1.2em;
+    margin:2em 0;
+    font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+  }
+  .toc summary{
+    cursor:pointer;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--muted);
+    padding:.6em 0;
+    font-weight:600;
+  }
+  .toc ul{list-style:none;margin:.2em 0 .9em;padding:0;}
+  .toc li{margin:.35em 0;}
+  .toc a{color:var(--ink);font-size:.96rem;}
+  .toc a:hover{color:var(--accent);}
+
+  section.block{margin:2.4em 0;}
+  h2{
+    font-size:1.5rem;
+    font-weight:600;
+    margin:1.8em 0 .7em;
+    padding-bottom:.18em;
+    border-bottom:2px solid var(--accent-soft);
+    display:inline-block;
+  }
+  h2 a{color:inherit;}
+  h2 a:hover{color:var(--accent);text-decoration:none;}
+
+  .epigraph{
+    font-style:italic;
+    color:#4a4036;
+    font-size:1.12rem;
+    max-width:46ch;
+  }
+
+  p{margin:0 0 1.15em;}
+
+  /* footnote markers */
+  sup.fnref{line-height:0;font-size:.72em;}
+  sup.fnref a{
+    color:var(--accent);
+    font-weight:600;
+    padding:0 .12em;
+  }
+  sup.fnref a:hover{text-decoration:none;}
+  .fn-popup{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:140%;
+    width:min(340px,80vw);
+    background:#2b241d;
+    color:#f4ecdd;
+    font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    font-weight:400;
+    line-height:1.5;
+    font-style:normal;
+    text-align:left;
+    padding:.7em .85em;
+    border-radius:6px;
+    box-shadow:0 8px 26px rgba(0,0,0,.28);
+    opacity:0;
+    visibility:hidden;
+    transition:opacity .15s;
+    z-index:40;
+    pointer-events:none;
+    letter-spacing:.01em;
+  }
+  .fn-popup a{color:var(--accent-soft);}
+  sup.fnref{position:relative;}
+  sup.fnref:hover .fn-popup{opacity:1;visibility:visible;}
+  .fn-popup.below{bottom:auto;top:150%;}
+
+  /* notes list */
+  #notes ol{padding-left:1.5em;}
+  #notes li{
+    margin:.7em 0;
+    font-size:.96rem;
+    line-height:1.6;
+    color:#3c342b;
+    padding:.25em .4em;
+    border-radius:5px;
+    scroll-margin-top:1.5em;
+  }
+  #notes li:target{
+    background:var(--hl);
+    box-shadow:0 0 0 1px var(--accent-soft);
+  }
+  .note-anon{
+    list-style:none;
+    margin-left:-1.5em;
+    border-top:1px dashed var(--rule);
+    padding-top:1em !important;
+  }
+  .backref{
+    margin-left:.4em;
+    font-size:.85em;
+    text-decoration:none;
+  }
+
+  /* bottom nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:1.5em;
+    margin-top:3.5em;
+    padding-top:1.4em;
+    border-top:1px solid var(--rule);
+    font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    flex:1;
+    display:block;
+    padding:.7em .9em;
+    border:1px solid var(--rule);
+    border-radius:6px;
+    background:var(--paper);
+    color:var(--ink);
+    transition:border-color .15s;
+  }
+  .corpus-nav a:hover{border-color:var(--accent-soft);text-decoration:none;}
+  .corpus-nav .lbl{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.25em;}
+  .corpus-nav .nxt{text-align:right;}
+
+  footer{
+    margin-top:3em;
+    padding-top:1.4em;
+    border-top:1px solid var(--rule);
+    font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer a{color:var(--accent);}
+
+  @media (max-width:760px){
+    .page{width:100%;padding:20px 18px 70px;}
+    body{font-size:18px;}
+    h1{font-size:2rem;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav .nxt{text-align:left;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/0BH.html">
+<meta name="description" content="Эссе о библейской истории Адама и Евы как продолжении взаимоотношений Малхут и Бины в каббале Зоар, о первородном грехе и управлении мира.">
+<meta property="og:title" content="Кто Она">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/0BH.html">
+<meta property="og:description" content="Эссе о библейской истории Адама и Евы как продолжении взаимоотношений Малхут и Бины в каббале Зоар, о первородном грехе и управлении мира.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Кто Она">
+<meta name="twitter:description" content="Эссе о библейской истории Адама и Евы как продолжении взаимоотношений Малхут и Бины в каббале Зоар, о первородном грехе и управлении мира.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №0BH</span>
+<div class="page" id="top">
+
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <h1>Кто Она</h1>
+  <p class="dateline">Написано 17 ноября 2020 в Круге Жизни</p>
+
+  <details class="toc" open>
+    <summary>Содержание</summary>
+    <ul>
+      <li><a href="#epigraph">Эпиграф</a></li>
+      <li><a href="#body">Текст</a></li>
+      <li><a href="#notes">Примечания</a></li>
+    </ul>
+  </details>
+
+  <p class="lead">КТО ОНА, восходящая из пустыни, что льнет к Возлюбленному Своему<sup class="fnref"><a id="ref-8" href="#fn-8">8</a><span class="fn-popup">Песнь Песней 3:6, Царь Соломон. <a href="https://goo.su/33lf" target="_blank" rel="noopener">goo.su/33lf</a></span></sup>?</p>
+
+  <section class="block" id="epigraph">
+    <h2><a href="#top">Эпиграф</a></h2>
+    <p class="epigraph">Мама, мы все тяжело больны. Мама, я знаю, мы все сошли с ума<sup class="fnref"><a id="ref-11" href="#fn-11">11</a><span class="fn-popup">«Мама, мы все тяжело больны», В. Цой. <a href="https://goo.su/33Lo" target="_blank" rel="noopener">goo.su/33Lo</a></span></sup>.</p>
+  </section>
+
+  <section class="block" id="body">
+    <p>Библейская история Адама и Евы<sup class="fnref"><a id="ref-1" href="#fn-1">1</a><span class="fn-popup">Предисловие к книге Паним Меирот, п. 15, Бааль Сулам. </span></sup>, согрешивших посредством змея и яблока перед Творцом (в том, что безукоризненно выполнили Его Волю "от обратного"), не так проста и незамысловата, как кажется. Как нам представляется, она является органичным продолжением описываемых в предисловиях Книги Зоар взаимоотношений между Малхут и Биной<sup class="fnref"><a id="ref-13" href="#fn-13">13</a><span class="fn-popup">Роза. п. 1, РАШБИ, Книга Зоар, Том 1, Предисловия. <a href="https://imyavel.github.io/zohar-sulam/akdama/001.html" target="_blank" rel="noopener">akdama/001</a></span></sup>, между АВИ и ЗОН<sup class="fnref"><a id="ref-16" href="#fn-16">16</a><span class="fn-popup">Кто создал их, п. 7, РАШБИ, Книга Зоар, Том 1, Предисловия. <a href="https://imyavel.github.io/zohar-sulam/akdama/003.html" target="_blank" rel="noopener">akdama/003</a></span></sup>, между Имой и Нуквой ЗА<sup class="fnref"><a id="ref-3" href="#fn-3">3</a><span class="fn-popup">АВИ - Аба ве Има (отец и мать); ЗОН - Зеир Анпин (малыш) и Нуква (дочь).</span></sup>.</p>
+
+    <p>Змей - это МАН<sup class="fnref"><a id="ref-14" href="#fn-14">14</a><span class="fn-popup">Шамати 81, Бааль Сулам. </span></sup> праведников, учеников-каббалистов, о получении ради отдачи товарищам "совершенной, большой любви"<sup class="fnref"><a id="ref-15" href="#fn-15">15</a><span class="fn-popup">Заповедь вторая, РАШБИ, Книга Зоар, Том 1, Предисловия, п. 198. <a href="https://imyavel.github.io/zohar-sulam/akdama/022.html" target="_blank" rel="noopener">akdama/022</a></span></sup>. Грехопадение - это выход из состояния "вечность, бесконечность и отсутствие получающих" в состояние "этот мир, жизнь и любовь, добро и зло, наслаждение и страдание, наполнение и опустошение, утро и день, вечер, ночь" и т.д. То есть наш грех действительно "первородный" - он заключается в том, что мы "сократились" с уровня Творца и "упали" на уровень "творения", и продолжаем жить и любить Милостью Творца. Как нам известно из Зоар, "благодаря заповеди «милосердно относиться к бедным» Има включилась в Малхут"<sup class="fnref"><a id="ref-4" href="#fn-4">4</a><span class="fn-popup">Заповедь десятая, РАШБИ, Книга Зоар, Том 1, Предисловия, п. 237. <a href="https://imyavel.github.io/zohar-sulam/akdama/030.html" target="_blank" rel="noopener">akdama/030</a></span></sup>, и тогда все заверте...</p>
+
+    <p>Теперь мы знаем ответ на вопрос про "Царство без Короны"<sup class="fnref"><a id="ref-17" href="#fn-17">17</a><span class="fn-popup">Нечистая сила называется «Царство без короны», Шамати, Бааль Сулам. </span></sup> ("не исправленное" состояние "этого мира"): "как может существовать что-то "без короны", разве не все управляется Творцом?". Ответ: "без Короны" - не значит "без управления". Управляется "этот мир" через тот самый "нер дакик"<sup class="fnref"><a id="ref-9" href="#fn-9">9</a><span class="fn-popup">"…человек должен верить во все земные желания… в то время как в этих наслаждениях заключено не больше, чем… «тонкий свет» («неиро дакик»)". РАБАШ, Записки, 119. </span></sup>, тонкую струйку жизненной Силы (Света Хохма), которой Нуква Ацилута обеспечивает существование ситры ахра на протяжении 6000 лет. Поскольку жизнь, любовь, и "управление Творца творениями" - это синонимы. До тех пор, пока происходит построение нами келим "катнута", а потом мы поднимаем МАН и притягиваем ГАР, то есть сами выстраиваем и притягиваем Рош к нашему строению ВАК, восполняя себя в образе Целем Элоким (Образ Всесильного)<sup class="fnref"><a id="ref-4b" href="#fn-4">4</a><span class="fn-popup">Заповедь десятая, РАШБИ, Книга Зоар, Том 1, Предисловия, п. 237. <a href="https://imyavel.github.io/zohar-sulam/akdama/030.html" target="_blank" rel="noopener">akdama/030</a></span></sup>. "Иной Бог оскопится и не принесет плодов"<sup class="fnref"><a id="ref-5" href="#fn-5">5</a><span class="fn-popup">Буквы рабби Амнуна Сабы, п. 23, РАШБИ, Книга Зоар, Том 1, Предисловия. <a href="https://imyavel.github.io/zohar-sulam/akdama/006.html" target="_blank" rel="noopener">akdama/006</a></span></sup> - но это не значит, что все наши усилия, затраченные в работе на Него, пропадают даром. Совсем даже наоборот, в этот момент выясняется, что все это время мы трудились во Имя и по четкому плану Высшего Святого Господина и сейчас удостоились приблизить к завершению, включившись в работу по своему собственному "созданию" во Славу Его.</p>
+
+    <p>Другими словами, явное управление Творца всей действительностью, которое не оставляло "никакого пустого места и свободного пространства"<sup class="fnref"><a id="ref-6" href="#fn-6">6</a><span class="fn-popup">Берешит-1, п. 1, РАШБИ, Книга Зоар, Том 2. <a href="https://imyavel.github.io/zohar-sulam/bereshit/001.html" target="_blank" rel="noopener">bereshit/001</a></span></sup>, в котором творения и миры могли бы существовать, никуда не исчезло, а перешло в "скрытую" форму, поделив этим действительность на "паним" и "ахораим". И "ахораим" (то есть Ситра Ахра, Злое начало, эгоизм) всегда было Святым Ангелом, то есть абсолютно добрым управлением нами Самого Творца, но получившим "исправление" таким образом, чтобы это управление и это добро не мешало нам проявлять свободу воли и становиться самостоятельным творением, подобным и равным (по свойствам) Благословенному Творцу.</p>
+
+    <p>И это означает, что "Бог усыпил Адама"<sup class="fnref"><a id="ref-12" href="#fn-12">12</a><span class="fn-popup">Тора, Берешит, гл. 2:22. <a href="https://imyavel.github.io/zohar-sulam/akdama/001.html" target="_blank" rel="noopener">akdama/001</a></span></sup>, потому что в этот же момент "Аба вывел Иму наружу" и "буквы ЭЛЕ Имени Элоким опустились в свойство ЗОН", то есть "этого мира", и "стали такими же, как они".</p>
+
+    <p>Поэтому, когда Адам "проснулся", он увидел возле себя не "змея", а Еву, держащую в руках яблоко и мило ему улыбающуюся (змея они придумали вместе потом, чтобы было не так стыдно перед потомками). Адам - это ВАК без рош, а Ева - это Бина, "тоже утратившая свое свойство ГАР" в результате включения в Малхут в процессе совершения "второго сокращения", благодаря чему был создан "этот мир". То есть Бина, Сам Творец, создает в человеке (Адам) свойство ущербности и недостатка, изъяна, которое затем Адам должен стремиться преодолевать, прикладывая усилия для выстраивания своего собственного Рош по собственному, абсолютно свободному и целеустремленному желанию и волеизъявлению, кульминацией которого является МАН, поднимаемый "праведниками", то есть учениками каббалистов, из Круга "смешанного типа", "этого мира", работающих в свойстве "захар и некева", то есть, "Мужчиной и Женщиной Он создал их"<sup class="fnref"><a id="ref-10" href="#fn-10">10</a><span class="fn-popup">Берешит-2, п. 366, РАШБИ, Книга Зоар, Том 2. <a href="https://imyavel.github.io/zohar-sulam/bereshit/095.html" target="_blank" rel="noopener">bereshit/095</a></span></sup>. А как вы думали, без Евы-то, прегрешение исправлять<sup class="fnref"><a id="ref-7" href="#fn-7">7</a><span class="fn-popup">Похоже, что обязательным условием "скрытия" является участие в нем Высшей ступени… Да будет так по Воле Его… "делать", и только потом "слышать"… Амен</span></sup>?</p>
+  </section>
+
+  <section class="block" id="notes">
+    <h2><a href="#top">Примечания</a></h2>
+    <ol>
+      <li id="fn-1">Предисловие к книге Паним Меирот, п. 15, Бааль Сулам  <a class="backref" href="#ref-1" title="Вернуться к тексту">↩</a></li>
+      <li id="fn-3">АВИ - Аба ве Има (отец и мать); ЗОН - Зеир Анпин (малыш) и Нуква (дочь). <a class="backref" href="#ref-3" title="Вернуться к тексту">↩</a></li>
+      <li id="fn-4">Заповедь десятая, РАШБИ, Книга Зоар, Том 1, Предисловия, п. 237 <a href="https://imyavel.github.io/zohar-sulam/akdama/030.html" target="_blank" rel="noopener">akdama/030</a> <a class="backref" href="#ref-4" title="Вернуться к тексту">↩</a></li>
+      <li id="fn-5">Буквы рабби Амнуна Сабы, п. 23, РАШБИ, Книга Зоар, Том 1, Предисловия <a href="https://imyavel.github.io/zohar-sulam/akdama/006.html" target="_blank" rel="noopener">akdama/006</a> <a class="backref" href="#ref-5" title="Вернуться к тексту">↩</a></li>
+      <li id="fn-6">Берешит-1, п. 1, РАШБИ, Книга Зоар, Том 2 <a href="https://imyavel.github.io/zohar-sulam/bereshit/001.html" target="_blank" rel="noopener">bereshit/001</a> <a class="backref" href="#ref-6" title="Вернуться к тексту">↩</a></li>
+      <li id="fn-7">Похоже, что обязательным условием "скрытия" является участие в нем Высшей ступени. Что означает невозможность совершить это действие "собственными силами" самому человеку без включения и "благословения" со стороны Творца. Да будет так по Воле Его, как заповедал Он нам: "делать", и только потом "слышать", то есть понимать, действительно ли наши усилия были направлены к "правильной" Цели и были угодны Ему. Амен <a class="backref" href="#ref-7" title="Вернуться к тексту">↩</a></li>
+      <li id="fn-8">Песнь Песней 3:6, Царь Соломон. <a href="https://goo.su/33lf" target="_blank" rel="noopener">https://goo.su/33lf</a> <a class="backref" href="#ref-8" title="Вернуться к тексту">↩</a></li>
+      <li id="fn-9">"Это означает, что человек должен верить во все земные желания, т.е. еду, питье, сон и остальные желания, и кроме того – в наслаждения, заключенные в изучении внешних наук, во власть и в месть и вытекающее из этого, как сказано в общем: «Зависть, страсти и тщеславие выводят человека из мира»1, – в то время как в этих наслаждениях заключено не больше, чем, по выражению книги Зоар, «тонкий свет» («неиро дакик»).". РАБАШ, Записки, 119  <a class="backref" href="#ref-9" title="Вернуться к тексту">↩</a></li>
+      <li id="fn-10">Берешит-2, п. 366, РАШБИ, Книга Зоар, Том 2 <a href="https://imyavel.github.io/zohar-sulam/bereshit/095.html" target="_blank" rel="noopener">bereshit/095</a> <a class="backref" href="#ref-10" title="Вернуться к тексту">↩</a></li>
+      <li id="fn-11">"Мама, мы все тяжело больны", В. Цой <a href="https://goo.su/33Lo" target="_blank" rel="noopener">https://goo.su/33Lo</a> <a class="backref" href="#ref-11" title="Вернуться к тексту">↩</a></li>
+      <li id="fn-12">Тора, Берешит, гл. 2:22 <a href="https://imyavel.github.io/zohar-sulam/akdama/001.html" target="_blank" rel="noopener">akdama/001</a> <a class="backref" href="#ref-12" title="Вернуться к тексту">↩</a></li>
+      <li id="fn-13">Роза. п. 1, РАШБИ, Книга Зоар, Том 1, Предисловия <a href="https://imyavel.github.io/zohar-sulam/akdama/001.html" target="_blank" rel="noopener">akdama/001</a> <a class="backref" href="#ref-13" title="Вернуться к тексту">↩</a></li>
+      <li id="fn-14">Шамати 81, Бааль Сулам  <a class="backref" href="#ref-14" title="Вернуться к тексту">↩</a></li>
+      <li id="fn-15">Заповедь вторая, РАШБИ, Книга Зоар, Том 1, Предисловия, п. 198 <a href="https://imyavel.github.io/zohar-sulam/akdama/022.html" target="_blank" rel="noopener">akdama/022</a> <a class="backref" href="#ref-15" title="Вернуться к тексту">↩</a></li>
+      <li id="fn-16">Кто создал их, п. 7, РАШБИ, Книга Зоар, Том 1, Предисловия <a href="https://imyavel.github.io/zohar-sulam/akdama/003.html" target="_blank" rel="noopener">akdama/003</a> <a class="backref" href="#ref-16" title="Вернуться к тексту">↩</a></li>
+      <li id="fn-17">Нечистая сила называется «Царство без короны», Шамати, Бааль Сулам  <a class="backref" href="#ref-17" title="Вернуться к тексту">↩</a></li>
+      <li class="note-anon"><a href="https://ru.wikipedia.org/wiki/Яблоко_раздора" target="_blank" rel="noopener">https://ru.wikipedia.org/wiki/Яблоко_раздора</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav" aria-label="Навигация по разделу">
+    <a href="186A.html"><span class="lbl">← Предыдущая</span>Выбери Жизнь</a>
+    <a class="nxt" href="11H.html"><span class="lbl">Следующая →</span>Катнут свойства Образ Всесильного</a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // Flip footnote popups below the marker when there isn't enough room above
+  document.querySelectorAll('sup.fnref').forEach(function(sup){
+    sup.addEventListener('mouseenter', function(){
+      var pop = sup.querySelector('.fn-popup');
+      if(!pop) return;
+      pop.classList.remove('below');
+      var rect = sup.getBoundingClientRect();
+      if(rect.top < 200){ pop.classList.add('below'); }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза / эссе",
+  "rationale": "Статья — теоретическое каббалистическое эссе сплошной прозой с эпиграфом и большим аппаратом примечаний; стихотворных форм нет, поэтому выбрана редакторская широкоформатная схема, а не узкий манускрипт. Колонку задал через clamp(320px,66vw,1140px), чтобы на десктопе контент занимал примерно две трети ширины окна, а на мобильном уходил в полную ширину; внутренние цитаты-эпиграф ограничил по мере для читаемости. Палитра светлая, тёплая бумага с глубоким красным акцентом и золотистой охрой — перекличка с разделом «Роза Среди Шипов», без крикливости.\n\nПограничные решения: треков с меткой «Музыка под настроение» в тексте нет — ссылка на Цоя идёт лишь как библиографическая сноска *11, поэтому музыкальный плеер не создавал. Оглавление формально требуется (есть подразделы «Эпиграф» и «Примечания»), сделал его сворачиваемым и добавил пункт основного текста, а заголовки секций сделал ссылками наверх. Сноска *2 (Яблоко раздора) не имеет маркера в тексте — оформил её как анонимную, без номера и без обратной стрелки, в конце списка. Сноска *4 встречается дважды — обе ссылаются на одно тело #fn-4, обратная стрелка ведёт к первому вхождению. Прописные (КТО ОНА, АВИ, ЗОН, МАН, ВАК, ГАР) и кавычки сохранены дословно. Popup сносок всплывает над маркером, а вблизи верха экрана переключается под него скриптом.",
+  "features": ["footnotes", "toc"]
+}
+</script>
+</body>
+</html>

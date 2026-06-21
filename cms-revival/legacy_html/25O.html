@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Да, я дурак</title>
+<style>
+  :root{
+    --bg:#f6f4ef;
+    --paper:#fffdf8;
+    --ink:#1f1c18;
+    --muted:#6c655c;
+    --accent:#9a3b28;
+    --accent-soft:#c46a4a;
+    --rule:#ddd6c8;
+  }
+  *{box-sizing:border-box;}
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.72;
+  }
+  .wrap{
+    width:66%;
+    max-width:1080px;
+    min-width:0;
+    margin:0 auto;
+    padding:48px 40px 80px;
+  }
+  a{ color:var(--accent); text-decoration:none; }
+  a:hover{ text-decoration:underline; }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:28px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .crumbs a{ color:var(--muted); }
+  .crumbs a:hover{ color:var(--accent); }
+  .crumbs span.sep{ margin:0 .55em; color:var(--accent-soft); }
+
+  h1{
+    font-family:"Playfair Display",Georgia,serif;
+    font-size:clamp(34px,4.4vw,52px);
+    line-height:1.1;
+    font-weight:700;
+    margin:.2em 0 .8em;
+    letter-spacing:-.01em;
+  }
+  .dropcap-lead{ color:var(--muted); font-style:italic; }
+
+  article p{ margin:0 0 1.35em; }
+
+  /* music */
+  .music{
+    margin:2.6em 0 1.4em;
+    border-top:2px solid var(--rule);
+    padding-top:1.4em;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--accent);
+    margin-bottom:.7em;
+  }
+  .track{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:.7em;
+    padding:14px 18px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{ background:#faf7f0; }
+  .track-arrow{
+    transition:transform .2s ease;
+    color:var(--accent-soft);
+    font-size:14px;
+    flex:0 0 auto;
+  }
+  .track.open .track-arrow{ transform:rotate(90deg); }
+  .track-title{ flex:1 1 auto; font-size:18px; }
+  .track-title .artist{ color:var(--muted); }
+  .track-ext{
+    flex:0 0 auto;
+    color:var(--muted);
+    font-size:16px;
+  }
+  .track-player{ display:none; border-top:1px solid var(--rule); }
+  .track.open .track-player{ display:block; }
+  .track-player .frame{
+    position:relative;
+    width:100%;
+    padding-bottom:56.25%;
+    height:0;
+    background:#000;
+  }
+  .track-player iframe{
+    position:absolute; inset:0;
+    width:100%; height:100%; border:0;
+  }
+
+  /* bottom nav */
+  .corpus-nav{
+    margin-top:3.4em;
+    padding-top:1.6em;
+    border-top:1px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+  }
+  .corpus-nav .nav-item{ max-width:46%; }
+  .corpus-nav .nav-item.next{ text-align:right; margin-left:auto; }
+  .corpus-nav .dir{
+    display:block;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--muted);
+    margin-bottom:.3em;
+  }
+  footer{
+    margin-top:2.6em;
+    padding-top:1.4em;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+  footer a{ color:var(--accent); }
+  footer .attrib{ margin:0 0 .5em; }
+
+  @media (max-width:900px){
+    .wrap{ width:100%; max-width:none; padding:32px 22px 64px; }
+    body{ font-size:18px; }
+    .corpus-nav{ flex-direction:column; }
+    .corpus-nav .nav-item,
+    .corpus-nav .nav-item.next{ max-width:100%; text-align:left; margin-left:0; }
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/25O.html">
+<meta name="description" content="Эссе о роли разума и воли на духовном пути, о необходимости собственной абстрактной цели и опасности самообмана диванного воина.">
+<meta property="og:title" content="Да, я дурак">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/25O.html">
+<meta property="og:description" content="Эссе о роли разума и воли на духовном пути, о необходимости собственной абстрактной цели и опасности самообмана диванного воина.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Да, я дурак">
+<meta name="twitter:description" content="Эссе о роли разума и воли на духовном пути, о необходимости собственной абстрактной цели и опасности самообмана диванного воина.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №25O</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <h1>Да, я дурак<a class="audio-link" href="https://t.me/art_017_tracks/438" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <article>
+    <p>Молодец ты, конечно. Конечно, но ничего ни о чём не сказал. Ничего.  Ты что - вообще , дурак ? Ну , контролируй же себя. Что ты пишешь. Это ж не только тебя касается. Восхищает, конечно, твоя вера. Возьму на вооружение. Но разум не  нужно отключать совсем, только настолько насколько нужно.</p>
+
+    <p>Да, я дурак.</p>
+
+    <p>Вообще. Разум нужен там, где есть место неясности, имеющей конкретное практическое значение для формулирования порядка собственных дальнейших действий. Чтобы совершать их без малейшей тени сомнения в том, что именно в этом в точности заключается "стратегия Бенефактора", которая выведет воина из участия в битве посредством "этого мира разума", сдвинув его ТС в позицию "средней линии" ака "места без жалости к себе", и оттуда уже подведение итогов новой раскрытой "ступени", т.е. полностью освоенного объема "магического опыта", связанного с той или иной позицией ТС, и "планирование" своей тактики на ближайшее будущее. "Размышляют" пусть "умные роботы". А человек создан для действия, и только копируя действия Орла, видящий постигает, на своем собственном личном "магическом" опыте их совершения вместе с Ним, Его Волю, Намерение, Цель, и прочие "вводные" процесса управления Орлом его собственной, равно как и всех окружающих и всего мира, личной "судьбой человека этого мира", равно как и "мага/каббалиста, находящегося на Его духовном/магическом Пути". Ни разум, ни воля "сами по себе" не являются хоть сколько нибудь достаточными "инструментами познания мира". Поэтому, хоть отключай, хоть включай, не имея четко поставленной перед собою в жизни и Пути СОБСТВЕННОЙ конкретно понимаемой и ощущаемой, практически достигаемой "здесь и сейчас" АБСТРАКТНОЙ ЦЕЛИ СВОЕГО ПУТИ СЕРДЦА, никакие инструменты, "граали", супер-методики, потомственные нагвали, трезвость разума, безупречность воина, перепросмотры, овд, открытие третьего глаза, оставляя закрытыми двух имеющихся, человеку не помогут сдвинуться с мертвой точки, поскольку эта точка и есть место назначения всего его "духовного Пути". В тот самый момент, когда он поймет это, и согласиться ее поставить, "здесь и сейчас", начнется новая жизнь, в которой все, что существовало в человеке этого мира, вполне обоснованно считавшего себя "бывалым" "магическим воином" или "духовным идущим", преобразится до неузнаваемости, точнее, до узнаваемости едва-едва, ровно настолько, чтобы послужить "оболочкой", содержание которой не имеет к этому миру и его формам никакого сущностного отношения и уже никогда не будет иметь, поскольку невозможно воину выстроить лестницу к человеку этого мира, который его об этом не просит, не интересуется, и не догадывается о его существовании, находясь под действием самообмана о существовании в реальном мире самого себя, но не имея понимания либо интереса ни о реальном мире, ни о самом себе, ни о том, что такое "этот мир" на самом деле, и зачем нужна лестница, соединяющая его с Миром духовным/реальным, всегда существующая более, чем в единственном экземпляре, и действующая строго "от обратного". Ладно, тому, кому суждено Духом перестать быть "диванным воином" раньше переодевания в "белые тапочки", тот перестанет им быть, так или иначе, посредством ведения и "личного управления" его путями Духом, а тот, кто не перестанет, кто не захочет понимать и принимать очевидное, или даже, как тут некоторые бесстыдно демонстративно делают, настаивать на отрицании очевидного, ценой абсурдизации собственного участия в обсуждении, видимо, делая неправильный вывод о том, что если в дискуссии участвует хотя бы 1 клоун, т.е. он сам, то и сама дискуссия автоматом превращается в клоунаду и этим саботируется. Не дождетесь!</p>
+
+    <div class="music">
+      <div class="music-label">Музыка под настроение:</div>
+      <div class="track" data-embed="https://www.youtube-nocookie.com/embed/0VcnB_2jKnw">
+        <div class="track-head" role="button" tabindex="0" aria-expanded="false">
+          <span class="track-arrow">▶</span>
+          <span class="track-title">God's country <span class="artist">— Jadyn Rylee</span></span>
+          <a class="track-ext" href="https://youtu.be/0VcnB_2jKnw" target="_blank" rel="noopener" title="Открыть на YouTube" aria-label="Открыть на YouTube">↗</a>
+        </div>
+        <div class="track-player"></div>
+      </div>
+    </div>
+  </article>
+
+  <nav class="corpus-nav">
+    <div class="nav-item prev">
+      <span class="dir">← Предыдущая</span>
+      <a href="251.html">Правильно мыслишь</a>
+    </div>
+    <div class="nav-item next">
+      <span class="dir">Следующая →</span>
+      <a href="221A.html">Модель развития человека и человечества</a>
+    </div>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    function toggle(track){
+      var open = track.classList.toggle('open');
+      var head = track.querySelector('.track-head');
+      head.setAttribute('aria-expanded', open ? 'true' : 'false');
+      var player = track.querySelector('.track-player');
+      if(open && !player.dataset.loaded){
+        var src = track.getAttribute('data-embed');
+        var f = document.createElement('div');
+        f.className = 'frame';
+        f.innerHTML = '<iframe src="'+src+'?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+        player.appendChild(f);
+        player.dataset.loaded = '1';
+      }
+    }
+    document.querySelectorAll('.track').forEach(function(track){
+      var head = track.querySelector('.track-head');
+      head.addEventListener('click', function(e){
+        if(e.target.closest('.track-ext')) return;
+        toggle(track);
+      });
+      head.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){
+          if(e.target.closest('.track-ext')) return;
+          e.preventDefault();
+          toggle(track);
+        }
+      });
+    });
+  })();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой непрерывный полемический прозаический монолог-отповедь без стихотворной разбивки, поэтому выбрана редакторская широкая схема, а не узкий манускрипт. Колонка задана на 66% ширины окна (макс. 1080px) с журнальной типографикой: засечный наборный текст Georgia для тела и крупный заголовок в духе Playfair для контраста, умеренное соотношение кеглей. Палитра — тёплая бумажная (светлый фон) с терракотовым акцентом, что отвечает требованию контраста на светлом.",
+    "rationale2": "Подразделов в тексте нет — оглавление не делалось. Сносок нет. Единственный музыкальный трек ('God's country — Jadyn Rylee', ссылка на YouTube) оформлен как свёрнутый ленивый плеер с меткой 'Музыка под настроение:'; iframe подгружается только при раскрытии. Поскольку распознанный трек один (не больше двух), сводный раздел музыки не создавался. Капс ('СОБСТВЕННОЙ', 'АБСТРАКТНОЙ ЦЕЛИ СВОЕГО ПУТИ СЕРДЦА'), кавычки и авторская пунктуация сохранены дословно.",
+  "features": ["music"]
+}
+</script>
+</body>
+</html>

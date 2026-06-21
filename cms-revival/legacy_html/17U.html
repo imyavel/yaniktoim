@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Часть 5 Точка Невозврата</title>
+<style>
+  :root{
+    --ink:#1c1a17;
+    --muted:#6a635a;
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --rule:#ddd5c7;
+    --accent:#9a2f1f;
+    --accent2:#3d5a4c;
+    --hl:#fde7b8;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{
+    width:66vw;
+    max-width:1180px;
+    margin:0 auto;
+    padding:34px 38px 90px;
+  }
+  @media(max-width:980px){
+    .wrap{width:100%;padding:20px 18px 70px;}
+    body{font-size:18px;}
+  }
+
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:Georgia,serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:10px;
+    margin-bottom:22px;
+  }
+  .crumbs a{color:var(--accent2);}
+  .crumbs span{margin:0 8px;color:#b6ad9c;}
+
+  .lead-img{display:block;max-width:100%;width:auto;height:auto;margin:0 auto 26px;border:1px solid var(--rule);}
+
+  .kicker{
+    font-family:Georgia,serif;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-size:14px;
+    color:var(--accent2);
+    margin:0 0 4px;
+  }
+  .subkicker{
+    font-style:italic;
+    color:var(--muted);
+    font-size:17px;
+    margin:0 0 14px;
+  }
+  h1{
+    font-size:2.15rem;
+    line-height:1.15;
+    margin:.1em 0 .25em;
+    letter-spacing:.01em;
+    font-weight:700;
+  }
+  .recorded{
+    color:var(--muted);
+    font-size:16px;
+    font-style:italic;
+    margin:0 0 8px;
+    padding-bottom:18px;
+    border-bottom:2px solid var(--rule);
+  }
+
+  h2{
+    font-size:1.5rem;
+    margin:2em 0 .5em;
+    padding-top:.2em;
+    color:var(--accent);
+    cursor:pointer;
+    scroll-margin-top:14px;
+  }
+  h2:hover{text-decoration:underline dotted;}
+
+  p{margin:0 0 1.1em;}
+
+  blockquote.epi{
+    margin:0;
+    padding:14px 22px;
+    border-left:4px solid var(--accent2);
+    background:var(--paper);
+    font-style:italic;
+    color:#2a2722;
+  }
+  blockquote.epi .src{
+    display:block;
+    margin-top:.6em;
+    font-style:normal;
+    font-size:15px;
+    color:var(--muted);
+    letter-spacing:.03em;
+  }
+
+  ul.inline{margin:0 0 1.1em 1.2em;}
+  ul.inline li{margin:.2em 0;}
+
+  /* TOC */
+  .toc{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    padding:14px 20px;
+    margin:24px 0 30px;
+  }
+  .toc-head{
+    font-family:Georgia,serif;
+    font-weight:700;
+    letter-spacing:.04em;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--accent2);
+  }
+  .toc-head .tg{transition:transform .2s;font-size:.8em;}
+  .toc.collapsed .tg{transform:rotate(-90deg);}
+  .toc ol{margin:.7em 0 .2em;padding-left:1.4em;}
+  .toc.collapsed ol{display:none;}
+  .toc li{margin:.25em 0;}
+  .toc a{color:var(--ink);}
+
+  /* footnote markers */
+  sup.fnref{font-size:.7em;line-height:0;}
+  sup.fnref a{
+    color:var(--accent);
+    font-weight:700;
+    padding:0 1px;
+  }
+
+  /* notes */
+  ol.notes{padding-left:0;list-style:none;counter-reset:none;}
+  ol.notes li{
+    font-size:16.5px;
+    line-height:1.6;
+    margin:0 0 .9em;
+    padding:8px 12px;
+    border-left:3px solid transparent;
+    scroll-margin-top:16px;
+  }
+  ol.notes li:target{
+    background:var(--hl);
+    border-left-color:var(--accent);
+  }
+  .fnnum{font-weight:700;color:var(--accent);margin-right:.4em;}
+  .backref{margin-left:.4em;font-size:.9em;text-decoration:none;}
+
+  /* popup */
+  #fnpop{
+    position:absolute;
+    z-index:50;
+    max-width:380px;
+    background:#2a2722;
+    color:#f4efe6;
+    font-size:15px;
+    line-height:1.5;
+    padding:10px 13px;
+    border-radius:6px;
+    box-shadow:0 6px 22px rgba(0,0,0,.3);
+    display:none;
+  }
+  #fnpop a{color:#e8b27f;}
+
+  /* music track */
+  .track{
+    border:1px solid var(--rule);
+    border-radius:6px;
+    background:var(--paper);
+    margin:14px 0 22px;
+    overflow:hidden;
+  }
+  .track-head{
+    width:100%;
+    text-align:left;
+    background:none;
+    border:0;
+    font:inherit;
+    cursor:pointer;
+    padding:12px 16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    color:var(--ink);
+  }
+  .track-head:hover{background:#f1ece1;}
+  .track-title{font-style:italic;}
+  .track-icons{display:flex;align-items:center;gap:12px;white-space:nowrap;}
+  .track-icons .ext{font-size:1.1em;}
+  .track-icons .arrow{transition:transform .2s;color:var(--accent2);}
+  .track.open .arrow{transform:rotate(180deg);}
+  .track-body{display:none;padding:0 16px 16px;}
+  .track.open .track-body{display:block;}
+  .track-body .frame{position:relative;padding-bottom:56.25%;height:0;}
+  .track-body iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:4px;}
+
+  /* footer nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:40px;
+    padding-top:18px;
+    border-top:2px solid var(--rule);
+    font-size:16px;
+  }
+  .corpus-nav a{display:block;max-width:46%;}
+  .corpus-nav .lbl{display:block;font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:34px;
+    padding-top:18px;
+    border-top:1px solid var(--rule);
+    font-size:14.5px;
+    color:var(--muted);
+  }
+  footer.colophon a{color:var(--accent2);}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/17U.html">
+<meta name="description" content="Эссе из дневника Воина-Исраэль о точке невозврата на духовном пути: о наполнениях и опустошениях, намерении наслаждать Творца и Правиле Орла.">
+<meta property="og:title" content="Часть 5 Точка Невозврата">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/17U.html">
+<meta property="og:description" content="Эссе из дневника Воина-Исраэль о точке невозврата на духовном пути: о наполнениях и опустошениях, намерении наслаждать Творца и Правиле Орла.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Часть 5 Точка Невозврата">
+<meta name="twitter:description" content="Эссе из дневника Воина-Исраэль о точке невозврата на духовном пути: о наполнениях и опустошениях, намерении наслаждать Творца и Правиле Орла.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №17U</span>
+<div class="wrap" id="top">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>›</span><a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <img class="lead-img" src="../img/17U.jpg" alt="Иллюстрация к статье">
+
+  <p class="kicker">ДА БУДЕТ СВЕТ! · Дневник Воина^Исраэль</p>
+  <h1>ЧАСТЬ 5: ТОЧКА НЕВОЗВРАТА<a class="audio-link" href="https://t.me/art_017_tracks/368" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <p class="recorded">Записано: 30 июля 2021 г. на форуме ЛЛ</p>
+
+  <!-- TOC -->
+  <nav class="toc" id="toc">
+    <div class="toc-head" onclick="document.getElementById('toc').classList.toggle('collapsed')">
+      <span class="tg">▾</span> Содержание
+    </div>
+    <ol>
+      <li><a href="#sec-epigraph">Эпиграф</a></li>
+      <li><a href="#sec-preface">Письмо подруге. Из Икстлана с любовью. Предисловие автора.</a></li>
+      <li><a href="#sec-notes">ПОЯСНЕНИЯ</a></li>
+    </ol>
+  </nav>
+
+  <!-- EPIGRAPH -->
+  <h2 id="sec-epigraph" onclick="toTop()">Эпиграф</h2>
+  <blockquote class="epi">
+    My world is miles of endless roads<br>
+    That leaves a trail of broken dreams<br>
+    Where have you been I hear you say<br>
+    I'll meet you at the Blue Cafe.<br>
+    This is where the one who knows<br>
+    Meets the one who does not care<br>
+    Cards of fate, the older shows<br>
+    The younger one, who dares to take<br>
+    The chance of no return
+    <span class="src">Кафе Печали, Chris Rea</span>
+  </blockquote>
+
+  <!-- PREFACE -->
+  <h2 id="sec-preface" onclick="toTop()">Письмо подруге. Из Икстлана с любовью. Предисловие автора.</h2>
+  <p>Этот текст (аудиозапись) ненавязчиво хранилась среди неопубликованных записей с 12-го по 29-е июля 2021 г. (17 дней), "дожидаясь", как я теперь понимаю, "готовности" другой статьи - а именно, "сказки о Силе про Сказку о рыбаке и рыбке"<sup class="fnref"><a id="ref-10" href="#fn-10">*10</a></sup>, которая вышла 26 июля на форуме <a href="http://ccastaneda.ru" target="_blank" rel="noopener">ccastaneda.ru</a> (ник iddqd) и в фейсбуке /arykhanpin - чтобы стать ее органичным продолжением, рассказывающим о развитии того, что происходит с человеком посредством его "наполнений" и "опустошений" (ведь мы же не можем всерьез удовлетвориться ответом, что это состояние "ничто, нигде и т.п." является "реальным" итогом и целью всего Пути Воина-Исраэль, или Пути "человека знания", или еще какого-либо иного Пути, все из которых, как нас уверяет (небезосновательно, но с некоторой объективной недоговоренностью) К.Кастанеда, одинаково ведут "в никуда"? Не берусь, как и в прошлый раз в случае разбора "сказки", претендовать на полноту и достаточность описания, или, тем более, на понятность и "дружественность" текста, но благодарю Творца, Свят Благословен Он, или Намерение Духа, за управление "Орлом" моей судьбой и усилиями на Его Пути, которое позволило соединить эти две ступени в некое подобие причинно-следственного порядка, без сомнений, имеющего скрытую (от меня, т.к. я не пытался его осмысливать разумом и не имею желания или намерения делать это) цель и смысл, суть и значение которых будут раскрыты в свое время, когда Ему будет это необходимо, человеку, стремящемуся к пониманию, постижению, наслаждению и слиянию с Ним. Да будет на то Воля Творца, Свят Благословен Он, чтобы Его творения получали Его благословенный Свет Жизни, Осознания, Любви и Мудрости, соединяясь по Законам "Правила Орла"<sup class="fnref"><a id="ref-11" href="#fn-11">*11</a></sup> в творческие "магические" / "духовные" коллективы целеустремленных единомышленников, обладающих твердой волей к тому, чтобы достичь Цели, с которой они были созданы Орлом, или Творцом, Свят Благословен Он, хоть и, возможно, пока еще не могут во всех деталях "вспомнить" обстоятельства этого, вспоминая Орла и самих себя, принимая Его вызов и готовясь пройти в полном осознании "мимо Его клюва" к абсолютной Свободе, чтобы помнить себя, освободившись от Ангела Смерти и связанного с Ним забвения "Намерения первого кольца Силы", посредством "несгибаемого намерения" совершить этим вклад в человеческий Дух, делая это из Любви к Свободе. Только вместе, Мы - СИЛА!</p>
+
+  <p>1. Что это за намерение такое, что "я хочу доставить наслаждение Творцу, Свят Благословен Он" (являющееся общей практической основой Науки Каббала)? Но я хочу это сделать таким образом, чтобы это наслаждение, с одной стороны, было скрытым от меня, чтобы я этим не наслаждался, но, с другой стороны, чтобы очевидность того, что это (мое) действие наслаждает Творца, Свят Благословен Он, была в достаточной степени (очевидной), для того, чтобы это могло послужить достаточной причиной к тому, чтобы в него (т.е. в это действие), как в Кли, облачился Высший Свет? Поскольку суть Высшего Света - это наслаждение. Это факт наслаждения. Причем, такой факт, который не является чем-то, (подобным тому,) как мы привыкли рассматривать факты, типа "тыр-пыр восемь дыр, вот так-то и так-то"<sup class="fnref"><a id="ref-1" href="#fn-1">*1</a></sup>, нет. Это факт, который просто является тем, что происходит в Реальности. А не тем, что мы себе в голове выстраиваем.</p>
+
+  <p>2. Пока то, что мои действия доставляют наслаждение Творцу, Свят Благословен Он, например, какая-нибудь "заповедь" ("неделание" - КК), пока я думаю об этом разумом (умом), и, допустим, я говорю: "да, да, я верю, у меня нет абсолютно никаких сомнений в том, что этим я доставляю наслаждение Творцу", но если я не чувствую это наслаждение - это значит, что я не то, чтобы вру сам себе, но я говорю пустые слова. Я говорю слова, за которыми ничего не стоит. Поскольку этого наслаждения я не чувствую, а, значит, что его в Реальности нет. Потому, что ему больше "быть" негде. Ему больше быть НЕГДЕ. Кроме как в моем "Кли" (ощущении). Если его нет в моем Кли, значит - его нет нигде. Вот и все.</p>
+
+  <p>3. Однако, корень Бины, который является действием Малхут, он подобен природе Высшего Света, Который "желает" насладить Малхут, в том, что и то, и то - является действием, в которое не включено каких-либо причин, и каких-либо обстоятельств. Оно совершается просто потому, что "мне это надо". "Мне туда надо". Или "мне это нравится"<sup class="fnref"><a id="ref-2" href="#fn-2">*2</a></sup>. И то, и другое является действием. Творец, Свят Благословен Он, наслаждает творения. И "больше" ничего не делает. Потому что в этом Его природа, и "этого хватает" : )). Для нас это является всем. Это наслаждение, оно раскрывается во всей Бесконечности, и во всем совершенстве, которое только есть в творении. И Малхут точно также делает<sup class="fnref"><a id="ref-3" href="#fn-3">*3</a></sup>: Она просто действует, Она действует, Она "получает"<sup class="fnref"><a id="ref-13" href="#fn-13">*13</a></sup>, Она получает от нижнего<sup class="fnref"><a id="ref-14" href="#fn-14">*14</a></sup> этот МАН<sup class="fnref"><a id="ref-15" href="#fn-15">*15</a></sup>, "раскрывает" его...</p>
+
+  <p>4. Высший Свет в Малхут раскрывает этот МАН в виде "хисарона" (потребности, недостатка), который означает определенную "расстановку Сил" (типа): "вот там вот, например, вверху, есть аттрактор", т.е. притягивающая точка, "в которой лежит 100 кг" (наслаждения) "и можно их получить" (с намерением "ради отдачи"). Таким образом, что это "получение"<sup class="fnref"><a id="ref-4" href="#fn-4">*4</a></sup> становится естественным действием. Становятся, просто, знаешь, как если шарик поставить на вершину горки, то он начинает скатываться. Точно также и это наслаждение, когда оно там "стоит", и когда ясно, что оно прямо у Малхут, как бы, "под носом", да, но Малхут берет его и "получает". Потому, что в этом Ее природа<sup class="fnref"><a id="ref-16" href="#fn-16">*16</a></sup>.</p>
+
+  <p>5. Когда Она его получила уже практически, тогда Она<sup class="fnref"><a id="ref-5" href="#fn-5">*5</a></sup> раскрывает, что... "- Поднимаешь, Боренька, нефть у Вас нашли. И никель. - Какой никель?... Норильский!.. Шутка!"<sup class="fnref"><a id="ref-6" href="#fn-6">*6</a></sup> : )). Вот так вот, примерно. То, что это была определенная конструкция, связанная с этой вот "горкой", на которой лежал "шарик". И она уже, как раз, была связана с этим "тыр-пыр, восемь дыр"<sup class="fnref"><a id="ref-1b" href="#fn-1">*1</a></sup>, которые "нижний" сам себе<sup class="fnref"><a id="ref-7" href="#fn-7">*7</a></sup> выстраивал для того, чтобы "уподобиться" этому действию (Творца, Свят Благословен Он) уже, как бы, на своих "фантиках" (свойствах - НК, собственных составляющих - КК). Не то, чтобы совсем "иллюзорных", но в которых, кроме (этого) "подобия свойств", по сути, ничего реального нету.</p>
+
+  <p>6. А когда исчезла реальная, "материальная" основа<sup class="fnref"><a id="ref-8" href="#fn-8">*8</a></sup>, то вот эта "основа" действия, которая "создана из ничего", Она выявляет Свою суть. И эта суть является Биной. Это уже не то, как бы... Чем Она отличается от умопостроений "левых фантазий"? Она отличается тем, что оно исходит из действия. Оно исходит из приложенных усилий, которые прилагаются:</p>
+  <ul class="inline">
+    <li>Совместно;</li>
+    <li>В нашем случае - Мужчиной и женщиной (Он создал Их<sup class="fnref"><a id="ref-2b" href="#fn-2">*2</a></sup>);</li>
+    <li>В широком смысле: определенным числом взаимодействующих ради определенной Цели ("духовной", согласно методики Науки Каббала) людей.</li>
+  </ul>
+  <p>Когда они "провзаимодействовали", вот эта Цель, к которой они вместе стремились, она перестает быть чистым продуктом фантазии или разума ("веры выше знания"). Она приобретает определенную "подсветку" внутреннюю, которая выводит ее в отдельную "сфиру" (свойство, особенность, стадию) относительно "действия". Она уже не является действием, хотя все, чем Она является<sup class="fnref"><a id="ref-9" href="#fn-9">*9</a></sup> - это именно то действие, то усилие, которое прилагали эти люди, стремясь к этой Цели.</p>
+
+  <p>7. Они в итоге оказались... Где они в итоге оказались, это вообще не важно - у "того же самого разбитого корыта". То есть, бегать (за ответом на вопрос) далеко не надо, что называется "к гадалке не ходи", "где они оказались", потому что, по сути, это "самая честная" сказка Александра Сергеевича - это "Сказка о рыбаке и рыбке"<sup class="fnref"><a id="ref-10b" href="#fn-10">*10</a></sup>. А те усилия, которые они приложили, точнее, та "подсветка", которая была создана посредством этих усилий, и которая, скажем так, "отпечатала" свойства Высшего Света, т.е. свойства "простого" "действия ради действия", скажем так, отпечатала их в Кли, в "творении".</p>
+
+  <p>8. И эта "подсветка" позволяет выяснить "подобие свойств" между "тем, кто все обо всем знает" и "теми, кому до этого нет никакого дела"<sup class="fnref"><a id="ref-12" href="#fn-12">*12</a></sup>. Для того, чтобы "тем, кому нет до этого дела", это знание, которое есть у "первого", так сказать, "товарища", получило возможность быть осмысленным, так сказать, чисто интеллектуальным способом, в том смысле, в котором знания - даются не для того, чтобы кто-то ими "обладал", "сферически в вакууме", а для того, чтобы делать жизнь человека лучше, и приятнее.</p>
+
+  <p>9. В нашем случае - доставлять наслаждение Творцу, Свят Благословен Он. Если этот Свет там скрыт, если он не "раскрывается", то это значит, что он там "скрыт" бессмысленно и бесполезно. Поэтому, конечно же, мы должны раскрывать этот Свет, мы должны раскрывать это "скрытие", и нам нету, в принципе, никакого дела до того, кто, зачем и как его (скрытие) создал, на момент, когда мы приходим, Милостью Господа, к этому действию и к этому выяснению практическому, как к возможности насладить Творца, потому что, совершенно очевидно, что ничто, кроме этого действия<sup class="fnref"><a id="ref-17" href="#fn-17">*17</a></sup> (в нашей жизни и на всем Пути) не имеет значения.</p>
+
+  <p>Кафе Печали, г. Икстлан, Точка невозврата из мечты.</p>
+
+  <div class="track">
+    <button class="track-head" onclick="togglePlayer(this)">
+      <span class="track-title">Chris Rea — The Blue Cafe (Кафе Печали)</span>
+      <span class="track-icons">
+        <a href="https://youtu.be/GCQ0ndJdYNc" target="_blank" rel="noopener" class="ext" title="Открыть на YouTube" onclick="event.stopPropagation()">↗</a>
+        <span class="arrow">▾</span>
+      </span>
+    </button>
+    <div class="track-body" data-embed="https://www.youtube-nocookie.com/embed/GCQ0ndJdYNc"></div>
+  </div>
+
+  <!-- NOTES -->
+  <h2 id="sec-notes" onclick="toTop()">ПОЯСНЕНИЯ</h2>
+  <ol class="notes">
+    <li id="fn-1"><span class="fnnum">*1</span>Отсылка к повести/экранизации романа В.Пелевина "Поколение П". Эпизод с монологом Вовчика Малого о "национальной идее"  <a class="backref" href="#ref-1" title="Вернуться к тексту">↩</a></li>
+
+    <li id="fn-2"><span class="fnnum">*2</span>Отсылка к статье "Заповедь девятая", п. 236, том 1, Книга Зоар, РАШБИ-Бааль Сулам: "И дело в том, что до создания «Мира Исправления» (Ацилут) было разбиение келим в ЗАТ мира Некудим. Мы изучаем также, что «Он создавал и разрушал миры, пока не создал их, и сказал: "Это Мне нравится"»" <a href="https://imyavel.github.io/zohar-sulam/akdama/029.html" target="_blank" rel="noopener">akdama/029</a> <a class="backref" href="#ref-2" title="Вернуться к тексту">↩</a></li>
+
+    <li id="fn-3"><span class="fnnum">*3</span>Творец, Свят Благословен Он, имеется в виду - Свет АБ-САГ де АК, "окружающий Свет" Мира Адам Кадмон "величию и неисчерпаемости Которого нет предела" (окружающий ЗАТ Бины, являющиеся "пространством", в Котором происходит "создание мира/человека", "6 дней начала творения", где находится Корень человеческой души "Адам Ришон", начало восприятия, источник жизни и сознания чувственных существ, "экран акудим" и (упоминаемая далее) Малхут Бесконечности, единое творение Творца, Свят Благословен Он, Высшее "Я" всех живых существ, называемое "Орлом" в традиции К.Кастанеды) См. также: Введение в Науку Каббала, Бааль Сулам (цитата про Свет АБ-САГ взята из п. 32, но для тех, кто настроен серьезно, интерес представляет весь труд от начала и до конца, полностью)  <a class="backref" href="#ref-3" title="Вернуться к тексту">↩</a></li>
+
+    <li id="fn-4"><span class="fnnum">*4</span>На этом "уровне сознания" (ГАР, Бесконечность) "получение" и "отдача" (как и все остальные дуальности, противоположности или различия, характерные для этого мира, и являющиеся основой рассудка, равно как и вообще всей способности человеческого постижения в принципе, еще не "разбились" из единого Корня на множество частей, и поэтому включены в это "действие" Малхут нерасчленимым и неотъемлемым образом друг от друга. Но их раскрытие, тем не менее, каким-то образом подчинено Закону последовательного развития по 4 стадиям Имени Творца, Свят Благословен Он, "АВАЯ" (Йуд-Хей-Вав-Хей = Хохма-Бина-Тиферет-Малхут, и их Корень в Мире Бесконечности). См. также: <a href="14R.html">Подобие свойств в Науке Каббала</a> (Круг Жизни) <a class="backref" href="#ref-4" title="Вернуться к тексту">↩</a></li>
+
+    <li id="fn-5"><span class="fnnum">*5</span>В этом месте сложно достоверно сказать, что идет разговор о Высшем свойстве Малхут, или о "низшей Малхут", т.е. праведнике, поднимающем МАН и включающемся посредством него в действие Творца, Свят Благословен Он, "облачающегося" в действие Малхут Бесконечности. См. также: Со Мной ты в сотрудничестве, том 1, Книга Зоар <a href="https://imyavel.github.io/zohar-sulam/akdama/011.html" target="_blank" rel="noopener">akdama/011</a> <a class="backref" href="#ref-5" title="Вернуться к тексту">↩</a></li>
+
+    <li id="fn-6"><span class="fnnum">*6</span>Отсылка к к/ф "День выборов", монолог Камиля Ринатовича и гангстера Бореньки <a href="https://youtu.be/6hi0etcrqO8?t=6586" target="_blank" rel="noopener">https://youtu.be/6hi0etcrqO8?t=6586</a> <a class="backref" href="#ref-6" title="Вернуться к тексту">↩</a></li>
+
+    <li id="fn-7"><span class="fnnum">*7</span>Не без помощи Творца, Свят Благословен Он, конечно же, и особой методики "Круга" (духовного объединения "собрания стремящихся к Творцу", "этого мира" - мужчин и женщин, плюс практическая (мужская) ступень "катнут" - "веры выше знания" в Науке Каббала). См. также: Первое поколение (Круг Жизни) <a href="http://proza.ru/2021/08/09/165" target="_blank" rel="noopener">http://proza.ru/2021/08/09/165</a> <a class="backref" href="#ref-7" title="Вернуться к тексту">↩</a></li>
+
+    <li id="fn-8"><span class="fnnum">*8</span>Это, кстати, интересный вопрос, откуда она вообще берется, если "нет никого, кроме Него", да? Ну ладно, это мы потом рассмотрим еще как-нибудь. <a class="backref" href="#ref-8" title="Вернуться к тексту">↩</a></li>
+
+    <li id="fn-9"><span class="fnnum">*9</span>См. также: Обобщающее введение, п. 2, Бааль Сулам "Особенность первая: суть сфиры Бина такая же, как у Хохмы".  <a class="backref" href="#ref-9" title="Вернуться к тексту">↩</a></li>
+
+    <li id="fn-10"><span class="fnnum">*10</span>См. также: Сказки о Силе: <a href="17Q.html">Сказка о рыбаке и рыбке</a> <a class="backref" href="#ref-10" title="Вернуться к тексту">↩</a></li>
+
+    <li id="fn-11"><span class="fnnum">*11</span>В терминах учения "правой линии" Науки Каббала "Правило Нагваля" соответствует понятию "Образ Всесильного" Книги Зоар (том 1 предисловий, "заповеди Торы" 9 и 10), РАШБИ-Бааль Сулам <a href="https://imyavel.github.io/zohar-sulam/akdama/030.html" target="_blank" rel="noopener">akdama/030</a> <a class="backref" href="#ref-11" title="Вернуться к тексту">↩</a></li>
+
+    <li id="fn-12"><span class="fnnum">*12</span>Отсылка к тексту песни Chris Rea, также служащей эпиграфом и подходящей для отражения настроения и "общего свойства" настоящей статьи - The Blue Cafe ("it`s a place where One who knows, meets the one, who doesn`t care"). Помимо общеизвестного (НК) "свидетельства Знающего Тайны о том, что человек не вернется больше к глупости своей" - например, раскрываемого в Письме 10 Бааля Сулама, которое само по себе содержит большую глубину понимания и практической мудрости, и которому стоило бы посвятить самостоятельное исследование и отдельную "статью" -  <a class="backref" href="#ref-12" title="Вернуться к тексту">↩</a></li>
+
+    <li id="fn-13"><span class="fnnum">*13</span>Снизу вверх, поднимая "отраженный Свет" - НК <a class="backref" href="#ref-13" title="Вернуться к тексту">↩</a></li>
+
+    <li id="fn-14"><span class="fnnum">*14</span>НАРАН праведников из миров БЕА - НК <a class="backref" href="#ref-14" title="Вернуться к тексту">↩</a></li>
+
+    <li id="fn-15"><span class="fnnum">*15</span>Намерение каббалистической молитвы, посредством которой "команда мага/каббалиста становится Командой Орла" - КК <a class="backref" href="#ref-15" title="Вернуться к тексту">↩</a></li>
+
+    <li id="fn-16"><span class="fnnum">*16</span>"Желание получать" - НК <a class="backref" href="#ref-16" title="Вернуться к тексту">↩</a></li>
+
+    <li id="fn-17"><span class="fnnum">*17</span>Сделаем и услышим! <a class="backref" href="#ref-17" title="Вернуться к тексту">↩</a></li>
+  </ol>
+
+  <!-- corpus nav -->
+  <nav class="corpus-nav">
+    <a class="prev" href="17C.html"><span class="lbl">← Предыдущая</span>Часть 3 Сын своего Отца</a>
+    <a class="next" href="17O.html"><span class="lbl">Следующая →</span>Часть 4 Плод Вечной Весны</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<div id="fnpop"></div>
+
+<script>
+  function toTop(){ window.scrollTo({top:0,behavior:'smooth'}); }
+
+  function togglePlayer(btn){
+    var track=btn.closest('.track');
+    var body=track.querySelector('.track-body');
+    track.classList.toggle('open');
+    if(track.classList.contains('open') && !body.querySelector('iframe')){
+      var url=body.getAttribute('data-embed');
+      var f=document.createElement('div');
+      f.className='frame';
+      f.innerHTML='<iframe src="'+url+'" title="YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+      body.appendChild(f);
+    }
+  }
+
+  /* footnote popup */
+  (function(){
+    var pop=document.getElementById('fnpop');
+    var hideT;
+    function noteHTML(id){
+      var el=document.getElementById(id);
+      if(!el) return '';
+      var clone=el.cloneNode(true);
+      var b=clone.querySelector('.backref'); if(b) b.remove();
+      return clone.innerHTML;
+    }
+    document.querySelectorAll('sup.fnref a').forEach(function(a){
+      a.addEventListener('mouseenter',function(){
+        clearTimeout(hideT);
+        var tgt=a.getAttribute('href').slice(1);
+        pop.innerHTML=noteHTML(tgt);
+        pop.style.display='block';
+        var r=a.getBoundingClientRect();
+        var pw=pop.offsetWidth, ph=pop.offsetHeight;
+        var left=window.scrollX + r.left + r.width/2 - pw/2;
+        left=Math.max(8, Math.min(left, window.scrollX+document.documentElement.clientWidth-pw-8));
+        var top;
+        if(r.top > ph+12){ top=window.scrollY + r.top - ph - 8; }
+        else { top=window.scrollY + r.bottom + 8; }
+        pop.style.left=left+'px';
+        pop.style.top=top+'px';
+      });
+      a.addEventListener('mouseleave',function(){
+        hideT=setTimeout(function(){pop.style.display='none';},150);
+      });
+    });
+    pop.addEventListener('mouseenter',function(){clearTimeout(hideT);});
+    pop.addEventListener('mouseleave',function(){pop.style.display='none';});
+  })();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — это философско-каббалистическое эссе (письмо-предисловие плюс девять пронумерованных рассуждений и обширный аппарат пояснений), а не стихотворная форма; единственный поэтический фрагмент — англоязычный эпиграф из песни Chris Rea, который не делает текст поэмой. Поэтому выбрана редакторская широкая схема: основная колонка задана через width:66vw с max-width:1180px, что на десктопе даёт примерно две трети ширины окна, а на мобильном — полную ширину. Палитра — тёплая бумажная (светлый фон, тёмная типографика, винный и приглушённо-зелёный акценты) под характер дневника.",
+  "rationale2": "Развилки: оглавление построено только из трёх реально присутствующих заголовков (Эпиграф, Предисловие, ПОЯСНЕНИЯ), новых заголовков для пронумерованных абзацев не выдумывал. Музыкальный трек распознан один — ссылка на YouTube (Chris Rea, Blue Cafe) в конце основного текста, поэтому он оформлен как ленивый сворачиваемый плеер прямо на месте, а сводный раздел музыки не создавался (распознанных треков не больше двух — youtube-ссылки в сносках *1 и *6 это киноцитаты-источники, а не музыкальные треки, оставлены обычными гиперссылками). Сноски *1, *2 и *10 встречаются в тексте дважды — каждому маркеру дан собственный id, обратная ссылка из тела ведёт к первому вхождению; реализованы переход вниз с подсветкой :target, переход вверх и hover-popup с авто-выбором стороны.",
+  "features": ["music", "footnotes", "toc"]
+}
+</script>
+</body>
+</html>

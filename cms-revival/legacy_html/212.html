@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Следующая жизнь</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#23201b;
+    --muted:#6f685c;
+    --accent:#8a5a2b;
+    --accent-soft:#caa372;
+    --rule:#e2dac9;
+    --hl:#fff1c2;
+    --maxw:1340px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;
+    font-size:20px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 32px;
+  }
+  /* editorial wide: content column ~2/3 of viewport */
+  .page{
+    display:grid;
+    grid-template-columns:minmax(0,2fr) minmax(0,1fr);
+    gap:60px;
+    align-items:start;
+  }
+  .content{min-width:0;}
+  .rail{
+    min-width:0;
+    position:sticky;
+    top:32px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  header.masthead{
+    border-bottom:3px double var(--accent-soft);
+    margin-bottom:38px;
+    padding-top:30px;
+  }
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:26px;
+  }
+  .breadcrumbs a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft);}
+  .breadcrumbs a:hover{color:var(--ink);}
+  .breadcrumbs span{margin:0 .5em;color:var(--accent-soft);}
+  h1{
+    font-size:46px;
+    line-height:1.1;
+    margin:0 0 22px;
+    font-weight:700;
+    letter-spacing:-.01em;
+  }
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:30px;
+  }
+  .content p{margin:0 0 1.25em;}
+  .speaker{font-weight:700;color:var(--accent);}
+  .content a{color:var(--accent);}
+
+  /* footnote refs */
+  .fn-ref{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.62em;
+    vertical-align:super;
+    line-height:0;
+    font-weight:700;
+    color:var(--accent);
+    text-decoration:none;
+    padding:0 1px;
+    cursor:pointer;
+  }
+  .fn-ref:hover{color:#fff;background:var(--accent);border-radius:3px;}
+
+  /* notes */
+  .notes{
+    margin-top:54px;
+    padding-top:24px;
+    border-top:2px solid var(--rule);
+  }
+  .notes h2{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:18px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 20px;
+  }
+  ol.notelist{
+    margin:0;padding-left:0;list-style:none;
+    font-size:17px;line-height:1.6;color:#3a352d;
+  }
+  ol.notelist li{
+    position:relative;
+    padding:10px 8px 10px 44px;
+    border-bottom:1px solid var(--rule);
+  }
+  ol.notelist li .num{
+    position:absolute;left:0;top:10px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;color:var(--accent);
+    width:34px;text-align:right;
+  }
+  ol.notelist li:target{background:var(--hl);border-radius:6px;}
+  .backref{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-decoration:none;color:var(--accent);
+    margin-left:6px;font-size:14px;
+  }
+  .backref:hover{color:var(--ink);}
+
+  /* tooltip popup */
+  #fn-pop{
+    position:absolute;
+    z-index:50;
+    max-width:360px;
+    background:var(--ink);
+    color:#f6f1e6;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    line-height:1.45;
+    padding:12px 14px;
+    border-radius:8px;
+    box-shadow:0 10px 30px rgba(0,0,0,.28);
+    display:none;
+    pointer-events:none;
+  }
+  #fn-pop::after{
+    content:"";position:absolute;left:var(--ax,20px);
+    border:7px solid transparent;
+  }
+  #fn-pop.above::after{top:100%;border-top-color:var(--ink);}
+  #fn-pop.below::after{bottom:100%;border-bottom-color:var(--ink);}
+  #fn-pop a{color:var(--accent-soft);}
+
+  /* footer nav */
+  .corpus-nav{
+    margin-top:60px;
+    border-top:2px solid var(--rule);
+    padding-top:26px;
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    text-decoration:none;color:var(--accent);
+    display:block;max-width:46%;
+  }
+  .corpus-nav .lbl{
+    font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--muted);display:block;margin-bottom:4px;
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  .corpus-nav a:hover .ttl{text-decoration:underline;}
+  footer.colophon{
+    margin-top:46px;
+    border-top:1px solid var(--rule);
+    padding:24px 0 60px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent);}
+  .rail-card{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    padding:20px 22px;
+    font-size:15px;
+    color:var(--muted);
+    line-height:1.5;
+  }
+  .rail-card .rl{
+    font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:10px;
+  }
+
+  @media (max-width:980px){
+    body{font-size:18px;}
+    .page{grid-template-columns:1fr;gap:0;}
+    .rail{position:static;margin-top:40px;display:none;}
+    h1{font-size:34px;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/212.html">
+<meta name="description" content="Диалог Елены и Ильи о выстраивании будущей жизни, кругооборотах души в форме мужчины и женщины и неразрывности связи между воплощениями.">
+<meta property="og:title" content="Следующая жизнь">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/212.html">
+<meta property="og:description" content="Диалог Елены и Ильи о выстраивании будущей жизни, кругооборотах души в форме мужчины и женщины и неразрывности связи между воплощениями.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Следующая жизнь">
+<meta name="twitter:description" content="Диалог Елены и Ильи о выстраивании будущей жизни, кругооборотах души в форме мужчины и женщины и неразрывности связи между воплощениями.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №212</span>
+<div class="wrap">
+  <div class="page">
+    <main class="content">
+      <header class="masthead">
+        <nav class="breadcrumbs" aria-label="Хлебные крошки">
+          <a href="../index.html">Главная</a><span>/</span><a href="../shoshana/index.html">Роза Среди Шипов</a>
+        </nav>
+        <h1>Следующая жизнь<a class="audio-link" href="https://t.me/art_017_tracks/543" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+        <div class="dateline">2 января 2022 г.</div>
+      </header>
+
+      <p><span class="speaker">Елена:</span> А вот, мы говорим, что мы "выстраиваем свою будущую жизнь"<a class="fn-ref" id="ref1" href="#fn1" data-note="См. также: Только Ты будешь жить вечно — proza.ru/2021/08/28/1406">1</a>. А вот как мы с тобой можем ее выстроить, чтобы мы в следующей жизни нашли друг друга, или это уже не будет зависеть не от нас? Вернее, как бы, мы само намерение закладываем сейчас, и выстраиваем эту совместную жизнь, в будущем?</p>
+
+      <p><span class="speaker">Илья:</span> Мы с тобой друг друга уже не "потеряем" (смеется). Милостью Господа, мы друг друга уже не потеряем - мы уже стали одним целым. Понимаешь... "ли, Боренька"<a class="fn-ref" id="ref2" href="#fn2" data-note='"- Понимаешь ли, Боренька, нефть у вас нашли. И никель! - Какой... Никель? - Норильский! Шутка!" — цитаты из кинофильма "День выборов", 2007 г.'>2</a> (смеется)... Душа, проходит кругообороты... Я, на самом деле, к этой концепции подхожу давно уже. Но так, чтобы оформить ее каким-то последовательным образом, пока что, может быть, опыта не хватает, а, может быть, Милостью Господа, еще время не пришло. Я не знаю.</p>
+
+      <p>О том, что Душа проходит кругообороты в форме "мужчины и женщины"<a class="fn-ref" id="ref3" href="#fn3" data-note='"Мужчиной и Женщиной Он создал их" — Тора, Берешит (Библия, Бытие) 1:27, Книга Зоар, Том 1, Заповедь девятая, п. 233 и в др. местах'>3</a>. Это единая сущность, которая, раз [вос]соединившись, она уже не "разъединяется". То есть, ты понимаешь, что мы уже не будем проходить "кругообороты" по-отдельности друг от друга. То, в чем мы участвуем "энергетически" в этом мире, мы в этом уже участвуем "вместе". Как одно целое. И точно также, мы... Поскольку это "одно целое" на самом деле, понимаешь, просто мы, в силу того, что мы пока находимся еще в начале раскрытия этих ступеней, и этих знаний, в человечестве, мы еще не можем "добраться" до всей полноты информации. Но, тем не менее, уже можно вполне предполагать, делать, так сказать, правдоподобные предположения, что, скорее всего, это именно так.</p>
+
+      <p>И тот Мир, который "между", если так говорить, реальность "между кругооборотами", и та реальность, которая есть "внутри" кругооборотов, - это на самом деле одна и та же Реальность. То есть, мы никуда не "уходим". Мы никуда не исчезаем. Мы переходим из одного состояния в другое. Из "плюса" в "минус", и из "минуса" в "плюс". Итак, мы, во-первых, продолжаем быть "соединенными", ничего с нами не происходит, а во-вторых...</p>
+
+      <p>Во-вторых, наша судьба, она не будет прерываться, она... Ты же видишь, даже через 800 лет, в том будущем, которое... это были ты и я. Это была ты, я, и еще кто-то. И еще кто-то, и еще два человека там было. Один, судя по всему, Н.<a class="fn-ref" id="ref4" href="#fn4" data-note="Конкретные имена людей в посте заменены буквами, на всякий случай.">4</a> А вторая кто, я не знаю, пока что. Ну, "терра инкогнита" (смеется). Может быть, Г. Может быть, еще кто-нибудь. У нас уже много друзей, понимаешь, и в "этом" мире, и в "том" мире. Та же Ж., например. Ну, еще много людей. Тот же К., елки палки. И К.<a class="fn-ref" id="ref5" href="#fn5" data-note="См. также: Апрель навсегда — proza.ru/2021/12/01/179">5</a>, например, да? Куча людей просто, и их будет все больше и больше. Понимаешь?</p>
+
+      <p>Наша семья, она будет только расти и развиваться. И от того, что мы будем в какой-то жизни, и в каком-то "воплощении", например, друг с другом, физически как муж и жена, или мы будем, например, с кем-то еще из нашего Круга - это нам будет, так сказать, абсолютно "не впадлу", нам от этого будет хорошо. Когда мы будем это чувствовать. Когда мы будем встречаться. А мы, так или иначе, будем встречаться. Потому что мы выполняем общую работу. В этой работе мы занимаем совершенно четкие определенные "места". Буквально, как "сфироты" в здании, которое Бааль Сулам описывал<a class="fn-ref" id="ref6" href="#fn6" data-note="См. также: Введение в Науку Каббала, Бааль Сулам">6</a><a class="fn-ref" id="ref7" href="#fn7" data-note="См. также: Заря близко — fb.com/naasenishma/posts/454428979535040">7</a>. Из Песни слов не выкинешь, ее можно только спеть. Понимаешь? Так что, будем петь, и, Милостью Господа, стремиться, и "удостаиваться", доставить Ему этим наслаждение<a class="fn-ref" id="ref8" href="#fn8" data-note='См. также: "Образ Всесильного" Человека Говорящего — adam.fandom.com/ru/wiki/Obraz'>8</a>. Господь, да будет так, как хочешь Ты вовеки, Амен ве Амен.</p>
+
+      <section class="notes" aria-label="Пояснения">
+        <h2>Пояснения</h2>
+        <ol class="notelist">
+          <li id="fn1"><span class="num">1</span>См. также: <a href="16J.html">Только Ты будешь жить вечно</a> <a class="backref" href="#ref1" title="Вернуться к тексту">↩</a></li>
+          <li id="fn2"><span class="num">2</span>"- Понимаешь ли, Боренька, нефть у вас нашли. И никель! - Какой... Никель? - Норильский! Шутка!" - цитаты из кинофильма "День выборов", 2007 г. <a class="backref" href="#ref2" title="Вернуться к тексту">↩</a></li>
+          <li id="fn3"><span class="num">3</span>"Мужчиной и Женщиной Он создал их" - Тора, Берешит (Библия, Бытие) 1:27, Книга Зоар, Том 1, Заповедь девятая, п. 233 и в др. местах <a class="backref" href="#ref3" title="Вернуться к тексту">↩</a></li>
+          <li id="fn4"><span class="num">4</span>Конкретные имена людей в посте заменены буквами, на всякий случай. <a class="backref" href="#ref4" title="Вернуться к тексту">↩</a></li>
+          <li id="fn5"><span class="num">5</span>См. также: <a href="1C1.html">Апрель навсегда</a> <a class="backref" href="#ref5" title="Вернуться к тексту">↩</a></li>
+          <li id="fn6"><span class="num">6</span>См. также: Введение в Науку Каббала, Бааль Сулам <a class="backref" href="#ref6" title="Вернуться к тексту">↩</a></li>
+          <li id="fn7"><span class="num">7</span>См. также: Заря близко <a href="https://fb.com/naasenishma/posts/454428979535040">fb.com/naasenishma/posts/454428979535040</a> <a class="backref" href="#ref7" title="Вернуться к тексту">↩</a></li>
+          <li id="fn8"><span class="num">8</span>См. также: "Образ Всесильного" Человека Говорящего <a href="https://adam.fandom.com/ru/wiki/Obraz">adam.fandom.com/ru/wiki/Obraz</a> <a class="backref" href="#ref8" title="Вернуться к тексту">↩</a></li>
+        </ol>
+      </section>
+
+      <nav class="corpus-nav" aria-label="Навигация по разделу">
+        <a class="prev" href="23TA.html"><span class="lbl">← Предыдущая</span><span class="ttl">Воля Творца, Свят Благословен Он</span></a>
+        <a class="next" href="19U.html"><span class="lbl">Следующая →</span><span class="ttl">Гадлут свойства Образ Всесильного 2</span></a>
+      </nav>
+
+      <footer class="colophon">
+        <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+        <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+      </footer>
+    </main>
+
+    <aside class="rail" aria-hidden="true">
+      <div class="rail-card">
+        <div class="rl">Диалог</div>
+        Беседа Елены и Ильи о кругооборотах Души, о соединении и о следующей жизни.
+      </div>
+    </aside>
+  </div>
+</div>
+
+<div id="fn-pop"></div>
+
+<script>
+(function(){
+  var pop=document.getElementById('fn-pop');
+  var refs=document.querySelectorAll('.fn-ref');
+  function show(el){
+    pop.textContent=el.getAttribute('data-note')||'';
+    pop.style.display='block';
+    var r=el.getBoundingClientRect();
+    var sx=window.scrollX||document.documentElement.scrollLeft;
+    var sy=window.scrollY||document.documentElement.scrollTop;
+    var pw=pop.offsetWidth, ph=pop.offsetHeight;
+    var left=r.left+sx + r.width/2 - 24;
+    var maxLeft=sx+document.documentElement.clientWidth-pw-12;
+    if(left>maxLeft) left=maxLeft;
+    if(left<sx+8) left=sx+8;
+    var above = r.top > ph+16;
+    var top = above ? (r.top+sy-ph-12) : (r.bottom+sy+12);
+    pop.className = above ? 'above' : 'below';
+    var ax = (r.left+sx + r.width/2) - left;
+    pop.style.setProperty('--ax', ax+'px');
+    pop.style.left=left+'px';
+    pop.style.top=top+'px';
+  }
+  function hide(){pop.style.display='none';}
+  refs.forEach(function(el){
+    el.addEventListener('mouseenter',function(){show(el);});
+    el.addEventListener('mouseleave',hide);
+    el.addEventListener('focus',function(){show(el);});
+    el.addEventListener('blur',hide);
+  });
+})();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — записанный диалог двух собеседников (Елена/Илья) на духовно-каббалистическую тему: это прозаическая, разговорная форма, а не стих или поэма, поэтому выбрана редакторская широкая схема с основной колонкой примерно в 2/3 ширины окна и узкой сопровождающей колонкой справа. Развилка была только в пограничном тоне текста (каббалистическая лексика могла бы тянуть к 'манускрипту'), но решающим стал именно формат сплошной прозы-беседы, а не стихотворные строки, поэтому узкую книжную полосу отверг.\n\nПалитра — тёплый светлый фон цвета бумаги с коричнево-охристым акцентом и тёмно-серой типографикой: контрастно, спокойно, без гигантских заголовков. Имена говорящих выделены акцентным цветом как реплики. Сносок восемь (*1–*8, причём *6 и *7 стоят подряд) — реализованы кликабельными надстрочными маркерами с переходом вниз/вверх, подсветкой цели (:target) и всплывающим popup при наведении, который сам выбирает позицию над или под маркером по близости к краю экрана. Музыкальных треков в тексте нет, поэтому блок музыки не добавлялся. Оглавление не делал: единственный содержательный раздел плюс 'Пояснения', явных подразделов более одного нет."
+,
+  "features": ["footnotes"]
+}
+</script>
+</body>
+</html>

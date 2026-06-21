@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>АЯ ПЧФ</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#1c1a16;
+    --muted:#5f594e;
+    --line:#ddd5c6;
+    --accent:#9a2b22;
+    --accent2:#b6741f;
+    --link:#8a3a1c;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    font-size:18px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:min(1100px,92vw);
+    margin:0 auto;
+    padding:28px 0 80px;
+  }
+  .col{
+    background:var(--paper);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 #fff inset, 0 18px 50px rgba(40,30,15,.06);
+    padding:clamp(22px,4vw,64px);
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.84rem;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 18px;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(154,43,34,.3);}
+  .crumbs a:hover{border-color:var(--accent);}
+  .crumbs span{margin:0 .5em;color:#b3a892;}
+  /* hero image */
+  .hero{margin:0 0 24px;text-align:center;}
+  .hero img{max-width:100%;width:auto;height:auto;border:1px solid var(--line);}
+  /* title */
+  h1{
+    font-size:clamp(2rem,4.5vw,2.9rem);
+    line-height:1.1;
+    letter-spacing:.02em;
+    margin:.2em 0 .1em;
+    color:var(--ink);
+  }
+  .sub{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.92rem;
+    color:var(--muted);
+    border-bottom:2px solid var(--accent);
+    padding-bottom:18px;
+    margin-bottom:26px;
+    display:inline-block;
+  }
+  h2{
+    font-size:1.5rem;
+    letter-spacing:.04em;
+    margin:2.4em 0 .7em;
+    padding-bottom:.25em;
+    border-bottom:1px solid var(--line);
+    scroll-margin-top:14px;
+  }
+  h2 a,h3 a.back{color:inherit;text-decoration:none;}
+  h2 a:hover{color:var(--accent);}
+  h3{
+    font-size:1.18rem;
+    margin:1.8em 0 .5em;
+    color:var(--accent);
+  }
+  p{margin:0 0 1.1em;}
+  a{color:var(--link);}
+  a:hover{color:var(--accent);}
+  .lead{color:var(--muted);font-style:italic;}
+  /* TOC */
+  .toc{
+    background:#fbf7ee;
+    border:1px solid var(--line);
+    border-left:4px solid var(--accent);
+    padding:14px 22px;
+    margin:0 0 30px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .toc summary{
+    cursor:pointer;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    font-size:.82rem;
+    color:var(--muted);
+  }
+  .toc ol{margin:.6em 0 .2em;padding-left:1.4em;}
+  .toc li{margin:.28em 0;font-size:.96rem;}
+  .toc a{text-decoration:none;color:var(--ink);}
+  .toc a:hover{color:var(--accent);}
+  /* blockquote / cite */
+  blockquote{
+    margin:1.2em 0;
+    padding:.4em 0 .4em 1.3em;
+    border-left:3px solid var(--accent2);
+    color:#2a261f;
+    font-style:italic;
+  }
+  blockquote.poem{font-style:normal;line-height:1.85;}
+  cite{display:block;margin-top:.7em;font-style:normal;font-size:.9rem;color:var(--muted);}
+  .qlabel{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+    color:#a89878;margin:.4em 0;
+  }
+  .longquote{
+    background:#fbf8f1;
+    border:1px solid var(--line);
+    padding:18px 22px;
+    margin:1em 0;
+  }
+  .longquote p{margin:0 0 .9em;}
+  .longquote p:last-child{margin-bottom:0;}
+  /* celems list */
+  ol.celems{padding-left:1.6em;margin:.8em 0;}
+  ol.celems>li{margin:.6em 0;padding-left:.3em;}
+  ol.celems>li::marker{color:var(--accent);font-weight:700;}
+  .col-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;letter-spacing:.04em;
+    color:var(--ink);margin-top:1.6em;
+  }
+  .resume{
+    margin:1.6em 0;padding:14px 18px;
+    background:#1c1a16;color:#f4ead2;
+    font-weight:700;letter-spacing:.03em;text-align:center;
+  }
+  .resume sup a{color:#e8b96a;}
+  /* music */
+  .music-group{margin:1.3em 0;}
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin-bottom:.5em;
+  }
+  details.track{
+    border:1px solid var(--line);
+    background:#fbf8f1;
+    margin:.4em 0;
+  }
+  details.track>summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;align-items:center;gap:.6em;
+    padding:.7em 1em;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.98rem;
+  }
+  details.track>summary::-webkit-details-marker{display:none;}
+  .track .arrow{color:var(--accent);transition:transform .2s;font-size:.8em;}
+  details.track[open] .arrow{transform:rotate(90deg);}
+  .track-title{font-weight:700;}
+  .track-artist{color:var(--muted);}
+  .track-meta{flex:1;}
+  .track-ext{
+    text-decoration:none;color:var(--accent);font-weight:700;
+    padding:0 .3em;border:1px solid transparent;border-radius:3px;
+  }
+  .track-ext:hover{border-color:var(--accent);}
+  .track-embed{padding:0 1em 1em;}
+  .track-embed iframe{width:100%;aspect-ratio:16/9;border:0;}
+  a.track-flat{
+    display:flex;gap:.5em;align-items:center;
+    padding:.7em 1em;border:1px solid var(--line);background:#fbf8f1;
+    text-decoration:none;font-family:"Helvetica Neue",Arial,sans-serif;
+    margin:.4em 0;color:var(--ink);
+  }
+  /* footnotes refs */
+  sup.fnref{
+    position:relative;
+    font-size:.72em;
+    line-height:0;
+  }
+  sup.fnref>a{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    padding:0 1px;
+  }
+  sup.fnref>a:hover{text-decoration:underline;}
+  .fnpop{
+    display:none;
+    position:absolute;
+    bottom:1.7em;left:50%;
+    transform:translateX(-50%);
+    width:min(320px,72vw);
+    background:#241f17;color:#f3ead6;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;line-height:1.5;font-weight:400;
+    padding:10px 13px;border-radius:6px;
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
+    z-index:40;text-align:left;
+  }
+  .fnpop a{color:#e8b96a;}
+  sup.fnref.below .fnpop{bottom:auto;top:1.7em;}
+  sup.fnref:hover .fnpop{display:block;}
+  /* notes section */
+  .notes{margin-top:1em;}
+  .notes ol,.notes .notelist{list-style:none;padding:0;margin:0;}
+  .note{
+    display:flex;gap:.7em;
+    padding:.55em .6em;
+    font-size:.95rem;
+    border-bottom:1px dashed var(--line);
+    scroll-margin-top:20px;
+  }
+  .note .nnum{color:var(--accent);font-weight:700;min-width:1.6em;}
+  .note:target{background:#fdf1d8;outline:2px solid var(--accent2);}
+  .note .upref{color:var(--accent);text-decoration:none;margin-left:.3em;}
+  /* bottom nav */
+  .seqnav{
+    display:flex;justify-content:space-between;gap:14px;
+    margin-top:42px;padding-top:22px;border-top:2px solid var(--accent);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .seqnav a{
+    text-decoration:none;color:var(--ink);
+    max-width:46%;display:block;
+  }
+  .seqnav .lbl{display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+  .seqnav .ttl{color:var(--accent);font-weight:700;}
+  .seqnav .next{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:34px;padding-top:18px;border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.82rem;color:var(--muted);
+  }
+  footer.colophon a{color:var(--accent);}
+  @media(max-width:640px){
+    body{font-size:16.5px;}
+    .wrap{width:100%;padding:14px 10px 60px;}
+    .col{padding:18px 16px;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/35Q.html">
+<meta name="description" content="Эссе о Потере Человеческой Формы как абстрактном ядре: автор собирает образы-целемы из Каббалы, Кастанеды и литературы, чтобы очертить точку невозврата.">
+<meta property="og:title" content="АЯ ПЧФ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/35Q.html">
+<meta property="og:description" content="Эссе о Потере Человеческой Формы как абстрактном ядре: автор собирает образы-целемы из Каббалы, Кастанеды и литературы, чтобы очертить точку невозврата.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="АЯ ПЧФ">
+<meta name="twitter:description" content="Эссе о Потере Человеческой Формы как абстрактном ядре: автор собирает образы-целемы из Каббалы, Кастанеды и литературы, чтобы очертить точку невозврата.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №35Q</span>
+<a id="top"></a>
+<div class="wrap">
+  <article class="col">
+
+    <nav class="crumbs">
+      <a href="../index.html">Главная</a><span>/</span><a href="../confront/index.html">Конфронтология Духа</a>
+    </nav>
+
+    <div class="hero">
+      <img src="../img/35Q.jpg" alt="">
+    </div>
+
+    <h1>АЯ ПЧФ<a class="audio-link" href="https://t.me/art_017_tracks/456" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <div class="sub">Коллекция Целемов · Абстрактное Ядро Потери Человеческой Формы</div>
+
+    <details class="toc" open>
+      <summary>Содержание</summary>
+      <ol>
+        <li><a href="#vvedenie">Введение</a></li>
+        <li><a href="#ayapchf">АЯ ПЧФ</a></li>
+        <li><a href="#music">Музыка под настроение</a></li>
+        <li><a href="#notes">Пост скриптум (Ор Пними)</a></li>
+      </ol>
+    </details>
+
+    <section id="vvedenie">
+      <h2><a href="#top">ВВЕДЕНИЕ</a></h2>
+
+      <p>Целем<sup class="fnref" id="ref2"><a href="#fn2">2</a><span class="fnpop">См. также: Книга Зоар (с комментарием Бааля Сулама), том 1, Заповеди Торы 9 и 10</span></sup> (ивр. образ, облик) - это форма, подобная некоторому аспекту Правила Орла<sup class="fnref" id="ref3"><a href="#fn3">3</a><span class="fnpop">См. также: К. Кастанеда, Дар Орла, Глава 9. Правило Нагваля</span></sup>, заключенная в конкретном «абстрактном ядре», «магическая история»<sup class="fnref" id="ref4"><a href="#fn4">4</a><span class="fnpop">См. также: К. Кастанеда, Сила безмолвия, Введение и далее</span></sup> которого нашла отражение в образе повседневного мира (первого внимания<sup class="fnref" id="ref5"><a href="#fn5">5</a><span class="fnpop">См. также: К. Кастанеда, Неопубликованная глава из Дара Орла (Шесть объясняющих предположений)</span></sup>) - как правило, в тех или иных произведениях или видах творчества.</p>
+
+      <p>«Правило» неописуемо и непостижимо по своей Природе абстрактного «безмолвного знания», поскольку является аспектом «второго внимания» человека, а не элементом его мироописания (интерпретации). Однако, будучи отраженным в некотором наборе связанных с Ним своим происхождением образов/форм «повседневного мира», собранных вместе, и рассматриваемых одновременно, подобно ограненному алмазу (бриллианту), сверкающему переливами своих безупречных граней Целого явления, позволяет получить отблеск понимания действительной абстрактной сути этого явления человеком, входящим с Ним в контакт посредством созерцания в этом наборе образов, даже когда сам человек еще не обладает личным опытом происхождения<sup class="fnref" id="ref6"><a href="#fn6">6</a><span class="fnpop">«Только из действий Орла видящий может понять, чего Орел хочет» (Кастанеда), «Из действий Моих познаете Меня» (Каббала)</span></sup> с ним соответствующих «абстрактных ядер» на его личном Пути Сердца.</p>
+
+      <p>Я «коллекционирую» (в Дон Хуановском смысле) такие «образы» (Целемы), пытаясь выстраивать из них такие наборы, и хочу в данной ветке поделиться результатами своего коллекционирования, относительно явления, или Абстрактного Ядра, известного как Потеря Человеческой Формы. Или прохождение точки невозврата (point of no returns)<sup class="fnref" id="ref1"><a href="#fn1">1</a><span class="fnpop">«Когда свидетельствует о нем (ученике) знающий тайны, что не вернется больше к глупости своей» (Каббала).</span></sup>.</p>
+
+      <div class="music-group">
+        <div class="music-label">Музыка под настроение:</div>
+        <details class="track" data-yt="lWA2pjMjpBs">
+          <summary><span class="arrow">▶</span><span class="track-meta"><span class="track-title">Diamonds</span> — <span class="track-artist">Rihanna</span></span><a class="track-ext" href="https://youtu.be/lWA2pjMjpBs" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></summary>
+          <div class="track-embed"></div>
+        </details>
+      </div>
+    </section>
+
+    <section id="ayapchf">
+      <h2><a href="#top">АЯ ПЧФ</a></h2>
+
+      <ol class="celems">
+        <li>
+          <strong>Эпиграф</strong>
+          <blockquote class="poem">
+            «Наша работа во Тьме.<br>
+            Мы делаем, что умеем,<br>
+            Мы отдаем, что имеем.<br>
+            Наша работа во Тьме,<br><br>
+            Сомнения стали Страстью,<br>
+            А Страсть стала судьбой.<br>
+            Все остальное - Искусство<br>
+            В Безумии Быть Собой.»
+            <cite>С. Лукъяненко, Лабиринт отражений</cite>
+          </blockquote>
+        </li>
+        <li>
+          <strong>Хакеры сновидений. Пролог. Андрей Реутов</strong>
+          <div class="qlabel">Цитата</div>
+          <div class="longquote">
+            <p>«По узкой горной тропинке шел человек. Казалось, он никуда не торопится, это выглядело тем более странным, что мир постепенно окутывали сумерки. В этих местах и днем-то ходить опасно, а пробираться по ним ночью… С низкого грозового неба срывались капли дождя, резкие порывы ветра грозили скинуть одинокого путника в пропасть. Он шел, упрямо склонив голову, секущие его лицо дождевые капли вызывали у путника лишь презрительную улыбку. Он был еще молод, однако черты лица его, его суровый взгляд говорили о силе. Вот путник покачнулся на кромке обрыва, затем замер, услышав чуть впереди и выше какой-то звук. В нескольких метрах от него через тропинку прогрохотал камнепад, несколько мелких камней задели его ногу. Путник лишь усмехнулся.</p>
+            <p>— И это всё, что ты можешь? — спросил он, обращаясь неизвестно к кому. Обойдя распластавшийся поперек тропинки валун, спокойно пошел дальше.</p>
+            <p>Быстро темнело, редкие капли дождя постепенно превратились в настоящий ливень. Одежда путника промокла, но он, казалось, даже и не заметил этого. Его лицо выражало все ту же упрямую решимость.</p>
+            <p>Вершины перевала путник достиг уже в полной темноте, было даже непонятно, как он различает что-либо в этой кромешной мгле. Здесь находилась большая площадка, открытая всем ветрам. Слева она обрывалась в бездонную пропасть, справа тянулись вверх щербатые скальные выступы. Выйдя не середину, путник остановился. Повернувшись лицом к вырывавшемуся из провала ветру, поднял руки и раскатисто засмеялся.</p>
+            <p>— Ну вот он я! — прокричал он, его слова тут же подхватывались ветром и уносились прочь. — Ты видишь, здесь больше никого, только ты и я! Давай, покажи себя! Ты же слышишь меня, я знаю!</p>
+            <p>Воздух с грохотом расколола молния, путника швырнуло на скалы. Несколько секунд он лежал неподвижно, потом шевельнулся. Медленно приподнялся, провел рукой по лицу, стирая дождевые капли вперемешку с кровью — на его щеке появилась рваная рана. Наконец он снова поднялся на ноги, посмотрел вверх и усмехнулся.</p>
+            <p>— И это всё? — спросил путник, в его голосе звучала издевка. — Я ожидал от тебя большего. Ну давай, покажи, на что ты способен! Ну же!</p>
+            <p>Новые всполохи молний не заставили себя ждать, и это было настоящее буйство огня. Путник стоял, раскинув руки и с яростной усмешкой глядя вверх, вокруг него плясали, извивались голубыми змеями огненные сполохи. Казалось, безумца ждала неминуемая гибель — но странное дело, смертельные разряды обходили его стороной. Так продолжалось больше минуты, затем в лицо путнику пахнуло ветром, и все прекратилось.</p>
+            <p>Он стоял неподвижно, все так же раскинув руки и подставив лицо дождевым струям, в его ушах еще стоял грохот раскатов. Но вот он шевельнулся, медленно опустил руки. Его губы вновь исказила усмешка.</p>
+            <p>— Ну и что же ты не убил меня? — с издевкой спросил путник. — Ты же такой всемогущий. Давай, убей меня! Сожги, раздави, сотри в порошок! Покажи свою силу!</p>
+            <p>Снова оглушительно громыхнула молния, разряд впился в камень у ног путника. Тот лишь усмехнулся.</p>
+            <p>— Что, никак не решишься? Кишка тонка? А все потому, что мы оба знаем правду. Ты — и я. Ты всемогущ, я ничтожен. Ты бессмертен, мой век подобен мгновению. Тебе ничего не стоит убить меня — но даже ты не можешь меня переделать, не можешь заставить покориться тебе. И в этом корень твоей ненависти ко мне. Ты лишил меня всего, что я имел. Ты уничтожил тех, кого я любил. Ты изуродовал мое тело — но дух мой остался тебе неподвластен. Теперь тебе осталось только убить меня, и этим признать свое поражение. А каково оно, терпеть поражение? А, всемогущий? — Путник тихо засмеялся. — Не случалось еще проигрывать человеку?</p>
+            <p>Вырвавшийся из пропасти порыв ветра стеганул путника по лицу, тут же раздался грохот очередной молнии. Позади путника, едва не задев его, рухнул огромный кусок скалы.</p>
+            <p>Путник спокойно обернулся, окинул взглядом лежавший за его спиной камень. Потом снова упрямо вскинул голову.</p>
+            <p>— Не убеждает, — сказал он, усмехнувшись. — Что толку крошить скалы, если не можешь убить меня? — Путник демонстративно сплюнул себе под ноги.</p>
+            <p>Ответа не было. Все так же шел дождь, все так же дул ветер. И все-таки что-то изменилось.»</p>
+          </div>
+          <div class="qlabel">Конец цитаты</div>
+        </li>
+      </ol>
+
+      <p class="col-label">Коллекция Целемов.</p>
+
+      <ol class="celems" start="3">
+        <li>Х/Ф Бойцовский Клуб.</li>
+        <li>
+          <details class="track" data-yt="cLlhdsT5Mko">
+            <summary><span class="arrow">▶</span><span class="track-meta"><span class="track-artist">В. Кипелов.</span> <span class="track-title">Жить вопреки</span></span><a class="track-ext" href="https://youtu.be/cLlhdsT5Mko" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></summary>
+            <div class="track-embed"></div>
+          </details>
+        </li>
+        <li>
+          <details class="track" data-yt="dsz8DyL8aso">
+            <summary><span class="arrow">▶</span><span class="track-meta"><span class="track-artist">Ария.</span> <span class="track-title">Небо Тебя Найдет</span></span><a class="track-ext" href="https://youtu.be/dsz8DyL8aso" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></summary>
+            <div class="track-embed"></div>
+          </details>
+        </li>
+        <li>Заповедь Иисуса Христа (Евангелие) «Подставь другую щеку»</li>
+        <li>В. Венский. Дорога и Путник<sup class="fnref" id="ref7"><a href="#fn7">7</a><span class="fnpop">Виктор Венский, Маска Ворона IV. Маски бездны. Глава 024 Звездная дорога, Небесная дорога <a href="http://proza.ru/2012/10/16/318" target="_blank" rel="noopener">proza.ru/2012/10/16/318</a></span></sup></li>
+        <li>К. Кастанеда. Коллекционирование памятных событий (Активная Сторона Бесконечности)</li>
+        <li>Х/Ф Путь Самурая</li>
+        <li>М/Ф Здравствуй, Мир!</li>
+      </ol>
+
+      <p class="resume">Резюме: ВО ВСЕЙ ВСЕЛЕННОЙ ПАХНЕТ НЕФТЬЮ<sup class="fnref" id="ref8"><a href="#fn8">8</a><span class="fnpop">Яндекс. Найдется все. Со временем <a href="https://yandex.ru/search/?text=во+всей+вселенной+пахнет+нефтью" target="_blank" rel="noopener">yandex.ru/search/?text=во+всей+вселенной+пахнет+нефтью</a></span></sup></p>
+
+      <div class="music-group">
+        <div class="music-label">Музыка под настроение:</div>
+        <details class="track" data-yt="QIluhFzlK2g">
+          <summary><span class="arrow">▶</span><span class="track-meta"><span class="track-title">Домой</span> — <span class="track-artist">Maayan Band</span></span><a class="track-ext" href="https://youtu.be/QIluhFzlK2g" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></summary>
+          <div class="track-embed"></div>
+        </details>
+      </div>
+
+      <p>Пока все. Если интересуют детали - интересуйтесь<sup class="fnref" id="ref9"><a href="#fn9">9</a><span class="fnpop">Группа Телеграм Путь Древних <a href="https://t.me/+ZZxNW_dpJnw1NzMy" target="_blank" rel="noopener">t.me/+ZZxNW_dpJnw1NzMy</a></span></sup>. Если есть чем дополнить - дополняйте.</p>
+    </section>
+
+    <section id="music">
+      <h2><a href="#top">Музыка под настроение</a></h2>
+      <details class="track" data-yt="lWA2pjMjpBs">
+        <summary><span class="arrow">▶</span><span class="track-meta"><span class="track-title">Diamonds</span> — <span class="track-artist">Rihanna</span></span><a class="track-ext" href="https://youtu.be/lWA2pjMjpBs" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></summary>
+        <div class="track-embed"></div>
+      </details>
+      <details class="track" data-yt="cLlhdsT5Mko">
+        <summary><span class="arrow">▶</span><span class="track-meta"><span class="track-artist">В. Кипелов.</span> <span class="track-title">Жить вопреки</span></span><a class="track-ext" href="https://youtu.be/cLlhdsT5Mko" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></summary>
+        <div class="track-embed"></div>
+      </details>
+      <details class="track" data-yt="dsz8DyL8aso">
+        <summary><span class="arrow">▶</span><span class="track-meta"><span class="track-artist">Ария.</span> <span class="track-title">Небо Тебя Найдет</span></span><a class="track-ext" href="https://youtu.be/dsz8DyL8aso" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></summary>
+        <div class="track-embed"></div>
+      </details>
+      <details class="track" data-yt="QIluhFzlK2g">
+        <summary><span class="arrow">▶</span><span class="track-meta"><span class="track-title">Домой</span> — <span class="track-artist">Maayan Band</span></span><a class="track-ext" href="https://youtu.be/QIluhFzlK2g" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></summary>
+        <div class="track-embed"></div>
+      </details>
+    </section>
+
+    <section id="notes" class="notes">
+      <h2><a href="#top">Пост скриптум (Ор Пними)</a></h2>
+      <div class="notelist">
+        <div class="note" id="fn1"><span class="nnum">1.</span><div>«Когда свидетельствует о нем (ученике) знающий тайны, что не вернется больше к глупости своей» (Каббала). <a class="upref" href="#ref1" title="Вернуться к тексту">↑</a></div></div>
+        <div class="note" id="fn2"><span class="nnum">2.</span><div>См. также: Книга Зоар (с комментарием Бааля Сулама), том 1, Заповеди Торы 9 и 10 <a class="upref" href="#ref2" title="Вернуться к тексту">↑</a></div></div>
+        <div class="note" id="fn3"><span class="nnum">3.</span><div>См. также: К. Кастанеда, Дар Орла, Глава 9. Правило Нагваля <a class="upref" href="#ref3" title="Вернуться к тексту">↑</a></div></div>
+        <div class="note" id="fn4"><span class="nnum">4.</span><div>См. также: К. Кастанеда, Сила безмолвия, Введение и далее <a class="upref" href="#ref4" title="Вернуться к тексту">↑</a></div></div>
+        <div class="note" id="fn5"><span class="nnum">5.</span><div>См. также: К. Кастанеда, Неопубликованная глава из Дара Орла (Шесть объясняющих предположений) <a class="upref" href="#ref5" title="Вернуться к тексту">↑</a></div></div>
+        <div class="note" id="fn6"><span class="nnum">6.</span><div>«Только из действий Орла видящий может понять, чего Орел хочет» (Кастанеда), «Из действий Моих познаете Меня» (Каббала) <a class="upref" href="#ref6" title="Вернуться к тексту">↑</a></div></div>
+        <div class="note" id="fn7"><span class="nnum">7.</span><div>Виктор Венский, Маска Ворона IV. Маски бездны. Глава 024 Звездная дорога, Небесная дорога <a href="http://proza.ru/2012/10/16/318" target="_blank" rel="noopener">http://proza.ru/2012/10/16/318</a> <a class="upref" href="#ref7" title="Вернуться к тексту">↑</a></div></div>
+        <div class="note" id="fn8"><span class="nnum">8.</span><div>Яндекс. Найдется все. Со временем <a href="https://yandex.ru/search/?text=во+всей+вселенной+пахнет+нефтью" target="_blank" rel="noopener">yandex.ru/search/?text=во+всей+вселенной+пахнет+нефтью</a> <a class="upref" href="#ref8" title="Вернуться к тексту">↑</a></div></div>
+        <div class="note" id="fn9"><span class="nnum">9.</span><div>Группа Телеграм Путь Древних <a href="https://t.me/+ZZxNW_dpJnw1NzMy" target="_blank" rel="noopener">https://t.me/+ZZxNW_dpJnw1NzMy</a> <a class="upref" href="#ref9" title="Вернуться к тексту">↑</a></div></div>
+      </div>
+    </section>
+
+    <nav class="seqnav">
+      <a class="prev" href="352.html"><span class="lbl">← Предыдущая</span><span class="ttl">Принцип ОВД</span></a>
+      <a class="next" href="39L.html"><span class="lbl">Следующая →</span><span class="ttl">Моё - твое, а Твоё - моё</span></a>
+    </nav>
+
+    <footer class="colophon">
+      <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+    </footer>
+
+  </article>
+</div>
+
+<script>
+  // Lazy-load YouTube embeds only when a track is opened
+  document.querySelectorAll('details.track').forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if(d.open){
+        var box = d.querySelector('.track-embed');
+        if(box && !box.dataset.loaded){
+          var id = d.getAttribute('data-yt');
+          box.innerHTML = '<iframe src="https://www.youtube.com/embed/'+id+'?rel=0" title="YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
+          box.dataset.loaded = '1';
+        }
+      }
+    });
+  });
+
+  // Footnote popup: flip below if not enough room above
+  document.querySelectorAll('sup.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter', function(){
+      var r = ref.getBoundingClientRect();
+      ref.classList.toggle('below', r.top < 170);
+    });
+  });
+
+  // Highlight target footnote on jump
+  function flash(){
+    if(location.hash){
+      var el = document.querySelector(location.hash);
+      if(el && el.classList.contains('note')){
+        el.style.transition='background .3s';
+      }
+    }
+  }
+  window.addEventListener('hashchange', flash);
+  flash();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза (эссе-коллекция с цитатами)",
+  "rationale": "Статья — концептуальная проза: автор объясняет понятие «Целем» и представляет пронумерованную коллекцию образов вокруг Абстрактного Ядра «Потери Человеческой Формы», с большой прозаической цитатой и аппаратом ссылок-сносок. Поэтических форм почти нет (единственный стихотворный фрагмент — эпиграф внутри списка), поэтому по доминирующей форме выбрана редакторская широкоформатная схема, а не узкий манускрипт. Колонку сделал широкой (контейнер ~1100px/92vw) с засечным телом и санс-серифной служебной типографикой, чтобы длинная цитата и список читались как журнальный лонгрид.",
+  "rationale_extra": "Развилки: заголовок работы «АЯ ПЧФ» дублируется в тексте — вынес его в H1 и оставил как заголовок второго смыслового раздела (после Введения), чтобы не терять структуру и не выдумывать своих названий. «Коллекция Целемов.» оставил как подпись-лейбл перед нумерованным списком 3–10, реализовав его двумя <ol> (1–2 и start=3) ради сохранения авторской нумерации. Музыки 4 YouTube-трека (>2): встроил сворачиваемые ленивые плееры на их местах (включая пункты 4 и 5 коллекции) и собрал сводный раздел «Музыка под настроение» перед примечаниями. Сноски *1–*9 все имеют тело и ссылку — сделал двусторонние переходы, hover-popup с авто-флипом и подсветку цели. Голые URL обернул в ссылки.",
+  "features": ["music", "footnotes", "toc"]
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Вначале было Слово... часть 1</title>
+<style>
+  :root{
+    --bg:#f6f4ef;
+    --paper:#fffdf9;
+    --ink:#1f1c18;
+    --muted:#6b6358;
+    --accent:#8a4b2f;
+    --accent2:#2c5d63;
+    --rule:#e0d8ca;
+    --hl:#fdeec2;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Georgia","Iowan Old Style",serif;
+    font-size:19px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1120px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 4vw 80px;
+  }
+  @media(max-width:1000px){
+    .wrap{width:100%;max-width:760px;padding:24px 20px 64px;}
+  }
+  a{color:var(--accent2);text-decoration:none;border-bottom:1px solid rgba(44,93,99,.35);}
+  a:hover{border-bottom-color:var(--accent2);}
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:22px;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:12px;
+  }
+  .crumbs a{border:none;color:var(--accent);}
+  .crumbs span{color:var(--muted);margin:0 .5em;}
+
+  .lead-img{display:block;max-width:100%;width:auto;height:auto;margin:0 auto 30px;border-radius:3px;box-shadow:0 8px 26px rgba(0,0,0,.12);}
+
+  h1{
+    font-size:2.05em;
+    line-height:1.18;
+    font-weight:700;
+    margin:.2em 0 .15em;
+    color:var(--ink);
+    letter-spacing:-.01em;
+  }
+  .byline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    font-style:normal;
+    margin:0 0 30px;
+    padding-bottom:18px;
+    border-bottom:2px solid var(--accent);
+    display:inline-block;
+  }
+
+  /* TOC */
+  .toc{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    padding:14px 22px;
+    margin:0 0 38px;
+  }
+  .toc summary{
+    cursor:pointer;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--accent);
+    font-weight:700;
+    list-style:none;
+  }
+  .toc summary::-webkit-details-marker{display:none;}
+  .toc summary::before{content:"▾ ";font-size:.9em;}
+  .toc[open] summary::before{content:"▾ ";}
+  .toc:not([open]) summary::before{content:"▸ ";}
+  .toc ol{margin:14px 0 4px;padding-left:1.4em;}
+  .toc li{margin:.3em 0;font-family:"Helvetica Neue",Arial,sans-serif;font-size:16px;}
+
+  h2{
+    font-size:1.32em;
+    margin:1.9em 0 .5em;
+    color:var(--accent);
+    font-weight:700;
+    scroll-margin-top:18px;
+  }
+  h2 a.self{color:inherit;border:none;cursor:pointer;}
+  h2 a.self:hover{color:var(--accent2);}
+
+  p{margin:0 0 1.1em;}
+
+  blockquote.epigraph{
+    margin:0;
+    font-style:italic;
+    color:#3a342c;
+    border-left:3px solid var(--accent);
+    padding:.2em 0 .2em 1.2em;
+  }
+  .verse{
+    white-space:pre-line;
+    font-style:italic;
+    line-height:1.85;
+    color:#3a342c;
+    margin:.2em 0 1.2em;
+    border-left:3px solid var(--accent);
+    padding:.4em 0 .4em 1.2em;
+  }
+
+  .label{font-weight:700;color:var(--accent2);}
+
+  /* footnote ref */
+  .fnref{
+    font-size:.78em;
+    vertical-align:super;
+    line-height:0;
+    font-weight:700;
+    color:var(--accent);
+    border:none;
+    padding:0 1px;
+    position:relative;
+    cursor:pointer;
+  }
+  .fnref .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:1.6em;
+    width:300px;
+    max-width:74vw;
+    background:#2b2620;
+    color:#f4efe6;
+    font-size:14px;
+    font-style:normal;
+    font-weight:400;
+    line-height:1.5;
+    text-align:left;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 10px 28px rgba(0,0,0,.3);
+    z-index:30;
+  }
+  .fnref .pop a{color:#9fd3da;border-bottom-color:rgba(159,211,218,.4);}
+  .fnref.below .pop{bottom:auto;top:1.6em;}
+  .fnref:hover .pop{display:block;}
+
+  .notes{
+    margin-top:1.4em;
+    border-top:1px solid var(--rule);
+    padding-top:1em;
+    font-size:.95em;
+    color:#3a342c;
+  }
+  .notes li{margin:.4em 0;}
+  .notes li:target{background:var(--hl);border-radius:4px;padding:.3em .5em;}
+  .backref{margin-left:.4em;border:none;font-size:.85em;}
+
+  /* corpus footer nav */
+  .corpusnav{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:54px;
+    padding-top:22px;
+    border-top:2px solid var(--accent);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .corpusnav a{display:block;max-width:46%;}
+  .corpusnav .lbl{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);border:none;}
+  .corpusnav .nx{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:40px;
+    padding-top:18px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent);}
+  @media(max-width:560px){
+    body{font-size:18px;}
+    .corpusnav{flex-direction:column;}
+    .corpusnav a{max-width:100%;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/18K.html">
+<meta name="description" content="Статья-эссе с форума левой линии: реплика и развёрнутый ответ о силе Слова, двух вниманиях, природе реальности и принципе Намерения.">
+<meta property="og:title" content="Вначале было Слово... часть 1">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/18K.html">
+<meta property="og:description" content="Статья-эссе с форума левой линии: реплика и развёрнутый ответ о силе Слова, двух вниманиях, природе реальности и принципе Намерения.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Вначале было Слово... часть 1">
+<meta name="twitter:description" content="Статья-эссе с форума левой линии: реплика и развёрнутый ответ о силе Слова, двух вниманиях, природе реальности и принципе Намерения.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №18K</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>/</span><a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <img class="lead-img" src="../img/18K.jpg" alt="">
+
+  <h1 id="top">Вначале было Слово... часть 1<a class="audio-link" href="https://t.me/art_017_tracks/498" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <div class="byline">Написано 20.08.21 на форуме «левой линии»</div>
+
+  <details class="toc" open>
+    <summary>Содержание</summary>
+    <ol>
+      <li><a href="#epigraph">Эпиграф</a></li>
+      <li><a href="#replika">Реплика</a></li>
+      <li><a href="#otvet">Ответ</a></li>
+      <li><a href="#ps">Пост Скриптум</a></li>
+    </ol>
+  </details>
+
+  <h2 id="epigraph"><a class="self" href="#top">Эпиграф</a></h2>
+  <div class="verse">А мир людей живет, как будто
+Он миг назад не был рожден из Тишины.
+В моей душе покой и отдых
+От неизбежности Пути...</div>
+
+  <h2 id="replika"><a class="self" href="#top">Реплика:</a></h2>
+  <p>Признаться, посмеялась от души))))</p>
+  <p>1) %имярек% - это набор букв. Как это может хоть просвЯтлеть, хоть просвЕтлеть.... Хотя, если хорошенько направить мощную лампочку на монитор..... :idea:</p>
+  <p>2) А что с миром людей не так? Ну-как, расскажи, что тебя в нём заставляет чувствовать неправильность? По мне, так всё Ок. Хотя бывают интереснейшие ситуации.</p>
+
+  <h2 id="otvet"><a class="self" href="#top">Ответ:</a></h2>
+  <p>1) Слово не зря издревле считается мощным носителем Световой информации. А тот, кто владеет "истинным Именем" какого-либо явления, обретает над ним абсолютную власть... Или освобождает человека от его власти над собой, что одно и то же. Хотя, Слово/Имя - не более, чем набор букв (или других кодирующих символов). И знание Имени не тождественно "знанию тела" обо всем явлении в целом. Видимо, есть в этом древнем механизме какая-то особенная магия, и причина столь особого места в судьбе человека различных знаковых систем...</p>
+  <p>2) По мне - тоже все ок. А что не ок, тоже достаточно скоро будет ОК. Не без нашей (магов) посильной помощи, конечно.</p>
+  <p>Но у Вселенной есть 2 принципиально разных "фазовых состояния". Физики вплотную приблизились к этому пониманию, сформулировав парадоксальные для разума принципы "квантовой механики". К "нашим баранам" ближе понятия "духовного"/"магического" и "материального" Мира. Являющиеся двумя областями внимания, которые нигде не пересекаются. Мы понимаем, что это один и тот же Мир, что он интегральный и на части не делится. Но мы не можем себе представить существование двух взаимоисключающих состояний Реальности. Одно из их обязано быть функцией (подсостоянием) другого, либо быть не реальным. В случае первого и второго внимания это очень похоже на первый вывод.</p>
+  <p>Но, как оказалось, это еще далеко не все<span class="fnref"><a class="fnref" href="#fn-1" id="fnref-1">*</a><span class="pop">См. также: <a href="29N.html">Последний Отсчет</a> (Мир в Мире), Зеир А"А</span></span> : )) В "волновом" варианте Реальности нет пространства и нет времени. Зато, категория "существования" расширена и включает в себя невозможное для первого внимания существование "вещей в Себе", являющихся неизменным и непостижимым фактом о самом себе. Из которого путем отражения в колодце бездны (второго внимания) затем появляется все сущее, которое мы привыкли считать таковым. Собственно, процесс эмергации сущего из ничего и называется вышеупомянутым Словом в оригинале. Другими словами, это принцип Намерения, как активной стороны Бесконечности. Существование во времени и пространстве, находящееся в постоянном изменений свойств и состояний, "накручивающихся" на пропеллер космической мельницы Колеса Времени.</p>
+  <p>Сам принцип существования реальности, в которой существует много почти одинаковых форм чего либо (Спойлер: например, людей), и в которой глазу не видно существование формы, в которой все это многообразие является одним, единым и единственным целым "объектом", кроме Которого не существует ничего, является признаком вроде "лакмусовой бумажки", указывающим на то, что сознание находится во сне. То есть в некотором объеме искусственным (и управляемым, конечно же) образом воспринимаемой "реальности", вроде киноленты или компьютерной программы. (Если во всем видеть единого и единственного себя, типа "я - это я, ты - это я, он - это я", это мало что меняет, поскольку все равно нет ответа на вопрос "нафига" здесь столько одинаковых "копий самого себя"). Легко убедиться, что "второе внимание" по этому качеству мало чем отличается от первого. И что этот принцип достаточно широко используется в неорганических мирах, неорганиками, например. То есть, тогда становится понятно, что один-единственный объект все таки существует. Если, например, ты решишься сунуть нос не в свое дело, и подойдешь к их кластеру опасно близко... То окажется, что это не сотня безобидных машинок, а один большой и предельно серьезный робот-десептикон. Этот принцип лежит в основе трех типов внимания и вообще всех форм существования сознания во всех мирах первого и второго типов внимания. То есть, куча мелких машинок, и один большой робот - не два разных объекта реального мира, а две разных степени отражения того, чем этот один единственный и единый реальный объект на самом деле является.</p>
+  <p>Это примерно то, что я хотел сказать, про вставание всего на свои места посредством осознания того, чем "я" точно не является. Хотя и это еще не все описание, но если я не остановлюсь пока на этом, то пост придется листать с помощью клавиш Page up и Page down :D :idea: Лучше дать сказать свое Слово другим.</p>
+
+  <h2 id="ps"><a class="self" href="#top">Пост Скриптум:</a></h2>
+  <ol class="notes">
+    <li id="fn-1">* См. также: <a href="29N.html">Последний Отсчет</a> (Мир в Мире), Зеир А"А<a class="backref" href="#fnref-1" title="Вернуться к тексту">↩</a></li>
+  </ol>
+
+  <nav class="corpusnav">
+    <a href="18M.html"><span class="lbl">Предыдущая</span>← Про Намерения Духа</a>
+    <a class="nx" href="18I.html"><span class="lbl">Следующая</span>Нет Нагваля в своем Отечестве →</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — философско-эзотерический форумный пост (диалог «Реплика»/«Ответ» с прозаическими рассуждениями о Слове, внимании и Реальности), поэтому выбрана редакторская широкая схема: основная колонка ~2/3 ширины окна, засечный шрифт, тёплая светлая палитра. Стихотворный эпиграф из четырёх строк не делает текст поэтическим целым, поэтому к манускрипту не уходил — он подан отдельным versе-блоком внутри широкой прозаической полосы.\n\nЧетыре естественных метки автора (Эпиграф, Реплика, Ответ, Пост Скриптум) трактованы как разделы, отсюда сворачиваемое оглавление (по умолчанию открыто) и возврат наверх кликом по самим заголовкам. Единственный маркер сноски «*» в тексте связан с её телом, размещённым автором в «Пост Скриптум»: сделал кликабельную ссылку вниз с подсветкой цели, обратную стрелку и popup при наведении (над маркером, с переключением под него у края экрана). Голый URL обёрнут в гиперссылку. Музыки в тексте нет. Авторские глифы (:idea:, :D, ))) , : )) ) и регистр (ОК, просвЯтлеть/просвЕтлеть) сохранены дословно."
+,
+  "features": ["footnotes", "toc"]
+}
+</script>
+</body>
+</html>

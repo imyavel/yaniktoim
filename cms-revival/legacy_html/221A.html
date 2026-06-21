@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Модель развития человека и человечества</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#23201b;
+    --muted:#6b6357;
+    --accent:#8a5a2b;
+    --accent-deep:#5e3d1c;
+    --rule:#d8cfbd;
+    --quote-bg:#efe9dc;
+  }
+  *{box-sizing:border-box;}
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(138,90,43,.35);}
+  a:hover{color:var(--accent-deep);border-bottom-color:var(--accent-deep);}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  /* широкая основная колонка — около 2/3 ширины окна */
+  .content{
+    width:66%;
+    max-width:760px;
+    margin:0 auto;
+  }
+
+  header.masthead{
+    border-bottom:3px double var(--rule);
+    margin-top:28px;
+  }
+  nav.crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:10px 0 18px;
+  }
+  nav.crumbs a{border-bottom:none;color:var(--accent);}
+  nav.crumbs a:hover{color:var(--accent-deep);}
+  nav.crumbs .sep{color:var(--rule);margin:0 .5em;}
+
+  h1{
+    font-size:40px;
+    line-height:1.15;
+    font-weight:700;
+    letter-spacing:-.01em;
+    margin:26px 0 10px;
+  }
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 30px;
+  }
+
+  article{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:3px;
+    padding:42px 52px 46px;
+    margin:0 0 40px;
+    box-shadow:0 1px 0 rgba(0,0,0,.02);
+  }
+
+  .speaker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.03em;
+    color:var(--muted);
+    margin:0 0 14px;
+  }
+  blockquote{
+    margin:0 0 30px;
+    padding:14px 22px;
+    background:var(--quote-bg);
+    border-left:4px solid var(--accent);
+    font-style:italic;
+    color:#3a352c;
+    border-radius:0 3px 3px 0;
+  }
+  blockquote p{margin:0;}
+
+  article > p{margin:0 0 1.3em;text-align:justify;hyphens:auto;}
+  article > p.lead::first-letter{
+    float:left;
+    font-size:64px;
+    line-height:.82;
+    padding:6px 10px 0 0;
+    color:var(--accent-deep);
+    font-weight:700;
+  }
+
+  .sign{
+    margin-top:34px;
+    padding-top:16px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    letter-spacing:.12em;
+    color:var(--muted);
+    font-size:15px;
+  }
+
+  nav.seriesnav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    border-top:3px double var(--rule);
+    padding-top:22px;
+    margin-bottom:34px;
+  }
+  nav.seriesnav a{
+    display:block;
+    max-width:48%;
+    border-bottom:none;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  nav.seriesnav .lbl{
+    display:block;
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  nav.seriesnav .ttl{font-size:18px;font-family:Georgia,serif;color:var(--ink);}
+  nav.seriesnav a:hover .ttl{color:var(--accent-deep);}
+  nav.seriesnav .next{margin-left:auto;text-align:right;}
+
+  footer.colophon{
+    border-top:1px solid var(--rule);
+    padding:20px 0 60px;
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.6;
+  }
+  footer.colophon a{color:var(--accent);}
+  footer.colophon .attrib{margin:0 0 8px;}
+  footer.colophon .license{margin:0;font-size:14px;}
+
+  @media (max-width:900px){
+    body{font-size:18px;}
+    .wrap{padding:0 18px;}
+    .content{width:100%;max-width:100%;}
+    article{padding:26px 22px 30px;}
+    h1{font-size:30px;}
+    nav.seriesnav{flex-direction:column;}
+    nav.seriesnav a,nav.seriesnav .next{max-width:100%;text-align:left;margin-left:0;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/221A.html">
+<meta name="description" content="Эссе о развитии человека и человечества как двух противоположных спиралей: деградации и эволюции, и о служебной роли личности в реальном мире.">
+<meta property="og:title" content="Модель развития человека и человечества">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/221A.html">
+<meta property="og:description" content="Эссе о развитии человека и человечества как двух противоположных спиралей: деградации и эволюции, и о служебной роли личности в реальном мире.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Модель развития человека и человечества">
+<meta name="twitter:description" content="Эссе о развитии человека и человечества как двух противоположных спиралей: деградации и эволюции, и о служебной роли личности в реальном мире.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №221A</span>
+  <div class="wrap">
+    <div class="content">
+
+      <header class="masthead">
+        <nav class="crumbs">
+          <a href="../index.html">Главная</a>
+          <span class="sep">/</span>
+          <a href="../confront/index.html">Конфронтология Духа</a>
+        </nav>
+        <h1>Модель развития человека и человечества<a class="audio-link" href="https://t.me/art_017_tracks/439" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+        <p class="dateline">1 февраля 2022 г.</p>
+      </header>
+
+      <article>
+        <p class="speaker">Т*** написал(а):</p>
+        <blockquote>
+          <p>Если представить модель развития человека каким-то образом, то по моему мнению, наиболее точно подходит спираль (пружина) .</p>
+        </blockquote>
+
+        <p class="lead">Модель развития человека и человечества - это одновременные, противонаправленные несовместимые по отдельности, но являющиеся единым целым в жизни человека "здесь и сейчас", спирали - нисходящая спираль деградации и смерти, и восходящая спираль эволюции жизни, которая выстраивается человеком где-то в промежутке между основными "вехами", связанными с неотвратимой и безжалостной к тем, кто еще не совсем разучился жалеть себя, реальностью и "вехами" первой, но только в отношении чего угодно, кроме реальности самого себя, и поэтому не входящей в противоречие с первой спиралью, которая, наоборот, относится исключительно к тому, как человек привычным образом повседневного мира оценивает происходящее и наиболее вероятное будущее относительно того, какое влияние оно оказывает на его уникальную и неповторимую личность этого мира. Таким образом посредством человека и человечества как инструмента, по типу отвертки или сверла, производится определенная работа и достигается реальность определенной эволюционной Цели, относительно которой личность этого мира не рассматривается как нечто живое и имеющее собственное место на путях развития Реальности вообще. Но при этом служащее инструментом этого самого развития, жизни, эволюции, которые формируют "повестку" Реального мира, равно как и всех миров сновидения, человеком разумным редко постигаемую в течение жизни даже в общих чертах, поскольку функциональная цель его собственной формы ограничена выполнением работы, которая им выполняется объективно, являясь реальным полезным "выхлопом", производимым в течение жизни, "ради", "по причине" и "с целью" своего выполнения, выдумываемыми человеком произвольно, и не имеющими никакой связи с тем, что будет является пользой, достигаемой этой работой и жизнью на самом деле, когда иметь до этого какое-либо дело будет уже некому в силу достижения обоими спиралями полноты реализации, безукоризненно согласованными и ясно находящимися именно в такой форме лишь только потому, что именно такая форма наиболее точно, безукоризненно, прямо и непосредственно выражает ту цель и задачу, которая объективно у эволюционного развития Жизни Орлом и Духом имеется, и достигается ими безукоризненно в предустановленном до начала хода времени, независимо от того, как человек, маг или воин оценивает статус мыслеобраза, сообщающего о таковом положении дел, относительно Реального мира. Вселенная хищников - это сказки про ми-ми-ми розовую Hello Kitty по сравнению с тем, что происходит в Реальности на самом деле, будучи не просто "враждебным" в отношении человеческой личности и "тела сновидения этого мира", что намекает на будоражащий вызов бунтарской воинской природы, взбунтовавшейся против несправедливых порядков, в которых она существует. Но это реальность, в которой то, что может быть названо Живым, быть ступенью Реального мира, и частью чего-то, происходящего на самом деле, начинается заведомо выше потолка, достигаемого этой самой личностью в течение своей короткой СЛУЖБЫ, которая сводится к приложению известного объема усилий, полезных и значимых в каком-то таком смысле, который для этой личности не имеет и никогда не будет иметь какое либо значение и смысл.</p>
+
+        <p class="sign">АА221</p>
+      </article>
+
+      <nav class="seriesnav">
+        <a class="prev" href="25O.html">
+          <span class="lbl">← Предыдущая</span>
+          <span class="ttl">Да, я дурак</span>
+        </a>
+        <a class="next" href="2BS.html">
+          <span class="lbl">Следующая →</span>
+          <span class="ttl">Чему пока детей не учат в Школе</span>
+        </a>
+      </nav>
+
+      <footer class="colophon">
+        <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+      </footer>
+
+    </div>
+  </div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой философско-эссеистическую прозу: короткая цитата корреспондента (Т***) и один большой плотный абзац авторского размышления о двух спиралях развития. Стихотворных форм нет, поэтому однозначно выбрана редакторская широкоформатная схема, а не узкий манускрипт. Основную колонку задал примерно в 2/3 ширины окна (width:66%, ограничение по комфортной мере строки), цитату оформил врезкой-blockquote, чтобы визуально отделить реплику собеседника от ответа, а ответный текст начал буквицей для журнального лонгрид-характера. Подпись 'АА221' сохранена как отдельная строка-сигнатура.",
+  "rationale_note": "",
+  "features": []
+}
+</script>
+</body>
+</html>

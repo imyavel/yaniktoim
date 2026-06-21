@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>В Свободном Парении</title>
+<style>
+  :root{
+    --bg:#faf5ec;
+    --paper:#fffdf7;
+    --ink:#2c2118;
+    --ink-soft:#5a4a39;
+    --accent:#8a2f24;
+    --gold:#a87a2e;
+    --rule:#d9c7a6;
+    --hl:#fdf0c4;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    font-size:18px;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:820px;
+    margin:0 auto;
+    padding:28px 26px 80px;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* breadcrumbs */
+  .crumbs{
+    font-size:0.92rem;
+    letter-spacing:0.04em;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:10px;
+    margin-bottom:22px;
+    text-transform:uppercase;
+  }
+  .crumbs a{color:var(--ink-soft);}
+  .crumbs span.sep{margin:0 .5em;color:var(--gold);}
+
+  .lead-img{display:block;margin:0 auto 26px;max-width:100%;width:auto;height:auto;border:1px solid var(--rule);box-shadow:0 2px 14px rgba(60,40,20,.15);}
+
+  h1{
+    text-align:center;
+    font-size:2.1rem;
+    line-height:1.25;
+    letter-spacing:0.06em;
+    color:var(--accent);
+    font-weight:600;
+    margin:0 0 6px;
+  }
+  h1 .star{font-size:1rem;vertical-align:super;}
+  .byline{text-align:center;color:var(--gold);font-style:italic;font-size:1rem;margin:0 0 8px;}
+  .rule-orn{
+    text-align:center;color:var(--gold);font-size:1.3rem;
+    margin:14px 0 26px;letter-spacing:.4em;
+  }
+
+  /* toc */
+  details.toc{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:4px;
+    padding:6px 18px;
+    margin:0 0 34px;
+  }
+  details.toc summary{
+    cursor:pointer;
+    font-variant:small-caps;
+    letter-spacing:.08em;
+    color:var(--accent);
+    font-size:1.05rem;
+    padding:6px 0;
+  }
+  details.toc ol{margin:6px 0 10px;padding-left:1.4em;}
+  details.toc li{margin:4px 0;}
+  details.toc a{color:var(--ink);}
+
+  h2{
+    text-align:center;
+    font-size:1.45rem;
+    letter-spacing:0.05em;
+    color:var(--accent);
+    margin:46px 0 22px;
+    font-weight:600;
+  }
+  h2 a{color:inherit;}
+  h2 a:hover{text-decoration:none;color:var(--gold);}
+
+  .epi{
+    font-style:italic;
+    color:var(--ink-soft);
+    border-left:3px solid var(--gold);
+    padding:2px 0 2px 18px;
+    margin:0 0 22px;
+  }
+  .epi .src{display:block;font-style:normal;text-align:right;color:var(--gold);margin-top:4px;font-size:.95rem;}
+
+  .lead{
+    text-align:center;
+    font-style:italic;
+    font-size:1.12rem;
+    color:var(--ink);
+    margin:30px auto 10px;
+    max-width:42em;
+  }
+
+  .verse{margin:0 auto;max-width:34em;}
+  .stanza{margin:0 0 1.5em;line-height:1.9;}
+
+  /* footnote markers */
+  sup.fn{font-size:.62em;line-height:0;}
+  a.fnref{
+    color:var(--accent);
+    font-weight:700;
+    text-decoration:none;
+    padding:0 1px;
+  }
+  a.fnref:hover{color:var(--gold);}
+
+  #fnpop{
+    position:absolute;
+    display:none;
+    z-index:50;
+    max-width:340px;
+    background:var(--paper);
+    border:1px solid var(--gold);
+    border-radius:5px;
+    box-shadow:0 4px 18px rgba(50,30,10,.25);
+    padding:10px 14px;
+    font-size:.95rem;
+    font-style:normal;
+    line-height:1.5;
+    color:var(--ink);
+  }
+
+  /* notes */
+  .notes{margin-top:30px;border-top:1px solid var(--rule);padding-top:10px;}
+  .sub-label{font-variant:small-caps;letter-spacing:.06em;color:var(--gold);text-align:center;margin:26px 0 12px;font-size:1.05rem;}
+  ol.fnlist,ul.fnlist{list-style:none;margin:0;padding:0;}
+  .fn{
+    margin:0 0 16px;
+    padding:8px 12px;
+    border-radius:4px;
+    font-size:1rem;
+    line-height:1.6;
+    transition:background .6s;
+  }
+  .fn:target{background:var(--hl);}
+  .fn .num{color:var(--accent);font-weight:700;margin-right:.4em;}
+  .fn a.backref{margin-left:.4em;color:var(--gold);text-decoration:none;}
+
+  /* music */
+  .music{margin:6px 0 4px;}
+  .music-label{font-variant:small-caps;letter-spacing:.05em;color:var(--gold);font-size:1rem;margin-bottom:8px;}
+  .track{
+    border:1px solid var(--rule);
+    border-radius:5px;
+    background:var(--bg);
+    margin-bottom:8px;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;align-items:center;gap:.5em;
+    padding:9px 12px;cursor:pointer;
+  }
+  .track.flat .track-head{cursor:default;}
+  .track-arrow{color:var(--gold);transition:transform .2s;font-size:.85em;}
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-title{flex:1;}
+  .track-title b{color:var(--ink);}
+  .track-ext{color:var(--gold);text-decoration:none;font-size:1.05em;}
+  .track-ext:hover{color:var(--accent);}
+  .player{display:none;}
+  .track.open .player{display:block;position:relative;width:100%;padding-top:56.25%;background:#000;}
+  .track.open .player iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+
+  /* bottom nav */
+  .corpus-nav{
+    display:flex;justify-content:space-between;gap:14px;
+    margin-top:54px;padding-top:18px;border-top:1px solid var(--rule);
+    font-size:.98rem;
+  }
+  .corpus-nav .nv{max-width:46%;}
+  .corpus-nav .nv.next{text-align:right;margin-left:auto;}
+  .corpus-nav .dir{display:block;color:var(--gold);font-variant:small-caps;font-size:.85rem;}
+
+  footer.colophon{
+    margin-top:40px;padding-top:18px;border-top:1px solid var(--rule);
+    font-size:.9rem;color:var(--ink-soft);text-align:center;
+  }
+  footer.colophon .attrib{margin:0 0 6px;}
+
+  @media(max-width:680px){
+    .wrap{padding:18px 16px 60px;}
+    h1{font-size:1.7rem;}
+    body{font-size:17px;}
+    .verse{max-width:100%;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/266.html">
+<meta name="description" content="Поэма-свидетельство о падении в бездну, где надежда жива всегда: эпиграфы, две части в стихах и прозе о Тьме, Свете и Пути.">
+<meta property="og:title" content="В Свободном Парении">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/266.html">
+<meta property="og:description" content="Поэма-свидетельство о падении в бездну, где надежда жива всегда: эпиграфы, две части в стихах и прозе о Тьме, Свете и Пути.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="В Свободном Парении">
+<meta name="twitter:description" content="Поэма-свидетельство о падении в бездну, где надежда жива всегда: эпиграфы, две части в стихах и прозе о Тьме, Свете и Пути.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="manuscript">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №266</span>
+<a id="top"></a>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../best/index.html">Избранное</a>
+  </nav>
+
+  <img class="lead-img" src="../img/266.jpg" alt="">
+
+  <h1>В&nbsp;СВОБОДНОМ&nbsp;ПАРЕНИИ<sup class="fn"><a class="fnref" id="fnref-star" href="#fn-star" data-pop="* Написано 6 Июня 2022 г.">[*]</a></sup><a class="audio-link" href="https://t.me/art_017_tracks/256" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <div class="rule-orn">✦ &nbsp; ❧ &nbsp; ✦</div>
+
+  <details class="toc" open>
+    <summary>Оглавление</summary>
+    <ol>
+      <li><a href="#epigraph">Эпиграф</a></li>
+      <li><a href="#part1">Часть 1. Свидетельство</a></li>
+      <li><a href="#part2">Часть 2. Бездна</a></li>
+      <li><a href="#notes">Примечания</a></li>
+    </ol>
+  </details>
+
+  <section>
+    <h2 id="epigraph"><a href="#top">ЭПИГРАФ</a></h2>
+
+    <p class="epi">
+      "Десять сфирот сокрытия – размер их десять таков, что нет им конца. Бездна начала и бездна конца, бездна добра и бездна зла, бездна возвышенности и бездна низменности, бездна Востока и бездна Запада, бездна Севера и бездна Юга – и Единый Хозяин, Творец, Верный Царь, Правящий всеми с Отделенного места Своего, вечно."
+      <span class="src">Сефер Ецира, Авраам</span>
+    </p>
+
+    <p class="epi">
+      "Oh how I wish for soothing rain,<br>
+      All I wish is to dream again!!<br>
+      My loving heart lost in the Dark<br>
+      For Hope I'll give my everything..."
+      <span class="src">Nightwish<sup class="fn"><a class="fnref" id="fnref1" href="#fn1" data-pop="Музыка под настроение: Nemo (Никто) — Nightwish; а также: Небо Тебя Найдёт — Ария.">[1]</a></sup></span>
+    </p>
+
+    <p class="epi">
+      "Когда я подумал, что достиг дна, снизу постучали."
+      <span class="src">Станислав Ежи Лец</span>
+    </p>
+
+    <p class="lead">...МИР, ПЕРЕВЕРНУТЫЙ В КОЛОДЕЦ, КОТОРЫЙ НЕ ИМЕЕТ ДНА, и падая куда, надежда достичь его жива всегда.</p>
+  </section>
+
+  <section>
+    <h2 id="part1"><a href="#top">ЧАСТЬ 1. СВИДЕТЕЛЬСТВО</a></h2>
+    <div class="verse">
+      <p class="stanza">
+        Чтобы закончить этот опыт<br>
+        Чуть раньше, чем позавчера,<br>
+        Человек может шагнуть просто<br>
+        Чуть в сторону, сбивая взгляд,<br>
+        Со всеми, кто Ей зачарован<br>
+        Быть продолжает: Бездной смыслов
+      </p>
+      <p class="stanza">
+        Стремлений, Знаний, Настроений.<br>
+        Возможностей Манящих Бездна.<br>
+        Именно с этого МЫШЬ В КЛЕТКЕ<sup class="fn"><a class="fnref" id="fnref2" href="#fn2" data-pop="См. также: Летопись Живого Огня — proza.ru/2021/08/02/157">[2]</a></sup><br>
+        СВОЙ БЕГ ПО КРУГУ начинает,
+      </p>
+      <p class="stanza">
+        И здесь же, мыслью отказалась<br>
+        Категорически быть дальше<br>
+        Ловлей Кубического Шанса<br>
+        Наполовину Настоящим<br>
+        Уже не будущий Животным<br>
+        Но еще и не Говорящий<br>
+        От Сна в гробу освобождаясь<br>
+        ЧЕЛОВЕК В БЕЗДНУ НА ПРОЩАНЬЕ<br>
+        СЕРДЕЧНО, С ЧУВСТВОМ, с расстановкой,<br>
+        ХАРКНЕТ, СЖИГАЯ ЗА СОБОЮ<br>
+        МОСТЫ ВСЕХ ЛИЧНЫХ ОТНОШЕНИЙ<br>
+        Сжигая навсегда, так, словно<br>
+        ОН ДЛЯ ВСЕХ, КТО ЗНАЛ ЛИЧНО, УМЕР<br>
+        Погиб бесславно, жертвой жизни<br>
+        Став также, как и миллиарды<br>
+        Таких же МИСТЕРОВ НИКТО<br>
+        */нрзб* НЕЗАЧЕМ, и слава Богу<br>
+        Мученья прекратило в Нем.
+      </p>
+      <p class="stanza">
+        ЗНАЮЩИЙ ТАЙНЫ УХМЫЛЬНЕТСЯ,<br>
+        ЗАПЕЧАТЛЕВ ПЕЧАТЬЮ В СЕРДЦЕ<br>
+        СВИДЕТЕЛЬСТВО, хоть и не просто<br>
+        Будет кому-либо из смертных<br>
+        ТАЙНОЮ ЭТОЙ ПОДЕЛИТЬСЯ<br>
+        Убедить:
+      </p>
+      <p class="stanza">
+        РАЗВЕ ЧТО ЕСЛИ БЫ ИМ БЫЛО,<br>
+        И ОН БЫ ЯСНО ЭТО ВИДЕЛ,<br>
+        ГЛУБОКО ИНТЕРЕСНО ЛИЧНО:<br>
+        МНЕ ТУДА НАДОБНО И ВСЕ ТУТ.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="part2"><a href="#top">ЧАСТЬ 2. БЕЗДНА</a></h2>
+    <div class="verse">
+      <p class="stanza">
+        Дано врачу право лечить.<br>
+        Дано Творцу право Любить<sup class="fn"><a class="fnref" id="fnref3" href="#fn3" data-pop="См. также: Дано Творцу Право Любить — proza.ru/2022/05/05/670">[3]</a></sup>.<br>
+        Лишь только Бездне не дано<br>
+        Никаких прав, но лишь одно:
+      </p>
+      <p class="stanza">
+        Паденье каждого сюда<br>
+        Имеет Право быть без дна.<br>
+        Не прекратится никогда.<br>
+        Надежда здесь всегда жива,<br>
+        "Стучится снизу" здесь она
+      </p>
+      <p class="stanza">
+        Когда ты думаешь опять<br>
+        Что ниже некуда упасть<br>
+        И так рождается во Тьме<br>
+        Подобный Световой волне
+      </p>
+      <p class="stanza">
+        Который светит в глубине<br>
+        Надеждой согревая тех,<br>
+        Кто падает, не видя дна<br>
+        Туда, где Ночь всегда Одна,
+      </p>
+      <p class="stanza">
+        Без разницы в чем либо Ей,<br>
+        Будь вокруг утро, вечер, день -<br>
+        Поскольку Свет добыть из Тьмы<br>
+        Возможно лишь Ее сгустив
+      </p>
+      <p class="stanza">
+        Для тех, кто следом за тобой<br>
+        Наивно верит, что идет,<br>
+        Не понимая, что мираж<br>
+        Он видит, думая, что шаг
+      </p>
+      <p class="stanza">
+        К заветной Цели, за тобой<br>
+        Дорогой близкой и прямой<br>
+        Поскольку верный на Пути<br>
+        Есть у него ориентир.
+      </p>
+      <p class="stanza">
+        По кругу ходит он круги<br>
+        Истаптывая сапоги,<br>
+        Поскольку этот его труд<br>
+        Тебе дает во Тьму взглянуть
+      </p>
+      <p class="stanza">
+        И в непроглядной Бездне Тьмы<br>
+        Сгустившейся вокруг него<br>
+        И скрывшей на его Пути<br>
+        Куда вновь падать будет днем
+      </p>
+      <p class="stanza">
+        Когда надежды снизу стук<br>
+        Еще не начал ласкать слух,<br>
+        И кажется, что, большей Тьмы<br>
+        Чем в этот миг, как ни ищи,
+      </p>
+      <p class="stanza">
+        Хоть в недрах Бездны - только он:<br>
+        Безмолвным знанием дано<br>
+        Ему по Праву над собой,<br>
+        Взамен отказа ждать Зари
+      </p>
+      <p class="stanza">
+        Принять Реальность вечной Тьмы:<br>
+        Правда и Ложь - в Ней миражи,<br>
+        Несуществующие в Мире,<br>
+        Но обретающие Силу
+      </p>
+      <p class="stanza">
+        Судьбы, им данной в ощущеньях<br>
+        Здесь и сейчас, лишь когда верит<br>
+        В реальность их на Тьму идущий<br>
+        Поскольку опытом научен
+      </p>
+      <p class="stanza">
+        Ночами Бездны Тьмы кромешной,<br>
+        Что глупцы, ждавшие рассвета<br>
+        Растаяли бесследно в Бездне.<br>
+        Взяла к Себе искавших смерти
+      </p>
+      <p class="stanza">
+        Опасных "стражей" сумасшедших<br>
+        Исчезнувших во Тьме бесследно<br>
+        Вместе с шнурками от ботинок -<br>
+        Так что следа от них нет в Бездне<br>
+        Как будто Тьма их не носила.
+      </p>
+      <p class="stanza">
+        Своим безжалостным примером<br>
+        В сердцах оставшихся развеяв<br>
+        Живые до сих пор сомненья<br>
+        Что есть у Тьмы над человеком
+      </p>
+      <p class="stanza">
+        Данное Ей каждою душою<br>
+        Не захотевшей добровольно<br>
+        Сделать себя марионеткой<br>
+        Послушной Воле Силы Света
+      </p>
+      <p class="stanza">
+        По факту этим над собою<br>
+        Вручив власть Силе анонимной<br>
+        Рассвету всем всегда противной<br>
+        Поскольку создана "напротив"
+      </p>
+      <p class="stanza">
+        Одно другому Ночью Темной<br>
+        Когда господствовала Бездна<br>
+        Над всей Реальностью, где Света<br>
+        Еще быть не могло "в проекте"
+      </p>
+      <p class="stanza">
+        Поскольку не было в Ней места,<br>
+        Свободного от Тьмы Предвечной,<br>
+        Чтобы там мог быть "пустой воздух"<sup class="fn"><a class="fnref" id="fnref4" href="#fn4" data-pop="См. также: Конечное Исправление — proza.ru/2021/10/26/1421">[4]</a></sup>,<br>
+        Основу жизни дать способный.<br>
+        Окутав Бездну атмосферой.
+      </p>
+      <p class="stanza">
+        Веществ цикличного обмена,<br>
+        В котором Свет реченьем будет<br>
+        Посредством Слова служить людям<br>
+        В Конце Концов<sup class="fn"><a class="fnref" id="fnref5" href="#fn5" data-pop="См. также: Книга Зоар, том 2, Берешит-1, п. 1 и далее (РАШБИ — Бааль Сулам); Учение Десяти Сфирот, том 1, «ответы о смысле слов», п. 7 (Бааль Сулам); Древо жизни — стихотворение (АРИ).">[5]</a></sup>, когда повержен
+      </p>
+      <p class="stanza">
+        Навеки будет Ангел Смерти...<br>
+        ...Настолько людям стать успевший<br>
+        Проверенным надежным средством<br>
+        Увековечить свою подлость,
+      </p>
+      <p class="stanza">
+        Упертость, глупость, отделенность,<br>
+        Ушей и глаз от неудобной<br>
+        Им Правды, каждый век упорно<br>
+        Возобновляющей по новой
+      </p>
+      <p class="stanza">
+        Носиться по трущобам ветхим<br>
+        Нижних миров со Своим Светом,<br>
+        Который даром в них живущим<br>
+        Из века в век не нужен людям -
+      </p>
+      <p class="stanza">
+        Ведь каждый с малых лет к Свободе<br>
+        Стремится сердцем и душою -<br>
+        Привычка, ставшая натурой.<br>
+        Когда-то Тьмой идея людям
+      </p>
+      <p class="stanza">
+        Была подкинута "случайно".<br>
+        И стала с этих пор триумфом<br>
+        Масштабней всех, что Тьме бывало<br>
+        Одерживать в битвах со Светом
+      </p>
+      <p class="stanza">
+        Где жизнь людей всегда разменной<br>
+        Служила игровой монетой...
+      </p>
+    </div>
+  </section>
+
+  <section class="notes">
+    <h2 id="notes"><a href="#top">ПРИМЕЧАНИЯ</a></h2>
+    <ul class="fnlist">
+      <li class="fn" id="fn1">
+        <span class="num">[1]</span>
+        <div class="fn-body">
+          <div class="music">
+            <div class="music-label">Музыка под настроение:</div>
+            <div class="track yt flat-no" data-yt="kIBdpFJyFkc">
+              <div class="track-head">
+                <span class="track-arrow">▶</span>
+                <span class="track-title"><b>Nemo (Никто)</b> — Nightwish</span>
+                <a class="track-ext" href="https://youtu.be/kIBdpFJyFkc" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+              </div>
+              <div class="player"></div>
+            </div>
+            <div class="track yt" data-yt="dsz8DyL8aso">
+              <div class="track-head">
+                <span class="track-arrow">▶</span>
+                <span class="track-title"><b>Небо Тебя Найдёт</b> — Ария</span>
+                <a class="track-ext" href="https://youtu.be/dsz8DyL8aso" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+              </div>
+              <div class="player"></div>
+            </div>
+          </div>
+        </div>
+        <a class="backref" href="#fnref1" title="Вернуться к тексту">↩</a>
+      </li>
+
+      <li class="fn" id="fn-star">
+        <span class="num">[*]</span>
+        <span class="fn-body">Написано 6 Июня 2022 г.</span>
+        <a class="backref" href="#fnref-star" title="Вернуться к тексту">↩</a>
+      </li>
+    </ul>
+
+    <div class="sub-label">Полезные ссылки</div>
+    <ul class="fnlist">
+      <li class="fn" id="fn2">
+        <span class="num">[2]</span>
+        <span class="fn-body">См. также: <a href="182.html">Летопись Живого Огня</a></span>
+        <a class="backref" href="#fnref2" title="Вернуться к тексту">↩</a>
+      </li>
+      <li class="fn" id="fn3">
+        <span class="num">[3]</span>
+        <span class="fn-body">См. также: <a href="237.html">Дано Творцу Право Любить</a></span>
+        <a class="backref" href="#fnref3" title="Вернуться к тексту">↩</a>
+      </li>
+      <li class="fn" id="fn4">
+        <span class="num">[4]</span>
+        <span class="fn-body">См. также: <a href="1AQA.html">Конечное Исправление</a></span>
+        <a class="backref" href="#fnref4" title="Вернуться к тексту">↩</a>
+      </li>
+      <li class="fn" id="fn5">
+        <span class="num">[5]</span>
+        <span class="fn-body">См. также: Книга Зоар, том 2, Берешит-1, п. 1 и далее (РАШБИ - Бааль Сулам),<br>
+        а также: Учение Десяти Сфирот, том 1, "ответы о смысле слов", п. 7 (Бааль Сулам),<br>
+        а также: Древо жизни - стихотворение (АРИ)</span>
+        <a class="backref" href="#fnref5" title="Вернуться к тексту">↩</a>
+      </li>
+    </ul>
+  </section>
+
+  <nav class="corpus-nav">
+    <div class="nv prev">
+      <span class="dir">← Предыдущая</span>
+      <a href="182.html">Летопись Живого Огня</a>
+    </div>
+    <div class="nv next">
+      <span class="dir">Следующая →</span>
+      <a href="2BK.html">Парадок Создателя</a>
+    </div>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<div id="fnpop"></div>
+
+<script>
+(function(){
+  // footnote hover popups
+  var pop=document.getElementById('fnpop');
+  document.querySelectorAll('a.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      var txt=ref.getAttribute('data-pop');
+      if(!txt){
+        var fn=document.getElementById(ref.getAttribute('href').slice(1));
+        txt=fn?fn.textContent.trim():'';
+      }
+      pop.textContent=txt;
+      pop.style.display='block';
+      var r=ref.getBoundingClientRect();
+      var pr=pop.getBoundingClientRect();
+      var top=r.top-pr.height-10;
+      if(top<8){top=r.bottom+10;}
+      var left=r.left+r.width/2-pr.width/2;
+      left=Math.max(8,Math.min(left,window.innerWidth-pr.width-8));
+      pop.style.top=(top+window.scrollY)+'px';
+      pop.style.left=(left+window.scrollX)+'px';
+    });
+    ref.addEventListener('mouseleave',function(){pop.style.display='none';});
+  });
+
+  // lazy YouTube players
+  document.querySelectorAll('.track.yt').forEach(function(t){
+    var head=t.querySelector('.track-head');
+    head.addEventListener('click',function(e){
+      if(e.target.closest('.track-ext'))return;
+      var box=t.querySelector('.player');
+      if(t.classList.contains('open')){
+        t.classList.remove('open');box.innerHTML='';
+      }else{
+        t.classList.add('open');
+        var id=t.getAttribute('data-yt');
+        box.innerHTML='<iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+      }
+    });
+  });
+})();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "поэма",
+  "rationale": "Текст целиком является стихотворной формой: после трёх эпиграфов идут две части («Свидетельство» и «Бездна»), полностью построенные как верлибр/рифмованные строфы. Поскольку доминирует стих/поэма, по правилу выбрана узкая книжная полоса манускрипта (~820px) с засечным книжно-рукописным характером, тёплой пергаментной палитрой на светлом фоне и центрированными заголовками — это поддерживает медленное, поэтическое чтение строфа за строфой. Колонку стиха дополнительно сузил до ~34em, чтобы строки не разъезжались и сохраняли ритм; КАПС-фрагменты оставлены дословно, как в оригинале.\n\nРазвилки: музыкальные ссылки спрятаны внутри сноски [1] (две YouTube-дорожки под общей меткой «Музыка под настроение»), поэтому я собрал их в один блок плеера прямо в теле сноски и не стал делать отдельный сводный раздел — распознанных треков всего два, порог (>2) не достигнут. Сноска [*] из исходника (дата написания) сохранена как именованная сноска при заголовке. Маркер «*/нрзб*» внутри строфы оставлен дословно как авторско-транскрипционная пометка, а не удалён, чтобы не нарушать верность тексту. Подраздел «Полезные ссылки» сохранён как подпись внутри аппарата примечаний. Сноски снабжены popup при наведении (с выбором стороны по границе экрана), переходами вниз/вверх и подсветкой цели.",
+  "features": ["music", "footnotes", "toc"]
+}
+</script>
+</body>
+</html>

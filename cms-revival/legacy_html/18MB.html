@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Орлята учатся летать</title>
+<style>
+  :root{
+    --ink:#1d2024;
+    --soft:#54585f;
+    --rule:#d9d3c6;
+    --accent:#8a5a2b;
+    --accent2:#3a5a78;
+    --bg:#f6f3ec;
+    --paper:#fbfaf6;
+    --hl:#fff2c4;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1000px;
+    min-width:0;
+    margin:0 auto;
+    padding:40px 32px 90px;
+  }
+  @media(max-width:1100px){.wrap{width:78%;}}
+  @media(max-width:760px){
+    body{font-size:18px;}
+    .wrap{width:100%;padding:24px 18px 70px;}
+  }
+  a{color:var(--accent2);text-decoration:none;border-bottom:1px solid rgba(58,90,120,.35);}
+  a:hover{border-bottom-color:var(--accent2);}
+
+  /* Breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--soft);
+    margin-bottom:22px;
+  }
+  .crumbs a{color:var(--soft);border:none;}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs span.sep{margin:0 .5em;color:var(--rule);}
+
+  figure.lead{margin:0 0 26px;}
+  figure.lead img{display:block;max-width:100%;width:auto;height:auto;border:1px solid var(--rule);}
+
+  h1{
+    font-size:38px;
+    line-height:1.16;
+    margin:.1em 0 .15em;
+    font-weight:700;
+    letter-spacing:.01em;
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:8px;
+  }
+  .subhead{
+    font-size:25px;
+    line-height:1.25;
+    margin:34px 0 6px;
+    font-weight:700;
+    color:#2a2d33;
+  }
+  .meta-line{
+    color:var(--soft);
+    font-style:italic;
+    font-size:17px;
+    margin:0 0 30px;
+    padding-bottom:18px;
+    border-bottom:2px solid var(--rule);
+  }
+  p{margin:0 0 1.25em;}
+  .article p{text-align:justify;hyphens:auto;}
+
+  /* footnote markers */
+  sup.fnref{font-size:.72em;line-height:0;vertical-align:super;}
+  sup.fnref a{
+    border:none;font-weight:700;color:var(--accent);
+    padding:0 1px;
+  }
+  .fnref{position:relative;}
+  .fnref .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    bottom:140%;
+    transform:translateX(-50%);
+    width:300px;
+    max-width:74vw;
+    background:#2c2a26;
+    color:#f3eee2;
+    font-size:14.5px;
+    font-style:normal;
+    line-height:1.5;
+    text-align:left;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 8px 26px rgba(0,0,0,.3);
+    z-index:40;
+    font-family:Georgia,serif;
+  }
+  .fnref .pop a{color:#ffd9a0;}
+  .fnref.below .pop{bottom:auto;top:140%;}
+  .fnref:hover .pop{display:block;}
+
+  /* music */
+  .music-block{
+    margin:34px 0;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:12px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--accent);
+    padding:12px 16px 4px;
+  }
+  .track{border-top:1px solid var(--rule);}
+  .track:first-of-type{border-top:none;}
+  .track-head{
+    display:flex;align-items:center;gap:10px;
+    padding:12px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head .tw{flex:1;}
+  .track-head .ttl{font-weight:700;}
+  .track-head .art{color:var(--soft);font-size:16px;}
+  .track-head .chev{transition:transform .2s;color:var(--accent);font-size:14px;}
+  .track.open .chev{transform:rotate(90deg);}
+  .track-head .ext{color:var(--soft);border:none;font-size:15px;}
+  .player{display:none;padding:0 16px 16px;}
+  .track.open .player{display:block;}
+  .player .frame{position:relative;padding-bottom:56.25%;height:0;}
+  .player iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:6px;}
+
+  /* notes */
+  .notes{
+    margin-top:48px;
+    padding-top:14px;
+    border-top:2px solid var(--rule);
+  }
+  .notes h2{
+    font-size:20px;
+    letter-spacing:.02em;
+    margin:0 0 14px;
+  }
+  ol.fnlist{padding-left:1.2em;margin:0;}
+  ol.fnlist li{
+    margin:0 0 12px;
+    font-size:16.5px;
+    line-height:1.55;
+    color:#33363c;
+  }
+  ol.fnlist li:target{background:var(--hl);border-radius:4px;padding:4px 8px;}
+  .backref{border:none;color:var(--accent);font-weight:700;margin-left:4px;}
+
+  /* corpus nav */
+  .corpusnav{
+    margin-top:54px;
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    border-top:2px solid var(--rule);
+    padding-top:22px;
+  }
+  .corpusnav a{
+    display:block;
+    max-width:46%;
+    border:none;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpusnav .dir{
+    font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);
+    display:block;margin-bottom:4px;
+  }
+  .corpusnav .t{color:var(--accent2);border-bottom:1px solid rgba(58,90,120,.3);}
+  .corpusnav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:40px;
+    padding-top:18px;
+    border-top:1px solid var(--rule);
+    font-size:14px;
+    color:var(--soft);
+    line-height:1.5;
+  }
+  footer.colophon a{color:var(--soft);}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/18MB.html">
+<meta name="description" content="Эссе о Правиле Нагваля в учении Карлоса Кастанеды: толкование принципа линейной передачи знания толтеков и организации группы воинов.">
+<meta property="og:title" content="Орлята учатся летать">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/18MB.html">
+<meta property="og:description" content="Эссе о Правиле Нагваля в учении Карлоса Кастанеды: толкование принципа линейной передачи знания толтеков и организации группы воинов.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Орлята учатся летать">
+<meta name="twitter:description" content="Эссе о Правиле Нагваля в учении Карлоса Кастанеды: толкование принципа линейной передачи знания толтеков и организации группы воинов.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №18MB</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <figure class="lead">
+    <img src="../img/18MB.jpg" alt="">
+  </figure>
+
+  <div class="kicker">Роза Среди Шипов</div>
+  <h1>Орлята учатся летать<a class="audio-link" href="https://t.me/art_017_tracks/559" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <div class="article">
+
+    <p class="subhead">ПРАВИЛО ТРЕХЗУБЧАТОГО НАГВАЛЯ</p>
+    <p class="meta-line">Записано 22.08.21&nbsp;г. на форуме «левой линии»<sup class="fnref" id="ref1"><a href="#fn1">1</a><span class="pop">См. также: <a href="18MA.html">Сделаем и услышим!</a> — </span></sup>.</p>
+
+    <p>Из того знания, которое полезно практически воинам «здесь и сейчас», могу сказать, что смысл высказывания ДХ «Орел видит все живые существа сразу и совершенно одинаково» следует понимать не в смысле «всех людей Планеты», а, скорее, «всех участников произвольного сообщества», например, вашей личной «группы воинов». Но только чтобы считаться Орлом реальным «сообществом», а не «сборищем насмешников», необходимо, чтобы либо им Сам Орел открыл Правило, в результате чего они объединились в этой форме, либо они собрались под непосредственным руководством другой группы людей, которым Он Сам открыл Правило, чтобы, со временем, стать такими же, как они (принцип линейного наследования толтеков). То есть, опять же, та форма, в которой ДХ рассказывал КК Правило Нагваля, является образным описанием того, как Правило было открыто первому «нагвалю» их линии, перед которым в точно такой же форме не было никого, а не то, как оно открывается каждому последующему. Подтверждением может служить хотя бы то, как сам КК узнал о нем (не от Орла непосредственно, а от своего Учителя в измененном СС). И его Учитель также узнал о нем от своего Учителя, и так далее. Первому рассказал Орел, дав этот Дар для всей последующей Линии сразу, и отправил Нагваля (обратно) в мир делать то, что тот от Него услышал…</p>
+
+    <p>Правилом Нагваля, как можно понять из вышеприведенного описания, как раз и является Закон организации сообщества реального мира. В точном соответствии с таким же принципом организовано и общество повседневного мира. Если бы оно таковым не было, люди в нем бы не были живыми даже внешне. Все, в ком есть дыхание Жизни, в той или иной форме реализуют заключенный в Правиле принцип взаимодействия «собственных составляющих», чтобы быть «как один Человек с одним сердцем». И этот Человек реально существует, Он создается Орлом в момент получения «нагвалем» Дара Орла (открытия ему Орлом Правила). И ждет всю «партию» у «прохода» столько времени, сколько им потребуется, чтобы вспомнить себя, вспомнить задачу и подготовиться к его прохождению, передав «эстафету» следующему нагвалю и его воинам. В Нагвале, который вне вниманий, времени нет, пространства нет, все существует сразу здесь и сейчас, и это единственное «здесь и сейчас», а не «то же самое», или какое-нибудь «новое». Для жизни человека это состояние не подходит, поскольку все, что он может воспринимать последовательно, происходит от сопоставления «внутренних» и «внешних» эманаций Орла «точкой сборки». Но мы знаем, что само это разделение не является «реальным» в самом строгом смысле, поскольку «эманации в Великом и те, что пойманы внутри — на самом деле одни и те же эманации». Так что «поймано» ими скорее внимание воина, а не сами эманации, которые «неизменные, вечные», как и их Источник…</p>
+
+    <p>Главный принцип Правила заключается в том, что Группа, осуществляющая маневр Прохода мимо Клюва Орла, должна быть организована по тому же самому принципу «настройки восприятия», по которому точка сборки на «светящемся коконе» производит сопоставление двух категорий эманаций в самом себе, на самом деле являющихся одним и тем же, но, в то же самое время, объективно находящиеся в разных Вселенных в том, что касается их прямого сопряжения, поскольку они существуют таким образом, который исключает таковое насколько, насколько это возможно. Если бы не это обстоятельство, то «сливаясь с Эманациями в Великом» внутренние эманации переставали бы быть внутренними, и возвращались бы к первоначальному (реальному) состоянию существования, вечному и бесконечному потоку «простого», однородного Живого Света. Поскольку этого не происходит, а вместо этого они получают возможность «заметить самих себя», что и является сутью и результатом принципа настройки и восприятия в целом, совершенно очевидно, что препятствует им в этом единственная реальная Сила, которая превосходит их собственную Реальность по качеству — Сам Орел, находясь в точности между ними, поскольку Орел — наше «самое Высшее Я», единое на всех существ, имеющих самосознание, во Вселенной — Сам является принципом, заложенным в самую суть внимания, или принципом «третьего внимания», а первые два типа — суть одно и то же, что и третий, но находящиеся в условиях «двух параллельных линий, не пересекающихся нигде», то есть максимально противоположных одно другому. Не сложно заметить, что сам принцип существования 3 типов внимания построен согласно Правилу Орла.</p>
+
+    <p>Главным практическим следствием этого Принципа для воинов является то, что их собственная команда «настраивающая восприятие» Прохода мимо Орла, должна быть «дублирующей структурой» такого же порядка, каковым обладает Реальность «эманаций, пойманных внутри кокона», относительно «эманаций в Великом». То есть, быть полной противоположностью не пересекающейся сущностно ни в чем, но при этом являться тем же самым, что и они, в точности. Воинам не нужно ломать голову над решением этой неразрешимой загадки, поскольку она уже решена Орлом, результатом чего стало их собственное существование, в реальности «второго внимания», отдельное от общества «этого мира», частью которого они все являются, как существа «первого внимания». Но к которому, конечно же, не смогут ни при каких условиях «построить мост» по своей инициативе. Если только обычные люди сами не выстроят этот мост — точно такой же, каковым они сами, если посмотреть назад, объективно являются, хронологически по природе своего происхождения… КК для своей «линии видящих» выполнял задачу установления связи со ступенью первого внимания «общества этого мира», без чего никакой «абсолютной свободы» для партии ДХ и для всей их линии не могло бы быть в принципе, поскольку та ступень «первого внимания», с которой эта линия начиналась исторически, давно уже не является таковой, а с новой ступенью, образовавшейся после «конкисты», настоящей внутренней связи установлено не было. Вот и разгадка формулировки «новой» части Правила про «золотой ключик», которым КК закрыл линию передачи знания своего Учителя: ТОЛЬКО ВМЕСТЕ, МЫ — СИЛА!</p>
+
+    <div class="music-block">
+      <div class="music-label">Музыка под настроение</div>
+      <div class="track" id="track1">
+        <div class="track-head" onclick="toggleTrack(this)">
+          <span class="chev">▶</span>
+          <span class="tw"><span class="ttl">Once Again</span> <span class="art">— Hang Massive</span></span>
+          <a class="ext" href="https://youtu.be/xk3BvNLeNgw" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a>
+        </div>
+        <div class="player" data-embed="https://www.youtube-nocookie.com/embed/xk3BvNLeNgw">
+          <div class="frame"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <section class="notes" id="notes">
+    <h2>Ор пашут (пояснения)</h2>
+    <ol class="fnlist">
+      <li id="fn1">См. также: <a href="18MA.html">Сделаем и услышим!</a><br>
+      См. также: 
+      <a class="backref" href="#ref1" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpusnav">
+    <a class="prev" href="19E.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="t">Урок 1 Меняем восприятие Реальности</span>
+    </a>
+    <a class="next" href="18H.html">
+      <span class="dir">Следующая →</span>
+      <span class="t">Место Силы изменить нельзя</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggleTrack(head){
+    var t=head.closest('.track');
+    var open=t.classList.toggle('open');
+    var pl=t.querySelector('.player');
+    if(open && !pl.dataset.loaded){
+      var f=document.createElement('iframe');
+      f.src=pl.dataset.embed+'?rel=0';
+      f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen=true;
+      pl.querySelector('.frame').appendChild(f);
+      pl.dataset.loaded='1';
+    }
+  }
+  // footnote popup side flip
+  document.querySelectorAll('.fnref').forEach(function(r){
+    r.addEventListener('mouseenter',function(){
+      var pop=r.querySelector('.pop');
+      if(!pop)return;
+      r.classList.remove('below');
+      var rect=r.getBoundingClientRect();
+      if(rect.top<170)r.classList.add('below');
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст представляет собой эзотерическое философское рассуждение (эссе) о «Правиле Нагваля» — сплошные крупные абзацы прозы без стихотворных строк, поэтому выбрана редакторская широкоформатная схема с колонкой примерно в 2/3 ширины окна. Узкий «манускрипт» предназначен для стихов и здесь был бы неуместен, так как ломал бы длинные плотные периоды на неудобно короткие строки.\n\nЗаголовок страницы взят из метаданных («Орлята учатся летать»), а внутренний заголовок «ПРАВИЛО ТРЕХЗУБЧАТОГО НАГВАЛЯ» сохранён как подзаголовок в теле статьи в исходном КАПС-регистре. Единственная сноска (^1) оформлена с переходом вниз/вверх, подсветкой цели и всплывающим popup, который переворачивается под маркер у верхней границы экрана. Музыкальный трек один (Hang Massive — Once Again), поэтому сводный раздел музыки не создавался — только ленивый сворачиваемый YouTube-плеер на своём месте. Оглавление не делалось: смысловых подразделов фактически один блок текста плюс пояснения, условие «более одного подраздела» не выполняется. Голые URL обёрнуты в ссылки. Палитра — тёплая бумажная на светлом фоне с охристым и сине-стальным акцентами под книжно-журнальную подачу.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>

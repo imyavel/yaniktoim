@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Услышь, Душа</title>
+<style>
+  :root{
+    --ink:#2b2018;
+    --ink-soft:#5a4a3a;
+    --accent:#8a2f1d;
+    --accent2:#9a6a1f;
+    --paper:#fbf5e9;
+    --paper2:#f3e8d2;
+    --rule:#d8c5a0;
+    --gold:#b08428;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 20% 0%, #fdf9f0 0%, transparent 55%),
+      radial-gradient(circle at 90% 100%, #f6ecd6 0%, transparent 50%),
+      var(--paper);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    font-size:20px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{
+    max-width:820px;
+    margin:0 auto;
+    padding:38px 30px 70px;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* breadcrumbs */
+  .crumbs{
+    font-size:.82em;
+    letter-spacing:.04em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    margin-bottom:22px;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:10px;
+  }
+  .crumbs a{color:var(--accent2);}
+  .crumbs span.sep{margin:0 .5em;color:var(--gold);}
+
+  .hero{
+    text-align:center;
+    margin:6px 0 26px;
+  }
+  .hero img{
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border:1px solid var(--rule);
+    box-shadow:0 6px 22px rgba(70,45,20,.18);
+    border-radius:3px;
+  }
+
+  h1{
+    font-size:2.5em;
+    line-height:1.15;
+    text-align:center;
+    margin:.2em 0 .15em;
+    color:var(--ink);
+    font-weight:600;
+    letter-spacing:.01em;
+  }
+  h1 .heb{
+    display:block;
+    font-size:.42em;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-top:.7em;
+  }
+  .ornament{
+    text-align:center;
+    color:var(--gold);
+    font-size:1.4em;
+    letter-spacing:.4em;
+    margin:.2em 0 1.4em;
+  }
+
+  /* TOC */
+  .toc{
+    background:linear-gradient(180deg,var(--paper2),#f7eeda);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    padding:14px 22px 18px;
+    margin:0 auto 40px;
+    max-width:560px;
+  }
+  .toc summary{
+    cursor:pointer;
+    font-variant:small-caps;
+    letter-spacing:.08em;
+    font-size:1.05em;
+    color:var(--accent);
+    font-weight:600;
+    list-style:none;
+    text-align:center;
+  }
+  .toc summary::-webkit-details-marker{display:none;}
+  .toc summary::after{content:" ❧";color:var(--gold);}
+  .toc ol{
+    margin:14px 0 2px;
+    padding-left:1.4em;
+  }
+  .toc li{margin:.35em 0;}
+  .toc li::marker{color:var(--gold);}
+  .toc a{color:var(--ink-soft);}
+  .toc small{color:var(--gold);font-size:.78em;margin-left:.4em;}
+
+  section.poem{margin:0 0 18px;}
+  h2{
+    font-size:1.55em;
+    text-align:center;
+    color:var(--accent);
+    margin:48px 0 6px;
+    font-weight:600;
+    scroll-margin-top:20px;
+  }
+  h2 a{color:inherit;display:inline-block;}
+  h2 a:hover{text-decoration:none;color:var(--gold);}
+  .verse{
+    white-space:pre-line;
+    text-align:center;
+    font-size:1.06em;
+    line-height:1.85;
+    margin:10px auto 4px;
+    max-width:640px;
+    color:#352618;
+  }
+  .stanza{margin:0 0 1.25em;}
+  .date{
+    text-align:center;
+    font-style:italic;
+    color:var(--accent2);
+    font-size:.9em;
+    letter-spacing:.05em;
+    margin:.6em 0 0;
+  }
+  .div{
+    text-align:center;
+    color:var(--gold);
+    margin:30px 0 0;
+    font-size:1.1em;
+    letter-spacing:.6em;
+  }
+
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:60px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-size:.92em;
+  }
+  .corpus-nav .nv{max-width:46%;}
+  .corpus-nav .nv.next{text-align:right;margin-left:auto;}
+  .corpus-nav .lbl{
+    display:block;
+    font-size:.78em;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--ink-soft);
+  }
+  footer{
+    margin-top:34px;
+    padding-top:18px;
+    border-top:1px solid var(--rule);
+    font-size:.8em;
+    color:var(--ink-soft);
+    line-height:1.55;
+  }
+  footer a{color:var(--accent2);}
+
+  @media(max-width:640px){
+    body{font-size:18px;}
+    .page{padding:24px 16px 50px;}
+    h1{font-size:2em;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav .nv,.corpus-nav .nv.next{max-width:100%;text-align:left;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/184A.html">
+<meta name="description" content="Подборка духовных стихотворений Услышь Душа Победителям над розами По обе стороны Луны и Берешит о единстве с Творцом и пути души.">
+<meta property="og:title" content="Услышь, Душа">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/184A.html">
+<meta property="og:description" content="Подборка духовных стихотворений Услышь Душа Победителям над розами По обе стороны Луны и Берешит о единстве с Творцом и пути души.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Услышь, Душа">
+<meta name="twitter:description" content="Подборка духовных стихотворений Услышь Душа Победителям над розами По обе стороны Луны и Берешит о единстве с Творцом и пути души.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="manuscript">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №184A</span>
+<div class="page" id="top">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../dreamon/index.html">Мечтай!!</a>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/Z4L.jpg" alt="">
+  </div>
+
+  <h1>Услышь, Душа<a class="audio-link" href="https://t.me/art_017_tracks/293" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a><span class="heb">Шма Нешама</span></h1>
+  <div class="ornament">✦ ❧ ✦</div>
+
+  <details class="toc" open>
+    <summary>Оглавление</summary>
+    <ol>
+      <li><a href="#p1">Услышь, Душа (Шма Нешама)</a><small>21/04/19</small></li>
+      <li><a href="#p2">Победителям над розами</a><small>11.09.19</small></li>
+      <li><a href="#p3">По обе стороны Луны</a><small>07.12.19</small></li>
+      <li><a href="#p4">Берешит</a><small>31.12.20</small></li>
+    </ol>
+  </details>
+
+  <section class="poem">
+    <h2 id="p1"><a href="#top">Услышь, Душа (Шма Нешама)</a></h2>
+    <div class="verse"><div class="stanza">Услышь, душа, Пути единство нашего Творца
+Он - Высший Царь святой благословенный
+Он - Вечный Свет, единый с Именем Своим
+Он - Сила Истины, что властвует над миром.</div><div class="stanza">Всевышний Царь - Бог Истины, благословен вовеки
+Создавший Царство Славы Именем Своим
+Да будет Он любим всем сердцем нашим, сутью и душой, 
+И не покинет нас завет Его священный,
+Гранитом высеченный в сердце 
+Дарованной нам Торой Им Святой
+Где имя нам - рабы Хозяина, чья слава бесконечна.</div><div class="stanza">Единые в молитве потому, что Он един, и нет для нас иного бытия,
+Чем то, что просим у Него молитвой за друг друга,
+Чтобы товарищ был единым со Шхиной, с Его священным Царством славы,
+И чтобы была радость у него, ведь радует творенье в Высшем мире,
+И молится об обществе усердно
+И удостоится доставить наслажденье 
+Создателю, чье Царство бесконечно.</div><div class="stanza">И не придется Высшей Матери Святой
+О грешниках скорбеть в святом народе, 
+Где каждый молится за праведность других
+Ведь в поручительстве народ будет достоин 
+Доставить наслаждение Отцу
+Властителю их жизни и судьбы, 
+С великой радостью приняв Святое рабство.</div><div class="stanza">Готовые всей сутью в каждый миг 
+Отдать жизнь за товарищей, ведь их
+Избрал Творец средь всех народов мира 
+Великих праведников милостью Своей,
+И знаю я, что низший среди них,
+Служителей Творца благословенных
+Но честь, подобная служению Творцу -
+Быть прахом для меня под их ногами,
+И страх лишь в том, чтоб смог восполнить в общем часть свою,
+Не став, не допусти Господь, испортившим от недостатка веры
+Слиянье праведников в подлинном единстве, 
+Ради служения Единому Творцу</div></div>
+    <p class="date">21/04/19</p>
+  </section>
+
+  <div class="div">✦ ✦ ✦</div>
+
+  <section class="poem">
+    <h2 id="p2"><a href="#top">Победителям над розами</a></h2>
+    <div class="verse"><div class="stanza">Путь к нашей Цели Святой измеряется
+Верой без слов, лишь молиться и каяться
+Высшему Свету, Хозяину нашему
+Нас оживившему по-настоящему.</div><div class="stanza">Дважды родившему нас Отцу нашему
+Царству Святому Его - Высшей Матери
+Верой без слов ко всему одинаково
+Стать Их Любовь сквозь себя проводящими</div><div class="stanza">Мы практикуемся, мы обучаемся
+Через друг друга в Круги воплощаемся
+Капля за каплей и встреча за встречей
+В нас пробуждается часть Жизни Вечной</div><div class="stanza">Часть, что вошла в нас, чтобы исправиться
+Шаг-другой сделать и дальше отправиться
+Чтобы другие Печати служители
+Были рабами ее Повелителя</div><div class="stanza">Ты веди к Свету нас, Та, что спустилась
+Та, что связалась вновь с низостью тел
+Так заповедовал наш Повелитель
+Мир подготовить для праведных дел</div></div>
+    <p class="date">11.09.19</p>
+  </section>
+
+  <div class="div">✦ ✦ ✦</div>
+
+  <section class="poem">
+    <h2 id="p3"><a href="#top">По обе стороны Луны</a></h2>
+    <div class="verse"><div class="stanza">По обе стороны Луны встает рассвет.
+Мне много-много исполнялось Земных лет
+Я знаю все, что знал когда-то человек
+Мной управлял и управляет Древний Свет.</div><div class="stanza">Раскрою тайну, о которой все молчат
+Одену Истину я в свадебный наряд
+Устрою свадьбу с Ней товарищам моим
+Превыше жизни возжелавшим слиться с Ним</div><div class="stanza">Мои святые высшие и скрытые Сфирот
+Всегда спасут меня от зла и бурных вод
+И вместе поведем мы под венец
+Святой сосуд раскрывшихся сердец</div><div class="stanza">Мы будем вдоволь пить и есть на этой Свадьбе
+Ради любимых и родных друзей и братьев
+Бокал мы поднимаем в честь Супруга
+Святого Скрытого Творца нашего Круга</div><div class="stanza">И радуемся скрытию Его, 
+Сверх этого не просим ничего
+Чтобы давал Он, отменяя свойство "ноль".
+Лишь просим "веры нас, Великий, удостой".</div></div>
+    <p class="date">07.12.19</p>
+  </section>
+
+  <div class="div">✦ ✦ ✦</div>
+
+  <section class="poem">
+    <h2 id="p4"><a href="#top">Берешит</a></h2>
+    <div class="verse"><div class="stanza">Берешит. Приснилось мне
+Будто Ми бара Эле.
+Я проснулся, чтобы вспомнить,
+Что я видел в этом сне.</div><div class="stanza">Но была, как и вначале,
+Голова моя пустая.
+Ведь Эле в начале слова, 
+Как и прежде, были снова.</div><div class="stanza">Чтобы сон восстановить, 
+Нужно с Ми их поженить.
+Без ответа нет вопроса, 
+Чтобы скрытие раскрыть.</div></div>
+    <p class="date">31.12.20</p>
+  </section>
+
+  <nav class="corpus-nav">
+    <div class="nv prev">
+      <span class="lbl">← Предыдущая</span>
+      <a href="1B5.html">Знание!! Сила</a>
+    </div>
+    <div class="nv next">
+      <span class="lbl">Следующая →</span>
+      <a href="2B3.html">Храни и Помни</a>
+    </div>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "стих",
+  "rationale": "Статья целиком состоит из четырёх стихотворений с регулярными строфами и датами написания — это однозначно стихотворная форма, поэтому выбрана манускриптная схема с узкой книжной полосой (~820px) и засечным, тёплым «рукописным» характером на светлом пергаментном фоне. Каждое стихотворение центрировано, строки сохранены дословно через white-space:pre-line, чтобы не нарушить авторскую разбивку; строфы разделены интервалом по пустым строкам оригинала.\n\nРазвилки: первый заголовок «Услышь, Душа (Шма Нешама)» дублирует название статьи с proza.ru — я оставил название статьи как H1 (с подзаголовком на иврите-транслите), а полный заголовок стиха сохранил как H2 раздела, чтобы ничего не терять и не редактировать. Поскольку самостоятельных частей четыре (>1), сделал сворачиваемое оглавление (по умолчанию открыто) с кликом по заголовкам разделов для возврата наверх. Музыки и сносок в тексте нет, поэтому соответствующие фичи не применялись. Кавычки-«ёлочки» и слово \"ноль\" в кавычках, ивритские термины и КАПС-слитные написания сохранены как есть.",
+  "features": ["toc"]
+}
+</script>
+</body>
+</html>

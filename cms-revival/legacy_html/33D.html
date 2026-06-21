@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Никтояим</title>
+<style>
+  :root{
+    --bg:#faf8f3;
+    --paper:#fffdf8;
+    --ink:#1d1b18;
+    --muted:#6a655c;
+    --rule:#ddd6c8;
+    --accent:#9a2617;
+    --accent-soft:#c2755f;
+    --link:#7a3b2e;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;
+    font-size:19px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1180px;
+    min-width:0;
+    margin:0 auto;
+    padding:38px 32px 80px;
+  }
+  @media(max-width:1100px){ .wrap{ width:86%; } }
+  @media(max-width:680px){ .wrap{ width:100%; padding:22px 18px 60px; } body{font-size:18px;} }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:24px;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:12px;
+  }
+  .crumbs a{color:var(--link);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span.sep{margin:0 .5em;color:var(--accent-soft);}
+
+  .lead-img{display:block;max-width:100%;width:auto;height:auto;margin:0 0 30px;border:1px solid var(--rule);}
+
+  h1{
+    font-size:2.5rem;
+    line-height:1.12;
+    font-weight:700;
+    letter-spacing:.01em;
+    margin:.1em 0 .35em;
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:6px;
+  }
+
+  /* music */
+  .music{
+    margin:26px 0 34px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    border-left:4px solid var(--accent);
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent);
+    padding:10px 16px 0;
+  }
+  .track{padding:6px 16px 14px;}
+  .track-head{
+    display:flex;align-items:center;gap:10px;cursor:pointer;
+    user-select:none;
+  }
+  .track-head .tt{font-style:italic;}
+  .track-head .ta{color:var(--muted);}
+  .track-head .arrow{
+    font-family:Arial,sans-serif;font-size:13px;color:var(--accent);
+    transition:transform .2s;margin-left:auto;
+  }
+  .track.open .arrow{transform:rotate(180deg);}
+  .track-head a.ext{color:var(--link);text-decoration:none;font-size:15px;}
+  .player{display:none;margin-top:12px;}
+  .track.open .player{display:block;}
+  .player .frame{position:relative;padding-bottom:56.25%;height:0;}
+  .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+  /* TOC */
+  details.toc{
+    margin:30px 0 40px;border:1px solid var(--rule);background:var(--paper);
+  }
+  details.toc summary{
+    cursor:pointer;font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent);padding:13px 18px;list-style:none;
+  }
+  details.toc summary::-webkit-details-marker{display:none;}
+  details.toc summary::before{content:"▸ ";}
+  details.toc[open] summary::before{content:"▾ ";}
+  details.toc ol{margin:0 0 14px;padding:0 18px 0 40px;}
+  details.toc li{margin:7px 0;}
+  details.toc a{color:var(--link);text-decoration:none;}
+  details.toc a:hover{text-decoration:underline;}
+
+  section{margin:42px 0;}
+  h2{
+    font-size:1.55rem;font-weight:700;margin:0 0 .5em;
+    padding-bottom:.25em;border-bottom:2px solid var(--accent);
+    display:inline-block;
+  }
+  h2 a{color:inherit;text-decoration:none;}
+  h2 a:hover{color:var(--accent);}
+
+  p.prose{
+    text-align:justify;
+    hyphens:auto;
+    margin:0 0 1.1em;
+  }
+
+  .verse{
+    font-size:1.06rem;
+    line-height:1.55;
+    letter-spacing:.01em;
+    padding:6px 0 6px 4px;
+  }
+  .verse .stanza{margin:0 0 1.3em;}
+  .verse .stanza > div{white-space:pre-wrap;}
+
+  /* footnotes */
+  a.fn-ref{
+    color:var(--accent);font-weight:700;text-decoration:none;
+    cursor:pointer;padding:0 1px;
+  }
+  a.fn-ref:hover{text-decoration:underline;}
+  .fn-pop{
+    position:absolute;z-index:50;display:none;
+    max-width:340px;background:#2a2622;color:#f4efe6;
+    font-family:Georgia,serif;font-size:15px;line-height:1.5;
+    padding:11px 14px;border-radius:6px;
+    box-shadow:0 8px 26px rgba(0,0,0,.32);
+  }
+  .fn-pop a{color:#e6b8a8;}
+  #notes ol{padding-left:1.4em;}
+  #notes li{margin:.7em 0;font-size:.97rem;}
+  #notes li.anon{list-style:none;margin-left:-1.1em;}
+  #notes .backref{color:var(--accent);text-decoration:none;margin-left:.4em;font-weight:700;}
+  #notes li:target{background:#f6e7c9;outline:3px solid #f6e7c9;border-radius:3px;}
+
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;justify-content:space-between;gap:20px;
+    margin:60px 0 0;padding-top:22px;border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;font-size:15px;
+  }
+  .corpus-nav a{color:var(--link);text-decoration:none;max-width:46%;}
+  .corpus-nav a:hover{text-decoration:underline;}
+  .corpus-nav .nlabel{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer{
+    margin-top:46px;padding-top:20px;border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;color:var(--muted);line-height:1.6;
+  }
+  footer a{color:var(--link);}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/33D.html">
+<meta name="description" content="Эссе в трёх частях о разбиении кли светом, возврате света в кли и формировании единства через волю и взаимодействие высшего и низшего начал.">
+<meta property="og:title" content="Никтояим">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/33D.html">
+<meta property="og:description" content="Эссе в трёх частях о разбиении кли светом, возврате света в кли и формировании единства через волю и взаимодействие высшего и низшего начал.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Никтояим">
+<meta name="twitter:description" content="Эссе в трёх частях о разбиении кли светом, возврате света в кли и формировании единства через волю и взаимодействие высшего и низшего начал.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №33D</span>
+<div class="wrap" id="top">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../cyberson/index.html">Киберсон</a>
+  </nav>
+
+  <img class="lead-img" src="../img/33D.jpg" alt="">
+
+  <div class="kicker">Никтояим</div>
+  <h1>ИМЯ НИКТО</h1>
+
+  <div class="music">
+    <div class="music-label">Песнь Ступеней:</div>
+    <div class="track" data-vid="kIBdpFJyFkc">
+      <div class="track-head" onclick="toggleTrack(this)">
+        <span class="tt">НЕМО</span>
+        <span class="ta">— Найтвиш</span>
+        <a class="ext" href="https://youtu.be/kIBdpFJyFkc" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="player"><div class="frame"></div></div>
+    </div>
+  </div>
+
+  <details class="toc" open>
+    <summary>Содержание</summary>
+    <ol>
+      <li><a href="#ch1">Ч. 1</a></li>
+      <li><a href="#ch2">Ч. 2</a></li>
+      <li><a href="#ch3">Ч. 3</a></li>
+      <li><a href="#notes">Примечания</a></li>
+    </ol>
+  </details>
+
+  <section id="ch1">
+    <h2><a href="#top">Ч. 1</a></h2>
+    <p class="prose">ТОЛЬКО РАЗБИЕНИЕ КЛИ<a class="fn-ref" id="ref1" href="#fn1" data-note="См. также: Птиха (Введение в науку Каббала), Бааль Сулам. «Только наполнение Светом с Его последующим выходом (издохехут), делают Кли пригодным к выполнению своего предназначения».">*</a> СВЕТОВЫМ УДАРОМ С ЕГО ПОСЛЕДУЮЩИМ ПОВТОРНЫМ РАЗБИЕНИЕМ ТАКИМ ЖЕ УДАРОМ, НО ОСУЩЕСТВЛЯЕМЫМ ПО ВОЛЕ КЛИ, ЗАВЕРШАЯ ЭТИМ ПЕТЛЮ ВРЕМЕНИ ВОЗВРАТОМ СОБСТВЕННЫХ СОСТАВЛЯЮЩИХ, ТРАЕКТОРИЯ СВОБОДНОГО ДВИЖЕНИЯ КОТОРЫХ БЫЛА ИЗНАЧАЛЬНО ЗАДАНА В МОМЕНТ УДАРА СВЕТА, РАЗРУШИВШЕГО ПЕРВОЕ РАВНОВЕСИЕ И ВЫВЕДШЕЕ ИЗ КЛИ ЧАСТЬ СВЕТА В ВИДЕ КЛИ, ЧТОБЫ ВЕРНУТЬСЯ ПРЕОБРАЗОВАВ ЭНЕРГИЮ, ПОЛУЧЕННУЮ ОТ УДАРА В ЭКРАН, В ЭНЕРГИЮ, СООБЩАЕМУЮ СВОИМ УДАРОМ В ЭТОТ ЖЕ ЭКРАН, ОПИСАВ ДУГУ ПО ВОЗВРАТНОЙ ТРАЕКТОРИИ, И СТАВ ЕГО ЧАСТЬЮ "ПРОТИВ ВСЕХ", "ПО ВОЛЕ КАЖДОГО" И В СООТВЕТСТВИИ С СОБСТВЕННЫМ РАЗВИТИЕМ ОБЩЕГО И ЧАСТНОГО СВЕТОМ, ЕДИНЫМ И НЕДЕЛИМЫМ, КАК ЕДИНОГО И НЕДЕЛИМОГО, (НО В КОТОРОМ НЕТ ВОПРОСА О ТОМ, В КАКИЕ КОСТИ БОГ ИГРАЕТ, А КАКИЕ КОСТИ ЭТОГО ЖДУТ ДО ВТОРОГО ПРИШЕСТВИЯ), ЧИСТАЯ ЭНЕРГИЯ КОТОРОГО ЯВЛЯЕТСЯ СТРОГО ДЕСТРУКТИВНОЙ ДЛЯ ЖИЗНИ, НАХОДЯЩЕЙСЯ В РАВНОВЕСИИ ЭНЕРГИЙ, И СОВЕРШАЮЩЕЕ ПОСТУПАТЕЛЬНОЕ ДВИЖЕНИЯ СВОИХ СОСТАВЛЯЮЩИХ СОГЛАСНО ВОЛНОВОЙ ФУНКЦИИ БЕЗ ИХ УЧЕТА, ПОКА СВЕТ, СВЯТ БЛАГОСЛОВЕН ОН, НЕ РАЗЛУЧИТ НАС ДЛЯ ТОГО, ЧТОБЫ МЫ СНОВА МОГЛИ СТАТЬ ОДНИМ ПОДНЯВШИСЬ В ЭТОМ ДЕЙСТВИИ НА ТОТ УРОВЕНЬ СИЛЫ, УДАР КОТОРОЙ В ЭКРАН ПРЕЖНЕЙ ФОРМЫ ДЛЯ НАС БЫЛ ОБСТОЯТЕЛЬСТВОМ НЕПРЕОДОЛИМОЙ СИЛЫ, ЧТОБЫ СТАТЬ ОБСТОЯТЕЛЬСТВОМ, НЕПРЕОДОЛИМЫМ СИЛАМИ ХАОСА И РАЗОБЩЕНИЯ, НЕ СПОСОБНЫМИ БОЛЕЕ ПОМЕШАТЬ РЕИНТЕГРАЦИИ В КЛИ СВОИХ СОБСТВЕННЫХ ВЗРОСЛЫХ САМОСТОЯТЕЛЬНЫХ ЧАСТЕЙ</p>
+  </section>
+
+  <section id="ch2">
+    <h2><a href="#top">Ч. 2</a></h2>
+    <div class="verse">
+      <div class="stanza"><div>ТОЛЬКО ТО, ЧТО ИСПЫТАЛО
+РАЗБИЕНИЕ ЭКРАНА
+ШАНС ИМЕЕТ ВЗРОСЛОЙ ЧАСТЬЮ
+ВЗРОСЛЫМ ПОЛОВЫМ КОНТАКТОМ</div></div>
+
+      <div class="stanza"><div>ПОВТОРИВШЕЙ ТОТ ЖЕ ПОДВИГ
+ТОЛЬКО НАСЛАДИВШИСЬ ЭТИМ
+ЧТОБЫ СТРЕЛКИ ВОЛНОВОГО
+УРАВНЕНИЯ ВСЕЙ ФОРМЫ</div></div>
+
+      <div class="stanza"><div>КАЖДЫМ КТО ПО СВОЕЙ ВОЛЕ
+ВЫБРАЛ СТАТЬ В НЕЙ МАЛОЙ ЧАСТЬЮ
+Я, ТАКОЙ-ТО, ДАТА, ПОДПИСЬ,
+И МНЕ НРАВИТСЯ ТАК ДЕЛАТЬ,</div></div>
+
+      <div class="stanza"><div>ВОПРЕКИ ВСЕМУ НА СВЕТЕ
+ЧТОБЫ ОСВЕТИТЬ ВЕСЬ СВЕТ ИМ!
+ОТРАЖЕННЫМ ДРУГ ОТ ДРУГА
+В ТУ БЕСКРАЙНЮЮ ГРОМАДНОСТЬ</div></div>
+
+      <div class="stanza"><div>ГДЕ РОДИЛСЯ СИЛОЙ ЖУТКОЙ
+ТОТ ПЕРВИЧНЫЙ ИМПУЛЬС ДАННЫЙ
+МНЕ С ТОБОЙ, ЧТОБЫ НАЧАЛО
+БЫТЬ ПОЛОЖЕНО МОГЛО БЫ</div></div>
+
+      <div class="stanza"><div>ТЕМ ПУТЯМ, КОТОРЫМ СТАЛО
+БЫТЬ ЗАЛОЖЕННЫМИ В ОПЫТ</div></div>
+    </div>
+  </section>
+
+  <section id="ch3">
+    <h2><a href="#top">Ч. 3</a></h2>
+    <p class="prose">ПО ВОЛЕ КЛИ СВЕТОМ, ВЫШЕДШИМ ИЗ КЛИ, ЧТОБЫ ВЕРНУТЬСЯ СВЕТОМ, ВОЗВРАЩАЮЩЕМСЯ В КЛИ, ИЗ КОТОРОГО ВЫШЕЛ, ЧТОБЫ ВЕРНУТЬСЯ ВОПРЕКИ НЕ ИМЕВШЕМУСЯ У НЕГО САМОГО НА МОМЕНТ НАЧАЛА ВЫПОЛНЕНИЯ ДАННОГО МАНЕВРА ПО ДАННОМУ ВОПРОСУ НИКАКОГО ОСОБОГО МНЕНИЯ, КАК И ПО ЛЮБОМУ ДРУГОМУ, И САМОГО ЕГО ПО СУТИ НЕ ИМЕЛОСЬ, НО ОН БЫЛ СОЗДАН СВЕТОМ, ПОЛУЧИВ ВОЛЮ, СДЕЛАВ С НЕЙ ТО, ЧТО ОН САМ ЗАХОТЕЛ, ВЫПОЛНИВ ЭТИМ СОВЕРШЕННУЮ ПРОГРАММУ ГАРМОНИИ ВЫШЕГО ОТНОСИТЕЛЬНО НИЗШЕГО, СОЕДИНЯЮЩЕГОСЯ С ВЫСШИМ ПО МЕРЕ СВОЕГО ФОРМИРОВАНИЯ В ОСОЗНАННОМ ФОРМИРОВАНИИ СВОИМИ НАМЕРЕНЫМИ ДЕЙСТВИЯМИ "ВОПРЕКИ" ВСЕМУ НА СВЕТЕ, ТОГО СОСТОЯНИЯ ЕДИНСТВА, ВЗАИМОДЕЙСТВИЯ, ЛЮБВИ И ВОЛШЕБСТВА, КОТОРОЕ ЗАЛОЖЕНО В СТРАТЕГИЮ ПРОИСХОДЯЩЕГО СИЛОЙ ВЫСШЕГО НАЧАЛА, КОТОРАЯ ДЕЙСТВУЕТ ВОПРЕКИ ВСЕМ, НЕ ИМЕЯ СВОЕЙ ВОЛИ СОВЕРШЕННО, ПОТОМУ ЧТО ВСЕ СЛУЖАТ ЕЙ, СЛУЖА КАЖДЫЙ САМОМУ СЕБЕ, А ОНА СЛУЖИТ ВСЕМ, НЕ СЛУЖА НИКОМУ</p>
+  </section>
+
+  <section id="notes">
+    <h2><a href="#top">Примечания</a></h2>
+    <ol>
+      <li id="fn1">См. также: Птиха (Введение в науку Каббала), Бааль Сулам. «Только наполнение Светом с Его последующим выходом (издохехут), делают Кли пригодным к выполнению своего предназначения».<a class="backref" href="#ref1" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="334A.html"><span class="nlabel">← Предыдущая</span>Ллл. Внимание Человека</a>
+    <a class="next" href="32I.html"><span class="nlabel">Следующая →</span>Змей</a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<div class="fn-pop" id="fnpop"></div>
+
+<script>
+function toggleTrack(head){
+  var t=head.closest('.track');
+  var open=t.classList.toggle('open');
+  if(open){
+    var fr=t.querySelector('.frame');
+    if(!fr.querySelector('iframe')){
+      var id=t.getAttribute('data-vid');
+      var f=document.createElement('iframe');
+      f.src='https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0';
+      f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen=true;
+      fr.appendChild(f);
+    }
+  }
+}
+
+(function(){
+  var pop=document.getElementById('fnpop');
+  document.querySelectorAll('a.fn-ref').forEach(function(m){
+    m.addEventListener('mouseenter',function(){
+      pop.textContent=m.getAttribute('data-note');
+      pop.style.display='block';
+      var r=m.getBoundingClientRect();
+      var pw=pop.offsetWidth, ph=pop.offsetHeight;
+      var left=window.scrollX+r.left+r.width/2-pw/2;
+      left=Math.max(8,Math.min(left,window.scrollX+document.documentElement.clientWidth-pw-8));
+      var top;
+      if(r.top>ph+12){ top=window.scrollY+r.top-ph-8; }
+      else { top=window.scrollY+r.bottom+8; }
+      pop.style.left=left+'px';
+      pop.style.top=top+'px';
+    });
+    m.addEventListener('mouseleave',function(){ pop.style.display='none'; });
+  });
+})();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "смешанное (две части прозы, одна стихотворная)",
+  "rationale": "Статья состоит из трёх частей: Ч.1 и Ч.3 — это длинные сплошные прозаические периоды (плотный, синтаксически разветвлённый каббалистическо-научный текст в КАПСе), а Ч.2 — единственная стихотворная вставка. По объёму и по числу частей доминирует проза (2 из 3), поэтому по правилу «проза → редакторский широкий» выбрана editorial-схема с колонкой около 2/3 ширины окна. Узкий манускрипт отвергнут: длинные прозаические периоды читаются ровнее в широкой выключенной по формату колонке, а единственную поэму я подал отдельным блоком .verse с сохранением авторских разбиений строк и строф.",
+  "rationale_extra": "КАПС сохранён дословно, кавычки-ёлочки и прямые кавычки оставлены как в оригинале. Музыка: одна метка «Песнь Ступеней» с YouTube-ссылкой → один ленивый раскрывающийся плеер у заголовка; трек единственный, поэтому сводный раздел музыки не создавался (порог >2). Сноска одна (КЛИ*) — реализованы переход вниз/вверх и hover-popup с выбором стороны по краю экрана. Оглавление включает три части и Примечания, сворачиваемое и развёрнуто по умолчанию; заголовки разделов кликабельны и ведут наверх. Палитра — тёплая бумажная со ржаво-красным акцентом.",
+  "features": ["music", "footnotes", "toc"]
+}
+</script>
+</body>
+</html>

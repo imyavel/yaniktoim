@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Вечный Циклик</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#1f1c18;
+    --muted:#6b6357;
+    --accent:#7a2f2a;
+    --accent2:#3a4a78;
+    --rule:#d8cfc0;
+    --hl:#fff3b0;
+    --serif:"Georgia","Times New Roman",serif;
+    --sans:"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.7;
+  }
+  .page{
+    width:min(92vw,1160px);
+    margin:0 auto;
+    padding:32px 0 80px;
+  }
+  @media(min-width:1500px){
+    .page{width:min(70vw,1240px);}
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-family:var(--sans);
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    padding-bottom:18px;
+    border-bottom:1px solid var(--rule);
+    margin-bottom:26px;
+  }
+  .crumbs a{color:var(--accent2);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 8px;color:var(--rule);}
+  /* hero image */
+  .hero{margin:0 0 30px;}
+  .hero img{display:block;max-width:100%;width:auto;height:auto;border:1px solid var(--rule);}
+  /* title */
+  h1.title{
+    font-size:2.55rem;
+    line-height:1.12;
+    margin:.1em 0 .15em;
+    font-weight:700;
+    letter-spacing:.01em;
+  }
+  .subtitle{
+    font-style:italic;
+    font-size:1.25rem;
+    color:var(--accent);
+    margin:0 0 28px;
+    line-height:1.4;
+  }
+  /* layout */
+  .content{max-width:78ch;}
+  p{margin:0 0 1.15em;}
+  h2{
+    font-family:var(--sans);
+    font-size:1.5rem;
+    letter-spacing:.04em;
+    margin:2.2em 0 .7em;
+    padding-top:.2em;
+    color:var(--accent);
+    border-top:2px solid var(--rule);
+  }
+  h2 a.to-top{color:inherit;text-decoration:none;display:block;}
+  h2 a.to-top:hover{color:var(--accent2);}
+  blockquote{
+    margin:1.2em 0;
+    padding:.4em 0 .4em 1.1em;
+    border-left:3px solid var(--accent);
+    font-style:italic;
+    color:#42382c;
+    font-size:1.12rem;
+  }
+  .emph-line{
+    font-family:var(--sans);
+    font-weight:700;
+    letter-spacing:.06em;
+    font-size:1.3rem;
+    color:var(--accent2);
+    margin:1.4em 0;
+  }
+  .attrib-name{font-style:normal;color:var(--muted);font-size:.95em;}
+  /* TOC */
+  details.toc{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    padding:.4em 1.1em;
+    margin:0 0 34px;
+    font-family:var(--sans);
+  }
+  details.toc summary{
+    cursor:pointer;
+    font-weight:700;
+    font-size:1.05rem;
+    letter-spacing:.05em;
+    color:var(--accent2);
+    padding:.3em 0;
+  }
+  details.toc ol{margin:.4em 0 .6em;padding-left:1.4em;}
+  details.toc li{margin:.25em 0;}
+  details.toc a{color:var(--ink);text-decoration:none;}
+  details.toc a:hover{color:var(--accent);text-decoration:underline;}
+  /* footnote markers */
+  sup.fn{position:relative;line-height:0;font-size:.7em;}
+  sup.fn>a{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:700;
+    padding:0 1px;
+  }
+  sup.fn>a:hover{text-decoration:underline;}
+  sup.fn .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:1.5em;
+    width:280px;
+    max-width:72vw;
+    background:#2a2620;
+    color:#f4efe6;
+    font-family:var(--sans);
+    font-size:13.5px;
+    font-style:normal;
+    line-height:1.45;
+    font-weight:400;
+    letter-spacing:.01em;
+    padding:10px 13px;
+    border-radius:6px;
+    box-shadow:0 6px 22px rgba(0,0,0,.28);
+    z-index:50;
+    text-align:left;
+    white-space:normal;
+  }
+  sup.fn .pop.below{bottom:auto;top:1.5em;}
+  sup.fn:hover .pop{display:block;}
+  /* notes */
+  .notes{font-size:.97rem;}
+  .note{
+    margin:.55em 0;
+    padding:.35em .6em;
+    border-radius:5px;
+    line-height:1.55;
+  }
+  .note .num{font-weight:700;color:var(--accent);}
+  .note a.src{color:var(--accent2);}
+  .note .back{
+    text-decoration:none;
+    color:var(--accent);
+    font-weight:700;
+    margin-right:.35em;
+  }
+  .note:target{background:var(--hl);box-shadow:0 0 0 2px var(--hl);}
+  /* music */
+  .music-label{
+    font-family:var(--sans);
+    font-size:.86rem;
+    text-transform:uppercase;
+    letter-spacing:.09em;
+    color:var(--muted);
+    margin:1.3em 0 .35em;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:6px;
+    background:var(--paper);
+    margin:.3em 0;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:.7em .9em;
+    font-family:var(--sans);
+    font-size:1rem;
+    text-align:left;
+    color:var(--ink);
+  }
+  .track-head:hover{background:#f0ead e;}
+  .track-title{font-weight:700;}
+  .track-artist{color:var(--muted);}
+  .track-icons{display:flex;align-items:center;gap:.7em;flex-shrink:0;margin-left:1em;}
+  .track-icons .arrow{transition:transform .2s;color:var(--accent);}
+  .track.open .arrow{transform:rotate(180deg);}
+  .track-icons .ext{color:var(--accent2);text-decoration:none;font-size:1.05em;}
+  .track-embed{display:none;}
+  .track.open .track-embed{display:block;}
+  .track-embed iframe{display:block;width:100%;aspect-ratio:16/9;border:0;}
+  /* music summary */
+  .music-summary .track-head{font-size:1.02rem;}
+  /* footer nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:50px;
+    padding-top:24px;
+    border-top:2px solid var(--rule);
+    font-family:var(--sans);
+  }
+  .corpus-nav a{
+    color:var(--accent2);
+    text-decoration:none;
+    max-width:46%;
+    font-size:.98rem;
+  }
+  .corpus-nav a:hover{text-decoration:underline;}
+  .corpus-nav .nav-next{text-align:right;margin-left:auto;}
+  .corpus-nav .dir{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);}
+  footer.colophon{
+    margin-top:36px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-family:var(--sans);
+    font-size:.86rem;
+    color:var(--muted);
+  }
+  footer.colophon a{color:var(--accent2);}
+  @media(max-width:640px){
+    body{font-size:17px;}
+    h1.title{font-size:2rem;}
+    .content{max-width:100%;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/341A.html">
+<meta name="description" content="Эссе в форме свободно ассоциативного письма о Кли, желании получать, каббале и циклическом раскрытии Высшего Света в восприятии человека.">
+<meta property="og:title" content="Вечный Циклик">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/341A.html">
+<meta property="og:description" content="Эссе в форме свободно ассоциативного письма о Кли, желании получать, каббале и циклическом раскрытии Высшего Света в восприятии человека.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Вечный Циклик">
+<meta name="twitter:description" content="Эссе в форме свободно ассоциативного письма о Кли, желании получать, каббале и циклическом раскрытии Высшего Света в восприятии человека.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №341A</span>
+<a id="top"></a>
+<div class="page">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>/</span><a href="../cyberson/index.html">Киберсон</a>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/341A.jpg" alt="Иллюстрация к статье «Вечный Циклик»">
+  </div>
+
+  <h1 class="title">ВЕЧНЫЙ ЦИКЛИК<sup class="fn"><a href="#n-10" id="r-10">10</a><span class="pop">ЛЛЛиелату — новое Кли, связующее Науку и Магию, З.А.А.</span></sup><a class="audio-link" href="https://t.me/art_017_tracks/328" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <p class="subtitle">«Глаз, который не видел Всесильного, но лишь тебя»<sup class="fn"><a href="#n-1" id="r-1">1</a><span class="pop">Обыкновенная Кукушка, обыкновенная Википедия, обыкновенный повседневный «этот» Мир.</span></sup></p>
+
+  <details class="toc" open>
+    <summary>Содержание</summary>
+    <ol>
+      <li><a href="#vstuplenie">Вступление</a></li>
+      <li><a href="#predislovie">Предисловие</a></li>
+      <li><a href="#dva-vida">Два вида желания</a></li>
+      <li><a href="#epigraf">Эпиграф</a></li>
+      <li><a href="#poyasneniya">Пояснения</a></li>
+      <li><a href="#muzyka">Музыка под настроение</a></li>
+      <li><a href="#ssylki">Полезные ссылки</a></li>
+    </ol>
+  </details>
+
+  <div class="content">
+
+    <p class="music-label">Музыка под настроение:</p>
+    <div class="track" data-yt="FVaavwpOWNg">
+      <button class="track-head" type="button" onclick="toggleTrack(this)">
+        <span class="track-info"><span class="track-title">Выше</span> — <span class="track-artist">НЮША</span></span>
+        <span class="track-icons"><span class="arrow">▾</span><a class="ext" href="https://youtu.be/FVaavwpOWNg" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a></span>
+      </button>
+      <div class="track-embed"></div>
+    </div>
+
+    <h2 id="vstuplenie"><a class="to-top" href="#top">ВСТУПЛЕНИЕ</a></h2>
+    <p>Господа (и Дамы), прошу не судить строго, это не заявка на строгое научное описание (во всяком случае, пока, что будет в будущем – поживем, увидим), а литературная творческая форма изложения типа «свободно ассоциативного письма» (см. фильм «Шестое чувство»), поэтому я и пометил ее категорию как «стихотворение в прозе».</p>
+
+    <p class="music-label">Музыка под настроение:</p>
+    <div class="track" data-yt="mHTx0mhRFws">
+      <button class="track-head" type="button" onclick="toggleTrack(this)">
+        <span class="track-info"><span class="track-title">Небеса</span> — <span class="track-artist">Валерий Меладзе</span></span>
+        <span class="track-icons"><span class="arrow">▾</span><a class="ext" href="https://youtu.be/mHTx0mhRFws" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a></span>
+      </button>
+      <div class="track-embed"></div>
+    </div>
+
+    <h2 id="predislovie"><a class="to-top" href="#top">ПРЕДИСЛОВИЕ</a></h2>
+    <blockquote>«Песен еще не написанных, сколько? Скажи, Кукушка. Пропой<sup class="fn"><a href="#p-1" id="pr-1">*1</a><span class="pop">«Проблема» Кукушки в том, что, если она послушается Виктора Робертовича, и таки «пропоет», то это может крайне печально закончиться полным провалом этапа гнездования…</span></sup>»</blockquote>
+    <p>Данный текст предоставляет описание ключевых вех будущего произведения мной исследования обсуждаемой проблематики, заходя в каждую предметную область конкретно и формируя этим «делая, чтобы не слышать того, чего не делаешь» - раскрытие самому себе, равно как и своей Бесконечной Живой Душе Адама Ришон, Который является тем самым «объектом реального мира», которому принадлежит, изображенный схематично по беглому наброску в тетради в момент сочинения данной статьи, глаз наблюдателя (eye of the beholder), производящего раскрытие Мира Бесконечности во времени Этого Мира разделением собственного наблюдаемого чувственного восприятия «здесь и сейчас» на две противонаправленные одновременные точки зрения «только вверх» в то время, как сами точки движутся вниз по нисходящей спирали энтропии «потерянного времени».</p>
+
+    <p class="music-label">Музыка под настроение:</p>
+    <div class="track" data-yt="F9n1m2ejGHg">
+      <button class="track-head" type="button" onclick="toggleTrack(this)">
+        <span class="track-info"><span class="track-title">Притяжения больше нет</span> — <span class="track-artist">В. Меладзе</span></span>
+        <span class="track-icons"><span class="arrow">▾</span><a class="ext" href="https://youtu.be/F9n1m2ejGHg" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a></span>
+      </button>
+      <div class="track-embed"></div>
+    </div>
+
+    <p>«Нет Света без Кли»<sup class="fn"><a href="#n-3" id="r-3">3</a><span class="pop">Введение в Науку Каббала, Бааль Сулам (Йегуда Лейб Алеви Ашлаг).</span></sup>, которое выполняет функцию Света, препятствуя и отражая Его обратно к Источнику, раскрывая при жизни Высший Свет своим чувственным происхождением в Его времени, равно как и Его происхождением в своем времени, «вернувшись, чтобы повторить», но уже осознанно и нетривиально понимая, «нафига в точности» «мне туда надо», поскольку «мне это нравится» относится к тому процессу, который уже завершился, чтобы прибыть навсегда, открыв дорогу использованию сформированного Кли (навыка преднамеренного восприятия того или иного Этого Мира посредством «точки сборки», производящей «самонастройку» сопоставлением «внутренних» и «внешних» эманаций, «состоящих из времени») его возвратно-поступательным действием Мужчины и Женщины, созданного Ими Реального Мира простого человеческого Счастья, сложнее которого нет ничего на Белом Свете (да и вообще ничего нет, кроме счастья, последовательно раскрываемого человеком и человечеством посредством его ощущаемой недостачи<sup class="fn"><a href="#n-4" id="r-4">4</a><span class="pop">Модус Операнди, З.А.А.</span></sup>, каждому в заранее выверенном объеме, порядке и качестве, воспринимаемые нами как страдание или безразличие).</p>
+
+    <p class="emph-line">СДЕЛАЕМ И УСЛЫШИМ!</p>
+
+    <p class="music-label">Музыка:</p>
+    <div class="track" data-yt="xk3BvNLeNgw">
+      <button class="track-head" type="button" onclick="toggleTrack(this)">
+        <span class="track-info"><span class="track-title">Once Again</span> — <span class="track-artist">Hang Massive</span></span>
+        <span class="track-icons"><span class="arrow">▾</span><a class="ext" href="https://youtu.be/xk3BvNLeNgw" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a></span>
+      </button>
+      <div class="track-embed"></div>
+    </div>
+
+    <h2 id="dva-vida"><a class="to-top" href="#top">ДВА ВИДА ЖЕЛАНИЯ</a></h2>
+    <p>«Желание получать» на языке «науки этого мира» называется «полем гравитации». Но ни Каббала, ни ученые «этого мира» не подозревали, что их всегда два! Если попробовать описать просто, то гравитация – это действие «аттрактора» во времени, находящегося в будущем времени, и начинающим формировать реальность «здесь и сейчас» в тот момент, когда в его «зону влияния» входит некоторая форма, скажем так, которая подобна магнитному диску, который начинает притягиваться тем «аттрактором», формируя «искривленное пространство-время», суть «искривления» которого в том, что оно формирует переход между состояниями А и Б квантово-энформационной<sup class="fn"><a href="#p-2" id="pr-2">*2</a><span class="pop">«Энформационной» = Энерго-информационной.</span></sup> системы со временем. Смысл этого перехода (кроме очевидного «здесь и сейчас») в том, что это «искривление» отражается своим происхождением в «духовном опыте» наблюдателя, то есть в «траектории» его «полета на крыльях Намерения в будущее», что делает испытанный участок эманаций его «кокона восприятия» полностью «осознанным» и готовым к реинтеграции, посредством перепросмотра и описания как порядка «абстрактных ядер безличных магических историй», в выстраиваемое магом и каббалистом Целое, в построение которого включен весь его Путь, т.к. он сам в точности подобен данному «Целому» во всем, с точностью до величины «объема энергии осознания», «культивируемой» посредством данных процессов в обоих случаях.</p>
+
+    <p class="music-label">Музыка под настроение:</p>
+    <div class="track" data-yt="tP4ExA43rRk">
+      <button class="track-head" type="button" onclick="toggleTrack(this)">
+        <span class="track-info"><span class="track-title">Magnetic Fields 2</span> — <span class="track-artist">Jean-Michel Jarre</span></span>
+        <span class="track-icons"><span class="arrow">▾</span><a class="ext" href="https://youtu.be/tP4ExA43rRk" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a></span>
+      </button>
+      <div class="track-embed"></div>
+    </div>
+
+    <h2 id="epigraf"><a class="to-top" href="#top">ЭПИГРАФ</a></h2>
+    <blockquote>«Три, три, три… Но я ведь их и так тру!» (ц) <span class="attrib-name">Виктор Марьянович Рябушкин.</span></blockquote>
+
+    <p>«ВоидОн» и «НовОид» (далее В и Н) - это локальные точки, в которых было произведено воздействие, описываемое системой событий во времени, в итоге [происхождения] которой В и Н соединяются в…</p>
+    <p>«ГравитОид», посредством возникновения устойчивой полиномиальной<sup class="fn"><a href="#n-6" id="r-6">6</a><span class="pop">Многочлен. Википедия. Этот Мир.</span></sup> (синус-косинус) формы «ТактОна» (далее Т) – это, по сути, система уравнений, описывающих имеющиеся в этой форме данные, в порядке их взаимовключения в Т, в котором обязаны перечисляться + и -.</p>
+    <p>Время – это свойство, описывающее эволюционное развитие тактонической (тиктанической) – системы последовательным происхождением во внимании наблюдателя от единого корня Кадмор, в котором не происходит ничего, кроме задания начальных условий произведением…</p>
+    <p>… размещения точечного воздействия на экран, движущейся снизу вверх, как полоса развертки в мониторах, возникает В, готовый для превращения в Т приходом Н, поскольку то время, которое происходит в собственных координатах непрерывно во времени, описывается во время происхождения от пустоты, заполненной падением наблюдателя по [нисходящей] спирали времени, во время которого скрытые (т.е. потенциальные) Силы гравитации выстраиваются в систему возвратно-поступательного движения единого экрана, активирующего системные процессы, уже производновременно…</p>
+    <p>[Везде, где последовательно происходит] …направленные вверх и вверх, но при разложении оказывающиеся противонаправленными, поскольку суть их происхождения становится пригодной для выполнения описания своей непрерывной последовательности совершением тех действий, которые составляют правильный идеальный пустоид («eye of the beholder»), с работающей подобно развертке монитора самоподдерживаемой «картины мира» (К.К.), описывающей бесконечное трансцендентное, неалгебраическое<sup class="fn"><a href="#n-8" id="r-8">8</a><span class="pop">Алгебраическое число, Википедия.</span></sup>, а квантово-аналитическое<sup class="fn"><a href="#n-9" id="r-9">9</a><span class="pop">Аналитическое продолжение, Википедия.</span></sup> наблюдаемое происхождение из Корня, находящегося на ОСИ времени, содержащей в себе нетривиальные нули<sup class="fn"><a href="#n-11" id="r-11">11</a><span class="pop">Гипотеза Римана, Википедия.</span></sup>…</p>
+
+    <p class="music-label">Музыка под настроение:</p>
+    <div class="track" data-yt="AhSzVP10dQI">
+      <button class="track-head" type="button" onclick="toggleTrack(this)">
+        <span class="track-info"><span class="track-title">Поцелуи</span> — <span class="track-artist">Виа Гра</span></span>
+        <span class="track-icons"><span class="arrow">▾</span><a class="ext" href="https://youtu.be/AhSzVP10dQI" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a></span>
+      </button>
+      <div class="track-embed"></div>
+    </div>
+
+    <p>…происхождением которых одновременно вверх и вверх, с фазовым сдвигом на два такта назад во времени обоих корней дзета-функции в двух разнонаправленных координатных системах, каждая из которых движется через прошлое, настоящее и будущее, описываемые независимо своим происхождением от обратного, но, когда оказывается выполнен последний Т времени, открывается сингулярность черной дыры во времени бесконечного неописываемого, поскольку не наблюдаемого в отрыве от того, происхождением чего в данный момент непосредственно является, раскрываясь только, в точности, в выверенные, посредством своего происхождения, моменты с нужными параметрами функции аналитической двойной спирали<sup class="fn"><a href="#n-12" id="r-12">12</a><span class="pop">Дезоксирибонуклеиновая кислота, Википедия.</span></sup> времени «известного» (К.К.), суть которого – энтропия<sup class="fn"><a href="#n-13" id="r-13">13</a><span class="pop">Энтропия, Википедия.</span></sup> до наступления хаоса<sup class="fn"><a href="#n-14" id="r-14">14</a><span class="pop">Теория хаоса, Википедия.</span></sup>, и квантовая рекомбинация посредством измерения<sup class="fn"><a href="#n-15" id="r-15">15</a><span class="pop">Измерение (квантовая механика), Википедия.</span></sup> запутанного<sup class="fn"><a href="#n-16" id="r-16">16</a><span class="pop">Квантовая запутанность, Википедия.</span></sup> объекта наблюдателем<sup class="fn"><a href="#n-17" id="r-17">17</a><span class="pop">Дискуссия Бора и Эйнштейна, Википедия.</span></sup>, производящим усовершенствование…</p>
+
+    <p class="music-label">Музыка под настроение:</p>
+    <div class="track" data-yt="Eqilin4Cv08">
+      <button class="track-head" type="button" onclick="toggleTrack(this)">
+        <span class="track-info"><span class="track-title">Chronology, Pt. 4</span> — <span class="track-artist">Jean-Michel Jarre</span></span>
+        <span class="track-icons"><span class="arrow">▾</span><a class="ext" href="https://youtu.be/Eqilin4Cv08" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a></span>
+      </button>
+      <div class="track-embed"></div>
+    </div>
+
+    <p>…Собственного периода Т, находящегося между событиями В момент превращения выполняемой части из мнимой<sup class="fn"><a href="#n-18" id="r-18">18</a><span class="pop">Мнимая единица, Википедия.</span></sup> в вещественную, и обратно, вычисляя и анализируя корни квадратного уравнения аналитического продолжения целочисленной бесконечности во времени собственными силами, выполняемого и протоколируемого изменениями метамодели Мультивселенной наблюдателем, посредством намеренного изменения пространственных гравитационных полей в данной точке, указывающим Путь своего будущего происхождения в обратном порядке, поскольку именно так оно и было произведено наблюдаемым образом, чтобы сделать дзета-функцию непрерывной функцией, производящей факторизацию больших чисел на квантово-сопряженные пары простых множителей.</p>
+
+    <h2 id="poyasneniya"><a class="to-top" href="#top">ПОЯСНЕНИЯ</a></h2>
+    <div class="notes">
+      <div class="note" id="p-1"><a class="back" href="#pr-1" title="Вернуться к тексту">↑</a><span class="num">*1</span> «Проблема» Кукушки<sup class="fn"><a href="#n-1" id="r-1b">1</a><span class="pop">Обыкновенная Кукушка, обыкновенная Википедия, обыкновенный повседневный «этот» Мир.</span></sup> в том, что, если она послушается Виктора Робертовича, и таки «пропоет», то это может крайне печально закончиться полным провалом этапа гнездования для нее самой и ее птенцов<sup class="fn"><a href="#n-5" id="r-5">5</a><span class="pop">Вылупляясь из яйца Кукушкой, З.А.А.</span></sup>, которые появляются на Свет, не имея ни имени, ни фамилии, ни семьи, ни чести, ни родины. Зато имея Жизнь, которую можно и нужно прожить. Спасибо Папе, Маме и сингулярности черной дыры, из которой только что вылупился на Свет.</div>
+      <div class="note" id="p-2"><a class="back" href="#pr-2" title="Вернуться к тексту">↑</a><span class="num">*2</span> «Энформационной» = Энерго-информационной<sup class="fn"><a href="#n-7" id="r-7">7</a><span class="pop">Дорогу Осилит Идущий. З.А.А.</span></sup>.</div>
+    </div>
+
+    <h2 id="muzyka"><a class="to-top" href="#top">МУЗЫКА ПОД НАСТРОЕНИЕ</a></h2>
+    <div class="music-summary">
+      <div class="track" data-yt="FVaavwpOWNg">
+        <button class="track-head" type="button" onclick="toggleTrack(this)">
+          <span class="track-info"><span class="track-title">Выше</span> — <span class="track-artist">НЮША</span></span>
+          <span class="track-icons"><span class="arrow">▾</span><a class="ext" href="https://youtu.be/FVaavwpOWNg" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a></span>
+        </button><div class="track-embed"></div>
+      </div>
+      <div class="track" data-yt="mHTx0mhRFws">
+        <button class="track-head" type="button" onclick="toggleTrack(this)">
+          <span class="track-info"><span class="track-title">Небеса</span> — <span class="track-artist">Валерий Меладзе</span></span>
+          <span class="track-icons"><span class="arrow">▾</span><a class="ext" href="https://youtu.be/mHTx0mhRFws" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a></span>
+        </button><div class="track-embed"></div>
+      </div>
+      <div class="track" data-yt="F9n1m2ejGHg">
+        <button class="track-head" type="button" onclick="toggleTrack(this)">
+          <span class="track-info"><span class="track-title">Притяжения больше нет</span> — <span class="track-artist">В. Меладзе</span></span>
+          <span class="track-icons"><span class="arrow">▾</span><a class="ext" href="https://youtu.be/F9n1m2ejGHg" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a></span>
+        </button><div class="track-embed"></div>
+      </div>
+      <div class="track" data-yt="xk3BvNLeNgw">
+        <button class="track-head" type="button" onclick="toggleTrack(this)">
+          <span class="track-info"><span class="track-title">Once Again</span> — <span class="track-artist">Hang Massive</span></span>
+          <span class="track-icons"><span class="arrow">▾</span><a class="ext" href="https://youtu.be/xk3BvNLeNgw" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a></span>
+        </button><div class="track-embed"></div>
+      </div>
+      <div class="track" data-yt="tP4ExA43rRk">
+        <button class="track-head" type="button" onclick="toggleTrack(this)">
+          <span class="track-info"><span class="track-title">Magnetic Fields 2</span> — <span class="track-artist">Jean-Michel Jarre</span></span>
+          <span class="track-icons"><span class="arrow">▾</span><a class="ext" href="https://youtu.be/tP4ExA43rRk" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a></span>
+        </button><div class="track-embed"></div>
+      </div>
+      <div class="track" data-yt="AhSzVP10dQI">
+        <button class="track-head" type="button" onclick="toggleTrack(this)">
+          <span class="track-info"><span class="track-title">Поцелуи</span> — <span class="track-artist">Виа Гра</span></span>
+          <span class="track-icons"><span class="arrow">▾</span><a class="ext" href="https://youtu.be/AhSzVP10dQI" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a></span>
+        </button><div class="track-embed"></div>
+      </div>
+      <div class="track" data-yt="Eqilin4Cv08">
+        <button class="track-head" type="button" onclick="toggleTrack(this)">
+          <span class="track-info"><span class="track-title">Chronology, Pt. 4</span> — <span class="track-artist">Jean-Michel Jarre</span></span>
+          <span class="track-icons"><span class="arrow">▾</span><a class="ext" href="https://youtu.be/Eqilin4Cv08" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a></span>
+        </button><div class="track-embed"></div>
+      </div>
+    </div>
+
+    <h2 id="ssylki"><a class="to-top" href="#top">ПОЛЕЗНЫЕ ССЫЛКИ</a></h2>
+    <div class="notes">
+      <div class="note" id="n-1"><a class="back" href="#r-1" title="Вернуться к тексту">↑</a><span class="num">#1:</span> Обыкновенная Кукушка, обыкновенная Википедия, обыкновенный повседневный «этот» Мир. <a class="src" href="https://ru.wikipedia.org/wiki/Обыкновенная_кукушка" target="_blank" rel="noopener">ru.wikipedia.org/wiki/Обыкновенная_кукушка</a></div>
+      <div class="note" id="n-2"><span class="num">#2:</span> Кн. Зоар, Со Мной ты в сотрудничестве, т. 1 <a class="src" href="https://imyavel.github.io/zohar-sulam/akdama/011.html" target="_blank" rel="noopener">akdama/011</a></div>
+      <div class="note" id="n-3"><a class="back" href="#r-3" title="Вернуться к тексту">↑</a><span class="num">#3:</span> Введение в Науку Каббала, Бааль Сулам (Йегуда Лейб Алеви Ашлаг).</div>
+      <div class="note" id="n-4"><a class="back" href="#r-4" title="Вернуться к тексту">↑</a><span class="num">#4:</span> <a href="26O.html">Модус Операнди</a>, З.А.А.</div>
+      <div class="note" id="n-5"><a class="back" href="#r-5" title="Вернуться к тексту">↑</a><span class="num">#5:</span> <a href="22SA.html">Вылупляясь из яйца Кукушкой</a>, З.А.А.</div>
+      <div class="note" id="n-6"><a class="back" href="#r-6" title="Вернуться к тексту">↑</a><span class="num">#6:</span> Многочлен. Википедия. Этот Мир. <a class="src" href="https://ru.wikipedia.org/wiki/Многочлен" target="_blank" rel="noopener">ru.wikipedia.org/wiki/Многочлен</a></div>
+      <div class="note" id="n-7"><a class="back" href="#r-7" title="Вернуться к тексту">↑</a><span class="num">#7:</span> <a href="32F.html">Дорогу Осилит Идущий</a>. З.А.А.</div>
+      <div class="note" id="n-8"><a class="back" href="#r-8" title="Вернуться к тексту">↑</a><span class="num">#8:</span> Алгебраическое число, Википедия <a class="src" href="https://ru.wikipedia.org/wiki/Алгебраическое_число" target="_blank" rel="noopener">ru.wikipedia.org/wiki/Алгебраическое_число</a></div>
+      <div class="note" id="n-9"><a class="back" href="#r-9" title="Вернуться к тексту">↑</a><span class="num">#9:</span> Аналитическое продолжение, Википедия <a class="src" href="https://ru.wikipedia.org/wiki/Аналитическое_продолжение" target="_blank" rel="noopener">ru.wikipedia.org/wiki/Аналитическое_продолжение</a></div>
+      <div class="note" id="n-10"><a class="back" href="#r-10" title="Вернуться к тексту">↑</a><span class="num">#10:</span> <a href="31E.html">ЛЛЛиелату - новое Кли, связующее Науку и Магию</a>, З.А.А.</div>
+      <div class="note" id="n-11"><a class="back" href="#r-11" title="Вернуться к тексту">↑</a><span class="num">#11:</span> Гипотеза Римана, Википедия <a class="src" href="https://ru.wikipedia.org/wiki/Гипотеза_Римана" target="_blank" rel="noopener">ru.wikipedia.org/wiki/Гипотеза_Римана</a></div>
+      <div class="note" id="n-12"><a class="back" href="#r-12" title="Вернуться к тексту">↑</a><span class="num">#12:</span> Дезоксирибонуклеиновая кислота, Википедия</div>
+      <div class="note" id="n-13"><a class="back" href="#r-13" title="Вернуться к тексту">↑</a><span class="num">#13:</span> Энтропия, Википедия <a class="src" href="https://ru.wikipedia.org/wiki/Энтропия" target="_blank" rel="noopener">ru.wikipedia.org/wiki/Энтропия</a></div>
+      <div class="note" id="n-14"><a class="back" href="#r-14" title="Вернуться к тексту">↑</a><span class="num">#14:</span> Теория хаоса, Википедия <a class="src" href="https://ru.wikipedia.org/wiki/Теория_хаоса" target="_blank" rel="noopener">ru.wikipedia.org/wiki/Теория_хаоса</a></div>
+      <div class="note" id="n-15"><a class="back" href="#r-15" title="Вернуться к тексту">↑</a><span class="num">#15:</span> Измерение (квантовая механика), Википедия</div>
+      <div class="note" id="n-16"><a class="back" href="#r-16" title="Вернуться к тексту">↑</a><span class="num">#16:</span> Квантовая запутанность, Википедия <a class="src" href="https://ru.wikipedia.org/wiki/Квантовая_запутанность" target="_blank" rel="noopener">ru.wikipedia.org/wiki/Квантовая_запутанность</a></div>
+      <div class="note" id="n-17"><a class="back" href="#r-17" title="Вернуться к тексту">↑</a><span class="num">#17:</span> Дискуссия Бора и Эйнштейна, Википедия <a class="src" href="https://ru.wikipedia.org/wiki/Дискуссия_Бора_и_Эйнштейна" target="_blank" rel="noopener">ru.wikipedia.org/wiki/Дискуссия_Бора_и_Эйнштейна</a></div>
+      <div class="note" id="n-18"><a class="back" href="#r-18" title="Вернуться к тексту">↑</a><span class="num">#18:</span> Мнимая единица, Википедия <a class="src" href="https://ru.wikipedia.org/wiki/Мнимая_единица" target="_blank" rel="noopener">ru.wikipedia.org/wiki/Мнимая_единица</a></div>
+    </div>
+
+  </div>
+
+  <nav class="corpus-nav">
+    <a class="nav-prev" href="532.html"><span class="dir">← Предыдущая</span>Заметки путешественника во времени</a>
+    <a class="nav-next" href="39D.html"><span class="dir">Следующая →</span>Эволюционная динамика Круга Жизни</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggleTrack(btn){
+    var t=btn.closest('.track');
+    var box=t.querySelector('.track-embed');
+    var open=t.classList.toggle('open');
+    if(open && !box.querySelector('iframe')){
+      var id=t.getAttribute('data-yt');
+      var f=document.createElement('iframe');
+      f.src='https://www.youtube.com/embed/'+id+'?rel=0';
+      f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen=true;
+      box.appendChild(f);
+    }
+  }
+  // footnote popup edge-flip
+  document.querySelectorAll('sup.fn').forEach(function(s){
+    s.addEventListener('mouseenter',function(){
+      var pop=s.querySelector('.pop');
+      if(!pop)return;
+      pop.classList.remove('below');
+      var r=s.getBoundingClientRect();
+      if(r.top<160){pop.classList.add('below');}
+    });
+  });
+  // highlight target note on jump
+  function hl(){
+    if(location.hash){
+      var el=document.querySelector(location.hash);
+      if(el&&el.classList.contains('note')){
+        document.querySelectorAll('.note').forEach(function(n){n.style.background='';});
+      }
+    }
+  }
+  window.addEventListener('hashchange',hl);
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Несмотря на авторскую помету «стихотворение в прозе», фактическая фактура текста — это сплошные длинные абзацы псевдонаучно-каббалистической прозы с разделами ВСТУПЛЕНИЕ, ПРЕДИСЛОВИЕ, ДВА ВИДА ЖЕЛАНИЯ, ЭПИГРАФ, ПОЯСНЕНИЯ и ПОЛЕЗНЫЕ ССЫЛКИ. Стихотворных строф нет, поэтому выбрана широкая редакторская схема (лонгрид, контейнер ~2/3 ширины окна, читаемая мера ~78ch), а не узкая манускриптная колонка. Палитра тёплая светлая (бумажный фон, бордовый и сине-фиолетовый акценты) — сдержанный журнальный контраст без гигантских заголовков.",
+  "rationale_note": "Развилки: в статье два аппарата сносок — числовые ссылки #1–#18 (ПОЛЕЗНЫЕ ССЫЛКИ) и звёздочные пояснения *1/*2 (ПОЯСНЕНИЯ); оба сохранены как разделы-апparat с двунаправленной навигацией и hover-popup'ами, флипающимися к нижнему краю у верха экрана. #2 (Зоар) не имеет маркера в тексте — оставлен в списке как анонимная сноска без обратной ссылки, текст не тронут. Семь YouTube-треков разбросаны одиночно, метки не дублируются подряд; так как треков больше двух, перед ПОЯСНЕНИЯ/ссылками добавлен сводный раздел «Музыка под настроение». Плееры ленивые — iframe создаётся только при раскрытии.",
+  "features": ["music", "footnotes", "toc"]
+}
+</script>
+</body>
+</html>

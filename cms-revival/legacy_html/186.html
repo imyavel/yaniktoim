@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Правило духовной работы в левой линии</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#23201b;
+    --muted:#6b6256;
+    --accent:#8a5a2b;
+    --accent-soft:#c98b4a;
+    --rule:#ddd3c2;
+    --hl:#fbeecb;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Georgia","Times New Roman",serif;
+    font-size:19px;
+    line-height:1.7;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{
+    width:66%;
+    max-width:1040px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 40px 80px;
+  }
+  @media(max-width:900px){
+    .wrap{width:100%;padding:20px 18px 60px;}
+    body{font-size:18px;}
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* Breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:24px;
+  }
+  .crumbs a{color:var(--muted);}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs .sep{margin:0 .5em;color:var(--accent-soft);}
+
+  .lead-img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    margin:0 auto 30px;
+    border:1px solid var(--rule);
+  }
+
+  h1{
+    font-size:2.05rem;
+    line-height:1.25;
+    font-weight:700;
+    margin:.2em 0 1.2em;
+    color:var(--ink);
+    letter-spacing:.01em;
+  }
+  h1::after{
+    content:"";
+    display:block;
+    width:90px;
+    height:3px;
+    background:var(--accent-soft);
+    margin-top:.55em;
+  }
+
+  p{margin:0 0 1.15em;}
+  .intro{font-size:1.06rem;}
+
+  ol.states{
+    margin:1.2em 0 1.4em;
+    padding-left:1.4em;
+  }
+  ol.states li{margin-bottom:.5em;}
+
+  .seal{
+    font-style:italic;
+    font-size:1.25rem;
+    text-align:center;
+    color:var(--accent);
+    margin:1.8em 0;
+    letter-spacing:.02em;
+  }
+
+  /* Footnote markers */
+  .fnmark{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.62em;
+    font-weight:700;
+    vertical-align:super;
+    line-height:0;
+    color:var(--accent);
+    padding:0 1px;
+    position:relative;
+    cursor:pointer;
+  }
+  h1 .fnmark{color:var(--accent-soft);}
+  .fnmark:hover{text-decoration:none;color:var(--accent-soft);}
+
+  /* Popup */
+  .fnmark .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:135%;
+    width:300px;
+    max-width:78vw;
+    background:var(--ink);
+    color:#f4eee2;
+    font-family:"Georgia",serif;
+    font-weight:400;
+    font-size:15px;
+    line-height:1.5;
+    text-align:left;
+    vertical-align:baseline;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 6px 22px rgba(0,0,0,.28);
+    z-index:50;
+  }
+  .fnmark .pop::after{
+    content:"";
+    position:absolute;
+    top:100%;left:50%;
+    transform:translateX(-50%);
+    border:7px solid transparent;
+    border-top-color:var(--ink);
+  }
+  .fnmark.below .pop{bottom:auto;top:135%;}
+  .fnmark.below .pop::after{
+    top:auto;bottom:100%;
+    border-top-color:transparent;
+    border-bottom-color:var(--ink);
+  }
+  .fnmark .pop a{color:var(--accent-soft);}
+  .fnmark:hover .pop{display:block;}
+
+  /* Notes section */
+  .notes{
+    margin-top:48px;
+    padding-top:18px;
+    border-top:2px solid var(--rule);
+  }
+  .notes h2{
+    font-size:1.25rem;
+    color:var(--accent);
+    margin:0 0 .8em;
+    letter-spacing:.02em;
+  }
+  .notes ol{
+    list-style:none;
+    margin:0;padding:0;
+    counter-reset:fn;
+  }
+  .notes li{
+    font-size:.95rem;
+    line-height:1.6;
+    color:#33302a;
+    padding:10px 12px;
+    margin-bottom:4px;
+    border-radius:5px;
+    display:flex;
+    gap:.6em;
+  }
+  .notes li .num{
+    color:var(--accent);
+    font-weight:700;
+    flex:0 0 auto;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.85rem;
+  }
+  .notes li:target{
+    background:var(--hl);
+    box-shadow:inset 0 0 0 1px var(--accent-soft);
+  }
+  .backref{
+    margin-left:.4em;
+    font-size:.9em;
+    text-decoration:none;
+  }
+
+  /* Bottom corpus nav */
+  .corpusnav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:54px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .corpusnav a{display:block;max-width:46%;}
+  .corpusnav .dir{
+    display:block;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:3px;
+  }
+  .corpusnav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:46px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:14px;
+    line-height:1.55;
+    color:var(--muted);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  footer.colophon .attrib{margin:0 0 .5em;}
+  footer.colophon a{color:var(--accent);}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/186.html">
+<meta name="description" content="Статья о правиле духовной работы в левой линии: чередование рассудка и безмолвного знания, связь понятий Каббалы и Пути Знания Кастанеды.">
+<meta property="og:title" content="Правило духовной работы в левой линии">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/186.html">
+<meta property="og:description" content="Статья о правиле духовной работы в левой линии: чередование рассудка и безмолвного знания, связь понятий Каббалы и Пути Знания Кастанеды.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Правило духовной работы в левой линии">
+<meta name="twitter:description" content="Статья о правиле духовной работы в левой линии: чередование рассудка и безмолвного знания, связь понятий Каббалы и Пути Знания Кастанеды.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №186</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <img class="lead-img" src="../img/186.jpg" alt="">
+
+  <h1>ПРАВИЛО<a class="fnmark" href="#fn-10" id="fnref-10">*10<span class="pop">Термин «Правило» происходит из «Пути Знания» Дона Хуана (КК), указывает на Высший порядок, на который мы никак не можем повлиять, и работа которого никак не зависит от наших действий, мыслей или желаний.</span></a> ДУХОВНОЙ РАБОТЫ<a class="fnmark" href="#fn-6" id="fnref-6">*6<span class="pop">Данная ступень (работа ради Творца в «левой линии» вне Круга) касается только ситуации Адама (т.е. мужчины и женщины, соединённых вместе Творцом).</span></a> В ЛЕВОЙ ЛИНИИ<a class="fnmark" href="#fn-5" id="fnref-5">*5<span class="pop">В отношении «средней линии» «правой линией» называется Наука Каббала (АРИ, Бааль Сулам и Рабаш), а «левой линией» называется Учение Дона Хуана (КК).</span></a><a class="audio-link" href="https://t.me/art_017_tracks/430" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <p class="intro">Духовная работа на Пути Творца<a class="fnmark" href="#fn-7" id="fnref-7">*7<span class="pop">На семинарах Круга Жизни происходит работа в средней линии, из которой мы не выделяем правую или левую. Следовательно, всё, что написано здесь, непосредственного отношения к работе Круга на семинарах не имеет.</span></a> происходит посредством чередования в человеке двух состояний сознания, каждое из которых происходит в нём согласно предустановленной Духом<a class="fnmark" href="#fn-4" id="fnref-4">*4<span class="pop">Понятие Каббалы Творец тождественно понятию КК Дух.</span></a> логике, и имеет свою целесообразность:</p>
+
+  <ol class="states">
+    <li>Правостороннее<a class="fnmark" href="#fn-3" id="fnref-3">*3<span class="pop">Понятия состояний сознания в п.1 и 2 Правила не связаны с определением «правой» и «левой» линии в каббале непосредственно (это понятия из «Пути знания» К. Кастанеды — КК).</span></a> состояние сознания называется рассудок.</li>
+    <li>Левостороннее состояние сознания называется безмолвное знание.</li>
+  </ol>
+
+  <p>В Каббале они определяются, как Кли и Свет. Второе состояние более объемлющее включает в себя всё, что человеку известно и как личности этого мира<a class="fnmark" href="#fn-2" id="fnref-2">*2<span class="pop">Человек идущий по Пути, не должен размышлять о том, что составляет суть Правила. Он должен всегда хранить его описание в памяти.</span></a> и как «светящемуся существу»<a class="fnmark" href="#fn-8" id="fnref-8">*8<span class="pop">Определение целостного восприятия человеческого существа, более полного, чем восприятие «физического тела» (КК).</span></a>.</p>
+
+  <p>Для первого состояния характерна сильная запутанность, и ощущение невозможности совершить действие, которое бы внесло ясность. Переключение<a class="fnmark" href="#fn-1" id="fnref-1">*1<span class="pop">Переключение между уровнями суть бхины «разбиение».</span></a> между ними производится путём совместной молитвы (катнут Целем Элоким<a class="fnmark" href="#fn-9" id="fnref-9">*9<span class="pop">Ссылка на источник: proza.ru/2021/08/05/67</span></a>).</p>
+
+  <p class="seal">Сделаем и Услышим!</p>
+
+  <section class="notes">
+    <h2 id="notes">Пояснения</h2>
+    <ol>
+      <li id="fn-1"><span class="num">*1</span><span>Переключение между уровнями суть бхины «разбиение». <a class="backref" href="#fnref-1" title="Вернуться к тексту">↩</a></span></li>
+      <li id="fn-2"><span class="num">*2</span><span>Человек идущий по Пути, не должен размышлять о том, что составляет суть Правила. Он должен всегда хранить его описание в памяти. <a class="backref" href="#fnref-2" title="Вернуться к тексту">↩</a></span></li>
+      <li id="fn-3"><span class="num">*3</span><span>Понятия состояний сознания в п.1 и 2 Правила не связаны с определением «правой» и «левой» линии в каббале непосредственно (это понятия из «Пути знания» К. Кастанеды — КК). <a class="backref" href="#fnref-3" title="Вернуться к тексту">↩</a></span></li>
+      <li id="fn-4"><span class="num">*4</span><span>Понятие Каббалы Творец тождественно понятию КК Дух. <a class="backref" href="#fnref-4" title="Вернуться к тексту">↩</a></span></li>
+      <li id="fn-5"><span class="num">*5</span><span>В отношении «средней линии» (методика Книги Зоар, которая была скрыта до самого последнего времени, и раскрывается практически раскрывающим её на ежедневных семинарах), в которой происходит духовная работа Круга Жизни, «правой линией» (то есть «в общем, вне определённого контекста») называется Наука Каббала (АРИ, Бааль Сулам и Рабаш), а «левой линией» называется Учение Дона Хуана (КК). <a class="backref" href="#fnref-5" title="Вернуться к тексту">↩</a></span></li>
+      <li id="fn-6"><span class="num">*6</span><span>Данная ступень (работа ради Творца в «левой линии» вне Круга) касается только ситуации Адама (т.е. мужчины и женщины, соединённых вместе Творцом, чтобы идти по Его Пути, по которому они идут вместе с товарищами и подругами в Круге Жизни, как один человек с одним сердцем). <a class="backref" href="#fnref-6" title="Вернуться к тексту">↩</a></span></li>
+      <li id="fn-7"><span class="num">*7</span><span>На семинарах Круга Жизни происходит работа в средней линии, из которой мы не выделяем правую или левую (кроме как по внешним признакам типа изучаемого первоисточника). Следовательно, всё, что написано здесь, непосредственного отношения к работе Круга на семинарах не имеет. <a class="backref" href="#fnref-7" title="Вернуться к тексту">↩</a></span></li>
+      <li id="fn-8"><span class="num">*8</span><span>Определение целостного восприятия человеческого существа, более полного, чем восприятие «физического тела» (КК). <a class="backref" href="#fnref-8" title="Вернуться к тексту">↩</a></span></li>
+      <li id="fn-9"><span class="num">*9</span><span><a href="11H.html">«Катнут свойства Образ Всесильного»</a> <a class="backref" href="#fnref-9" title="Вернуться к тексту">↩</a></span></li>
+      <li id="fn-10"><span class="num">*10</span><span>Термин «Правило» происходит из «Пути Знания» Дона Хуана (КК), указывает на Высший порядок, на который мы никак не можем повлиять, и работа которого никак не зависит от наших действий, мыслей или желаний. Он просто работает так, как установлено Творцом (Намерением Духа), и всё, независимо от моего «особого мнения» по этому поводу. См. также Карлос Кастанеда, Дар Орла, Правило Нагваля. <a class="backref" href="#fnref-10" title="Вернуться к тексту">↩</a></span></li>
+    </ol>
+  </section>
+
+  <nav class="corpusnav">
+    <a class="prev" href="16C.html"><span class="dir">← Предыдущая</span>Вечное сияние чистого разума</a>
+    <a class="next" href="2BT.html"><span class="dir">Следующая →</span>Новое Слово на букву К</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // Choose popup side based on viewport space
+  document.querySelectorAll('.fnmark').forEach(function(m){
+    m.addEventListener('mouseenter',function(){
+      var r=m.getBoundingClientRect();
+      if(r.top<170){m.classList.add('below');}else{m.classList.remove('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой прозаическое теоретическое наставление (определение «Правила» духовной работы с нумерованным перечнем состояний сознания и обширным аппаратом пояснений), без стихотворной формы, поэтому выбрана редакторская широкая схема с основной колонкой ~66% ширины окна. Пограничным было решение по оглавлению: фактических содержательных подразделов в тексте нет — есть единый корпус Правила и блок «Пояснения», то есть один логический раздел, поэтому TOC не добавлялся, чтобы не плодить искусственную навигацию. Десять сносок реализованы как кликабельные надстрочные маркеры с переходом вниз, обратными стрелками, подсветкой цели (:target) и hover-popup, сторона которого (сверху/снизу) выбирается по близости к верхнему краю окна. Сноска *9 — голый URL — обёрнута в ссылку. Музыкальных треков в тексте нет, поэтому music-функционал не применялся. Палитра тёплая, книжно-журнальная на светлом фоне; КАПС в заголовке и авторские кавычки сохранены.",
+  "features": ["footnotes"]
+}
+</script>
+</body>
+</html>

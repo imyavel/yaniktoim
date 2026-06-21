@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>На берегу Моря Лжи</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1d1a16;
+    --muted:#6a6258;
+    --accent:#8a3324;
+    --accent2:#b5651d;
+    --rule:#d8cfbe;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    line-height:1.7;
+    font-size:20px;
+  }
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px 80px;
+  }
+  .content{
+    width:66%;
+    max-width:820px;
+    margin:0 auto;
+  }
+  @media(max-width:900px){
+    .content{width:100%;}
+    body{font-size:18px;}
+    .wrap{padding:0 18px 60px;}
+  }
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    padding:26px 0 18px;
+    border-bottom:1px solid var(--rule);
+    margin-bottom:28px;
+  }
+  .breadcrumbs a{color:var(--accent);text-decoration:none;}
+  .breadcrumbs a:hover{text-decoration:underline;}
+  .breadcrumbs span{margin:0 .5em;color:var(--muted);}
+  /* hero image */
+  .hero{margin:0 auto 30px;text-align:center;}
+  .hero img{max-width:100%;width:auto;height:auto;display:block;margin:0 auto;border:1px solid var(--rule);}
+  h1{
+    font-size:2.15em;
+    line-height:1.18;
+    font-weight:700;
+    margin:0 0 .15em;
+    letter-spacing:-.01em;
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    color:var(--accent2);
+    margin-bottom:34px;
+    border-bottom:2px solid var(--accent);
+    display:inline-block;
+    padding-bottom:6px;
+  }
+  article p{
+    margin:0 0 1.35em;
+    text-align:justify;
+    hyphens:auto;
+  }
+  article p:first-of-type::first-letter{
+    float:left;
+    font-size:3.4em;
+    line-height:.82;
+    padding:.05em .12em 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+  /* music */
+  .music{
+    margin:48px 0 10px;
+    border-top:1px solid var(--rule);
+    padding-top:24px;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    color:var(--accent2);
+    margin-bottom:14px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    background:var(--paper);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#f0ead d;}
+  .track-arrow{
+    transition:transform .25s;
+    color:var(--accent);
+    font-size:14px;
+  }
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-title{flex:1;font-size:1.02em;}
+  .track-title b{font-weight:700;}
+  .track-title .artist{color:var(--muted);}
+  .track-ext{
+    color:var(--accent);
+    text-decoration:none;
+    font-size:1.1em;
+  }
+  .track-ext:hover{color:var(--accent2);}
+  .track-body{display:none;padding:0 16px 16px;}
+  .track.open .track-body{display:block;}
+  .track-body .frame{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    overflow:hidden;
+  }
+  .track-body iframe{
+    position:absolute;top:0;left:0;width:100%;height:100%;border:0;
+  }
+  /* footer nav */
+  .corpus-nav{
+    margin-top:60px;
+    border-top:1px solid var(--rule);
+    padding-top:26px;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .corpus-nav a{
+    color:var(--accent);
+    text-decoration:none;
+    max-width:46%;
+  }
+  .corpus-nav a:hover{text-decoration:underline;}
+  .corpus-nav .lbl{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);}
+  .corpus-nav .nx{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:48px;
+    border-top:1px solid var(--rule);
+    padding-top:22px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent);}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/332A.html">
+<meta name="description" content="Эссе о внутреннем диалоге и самообмане: как привычка называть восприятие словами я, себя, мой создаёт иллюзию объективной реальности.">
+<meta property="og:title" content="На берегу Моря Лжи">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/332A.html">
+<meta property="og:description" content="Эссе о внутреннем диалоге и самообмане: как привычка называть восприятие словами я, себя, мой создаёт иллюзию объективной реальности.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="На берегу Моря Лжи">
+<meta name="twitter:description" content="Эссе о внутреннем диалоге и самообмане: как привычка называть восприятие словами я, себя, мой создаёт иллюзию объективной реальности.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №332A</span>
+<div class="wrap">
+  <div class="content">
+
+    <nav class="breadcrumbs">
+      <a href="../index.html">Главная</a>
+      <span>›</span>
+      <a href="../confront/index.html">Конфронтология Духа</a>
+    </nav>
+
+    <div class="hero">
+      <img src="../img/332A.jpg" alt="">
+    </div>
+
+    <header>
+      <h1>На берегу Моря Лжи<a class="audio-link" href="https://t.me/art_017_tracks/449" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    </header>
+
+    <article>
+      <p>Начинать "борьбу" с явлением, которое принято называть ВД, нужно с того, чтобы убрать привычное оголтелое вранье "себе и людям", которое включено в "человеческую форму" любого повседневного нахождения "в своей тарелке" (лицом вниз). Вранье о том, чем является тот процесс "реального мира", с которым мы имеем дело. Точнее, вранье о том, каким образом происходит то, что этим процессом называется, "внутренний" "диалог" с "собой" (себя, наверное, с собой?)</p>
+
+      <p>Вранье, если быть точнее. О том, что у человека является "безмолвном знанием", которое НИКОГДА не облачается в слова, которыми "он" "описывает" "мир". Знанием того, что под этим описанием, являющимся выдающимся образчиком работы "мира слов", т.е. "внутренний диалог" (себя с собой в своей голове). А именно, говоря "себя", "собой", "свой", "мой", "мне", "свой", "личный". И т.д. Человек активно забывает себя делающим этот набор символов в точности чем-либо "твердым и объективно существующим" в "его" мыслительной инвентаризации и рациональной классификации реальности того, что "реально" происходит, реально поскольку оно имеет очень конкретные следствия, которые в действительности являются его "порождениями", и ветвями, следствиями, внешними частями, "потомками", "ступенями", "проектами". В то же самое время обладая "дополнительной", более "примитивной" по качеству реальности своей реальности, но, тем не менее, реальной настолько, насколько это вообще возможно, в сознании тех, кто включен в эту реальность намерением "первого кольца Силы" здесь и сейчас. "Я мыслю, следовательно, существую".</p>
+
+      <p>Кроме того, что "свой, себе" это простой глюк, который путем упрямой закоренелой беспричинной лжи самому себе, точнее, действия запрета помнить о том, что сам себе это и далает здесь и сейчас, посредством этого же действия, осуществляемого "вопреки" самому себе, который это действие отражает обратно к тому, от кого оно к нему отразилось обратно, как от зеркала. Суть и смысл этого действия в том, что отказываясь от осознания (осмысления) некоторой порции (кванта) восприятия, человек (магической частью себя) делает действие, которое, кроме того, что человек безупречно и окончательно выполняет команду "забыть" (тупо о том факте, что он это действие делает, делая это по своей свободной воле в результате выбора делать то, что делает, без всяких зачем и почему), превращает отраженный с Источнику Свет, но отраженный скрытым от самого себя образом, в ощущение, неосмысливаемое, но "опытно реальное", которое далее получает наименование "ярлык" - "я, себя, собой".</p>
+    </article>
+
+    <section class="music">
+      <div class="music-label">Музыка под настроение</div>
+      <div class="track" id="track1">
+        <div class="track-head" onclick="toggleTrack(this)">
+          <span class="track-arrow">▶</span>
+          <span class="track-title"><b>Гимн Шута</b> <span class="artist">— Король и Шут</span></span>
+          <a class="track-ext" href="https://youtu.be/-DCJM7oe05c" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+        </div>
+        <div class="track-body">
+          <div class="frame" data-src="https://www.youtube.com/embed/-DCJM7oe05c"></div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="corpus-nav">
+      <a href="2CQ.html"><span class="lbl">← Предыдущая</span>Пролетая над гнездом Кукушки</a>
+      <a class="nx" href="332B.html"><span class="lbl">Следующая →</span>Вопрос на 1кк</a>
+    </nav>
+
+    <footer class="colophon">
+      <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+function toggleTrack(head){
+  var track=head.parentElement;
+  var open=track.classList.toggle('open');
+  if(open){
+    var frame=track.querySelector('.frame');
+    if(frame && !frame.querySelector('iframe')){
+      var src=frame.getAttribute('data-src');
+      var ifr=document.createElement('iframe');
+      ifr.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      ifr.setAttribute('allowfullscreen','');
+      ifr.src=src+'?autoplay=1';
+      frame.appendChild(ifr);
+    }
+  }
+}
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст представляет собой плотную философско-эзотерическую прозу-рассуждение о «внутреннем диалоге» и природе самоотождествления — три длинных сплошных абзаца без стихотворной разбивки и без членения на подразделы. Это однозначно прозаическая форма, поэтому выбрана редакторская широкоформатная схема: широкий контейнер с основной колонкой контента около 2/3 ширины (с ограничением комфортной меры строки до ~820px), буквица на первом абзаце и выключка по ширине для журнального лонгрид-характера.\n\nОглавление не делалось: в тексте нет ни одного внутреннего подзаголовка/подраздела, а оглавление требуется только при более чем одном подразделе. Сносок в тексте нет. Единственная музыкальная метка «Музыка под настроение» с одним YouTube-треком («Гимн Шута» — Король и Шут) оформлена как свёрнутый плеер с ленивой подгрузкой iframe только при раскрытии и значком внешней ссылки ↗; сводный раздел музыки не создавался, так как трек всего один (порог — более двух). Палитра — тёплая бумажная (светлый фон) с терракотово-охристым акцентом, поддерживающим «манускриптно-исповедальный» тон при сохранении редакторской подачи. Кавычки, регистр КАПС (НИКОГДА) и авторские опечатки («далает», «с Источнику») сохранены дословно.",
+  "features": ["music"]
+}
+</script>
+</body>
+</html>

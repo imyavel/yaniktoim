@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Чмоки, черти!</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fbf9f3;
+    --ink:#1f1b16;
+    --muted:#6f655a;
+    --accent:#9a3412;
+    --accent2:#1d4e63;
+    --line:#ddd3c2;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+  }
+  .wrap{
+    width:66%;
+    max-width:980px;
+    min-width:0;
+    margin:0 auto;
+    padding:48px 28px 80px;
+  }
+  @media (max-width:900px){
+    .wrap{width:100%;max-width:680px;padding:32px 20px 64px;}
+    body{font-size:19px;}
+  }
+  a{color:var(--accent2);text-decoration:none;border-bottom:1px solid rgba(29,78,99,.3);}
+  a:hover{border-bottom-color:var(--accent2);}
+
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:36px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:14px;
+  }
+  .breadcrumbs a{color:var(--muted);border:none;}
+  .breadcrumbs a:hover{color:var(--accent);}
+  .breadcrumbs .sep{margin:0 .5em;opacity:.5;}
+
+  h1{
+    font-size:42px;
+    line-height:1.12;
+    font-weight:700;
+    margin:0 0 36px;
+    letter-spacing:-.01em;
+  }
+  @media (max-width:900px){h1{font-size:33px;}}
+
+  .lead-tag{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:600;
+    display:block;
+    margin-bottom:10px;
+  }
+
+  p{margin:0 0 1.35em;}
+  .intro{
+    font-style:italic;
+    color:#33291f;
+  }
+  .intro .key{font-style:normal;font-weight:700;}
+
+  .refs{
+    margin:30px 0;
+    padding:16px 22px;
+    border-left:3px solid var(--accent);
+    background:var(--paper);
+    font-size:18px;
+    color:var(--muted);
+  }
+  .refs p{margin:.25em 0;}
+
+  .ps{
+    margin-top:42px;
+    padding-top:26px;
+    border-top:1px solid var(--line);
+  }
+
+  /* music player */
+  .music{
+    margin:34px 0;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  .track{
+    border:1px solid var(--line);
+    background:var(--paper);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#f1ece0;}
+  .track-arrow{
+    transition:transform .2s ease;
+    font-size:13px;
+    color:var(--accent);
+    flex:0 0 auto;
+  }
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-title{flex:1 1 auto;font-size:18px;}
+  .track-title .by{color:var(--muted);font-style:italic;}
+  .track-ext{
+    flex:0 0 auto;
+    color:var(--muted);
+    border:none;
+    font-size:18px;
+  }
+  .track-ext:hover{color:var(--accent);}
+  .track-body{display:none;background:#000;}
+  .track.open .track-body{display:block;}
+  .track-body .frame{
+    position:relative;
+    width:100%;
+    padding-bottom:56.25%;
+    height:0;
+  }
+  .track-body iframe{
+    position:absolute;top:0;left:0;width:100%;height:100%;border:0;
+  }
+
+  .emoji{font-style:normal;}
+
+  /* nav bottom */
+  .pager{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:60px;
+    padding-top:26px;
+    border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .pager a{
+    display:block;
+    max-width:48%;
+    border:none;
+    font-size:16px;
+  }
+  .pager .dir{
+    display:block;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .pager .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:54px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    font-size:15px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--muted);}
+  footer.colophon .attrib{margin:0 0 .6em;}
+  footer.colophon .license{margin:0;}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/44Q.html">
+<meta name="description" content="Эссе-размышление о том, как одарённые дети будущего будут создавать собственный ИИ, растущий вместе с ними, со ссылками на Хроники Амбера и книгу Зоар.">
+<meta property="og:title" content="Чмоки, черти!">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/44Q.html">
+<meta property="og:description" content="Эссе-размышление о том, как одарённые дети будущего будут создавать собственный ИИ, растущий вместе с ними, со ссылками на Хроники Амбера и книгу Зоар.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Чмоки, черти!">
+<meta name="twitter:description" content="Эссе-размышление о том, как одарённые дети будущего будут создавать собственный ИИ, растущий вместе с ними, со ссылками на Хроники Амбера и книгу Зоар.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №44Q</span>
+<div class="wrap">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../cyberson/index.html">Киберсон</a>
+  </nav>
+
+  <h1>Чмоки, черти!<a class="audio-link" href="https://t.me/art_017_tracks/321" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <div class="music">
+    <div class="music-label">Музыка под настроение</div>
+    <div class="track" id="track1">
+      <div class="track-head" onclick="toggleTrack('track1')">
+        <span class="track-arrow">▶</span>
+        <span class="track-title">Return of the Warlord — <span class="by">ManOwaR</span></span>
+        <a class="track-ext" href="https://www.youtube.com/watch?v=HrhLTBdaZf8" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="track-body">
+        <div class="frame" data-src="https://www.youtube-nocookie.com/embed/HrhLTBdaZf8"></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="intro"><span class="key">В двух словах:</span> если сейчас особенно одаренные дети создают в 8-9 лет "пару компьютерных игр", то через Хсот лет, они будут создавать [в этом же возрасте] свой искусственный интеллект. Причем не какую-то копию уже имеющегося известного алгоритма, давно уже ни для кого не являющегося новостью, и поэтому благополучно забытую сразу же после создания, получив от каких то там взрослых перцев, родителей или учителей, "пятерку" и куклу с мороженым, а таким, который будет растим и развиваться вместе с ними на протяжении всей их жизни (ничего не напоминает?). Поскольку будет построен по тем же самым принципам, которыми построена жизнь человека этого мира, в его связи физического тела, являющегося "простым" биороботом, созданным эволюцией МП (Мамой с Папой, сиречь Материальной Природой), со старшей духовной сущностью, Которая Спит, когда человек ходит ногами и говорит ртом (=Которая Зрит, когда человек Спит). И этот Принцип в общем и целом носит название Маасе Берешит, и его невозможно описать понятийным языком, поскольку он сам является тем, что делает понятийный язык понятным для своего дальнейшего описания тем, кем он будет в последствии написан, и первым шагом является именно действие (Маасе), совершаемое им самим в начале (Берешит), действие это связано с тем, что тебе предлагается взрослыми, и тебе это действительно нравится, ты проявляешь интерес, и вступаешь на первую линию Лабиринта, а далее уже ты идешь по ней по инерции, и свернуть не сможешь, пока не дойдешь до конца, который аз есмь вложен в начало. То есть до центра, и далее найдешь себе "отражение" по своему вкусу, сказав озадаченно смотрящей на пороге у входа, Маме с Папой<span class="emoji">:-)</span> "чпоки, черти! Амбер будет разрушен! (каменьев нема) <span class="emoji">:D</span>"</p>
+
+  <div class="refs">
+    <p>См. Цикл книг Хроники Амбера (Роджер Желязны)</p>
+    <p>См. Книга Зоар, том 1, Предисловия</p>
+  </div>
+
+  <p class="ps"><strong>П.С.</strong> Таким образом, вместо того, чтобы как сейчас в школах изучать зубрешкой кучу второй свежести фактов о науках Мира, дети "особо продвинутые" будут изучать на собственном опыте того, как работает конструктивный механизм построения ДНК-РНК (который лежит в основе всех наук и их процессов реального мира, равно как и много другого) на собственном опыте встраивания в систему ИИ, основанного на взаимодействии с самим ребенком, для того, чтобы эта система начала работать освоением для ребенка определенной области Келим (механизмов, инструментов, институтов) Этого Мира, которыми ребенок сможет управлять (уже не ребенок) как самим собой, становясь Принцем Амбера, способным управлять "отражениями" посредством мысли, поскольку вопрос управления техникой посредством мысли, это вопрос на определенном уровне соц иерархии уже решенный и использующийся, но еще не ставший общеизвестным и распространенным, поскольку его раскрытие дает слишком большие и очевидные последствия для всего социума, которые невозможно точно спрогнозировать и которыми невозможно управлять. А то, чем невозможно управлять, это анархия, хаос и разрушение всего, построенного за долгие годы. Никто кроме Дворкиных на такую идею согласиться не может, поэтому Дворкины сидят взаперти, в подземных пещерах этих самых "определенных уровней" и чертят схемы (карты) нового Будущего, наступление которого еще не наступило, но обязательно наступит, правда чем, кому и на что наступит, никому конкретно еще неизвестно. Кроме того, который наступит. Точнее того у него, чем он наступит, когда наступит, понятно куда(на что) и понятно кому(всему сразу).</p>
+
+  <nav class="pager">
+    <a class="prev" href="246.html">
+      <span class="dir">← Предыдущая</span>
+      Сияние Утренней Звезды
+    </a>
+    <a class="next" href="15D.html">
+      <span class="dir">Следующая →</span>
+      7-е О. П. Комплексная модель ТС
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggleTrack(id){
+    var t=document.getElementById(id);
+    var isOpen=t.classList.toggle('open');
+    if(isOpen){
+      var frame=t.querySelector('.frame');
+      if(frame && !frame.querySelector('iframe')){
+        var iframe=document.createElement('iframe');
+        iframe.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        iframe.setAttribute('allowfullscreen','');
+        iframe.src=frame.getAttribute('data-src')+'?autoplay=1';
+        frame.appendChild(iframe);
+      }
+    }
+  }
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст представляет собой связное прозаическое эссе-размышление (две больших абзацных глыбы плюс блок отсылок и постскриптум), стихотворных форм нет — поэтому выбрана редакторская широкоформатная схема, колонка ~66% ширины окна с разумным max-width для удержания комфортной меры строки. Манускриптная узкая полоса отвергнута как предназначенная для стихов и поэм. Палитру взял тёплую кремово-бумажную со светлым фоном и двумя контрастными акцентами (терракота для меток/акцентов, синий для ссылок), засечный Georgia для тела и гротеск для служебных надписей, чтобы выделить навигацию и музыкальную метку.",
+  "rationale_note": "",
+  "extra": "Один-единственный музыкальный трек (YouTube) оформлен свёрнутым ленивым плеером с iframe, подгружаемым только при раскрытии; сводный раздел музыки не делал, так как трек один (порог — более двух). Сносок и подразделов нет, поэтому оглавление и аппарат примечаний не создавались. Авторские глифы :-) , :D и кавычки сохранены дословно, КАПС и написания вроде 'чпоки/чмоки' оставлены как в исходнике.",
+  "features": ["music"]
+}
+</script>
+</body>
+</html>

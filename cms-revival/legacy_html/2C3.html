@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ДНА — По воле каждого</title>
+<style>
+  :root{
+    --ink:#1d1a16;
+    --paper:#f7f3ea;
+    --paper2:#fffdf7;
+    --rule:#d9cfb8;
+    --accent:#8a5a2b;
+    --accent2:#9c2b2b;
+    --muted:#6b6255;
+    --link:#6a4520;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Georgia","Iowan Old Style","Times New Roman",serif;
+    line-height:1.7;
+    font-size:19px;
+  }
+  .wrap{
+    width:min(66vw,1080px);
+    margin:0 auto;
+    padding:36px 28px 80px;
+  }
+  @media(max-width:1100px){
+    .wrap{width:auto;max-width:760px;}
+  }
+  @media(max-width:680px){
+    body{font-size:18px;}
+    .wrap{padding:20px 16px 60px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.82rem;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:24px;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 .5em;color:#bbae93;}
+
+  .lead-img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    margin:0 auto 30px;
+    border:1px solid var(--rule);
+    box-shadow:0 2px 14px rgba(60,40,10,.12);
+  }
+
+  h1{
+    font-size:2.05rem;
+    line-height:1.2;
+    font-weight:700;
+    margin:.2em 0 1.1em;
+    letter-spacing:.005em;
+    color:#231f19;
+  }
+  h1 .marker{font-size:1rem;}
+
+  .epigraph{
+    font-style:italic;
+    color:#3c362c;
+    border-left:3px solid var(--accent);
+    background:var(--paper2);
+    padding:14px 22px;
+    margin:0 0 34px;
+    font-size:1.02rem;
+  }
+  .epigraph .ep-label{
+    display:block;
+    font-style:normal;
+    font-variant:small-caps;
+    letter-spacing:.05em;
+    color:var(--accent2);
+    font-size:.9rem;
+    margin-bottom:.5em;
+  }
+
+  p{margin:0 0 1.15em;}
+  .speaker{font-weight:700;color:var(--accent2);}
+
+  a.inline{color:var(--link);}
+
+  /* footnote markers */
+  sup.fn{
+    font-size:.62em;
+    vertical-align:super;
+    line-height:0;
+  }
+  sup.fn a{
+    color:var(--accent2);
+    text-decoration:none;
+    font-weight:700;
+    padding:0 1px;
+  }
+  sup.fn a:hover{text-decoration:underline;}
+
+  /* popup */
+  #fn-pop{
+    position:absolute;
+    z-index:50;
+    max-width:360px;
+    background:#2a2014;
+    color:#f4ead2;
+    font-size:.86rem;
+    font-style:normal;
+    line-height:1.5;
+    padding:10px 13px;
+    border-radius:6px;
+    box-shadow:0 6px 22px rgba(0,0,0,.35);
+    display:none;
+    pointer-events:none;
+  }
+  #fn-pop a{color:#e8b97a;}
+
+  /* music */
+  .music{
+    margin:34px 0;
+    border:1px solid var(--rule);
+    background:var(--paper2);
+    border-radius:8px;
+    padding:16px 18px;
+  }
+  .music-label{
+    font-variant:small-caps;
+    letter-spacing:.06em;
+    color:var(--accent2);
+    font-size:.95rem;
+    margin-bottom:10px;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+    cursor:pointer;
+  }
+  .track-toggle{
+    border:1px solid var(--rule);
+    background:#f0e7d3;
+    color:var(--accent);
+    width:26px;height:26px;
+    border-radius:50%;
+    font-size:.8rem;
+    cursor:pointer;
+    flex:0 0 auto;
+    transition:transform .2s;
+  }
+  .track.open .track-toggle{transform:rotate(90deg);}
+  .track-name{font-weight:700;}
+  .track-artist{color:var(--muted);}
+  .track-ext{margin-left:auto;color:var(--accent);text-decoration:none;font-size:1.05rem;}
+  .track-player{margin-top:12px;display:none;}
+  .track.open .track-player{display:block;}
+  .track-player iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:6px;}
+
+  /* notes */
+  .notes{
+    margin-top:50px;
+    border-top:2px solid var(--rule);
+    padding-top:22px;
+  }
+  .notes h2{
+    font-size:1.3rem;
+    color:var(--accent2);
+    margin:0 0 .8em;
+  }
+  ol.fnlist{padding-left:1.6em;margin:0;}
+  ol.fnlist li{
+    margin-bottom:.85em;
+    font-size:.94rem;
+    line-height:1.6;
+    color:#3a342b;
+  }
+  ol.fnlist li:target{
+    background:#fbe6b8;
+    box-shadow:0 0 0 6px #fbe6b8;
+    border-radius:3px;
+  }
+  .backref{
+    margin-left:.4em;
+    color:var(--accent);
+    text-decoration:none;
+    font-size:.85em;
+  }
+  .backref:hover{text-decoration:underline;}
+  .fnlist a{color:var(--link);word-break:break-word;}
+
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:54px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.9rem;
+  }
+  .corpus-nav a{
+    color:var(--accent);
+    text-decoration:none;
+    max-width:46%;
+  }
+  .corpus-nav a:hover{text-decoration:underline;}
+  .corpus-nav .lbl{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:.82rem;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent);}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/2C3.html">
+<meta name="description" content="Диалог Нипна и Анибе о переходной точке в Круге Жизни, преодолении себя и следовании Пути по воле Творца.">
+<meta property="og:title" content="ДНА — По воле каждого">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/2C3.html">
+<meta property="og:description" content="Диалог Нипна и Анибе о переходной точке в Круге Жизни, преодолении себя и следовании Пути по воле Творца.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ДНА — По воле каждого">
+<meta name="twitter:description" content="Диалог Нипна и Анибе о переходной точке в Круге Жизни, преодолении себя и следовании Пути по воле Творца.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №2C3</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>›</span><a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <img class="lead-img" src="../img/2C3.jpg" alt="Иллюстрация к статье">
+
+  <h1>ДНА<sup class="fn"><a id="ref-1" href="#fn-1">1</a></sup>: ПО ВОЛЕ КАЖДОГО<a class="audio-link" href="https://t.me/art_017_tracks/383" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <div class="epigraph">
+    <span class="ep-label">Эпиграф<sup class="fn"><a id="ref-11" href="#fn-11">11</a></sup>:</span>
+    ...то, что нравится творению, всегда доставляет наслаждение Творцу, поскольку именно Он совершает выбор, предваряющий выбор, в то время, когда человек поднимает молитву, предваряющую молитву, и в этом выборе Он всегда выбирает для человека то, что ему нравится, чтобы человек, поднимая об этом молитву<sup class="fn"><a id="ref-13" href="#fn-13">13</a></sup>, мог следовать Пути, который ведет в никуда, по велению Сердца, которое ничего не чувствует, как если бы он шел по этому Пути, выполняя Заповедь свободного выбора
+  </div>
+
+  <p><span class="speaker">Нипна:</span> Здесь мы прошли, Милостью Творца<sup class="fn"><a id="ref-4" href="#fn-4">4</a></sup>, Свят Благословен Он<sup class="fn"><a id="ref-8" href="#fn-8">8</a></sup>, определенную "реперную точку", как мне это видится. Ну, то есть, переходную, понятно, да? Больше как "Кли" даже, чем как ты и я конкретно. И в этой точке...</p>
+
+  <p>Знаешь, Круг Жизни<sup class="fn"><a id="ref-9" href="#fn-9">9</a></sup> - это такая уникальная "структура", в которой каждый из участвующих, должен участвовать, как бы, "против самого себя". Будучи убежденным в том, что "выхода у него нет", но, тем не менее, он это делает, он это делает строго против<sup class="fn"><a id="ref-2" href="#fn-2">2</a></sup> самого себя. И у каждого [из участвующих] эта точка переходная была<sup class="fn"><a id="ref-5" href="#fn-5">5</a></sup>. У меня она была [всю] предыдущую неделю, когда у меня, "из-за форума" (то есть, это была "проверка" Духа на самом деле, это понятно, да?)...</p>
+
+  <p>Ну, Милостью Творца, Свят Благословен Он, я эту проверку прошел - когда у меня "закончились" "полеты на Крыльях Намерения"<sup class="fn"><a id="ref-7" href="#fn-7">7</a></sup>. Причем, все выходило так, как если бы я "принес в жертву" эти "полеты" работе на форуме<sup class="fn"><a id="ref-12" href="#fn-12">12</a></sup>. То есть, работе Творца, Свят Благословен Он, на которую меня, Творец, Свят Благословен Он, достаточно очевидным образом "направил".</p>
+
+  <p>И у каждого/каждой возникает возникает вот такая вот "точка", в которой он преодолевает себя<sup class="fn"><a id="ref-6" href="#fn-6">6</a></sup>, продолжая просто делать то, что должен, то, - что он решил делать, - и продолжает это делать [даже] "вопреки самому себе". То есть, это [похоже на] "спусковой механизм", который потом "выстреливает" всех и каждого туда, "куда Ему/ему надо". Творцу, Свят Благословен Он, [равно как] и человеку, конечно же, "этого Мира"<sup class="fn"><a id="ref-3" href="#fn-3">3</a></sup>.</p>
+
+  <div class="music">
+    <div class="music-label">Песнь Ступеней<sup class="fn"><a id="ref-10" href="#fn-10">10</a></sup>:</div>
+    <div class="track" data-yt="_zlVnbM4xFA">
+      <div class="track-head">
+        <button class="track-toggle" aria-label="Раскрыть плеер">▸</button>
+        <span class="track-name">You know, you're acting like you don't know</span>
+        <span class="track-artist">— Eminem vs 50 Cent</span>
+        <a class="track-ext" href="https://www.youtube.com/watch?v=_zlVnbM4xFA" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="track-player"></div>
+    </div>
+  </div>
+
+  <section class="notes">
+    <h2>Пост Скриптум</h2>
+    <ol class="fnlist">
+      <li id="fn-1" value="1">ДНА = Диалоги Нипна и Анибе. См. также: <a href="18AA.html">Один день из жизни дельфинов</a> <a class="backref" href="#ref-1">↩</a></li>
+      <li id="fn-2" value="2">См. также: "...которая состоит функционально из эманаций X, Y и Я, которые можно указывать в параметрах "команды Орла", только эта команда не переводится на "естественный язык" разума как "настроить то-то и то-то", а переводится как "забыть про то-то и то-то", что является тем же самым, что "опосредовать настройку Я по комплементарному принципу, заблокировав X и Y, чтобы получить *** - XY = Я на выходе".": <a href="247.html">Конфронтология [Самовоспроисхождения Человеческого] Духа</a>, а также: "...разума и воли, также проходящих непростой и нелегкий процесс соединения и самососуществования в человеке и человечестве, осуществляемый посредством конфронтологической взаимообусловленности своего одновременного самовоспроисхождения с человеком, получающим опыт жизни этого мира посредством, осознанного разумом, чувственного восприятия, осуществляемого посредством воли, опосредованной конкретным намеренным действием "здесь и сейчас" выполняемым полностью "от обратного".": <a href="2BK.html">Парадок Создателя</a> <a class="backref" href="#ref-2">↩</a></li>
+      <li id="fn-3" value="3">См. также: <a href="26O.html">Модус Операнди</a> <a class="backref" href="#ref-3">↩</a></li>
+      <li id="fn-4" value="4">См. также: <a href="221.html">Один, Единственный, Единый</a> <a class="backref" href="#ref-4">↩</a></li>
+      <li id="fn-5" value="5">См. также: <a href="2BI.html">Письмо Нипна к Анибе</a>, №228111 <a class="backref" href="#ref-5">↩</a></li>
+      <li id="fn-6" value="6">См. также: <a href="1BP.html">Ни там ни тут</a> <a class="backref" href="#ref-6">↩</a></li>
+      <li id="fn-7" value="7">См. также: См. также:  <a href="239.html">Мечтай</a>!! <a class="backref" href="#ref-7">↩</a></li>
+      <li id="fn-8" value="8">См. также: <a href="2AE.html">Страх Творца, Свят Благословен Он</a> <a class="backref" href="#ref-8">↩</a></li>
+      <li id="fn-9" value="9">См. также: <a href="16J.html">Только Ты будешь жить вечно</a> <a class="backref" href="#ref-9">↩</a></li>
+      <li id="fn-10" value="10">См. также: Песнь Ступеней <a href="2BG.html">«П-е-с-н-ь C-т-у-п-е-н-е-й»</a> <a class="backref" href="#ref-10">↩</a></li>
+      <li id="fn-11" value="11">См. также: <a href="185.html">Забывая о Любви к Себе</a> <a class="backref" href="#ref-11">↩</a></li>
+      <li id="fn-12" value="12">См. также: Ветка "В Круге Жизни" (форум Учения ЛЛ) <a href="http://ccastaneda.ru/viewtopic.php?id=3308">http://ccastaneda.ru/viewtopic.php?id=3308</a> <a class="backref" href="#ref-12">↩</a></li>
+      <li id="fn-13" value="13">См. также: <a href="11H.html">Катнут "Образа Всесильного</a>" ЦЕЛЕМ Элоким <a class="backref" href="#ref-13">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="17M.html"><span class="lbl">← Предыдущая</span>Способный ученик</a>
+    <a class="next" href="5BP.html"><span class="lbl">Следующая →</span>Гром и Молния</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<div id="fn-pop"></div>
+
+<script>
+// lazy music player
+document.querySelectorAll('.track').forEach(function(tr){
+  var head=tr.querySelector('.track-head');
+  head.addEventListener('click',function(e){
+    if(e.target.classList.contains('track-ext'))return;
+    var open=tr.classList.toggle('open');
+    var ph=tr.querySelector('.track-player');
+    if(open && !ph.querySelector('iframe')){
+      var id=tr.getAttribute('data-yt');
+      var f=document.createElement('iframe');
+      f.src='https://www.youtube.com/embed/'+id+'?autoplay=1';
+      f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen=true;
+      ph.appendChild(f);
+    }
+  });
+});
+
+// footnote popups
+var pop=document.getElementById('fn-pop');
+document.querySelectorAll('sup.fn a').forEach(function(a){
+  a.addEventListener('mouseenter',function(){
+    var id=a.getAttribute('href').slice(1);
+    var body=document.getElementById(id);
+    if(!body)return;
+    var clone=body.cloneNode(true);
+    var br=clone.querySelector('.backref'); if(br)br.remove();
+    pop.innerHTML=clone.innerHTML;
+    pop.style.display='block';
+    var r=a.getBoundingClientRect();
+    var pw=pop.offsetWidth, ph=pop.offsetHeight;
+    var sx=window.scrollX, sy=window.scrollY;
+    var left=r.left+sx + r.width/2 - pw/2;
+    left=Math.max(8+sx,Math.min(left,sx+document.documentElement.clientWidth-pw-8));
+    var top;
+    if(r.top - ph - 10 < 0){ top=r.bottom+sy+8; }      // not enough room above -> below
+    else { top=r.top+sy - ph - 8; }                    // above
+    pop.style.left=left+'px';
+    pop.style.top=top+'px';
+  });
+  a.addEventListener('mouseleave',function(){ pop.style.display='none'; });
+});
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст представляет собой прозаический диалог/эссе (формат ДНА — «Диалоги Нипна и Анибе») с эпиграфом, авторскими репликами и обширным аппаратом сносок «Пост Скриптум»; стихотворных строк нет, поэтому выбрана редакторская широкая схема, а не узкий манускрипт. Колонка задана как min(66vw,1080px) — около двух третей экрана на десктопе и полная ширина на мобильных, чтобы соблюсти требование широкого лонгрида при сохранении читаемой меры строки. Палитра — тёплая кремовая бумага с коричнево-кирпичными акцентами под «учительский» религиозно-философский тон; КАПС в заголовке и звёздочки-маркеры сохранены дословно.",
+  "rationale_note": "Оглавление не делалось: связных подразделов больше одного нет — есть единый поток реплик, эпиграф и постскриптум-сноски. Музыкальный трек один (Песнь Ступеней, YouTube), поэтому сводный раздел музыки не создавался — только встроенный ленивый раскрывающийся плеер на своём месте; метка «Песнь Ступеней» несёт также сноску *10. Все 13 сносок имеют тела и обратные ссылки, реализованы popup при наведении (над маркером, либо под ним у верхней кромки окна) и подсветка целевой сноски.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>

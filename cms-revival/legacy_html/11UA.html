@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Есть Зоар и есть Роза</title>
+<style>
+  :root{
+    --bg:#fbfaf6;
+    --ink:#211d19;
+    --muted:#6b635a;
+    --accent:#8a1c2b;
+    --accent-soft:#b9476a;
+    --rule:#e3ddd2;
+    --card:#f4efe5;
+    --hl:#fff3c4;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"PT Serif",Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1060px;
+    margin:0 auto;
+    padding:34px 28px 90px;
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    letter-spacing:.02em;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:22px;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 8px;color:#b8b0a4;}
+  .lead-img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    margin:0 auto 30px;
+    border:1px solid var(--rule);
+    border-radius:3px;
+  }
+  h1{
+    font-family:"Segoe UI Semibold","Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:40px;
+    line-height:1.16;
+    font-weight:700;
+    letter-spacing:-.01em;
+    margin:.1em 0 .15em;
+    color:#16120e;
+  }
+  .dateline{
+    font-family:"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:16px;
+    font-style:italic;
+    color:var(--muted);
+    margin:0 0 26px;
+    padding-bottom:22px;
+    border-bottom:2px solid var(--accent);
+  }
+  h2{
+    font-family:"Segoe UI Semibold","Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:25px;
+    font-weight:700;
+    letter-spacing:.01em;
+    margin:48px 0 6px;
+    color:var(--accent);
+    cursor:pointer;
+    scroll-margin-top:16px;
+  }
+  h2 .anchorhint{
+    font-size:14px;
+    color:#c7bfb2;
+    font-weight:400;
+    opacity:0;
+    transition:opacity .2s;
+  }
+  h2:hover .anchorhint{opacity:1;}
+  h2::after{
+    content:"";
+    display:block;
+    width:54px;height:3px;
+    background:var(--accent-soft);
+    margin-top:10px;border-radius:2px;
+  }
+  p{margin:0 0 1.15em;text-align:justify;hyphens:auto;}
+  a{color:var(--accent);}
+  /* TOC */
+  .toc{
+    background:var(--card);
+    border:1px solid var(--rule);
+    border-left:4px solid var(--accent);
+    border-radius:4px;
+    padding:6px 22px 18px;
+    margin:0 0 40px;
+  }
+  .toc summary{
+    font-family:"Segoe UI Semibold","Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:16px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+    cursor:pointer;
+    padding:10px 0;
+    list-style:none;
+  }
+  .toc summary::-webkit-details-marker{display:none;}
+  .toc summary::before{content:"▾ ";color:var(--accent);}
+  .toc[open] summary::before{content:"▴ ";}
+  .toc ol{margin:6px 0 0;padding-left:22px;}
+  .toc li{margin:7px 0;font-family:"Segoe UI",Helvetica,Arial,sans-serif;font-size:17px;}
+  .toc a{text-decoration:none;}
+  .toc a:hover{text-decoration:underline;}
+  /* references list */
+  .refs{list-style:none;padding:0;margin:.4em 0 0;}
+  .refs li{
+    padding:10px 0;
+    border-bottom:1px dotted var(--rule);
+    font-family:"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:17px;
+  }
+  .refs li:last-child{border-bottom:none;}
+  .refs .src{color:var(--muted);}
+  /* music */
+  .music-label{
+    font-family:"Segoe UI Semibold","Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--accent);
+    margin:30px 0 8px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:6px;
+    background:#fff;
+    margin:0 0 10px;
+    overflow:hidden;
+  }
+  .track summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 16px;
+    font-family:"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .track .tri{color:var(--accent);transition:transform .2s;font-size:13px;}
+  .track[open] .tri{transform:rotate(90deg);}
+  .track .meta{flex:1;}
+  .track .t-name{font-weight:600;color:#16120e;}
+  .track .t-art{color:var(--muted);font-size:15px;}
+  .track .ext{
+    color:var(--muted);text-decoration:none;font-size:18px;
+    padding:2px 6px;border-radius:4px;
+  }
+  .track .ext:hover{background:var(--card);color:var(--accent);}
+  .player{padding:0 16px 16px;}
+  .player .frame{
+    position:relative;width:100%;padding-bottom:56.25%;height:0;
+    border-radius:5px;overflow:hidden;background:#000;
+  }
+  .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+  /* footnote ref */
+  .fnref{
+    color:var(--accent);
+    font-weight:700;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:.85em;
+    vertical-align:super;
+    line-height:0;
+    padding:0 1px;
+  }
+  .fnref:hover{color:var(--accent-soft);}
+  #fnpop{
+    position:absolute;
+    z-index:50;
+    max-width:360px;
+    background:#2a241d;
+    color:#f6f0e4;
+    font-family:"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:15px;
+    line-height:1.5;
+    padding:12px 15px;
+    border-radius:7px;
+    box-shadow:0 8px 26px rgba(0,0,0,.28);
+    display:none;
+    pointer-events:none;
+  }
+  .target-hl{
+    animation:hl 2.4s ease;
+  }
+  @keyframes hl{
+    0%,40%{background:var(--hl);}
+    100%{background:transparent;}
+  }
+  /* bottom nav */
+  .pager{
+    display:flex;justify-content:space-between;gap:18px;
+    margin:60px 0 0;padding-top:24px;border-top:1px solid var(--rule);
+    font-family:"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  .pager a{
+    text-decoration:none;display:block;max-width:46%;
+    color:var(--accent);
+  }
+  .pager .dir{display:block;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px;}
+  .pager .next{text-align:right;margin-left:auto;}
+  footer{
+    margin-top:48px;padding-top:22px;border-top:1px solid var(--rule);
+    font-family:"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:14.5px;color:var(--muted);line-height:1.6;
+  }
+  footer a{color:var(--accent);}
+  @media(max-width:860px){
+    body{font-size:18px;}
+    .wrap{width:100%;max-width:100%;padding:22px 18px 70px;}
+    h1{font-size:31px;}
+    p{text-align:left;}
+    .pager a{max-width:100%;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/11UA.html">
+<meta name="description" content="Эссе о структуре каббалистического мироздания: парцуфы Ацилута, Зеир Анпин, наложение тфилин и роль молитвы в соединении ступеней Творения.">
+<meta property="og:title" content="Есть Зоар и есть Роза">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/11UA.html">
+<meta property="og:description" content="Эссе о структуре каббалистического мироздания: парцуфы Ацилута, Зеир Анпин, наложение тфилин и роль молитвы в соединении ступеней Творения.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Есть Зоар и есть Роза">
+<meta name="twitter:description" content="Эссе о структуре каббалистического мироздания: парцуфы Ацилута, Зеир Анпин, наложение тфилин и роль молитвы в соединении ступеней Творения.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №11UA</span>
+<div class="wrap" id="top">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>›</span><a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <img class="lead-img" src="../img/11UA.jpg" alt="">
+
+  <h1>ЕСТЬ ЗОАР И ЕСТЬ РОЗА<a class="audio-link" href="https://t.me/art_017_tracks/540" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <p class="dateline">Записано 30.01.21 в Круге Жизни</p>
+
+  <details class="toc" open>
+    <summary>Содержание</summary>
+    <ol>
+      <li><a href="#nalozhenie">Наложение тфилин</a></li>
+      <li><a href="#seealso">См. Также</a></li>
+    </ol>
+  </details>
+
+  <p>“От них”, А”Й и А”А, Атика и Нуквы Атика, “отпечатались все парцуфы Ацилута”, то есть 4 мира: Ацилут, Брия, Ецира, Асия, Имя Творца АВАЯ, 6 парцуфов или 6 сфирот Зеир Анпина (“крохотный лик” Творца, то есть “катнут”, “маленькое” состояние роста, формирования и развития творений, которые хотят “вырасти” и стать такими же, как Тот, Кто их создал, и Кто им помогает расти и развиваться), или Адам Ришон (душа, подобная Творцу), или “этот мир”, или Круг Жизни.</p>
+
+  <p>“Они” – это Мужчина, Женщина, и их дети, “которые от них отпечатались”, то есть от того, как они стали Захаром и Нуквой, чтобы породить “этот мир”, “создав человека по образу и подобию своему”, который должен будет (когда пройдет свое формирования от зачатия до завершения взрослого состояния на протяжении 6000=20*30 лет) “предварить слышание действием”, чтобы, подобно им, относиться с милосердием друг к другу, и перед которым будут трепетать все животные “этого мира”… Хесед, Гвура, Тиферет – Мужчина, Женщина, Круг Жизни. Потому что Тиферет снова становится Биной, чтобы передавать Свет Творца в “этот мир”, для того, чтобы восполниться, посредством «наложения тфилин»<a class="fnref" href="#nalozhenie" data-note="Молитва – это Есод. Сфира Есод – это молитва, и это – средняя линия. Поскольку это то общее, что «тонкой красной нитью» соединяет все ступени в Мироздании… (см. раздел «Наложение тфилин»).">**</a>, то есть соединяясь с Высшей ступенью в виде МАН и МАД, чтобы получить Свет для “этого мира”, которым Творец захотел насладить созданные Им “из ничего” создания, “в высшем образе Адама Ришон”: “И СОТВОРИЛ ВСЕСИЛЬНЫЙ ЧЕЛОВЕКА В ОБРАЗЕ ЕГО – это и есть этот образ, его содержание, суть и смысл. Уподобление по свойствам Творцу происходит посредством совершения практического действия, совершаемого Творцом в тот момент, когда Он создает человека, который будет наполнять Светом “этот мир”, реализуя Его Благословенный Замысел… Да будет так вовеки вечные, как хочет Святой Повелитель, чтобы было, Амен ве Амен.</p>
+
+  <div class="music-label">Рекомендуемая музыка</div>
+  <details class="track" data-yt="TLGWQfK-6DY">
+    <summary>
+      <span class="tri">▶</span>
+      <span class="meta"><span class="t-name">It's Like That</span> <span class="t-art">— Run DMC</span></span>
+      <a class="ext" href="https://www.youtube.com/watch?v=TLGWQfK-6DY" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </summary>
+    <div class="player"><div class="frame" data-loaded="0"></div></div>
+  </details>
+
+  <h2 id="nalozhenie" onclick="toTop(event)">НАЛОЖЕНИЕ ТФИЛИН <span class="anchorhint">↑ наверх</span></h2>
+
+  <p>Молитва – это Есод. Сфира Есод – это молитва, и это – средняя линия. Поскольку это то общее, что “тонкой красной нитью” соединяет все ступени в Мироздании – те, которые давно ушли, слившись Милостью Благословенного со Светом Бесконечности в “подобии свойств”, те, которые сегодня населяют Землю, приобретая опыт развития “от своего образования, и до завершения взрослого состояния (гадлут), формирование которого не прекращается на протяжении 20х30 лет”, и те, которых Земля еще ждет в бесконечном грядущем, поскольку Колесо Времени, Зеир Анпин, Круг Жизни (в отличие от самого “времени”, которое по нему “крутится”, и “жизни” в узком понимании какого-либо процесса) никогда не начинало Свой ход, чтобы никогда его не заканчивать. То, что не имеет начала, не может быть завершено, в этом смысл существования времени – и именно это «начало» – единственное, что было создано “из ничего Творцом”, “сократившим Себя в центральной точке, Малхут”, в результате чего «появился» Я, и стал активно “плодиться и размножаться”, “размножившись”, к настоящему моменту, до 7.5 млрд - как им и было “заповедано” Творцом, который тоже «появился», естественно, потому что Творец – это неизбежное следствие возникновения творений, также как зла не существует без добра, святости без клипот, Света без тьмы, «получения» без отдачи, Учителя без учеников, полицейского без преступников и т.п.</p>
+
+  <p>Сделаем (объединимся в Круге, где совместно участвуют мужчины и женщины, не согласные оставаться на уровне “человека этого мира”, но желающие подняться на уровень “Творца этого мира”) и услышим (поймем и почувствуем, что “благ Творец”, раскроем Свет Любви и Жизни посредством практических ежедневных семинаров), ТОЛЬКО ВМЕСТЕ, МЫ – СИЛА!</p>
+
+  <div class="music-label">Рекомендуемая музыка</div>
+  <details class="track" data-yt="ysjU4Ztx2Ow">
+    <summary>
+      <span class="tri">▶</span>
+      <span class="meta"><span class="t-name">Не отступай</span> <span class="t-art">— ТНК</span></span>
+      <a class="ext" href="https://www.youtube.com/watch?v=ysjU4Ztx2Ow" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </summary>
+    <div class="player"><div class="frame" data-loaded="0"></div></div>
+  </details>
+
+  <h2 id="seealso" onclick="toTop(event)">См. Также <span class="anchorhint">↑ наверх</span></h2>
+  <ul class="refs">
+    <li><span class="src">Книга Зоар (перуш Сулам), Том 1</span></li>
+    <li><a href="https://imyavel.github.io/zohar-sulam/akdama/001.html" target="_blank" rel="noopener">РОЗА, ЗОАР</a></li>
+    <li><a href="https://imyavel.github.io/zohar-sulam/akdama/029.html" target="_blank" rel="noopener">Заповедь девятая</a></li>
+    <li><a href="https://imyavel.github.io/zohar-sulam/akdama/030.html" target="_blank" rel="noopener">Заповедь десятая</a></li>
+    <li><a href="11H.html">Катнут свойства «ЦЕЛЕМ Элоким</a></li>
+  </ul>
+
+  <nav class="pager">
+    <a class="prev" href="163A.html"><span class="dir">← Предыдущая</span>Онтология единства человеческой Души 2</a>
+    <a class="next" href="2A9.html"><span class="dir">Следующая →</span>Давай представим этот мир другим</a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<div id="fnpop"></div>
+
+<script>
+  function toTop(e){
+    // клик по тексту заголовка возвращает наверх
+    e.preventDefault();
+    document.getElementById('top').scrollIntoView({behavior:'smooth'});
+  }
+
+  // ленивые YouTube-плееры
+  document.querySelectorAll('.track').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open){
+        var f=d.querySelector('.frame');
+        if(f.getAttribute('data-loaded')==='0'){
+          var id=d.getAttribute('data-yt');
+          var ifr=document.createElement('iframe');
+          ifr.src='https://www.youtube-nocookie.com/embed/'+id+'?rel=0';
+          ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          ifr.allowFullscreen=true;
+          f.appendChild(ifr);
+          f.setAttribute('data-loaded','1');
+        }
+      }
+    });
+  });
+
+  // всплывающая сноска
+  var pop=document.getElementById('fnpop');
+  document.querySelectorAll('.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      pop.textContent=ref.getAttribute('data-note');
+      pop.style.display='block';
+      var r=ref.getBoundingClientRect();
+      var pw=pop.offsetWidth, ph=pop.offsetHeight;
+      var left=r.left+window.scrollX+r.width/2-pw/2;
+      left=Math.max(10,Math.min(left,window.scrollX+document.documentElement.clientWidth-pw-10));
+      var top;
+      if(r.top>ph+14){ top=r.top+window.scrollY-ph-10; }
+      else { top=r.bottom+window.scrollY+10; }
+      pop.style.left=left+'px';
+      pop.style.top=top+'px';
+    });
+    ref.addEventListener('mouseleave',function(){pop.style.display='none';});
+    ref.addEventListener('click',function(){
+      var t=document.getElementById('nalozhenie');
+      t.classList.remove('target-hl');void t.offsetWidth;t.classList.add('target-hl');
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — каббалистический прозаический комментарий-медитация (толкование структуры миров, парцуфов, темы наложения тфилин), а не стих или поэма, поэтому выбрана редакторская широкая схема: основная колонка занимает ~2/3 ширины окна с ограничением max-width для комфортной меры строки, на мобильном — полная ширина. Серифный наборный шрифт для основного текста дан под медленное вдумчивое чтение, гротеск — для заголовков и служебных элементов; палитра светлая с винно-красным акцентом, перекликающимся с темой «Розы».\nГлавная развилка — трактовка двойного маркера «**»: внутритекстовое «наложения тфилин**» и одноимённый блок «НАЛОЖЕНИЕ ТФИЛИН», начинавшийся с «**». Я решил оставить «НАЛОЖЕНИЕ ТФИЛИН» полноценным разделом (он несёт самостоятельный объёмный текст и музыку), а парный «**» оформить как сносочную ссылку с popup-подсказкой и переходом вниз к этому разделу с подсветкой; ведущий «**» у слова «Молитва» убран как технический парный маркер. Музыкальных ссылок ровно две (обе YouTube, метка «Рекомендуемая музыка»), поэтому сводный раздел не создавался — плееры стоят на своих местах, ленивая загрузка iframe только при раскрытии; хвостовые «...» в URL отброшены как мусор импорта. Оглавление сделано из двух озаглавленных разделов (заголовки кликабельно возвращают наверх), блок «См. Также» оформлен списком ссылок."
+}
+</script>
+</body>
+</html>

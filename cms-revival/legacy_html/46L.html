@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Стенограмма 4 Урока 2 по статье Шамати 3</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#23201b;
+    --muted:#6c655a;
+    --accent:#7a2e2e;
+    --accent2:#1f5d5b;
+    --rule:#ddd5c6;
+    --pop:#2c2820;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:68vw;
+    max-width:1140px;
+    min-width:auto;
+    margin:0 auto;
+    padding:0 28px 80px;
+  }
+  @media (max-width:1000px){
+    .wrap{width:100%;}
+    body{font-size:18px;}
+  }
+  a{color:var(--accent2);text-decoration:none;border-bottom:1px solid rgba(31,93,91,.35);}
+  a:hover{border-bottom-color:var(--accent2);}
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:26px 0 18px;
+    border-bottom:1px solid var(--rule);
+    margin-bottom:30px;
+  }
+  .crumbs a{color:var(--muted);border:none;}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs span{margin:0 .5em;color:var(--rule);}
+
+  /* head meta */
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    font-size:13px;
+    color:var(--accent);
+    margin-bottom:14px;
+  }
+  h1{
+    font-size:38px;
+    line-height:1.18;
+    font-weight:700;
+    margin:.1em 0 .35em;
+    letter-spacing:-.01em;
+  }
+  @media (max-width:1000px){h1{font-size:30px;}}
+  .standfirst{
+    font-size:21px;
+    color:var(--muted);
+    font-style:italic;
+    line-height:1.5;
+    margin:0 0 26px;
+    max-width:44em;
+  }
+  .meta-card{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-left:4px solid var(--accent2);
+    padding:18px 24px;
+    margin:0 0 38px;
+    font-size:16.5px;
+    line-height:1.6;
+    max-width:46em;
+  }
+  .meta-card p{margin:.35em 0;}
+  .meta-card .lbl{font-family:"Helvetica Neue",Arial,sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);}
+
+  /* TOC */
+  .toc{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:3px;
+    padding:8px 22px 18px;
+    margin:0 0 44px;
+    max-width:40em;
+  }
+  .toc summary{
+    cursor:pointer;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    font-size:14px;
+    color:var(--accent);
+    padding:10px 0;
+    list-style:none;
+  }
+  .toc summary::-webkit-details-marker{display:none;}
+  .toc summary::before{content:"▾ ";}
+  .toc[open] summary::before{content:"▾ ";}
+  .toc:not([open]) summary::before{content:"▸ ";}
+  .toc ol{margin:.4em 0 0;padding-left:1.3em;}
+  .toc li{margin:.35em 0;}
+  .toc a{color:var(--ink);border:none;}
+  .toc a:hover{color:var(--accent);}
+
+  h2{
+    font-size:26px;
+    line-height:1.25;
+    margin:2.2em 0 .7em;
+    padding-bottom:.25em;
+    border-bottom:2px solid var(--rule);
+    cursor:pointer;
+  }
+  h2 a.anchor-self{color:inherit;border:none;}
+  h2 a.anchor-self:hover{color:var(--accent);}
+
+  p{margin:0 0 1.15em;}
+  .speaker{font-weight:700;color:var(--accent);font-style:normal;}
+  .ed{color:var(--muted);}
+
+  /* music */
+  .music-block{margin:26px 0 30px;max-width:44em;}
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    font-size:13px;
+    color:var(--accent2);
+    margin-bottom:10px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    background:var(--paper);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    cursor:pointer;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+  }
+  .track-head .arrow{transition:transform .2s;color:var(--accent);font-size:13px;}
+  .track.open .track-head .arrow{transform:rotate(90deg);}
+  .track-head .t-title{font-weight:600;}
+  .track-head .t-art{color:var(--muted);}
+  .track-head .ext{margin-left:auto;color:var(--muted);border:none;font-size:18px;}
+  .track-body{display:none;padding:0 18px 16px;}
+  .track.open .track-body{display:block;}
+  .track-body .frame{position:relative;padding-bottom:56.25%;height:0;border-radius:4px;overflow:hidden;background:#000;}
+  .track-body iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+  /* abbreviations */
+  .abbr-list{columns:2;column-gap:40px;max-width:40em;font-size:17px;}
+  @media(max-width:680px){.abbr-list{columns:1;}}
+  .abbr-list div{break-inside:avoid;margin:.2em 0;}
+  .abbr-list b{color:var(--accent);}
+
+  /* footnotes */
+  .fn-ref{font-size:.72em;line-height:0;position:relative;}
+  .fn-ref > a{
+    color:var(--accent);
+    border:none;
+    font-weight:700;
+    padding:0 1px;
+  }
+  .fn-pop{
+    position:absolute;
+    left:50%;
+    bottom:1.6em;
+    transform:translateX(-50%);
+    width:300px;
+    max-width:74vw;
+    background:var(--pop);
+    color:#f4efe4;
+    font-size:14.5px;
+    line-height:1.5;
+    font-weight:400;
+    font-style:normal;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 8px 26px rgba(0,0,0,.28);
+    opacity:0;
+    visibility:hidden;
+    transition:opacity .15s;
+    z-index:40;
+    pointer-events:none;
+    text-align:left;
+  }
+  .fn-pop a{color:#9fd8d4;}
+  .fn-ref:hover .fn-pop{opacity:1;visibility:visible;}
+  .fn-ref.below .fn-pop{bottom:auto;top:1.6em;}
+
+  .notes{max-width:46em;font-size:17px;}
+  .notes .note{
+    display:flex;
+    gap:12px;
+    padding:12px 12px;
+    border-bottom:1px solid var(--rule);
+    scroll-margin-top:20px;
+    border-radius:4px;
+    transition:background .4s;
+  }
+  .notes .note:target{background:#fff4d6;}
+  .notes .note .num{color:var(--accent);font-weight:700;flex:0 0 auto;}
+  .notes .note .body{flex:1;}
+  .notes .back{border:none;color:var(--muted);margin-left:6px;}
+
+  /* prev/next */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    margin:60px 0 0;
+    padding-top:28px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    flex:1 1 0;
+    border:1px solid var(--rule);
+    border-radius:5px;
+    padding:14px 18px;
+    background:var(--paper);
+    color:var(--ink);
+  }
+  .corpus-nav a:hover{border-color:var(--accent2);}
+  .corpus-nav .dir{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px;}
+  .corpus-nav .nx{text-align:right;}
+
+  footer{
+    margin-top:46px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    font-size:14.5px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer a{color:var(--muted);}
+  .skip{font-style:italic;color:var(--muted);}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/46L.html">
+<meta name="description" content="Стенограмма четвёртой части второго урока по статье Бааль Сулама Шамати 3 о сути духовного постижения, с пояснениями ведущих Элиягу Бар Малея и Бины Анеле.">
+<meta property="og:title" content="Стенограмма 4 Урока 2 по статье Шамати 3">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/46L.html">
+<meta property="og:description" content="Стенограмма четвёртой части второго урока по статье Бааль Сулама Шамати 3 о сути духовного постижения, с пояснениями ведущих Элиягу Бар Малея и Бины Анеле.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Стенограмма 4 Урока 2 по статье Шамати 3">
+<meta name="twitter:description" content="Стенограмма четвёртой части второго урока по статье Бааль Сулама Шамати 3 о сути духовного постижения, с пояснениями ведущих Элиягу Бар Малея и Бины Анеле.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №46L</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>/</span><a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <div class="kicker">Стенограмма урока · Шамати 3</div>
+  <h1 id="top">Стенограмма 4 Урока 2 по статье Шамати 3<a class="audio-link" href="https://t.me/art_017_tracks/352" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <p class="standfirst">Суть духовного постижения. По статье благословенного праведника и мудреца Каббалы Йегуды Лейб Алеви Ашлага (Бааль Сулам).</p>
+
+  <div class="meta-card">
+    <p><span class="lbl">Телеграм-канал</span> Путь Восходящей Звезды — <a href="https://t.me/binazone" target="_blank" rel="noopener">t.me/binazone</a></p>
+    <p><span class="lbl">Урок</span> 02.06.2024 по статье Шамати 3 «Суть духовного постижения»</p>
+    <p><span class="lbl">Ведущие</span> Элиягу Бар Малей и Бина Анеле</p>
+    <p><span class="lbl">Ссылка на урок</span> <a href="https://t.me/binazone/499" target="_blank" rel="noopener">t.me/binazone/499</a></p>
+    <p><span class="lbl">Часть 1</span> <a href="462.html" target="_blank" rel="noopener">«Стенограмма 1 Урока 2 по статье Шамати 3»</a></p>
+    <p><span class="lbl">Часть 2</span> <a href="463.html" target="_blank" rel="noopener">«Стенограмма 2 Урока 2 по статье Шамати 3»</a></p>
+    <p><span class="lbl">Часть 3</span> <a href="464.html" target="_blank" rel="noopener">«Стенограмма 3 Урока 2 по статье Шамати 3»</a></p>
+  </div>
+
+  <details class="toc" open>
+    <summary>Содержание</summary>
+    <ol>
+      <li><a href="#part4">Часть 4 (15:06 – 20:20)</a></li>
+      <li><a href="#abbr">Список сокращений</a></li>
+      <li><a href="#notes">См. также (примечания)</a></li>
+    </ol>
+  </details>
+
+  <h2 id="part4"><a class="anchor-self" href="#top">Часть 4 <span class="ed">(15:06 – 20:20)</span></a></h2>
+
+  <div class="music-block">
+    <div class="music-label">Музыка под настроение:</div>
+    <div class="track" data-yt="-6Xl9tBWt54">
+      <div class="track-head">
+        <span class="arrow">▶</span>
+        <span class="t-title">Hard Rock Halleluja</span>
+        <span class="t-art">— Lordi</span>
+        <a class="ext" href="https://www.youtube.com/watch?v=-6Xl9tBWt54" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="track-body"></div>
+    </div>
+  </div>
+
+  <p><span class="speaker">БА:</span> Да... Она, как бы, реагирует быстрее, чем соображает сама собака <span class="ed">[см. конец предыдущей части Стенограммы – комм. ЭБМ]</span>.</p>
+
+  <p>Тогда такой вопрос. Если мы говорим о том, что Высшее управление находится в мире Асия, и оно, как бы, относится к плану управляющей формы, управляющей системой ее является «Ситра Ахра», то... То есть, получается, что само «желание», оно должно... Человек... Вот, я не могу [это выразить], мне не поддается...</p>
+
+  <p><span class="speaker">ЭБМ:</span> Я тебе скажу, во-первых, что «Ситра Ахра» (СА) - это слишком сложное для нас явление <span class="ed">[чтобы выразить его – комм. ЭБМ]</span>, оно действительно сложное объективно, потому что, это не просто «одно напротив другого <span class="ed">[создал Творец, Свят Благословен Он, см. Книгу Зоар, первый том – комм. ЭБМ]</span>», вот например, как я и ты, да? Мы находимся в состоянии «одно напротив другого создал Творец, Свят Благословен Он». Т.е. «Мужчиной и Женщиной Он создал их <span class="ed">[см. «9 заповедь<sup class="fn-ref" id="ref1"><a href="#fn1">1</a><span class="fn-pop">9 заповедь, Заповеди Торы, Книга Зоар, том 1 — <a href="https://imyavel.github.io/zohar-sulam/akdama/029.html" target="_blank" rel="noopener">akdama/029</a></span></sup>, Заповеди Торы, там же – комм. ЭБМ]</span>».</p>
+
+  <p>И, по сути, в «обычном» нашем состоянии сознания (СС), - потому, что мы, как «взрослые» каббалисты, находимся попеременно и в «обычном», и в «повышенном» СС. И «на двух ногах» идем по этому Пути, посредством перемены <span class="ed">[попеременного нахождения в СС – комм. ЭБМ]</span> двух этих фаз. Или «позиций точки сборки (ТС)». Ну, это, в принципе, описано Карлосом Кастанедой (КК) достаточно доступно, у него это называется «обычным» и «повышенным» сознанием, да? И я те же самые термины использую.</p>
+
+  <p>Ну вот... То, в «обычном СС» мы друг для друга являемся вот этим самым явлением, которое называется СА, то есть «помощь от обратного».</p>
+
+  <p><span class="speaker">БА:</span> Угу.</p>
+
+  <p><span class="speaker">ЭБМ:</span> Да? Это называется «сотворил Творец, Свят Благословен Он, женщину для человека ‘Эзер ке-Негдо’ – в помощь против тебя»<sup class="fn-ref" id="ref2"><a href="#fn2">2</a><span class="fn-pop">Чем помогает Творец, СБ”О, мужчине-каббалисту в духовной работе, ЭБМ — <a href="https://adam.fandom.com/ru/wiki/Эзер_кенегдо" target="_blank" rel="noopener">adam.fandom.com</a></span></sup>.</p>
+
+  <p><span class="speaker">БА:</span> Угу.</p>
+
+  <p><span class="speaker">ЭБМ:</span> Вот. И, соответственно, для женщины, мужчина – он <span class="ed">[она - комм. ЭБМ]</span> тоже служит тем же самым инструментом, только «наоборот»<sup class="fn-ref" id="ref3"><a href="#fn3">3</a><span class="fn-pop">Комм. ЭБМ: что такое в данном случае это «наоборот» (потому я его и выделил здесь кавычками), это совсем не интуитивно [понятно] очевидно человеку, будь он мужчина или женщина (хоть я и не женщина [в повседневном СС, о котором идет речь - комм. ЭБМ], чтобы говорить, что знаю точно).</span></sup>.</p>
+
+  <p><span class="speaker">БА:</span> Угу.</p>
+
+  <p><span class="speaker">ЭБМ:</span> В повышенном СС это уже не так, в повышенном СС мы уже, как бы, дополняем друг друга до единого целого, и осознаем наше единство, и знаем, на самом деле, его огромную ценность, и огромное благословение того, что мы в этой форме находимся. Потому, что иначе у нас бы не было никакого движения вперед вообще. Как у человека, у которого одна нога, он далеко не упрыгает на этой ноге.</p>
+
+  <p>Но, на самом деле, если говорить более масштабно, потому что мы являемся просто «экземпляром», так сказать, более широкого, гораздо более, как бы, объемного явления, которое называется «душа Адама Ришон» (АР) или «человечество», да? То, СА – это система, как это называется, «кривых зеркал», да?</p>
+
+  <p><span class="speaker">БА:</span> Угу.</p>
+
+  <p><span class="speaker">ЭБМ:</span> ...В которых много-много раз отражаются эти «лучи», в итоге их источник теряется, а когда он приходит от последнего «зеркала» - от своего собственного разума отражается, и это все уже превращается в «дурное отражение», скажем так, и он уже ничего не видит, кроме своей вот этой «скорлупы», внутри которой он находится. Но откуда этот «луч» пришел, каким образом он пришел, и так далее, это все проследить очень сложно, потому что он, на самом деле, не отражается один раз какой-то. Тут есть не «два зеркала», которые стоят <span class="ed">[друг напротив друга – комм. ЭБМ]</span>, скажем так... Точнее, ну, условно говоря, а, это очень сложная система.</p>
+
+  <p>Но, если, поскольку у нас есть опыт соприкосновения с явлениями Реального мира, который мы называем «духовным», да? Но, на самом деле, он, как бы, не «духовный», он не «где-то вверху», он даже не «где-то в будущем», [а] он «здесь и сейчас». Вот, но «скрытым» образом, чаще всего. То, в любом случае, каждое такое взаимодействие, каждый импульс, который мы получаем от этой сложной системы (СА), «скрытым» <span class="ed">[неочевидным и контр интуитивным – комм. ЭБМ]</span> образом и «от обратного», в данном случае, потому что мы говорим о ступени «Ситра Ахра», - он несет в себе определенную Цель, которой он движет нас.</p>
+
+  <p>Которой Он движет не только нас, но и все то Кли <span class="ed">[энерго-информационная общность – комм. ЭБМ]</span>, к которому мы относимся, о котором <span class="ed">[АР – комм. ЭБМ]</span> я говорил выше. И эта Цель, она абсолютно выверенная, она абсолютно, как бы, конструктивная. Конструктивная, и, как это каббалисты называют, «Творец, Свят Благословен Он, - добрый и творит добро...». «...И плохим, и хорошим». Т.е., посредством «плохого», как человек это воспринимает, как плохое субъективно для самого себя, так и посредством «хорошего» - того, что человек воспринимает как добрый Знак, добрая <span class="ed">[судьба – комм. ЭБМ]</span> и доброе управление<sup class="fn-ref" id="ref4"><a href="#fn4">4</a><span class="fn-pop">Бааль Сулам, книга Шамати, статья 1 «Нет никого кроме Него». — <a href="https://ru.wikibooks.org/wiki/Bina.Zone/Shamati/1" target="_blank" rel="noopener">ru.wikibooks.org</a></span></sup>.</p>
+
+  <p class="skip">[конец 4 части стенограммы (20:20)]</p>
+
+  <h2 id="abbr"><a class="anchor-self" href="#top">Список сокращений</a> <span class="ed">(в порядке упоминания)</span></h2>
+  <div class="abbr-list">
+    <div><b>СА</b> – Ситра Ахра</div>
+    <div><b>СС</b> – Состояние Сознания</div>
+    <div><b>ТС</b> – Точка Сборки</div>
+    <div><b>КК</b> – Карлос Кастанеда</div>
+    <div><b>АР</b> – душа Адама Ришон</div>
+  </div>
+
+  <h2 id="notes"><a class="anchor-self" href="#top">См. также</a></h2>
+  <div class="notes">
+    <div class="note" id="fn1">
+      <span class="num">1.</span>
+      <span class="body">9 заповедь, Заповеди Торы, Книга Зоар, том 1<br>
+      <a href="https://imyavel.github.io/zohar-sulam/akdama/029.html" target="_blank" rel="noopener">akdama/029</a>
+      <a class="back" href="#ref1" title="Вернуться к тексту">↩</a></span>
+    </div>
+    <div class="note" id="fn2">
+      <span class="num">2.</span>
+      <span class="body">Чем помогает Творец, СБ”О, мужчине-каббалисту в духовной работе, ЭБМ<br>
+      <a href="https://adam.fandom.com/ru/wiki/Эзер_кенегдо" target="_blank" rel="noopener">https://adam.fandom.com/ru/wiki/Эзер_кенегдо</a>
+      <a class="back" href="#ref2" title="Вернуться к тексту">↩</a></span>
+    </div>
+    <div class="note" id="fn3">
+      <span class="num">3.</span>
+      <span class="body">Комм. ЭБМ: что такое в данном случае это «наоборот» (потому я его и выделил здесь кавычками), это совсем не интуитивно [понятно] очевидно человеку, будь он мужчина или женщина (хоть я и не женщина [в повседневном СС, о котором идет речь - комм. ЭБМ], чтобы говорить, что знаю точно).
+      <a class="back" href="#ref3" title="Вернуться к тексту">↩</a></span>
+    </div>
+    <div class="note" id="fn4">
+      <span class="num">4.</span>
+      <span class="body">Бааль Сулам, книга Шамати, статья 1 «Нет никого кроме Него».<br>
+      <a href="https://ru.wikibooks.org/wiki/Bina.Zone/Shamati/1" target="_blank" rel="noopener">https://ru.wikibooks.org/wiki/Bina.Zone/Shamati/1</a>
+      <a class="back" href="#ref4" title="Вернуться к тексту">↩</a></span>
+    </div>
+  </div>
+
+  <nav class="corpus-nav">
+    <a href="24H.html"><span class="dir">← Предыдущая</span>Башня, парящая в воздухе</a>
+    <a class="nx" href="47H.html"><span class="dir">Следующая →</span>Стенограмма 5 Урока 2 по статье Шамати 3</a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // lazy youtube
+  document.querySelectorAll('.track[data-yt]').forEach(function(t){
+    var head=t.querySelector('.track-head');
+    head.addEventListener('click',function(e){
+      if(e.target.closest('.ext')) return;
+      var open=t.classList.toggle('open');
+      var body=t.querySelector('.track-body');
+      if(open && !body.dataset.loaded){
+        var id=t.getAttribute('data-yt');
+        body.innerHTML='<div class="frame"><iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>';
+        body.dataset.loaded='1';
+      }
+    });
+  });
+
+  // footnote popup flip if not enough space above
+  document.querySelectorAll('.fn-ref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      var r=ref.getBoundingClientRect();
+      ref.classList.toggle('below', r.top < 180);
+    });
+  });
+
+  // highlight target note on jump
+  function flash(){
+    if(location.hash){
+      var el=document.querySelector(location.hash);
+      if(el && el.classList.contains('note')){
+        el.style.background='#fff4d6';
+        setTimeout(function(){el.style.background='';},1600);
+      }
+    }
+  }
+  window.addEventListener('hashchange',flash);
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Материал — стенограмма устного урока (диалог ведущих БА и ЭБМ) с обширными редакторскими вставками в квадратных скобках и аппаратом ссылок. Это прозаическая, разговорная форма, а не стих, поэтому выбрана редакторская широкая схема: контейнер ~68vw десктоп, на мобильном — полная ширина. Реплики маркированы именами говорящих акцентным цветом, чтобы держать ритм диалога; авторские пояснения в скобках выделены приглушённым оттенком как редакторские ремарки, но сохранены дословно.\n\nРазвилки: подразделов формально немного, но в тексте есть три естественных заголовка («Часть 4 (15:06–20:20)», «Список сокращений», «См. также»), поэтому сделано сворачиваемое оглавление, а клик по самим заголовкам возвращает наверх. Музыкальный трек один (Lordi, YouTube) — оформлен как ленивый раскрывающийся плеер, но сводный раздел музыки НЕ создавался, так как распознан только один трек (порог — более двух). Метки сносок *1–*4 все имеют тела в «См. также» и наоборот, лишних/анонимных нет — реализованы переходы вниз/вверх, подсветка цели и hover-popup с авто-переворотом вниз у верхней кромки экрана. Палитра — тёплая бумажная со сдержанным бордовым и тёмно-бирюзовым акцентами, чтобы дать журнальный, но негромкий тон.",
+  "features": ["music", "footnotes", "toc"]
+}
+</script>
+</body>
+</html>

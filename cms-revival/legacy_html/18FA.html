@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Бросившие Вызов Любви</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1a14;
+    --muted:#6b6052;
+    --accent:#8a5a2b;
+    --accent-deep:#5c3a18;
+    --rule:#d8cdba;
+    --hl:#fbe9c4;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1080px;
+    min-width:0;
+    margin:0 auto;
+    padding:38px 30px 90px;
+  }
+  @media (max-width:900px){
+    .wrap{width:100%;padding:24px 18px 70px;}
+    body{font-size:18px;}
+  }
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:26px;
+  }
+  .breadcrumbs a{color:var(--accent);text-decoration:none;}
+  .breadcrumbs a:hover{text-decoration:underline;}
+  .breadcrumbs span{margin:0 8px;color:var(--rule);}
+  /* hero image */
+  .hero{
+    margin:0 0 30px;
+    text-align:center;
+  }
+  .hero img{
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border:1px solid var(--rule);
+    box-shadow:0 6px 26px rgba(60,40,15,.12);
+  }
+  h1{
+    font-size:2.15rem;
+    line-height:1.18;
+    font-weight:700;
+    letter-spacing:.01em;
+    margin:.2em 0 .15em;
+    color:var(--accent-deep);
+  }
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px;
+    color:var(--muted);
+    font-style:normal;
+    margin:0 0 34px;
+    padding-bottom:18px;
+    border-bottom:2px solid var(--accent);
+  }
+  h2.epi{
+    font-size:1.15rem;
+    font-variant:small-caps;
+    letter-spacing:.08em;
+    color:var(--accent);
+    margin:36px 0 14px;
+  }
+  p{margin:0 0 1.25em;}
+  .epigraph{
+    background:var(--paper);
+    border-left:4px solid var(--accent);
+    padding:20px 26px;
+    margin:0 0 36px;
+    font-size:.98em;
+  }
+  .epigraph .qa{margin:0 0 .9em;}
+  .epigraph .qa:last-child{margin-bottom:0;}
+  .qlabel{font-weight:700;color:var(--accent-deep);}
+  .num{
+    counter-increment:para;
+  }
+  .body-para{position:relative;}
+  .body-para .pn{
+    color:var(--accent);
+    font-weight:700;
+    margin-right:.15em;
+  }
+  .closing{
+    font-style:italic;
+    font-size:1.05em;
+    color:var(--accent-deep);
+    margin:32px 0;
+    padding:18px 0;
+    border-top:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+  }
+  a{color:var(--accent);}
+  /* footnote marker */
+  sup.fnref{font-size:.7em;line-height:0;}
+  sup.fnref a{
+    text-decoration:none;
+    color:var(--paper);
+    background:var(--accent);
+    border-radius:3px;
+    padding:1px 5px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+  }
+  .fn-marker{position:relative;display:inline;}
+  .fn-pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:calc(100% + 8px);
+    width:300px;
+    max-width:78vw;
+    background:var(--accent-deep);
+    color:#fff8ec;
+    font-family:Georgia,serif;
+    font-size:15px;
+    line-height:1.5;
+    font-weight:400;
+    text-transform:none;
+    letter-spacing:normal;
+    padding:12px 14px;
+    border-radius:8px;
+    box-shadow:0 8px 24px rgba(0,0,0,.3);
+    z-index:50;
+    text-align:left;
+  }
+  .fn-pop a{color:#ffd9a0;}
+  .fn-marker:hover .fn-pop{display:block;}
+  .fn-marker.below .fn-pop{bottom:auto;top:calc(100% + 8px);}
+  /* music */
+  .music-block{
+    margin:30px 0;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:8px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    background:var(--paper);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#f1ead9;}
+  .track-arrow{
+    transition:transform .25s;
+    color:var(--accent);
+    font-size:.9em;
+  }
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-title{flex:1;}
+  .track-title b{color:var(--accent-deep);}
+  .track-ext{color:var(--accent);text-decoration:none;font-size:1.05em;}
+  .track-player{display:none;background:#000;}
+  .track.open .track-player{display:block;}
+  .track-player .ratio{
+    position:relative;
+    width:100%;
+    padding-bottom:56.25%;
+    height:0;
+  }
+  .track-player iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+  }
+  /* footnotes section */
+  .notes{
+    margin-top:54px;
+    padding-top:22px;
+    border-top:2px solid var(--accent);
+  }
+  .notes h2{
+    font-size:1.15rem;
+    font-variant:small-caps;
+    letter-spacing:.08em;
+    color:var(--accent);
+    margin:0 0 16px;
+  }
+  .notes ol{margin:0;padding-left:1.4em;}
+  .notes li{
+    font-size:.95em;
+    margin-bottom:.7em;
+    transition:background .4s;
+    padding:4px 6px;
+    border-radius:5px;
+  }
+  .notes li:target{background:var(--hl);}
+  .backref{text-decoration:none;color:var(--accent);margin-left:6px;font-weight:700;}
+  /* corpus nav */
+  .corpus-nav{
+    margin-top:56px;
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    flex-wrap:wrap;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    display:block;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    padding:14px 18px;
+    text-decoration:none;
+    color:var(--accent-deep);
+    max-width:46%;
+  }
+  .corpus-nav a:hover{border-color:var(--accent);}
+  .corpus-nav .dir{
+    display:block;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  footer{
+    margin-top:46px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer a{color:var(--accent);}
+  @media (max-width:560px){
+    .corpus-nav a{max-width:100%;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/18FA.html">
+<meta name="description" content="Эссе о стратегии Бенефактора воина, Намерении Духа и Даре Орла: размышление о том, как чувствующие существа осознают совершенство Бесконечного Света.">
+<meta property="og:title" content="Бросившие Вызов Любви">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/18FA.html">
+<meta property="og:description" content="Эссе о стратегии Бенефактора воина, Намерении Духа и Даре Орла: размышление о том, как чувствующие существа осознают совершенство Бесконечного Света.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Бросившие Вызов Любви">
+<meta name="twitter:description" content="Эссе о стратегии Бенефактора воина, Намерении Духа и Даре Орла: размышление о том, как чувствующие существа осознают совершенство Бесконечного Света.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №18FA</span>
+<div class="wrap">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span>/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/18FA.jpg" alt="Иллюстрация к статье «Бросившие Вызов Любви»">
+  </div>
+
+  <h1>БРОСИВШИЕ ВЫЗОВ ЛЮБВИ<a class="audio-link" href="https://t.me/art_017_tracks/505" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <p class="dateline">Записано: 15.08.21 на форуме «левой линии»</p>
+
+  <h2 class="epi">Эпиграф</h2>
+  <div class="epigraph">
+    <p class="qa"><span class="qlabel">Вопрос:</span> что это за Учитель такой (у воина, выполняющего по-жизни «стратегию своего Бенефактора»<span class="fn-marker"><sup class="fnref"><a href="#fn1" id="ref1">*1</a></sup><span class="fn-pop">См. также: <a href="185A.html">22 буквы Кли средней линии</a></span></span>)?</p>
+    <p class="qa"><span class="qlabel">Ответ:</span> Это Он и есть :) Уловка воина в том, что он не верит, а знает, поскольку выполняет Команду Орла, которую должен услышать в будущем. Поэтому «стратегия Бенефактора» — это стратегия воина, достигающего Абсолютной Свободы, отправляемая в виде Команды Орла в свое собственное прошлое, чтобы вести к получению Дара из любви к свободе.</p>
+  </div>
+
+  <p class="body-para"><span class="pn">1.</span> Любовь к ближнему, как к самому себе – это Намерение Духа, которое Он реализует посредством Дара Орла, получая который, созданные Им чувствующие существа, осознанно выбирая Жизнь из любви к свободе, раскрывают совершенство действий и имен Бесконечного Света, создавшего их, и этим дают этому совершенству, во всем противопоставляя себя Ему посредством восприятия, возможность осознавать себя. Точно также, как человек, не имея зеркала, в которое он смог бы посмотреть, чтобы увидеть себя со стороны, не смог бы полноценно осознавать себя личностью этого мира.</p>
+
+  <p class="body-para"><span class="pn">2.</span> Зеркало – Малхут, Орел, действительно не более, чем Зеркало, в Нем нет ничего нового, а есть в Нем только то, что отражает Намерение Духа, посредством распространения Которого вовне Себя оно и было создано. Точка, в которой возникает восприятие, называется точкой первого сокращения, точкой этого мира или точкой сборки. В тот момент, когда Свет Сознания начинает целенаправленно светить в некоторой области, в этой области происходит процесс, который подобен процессу, которым является вся Вселенная, и это явление называется настройкой восприятия посредством осознанной воли. Это Сила, которая является дополнительным усилием, по отношению к тому, которое является Самим Распространением Света Жизни, поскольку Сама Жизнь производит работу в творении, лишь в качестве “источника вдохновения”, а не в качестве совершающего какое-либо действие. Поскольку для такового Источника требуется Реальность качественно иного уровня, чем та, которая предшествует первичному распространению Жизни, в котором еще нет во всей Реальности чего-либо по сути отличного от того, чем Она Сама бесконечно и непостижимо является сразу, одним простым образом, в котором нет возможности установить различие между чем-либо вообще.</p>
+
+  <p class="body-para"><span class="pn">3.</span> Но распространение Жизни Жизней вовне Себя делает эту Реальность “дающей” Дар, который начинают “получать”, появившиеся, по этой причине, на своем месте “вне” Самой Бесконечности, то есть, в “этом мире”, “чувствующие себя”, поскольку барьер, который отделяет их жизнь от Источника Всего, является физическим барьером, подобным стене тумана, который невозможно преодолеть неосознанно, т.е. из любви к себе. Это позволяет появиться некоторой “дополнительной” реальности, по отношению к той Реальности, Которая реальна на самом деле, что является другим способом сказать, что в ней сущее не является результатом и не определяется своими координатами во времени и пространстве посредством своего исторического происхождения “из ничего”. И что будет, как результат, неизбежно обязано в будущем проходить циклы такого сознания и разрушения обратно в “ничто” бесконечное число раз. Но Реальная Реальность просто существует и все, Она Сама является причиной Своего существования и Его же Целью, является причиной и целью существования всех дополнительный форм, которые будут созданы из ничего посредством импульса начальной Силы, восходящего и возносящего осознание в непостижимую Бесконечность, Света Благородства и Величия Творца, Свят Благословен Он, являющегося “вдохновителем” всего происходящего во всех мирах, “оживляющего миры”, посредством облачения в действия и усилия их обитателей к тому, чтобы быть достойными получателями Его Дара Свободной Любви, возлюбив ближнего своего, как самого себя, и в этом действии достигая слияния по свойствам (а значит – и по сути, поскольку все эти свойства относятся к Одному и Тому же непостижимому Абсолюту, который распространяется посредством изменения собственных свойств, выделяющих “новую” Реальность от Исходной в отдельный “мир” или “парцуф”, цель существования которого – достижения ситуации полного “подобия свойств” с Корнем, то есть осуществление “настройки восприятия” Творца, Свят Благословен Он, посредством созданных Им творений, достигающих возвышенной Цели своего создания Творцом “из ничего” посредством создания человека в образе Нашем и Подобно тому, как были созданы Мы. Сделаем и услышим!</p>
+
+  <p class="closing">Готовы ли Мы осознанно и целенаправленно повиноваться Его Команде настройки воли, чтобы “осознать себя” вместе с Ним - Дающим Людям Дар Свободы?</p>
+
+  <div class="music-block">
+    <div class="music-label">Музыка</div>
+    <div class="track" id="track1">
+      <div class="track-head" onclick="toggleTrack(this)">
+        <span class="track-arrow">▶</span>
+        <span class="track-title"><b>Серебро</b> — Дыши</span>
+        <a class="track-ext" href="https://youtu.be/KbmYHDbaE-o" target="_blank" rel="noopener" title="Открыть на YouTube" onclick="event.stopPropagation()">↗</a>
+      </div>
+      <div class="track-player" data-embed="https://www.youtube.com/embed/KbmYHDbaE-o">
+        <div class="ratio"></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1">См. также: <a href="185A.html">22 буквы Кли средней линии</a> <a href="#ref1" class="backref" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="18HB.html">
+      <span class="dir">← Предыдущая</span>
+      Получение Дара Орла
+    </a>
+    <a class="next" href="18F.html">
+      <span class="dir">Следующая →</span>
+      Первая практическая ступень
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggleTrack(head){
+    var track=head.parentElement;
+    var player=track.querySelector('.track-player');
+    var ratio=player.querySelector('.ratio');
+    if(!track.classList.contains('open') && !ratio.querySelector('iframe')){
+      var src=player.getAttribute('data-embed')+'?autoplay=1';
+      var f=document.createElement('iframe');
+      f.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      f.setAttribute('allowfullscreen','');
+      f.src=src;
+      ratio.appendChild(f);
+    }
+    track.classList.toggle('open');
+  }
+  // footnote popup side detection
+  document.querySelectorAll('.fn-marker').forEach(function(m){
+    m.addEventListener('mouseenter',function(){
+      var pop=m.querySelector('.fn-pop');
+      if(!pop)return;
+      m.classList.remove('below');
+      var r=m.getBoundingClientRect();
+      if(r.top < 180){ m.classList.add('below'); }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — плотная философско-каббалистическая проза (вопрос-ответ в эпиграфе плюс три длинных нумерованных абзаца-рассуждения и финальный вопрос), стихотворных форм нет, поэтому выбрана редакторская широкоформатная схема с основной колонкой ~66% ширины окна. Длинные периоды требуют комфортной меры строки и крупной засечной гарнитуры (Georgia), что и реализовано; акцентная охристо-коричневая палитра на тёплом светлом фоне поддерживает «рукописно-сакральный» дух источника, оставаясь в рамках журнального лонгрида.\n\nОглавление не делал: в тексте нет нескольких озаглавленных подразделов — лишь один заголовок «Эпиграф» и нумерованные абзацы без собственных названий, поэтому TOC был бы искусственным. Единственная сноска *1 оформлена кликабельным маркером со всплывающим popup (с авто-выбором стороны у верхнего края) и аппаратом в конце с обратной ссылкой. Музыкальный трек один (меньше трёх), поэтому сводный раздел не создавал — оставил ленивый сворачиваемый YouTube-плеер на его месте с меткой «Музыка»; кавычки-ёлочки и “программные” кавычки автора, КАПС в заголовке и глифы :) сохранены дословно, голый proza.ru-URL обёрнут в ссылку."
+,
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>

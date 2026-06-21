@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кто создан Им</title>
+<style>
+  :root{
+    --bg:#f7f1e1;
+    --panel:#fbf7ec;
+    --ink:#2c2116;
+    --ink-soft:#5a4a36;
+    --rule:#d8c8a4;
+    --gold:#a9802f;
+    --crimson:#9b2f2a;
+    --accent:#7a5a1e;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at top, #fbf6e8 0%, var(--bg) 60%, #efe6cf 100%);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua","Georgia",serif;
+    font-size:20px;
+    line-height:1.7;
+    padding:0 16px;
+  }
+  .page{
+    max-width:820px;
+    margin:0 auto;
+    padding:28px 0 60px;
+  }
+  a{color:var(--accent);}
+  a:hover{color:var(--crimson);}
+
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-size:0.82em;
+    letter-spacing:.04em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    margin:6px 0 22px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--rule);
+  }
+  .breadcrumbs a{color:var(--accent);text-decoration:none;}
+  .breadcrumbs a:hover{color:var(--crimson);text-decoration:underline;}
+  .breadcrumbs .sep{margin:0 .5em;color:var(--gold);}
+
+  .hero{
+    text-align:center;
+    margin:0 0 18px;
+  }
+  .hero img{
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border-radius:4px;
+    box-shadow:0 6px 26px rgba(60,40,15,.28);
+    border:1px solid var(--rule);
+  }
+
+  h1{
+    font-size:2.05em;
+    line-height:1.18;
+    text-align:center;
+    font-weight:700;
+    letter-spacing:.01em;
+    margin:.2em 0 .1em;
+    color:var(--ink);
+  }
+  h1::after{
+    content:"";
+    display:block;
+    width:160px;
+    height:0;
+    margin:.45em auto 0;
+    border-bottom:2px solid var(--gold);
+    box-shadow:0 4px 0 -3px var(--crimson);
+  }
+
+  .lead{
+    font-style:italic;
+    color:var(--ink-soft);
+    font-size:1.02em;
+    line-height:1.65;
+    text-align:justify;
+    margin:1.4em auto 2.2em;
+    padding:1em 1.4em;
+    background:var(--panel);
+    border-left:3px solid var(--gold);
+    border-right:3px solid var(--gold);
+    border-radius:3px;
+  }
+
+  .poem{
+    margin:1.6em 0;
+  }
+  .stanza{
+    margin:0 0 1.7em;
+    white-space:pre-line;
+    text-align:left;
+  }
+  .stanza.caps{
+    letter-spacing:.02em;
+    color:#3a2c1a;
+  }
+  .stanza.caps.final{
+    color:var(--ink);
+  }
+  .divider{
+    border:0;
+    text-align:center;
+    margin:2em 0;
+  }
+  .divider::before{
+    content:"✦ ✦ ✦";
+    color:var(--gold);
+    letter-spacing:.5em;
+    font-size:.8em;
+  }
+
+  /* footnotes refs + popup */
+  .fn-ref{
+    font-size:.7em;
+    vertical-align:super;
+    line-height:0;
+  }
+  .fn-ref > a{
+    text-decoration:none;
+    color:var(--crimson);
+    font-weight:700;
+    padding:0 1px;
+  }
+  .fn-ref{position:relative;}
+  .fn-pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:1.6em;
+    width:280px;
+    max-width:74vw;
+    background:#fffdf5;
+    color:var(--ink);
+    border:1px solid var(--gold);
+    border-radius:6px;
+    box-shadow:0 8px 24px rgba(60,40,15,.32);
+    padding:.7em .85em;
+    font-size:1.15rem;
+    line-height:1.45;
+    font-style:normal;
+    font-weight:400;
+    letter-spacing:0;
+    text-transform:none;
+    z-index:40;
+    white-space:normal;
+    text-align:left;
+  }
+  .fn-pop.below{bottom:auto;top:1.6em;}
+  .fn-ref:hover .fn-pop,.fn-ref:focus-within .fn-pop{display:block;}
+
+  /* music */
+  .music{
+    margin:2.6em 0 1.4em;
+    padding:1.2em 1.3em 1.4em;
+    background:var(--panel);
+    border:1px solid var(--rule);
+    border-radius:6px;
+  }
+  .section-h{
+    font-size:1.3em;
+    color:var(--accent);
+    margin:.2em 0 .7em;
+    letter-spacing:.02em;
+  }
+  .music-label{
+    font-style:italic;
+    color:var(--ink-soft);
+    margin:.2em 0 .6em;
+    font-size:.95em;
+  }
+  .track{
+    border-top:1px solid var(--rule);
+  }
+  .track:first-of-type{border-top:0;}
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:.55em;
+    padding:.6em .2em;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head .tw{flex:1;}
+  .track-head .tt{font-weight:700;}
+  .track-head .ta{color:var(--ink-soft);font-style:italic;font-size:.92em;}
+  .arrow{color:var(--gold);transition:transform .2s;font-size:.85em;}
+  .track.open .arrow{transform:rotate(90deg);}
+  .ext{color:var(--accent);text-decoration:none;font-size:.95em;}
+  .ext:hover{color:var(--crimson);}
+  .player{display:none;padding:0 0 .8em;}
+  .track.open .player{display:block;}
+  .player .frame{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    background:#000;
+    border-radius:5px;
+    overflow:hidden;
+  }
+  .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+  /* notes */
+  .notes{
+    margin:2.4em 0 1em;
+    padding-top:1em;
+    border-top:1px solid var(--rule);
+  }
+  .notes ol{padding-left:1.4em;margin:.6em 0;}
+  .notes li{
+    font-size:.95em;
+    color:var(--ink-soft);
+    margin:.5em 0;
+    line-height:1.5;
+  }
+  .notes li:target{
+    background:#fff3c4;
+    border-radius:4px;
+    box-shadow:0 0 0 6px #fff3c4;
+  }
+  .backref{text-decoration:none;color:var(--crimson);margin-left:.4em;}
+  .backref:hover{color:var(--gold);}
+
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:14px;
+    margin:2.8em 0 1.4em;
+    padding-top:1.1em;
+    border-top:2px solid var(--gold);
+    font-size:.92em;
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    color:var(--accent);
+    max-width:46%;
+  }
+  .corpus-nav a:hover{color:var(--crimson);}
+  .corpus-nav .lbl{display:block;font-size:.78em;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);}
+  .corpus-nav .nx{text-align:right;margin-left:auto;}
+
+  footer{
+    margin-top:1.8em;
+    padding-top:1.2em;
+    border-top:1px solid var(--rule);
+    font-size:.82em;
+    color:var(--ink-soft);
+    line-height:1.5;
+  }
+  footer a{color:var(--accent);}
+
+  @media (max-width:560px){
+    body{font-size:18px;padding:0 12px;}
+    h1{font-size:1.7em;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/322.html">
+<meta name="description" content="Стихотворение о Пути Души, замысле Творца и Мечте, ради которой человек рождается, чтобы вопреки вселенной дать ответ о смысле бытия.">
+<meta property="og:title" content="Кто создан Им">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/322.html">
+<meta property="og:description" content="Стихотворение о Пути Души, замысле Творца и Мечте, ради которой человек рождается, чтобы вопреки вселенной дать ответ о смысле бытия.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Кто создан Им">
+<meta name="twitter:description" content="Стихотворение о Пути Души, замысле Творца и Мечте, ради которой человек рождается, чтобы вопреки вселенной дать ответ о смысле бытия.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="manuscript">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №322</span>
+<div class="page">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../dreamon/index.html">Мечтай!!</a>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/322.jpg" alt="">
+  </div>
+
+  <h1>КТО СОЗДАН ИМ<a class="audio-link" href="https://t.me/art_017_tracks/283" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <p class="lead">Стихи о Пути Души и созданного Ею Человека, чье Сердце будет исполнено Любви Благодаря, а судьба расскажет о Жизни Вопреки, когда Тот, Кто Дает нам Свой Дар, и вместе с нами Свой Дар получает создавая Путь, испытывая творением идущим по нему, выполняя в нем «духовную работу», чтобы Жить ради Мечты о Любви, Сказка о Которой Еще будет не раз и не два написала, испытана, сделана, и отдана для любви Творца к творениям в келим этого мира. На потеху его Детям Вечной Весны.</p>
+
+  <div class="poem">
+
+    <div class="stanza">Мы видим зеркало, в котором отражен
+Тот, Кто не был Никем когда-то сотворен.
+Ведь не так важно то, что форм
+Дает нам непрерывность
+И цельность, осмыслимость</div>
+
+    <div class="stanza">Но то, что важно правда
+Поскольку ТО - реально,
+А ЭТО<sup class="fn-ref" id="fnref1"><a href="#fn1">1</a><span class="fn-pop">СМ ТАКЖЕ: ШРИ АУРОБИНДО, УПАНИШАДЫ (ТОМ 5), ЭТО-ТО</span></sup>, лишь подобно
+Реальности исконной</div>
+
+    <div class="stanza">На водной глади Светом
+Набросок отразится
+И тем, кто вверх в них смотрит
+Он будет Небом, Высью.</div>
+
+    <div class="stanza">Так вот чтобы где либо
+Себя и память Цели
+Хранить, и возрождаясь
+Из пепла возвращаясь</div>
+
+    <div class="stanza">Как птица, что по Кругу
+Дотла сгорая, малым
+Птенцом из пепла праха
+Которым в прах сгорало
+Проклюнулось и встало
+Начав цикл Круга Жизни</div>
+
+    <div class="stanza caps">РЕАЛЬНОСТЬ ЦЕЛИ В КОЕМ
+УЖЕ ОБЪЕКТОМ ПЛОТНЫМ
+ЯВЛЯЕТСЯ, ЧЬЕ ТЕЛО
+СВОИМ ОСОБЫМ МНЕНЬЕМ</div>
+
+    <div class="stanza caps">ТВОРЦА, БЛАГОСЛОВЕН ОН
+СВЯТОЙ КОНЕЧНОЙ ЦЕЛИ
+ЧТО ОН ИМ СОЗДАЛ В ПЕРВОМ
+ТО, ЧТО ДОРОЖЕ СВЕТА
+И ВСЕЙ ЕГО ВСЕЛЕННОЙ
+РОДИВШИСЬ ЧЕЛОВЕКОМ
+ЧТОБ ВОПРЕКИ ВСЕЛЕННОЙ
+ОБЕ МЕЧТЫ<sup class="fn-ref" id="fnref2"><a href="#fn2">2</a><span class="fn-pop">СМ ТАКЖЕ: NIGHTWISH, EVER DREAM, ПЕРЕВОД</span></sup> ДАТЬ ДЕТЯМ</div>
+
+    <hr class="divider">
+
+    <div class="stanza caps final">ПОКА МИР СУЩЕСТВУЕТ
+МЕЧТА В НЕМ ДУШАМ БУДЕТ
+ПОСЛЕДНЕЙ И РЕАЛЬНОЙ
+ВСЕХ ЦЕЛЕЙ МИРА ЯВНЫХ
+ОСМЫСЛЕННОЙ И ПЛОТНОЙ
+ЧЬЯ БУДУЩНОСТЬ В СЕГОДНЯ
+НАХОДИТ ОТРАЖЕНЬЕ
+ЧТО ИМ В НАЧАЛЕ СДЕЛАЛ
+КОНЕЦ ВЛОЖИВ ИМ ПЕРВЫМ
+СВОИМ В ГАР ЦЕЛЬЮ ТОЧНОЙ
+ОПРЕДЕЛИВ МИР НОВЫЙ
+ГДЕ В ЧАС ПОД САМЫЙ ВЕЧЕР
+В ПОСЛЕДНИЙ, С ДНЕМ РОЖДЕНЬЯ
+ПОЗДРАВИТЬ УЛЫБНЕТСЯ
+СВИДЕТЕЛЕМ РАССВЕТА
+ПОВЕРЖЕН АНГЕЛ СМЕРТИ
+ПРЕД НИМИ В ПРАХ НИЗЛОЖЕН
+ОСМЕЯН И ЗАТОПТАН
+В ПЫЛИ, ИЗ КОЕЙ СОЗДАН
+МЕЧТЕ ЧТОБ БЫТЬ ВОПРОСОМ
+ЕДИНСТВЕННО РЕАЛЬНЫМ
+ЧЬЯ ВАЖНОСТЬ АБСОЛЮТНА
+ЧЬЯ ФОРМА ИДЕАЛЬНА
+ПОСКОЛЬКУ ЗАДАЕТСЯ
+ОН ТЕМ ЖЕ САМЫМ СВЕТОМ
+РОЖДЕННЫЙ ДЛЯ ВОПРОСА
+ИЗ СМЕРТИ СНА ВОСКРЕСНЕТ
+ИЗ МЕРТВЫХ ДАВ МОЛИТВОЙ
+ОТВЕТ ТВОРЦУ, ЧТО ДЕЛАТЬ
+И НАФИГА ХОТЕТЬ ИМ
+С НЕЙ ВМЕСТЕ СДЕЛАТЬ ЭТО</div>
+
+  </div>
+
+  <section class="music" aria-label="Музыка под настроение">
+    <h2 class="section-h">Музыка под настроение</h2>
+    <div class="music-label">Музыка под настроение:</div>
+
+    <div class="track" data-yt="yLUOwe9f2X8">
+      <div class="track-head" onclick="toggleTrack(this)">
+        <span class="arrow">▶</span>
+        <span class="tw"><span class="tt">Это за окном рассвет</span> <span class="ta">— Браво</span></span>
+        <a class="ext" href="https://www.youtube.com/watch?v=yLUOwe9f2X8" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a>
+      </div>
+      <div class="player"><div class="frame"></div></div>
+    </div>
+
+    <div class="track" data-yt="G4nI2V07X6k">
+      <div class="track-head" onclick="toggleTrack(this)">
+        <span class="arrow">▶</span>
+        <span class="tw"><span class="tt">I just want You</span> <span class="ta">— Ozzy Osbourne</span></span>
+        <a class="ext" href="https://www.youtube.com/watch?v=G4nI2V07X6k" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a>
+      </div>
+      <div class="player"><div class="frame"></div></div>
+    </div>
+
+    <div class="track" data-yt="lI2WRR8lXgE">
+      <div class="track-head" onclick="toggleTrack(this)">
+        <span class="arrow">▶</span>
+        <span class="tw"><span class="tt">Ever Dream</span> <span class="ta">— Nightwish</span></span>
+        <a class="ext" href="https://www.youtube.com/watch?v=lI2WRR8lXgE" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a>
+      </div>
+      <div class="player"><div class="frame"></div></div>
+    </div>
+  </section>
+
+  <section class="notes" aria-label="Примечания">
+    <h2 class="section-h">Примечания</h2>
+    <ol>
+      <li id="fn1">СМ ТАКЖЕ: ШРИ АУРОБИНДО, УПАНИШАДЫ (ТОМ 5), ЭТО-ТО <a class="backref" href="#fnref1" title="Вернуться к тексту">↩</a></li>
+      <li id="fn2">СМ ТАКЖЕ: NIGHTWISH, EVER DREAM, ПЕРЕВОД <a class="backref" href="#fnref2" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a href="336.html"><span class="lbl">← Предыдущая</span>Я счастлив</a>
+    <a class="nx" href="341B.html"><span class="lbl">Следующая →</span>Любовь спасет Мир</a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggleTrack(head){
+    var track = head.parentElement;
+    var open = track.classList.toggle('open');
+    if(open){
+      var frame = track.querySelector('.frame');
+      if(!frame.querySelector('iframe')){
+        var id = track.getAttribute('data-yt');
+        var ifr = document.createElement('iframe');
+        ifr.src = 'https://www.youtube.com/embed/'+id+'?rel=0';
+        ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        ifr.allowFullscreen = true;
+        frame.appendChild(ifr);
+      }
+    }
+  }
+
+  // footnote popup: flip below if not enough space above
+  document.querySelectorAll('.fn-ref').forEach(function(ref){
+    ref.addEventListener('mouseenter', function(){
+      var pop = ref.querySelector('.fn-pop');
+      if(!pop) return;
+      pop.classList.remove('below');
+      var rect = ref.getBoundingClientRect();
+      if(rect.top < 160){ pop.classList.add('below'); }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "стих",
+  "rationale": "Текст представляет собой единое стихотворение («Стихи о Пути Души...») со строфами и выраженной поэтической, книжно-сакральной интонацией, поэтому выбрана узкая манускриптная схема (~820px) с засечным шрифтом и пергаментной палитрой — она лучше держит вертикальный ритм строф и медленное чтение, чем широкий редакторский лонгрид. Прозаический зачин трактован как посвящение-эпиграф (lead-врезка), а не как самостоятельная проза, что не меняет доминирующую форму.\nОглавление не делал: в самом тексте нет нескольких именованных подразделов — это сплошная поэма, к которой добавлены лишь служебные блоки Музыки и Примечаний, поэтому TOC был бы искусственным. Две звёздочки в тексте сопоставлены двум сноскам в концовке (нумерация 1/2) с popup при наведении и взаимной навигацией; подсветка цели через :target. Трёх YouTube-ссылок больше двух — собрал их в сводный раздел «Музыка под настроение» перед «Примечаниями», каждый трек — ленивый раскрывающийся плеер с общей меткой один раз над группой. CAPS-строфы сохранены дословно, авторская орфография («написала», «нафига», «в ГАР») не правилась."
+,
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>

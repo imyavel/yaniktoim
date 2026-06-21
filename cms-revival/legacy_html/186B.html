@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Несущий Свет</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf9;
+    --ink:#1f1b16;
+    --muted:#6a6155;
+    --accent:#9a3412;
+    --accent-soft:#c2613a;
+    --line:#e2d9ca;
+    --hl:#fce7c4;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Georgia","Iowan Old Style",serif;
+    font-size:20px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:980px;
+    min-height:100vh;
+    margin:0 auto;
+    background:var(--paper);
+    padding:32px 64px 72px;
+    box-shadow:0 0 60px rgba(60,45,25,.06);
+  }
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding-bottom:18px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:26px;
+  }
+  .breadcrumbs a{color:var(--accent);text-decoration:none;}
+  .breadcrumbs a:hover{text-decoration:underline;}
+  .breadcrumbs span{margin:0 .5em;color:var(--line);}
+  /* lead image */
+  .lead-img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    margin:0 auto 30px;
+    border-radius:3px;
+  }
+  h1{
+    font-size:42px;
+    line-height:1.15;
+    font-weight:700;
+    margin:.2em 0 .8em;
+    letter-spacing:-.01em;
+  }
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    font-style:normal;
+    color:var(--muted);
+    margin:-.4em 0 1.8em;
+    padding-bottom:1.4em;
+    border-bottom:3px double var(--line);
+  }
+  article p{margin:0 0 1.3em;}
+  .role{
+    font-variant:small-caps;
+    font-weight:700;
+    color:var(--accent);
+    letter-spacing:.03em;
+  }
+  a{color:var(--accent);}
+  /* footnote marker */
+  .fnref{
+    font-size:.72em;
+    vertical-align:super;
+    line-height:0;
+    text-decoration:none;
+    color:var(--accent);
+    font-weight:700;
+    padding:0 1px;
+    position:relative;
+    cursor:pointer;
+  }
+  .fnref:hover{color:var(--accent-soft);}
+  .fnref .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:140%;
+    width:300px;
+    max-width:78vw;
+    background:#2a241c;
+    color:#f3ead9;
+    font-size:15px;
+    font-weight:400;
+    line-height:1.5;
+    text-align:left;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 8px 28px rgba(0,0,0,.3);
+    z-index:30;
+    font-variant:normal;
+    letter-spacing:0;
+  }
+  .fnref .pop a{color:#f0b98e;}
+  .fnref.below .pop{bottom:auto;top:140%;}
+  .fnref:hover .pop{display:block;}
+  /* music block */
+  .music{
+    margin:2.4em 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:1.4em 0;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--muted);
+    margin-bottom:.8em;
+  }
+  .track{
+    border:1px solid var(--line);
+    border-radius:8px;
+    overflow:hidden;
+    background:#fbf6ec;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:.6em;
+    padding:.7em 1em;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#f6eedd;}
+  .track-title{font-weight:700;flex:1;}
+  .track-arrow{
+    transition:transform .25s;
+    color:var(--accent);
+    font-size:.85em;
+  }
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-ext{
+    color:var(--muted);
+    text-decoration:none;
+    font-size:1.05em;
+  }
+  .track-ext:hover{color:var(--accent);}
+  .track-body{display:none;}
+  .track.open .track-body{display:block;}
+  .track-body .ratio{
+    position:relative;
+    width:100%;
+    padding-bottom:56.25%;
+    height:0;
+    background:#000;
+  }
+  .track-body iframe{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    border:0;
+  }
+  /* footnotes */
+  .notes{
+    margin-top:3em;
+    padding-top:1.2em;
+    border-top:3px double var(--line);
+  }
+  .notes h2{
+    font-size:22px;
+    letter-spacing:.02em;
+    color:var(--accent);
+    margin:0 0 .8em;
+  }
+  .notes ol{padding-left:1.4em;margin:0;}
+  .notes li{
+    font-size:17px;
+    line-height:1.6;
+    color:var(--ink);
+    margin-bottom:.7em;
+  }
+  .notes li:target{
+    background:var(--hl);
+    border-radius:4px;
+    padding:.3em .5em;
+    margin-left:-.5em;
+  }
+  .backref{
+    text-decoration:none;
+    color:var(--accent);
+    margin-left:.4em;
+    font-size:.9em;
+  }
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:1em;
+    margin-top:3.2em;
+    padding-top:1.4em;
+    border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    color:var(--accent);
+    max-width:46%;
+    font-size:16px;
+  }
+  .corpus-nav .lbl{
+    display:block;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--muted);
+    margin-bottom:.2em;
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:2.6em;
+    padding-top:1.4em;
+    border-top:1px solid var(--line);
+    font-size:14px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+  footer.colophon a{color:var(--accent);}
+  footer.colophon .attrib{font-weight:600;color:var(--ink);}
+  @media(max-width:860px){
+    body{font-size:18px;}
+    .wrap{width:100%;max-width:100%;padding:22px 18px 48px;}
+    h1{font-size:31px;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav .next{text-align:left;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/186B.html">
+<meta name="description" content="Запись форумной беседы об истинном разуме, Люцифере и встроенных инсталляциях у Кастанеды и в каббале, о роли Бины как инструмента очищения Души.">
+<meta property="og:title" content="Несущий Свет">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/186B.html">
+<meta property="og:description" content="Запись форумной беседы об истинном разуме, Люцифере и встроенных инсталляциях у Кастанеды и в каббале, о роли Бины как инструмента очищения Души.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Несущий Свет">
+<meta name="twitter:description" content="Запись форумной беседы об истинном разуме, Люцифере и встроенных инсталляциях у Кастанеды и в каббале, о роли Бины как инструмента очищения Души.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №186B</span>
+<div class="wrap">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span>/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <img class="lead-img" src="../img/186B.jpg" alt="Несущий Свет">
+
+  <h1>Несущий Свет<a class="audio-link" href="https://t.me/art_017_tracks/507" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <p class="dateline">Записано 6 августа 2021 г. на форуме «левой линии»</p>
+
+  <article>
+    <p><span class="role">Реплика:</span> В некоторых учениях говориться прямо. Например в скрытых разделах каббалы. Причем переставить их может только Дух.У Карлоса Кастанеды эти «светильники» названы встроенным «чужеродным разумом» и «истинным разумом.» Их работа хорошо описана в книгах. Цитаты приводить не буду .Могу лишь сказать -скорость истинного разума огромна.Он мыслит образами и там нет дуальности. Один из аналогов его работы -безмолвное знание. По К.К. «встроенный ум» нам дали летуны...</p>
+
+    <p><span class="role">Ответ:</span> Истинный разум, ака Люцифер (несущий Свет), Падший Ангел (Он же - Ангел Смерти в Каббале), Сатана<span class="fnref"><a class="fnref" href="#fn1" id="ref1"><sup>*</sup></a><span class="pop">См. также: <a href="17D.html">Царь Салтан</a>, Сказки о Силе</span></span>, злое начало, «эгоизм этого мира» - колыбель человечества, в которой мы все сейчас находимся. В Истинном Мире нет того, основного, «важного обстоятельства», которое делает разум возможным в принципе (равно как и восприятие посредством «точки сборки») - времени, пространства, и перемены состояний. Поэтому разум и Истина - понятия настолько же несовместимые, насколько несовместимы понятия Жизнь (Осознание) и «абсолютная Свобода» «светящегося Кокона» от Точки Сборки. Разница между Разумом и «встроенкой» (чужеродные инсталляции) такая же, как между «альтернативами» и «возможностями» у КК. Встроенка, летуны, лярвы, «колесо страданий», «вселенная хищников», и прочее - это лишь наши «альтернативы» как созданий, преимущественно, первого внимания. Разум (Бина, понимание, являющееся по сути инструментом «очищения» Души от наполнения Светом Жизни, и одной из 4 основополагающих стадий «Сфирот», из которых «состоит» Вселенная), в отличие от вышеперечисленного, реален и имеет важное значение на Пути, при его правильном понимании и применении. Главное, при этом, - помнить о том, что он является лишь инструментом, он ничего не создает и ничего не объясняет, а только помогает достичь Высшей цели, с ним самим никак не связанной, причем его использование, главным образом, происходит не «благодаря», а «вопреки» создаваемым им смыслам, идеям и образам. Древние маги здесь такие же мимолетные гости, как и мы. Музыку заказывают далеко не они. Музыка заказана и исполнена задолго до их и нашего появления здесь, и каждая нота будет отыграна в строгом соответствии с безукоризненным нотным ансамблем, раскрывающим совершенный, безупречный и непостижимый Авторский Замысел.</p>
+
+    <div class="music">
+      <div class="music-label">Музыка</div>
+      <div class="track" id="track1">
+        <div class="track-head" onclick="toggleTrack(this)">
+          <span class="track-arrow">▶</span>
+          <span class="track-title">Моя Звезда</span>
+          <a class="track-ext" href="https://www.youtube.com/watch?v=mpLE30Nadfs" target="_blank" rel="noopener" title="Открыть на YouTube" onclick="event.stopPropagation()">↗</a>
+        </div>
+        <div class="track-body" data-embed="https://www.youtube-nocookie.com/embed/mpLE30Nadfs">
+          <div class="ratio"></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1">См. также: <a href="17D.html">Царь Салтан</a>, Сказки о Силе<a class="backref" href="#ref1" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="18F.html">
+      <span class="lbl">← Предыдущая</span>
+      Первая практическая ступень
+    </a>
+    <a class="next" href="186A.html">
+      <span class="lbl">Следующая →</span>
+      Выбери Жизнь
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggleTrack(head){
+    var track=head.parentElement;
+    var open=track.classList.toggle('open');
+    if(open){
+      var body=track.querySelector('.track-body');
+      if(!body.querySelector('iframe')){
+        var url=body.getAttribute('data-embed');
+        var ifr=document.createElement('iframe');
+        ifr.src=url+'?rel=0';
+        ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        ifr.allowFullscreen=true;
+        body.querySelector('.ratio').appendChild(ifr);
+      }
+    }
+  }
+  // footnote popup flip if near top edge
+  document.querySelectorAll('.fnref').forEach(function(m){
+    m.addEventListener('mouseenter',function(){
+      var r=m.getBoundingClientRect();
+      if(r.top<170){m.classList.add('below');}else{m.classList.remove('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — короткая прозаическая запись форумного диалога (реплика и развёрнутый ответ) эзотерико-философского содержания; стихотворных форм нет, поэтому выбрана редакторская широкая схема, а не узкий манускрипт. Контент-колонка занимает ~66% ширины окна на десктопе и разворачивается на всю ширину на мобильном. Палитра — тёплый бумажный фон с терракотовым акцентом, что поддерживает «книжно-журнальный» тон, но без рукописной вычурности. Засечный шрифт для тела, гротеск для служебных меток (крошки, дата, навигация) даёт умеренный контраст без гигантских заголовков.",
+  "rationale_extra": "Развилки: метку '*' после слова 'Сатана' трактовал как сноску (в исходнике её тело дано строкой со звёздочкой и ссылкой на proza.ru) — оформил как нумерованное примечание с popup при наведении и переходами вверх/вниз. Музыкальный трек один ('Моя Звезда', YouTube), поэтому сводный раздел музыки не создавал — достаточно одиночного лениво-загружаемого плеера на своём месте. Оглавление не делал: 'Реплика'/'Ответ' — это внутритекстовые роли диалога, а не подразделы, и единственный смысловой блок не требует TOC.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>

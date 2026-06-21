@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Точка сборки</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --panel:#fffdf8;
+    --ink:#23201b;
+    --muted:#6b655a;
+    --accent:#9a3b28;
+    --accent2:#1d5a66;
+    --line:#ddd6c6;
+    --hl:#fbeec2;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1180px;
+    min-width:0;
+    margin:0 auto;
+    padding:36px 28px 80px;
+  }
+  @media(max-width:1100px){ .wrap{width:78%;} }
+  @media(max-width:760px){ .wrap{width:100%;padding:20px 18px 60px;} }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--line);
+    padding-bottom:12px;
+    margin-bottom:30px;
+  }
+  .crumbs a{color:var(--accent2);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 8px;color:#b7af9d;}
+
+  header.title h1{
+    font-size:2.4rem;
+    line-height:1.15;
+    margin:.2em 0 .15em;
+    font-weight:700;
+    letter-spacing:-.01em;
+  }
+  .subtitle{
+    font-style:italic;
+    color:var(--accent);
+    font-size:1.25rem;
+    margin:0 0 1.6em;
+  }
+  .rule{
+    width:80px;height:3px;background:var(--accent);
+    border:0;margin:0 0 2em;
+  }
+
+  article p{margin:0 0 1.25em;}
+  article{max-width:40em;}
+
+  /* footnote reference */
+  .fn-ref{
+    font-family:Arial,sans-serif;
+    font-size:.72em;
+    line-height:0;
+    vertical-align:super;
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:bold;
+    cursor:pointer;
+    padding:0 1px;
+    position:relative;
+  }
+  .fn-ref:hover{color:#c24a32;}
+  .fn-pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:160%;
+    width:300px;
+    max-width:78vw;
+    background:#2a2620;
+    color:#f3ecda;
+    font-family:Georgia,serif;
+    font-size:15px;
+    line-height:1.45;
+    font-weight:normal;
+    vertical-align:baseline;
+    padding:12px 14px;
+    border-radius:8px;
+    box-shadow:0 8px 26px rgba(0,0,0,.28);
+    z-index:50;
+    white-space:normal;
+    text-align:left;
+  }
+  .fn-pop a{color:#ffd9a0;}
+  .fn-ref:hover .fn-pop{display:block;}
+  .fn-pop.below{bottom:auto;top:170%;}
+
+  /* footnotes section */
+  .notes{
+    margin-top:3em;
+    border-top:1px solid var(--line);
+    padding-top:1.2em;
+    font-size:.92em;
+  }
+  .notes h2{
+    font-size:1.25rem;
+    letter-spacing:.02em;
+    margin:0 0 .8em;
+  }
+  .note{
+    display:flex;
+    gap:.6em;
+    margin:0 0 1em;
+    padding:6px 8px;
+    border-radius:6px;
+    transition:background .8s;
+  }
+  .note .num{
+    color:var(--accent);
+    font-weight:bold;
+    flex:0 0 auto;
+    font-family:Arial,sans-serif;
+    font-size:.85em;
+  }
+  .note .body{flex:1 1 auto;}
+  .note a{color:var(--accent2);}
+  .note .back{
+    color:var(--accent);
+    text-decoration:none;
+    margin-left:.4em;
+    font-family:Arial,sans-serif;
+    font-size:.85em;
+  }
+  .note:target,.note.flash{background:var(--hl);}
+
+  /* music player */
+  .player{
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--panel);
+    overflow:hidden;
+    margin:.4em 0;
+    max-width:520px;
+  }
+  .player .ptop{
+    display:flex;
+    align-items:center;
+    gap:.6em;
+    padding:10px 14px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .player .ptop:hover{background:#f1ece0;}
+  .player .chev{
+    transition:transform .2s;
+    color:var(--accent);
+    font-size:.9em;
+  }
+  .player.open .chev{transform:rotate(90deg);}
+  .player .ttl{flex:1 1 auto;font-size:.95rem;}
+  .player .ttl b{color:var(--ink);}
+  .player .ttl .who{color:var(--muted);font-style:italic;}
+  .player .ext{
+    color:var(--accent2);
+    text-decoration:none;
+    font-size:1.05em;
+  }
+  .player .frame{display:none;background:#000;}
+  .player.open .frame{display:block;}
+  .player .frame iframe{display:block;width:100%;height:300px;border:0;}
+  .mlabel{
+    font-family:Arial,sans-serif;
+    font-size:.78em;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:var(--muted);
+    margin:.2em 0;
+  }
+
+  /* bottom corpus nav */
+  .corpusnav{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:3em;
+    border-top:1px solid var(--line);
+    padding-top:1.4em;
+    font-family:Arial,sans-serif;
+    font-size:.95rem;
+  }
+  .corpusnav a{
+    color:var(--accent2);
+    text-decoration:none;
+    display:block;
+    max-width:46%;
+  }
+  .corpusnav a:hover{text-decoration:underline;}
+  .corpusnav .lbl{
+    display:block;
+    font-size:.72em;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--muted);
+  }
+  .corpusnav .nx{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:2.4em;
+    padding-top:1.2em;
+    border-top:1px solid var(--line);
+    color:var(--muted);
+    font-size:.85rem;
+    line-height:1.5;
+  }
+  footer.colophon a{color:var(--accent2);}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/53K.html">
+<meta name="description" content="Эссе о точке сборки: автор связывает комплексную плоскость, функции и мнимую единицу с каббалистическим взглядом на движение человека в жизни.">
+<meta property="og:title" content="Точка сборки">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/53K.html">
+<meta property="og:description" content="Эссе о точке сборки: автор связывает комплексную плоскость, функции и мнимую единицу с каббалистическим взглядом на движение человека в жизни.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Точка сборки">
+<meta name="twitter:description" content="Эссе о точке сборки: автор связывает комплексную плоскость, функции и мнимую единицу с каббалистическим взглядом на движение человека в жизни.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №53K</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>/</span><a href="../cyberson/index.html">Киберсон</a>
+  </nav>
+
+  <header class="title">
+    <h1>Точка сборки<a class="audio-link" href="https://t.me/art_017_tracks/326" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <p class="subtitle">Выбирай любую :)</p>
+    <hr class="rule">
+  </header>
+
+  <article>
+    <p>Слушая "Басту", "Театр"<a class="fn-ref" id="ref1" href="#fn1">*1<span class="fn-pop">Баста, «Театр» — видео на YouTube.</span></a> я понял вот что. Конфигурационное пространство<a class="fn-ref" id="ref2" href="#fn2">*2<span class="fn-pop">Конфигурационное пространство — статья в Википедии.</span></a>, так называемое. Ну, так оно называется в математике/физике - что это такое, в проекции "на наших баранов".</p>
+
+    <p>Это, скажем так, комплексная плоскость<a class="fn-ref" id="ref3" href="#fn3">*3<span class="fn-pop">Комплексная плоскость — статья в Википедии.</span></a>. В ней, ты являешься некоторой "точкой". Которая проведена, например, по иксу, я, по игрику - ты. Условно говоря. Потому что, что такое "комплексная плоскость"? Это мужчина и женщина, конечно же<a class="fn-ref" id="ref4" href="#fn4">*4<span class="fn-pop">Не обязательно. Например "учитель и ученик", родитель и ребенок, начальник и подчиненный, и т.д. и т.п.</span></a>.</p>
+
+    <p>А когда "точка" движется? Движется "вправо" или "влево". Функция - что такое "функция". Функция, это то, что описывает движение этой "точки" во времени. Понимаешь? Функция, она может принимать некоторый вид. Она может принимать вид - параболы, гиперболы, линии. Еще что-нибудь там. Ну, "стоять" она точно не может. Ты понимаешь, почему, да?</p>
+
+    <p>Потому, что, сколько бы мы не хотели "фиксировать" эту "точку сборки", она все равно не останется "фиксированной". То, что "маги" стремятся ее изменять - они этим отражают "закон Природы". Не то, чтобы они этим что-то "выдумывали".</p>
+
+    <p>А в чем суть? Суть в том, что эта "точка" движется в этом "конфигурационном пространстве" тогда, когда сдвигается твоя "точка сборки". А, пока она не сдвигается, эта "точка" остается на одном месте. Ты можешь "передвигаться в пространстве", ты можешь "покупать там что нибудь", "идти в магазин", потом можешь "идти на работу", "работать", там еще, "метлой" там "мести", или, как я, "печатать по клаве", или еще что-нибудь делать, то есть, выполнять "работу". Или, ты можешь "отдыхать", можешь "просматривать" какие-нибудь "фильмы".  Ты можешь еще что-нибудь делать.</p>
+
+    <p>Пока твоя "точка сборки" остается "недвижима", ты являешься той же самой "точкой" в этом самом "пространстве". То есть, эта "функция", она, пока еще, тебя не переместила в другую "позицию". По сути, "на экране твоей жизни". Если "экран" понимать не так банально, как мы его понимаем, как каббалисты - как то, от чего что-то "отражается". А более "продвинуто" - да? То есть то, что мы понимаем, как каббалисты, которые стоят перед "экраном", [и видят друг друга] на экранах "духовных и материальных"<span class="fn-ref"><a class="fn-ref" href="#fn5" id="ref5">*5</a><span class="fn-pop">См. <a href="06I.html">«Воззвание к друзьям-каббалистам»</a></span></span>.</p>
+
+    <p>То есть, [как то, что] на "экране" есть некоторая "точка", и она "движется". То ты, как эта точка, ты "движешься", только тогда, когда сдвигается твоя "точка сборки". А, на самом деле, когда мы, как, МЖОСИ<a class="fn-ref" id="ref6" href="#fn6">*6<span class="fn-pop">Мужчиной и Женщиной Он Создал Их</span></a>, эта точка движется, да? Но, единственное, что нужно сказать, что, как сказал этот товарищ Савватеев<a class="fn-ref" id="ref7" href="#fn7">*7<span class="fn-pop">Дзета-функция Римана | Лекции по математике – математик Алексей Савватеев | Научпоп</span></a>, то, что "мнимая единица" - она движется все время "по кругу", вокруг той "точки", на которой она находится.</p>
+
+    <p>То есть, "мнимая единица", вот это "кли с нулевым авиютом", которым является мужчина, условно говоря, да? Оно не движется, оно не способно сдвинуть эту "комплексную единицу" с места. Понимаешь? Оно "способно" только "двигаться по кругу", вокруг, как бы, "своей оси". Ну, "оси" - это не правильно немножко в данном случае: вокруг той "точки", в которой она находится. "Описывать Круг". Вот, она описывает этот "круг", эта "мнимая единица". "Мнимая часть", скажем так, этого "вещественного уравнения". Я надеюсь, что ты меня понял, да?</p>
+
+    <p>См. также: <a href="15D.html">Комплексная модель ТС</a>.<br></p>
+  </article>
+
+  <section class="notes" aria-label="Примечания">
+    <h2>Примечания</h2>
+
+    <div class="note" id="fn1">
+      <span class="num">*1</span>
+      <div class="body">
+        <p class="mlabel">Музыка под настроение:</p>
+        <div class="player" data-yt="GMQ4nYWPCaE">
+          <div class="ptop">
+            <span class="chev">▶</span>
+            <span class="ttl"><b>Театр</b> · <span class="who">Баста</span></span>
+            <a class="ext" href="https://www.youtube.com/watch?v=GMQ4nYWPCaE" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+          </div>
+          <div class="frame"></div>
+        </div>
+        <a class="back" href="#ref1" title="Вернуться к тексту">↩</a>
+      </div>
+    </div>
+
+    <div class="note" id="fn2">
+      <span class="num">*2</span>
+      <div class="body"><a href="https://ru.wikipedia.org/wiki/Конфигурационное_пространство">ru.wikipedia.org/wiki/Конфигурационное_пространство</a><a class="back" href="#ref2" title="Вернуться к тексту">↩</a></div>
+    </div>
+
+    <div class="note" id="fn3">
+      <span class="num">*3</span>
+      <div class="body"><a href="https://ru.wikipedia.org/wiki/Комплексная_плоскость">ru.wikipedia.org/wiki/Комплексная_плоскость</a><a class="back" href="#ref3" title="Вернуться к тексту">↩</a></div>
+    </div>
+
+    <div class="note" id="fn4">
+      <span class="num">*4</span>
+      <div class="body">Не обязательно. Например "учитель и ученик", родитель и ребенок, начальник и подчиненный, и т.д. и т.п.<a class="back" href="#ref4" title="Вернуться к тексту">↩</a></div>
+    </div>
+
+    <div class="note" id="fn5">
+      <span class="num">*5</span>
+      <div class="body"><a href="06I.html">«Воззвание к друзьям-каббалистам»</a><a class="back" href="#ref5" title="Вернуться к тексту">↩</a></div>
+    </div>
+
+    <div class="note" id="fn6">
+      <span class="num">*6</span>
+      <div class="body">Мужчиной и Женщиной Он Создал Их<a class="back" href="#ref6" title="Вернуться к тексту">↩</a></div>
+    </div>
+
+    <div class="note" id="fn7">
+      <span class="num">*7</span>
+      <div class="body">Дзета-функция Римана | Лекции по математике – математик Алексей Савватеев | Научпоп<br>
+      <a href="https://rutube.ru/video/c53dd80a36f8b122932992fd3be0f138/">rutube.ru/video/c53dd80a36f8b122932992fd3be0f138/</a><a class="back" href="#ref7" title="Вернуться к тексту">↩</a></div>
+    </div>
+  </section>
+
+  <nav class="corpusnav">
+    <a class="pv" href="54H.html"><span class="lbl">← Предыдущая</span>Горе от ума</a>
+    <a class="nx" href="532.html"><span class="lbl">Следующая →</span>Заметки путешественника во времени</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // lazy music players
+  document.querySelectorAll('.player').forEach(function(p){
+    var top=p.querySelector('.ptop'),frame=p.querySelector('.frame'),id=p.getAttribute('data-yt');
+    top.addEventListener('click',function(e){
+      if(e.target.classList.contains('ext'))return;
+      var open=p.classList.toggle('open');
+      if(open && !frame.dataset.loaded){
+        var ifr=document.createElement('iframe');
+        ifr.src='https://www.youtube.com/embed/'+id+'?autoplay=1';
+        ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        ifr.allowFullscreen=true;
+        frame.appendChild(ifr);
+        frame.dataset.loaded='1';
+      }
+    });
+  });
+
+  // footnote popup side decision
+  document.querySelectorAll('.fn-ref').forEach(function(r){
+    r.addEventListener('mouseenter',function(){
+      var pop=r.querySelector('.fn-pop');
+      if(!pop)return;
+      pop.classList.remove('below');
+      var rect=r.getBoundingClientRect();
+      if(rect.top<200) pop.classList.add('below');
+    });
+  });
+
+  // flash highlight on jump
+  function flash(){
+    var h=location.hash;
+    if(h&&h.indexOf('#fn')===0){
+      var el=document.querySelector(h);
+      if(el){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}
+    }
+  }
+  window.addEventListener('hashchange',flash);
+  window.addEventListener('load',flash);
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — разговорно-философское эссе сплошной прозой (рассуждение о точке сборки, комплексной плоскости и функции), без стихотворных строк, поэтому выбрана редакторская широкоформатная схема: контейнер на ~66% ширины окна, основная мера чтения ограничена ~40em для комфорта, на мобильном — полная ширина. Развилка была только по подаче музыки и сносок: единственная YouTube-ссылка (*1) встроена прямо в аппарат сноски как ленивый раскрывающийся плеер (Баста — «Театр»), а не вынесена отдельным блоком, поскольку это и есть тело сноски; сводный раздел музыки не делал, так как распознанная аудио-ссылка всего одна (rutube *7 — это лекция, не музыка, дана плоской ссылкой).",
+  "rationale_extra": "Оглавление не строил: в тексте нет подразделов с заголовками — единый поток без структуры, поэтому TOC по правилам не требуется. Все семь сносок реализованы с переходами вниз/вверх, подсветкой цели и hover-popup с авто-выбором стороны. Голые URL (включая финальное «См. также») обёрнуты в ссылки, текст и глиф \":)\" сохранены дословно.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>

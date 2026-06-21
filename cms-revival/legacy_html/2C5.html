@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>АЯ нашествие Духа</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#26211b;
+    --muted:#6f655a;
+    --accent:#9a3b22;
+    --accent-soft:#c9784f;
+    --rule:#ddd3c2;
+    --quote-bg:#efe9dc;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --sans:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:20px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1040px;
+    min-height:100vh;
+    margin:0 auto;
+    background:var(--paper);
+    padding:48px 72px 80px;
+    box-shadow:0 0 60px rgba(60,45,25,.07);
+  }
+  /* breadcrumbs */
+  nav.crumbs{
+    font-family:var(--sans);
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:34px;
+  }
+  nav.crumbs a{
+    color:var(--accent);
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+  }
+  nav.crumbs a:hover{border-bottom-color:var(--accent-soft);}
+  nav.crumbs .sep{margin:0 .55em;color:var(--rule);}
+  /* title */
+  h1{
+    font-size:42px;
+    line-height:1.15;
+    font-weight:700;
+    margin:0 0 8px;
+    letter-spacing:-.01em;
+  }
+  .kicker{
+    font-family:var(--sans);
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    color:var(--accent-soft);
+    margin:0 0 14px;
+  }
+  .title-rule{
+    border:0;
+    border-top:2px solid var(--accent);
+    width:90px;
+    margin:26px 0 40px;
+  }
+  /* body text */
+  article p{margin:0 0 1.25em;}
+  article p.first::first-letter{
+    font-size:3.4em;
+    line-height:.8;
+    float:left;
+    padding:6px 12px 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+  blockquote{
+    margin:1.6em 0;
+    padding:18px 30px;
+    background:var(--quote-bg);
+    border-left:4px solid var(--accent-soft);
+    font-style:italic;
+    color:#3c352c;
+  }
+  blockquote p{margin:0;}
+  .speaker{
+    font-family:var(--sans);
+    font-style:normal;
+    font-size:14px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:block;
+    margin-bottom:.5em;
+  }
+  .ask{
+    font-family:var(--sans);
+    font-style:italic;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-right:.4em;
+  }
+  .closing{
+    font-size:26px;
+    font-style:italic;
+    color:var(--accent);
+    text-align:center;
+    margin:1.6em 0;
+  }
+  a{color:var(--accent);}
+  /* footnote marker */
+  .fnref{
+    font-family:var(--sans);
+    font-size:.7em;
+    vertical-align:super;
+    line-height:0;
+    text-decoration:none;
+    color:var(--accent);
+    font-weight:700;
+    padding:0 1px;
+    cursor:pointer;
+    position:relative;
+  }
+  .fnref:hover{color:var(--accent-soft);}
+  /* popup */
+  .fnref .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:1.6em;
+    width:300px;
+    max-width:78vw;
+    background:#2a241d;
+    color:#f4eee2;
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:400;
+    line-height:1.5;
+    letter-spacing:0;
+    text-align:left;
+    padding:12px 14px;
+    border-radius:8px;
+    box-shadow:0 8px 28px rgba(0,0,0,.3);
+    z-index:20;
+    white-space:normal;
+  }
+  .fnref .pop.below{bottom:auto;top:1.6em;}
+  .fnref .pop a{color:#f0b48f;word-break:break-all;}
+  .fnref:hover .pop{display:block;}
+  /* notes section */
+  .notes{
+    margin-top:58px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+  }
+  .notes h2{
+    font-family:var(--sans);
+    font-size:15px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--muted);
+    margin:0 0 16px;
+  }
+  .notes ol{margin:0;padding-left:1.4em;}
+  .notes li{
+    font-size:16px;
+    line-height:1.55;
+    color:#403930;
+    margin-bottom:.7em;
+    word-break:break-word;
+  }
+  .notes li:target{
+    background:#fbeecf;
+    box-shadow:0 0 0 6px #fbeecf;
+    border-radius:3px;
+  }
+  .backref{
+    font-family:var(--sans);
+    text-decoration:none;
+    color:var(--accent);
+    margin-left:.4em;
+    font-size:14px;
+  }
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    margin-top:60px;
+    padding-top:26px;
+    border-top:2px solid var(--accent);
+    font-family:var(--sans);
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    color:var(--accent);
+    max-width:46%;
+  }
+  .corpus-nav .dir{
+    display:block;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .corpus-nav .ttl{font-size:18px;font-weight:600;}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:46px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:var(--sans);
+    font-size:13.5px;
+    line-height:1.55;
+    color:var(--muted);
+  }
+  footer.colophon a{color:var(--accent);}
+  @media (max-width:900px){
+    .wrap{width:100%;max-width:none;padding:32px 22px 60px;box-shadow:none;}
+    body{font-size:18px;}
+    h1{font-size:32px;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav a,.corpus-nav .next{max-width:100%;text-align:left;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/2C5.html">
+<meta name="description" content="Статья-ответ из форумной переписки об Учении Левой Линии Кастанеды: о феномене АЯ как нашествия Духа, остановке внутреннего диалога и Правиле.">
+<meta property="og:title" content="АЯ нашествие Духа">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/2C5.html">
+<meta property="og:description" content="Статья-ответ из форумной переписки об Учении Левой Линии Кастанеды: о феномене АЯ как нашествия Духа, остановке внутреннего диалога и Правиле.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="АЯ нашествие Духа">
+<meta name="twitter:description" content="Статья-ответ из форумной переписки об Учении Левой Линии Кастанеды: о феномене АЯ как нашествия Духа, остановке внутреннего диалога и Правиле.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №2C5</span>
+<div class="wrap">
+
+  <nav class="crumbs" aria-label="Хлебные крошки">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <p class="kicker">Конфронтология Духа</p>
+  <h1>АЯ нашествие Духа<a class="audio-link" href="https://t.me/art_017_tracks/459" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <hr class="title-rule">
+
+  <article>
+
+    <blockquote>
+      <span class="speaker">Воскресенье написал(а)<span class="fnref"><a class="fnref" href="#fn1" id="ref1a">*</a><span class="pop">Оригинальная переписка на форуме Учения «Левой Линии» К. Кастанеды: <a href="https://ccastaneda.ru/viewtopic.php?id=3435">https://ccastaneda.ru/viewtopic.php?id=3435</a></span></span>:</span>
+      <p>«У некоторых кастанедовцев и некоторых йогов сложилось представление об ОВД, как о безмолвии, о магическом состоянии, в котором они переходят с одного уровня восприятия на другой, но это не всегда так, существуют простые объяснения сложным процессам, о которых лучше знать.»</p>
+    </blockquote>
+
+    <p class="first"><span class="ask">Ответ:</span> То, что на самом деле постоянно упускают из внимания, это очевидная, в общем-то, истина, которая даже получила отражение в форме "народной мудрости" — "свято место пусто не бывает". То есть "остановить", "прекратить", "удалить", "стереть" и так далее — на этом люди фиксируются, как будто это панацея, а то, что нужно "вместо" этого "запустить", "начать", "загрузить", "записать" — как большинство считает, им Дух преподнесёт на блюдечке с голубой каемочкой, как только они достигнут требуемого усердия и успеха в применении "волевого усилия в лоб", то есть без применения мозгов и воображения, без применения хитрости и смекалки, без чуткости к посылаемым Духом подсказкам, как и любой "средний человек", если не хуже, отказываясь слышать и слушать, когда говорят, что так достичь "свободы" не получится.</p>
+
+    <blockquote>
+      <span class="speaker">Воскресенье написал(а):</span>
+      <p>«я не держусь за этот жизненный опыт, он полностью пережит и перепросмотрен, если кто-то найдет в нем ценность для себя, ну и хорошо.»</p>
+    </blockquote>
+
+    <p><span class="ask">Ответ:</span> Твой описанный опыт<span class="fnref"><a class="fnref" href="#fn1" id="ref1b">*</a><span class="pop">Оригинальная переписка на форуме Учения «Левой Линии» К. Кастанеды: <a href="https://ccastaneda.ru/viewtopic.php?id=3435">https://ccastaneda.ru/viewtopic.php?id=3435</a></span></span>, это одно из АЯ по типу нашествия Духа. Я не буду апеллировать к известным источникам, а попробую сам описать, что имею в виду. Иначе суть точно потеряется за стеной заблуждений, в которые мы впадаем каждый раз, когда пытаемся ориентироваться на чье-либо мнение, кроме своей собственной интуиции и опыта. Нашествие — это когда Дух набрасывается на человека, еще не являющегося "учеником", или являющегося, но застрявшего в той или иной жизненной ситуации безвылазно, не желая что-либо делать, чтобы действительно качественно меняться, чтобы предоставить Духу возможность осуществить для него любые перемены, которые хочет в нем произвести Дух, а не те, которые сам человек понимает, считает "конструктивными", и приветствует. Человек ошибается начиная с того момента, когда говорит "я, меня, себя". Потому что никакой "собственной" реальности у него нет и в помине. Человек всегда является частью чего-то большего, в чем он участвует совместно с другими людьми. Это "большее" имеет реальность и называется "эргрегор". В миру — социум. У Толтеков — Группа или Кецалькоатль. У меня — Круг Жизни.</p>
+
+    <p>Чтобы вывести человека из-под "общего управления" старой (управляющей) ступени "этого  мира", частью которой он является, и которая им управляет, и ввести под Свое собственное "личное управление", то есть сделать "органической частью" Правила (которое в принципе невозможно кому-либо "раскрыть", объяснить или сделать понятным иначе, чем практическим включением человека в Него, и тогда сам человек "из действий Орла сможет сказать, чего он на самом деле хочет", поскольку эти действия станут его собственным личным пережитым жизненным опытом обретения настоящего Пути Сердца), Духу необходимо сначала создать в человеке ситуацию, когда этот человек сам захочет, чтобы Дух в нем произвел соответствующие изменения, и сам "попросит" его об этом. Ну или как-либо иначе манифестирует свое желание открыться навстречу Ветру перемен. Но человек этого мира не желает открываться на встречу Ветру, он хочет упорствовать в своем собственном "бытии", убеждении что он своей судьбой и жизненным Путем управляет сам, что никто и ничто кроме него самого не должно ставить перед ним целей и задач, забирая у него монополию на собственное, особо важное, как водится, мнение и представление "о прекрасном и ужасном", полезном и вредящем для него самого и т.д. То есть понятно, почему у человека всегда есть такая общая тенденция? Потому что в этом состоит желание Духа, чтобы человек так действовал, самолично предъявив Духу свое желание к тому, чтобы Дух на него "обрушился" определенным образом, изменив качественно его собственную реальность так, как это нужно ему самому. На то, чтобы понять эти простые вещи уходят годы и годы жизни и практики. Часто включающие в себя достаточно драматические эпизоды и события, в восприятии человека, который через них проходит. Но затем человек неизменно приходит к точке, когда просит Дух "взять себя в обойму" именно таким образом, каким Дух намерен с человеком это сделать, положив свой ум, опыт и мнение "на полку", и отменив себя перед желанием Абстрактного. Которое всегда выражается непосредственно в том, что с человеком в данный момент времени и в целом на жизненном этапе происходит. Потому что Он — единственный "деятель" в Реальности, и Его непосредственное Намерение — причина любых действий, которые совершаются кем либо каким-либо образом. Но каждый из этих деятелей рассматривает происходящее как результат своих собственных намерений и действий, производимых согласно имеющемуся у него разуму и пониманию. Поэтому достучаться до человека, чаще всего, Духу "по доброй воле человека" просто невозможно. Он не хочет слышать что-либо, кроме самого себя, а сам на данном этапе, как впрочем и на любом другом, не способен принципиально понять "замыслов Абстрактного" относительно своего нахождения в более "продвинутом" состоянии сознания, чем здесь и сейчас. Это Правило, энергетический факт о любом состоянии и любом человеке при любых условиях. Разница может быть только в том, что человек полностью отменяет себя и дает Духу вести его туда, куда Он хочет и понимает, а сам человек не стремится это понимать и желать (того, что он пока еще не способен понять) вовсе, а желает только, чтобы Дух показал и направил его туда, куда ему/ей действительно нужно, но о чем он/она смогут доподлинно узнать лишь в последствии произведенных Духом с их жизнью и сознанием, иногда достаточно масштабных и не простых, манипуляций.</p>
+
+    <p class="closing">Интересно?</p>
+
+  </article>
+
+  <section class="notes" aria-label="Примечания">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1">
+        Оригинальная переписка на форуме Учения "Левой Линии" К. Кастанеды: <a href="https://ccastaneda.ru/viewtopic.php?id=3435">https://ccastaneda.ru/viewtopic.php?id=3435</a>
+        <a href="#ref1a" class="backref" title="Вернуться к тексту">↩</a>
+        <a href="#ref1b" class="backref" title="Вернуться к тексту">↩</a>
+      </li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav" aria-label="Навигация по разделу">
+    <a class="prev" href="3AT.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="ttl">Я вернусь</span>
+    </a>
+    <a class="next" href="1CIB.html">
+      <span class="dir">Следующая →</span>
+      <span class="ttl">Сталкинг Сталкеров</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // Выбор стороны popup: над маркером, иначе под ним
+  document.querySelectorAll('.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter', function(){
+      var pop = ref.querySelector('.pop');
+      if(!pop) return;
+      pop.classList.remove('below');
+      var r = ref.getBoundingClientRect();
+      if(r.top < 180){ pop.classList.add('below'); }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — это прозаический разбор-ответ в формате форумной переписки (две цитаты собеседника и развёрнутые комментарии автора), без какой-либо стихотворной формы. Поэтому однозначно выбрана редакторская широкая схема: основная колонка ~2/3 ширины окна с книжной засечной гарнитурой, цитаты собеседника оформлены отдельными блоками-врезками, а реплики автора помечены меткой «Ответ». Палитра — тёплая бумажная (светлый фон, тёмные чернила, терракотовый акцент), что поддерживает медитативный, философский тон без крикливости.\n\nПодразделов с заголовками в тексте нет, поэтому оглавление не делалось. Единственная развилка — сноска: маркер «*» встречается дважды (у первой цитаты и у слова «опыт»), а тело примечания одно — про оригинальную переписку на форуме. Я связал обе ссылки с одним примечанием и дал две обратные стрелки. Голый URL обёрнут в гиперссылку и в теле сноски, и во всплывающем popup. Музыкальных треков в тексте нет, поэтому раздел музыки отсутствует.",
+  "features": ["footnotes"]
+}
+</script>
+</body>
+</html>

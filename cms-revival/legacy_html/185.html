@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Забывая о Любви к Себе</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#211c16;
+    --muted:#6a6155;
+    --accent:#8a4b2f;
+    --accent-soft:#c98a5f;
+    --line:#ddd2bf;
+    --hl:#fbe7c6;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Georgia","Iowan Old Style",serif;
+    font-size:19px;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:920px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 28px 80px;
+  }
+  @media (max-width:1100px){.wrap{width:80%;}}
+  @media (max-width:760px){
+    body{font-size:18px;}
+    .wrap{width:100%;padding:20px 18px 60px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:22px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:14px;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 8px;color:var(--accent-soft);}
+
+  .lead-img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    margin:0 auto 30px;
+    border:1px solid var(--line);
+    box-shadow:0 4px 18px rgba(80,60,30,.12);
+  }
+
+  h1{
+    font-size:34px;
+    line-height:1.2;
+    font-weight:700;
+    margin:0 0 30px;
+    color:var(--ink);
+    letter-spacing:-.01em;
+  }
+  h1::after{
+    content:"";
+    display:block;
+    width:70px;
+    height:3px;
+    background:var(--accent);
+    margin-top:18px;
+  }
+
+  article p{margin:0 0 1.4em;text-align:justify;hyphens:auto;}
+  article p.standalone{
+    text-align:center;
+    font-style:italic;
+    color:var(--accent);
+    font-size:21px;
+    margin:2em 0;
+  }
+
+  /* footnote markers */
+  .fnref{
+    color:var(--accent);
+    font-weight:700;
+    text-decoration:none;
+    font-size:.82em;
+    vertical-align:super;
+    padding:0 1px;
+    cursor:pointer;
+    position:relative;
+  }
+  .fnref:hover{color:var(--accent-soft);}
+  .fn-pop{
+    position:fixed;
+    z-index:50;
+    max-width:340px;
+    background:var(--ink);
+    color:#f3ecdf;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px;
+    line-height:1.5;
+    padding:12px 14px;
+    border-radius:8px;
+    box-shadow:0 8px 28px rgba(0,0,0,.32);
+    pointer-events:none;
+    opacity:0;
+    transition:opacity .12s;
+    text-align:left;
+    font-style:normal;
+  }
+  .fn-pop a{color:var(--accent-soft);}
+  .fn-pop.show{opacity:1;}
+
+  /* sections */
+  .section{
+    margin-top:54px;
+    padding-top:8px;
+    border-top:1px solid var(--line);
+  }
+  .section h2{
+    font-size:22px;
+    color:var(--accent);
+    margin:18px 0 18px;
+    font-weight:700;
+  }
+
+  /* music */
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--muted);
+    margin-bottom:10px;
+  }
+  .track{
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--paper);
+    overflow:hidden;
+    margin-bottom:10px;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#fbf6ec;}
+  .track-arrow{
+    color:var(--accent);
+    transition:transform .2s;
+    font-size:13px;
+  }
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-title{flex:1;}
+  .track-title b{font-weight:700;}
+  .track-title span{color:var(--muted);}
+  .track-ext{
+    color:var(--accent);
+    text-decoration:none;
+    font-size:16px;
+  }
+  .track-ext:hover{color:var(--accent-soft);}
+  .track-body{display:none;background:#000;}
+  .track.open .track-body{display:block;}
+  .track-body iframe{display:block;width:100%;height:340px;border:0;}
+  @media (max-width:620px){.track-body iframe{height:220px;}}
+
+  /* notes */
+  ol.notes{
+    margin:0;
+    padding-left:1.4em;
+    font-size:17px;
+    line-height:1.6;
+  }
+  ol.notes li{margin-bottom:14px;color:var(--ink);}
+  ol.notes li:target{
+    background:var(--hl);
+    border-radius:5px;
+    padding:4px 8px;
+    margin-left:-8px;
+  }
+  .backref{
+    color:var(--accent);
+    text-decoration:none;
+    margin-left:6px;
+    font-weight:700;
+  }
+  .notes .anon{list-style:none;margin-left:-1.4em;}
+
+  /* bottom nav */
+  .corpus-nav{
+    margin-top:60px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .corpus-nav a{
+    color:var(--accent);
+    text-decoration:none;
+    max-width:46%;
+  }
+  .corpus-nav a:hover{text-decoration:underline;}
+  .corpus-nav .dir{
+    display:block;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .corpus-nav .nxt{text-align:right;}
+
+  footer{
+    margin-top:40px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer a{color:var(--accent);}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/185.html">
+<meta name="description" content="Эссе о любви к себе, Намерении Духа и Орле в традиции Кастанеды, с параллелями к каббалистическим понятиям есода, МАН и МАД.">
+<meta property="og:title" content="Забывая о Любви к Себе">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/185.html">
+<meta property="og:description" content="Эссе о любви к себе, Намерении Духа и Орле в традиции Кастанеды, с параллелями к каббалистическим понятиям есода, МАН и МАД.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Забывая о Любви к Себе">
+<meta name="twitter:description" content="Эссе о любви к себе, Намерении Духа и Орле в традиции Кастанеды, с параллелями к каббалистическим понятиям есода, МАН и МАД.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №185</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>/</span><a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <img class="lead-img" src="../img/185.jpg" alt="">
+
+  <h1>Забывая о Любви к Себе<a class="audio-link" href="https://t.me/art_017_tracks/565" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <article>
+    <p>За пределами второго и первого внимания нет отдельного существования Духа и чувствующих существ. Там невозможно быть существом, которое существует, то есть живет, чувствует, осознает, и т.п., поскольку там Жизнь является тем, чем Она является на самом деле - неограниченным и единым Восходящим Потоком, кроме Которого сами "эманации Орла" не являются ничем. Этот Поток, называемый у КК "Намерением Духа", "скрывается" в действии "Высшего Я", т.е. Орла, Дающего Дар (а вместе с этим и Получающим этот Дар, поскольку Нет никого, кроме Него) Своим созданиям "этого мира", еще до того, как "этот мир", как и вообще "точка сборки" и опосредуемое ею "восприятие", результатами которого становятся "внимание" и "осознание", "сам по Себе" будет "создан", и эти существа начнут его реально воспринимать, совершая работу по "получению" Дара Орла "на местах", т.е. выполняя Его Высшую Волю, являющуюся "командой Орла", хотя сам Дар, на Своем Месте, является "свободным волеизъявлением" Орла, если можно так выразиться ("на самом деле" тоже не таким уж "свободным", поскольку совершить это действие Орлу "помогает" Намерение Духа, являющееся "чистой энергией", без Которой не может быть произведено никакое Действие, и одновременно являющееся Причиной того, что это действие становится Даром для тех, для кого это самое действие вместе с Орлом и Намерением Духа производит "нагваль" (точнее, посредством которого он создается Орлом, но он делает это осознанно, и по собственной свободной воле, иначе ему "вспоминать" в последствии было бы нечего в принципе - слишком "логика" Нагваля не подходит для разума), "делая это из любви к свободе". Не к своей собственной свободе, и даже не к свободе своей "партии воинов"...</p>
+
+    <p class="standalone">Затем Нагвалю и его воинам было приказано забыть.<a class="fnref" id="ref1" href="#fn1" data-fn="Правило Нагваля, Дар Орла, Карлос Кастанеда">*</a></p>
+
+    <p>...потому что, помня то, что открыл им Творец в процессе создания человека в едином соединении Творца и Его творения, посредством взаимовключения есодов мужчины и женщины этого мира, любовь которых является формой совершения взаимного добровольного скрытия их полной управляемости ступенью Высшего посредством наполнения, получаемого "не ради самих себя", в Силу которого это скрытие и его раскрытие происходят в том же самом едином речении, что и само действие, в котором два независимых друг от друга "чувствующих существа" соединяются в единую ступень, обретающую независимость путем совершения над Высшей ступенью половой любви, реальность которой превосходит силу обстоятельств, которые возникнут по ее причине в отношении того, что должно в ней родиться в будущем, чтобы находиться на той же ступени и быть независящим от любви к тому, кто, не испытывая ее в будущем, совершает духовное самопожертвование ради того, чтобы эта любовь в настоящем у его "ближних" (Круга Жизни = Бней Адам<a class="fnref" id="ref2" href="#fn2" data-fn="Бней Адам (ивр.) = Человечество.">*</a>) была постоянно, и не зависела от того, кто из них испытывает ее, а кто получает ее в подобие по свойствам Творцу, наслаждая Его и распространяя любовь от творений к Творцу посредством поднятия МАД и получения МАН своей следующей ступенью, любить которой ради кого-то кроме самого себя при всем желании не получится, поскольку это будет означать, что кто-то другой получает вечную жизнь в совершенной любви к Самому Себе, поскольку нет Никого кроме Него, теми, кого никогда не было и быть не могло, потому что у них ничего нет и им ничего не нужно, поскольку их любовь не зависит от того, кто ее испытывает, что является другим способом сказать, что Творец совершенно не связывает Свою любовь к творениям с тем, как творения, получая и отдавая эту любовь друг другу, формируют Кли, выводящее ступень полностью свободной и независимой абсолютной любви, кроме Которой нет и не было никого и  ничего, из "мысли" в "реальность", то есть совершая действия, порядок и значение которых они расскажут сами себе, когда Мир Бесконечной любви и вечной жизни, созданный из того, чего нет и не может быть в истинной реальности, будет создан посредством совместного действия желающих искренне доставить наслаждение друг другу независимых чувствующих существ, просто потому, что "им это нравится", а то, что нравится творению, всегда доставляет наслаждение Творцу, поскольку именно Он совершает выбор, предваряющий выбор, в то время, когда человек поднимает молитву, предваряющую молитву, и в этом выборе Он всегда выбирает для человека то, что ему нравится, чтобы человек, поднимая об этом молитву, мог следовать Пути, который ведет в никуда, по велению Сердца, которое ничего не чувствует, как если бы он шел по этому Пути, выполняя Заповедь свободного выбора<a class="fnref" id="ref3" href="#fn3" data-fn="См. также: Катнут свойства ЦЕЛЕМ Элоким. http://proza.ru/2021/08/05/67">*</a>, чтобы доставить этим наслаждение Тому, Кто всем этим управляет со ступени, местонахождения Которой Высшие Ангелы не узнают никогда, потому что их категории существования реальности это выяснение не касается, а знание или незнание этого места человеком человеку после "получения Торы" Творцом приказано забыть.</p>
+  </article>
+
+  <section class="section" id="music">
+    <h2>Музыка под настроение</h2>
+    <div class="track" data-embed="https://www.youtube.com/embed/KbJ8MbxVjVY">
+      <div class="track-head">
+        <span class="track-arrow">▶</span>
+        <span class="track-title"><b>Tears of Time</b> <span>— Zoom</span></span>
+        <a class="track-ext" href="https://youtu.be/KbJ8MbxVjVY" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="track-body"></div>
+    </div>
+  </section>
+
+  <section class="section" id="notes">
+    <h2>Примечания</h2>
+    <ol class="notes">
+      <li id="fn1">Правило Нагваля, Дар Орла, Карлос Кастанеда<a class="backref" href="#ref1" title="Вернуться к тексту">↑</a></li>
+      <li id="fn2">Бней Адам (ивр.) = Человечество.<a class="backref" href="#ref2" title="Вернуться к тексту">↑</a></li>
+      <li id="fn3">См. также: <a href="11H.html">Катнут свойства ЦЕЛЕМ Элоким</a>.<a class="backref" href="#ref3" title="Вернуться к тексту">↑</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prv" href="1B5A.html"><span class="dir">← Предыдущая</span>Малхут де Рош Арих Анпин</a>
+    <a class="nxt" href="22S.html"><span class="dir">Следующая →</span>Вспоминая о Любви к Тебе</a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // Lazy YouTube players
+  document.querySelectorAll('.track').forEach(function(t){
+    var head=t.querySelector('.track-head');
+    var body=t.querySelector('.track-body');
+    var embed=t.getAttribute('data-embed');
+    head.addEventListener('click',function(e){
+      if(e.target.closest('.track-ext'))return;
+      var open=t.classList.toggle('open');
+      if(open && !body.querySelector('iframe')){
+        var f=document.createElement('iframe');
+        f.src=embed+'?autoplay=1';
+        f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        f.allowFullscreen=true;
+        body.appendChild(f);
+      }
+    });
+  });
+
+  // Footnote popups
+  var pop=document.createElement('div');
+  pop.className='fn-pop';
+  document.body.appendChild(pop);
+  document.querySelectorAll('.fnref').forEach(function(m){
+    m.addEventListener('mouseenter',function(){
+      pop.innerHTML=m.getAttribute('data-fn');
+      pop.classList.add('show');
+      var r=m.getBoundingClientRect();
+      var pr=pop.getBoundingClientRect();
+      var left=r.left+r.width/2-pr.width/2;
+      left=Math.max(8,Math.min(left,window.innerWidth-pr.width-8));
+      var top=r.top-pr.height-8;
+      if(top<8){top=r.bottom+8;}
+      pop.style.left=left+'px';
+      pop.style.top=top+'px';
+    });
+    m.addEventListener('mouseleave',function(){pop.classList.remove('show');});
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст представляет собой сплошную философско-каббалистическую прозу из трёх абзацев с очень длинными синтаксическими периодами, без стихотворной разбивки на строки и строфы — поэтому выбрана редакторская широкая схема (колонка ~2/3 ширины окна, max 920px) для комфортного чтения плотного потокового текста. Альтернативу-манускрипт отверг, так как нет ни одной поэтической формы. Центральная строка про Нагваля визуально выделена как смысловая цезура между двумя длинными частями (italic, по центру), но без добавления собственных заголовков.\n\nОглавление не делал: в статье нет более одного содержательного подраздела — только сам текст плюс служебные разделы примечаний и музыки. Три маркера '*' сопоставил с тремя строками аппарата по содержанию: 'забыть' → правило Нагваля/Кастанеда, 'Бней Адам' → перевод термина, 'свободного выбора' → ссылка 'См. также' с голым URL, обёрнутым в гиперссылку. Реализовал popup-сноски с выбором стороны (над/под маркером) и подсветку цели. Единственный трек (YouTube, метка 'Музыка:') оформлен как ленивый раскрывающийся плеер; сводный раздел не нужен, так как трек один (<2). Палитра — тёплая бумажная со светлым фоном и терракотовым акцентом, засечный шрифт для основного текста.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>

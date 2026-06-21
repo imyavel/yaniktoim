@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Абстрактные Ядра Сказок о Силе</title>
+<style>
+  :root{
+    --bg:#f4f1ea;
+    --paper:#fbf9f4;
+    --ink:#24211c;
+    --muted:#6b6357;
+    --accent:#8a5a2b;
+    --accent-deep:#5e3c18;
+    --rule:#d8d0c2;
+    --link:#9a4a1f;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(154,74,31,.3);}
+  a:hover{border-bottom-color:var(--link);}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 48px 80px;
+  }
+  /* Editorial: content column ~2/3 of a wide page */
+  .col{
+    width:66%;
+    max-width:760px;
+    margin:0 auto;
+  }
+
+  header.top{
+    border-bottom:2px solid var(--rule);
+    margin-bottom:40px;
+  }
+  .crumbs{
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    padding:22px 0 18px;
+    text-transform:uppercase;
+  }
+  .crumbs a{color:var(--accent);border:none;}
+  .crumbs a:hover{color:var(--accent-deep);text-decoration:underline;}
+  .crumbs .sep{margin:0 .55em;color:var(--rule);}
+
+  .hero{
+    margin:8px 0 30px;
+  }
+  .hero img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    margin:0 auto;
+    border:1px solid var(--rule);
+    box-shadow:0 6px 22px rgba(40,30,15,.12);
+  }
+
+  h1{
+    font-size:42px;
+    line-height:1.18;
+    font-weight:700;
+    letter-spacing:-.01em;
+    margin:.2em 0 .15em;
+    color:var(--accent-deep);
+  }
+  .dateline{
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    font-style:italic;
+    margin-bottom:34px;
+  }
+
+  article p{
+    margin:0 0 1.5em;
+    text-align:justify;
+    hyphens:auto;
+  }
+  article p:first-of-type::first-letter{
+    font-size:4.4em;
+    line-height:.8;
+    float:left;
+    padding:.06em .12em 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+
+  /* Music */
+  .music{
+    margin:48px 0 8px;
+    padding-top:26px;
+    border-top:1px solid var(--rule);
+  }
+  .music-label{
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:12px;
+  }
+  .track{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#f1ece1;}
+  .track-arrow{
+    transition:transform .25s ease;
+    color:var(--accent);
+    font-size:14px;
+    flex:0 0 auto;
+  }
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-title{
+    flex:1 1 auto;
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:17px;
+  }
+  .track-title b{color:var(--accent-deep);}
+  .track-ext{
+    flex:0 0 auto;
+    color:var(--muted);
+    border:none;
+    font-size:16px;
+  }
+  .track-ext:hover{color:var(--link);}
+  .track-player{display:none;background:#000;}
+  .track.open .track-player{display:block;}
+  .track-player .ratio{
+    position:relative;
+    width:100%;
+    padding-bottom:56.25%;
+    height:0;
+  }
+  .track-player iframe{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    border:0;
+  }
+
+  /* Footer nav */
+  .corpus-nav{
+    margin-top:60px;
+    padding-top:26px;
+    border-top:2px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  .corpus-nav a{
+    border:none;
+    max-width:46%;
+  }
+  .corpus-nav .dir{
+    display:block;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .corpus-nav .ttl{
+    font-size:18px;
+    color:var(--accent-deep);
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:46px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:14.5px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+  footer.colophon a{color:var(--accent);}
+
+  @media (max-width:900px){
+    .wrap{padding:0 22px 60px;}
+    .col{width:100%;max-width:none;}
+    body{font-size:18px;}
+    h1{font-size:32px;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/15F.html">
+<meta name="description" content="Статья Элиягу Бар Малей об абстрактных ядрах сказок о силе: универсальных деталях событий, отражающих путь воина через сюжеты народных сказок.">
+<meta property="og:title" content="Абстрактные Ядра Сказок о Силе">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/15F.html">
+<meta property="og:description" content="Статья Элиягу Бар Малей об абстрактных ядрах сказок о силе: универсальных деталях событий, отражающих путь воина через сюжеты народных сказок.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Абстрактные Ядра Сказок о Силе">
+<meta name="twitter:description" content="Статья Элиягу Бар Малей об абстрактных ядрах сказок о силе: универсальных деталях событий, отражающих путь воина через сюжеты народных сказок.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №15F</span>
+<div class="wrap">
+  <div class="col">
+
+    <header class="top">
+      <nav class="crumbs">
+        <a href="../index.html">Главная</a>
+        <span class="sep">›</span>
+        <a href="../dabudet/index.html">Да будет Свет!</a>
+      </nav>
+    </header>
+
+    <div class="hero">
+      <img src="../img/15F.jpg" alt="Иллюстрация к статье">
+    </div>
+
+    <h1>Абстрактные Ядра Сказок о Силе<a class="audio-link" href="https://t.me/art_017_tracks/372" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <p class="dateline">Написано 15 мая 2021 г. на форуме КК</p>
+
+    <article>
+      <p>Абстрактные ядра - это такие "реальные" детали событий и явлений, которые не зависят от того, с кем конкретно эти события и явления происходят, равно как и от того, происходят они, относительно мага-рассказчика, "в прошлом" его самого, или прошлом людей или магов его поколения, или же в таковых, которые будут происходить с ними в будущем, не важно, с кем и когда вообще, поскольку посредством отражения в них Абстрактного посредством восприятия, жизни, осознания и перепросмотра воином-рассказчиком они существуют вне времени и происходят совершенно одинаково со всеми и каждым, независимо от обстоятельств конкретного места, души и времени происхождения в судьбах конкретных людей. Я нашел "намерение" этой практики, равно как и понимание того, что такое АЯ и перепросмотр в принципе, через конкретную форму "воспоминания" о происходящем в судьбе человека, идущего по Пути воина, на различных его этапах, через призму сюжетной линии народных сказок.</p>
+    </article>
+
+    <section class="music">
+      <div class="music-label">Музыка под настроение</div>
+      <div class="track" id="track1">
+        <div class="track-head" onclick="toggleTrack('track1')">
+          <span class="track-arrow">▶</span>
+          <span class="track-title"><b>АРИЯ</b> — Точка невозврата</span>
+          <a class="track-ext" href="https://youtu.be/f1xADw21Lx4" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+        </div>
+        <div class="track-player">
+          <div class="ratio" data-embed="https://www.youtube.com/embed/f1xADw21Lx4"></div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="corpus-nav">
+      <a class="prev" href="1C6.html">
+        <span class="dir">← Предыдущая</span>
+        <span class="ttl">Действие без ожиданий</span>
+      </a>
+      <a class="next" href="15E.html">
+        <span class="dir">Следующая →</span>
+        <span class="ttl">Золушка</span>
+      </a>
+    </nav>
+
+    <footer class="colophon">
+      <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+      <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+  function toggleTrack(id){
+    var t=document.getElementById(id);
+    var open=t.classList.toggle('open');
+    if(open){
+      var holder=t.querySelector('.ratio');
+      if(holder && !holder.querySelector('iframe')){
+        var src=holder.getAttribute('data-embed')+'?autoplay=1';
+        var f=document.createElement('iframe');
+        f.setAttribute('src',src);
+        f.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        f.setAttribute('allowfullscreen','');
+        holder.appendChild(f);
+      }
+    }
+  }
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой прозаический теоретический текст — единственный плотный абзац-определение «абстрактных ядер» плюс датировочная строка и один музыкальный трек. Стихотворных форм нет, поэтому выбрана редакторская широкая схема: контейнер на всю ширину окна с читаемой колонкой контента около 2/3 ширины (max-width 760px по центру), что даёт журнальный лонгрид-характер при единственном длинном абзаце. Засечный шрифт Georgia, тёплая светлая бумажная палитра и буквица в начале абзаца компенсируют скудость структуры и придают «editorial»-вес одинокому параграфу.\n\nОглавление не делалось: подразделов нет (один абзац), так что TOC был бы искусственным. Сносок в тексте нет. Музыкальный трек один (меньше трёх), поэтому сводный раздел музыки не создавался — только одиночный свёрнутый плеер с ленивой подгрузкой iframe при раскрытии, меткой «Музыка под настроение», ссылкой-стрелкой ↗ на YouTube. Дату написания сохранил как датлайн, не выбрасывая. Отказался от манускриптной узкой схемы, так как форма — проза, а не стих."
+,
+  "features": ["music"]
+}
+</script>
+</body>
+</html>

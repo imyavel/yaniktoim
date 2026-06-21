@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Я увижу тебя, увижу на этой стороне</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#23201b;
+    --muted:#6b6358;
+    --accent:#6a3d8f;
+    --accent2:#9a5a2b;
+    --rule:#e0d8c8;
+    --hl:#fff1b8;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(106,61,143,.3);}
+  a:hover{border-bottom-color:var(--accent);}
+  .wrap{
+    width:clamp(320px,72vw,1060px);
+    margin:0 auto;
+    padding:28px 26px 70px;
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:6px 0 22px;
+  }
+  .crumbs a{color:var(--muted);border:none;}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs span{margin:0 .5em;opacity:.6;}
+  /* hero image */
+  .hero{margin:0 0 26px;}
+  .hero img{max-width:100%;width:auto;height:auto;display:block;border-radius:4px;box-shadow:0 8px 30px rgba(0,0,0,.12);}
+  /* title */
+  h1{
+    font-size:2.05rem;
+    line-height:1.2;
+    font-weight:700;
+    margin:.2em 0 .15em;
+    color:#1c1722;
+    letter-spacing:.005em;
+  }
+  .byline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    margin:0 0 6px;
+  }
+  .pubdate{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.05em;
+    color:var(--accent2);
+    text-transform:uppercase;
+    margin:0 0 28px;
+  }
+  hr.sep{border:none;border-top:1px solid var(--rule);margin:34px 0;}
+  article p{margin:0 0 1.15em;}
+  blockquote{
+    margin:1.4em 0;
+    padding:.6em 1.3em;
+    border-left:4px solid var(--accent);
+    background:var(--paper);
+    color:#322b3a;
+    border-radius:0 6px 6px 0;
+    box-shadow:0 2px 10px rgba(0,0,0,.04);
+  }
+  blockquote p:last-child{margin-bottom:0;}
+  ol.steps{
+    margin:1.3em 0;
+    padding-left:1.4em;
+  }
+  ol.steps li{margin:0 0 .85em;padding-left:.3em;}
+  ol.steps li::marker{color:var(--accent);font-weight:700;}
+  .proverb{
+    font-style:italic;
+    color:#403a32;
+    margin:.4em 0 .4em;
+  }
+  /* footnote refs */
+  sup.fnm{line-height:0;}
+  .fn-ref{
+    position:relative;
+    color:var(--accent2);
+    font-weight:700;
+    border:none;
+    cursor:pointer;
+    font-size:.78em;
+    padding:0 1px;
+  }
+  .fn-ref:hover{color:var(--accent);}
+  .fn-pop{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    width:300px;
+    max-width:74vw;
+    background:#2a2433;
+    color:#f3eefb;
+    padding:11px 14px;
+    border-radius:9px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    font-weight:400;
+    line-height:1.45;
+    text-align:left;
+    letter-spacing:0;
+    box-shadow:0 8px 28px rgba(0,0,0,.35);
+    display:none;
+    z-index:60;
+    bottom:1.7em;
+  }
+  .fn-pop a{color:#d7b3ff;}
+  .fn-ref.below .fn-pop{bottom:auto;top:1.7em;}
+  .fn-ref:hover .fn-pop{display:block;}
+  /* music */
+  .music{margin:2.2em 0;}
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:.09em;
+    color:var(--accent2);
+    margin:0 0 .7em;
+    font-weight:700;
+  }
+  details.track,.track.flat{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:8px;
+    margin:0 0 8px;
+    overflow:hidden;
+  }
+  details.track summary{
+    list-style:none;
+    cursor:pointer;
+    padding:12px 15px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  details.track summary::-webkit-details-marker{display:none;}
+  .tk-title{font-weight:700;color:#1c1722;}
+  .tk-artist{color:var(--muted);font-size:.92em;}
+  .tk-sep{color:var(--rule);}
+  .ext{margin-left:auto;}
+  .ext a{border:none;font-size:1.05em;color:var(--accent);}
+  .arrow{transition:transform .2s;color:var(--accent);font-size:.9em;}
+  details.track[open] .arrow{transform:rotate(180deg);}
+  .embed{padding:0 15px 15px;}
+  .embed iframe{display:block;width:100%;aspect-ratio:16/9;height:auto;border-radius:6px;border:none;}
+  .track.flat{
+    padding:12px 15px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  /* notes */
+  h2.sec{
+    font-size:1.4rem;
+    color:#1c1722;
+    margin:1.6em 0 .5em;
+    padding-top:.3em;
+    border-top:2px solid var(--rule);
+  }
+  ol.notes{list-style:none;margin:0;padding:0;font-size:16px;line-height:1.6;}
+  ol.notes li{
+    margin:0 0 .7em;
+    padding:.45em .6em;
+    border-radius:6px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    color:#34302a;
+  }
+  ol.notes li:target{background:var(--hl);box-shadow:0 0 0 2px rgba(154,90,43,.3);}
+  .fn-star{color:var(--accent2);font-weight:700;margin-right:.5em;}
+  .fn-back{margin-left:.4em;border:none;font-size:.95em;}
+  /* corpus nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    flex-wrap:wrap;
+    margin:46px 0 0;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .corpus-nav a{flex:1;min-width:200px;border:none;}
+  .corpus-nav .nx{text-align:right;}
+  .corpus-nav .lbl{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+  footer.colophon{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.5;
+  }
+  footer.colophon a{color:var(--muted);}
+  @media (max-width:760px){
+    body{font-size:18px;}
+    .wrap{width:100%;padding:20px 18px 56px;}
+    h1{font-size:1.7rem;}
+    .corpus-nav .nx{text-align:left;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/31I.html">
+<meta name="description" content="Эссе Bina Anele о работе над переводом Анжелики Тамаш, размышлениях о волнах времени по системе ABS, музыке Vangelis и этимологии слова ястреб.">
+<meta property="og:title" content="Я увижу тебя, увижу на этой стороне">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/31I.html">
+<meta property="og:description" content="Эссе Bina Anele о работе над переводом Анжелики Тамаш, размышлениях о волнах времени по системе ABS, музыке Vangelis и этимологии слова ястреб.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Я увижу тебя, увижу на этой стороне">
+<meta name="twitter:description" content="Эссе Bina Anele о работе над переводом Анжелики Тамаш, размышлениях о волнах времени по системе ABS, музыке Vangelis и этимологии слова ястреб.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №31I</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>›</span><a href="../cyberson/index.html">Киберсон</a>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/31I.jpg" alt="">
+  </div>
+
+  <h1>Я увижу тебя, увижу на этой стороне<a class="audio-link" href="https://t.me/art_017_tracks/334" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <p class="byline">Bina Anele (<a href="https://t.me/anele_bina" target="_blank" rel="noopener">t.me/anele_bina</a>)</p>
+  <p class="pubdate">18.01.2023</p>
+
+  <article>
+
+    <p>Сегодня когда начала работать над переводом работы Анжелики Тамаш «Мировоззрение ЛЛЛИелату»<sup class="fnm"><a class="fn-ref" id="ref-fn8" href="#fn8">********</a><span class="fn-pop"><a href="31E.html">ЛЛЛиелату — новое Кли, связующее Науку и Магию</a> </span></sup>, страницы первоисточника перескочили на шестисотые, я только глазом «сфотографировала» страницу и снова  вернулась в начало первоисточника. Но сработало правило: в нашей жизни нет ничего случайного,- и я начала следовать внутреннему ведению. Я вернулась на страницу, которую воспроизвела моя память. Страницу 658 первоисточника.</p>
+
+    <p>Стала читать. На этой странице Анжелика Тамаш пишет о подсчетах, согласно системы Мировоззрения ЛЛЛИелату, Волны Времени с 13 января 1987 года  по системе ABS = СИСТЕМА ВРЕМЕНИ быть ЭХОМ-ЭХА (ответить эхом на ЭХО, система ОТРАЖЕННОГО СВЕТА в Науке Каббала)). По системе ABS, дальше первоисточник:</p>
+
+    <blockquote>
+      <p>«Четвертый период называется ПАРИВРАДЖА. Сутки ползут разрушая циклы-пространства, создавая новые, то есть оживляют ПРОШЛУЮ мудрость, но в тоже время разрешают раскрыться ОЩУЩЕНИЯМ МНОГОЖЕЛАНИЯ. Пять состояний (ощущений) УВЕЛИЧИВАЮТСЯ до бесконечности. Это 1000 лет нашей эры. Состояния «ВЫЛЕЗАЮТ» из ПОД ЛАВКИ, провозглашая СВОБОДУ 5 состояний, а так же жадность, желание  «охотиться». Мудрость МОЛЧИТ и странствует ОДНА, не останавливаясь дольше чем требует оборот Времени, то есть 3 ABS ( система ОТРАЖЕННОГО СВЕТА Наука Каббала). Это переходный период. Окончание эры. Конечно не конец СВЕТА, но окончание ЦИКЛА Эры. Мир никогда НЕЗАКОНЧИТСЯ, так как есть   1/19 ABS Времени постоянная.</p>
+      <p>1988 год есть LLLIelat; (LLLAt;)  и индуистов, майя, шумеров и т.др., то есть потомков АТLANTA  НОВАЯ ЭРА. Год ВОЗДУШНОГО ЗМЕЯ. ВТОРНИК, XII.13 ABS СВАДЬБА…..1987.XII.13 ABS родился КОТЕНОК=ЗАЙКА, будущий ЛЕВ, Люцифер<sup class="fnm"><a class="fn-ref" id="ref-fn1" href="#fn1">*<span class="fn-pop">Люцифер – Светоносный.</span></a></sup> (Люциюс)<sup class="fnm"><a class="fn-ref" id="ref-fn2" href="#fn2">**<span class="fn-pop">Люциус – Светлый блестящий.</span></a></sup> день- Воскресенье<sup class="fnm"><a class="fn-ref" id="ref-fn3" href="#fn3">***<span class="fn-pop">Воскресенье – день недели.</span></a></sup>. Помните, что наша неделя начинается с Воскресенья?…..»</p>
+    </blockquote>
+
+    <p>А. Тамаш пишет, что с этого времени, с 1987 года , волна ВРЕМЕНИ только начнет детемированное пробуждение.</p>
+
+    <p>Так вот. Эти мысли и действия меня посетили в районе 14 часов. А в районе 17:30 часов (действия запишу последовательно и пронумеровано, даже самой интересно, как получится)</p>
+
+    <ol class="steps">
+      <li>пришла мысль о том, какая же музыка отразила этот период?</li>
+      <li>Здесь еще на память пришло, что Рав профессор М. Лайтман начал свою деятельность по распространению Науки Каббала в 1995 году.</li>
+      <li>В след за этой мыслью всплыла фамилия Vangelis.</li>
+      <li>В поисковике набрала Vangelis. Vivat!!! Выпал альбом Vangelis 1995 «Voices» (Голоса.)<sup class="fnm"><a class="fn-ref" id="ref-fn4" href="#fn4">****</a><span class="fn-pop">Vangelis album "Voices" (1995) <a href="https://youtu.be/R_gG4IwR9mk" target="_blank" rel="noopener">youtu.be/R_gG4IwR9mk</a></span></sup></li>
+      <li>Следую за мыслью дальше. Фамилия Vangelis по написанию и звучанию похоже на слово в литовском языке  «vanagas», что в переводе означает «ястреб».</li>
+      <li>Открываю Википедию, читаю:« Слово ястреб восходит к праславянской форме *astr;bъ, образованной от основы *astr- с суффиксом -;b- (связанным аблаутным чередованием с праслав. *-;b-, как в слове голубь). Этимология части *astr- точно не выяснена,….»<sup class="fnm"><a class="fn-ref" id="ref-fn5" href="#fn5">*****</a><span class="fn-pop"><a href="https://ru.wikipedia.org/wiki/" target="_blank" rel="noopener">ru.wikipedia.org/wiki/</a></span></sup>(и дальше куча слов обо всем, что никакого общего корня с -astr- не имеет. Все, что хочешь, кроме главного СЛОВА)</li>
+      <li>А это главное слово «Аста;рта (др.-греч. , Ast;rt;) — греческий вариант имени богини любви и власти Иштар<sup class="fnm"><a class="fn-ref" id="ref-fn7" href="#fn7">*******<span class="fn-pop">ИШТАР-АСТАРТА</span></a></sup>, заимствованной греками из шумеро-аккадского пантеона через культуру финикийцев..».<sup class="fnm"><a class="fn-ref" id="ref-fn6" href="#fn6">******</a><span class="fn-pop"><a href="https://ru.wikipedia.org/wiki/" target="_blank" rel="noopener">ru.wikipedia.org/wiki/</a></span></sup></li>
+      <li>БОГИНЯ ЛЮБВИ!!!!</li>
+    </ol>
+
+    <p class="proverb">Как говорят афганские свахи, "голос- это больше половины любви".»</p>
+    <p class="proverb">«Девку веретено одевает. Девка прядет, а Бог нить дает».</p>
+
+    <section class="music">
+      <p class="music-label">Музыка под настроение</p>
+
+      <details class="track" data-yt="-9yYJ6ZAYns">
+        <summary>
+          <span class="tk-title">"See You On The Other Side"</span>
+          <span class="tk-sep">—</span>
+          <span class="tk-artist">OZZY OSBOURNE</span>
+          <span class="ext"><a href="https://youtu.be/-9yYJ6ZAYns" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></span>
+          <span class="arrow">▾</span>
+        </summary>
+        <div class="embed"></div>
+      </details>
+
+      <div class="track flat">
+        <span class="tk-title">I Will Always Love You</span>
+        <span class="tk-sep">—</span>
+        <span class="tk-artist">Whitney Houston</span>
+      </div>
+
+      <details class="track" data-yt="R_gG4IwR9mk">
+        <summary>
+          <span class="tk-title">"Voices" (1995)</span>
+          <span class="tk-sep">—</span>
+          <span class="tk-artist">Vangelis</span>
+          <span class="ext"><a href="https://youtu.be/R_gG4IwR9mk" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></span>
+          <span class="arrow">▾</span>
+        </summary>
+        <div class="embed"></div>
+      </details>
+    </section>
+
+    <h2 class="sec">Пояснения</h2>
+    <ol class="notes">
+      <li id="fn1"><span class="fn-star">*</span>Люцифер – Светоносный.<a class="fn-back" href="#ref-fn1" title="Вернуться к тексту">↩</a></li>
+      <li id="fn2"><span class="fn-star">**</span>Люциус – Светлый блестящий.<a class="fn-back" href="#ref-fn2" title="Вернуться к тексту">↩</a></li>
+      <li id="fn3"><span class="fn-star">***</span>Воскресенье – день недели.<a class="fn-back" href="#ref-fn3" title="Вернуться к тексту">↩</a></li>
+      <li id="fn4"><span class="fn-star">****</span>Vangelis album "Voices" (1995) <a href="https://youtu.be/R_gG4IwR9mk" target="_blank" rel="noopener">https://youtu.be/R_gG4IwR9mk</a><a class="fn-back" href="#ref-fn4" title="Вернуться к тексту">↩</a></li>
+      <li id="fn5"><span class="fn-star">*****</span><a href="https://ru.wikipedia.org/wiki/" target="_blank" rel="noopener">https://ru.wikipedia.org/wiki/</a><a class="fn-back" href="#ref-fn5" title="Вернуться к тексту">↩</a></li>
+      <li id="fn6"><span class="fn-star">******</span><a href="https://ru.wikipedia.org/wiki/" target="_blank" rel="noopener">https://ru.wikipedia.org/wiki/</a><a class="fn-back" href="#ref-fn6" title="Вернуться к тексту">↩</a></li>
+      <li id="fn7"><span class="fn-star">*******</span>ИШТАР-АСТАРТА<a class="fn-back" href="#ref-fn7" title="Вернуться к тексту">↩</a></li>
+      <li id="fn8"><span class="fn-star">********</span><a href="31E.html">ЛЛЛиелату - новое Кли, связующее Науку и Магию</a>&nbsp;&nbsp;<a class="fn-back" href="#ref-fn8" title="Вернуться к тексту">↩</a></li>
+    </ol>
+
+  </article>
+
+  <nav class="corpus-nav">
+    <a href="31E.html" class="pv"><span class="lbl">← Предыдущая</span>ЛЛЛиелату - новое Кли, связующее Науку и Магию</a>
+    <a href="32F.html" class="nx"><span class="lbl">Следующая →</span>Ллл Дорогу Осилит Идущий</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // Lazy YouTube load on first open
+  document.querySelectorAll('details.track').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open){
+        var box=d.querySelector('.embed');
+        if(box && !box.querySelector('iframe')){
+          var id=d.getAttribute('data-yt');
+          box.innerHTML='<iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+        }
+      }
+    });
+  });
+  // Footnote popup direction
+  document.querySelectorAll('.fn-ref').forEach(function(r){
+    r.addEventListener('mouseenter',function(){
+      var rect=r.getBoundingClientRect();
+      if(rect.top<175){ r.classList.add('below'); }
+      else { r.classList.remove('below'); }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — дневниковая проза-эссе: рассказ о работе над переводом, цитата из первоисточника и пронумерованная цепочка ассоциаций. Стихотворных форм нет, поэтому выбрана редакторская широкая схема, а не узкий каббалистический манускрипт. Контентная колонка задана через clamp(320px,72vw,1060px), чтобы на десктопе занимать порядка двух третей окна, но не разъезжаться до нечитаемой меры; на мобильном — полная ширина. Палитра тёплая светлая с фиолетово-охряными акцентами под мистическую тематику.\n\nПограничные решения: TOC не делал — внутри тела один связный текст без авторских подзаголовков (единственный заголовок «Пояснения»), множить разделы и придумывать названия было бы нарушением верности тексту. Музыкальных треков три (Ozzy и Whitney под общей меткой «Музыка под настроение», плюс Vangelis, объявленный в сноске ****), поэтому собрал их в единый блок прямо перед «Пояснениями» — он же служит и сводным разделом, дублирования нет. Ссылки на YouTube — ленивые раскрывающиеся плееры, у Whitney ссылки нет, поэтому плоская строка. Звёздочки-маркеры сносок сохранены как авторские глифы; при этом литературные/лингвистические звёздочки внутри цитаты Википедии (*astr-, *-ьb-) оставлены текстом, а не превращены в сноски. Артефакты импорта (символы ';') сохранены дословно, чтобы не домысливать.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>

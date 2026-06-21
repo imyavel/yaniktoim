@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Эволюционная динамика Круга Жизни</title>
+<style>
+  :root{
+    --bg:#f6f4ef;
+    --paper:#fffdf8;
+    --ink:#1d1b17;
+    --muted:#6b6457;
+    --accent:#9a3b2e;
+    --accent-soft:#c9a14a;
+    --rule:#ddd6c8;
+    --serif:Georgia,"Times New Roman",serif;
+    --sans:"Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:20px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:1280px;
+    margin:0 auto;
+    padding:0 32px 80px;
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-family:var(--sans);
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:26px 0 0;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 .5em;color:var(--accent-soft);}
+
+  header.masthead{
+    border-bottom:3px double var(--rule);
+    padding:34px 0 30px;
+    margin-bottom:14px;
+  }
+  .kicker{
+    font-family:var(--sans);
+    font-size:13px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:18px;
+  }
+  h1{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:46px;
+    line-height:1.12;
+    margin:0;
+    letter-spacing:-.01em;
+  }
+
+  /* layout: wide content ~2/3 */
+  .layout{
+    display:grid;
+    grid-template-columns:minmax(0,2fr) minmax(0,1fr);
+    gap:56px;
+    margin-top:40px;
+  }
+  main{max-width:780px;}
+  aside{
+    font-family:var(--sans);
+  }
+  .toc{
+    position:sticky;
+    top:24px;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-top:4px solid var(--accent);
+    padding:20px 24px 24px;
+  }
+  .toc h2{
+    font-size:13px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:pointer;
+  }
+  .toc-toggle{
+    border:none;background:none;cursor:pointer;
+    font-size:15px;color:var(--accent);font-family:var(--sans);
+  }
+  .toc ol{
+    list-style:none;
+    margin:18px 0 0;
+    padding:0;
+    counter-reset:toc;
+  }
+  .toc li{margin:0 0 12px;counter-increment:toc;}
+  .toc a{
+    text-decoration:none;
+    color:var(--ink);
+    font-size:16px;
+    display:flex;
+    gap:12px;
+  }
+  .toc a:before{
+    content:counter(toc,decimal-leading-zero);
+    color:var(--accent-soft);
+    font-weight:700;
+  }
+  .toc a:hover{color:var(--accent);}
+  .toc[data-collapsed="true"] ol{display:none;}
+
+  section.part{margin-bottom:48px;scroll-margin-top:20px;}
+  section.part h2{
+    font-family:var(--serif);
+    font-size:30px;
+    font-weight:700;
+    margin:0 0 22px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--rule);
+  }
+  section.part h2 a{
+    color:var(--ink);
+    text-decoration:none;
+  }
+  section.part h2 a:hover{color:var(--accent);}
+  main p{margin:0 0 22px;text-align:justify;hyphens:auto;}
+  main section.part p:first-of-type::first-letter{
+    font-size:62px;
+    line-height:.8;
+    float:left;
+    padding:6px 12px 2px 0;
+    color:var(--accent);
+    font-family:var(--serif);
+    font-weight:700;
+  }
+
+  /* footer corpus nav */
+  .corpus-nav{
+    margin-top:64px;
+    border-top:3px double var(--rule);
+    padding-top:28px;
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    font-family:var(--sans);
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    color:var(--accent);
+    max-width:46%;
+  }
+  .corpus-nav .lbl{
+    display:block;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:6px;
+  }
+  .corpus-nav .ttl{font-size:18px;}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:46px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:var(--sans);
+    font-size:14px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+  footer.colophon a{color:var(--accent);}
+
+  @media(max-width:900px){
+    .layout{grid-template-columns:1fr;gap:32px;}
+    aside{order:-1;}
+    .toc{position:static;}
+    h1{font-size:34px;}
+    body{font-size:18px;}
+    main{max-width:none;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/39D.html">
+<meta name="description" content="Философское эссе Киберсона о Круге Жизни: природа осознания, фазовые процессы, энтропия и эволюционная динамика систем в конкурентной среде.">
+<meta property="og:title" content="Эволюционная динамика Круга Жизни">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/39D.html">
+<meta property="og:description" content="Философское эссе Киберсона о Круге Жизни: природа осознания, фазовые процессы, энтропия и эволюционная динамика систем в конкурентной среде.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Эволюционная динамика Круга Жизни">
+<meta name="twitter:description" content="Философское эссе Киберсона о Круге Жизни: природа осознания, фазовые процессы, энтропия и эволюционная динамика систем в конкурентной среде.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №39D</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>/</span><a href="../cyberson/index.html">Киберсон</a>
+  </nav>
+
+  <header class="masthead">
+    <div class="kicker">Киберсон</div>
+    <h1>Эволюционная динамика Круга Жизни<a class="audio-link" href="https://t.me/art_017_tracks/329" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  </header>
+
+  <div class="layout">
+    <main>
+      <section class="part" id="part-1">
+        <h2><a href="#top">Часть 1</a></h2>
+        <p>Осознание есть результат взаимного согласования двух самостоятельных системных процессов реального мира, имеющих разную фазовую скорость течения собственного времени, что делает взаимно невозможным нахождение этих двух процессов в наблюдаемой совокупности событий, составляюших суть их собственного происхождения во времени.</p>
+
+        <p>Этот факт определяет необходимую форму нахождения ими целевого состояния согласованности, к которому они приходят в итоге происхождения каждым собственной эволюции, ни один из этапов которой не характерен тем, что полезная работа, которая выполняется в нем против условий конкурентной среды обитания, выполняется в прямом соответствии с результирующим наблюдаемым пост фактом своего достижения ими обоими как одним самосопряженным целым явлением, нового системного равновесия своих составных частей, взаимодополняющих друг друга не посредством той полезной работы, которую выполняет каждый в отношении общей цели, ставшей мерой оценки таковой полезности ими единообразно, а посредством происхождения в связанной в систему совокупности элементарных самонаблюдаемых системных единиц, процессов сопутствующих работе, выполняемой каждым из них противонаправленно всем остальным, т.е. в своей исторически сложившейся форме структурной однородности, обусловленной своим происхождением в конкурентной эволюционной среде посредством естественного отбора, где все действуют против всех, чтобы выявить и наградить сильнейшего, посредством его наблюдаемого нахождения в новой эволюционной реальности, где остальным участникам предстояло его прекратить.</p>
+
+        <p>При этом, выполняемая каждым элементом полезная работа сопровождается, отражая второй закон термодинамики, рассеиванием энергии в окружающее пространство внешней среды своего происхождения, называемым энтропией, или собственным временем течения системного процесса, который наблюдаемо происходит до тех пор, пока его инерционная масса не будет целиком преобразована в тепловую энергию, согласно уравнению Эйнштейна Е=mc;. Именно скорость течения этого процесса, в совокупности с обьемом полной энергии, определяют фазовую скорость и системный характер происходящих внутри системы физических процессов квантово механической природы.</p>
+
+        <p>Это рассеивание либо становится фактором конкурентной среды для сопредельных элементов, то есть вызывает необходимость совершения работы, сопровождаемой потерей энергии, т.е. времени, для преодоления ими этого воздействия на имеющееся у них состояние равновесия, и тогда эти системы находятся в стадии неосознанности, т.е. хаотического неупорядоченного достижения путем слепой эволюции будущего осознанного состояния нового порядка, либо, ими найдена такая форма собственной, имеющейся у них де факто, равновесной системной динамики, в которой учтен характер систематического происхождения с ними этого внешнего воздействия таким образом, что производимая ими самими полезная работа включает в себя это воздействие, производя его по кругу в отношении сопредельных с ними элементов, одновременно отдавая тепло в направлении того, кто на них это воздействие оказывает.</p>
+      </section>
+
+      <section class="part" id="part-2">
+        <h2><a href="#top">Часть 2</a></h2>
+        <p>Делая это в точности таким же образом, каким на него самого было оказано воздействие силами сохранения собственной формы против энтропогенных факторов внешней среды, посредством чего процесс непроизвольной потери энергии рассеиванием тепла в пространство становится, по факту своего наблюдаемого происхождения, полезной работой, функция которой  обратнодополненна относительно своей изначальной собственной формы системного происхождения до вида замкнутого кольца равновесной системной динамики более совершенного порядка, чем тот порядок, который характеризуем скоростью течения процессов в собственном времени каждой из своих частей, становясь единым системным явлением, производящем энергию, а не, совокупностью конкретных частей, взаимодействующий посредством ее потери каждой из них, с неизбежным итогом во времени.</p>
+
+        <p>Поскольку, тот субъект эволюции, который в ходе её происхождения побеждает, выходя на новую орбиту мощности и сложности строения и происхождения - этот же объект эту эволюцию производит, являясь получателем производимого ее участниками рассеивания тепла энтропией, чья полная энергия задается уравнением, описывающим происхождение их эволюционной динамики во времени их будущего состояния найденного ими нового системного равновесия как неделимой эволюционной единицы.</p>
+
+        <p>Это уравнение является комплекснозначным аналитичнским продолжением уравнения каждого из элементов, непрерывность которого была невозможной на всей области определения, в виду того, что их нетривиальные корни делали их частный вид совокупностью фрагментированных участков непрерывной однородности, но в нлвом уравнении каждый из этих корней получил выражение через другие частные уравнения, не обращающиеся в ноль на данном участке, в результате чего, областью определения результирующей функции стала бесконечность в обе стороны течения времени одновременно</p>
+      </section>
+
+      <nav class="corpus-nav">
+        <a class="prev" href="341A.html">
+          <span class="lbl">← Предыдущая</span>
+          <span class="ttl">Вечный Циклик</span>
+        </a>
+        <a class="next" href="32J.html">
+          <span class="lbl">Следующая →</span>
+          <span class="ttl">Происхождение Времени ч. 1</span>
+        </a>
+      </nav>
+
+      <footer class="colophon">
+        <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+        <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+      </footer>
+    </main>
+
+    <aside>
+      <nav class="toc" id="toc" data-collapsed="false">
+        <h2 id="top">Содержание <button class="toc-toggle" aria-label="Свернуть">−</button></h2>
+        <ol>
+          <li><a href="#part-1">Часть 1</a></li>
+          <li><a href="#part-2">Часть 2</a></li>
+        </ol>
+      </nav>
+    </aside>
+  </div>
+
+</div>
+
+<script>
+  (function(){
+    var toc=document.getElementById('toc');
+    var btn=toc.querySelector('.toc-toggle');
+    var h=toc.querySelector('h2');
+    function toggle(){
+      var c=toc.getAttribute('data-collapsed')==='true';
+      toc.setAttribute('data-collapsed',!c);
+      btn.textContent=c?'−':'+';
+    }
+    h.addEventListener('click',function(e){toggle();});
+  })();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — плотная философско-физическая проза в двух частях («Часть 1», «Часть 2»), без стихотворных строк, без рефренов и без поэтической графики, поэтому выбрана редакторская широкоформатная схема, а не узкий манускрипт. Развилка была только в ширине: статья короткая и состоит из длинных периодов-предложений, поэтому я ограничил меру строки колонкой ~780px внутри широкого 1280px-контейнера и отдал правую треть закреплённому оглавлению — так длинные синтаксические периоды остаются читаемыми, но страница честно занимает ~2/3 ширины окна основным контентом.\nПодразделов ровно два, что по правилу больше одного — сделал сворачиваемое оглавление (по умолчанию развёрнуто), а заголовки «Часть 1/2» сделал ссылками наверх к содержанию. Сносок, музыкальных ссылок и иллюстрации в исходнике нет, поэтому эти аппараты не строил. Авторскую запись уравнения «Е=mc;» сохранил дословно, не исправляя на верхний индекс, как и прочие опечатки оригинала («нлвом», «аналитичнским»). Капитель заголовков — чисто визуальная (CSS), исходный регистр текста не менялся.",
+  "features": ["toc"]
+}
+</script>
+</body>
+</html>

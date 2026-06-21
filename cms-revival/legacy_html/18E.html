@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Живые Нити и мертвые люди</title>
+<style>
+  :root{
+    --bg:#f6f1e6;
+    --paper:#fbf8f0;
+    --ink:#2a2118;
+    --accent:#7a1f1f;
+    --accent2:#9d6b1a;
+    --rule:#d8cbb0;
+    --shadow:rgba(60,40,15,.12);
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 20% 0%, #efe6d2 0%, transparent 55%),
+      radial-gradient(circle at 85% 100%, #efe6d2 0%, transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua","PT Serif",Georgia,serif;
+    line-height:1.7;
+    font-size:19px;
+  }
+  .page{
+    max-width:820px;
+    margin:0 auto;
+    padding:32px 28px 64px;
+  }
+  .sheet{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    box-shadow:0 4px 30px var(--shadow);
+    padding:40px 46px 52px;
+    position:relative;
+  }
+  .sheet::before{
+    content:"";
+    position:absolute;inset:8px;
+    border:1px solid #ece1c8;
+    pointer-events:none;
+  }
+  /* breadcrumbs */
+  .crumbs{
+    font-size:15.5px;
+    letter-spacing:.02em;
+    color:#6a5c44;
+    margin-bottom:18px;
+    font-variant:small-caps;
+  }
+  .crumbs a{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent);}
+  .crumbs a:hover{color:var(--accent2);border-bottom-color:var(--accent2);}
+  .crumbs .sep{margin:0 .5em;color:var(--accent2);}
+  /* illustration */
+  .illus{
+    text-align:center;
+    margin:14px 0 22px;
+  }
+  .illus img{
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border:1px solid var(--rule);
+    box-shadow:0 3px 14px var(--shadow);
+  }
+  /* titles */
+  h1{
+    font-size:33px;
+    line-height:1.25;
+    text-align:center;
+    margin:.2em 0 .15em;
+    color:var(--accent);
+    font-weight:700;
+    letter-spacing:.01em;
+  }
+  .subtitle{
+    text-align:center;
+    font-style:italic;
+    color:var(--accent2);
+    font-size:20px;
+    margin:.1em 0;
+  }
+  .subtitle.small{font-size:18px;color:#7a5e2c;}
+  .ornament{
+    text-align:center;
+    color:var(--accent2);
+    font-size:22px;
+    margin:18px 0 26px;
+    letter-spacing:.4em;
+  }
+  /* opening prose */
+  .opening{
+    font-size:18.5px;
+    text-align:justify;
+    hyphens:auto;
+    margin:0 0 30px;
+  }
+  .opening::first-letter{
+    font-size:3.1em;
+    line-height:.84;
+    float:left;
+    margin:.04em .09em -.02em 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+  /* verse */
+  .verse{
+    margin:0 auto;
+    max-width:42ch;
+  }
+  .stanza{
+    margin:0 0 22px;
+    padding:0;
+  }
+  .stanza p{
+    margin:0;
+    line-height:1.62;
+    font-size:19.5px;
+  }
+  /* music */
+  .music{
+    margin:38px auto 6px;
+    max-width:46ch;
+  }
+  .music-label{
+    font-variant:small-caps;
+    letter-spacing:.05em;
+    color:var(--accent2);
+    font-size:16px;
+    margin-bottom:8px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    background:#fffdf6;
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:11px 14px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#f4ecd7;}
+  .track-arrow{
+    color:var(--accent);
+    transition:transform .25s ease;
+    font-size:14px;
+    flex:0 0 auto;
+  }
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-name{font-weight:700;}
+  .track-artist{color:#6a5c44;font-style:italic;}
+  .track-info{flex:1 1 auto;}
+  .track-ext{
+    flex:0 0 auto;
+    color:var(--accent);
+    text-decoration:none;
+    font-size:16px;
+  }
+  .track-ext:hover{color:var(--accent2);}
+  .track-player{display:none;padding:0 14px 14px;}
+  .track.open .track-player{display:block;}
+  .track-player iframe{
+    width:100%;
+    aspect-ratio:16/9;
+    border:0;
+    border-radius:3px;
+  }
+  /* bottom nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:46px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-size:16px;
+  }
+  .corpus-nav a{
+    color:var(--accent);
+    text-decoration:none;
+    max-width:46%;
+  }
+  .corpus-nav a:hover{color:var(--accent2);}
+  .corpus-nav .lbl{display:block;font-variant:small-caps;color:var(--accent2);font-size:13px;letter-spacing:.05em;}
+  .corpus-nav .nx{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:30px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:14.5px;
+    color:#6a5c44;
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent);}
+  @media (max-width:680px){
+    .page{padding:14px 8px 40px;}
+    .sheet{padding:26px 18px 34px;}
+    .sheet::before{inset:5px;}
+    body{font-size:18px;}
+    h1{font-size:27px;}
+    .verse,.music{max-width:none;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/18E.html">
+<meta name="description" content="Эссе о Живых Нитях Орла, иллюзорности человеческой жизни и Даре Свободы, который обретается лишь тем, кто разгадал загадку сознания.">
+<meta property="og:title" content="Живые Нити и мертвые люди">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/18E.html">
+<meta property="og:description" content="Эссе о Живых Нитях Орла, иллюзорности человеческой жизни и Даре Свободы, который обретается лишь тем, кто разгадал загадку сознания.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Живые Нити и мертвые люди">
+<meta name="twitter:description" content="Эссе о Живых Нитях Орла, иллюзорности человеческой жизни и Даре Свободы, который обретается лишь тем, кто разгадал загадку сознания.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="manuscript">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №18E</span>
+<div class="page">
+  <div class="sheet">
+
+    <nav class="crumbs">
+      <a href="../index.html">Главная</a>
+      <span class="sep">·</span>
+      <a href="../dreamon/index.html">Мечтай!!</a>
+    </nav>
+
+    <div class="illus">
+      <img src="../img/18E.jpg" alt="Иллюстрация к статье">
+    </div>
+
+    <h1>ЖИВЫЕ НИТИ И МЕРТВЫЕ ЛЮДИ<a class="audio-link" href="https://t.me/art_017_tracks/301" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+    <p class="subtitle">Первая практическая ступень</p>
+    <p class="subtitle small">Правило как карта</p>
+
+    <div class="ornament">✦ ❧ ✦</div>
+
+    <p class="opening">Тому, Кто, Милостью Своей, являясь тем, что есть в Реальном Мире, выстраивает с нами общую ступень, не смотря на то, что мы пока не являемся реально чем-либо, кроме сна внутри сна, по большей части являющегося навязчивым спутанным кошмаром, кривыми зеркалами, отражающими Свет чужой Жизни, одалживаемой на короткое время получения опыта "этого мира", не смотря на то, что Намерение Дающего не предполагает возврата. Но чтобы сделать кому-то важный Подарок, этого "кого-то" нужно в начале СОЗДАТЬ посредством "получения" этого Дара "из ничего", научив следовать Правилу как "дорожной карте", чтобы научиться стремиться к цели Пути, делая это из любови к свободе осознанно</p>
+
+    <div class="verse">
+
+      <div class="stanza"><p>У Нагваля нет примет<br>
+      Он похож на всех, и сразу<br>
+      Но при этом только вместе<br>
+      Это сходство будет важным.</p></div>
+
+      <div class="stanza"><p>Потому что в Группе Магов<br>
+      Важны не их функции<br>
+      Что у каждого и каждой<br>
+      Специально узкие</p></div>
+
+      <div class="stanza"><p>Важно то, что сводит вместе<br>
+      Правых, левых, мужчин, женщин<br>
+      Именно в той форме точной<br>
+      Что Орел им заповедал.</p></div>
+
+      <div class="stanza"><p>И нагваль походит в чем-то<br>
+      На них всех вместе и сразу.<br>
+      Потому что составляют<br>
+      Вместе кое что Реально.</p></div>
+
+      <div class="stanza"><p>Дело в том, что (хочешь верь мне,<br>
+      Хочешь нет, но это факт) -<br>
+      То, что мы живем отдельно<br>
+      Будто бы, в одном пространстве</p></div>
+
+      <div class="stanza"><p>И в нем будто бы событий<br>
+      Много-много происходит<br>
+      Это следствие тех нитей<br>
+      Жизни, что нас прошивают<br>
+      Хотя мы их и не видим,<br>
+      Ведь Они - это мы сами</p></div>
+
+      <div class="stanza"><p>Чтобы "видеть" научиться<br>
+      Нужно, чтобы ты являлся<br>
+      Не одной из этих нитей,<br>
+      Но Одним, что их скрепляет</p></div>
+
+      <div class="stanza"><p>Что их держит крепко вместе<br>
+      Как пучок сухой соломы<br>
+      Чтобы в результате тесно<br>
+      Каждый осознал другого.</p></div>
+
+      <div class="stanza"><p>Чтобы каждая из нитей<br>
+      Создавала всю когорту,<br>
+      Отпечатываясь вместе<br>
+      В существо совсем иное,</p></div>
+
+      <div class="stanza"><p>Чем является как воин<br>
+      Каждый, жизнь и осознанье<br>
+      Точкой сборки собирает<br>
+      В Мир Реально иллюзорный</p></div>
+
+      <div class="stanza"><p>Не поскольку иллюзорна<br>
+      Суть Вселенной вокруг них,<br>
+      А поскольку в них чужое<br>
+      Все, что есть, было до них -</p></div>
+
+      <div class="stanza"><p>Осознание и Жизнь<br>
+      Никогда не были тем же,<br>
+      Что наш брат себе привык<br>
+      Фантазировать про это</p></div>
+
+      <div class="stanza"><p>В зеркало по утрам глядя,<br>
+      И себя без остановки<br>
+      Убедить стремясь словами<br>
+      В том, что жизнь есть у него.</p></div>
+
+      <div class="stanza"><p>Жизнь "его" - внешняя Воля<br>
+      Свет, Реальный, Дар бесценный<br>
+      Но ничто в нем совершенно<br>
+      Не имеет отношенья</p></div>
+
+      <div class="stanza"><p>К этой форме иллюзорной,<br>
+      Что привык называть "я"<br>
+      Человек этого мира.<br>
+      Жизнь чужая, не твоя<br>
+      Сам ты - зеркало кривое<br>
+      Сломанное, неживое</p></div>
+
+      <div class="stanza"><p>Но подсветку получая<br>
+      Светом Жизни в Силу Воли,<br>
+      Существующей Реально,<br>
+      В Мире, чувствует который<br>
+      Человек, осуществляя</p></div>
+
+      <div class="stanza"><p>Цель, с которой он "подсвечен"<br>
+      Жив лишь тенью чужой Жизни -<br>
+      Выполнить задачу в Мире<br>
+      Должен, а потом исчезнуть.</p></div>
+
+      <div class="stanza"><p>Сдать Свет Жизни завершенной<br>
+      Умирая в Мир Реальный<br>
+      Чтобы вечный Дар Свободы<br>
+      Никогда не прерывался</p></div>
+
+      <div class="stanza"><p>Но лишь теми, кто загадку<br>
+      Разгадал еще при жизни -<br>
+      Как вернуть назад сознанье,<br>
+      Этим жизнь не прекращая</p></div>
+
+      <div class="stanza"><p>Дар Орла может быть вручен<br>
+      Не на миг, а Бесконечно<br>
+      Дело только в том, КОМУ ДАН<br>
+      Дар Свободы - человеку,</p></div>
+
+      <div class="stanza"><p>Мертвой кукле деревянной,<br>
+      Бредящей о "своей" жизни?<br>
+      Невозможно ДАР РЕАЛЬНЫЙ<br>
+      Подарить Орлу себе же.</p></div>
+
+      <div class="stanza"><p>Ведь Живые Нити Света<br>
+      На которых растут люди<br>
+      Это Сам Орел вообще-то<br>
+      Лишь Он Сам во всей Вселенной</p></div>
+
+      <div class="stanza"><p>Существует здесь реально<br>
+      И поэтому в минуту<br>
+      Когда Дар Свой человеку<br>
+      Он дает, распространяя</p></div>
+
+      <div class="stanza"><p>Эманации в Великом<br>
+      На судьбы объем им данный<br>
+      Создавая человека<br>
+      Человеку дать не может<br>
+      Он реальный Свет, поскольку<br>
+      До банальности все просто -<br>
+      Некому "давать", лишь форма</p></div>
+
+      <div class="stanza"><p>Человек в реальном мире<br>
+      Мертвая, пустая форма<br>
+      У которой нету жизни.<br>
+      И на этом все. Он может</p></div>
+
+      <div class="stanza"><p>Получив в нее подсветку<br>
+      То, будет что в ней "отбегать"<br>
+      В этот мир родившись, чтобы<br>
+      Выполнять Орла команды<br>
+      Управляясь этим Светом<br>
+      На все 100% прямо<br>
+      И заранее известно<br>
+      Ведь ничто здесь быть не может<br>
+      В "этой" целой всей Вселенной<br>
+      Чем-то в самом деле новым</p></div>
+
+      <div class="stanza"><p>Кроме умопостроений<br>
+      В человеке суть которых<br>
+      Те особые идеи,<br>
+      Что в уме о мире строит<br>
+      Их реальность еще ниже,<br>
+      Чем их автор иллюзорен,<br>
+      Но однако, ключ к Свободе<br>
+      В них содержится особый</p></div>
+
+      <div class="stanza"><p>Они суть как "перфокарты"<br>
+      По которым, наполняя<br>
+      Их посредством Дара Жизни<br>
+      Человек живет, играя<br>
+      Жизнь по нотам, вбитым в них.</p></div>
+
+      <div class="stanza"><p>Еще до рожденья жизни<br>
+      Человека, чьей судьбою<br>
+      Личностью, "самим собою"<br>
+      И всем прочим, что в них было.</p></div>
+
+      <div class="stanza"><p>Вот и человек способен<br>
+      Совершить "перепрошивку"<br>
+      Для себя и с кем идет он<br>
+      По Путям одним по жизни.</p></div>
+
+      <div class="stanza"><p>Это дело не простое,<br>
+      Сам Орел здесь помогает<br>
+      Ведь Он Сам Свой Дар дать хочет<br>
+      Человеку, чтоб тот принял<br>
+      А не просто нажав "Enter"<br>
+      И заснув на жизнь, исполнил<br>
+      Все до запятой что было<br>
+      В "перфокарте", словно робот,<br>
+      А потом "вернул сознанье",<br>
+      Что "им" не было ни разу,<br>
+      Потому что есть идея<br>
+      Про "возврат" на перфокарте...</p></div>
+
+      <div class="stanza"><p>Человек Дар принимает,<br>
+      Когда создан он Нагвалем,<br>
+      Женщина с Мужчиной станут<br>
+      Новой формы основаньем<br>
+      После собственной совместной<br>
+      Их Орлом "перепрошивки"<br>
+      На особую жизнь в Мифе<br>
+      Где всем Правило причиной<br>
+      Всех других Законов станет<br>
+      И позволит получить им<br>
+      Дар Орла, собрав команду.</p></div>
+
+      <div class="stanza"><p>Постараемся продолжить<br>
+      Выяснение субъекта<br>
+      Что его "получать" должен<br>
+      Будучи Реальным чем-то.</p></div>
+
+      <div class="stanza"><p>Как мы выяснили выше,<br>
+      Человек лишь "перфокарта",<br>
+      Плюс заранее известный<br>
+      Наполняющий Свет Жизни<br>
+      Лишь Орлу принадлежащей.<br>
+      И поэтому не властен<br>
+      Над судьбою ни на йоту<br>
+      Человек этого мира<br>
+      Ведь он сам по сути мертвый.</p></div>
+
+      <div class="stanza"><p>И причина в том, что Нити<br>
+      Что сквозь нас струятся всюду<br>
+      На которых жизни наши<br>
+      "Вырастают", словно груши,</p></div>
+
+      <div class="stanza"><p>Сами суть Реальной Жизни<br>
+      Что есть суть Орла и только.<br>
+      "Нас" нет в этом ни крупинки<br>
+      Но поскольку создан кокон,<br>
+      Запирающий Свет этот<br>
+      Так, что Он светить не может<br>
+      По естественным Законам,<br>
+      А светить он должен будет<br>
+      Только через "точку сборки"<br>
+      Двигаясь по перфокарте,<br>
+      Считывая и играя<br>
+      Формы и заданной команды.</p></div>
+
+      <div class="stanza"><p>Первое, что есть в команде -<br>
+      Должен Свет забыть Себя.<br>
+      Если бы не приказ этот<br>
+      Негде было бы нам "спать".<br>
+      Некому бы спать, точнее,<br>
+      Было бы, поскольку Все<br>
+      Это только Он. Ни время<br>
+      Ни пространство ни объекты<br>
+      Не являются реальным<br>
+      Чем-то, кроме мыслей человека.</p></div>
+
+      <div class="stanza"><p>Свет забыл, что Он живой,<br>
+      Что Он вечен, Бесконечен<br>
+      Что Он в Дар распространен<br>
+      Чтобы сном быть для творений.</p></div>
+
+      <div class="stanza"><p>И поэтому зацепка<br>
+      Происходит автоматом<br>
+      За ближайшую "идею",<br>
+      Вместо памяти реальной:</p></div>
+
+      <div class="stanza"><p>"Я такой-то и сякой-то,<br>
+      А вокруг меня вот так-то"<br>
+      И с тех самых пор Свет Жизни<br>
+      "Жизнью человека" станет.</p></div>
+
+      <div class="stanza"><p>Но по сути это Нити<br>
+      Тонкие Живого Света<br>
+      Что сознаньем обладают<br>
+      Не владеем мы всем этим.</p></div>
+
+      <div class="stanza"><p>Они в нас вниманьем будут<br>
+      Первым, а потом и больше.<br>
+      Сам Орел - Суть Бесконечность<br>
+      Непостигнуть Его Свойство.</p></div>
+
+      <div class="stanza"><p>Чтобы быть им (Нитям) чем-то,<br>
+      Кроме собственного Света,<br>
+      Что команды выполняет<br>
+      Орла через "точку сборки",</p></div>
+
+      <div class="stanza"><p>Нужно, чтобы оживляли<br>
+      Мир для нас другие свойства.<br>
+      Не своим внутренним Светом<br>
+      Чтобы наш мир был построен,<br>
+      А тем Светом, что посветят<br>
+      Нити прочих близких свойств нам.</p></div>
+
+      <div class="stanza"><p>Чтобы мы Светить стремились<br>
+      Не "свой мир" построить чтобы -<br>
+      Ощутить, прожить, "увидеть",<br>
+      А кому-то дать другому<br>
+      Этим Светом шанс исполнить</p></div>
+
+      <div class="stanza"><p>Мира своего настройку<br>
+      Сделать из Любви к Свободе<br>
+      И впервые очутиться<br>
+      Выбирающими что-то<br>
+      В этой всей "случайной" жизни,<br>
+      Где судьбу свою не волен<br>
+      Человек, делая выбор<br>
+      Создавать по своей воле.<br>
+      Но судьбы альтернативы<br>
+      Получает он в готовом<br>
+      И не терпящим малейших<br>
+      Отклонений того курса,<br>
+      Что проложен до рожденья<br>
+      Кем и чем угодно, только<br>
+      Не самим этой судьбою<br>
+      Жить собравшимся субъектом.</p></div>
+
+      <div class="stanza"><p>Подпрограммы вшиты крепко<br>
+      В обществе этого мира<br>
+      Чтобы не мог такой ход мыслей<br>
+      Возникать у человека.<br>
+      Здесь есть куча механизмов<br>
+      Шулерских до кости мозга,<br>
+      Незаметных и неявных,<br>
+      Крайне пакостных и подлых.</p></div>
+
+      <div class="stanza"><p>Ну так вот, чтобы Свободу<br>
+      "Получать" начать, команда<br>
+      Воинов, мужчин и женщин,<br>
+      Должна организоваться<br>
+      Совершать совместный "сталкинг"</p></div>
+
+      <div class="stanza"><p>Собственного Света Жизни,<br>
+      Чтобы Жить Светом другого,<br>
+      А другому своим Светом<br>
+      Дать стремиться. Чтобы жизни<br>
+      Перестать чужой быть тенью.<br>
+      Создаваемый посредством<br>
+      Трюка этого "отдельный"<br>
+      Мироздания совместный<br>
+      Управляемый посредством<br>
+      Осознания всех вместе<br>
+      Будет первым важным шагом<br>
+      Для команды людей смелых<br>
+      Быть серьезно устремленных<br>
+      "Тем, что есть на самом деле"<br>
+      А не тем, что в результате<br>
+      Человека с человеком<br>
+      Договора называют<br>
+      Люди жизнью в мире этом.</p></div>
+
+      <div class="stanza"><p>Про аспект, что у них будет<br>
+      Будущий в Реальном Мире<br>
+      Я писать буду в грядущем<br>
+      С новым днем, и новым Светом<br>
+      Потому что это очень<br>
+      Необычная ступень<br>
+      И с Ней нужно осторожным<br>
+      Быть по максимуму всем.</p></div>
+
+    </div><!-- /verse -->
+
+    <div class="music">
+      <div class="music-label">Музыка:</div>
+      <div class="track" id="track1">
+        <div class="track-head" onclick="toggleTrack('track1')">
+          <span class="track-arrow">▶</span>
+          <span class="track-info"><span class="track-name">Плот</span> — <span class="track-artist">Ю. Лоза</span></span>
+          <a class="track-ext" href="https://youtu.be/TwgZDJdko5w" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+        </div>
+        <div class="track-player" data-embed="https://www.youtube-nocookie.com/embed/TwgZDJdko5w"></div>
+      </div>
+    </div>
+
+    <nav class="corpus-nav">
+      <a href="243.html"><span class="lbl">← Предыдущая</span>Эники Беники Ели Вареники</a>
+      <a class="nx" href="04I.html"><span class="lbl">Следующая →</span>Ода вечному и древнему Царю</a>
+    </nav>
+
+    <footer class="colophon">
+      <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+    </footer>
+
+  </div><!-- /sheet -->
+</div><!-- /page -->
+
+<script>
+function toggleTrack(id){
+  var t=document.getElementById(id);
+  var open=t.classList.toggle('open');
+  if(open){
+    var p=t.querySelector('.track-player');
+    if(p && !p.dataset.loaded){
+      var f=document.createElement('iframe');
+      f.src=p.dataset.embed+'?autoplay=1';
+      f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen=true;
+      p.appendChild(f);
+      p.dataset.loaded='1';
+    }
+  }
+}
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "поэма",
+  "rationale": "Текст почти целиком — это длинная медитативная поэма в кастанедовско-каббалистическом ключе: после короткого посвящающего прозаического зачина идёт около полусотни строф четверостиший и нерегулярных строф. Доминирующая форма — стихотворная, поэтому выбрана схема 'манускрипт' с узкой книжной полосой ~820px, засечным шрифтом и тёплой пергаментной палитрой на светлом фоне — это поддерживает медленное, поэтическое чтение. Прозаический зачин подан как абзац с буквицей, чтобы отделить его от стиховой части, но не нарушить целостность колонки.",
+    "rationale2": "Развилки: единственный музыкальный трек (Плот, Ю.Лоза, YouTube) — оформлен свёрнутым ленивым плеером с атрибуцией 'Музыка:' дословно по тексту; сводный раздел музыки не делал, так как трек один (порог >2 не достигнут). Оглавление не вводил: цельная поэма без множественных озаглавленных подразделов (подзаголовки 'Первая практическая ступень' и 'Правило как карта' — это шапка-подзаголовки, а не навигационные секции). Сносок в тексте нет, аппарат примечаний не требуется. КАПС ('СОЗДАТЬ', 'КОМУ ДАН', 'ДАР РЕАЛЬНЫЙ', '100%') и авторская пунктуация сохранены дословно.",
+  "features": ["music"]
+}
+</script>
+</body>
+</html>

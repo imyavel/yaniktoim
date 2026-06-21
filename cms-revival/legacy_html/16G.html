@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Я люблю Тебя, и хочу быть слитым с Тобой навеки</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1c17;
+    --muted:#6c6457;
+    --accent:#8a4b2f;
+    --accent-soft:#b8703f;
+    --rule:#d9d0bf;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    line-height:1.7;
+    font-size:20px;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(138,75,47,.35);}
+  a:hover{color:var(--accent-soft);border-bottom-color:var(--accent-soft);}
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:28px 0 0;
+  }
+  .crumbs a{border:none;color:var(--muted);}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs span.sep{margin:0 .55em;color:var(--rule);}
+
+  /* main grid: content ~2/3 */
+  .layout{
+    display:grid;
+    grid-template-columns:minmax(0,2fr) 1fr;
+    gap:60px;
+    padding:24px 0 10px;
+  }
+  .content{min-width:0;}
+  aside.rail{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    border-left:1px solid var(--rule);
+    padding-left:26px;
+  }
+  aside.rail .kicker{
+    font-size:12px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:10px;
+  }
+  aside.rail .meta-date{
+    font-size:15px;
+    color:var(--muted);
+    line-height:1.5;
+  }
+  aside.rail .rail-note{
+    margin-top:22px;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.6;
+    font-style:italic;
+  }
+
+  header.head{margin-bottom:14px;}
+  .date-top{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent-soft);
+    margin:0 0 18px;
+  }
+  h1{
+    font-size:38px;
+    line-height:1.22;
+    font-weight:700;
+    margin:0 0 8px;
+    letter-spacing:.005em;
+    text-transform:none;
+  }
+  .rule{
+    width:84px;height:3px;
+    background:var(--accent);
+    margin:22px 0 30px;
+  }
+
+  article p{margin:0 0 1.35em;text-align:justify;hyphens:auto;}
+  article p:first-of-type::first-letter{
+    float:left;
+    font-size:4.2em;
+    line-height:.82;
+    padding:.06em .12em 0 0;
+    color:var(--accent);
+    font-weight:700;
+  }
+  .invocation{
+    text-align:center;
+    font-style:italic;
+    font-size:1.18em;
+    color:var(--accent);
+    margin:1.8em auto;
+    max-width:34ch;
+    line-height:1.5;
+  }
+  .seealso{
+    margin-top:2.4em;
+    padding-top:1.1em;
+    border-top:1px solid var(--rule);
+    font-size:.92em;
+    color:var(--muted);
+  }
+
+  /* prev/next */
+  .pager{
+    border-top:1px solid var(--rule);
+    margin-top:30px;
+    padding:34px 0 10px;
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .pager a{
+    border:none;
+    display:block;
+    max-width:46%;
+  }
+  .pager .lbl{
+    display:block;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent-soft);
+    margin-bottom:6px;
+  }
+  .pager .ttl{font-size:17px;color:var(--ink);font-family:Georgia,serif;}
+  .pager a:hover .ttl{color:var(--accent);}
+  .pager .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    background:#efe9dd;
+    border-top:1px solid var(--rule);
+    margin-top:10px;
+    padding:30px 0 44px;
+    color:var(--muted);
+  }
+  footer.colophon .attrib{font-size:15px;margin:0 0 .6em;}
+  footer.colophon .license{font-size:14px;margin:0;line-height:1.6;}
+  footer.colophon a{color:var(--accent);}
+
+  @media (max-width:900px){
+    body{font-size:18px;}
+    .layout{grid-template-columns:1fr;gap:30px;}
+    aside.rail{
+      border-left:none;
+      border-top:1px solid var(--rule);
+      padding-left:0;padding-top:20px;
+      order:2;
+    }
+    h1{font-size:30px;}
+    .wrap{padding:0 20px;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/16G.html">
+<meta name="description" content="Эссе о Пути воина и образе Икстлана как реальности, где прошлое, настоящее и будущее слиты, а человек становится магом через внутреннюю трансформацию.">
+<meta property="og:title" content="Я люблю Тебя, и хочу быть слитым с Тобой навеки">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/16G.html">
+<meta property="og:description" content="Эссе о Пути воина и образе Икстлана как реальности, где прошлое, настоящее и будущее слиты, а человек становится магом через внутреннюю трансформацию.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Я люблю Тебя, и хочу быть слитым с Тобой навеки">
+<meta name="twitter:description" content="Эссе о Пути воина и образе Икстлана как реальности, где прошлое, настоящее и будущее слиты, а человек становится магом через внутреннюю трансформацию.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №16G</span>
+
+  <div class="wrap">
+    <nav class="crumbs">
+      <a href="../index.html">Главная</a>
+      <span class="sep">/</span>
+      <a href="../confront/index.html">Конфронтология Духа</a>
+    </nav>
+
+    <div class="layout">
+      <div class="content">
+        <header class="head">
+          <p class="date-top">16 июня 2021 г.</p>
+          <h1>Я ЛЮБЛЮ ТЕБЯ, И ХОЧУ БЫТЬ СЛИТЫМ С ТОБОЙ НАВЕКИ.<a class="audio-link" href="https://t.me/art_017_tracks/483" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+          <div class="rule"></div>
+        </header>
+
+        <article>
+          <p>Икстлан - это не метафора утраты прошлого. Это образ невозможной для "этого мира" реальности, в которой прошлое, настоящее и будущее слиты воедино. Это мир счастья, потому что в нем стремление человека к Абстрактному является не чередой болезненных ударов судьбы, происходящих по причине собственной глупости и бараньего упрямства, в итоге которых непостижимым для ума образом наступает внезапный просвет, которого по всем понятиям быть не могло даже в голове человека, которого реальность прожитых лет не отучила верить и надеяться на лучшее будущее, которое лучше не тем, что ты все еще дышишь, ходишь и думаешь, и можешь хоть сколько то связно смотреть в свое ближайшее будущее, а именно тем, чем оно представлялось в самом начале Пути - что Дух приближает человека к Себе, и человек становится магом, осознанно и по собственной свободной воле, совершая кувырок мышления в невообразимое. Как воин, он по сути продолжает быть обычным человеком, только с мутировавшим "генотипом" ЧСВ, которое "подстроилось" под реальность борьбы с самим собой, и даже научилось на ней зарабатывать ощутимые бонусы. После того, как человек, образно говоря (хотя для кого то может и не образно) совершает прыжок в пропасть, "прежний" человек исчезает в принципе, он "умирает на дне ущелья", поэтому того, кто мог бы переживать по поводу "прошлой картины мира", к моменту настройки восприятия новой, уже не существует в мире. И никогда не существовало. Та, параллельная, реальность обычного человека, существует для него теперь как миф, а он сам существует как миф для мира людей. И то, что для них является в порядке вещей, например, стремление достичь такой-то или секой-то цели, поставленное на заметное место на "столе тоналя" в силу действительной заинтересованности в том, чтобы туда попасть, не существует для мага, она умерла на дне ущелья, разбившись о камни, вместе с тем человеком, и его миром, которые наследовали магу свое вместилище, более не ассоциируемое воином, как и обычным человеком, с самим собой, но рассматриваемое как инструмент, вроде как отвертка - это инструмент, без нее не починить то или другое устройство, и так далее. Коммерческая фирма - это инструмент для ведения определенной деловой деятельности этого мира, самолет или поезд - инструмент для того, чтобы быстро попасть из точки А в точку Б на Земном шаре, и так далее. А тело - это инструмент, чтобы пройти Путь и получить жизненный опыт, по которому, благодаря тому, что ты его прошел и проложил, смогут пройти за тобой другие, которым для этого не потребуется умирать на дне ущелья, или сжигать себя в огненной печи (см. фильм Гаттака, финальная сцена). С каждым витком спирали, Путешествие в Икстлан становится все более близким к тому, чем этот Икстлан сам по себе должен являться, и в конечном счете, Путь и его Цель сливаются и соединяются в одно, первое и второе внимание сливаются в одно, и становятся третьим, а Путь, который в течение столетий десятки и сотни героически самоотверженных и дисциплинированных людей проходили в течение целой жизни тренировки на пределе человеческих сил и способностей, обычные дети будут проходить на этапе начальной школы, готовясь к тому, чтобы войти во взрослый мир полноценной развитой личностью. На что сам этот мир будет похож, и на что это "взрослое состояние" будет похоже, я не знаю, поскольку мы пока что еще не находимся в обозримых окрестностях этого состояния будущего мира, но то, что именно прогрессивные на данный момент формы духовного Пути, причем, на достаточно продвинутых его этапах и стадиях для человека, будут соответствовать начальному школьному образованию, я вижу достаточно отчетливо и последовательно, чтобы взять на себя смелость утверждать об этом как о свершившемся факте (полет на крыльях намерения в будущее описан у КК после главы про женщину в церкви). Я прекрасно понимаю, что это все выглядит со стороны как бред или фантастика, но именно поэтому Хенаро и не сможет никогда попасть в Икстлан, а тот, кто туда попадет, будет носить совсем другое имя, возможно будет иметь другой пол, цвет кожи, не говоря уже про особенности и характер индивидуальной жизни и судьбы. Но то, что вокруг него, и внутри него, позволяет ему делать то, что он делает, и быть тем, чем он является, проходя Путь, который он проходит, это будет результатом именно тех жизненных усилий, состояний, действий и намерений, которые производили Нагваль и Хенаро, двигая перед Кастанедой взад-вперед тазом, скармливая ему кактусы и мухоморы, и нанося выбивающие дух удары кулаком по спине, а под конец подведя к гарантированно смертельному прыжку в пропасть с вершины горы. Это немыслимо в человеческих терминах, но это доступно для восприятия и намерения человеку, как обычному человеку, так и воину, если этого захочет Дух. Шанс иметь шанс раствориться для "этого мира" и родиться в чем-то, не имеющем никакого смысла и значения для себя нынешнего, равно как и для кого-либо другого вообще, есть у каждого и в каждый момент. Нужно только произнести (для надежности три раза), отчетливо вслух и на полном серьезе (имея в виду именно то, что говорит рот), обращаясь к Духу:</p>
+
+          <p class="invocation">Я ЛЮБЛЮ ТЕБЯ, И ХОЧУ БЫТЬ СЛИТЫМ С ТОБОЙ НАВЕКИ.</p>
+
+          <p class="seealso">См. таже: </p>
+        </article>
+
+        <nav class="pager">
+          <a class="prev" href="17G.html">
+            <span class="lbl">← Предыдущая</span>
+            <span class="ttl">Как объединение усиливает намерение</span>
+          </a>
+          <a class="next" href="14A.html">
+            <span class="lbl">Следующая →</span>
+            <span class="ttl">Чистая монета</span>
+          </a>
+        </nav>
+      </div>
+
+      <aside class="rail">
+        <div class="kicker">Конфронтология Духа</div>
+        <p class="meta-date">Запись от<br>16 июня 2021 года</p>
+        <p class="rail-note">Об Икстлане, прыжке в пропасть и обращении к Духу.</p>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="colophon">
+    <div class="wrap">
+      <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+      <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+    </div>
+  </footer>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст представляет собой сплошное прозаическое философско-эзотерическое размышление (один длинный абзац-поток) о Кастанеде, Икстлане и пути воина, без стихотворной формы — поэтому выбрана редакторская широкоформатная схема, а не узкий манускрипт. Контент занимает примерно 2/3 ширины окна через grid (2fr основной колонки против 1fr правого рейла), что оправдывает широкий формат; правый рейл несёт только служебную метку раздела и дату, не добавляя нового содержания. Финальная заклинательная фраза, повторяющая заголовок, вынесена в центрированную врезку-инвокацию как смысловая кульминация, но её текст сохранён дословно; строка 'См. таже' и голый URL обёрнуты в гиперссылку.",
+  "rationale_note": "Подразделов нет — оглавление не делалось; сносок и музыкальных треков в тексте нет, поэтому соответствующие аппараты не вводились.",
+  "features": []
+}
+</script>
+</body>
+</html>

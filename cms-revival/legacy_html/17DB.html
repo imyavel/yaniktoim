@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Пойдем к Фараону</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1a14;
+    --muted:#6a6052;
+    --accent:#8a2b1e;
+    --accent2:#a8741f;
+    --rule:#d8cdb8;
+    --link:#7a2418;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(122,36,24,.32);}
+  a:hover{border-bottom-color:var(--link);}
+
+  .wrap{
+    width:min(1180px,92vw);
+    margin:0 auto;
+    padding:0 0 60px;
+  }
+  .page{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    box-shadow:0 1px 0 rgba(0,0,0,.02);
+    margin-top:26px;
+  }
+  .inner{
+    width:66%;
+    min-width:0;
+    margin:0 auto;
+    padding:34px 0 56px;
+  }
+  @media(max-width:900px){
+    .inner{width:88%;}
+    body{font-size:18px;}
+  }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    padding:18px 0 14px;
+    border-bottom:1px solid var(--rule);
+    margin-bottom:30px;
+    text-transform:uppercase;
+  }
+  .crumbs a{border-bottom:none;color:var(--accent);}
+  .crumbs span{color:var(--muted);margin:0 .5em;}
+
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:Georgia,serif;
+    font-weight:700;
+    font-size:42px;
+    line-height:1.12;
+    letter-spacing:-.01em;
+    margin:.1em 0 .55em;
+    color:var(--ink);
+  }
+  h1::after{
+    content:"";
+    display:block;
+    width:74px;
+    height:3px;
+    background:var(--accent);
+    margin-top:22px;
+  }
+
+  h2.subhead{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:42px 0 6px;
+  }
+
+  .epigraph{
+    font-style:italic;
+    color:#3a3228;
+    font-size:18px;
+    line-height:1.55;
+    border-left:3px solid var(--accent2);
+    padding:4px 0 4px 22px;
+    margin:8px 0 12px;
+    white-space:pre-line;
+  }
+  .epigraph .src{
+    display:block;
+    font-style:normal;
+    font-size:14px;
+    letter-spacing:.04em;
+    color:var(--muted);
+    margin-top:14px;
+  }
+
+  p{margin:0 0 1.25em;}
+  .lead-tag{
+    font-variant:small-caps;
+    font-weight:700;
+    color:var(--accent);
+    letter-spacing:.03em;
+  }
+  .body p{text-align:justify;}
+
+  .invocation{
+    background:#faf4e9;
+    border:1px solid var(--rule);
+    border-left:4px solid var(--accent);
+    padding:20px 26px;
+    margin:30px 0;
+    font-size:17.5px;
+    line-height:1.6;
+    letter-spacing:.01em;
+  }
+  .invocation p{margin:0 0 1em;}
+  .invocation p:last-child{margin-bottom:0;}
+  .shout{
+    text-align:center;
+    font-weight:700;
+    letter-spacing:.04em;
+    color:var(--accent);
+  }
+
+  /* music */
+  .music{
+    margin:40px 0;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin-bottom:10px;
+  }
+  .track{
+    border:1px solid var(--rule);
+    background:#fbf7ef;
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head .chev{
+    color:var(--accent);
+    transition:transform .2s;
+    font-size:14px;
+  }
+  .track.open .chev{transform:rotate(90deg);}
+  .track-title{flex:1;font-size:17px;}
+  .track-title b{font-weight:700;}
+  .track-title span{color:var(--muted);}
+  .track-ext{
+    color:var(--accent);
+    border-bottom:none;
+    font-size:16px;
+  }
+  .track-body{display:none;padding:0 16px 16px;}
+  .track.open .track-body{display:block;}
+  .track-body .frame{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .track-body iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+  }
+
+  .seealso{
+    margin:34px 0 0;
+    font-size:16px;
+    color:var(--muted);
+  }
+
+  /* bottom nav */
+  .pagenav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:54px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .pagenav a{
+    display:block;
+    max-width:46%;
+    border-bottom:none;
+    font-size:15px;
+  }
+  .pagenav .dir{
+    display:block;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent2);
+    margin-bottom:4px;
+  }
+  .pagenav .t{color:var(--ink);}
+  .pagenav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.5;
+  }
+  footer.colophon a{color:var(--accent);}
+  footer.colophon .attrib{margin:0 0 .4em;}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/17DB.html">
+<meta name="description" content="Статья-комментарий с разбором каббалистических понятий веры, желания получать, света Хасадим и Хохма, средней линии и роли духовного окружения.">
+<meta property="og:title" content="Пойдем к Фараону">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/17DB.html">
+<meta property="og:description" content="Статья-комментарий с разбором каббалистических понятий веры, желания получать, света Хасадим и Хохма, средней линии и роли духовного окружения.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Пойдем к Фараону">
+<meta name="twitter:description" content="Статья-комментарий с разбором каббалистических понятий веры, желания получать, света Хасадим и Хохма, средней линии и роли духовного окружения.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №17DB</span>
+  <div class="wrap">
+    <article class="page">
+      <div class="inner">
+
+        <nav class="crumbs">
+          <a href="../index.html">Главная</a><span>/</span><a href="../shoshana/index.html">Роза Среди Шипов</a>
+        </nav>
+
+        <div class="dateline">13 июля 2021 г.</div>
+        <h1>ПОЙДЕМ К ФАРАОНУ<a class="audio-link" href="https://t.me/art_017_tracks/592" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+        <h2 class="subhead">Эпиграф</h2>
+        <div class="epigraph">Три девицы под окном
+Пряли поздно вечерком.
+«Кабы я была царица, —
+Говорит одна девица, —
+То на весь крещеный мир
+Приготовила б я пир».
+«Кабы я была царица, —
+Говорит ее сестрица, —
+То на весь бы мир одна
+Наткала я полотна».
+«Кабы я была царица, —
+Третья молвила сестрица, —
+Я б для батюшки-царя
+Родила богатыря».
+Только вымолвить успела,
+Дверь тихонько заскрипела,
+И в светлицу входит царь,
+Стороны той государь.
+Во всё время разговора
+Он стоял позадь забора;
+Речь последней по всему
+Полюбилася ему.
+«Здравствуй, красная девица, —
+Говорит он, — будь царица
+И роди богатыря
+Мне к исходу сентября.
+Вы ж, голубушки-сестрицы,
+Выбирайтесь из светлицы,
+Поезжайте вслед за мной,
+Вслед за мной и за сестрой...
+<span class="src">Сказка о Царе Салтане, А.С.Пушкин</span></div>
+
+        <div class="body">
+          <p><span class="lead-tag">Реплика:</span> Верой называется явное ощущение Творца, а не то, что тут написано, и рамок у нее нету.</p>
+
+          <p><span class="lead-tag">Ответ:</span> Верой называется воля самого человека ощущать Творца, далеко не факт, что это его действие именно сейчас увенчается успехом, и он действительно станет его ощущать. Ощущение Творца, Свят Благословен Он, в Науке Каббала называется "Свет". Светов, которые мы можем ощущать при жизни в этом мире, главным образом, два: Малый (Хасадим) и Большой (Хохма). Света (ощущения Творца) с названием "Вера" в Каббале нет, это Вы с потолка выдумали. Вера это Кли, в которое человек может получить Свет Хасадим (духовное ощущение). Но Хасадим в Науке Каббала описывается как Свет, относящийся к пробуждению самого творения к Творцу, и он значительно более слабый, чем Свет Творца, Свят Благословен Он, Которым является Ор Хохма. Кли для Ор Хохма не является Вера. Это Кли называется "желание получать", и оно является противоположным свойством "левой линии", тогда как "вера" и "хасадим" являются сутью правой. Чтобы "настроиться" на "ощущение Творца, Свят Благословен Он" в действительности, а не в воображении и не в ошибочном толковании терминов и определений в Науке Каббала "слышали звон, да не знаем, где Он", нужно, чтобы в Кли, Которое должно "получить" и наполниться этим Светом, присутствовали обе линии вместе, причем, особенным образом "подготовленные" к тому, чтобы принять над собой сообща главенство "средней линии", Которой является Сам Творец, Свят Благословен Он, конкретно, именно то "ощущение Творца", которое у человека, являющегося частью такого Кли, появляется, в результате чего человек "в органах чувств этого мира", поднимаемого по свойствам в Мир Ацилут вместе с человеком, чтобы уже там, а не "на своем месте" в Мире Асия, ощущает Творца, Свят Благословен Он, и это ощущение дарует ему Жизнь, Мудрость Истины (раскрытие Науки Каббала на базе личного постижения, а не повторения за другими как попугай, заученных формул, суть и смысл которых человеку не понятны в виду принципиального отсутствия опыта "получения" Света Хохма, или реального ощущения Творца, Свят Благословен Он). Так вот, это Кли, называющееся "средней линией, согласовывающей между правой и левой", не может по определению быть результатом работы человека, рассматриваемой в отдельности от других людей (своего "духовного окружения"), поскольку 2 необходимые компоненты этого Кли: желание получать, и Свет Веры, не могут ни при каких условиях находиться в одном и том же носителе, а для их совмещения в Кли должны соединиться два разных "носителя", причем, их свойства должны в точности соответствовать требованиям относительно их наполнения. Желание получать является свойством "авиют" и отсутствует в духовной работе мужчины. Свет Веры является свойством "закут", и оно отсутствует в духовной работе женщины. Таковыми мужчина и женщина этого мира созданы, как и все остальное, в полном подобии с формой "Печати" духовного мира и Его свойств, последовательным "отпечатыванием" Которой создаются абсолютно все миры, благодаря чему мы и получаем возможность, посредством занятия Каббалой, произвести их "сложение обратно", то есть обратный процесс, который называется "подъемом миров", посредством которого творения раскрывают (ощущают) Творца, "настраиваются" на Его Свет "по 4 стадиям" (2 их которых это Кли, другие 2 это Свет, соответствующий этим Кли, детали описаны выше), но не "на своем месте", а на том месте, в которое они "отпечатываются обратно" посредствам раскрытия путем "объединения" и взаимовключения их свойств "МУЖЧИНОЙ И ЖЕНЩИНОЙ ОН СОЗДАЛ ИХ" в едином Кли, задача и суть которого - "получить" (ощутить) Свет Творца, Свят Благословен Он, "ради отдачи", то есть является точным практическим достижением цели и смысла всей Науки Каббала: "раскрытие Творца творениями этого мира". Последний штрих, который нужно добавить к описанию, заключается в том, что Свет Творца, Свят Благословен Он, являющийся Светом Жизни (Хохма), как об этом можно подробно почитать во "Введении в Науку Каббала" Бааля Сулама, да благословится вечный Свет Души божественного мудреца и праведника, не может быть получен в творении, находящемся "ниже" "парсы", отделяющей Мир Ацилут от Миров БЕА, в самом "конце" которых находится "этот мир" в "регулярном случае" общества "этого мира". Другими словами, чтобы действительно совершить то действие, которое мы сейчас выясняем, а именно "ощутить Творца, Свят Благословен Он", который (относительно миров АБЕА) не является ничем иным, как Ор Хохма, Светом Жизни, а не "Малым Светом" Веры, который определяется в Науке как продукт пробуждения самого творения к Творцу, Свят Благословен Он, и который значительно слабее, чем Свет Хохма, называемый "Творец, Свят Благословен Он", наше "Кли получения", в котором мы планируем это действие совершить практически, должно подняться именно в Мир Ацилут, "над парсой", поскольку ниже этого уровня Хохма не светит вовсе, и "получить" ее возможно только "поднявшись" в Мир Ацилут. И получение это в Мире Ацилут происходит в порядке "исправления линий", то есть только включив правую и левую линии в наше Кли подобающим образом (готовым принять на себя власть Средней линии как Один Человек с Одним Сердцем), творения могут "получать ради отдачи" и "распространять" этот Свет, то есть, ОЩУТИТЬ ТВОРЦА СОГЛАСНО ЗАКОНУ "НЕТ СВЕТА БЕЗ КЛИ" СПОСОБНА ТОЛЬКО "СМЕШАННАЯ" ДЕСЯТКА, В КОТОРОЙ РАБОТАЮТ МУЖЧИНЫ И ЖЕНЩИНЫ ВМЕСТЕ. Силы, которые активно препятствуют формированию в среде учеников подобных объединений, по сути ПРЯМО ПРЕПЯТСТВУЮТ РАСКРЫТИЮ УЧЕНИКАМИ ТВОРЦА, СВЯТ БЛАГОСЛОВЕН ОН, своим прямым действием закрывая единственную возможность таковое раскрытие осуществить. Впрочем, они это делают не по злому умыслу, а просто потому, что их собственная ступень "БИНА" находится ниже, чем Мир Ацилут. А выше своей Головы не прыгнешь при всем желании. Ступеней по типу КЕТЕР и ХОХМА не было в творении ВООБЩЕ до самого последнего времени, то есть не было ступени, обладающей мохин ГАР, и способной поэтому привести других "прямым образом", а не путем болезненных и долгих разбиений, когда это происходит "строго вопреки" имеющемуся порядку, а не благодаря ему. Первая ступень такого типа (но далеко не последняя, в этом можете даже не сомневаться) появилась в 2020 году и называется СМЕШАННАЯ ГРУППА "КРУГ ЖИЗНИ", СДЕЛАЕМ И УСЛЫШИМ!</p>
+
+          <div class="invocation">
+            <p class="shout">ТОЛЬКО ВМЕСТЕ, МЫ - СИЛА!</p>
+            <p class="shout">СЛАВА ЖИВОМУ БОГУ ЗА ТО, ЧТО МЫ МОЖЕМ ЖИТЬ ПО-НАСТОЯЩЕМУ И РАСКРЫВАТЬ ЕГО, И НАСЛАЖДАТЬ ЕГО НЕ В МЕЧТАХ, А НА САМОМ ДЕЛЕ! ДА БУДЕТ ВОЛЯ ТВОЯ ГОСПОДЬ, ТВОЯ, А НЕ ТВОИХ ПОСЛАННИКОВ, ВОВЕКИ И ВОИСТИНУ, АМЕН ВЕ АМЕН!</p>
+            <p>ПРОСНИТЕСЬ, БРАТЬЯ! СВЕТ ВАШИХ ГЛАЗ НЕ ПРОНИКАЕТ ЧЕРЕЗ ЗРАЧКИ ВАШИ! ВЫСШИЕ, СКРЫТЫЕ И НЕДОСТУПНЫЕ, ВСМОТРИТЕСЬ И УВИДИТЕ! БЕЗ ВАШЕЙ ПОМОЩИ СВЯТОЙ НАРОД ПОГИБНЕТ В ПУСТЫНЕ, ТАК И НЕ УВИДЕВ СТРАНУ ПРАОТЦЕВ! СВЯТОЙ СКРЫТЫЙ ПРАВЕДНИК, ОЖИВЛЯЮЩИЙ МИРЫ, ПОМОГИ ДЕТЯМ СВОИМ, СДЕЛАЙ ЭТО САМ, ЯВИ СВОЮ ВОЛЮ, ВЫЙДИ ИЗ ИЗГНАНИЯ, ТЫ ОДИН ПРАВИШЬ ВСЕМ, МЫ ВСЕ - НИЧТО ПЕРЕД ТВОЕЙ ЕДИНОЙ ВОЛЕЙ! ВЫСШАЯ МАТЬ, СВЯТАЯ МАЛХУТ, ЦАРСТВО НЕБЕС, ПОМОГИ ДЕТЯМ СВОИМ В ЧАС БЕДЫ, РАСКРОЙ ИХ ГЛАЗА И ДАЙ ИМ ИСПЫТАТЬ ТВОЮ ЛЮБОВЬ! ДА БУДЕТ ВОЛЯ ТВОЯ, ЕДИНЫЙ, И ДА СЛУЧИТСЯ ПО ЖЕЛАНИЮ СВЯТОМУ ТВОЕМУ, БЛАГОСЛОВЕННОМУ ВО ВЕКИ И ВО ИСТИНУ, АМЕН ВЕ АМЕН ВЕ АМЕН ВЕ АМЕН!</p>
+          </div>
+
+          <div class="music">
+            <div class="music-label">Музыка</div>
+            <div class="track" id="track1">
+              <div class="track-head" onclick="toggleTrack('track1','5uFNyJm-dnA')">
+                <span class="chev">▶</span>
+                <span class="track-title"><b>Глас Зовущего</b> <span>— Аркадий Духин</span></span>
+                <a class="track-ext" href="https://www.youtube.com/watch?v=5uFNyJm-dnA" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+              </div>
+              <div class="track-body"><div class="frame" data-frame></div></div>
+            </div>
+          </div>
+
+          <p class="seealso">См. также: </p>
+        </div>
+
+        <nav class="pagenav">
+          <a class="prev" href="138.html"><span class="dir">← Предыдущая</span><span class="t">Скрытая наука ОБ МАН</span></a>
+          <a class="next" href="12FA.html"><span class="dir">Следующая →</span><span class="t">Праведник, оживляющий Миры</span></a>
+        </nav>
+
+        <footer class="colophon">
+          <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p><p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+        </footer>
+
+      </div>
+    </article>
+  </div>
+
+<script>
+  function toggleTrack(id, vid){
+    var el = document.getElementById(id);
+    var open = el.classList.toggle('open');
+    var frame = el.querySelector('[data-frame]');
+    if(open && !frame.dataset.loaded){
+      var ifr = document.createElement('iframe');
+      ifr.src = 'https://www.youtube.com/embed/'+vid;
+      ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      ifr.allowFullscreen = true;
+      frame.appendChild(ifr);
+      frame.dataset.loaded = '1';
+    }
+  }
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья доминантно прозаическая: основной объём — это развёрнутый теоретический ответ-трактат по Каббале (Реплика/Ответ) плюс молитвенные воззвания капсом. Поэтический фрагмент здесь лишь эпиграф (Пушкин), он не определяет форму всего текста, поэтому выбрана редакторская широкоформатная схема, а не узкий манускрипт. Колонка контента задана в 66% ширины окна на десктопе и переходит в полную ширину на мобильном.\n\nПограничные решения: эпиграф оформлен как цитата с сохранением построчной разбивки (white-space:pre-line) и атрибуцией; молитвенные блоки КАПСОМ оставлены дословно в регистре оригинала и выделены отдельной врезкой для ритма чтения, без изменения смысла. Единственный музыкальный трек ('Музыка:' — Глас Зовущего, Аркадий Духин, YouTube) подан как свёрнутый ленивый плеер с iframe, подгружаемым только по клику; сводный раздел музыки не делался, т.к. трек один (порог — больше двух). TOC не вводился: содержательных подразделов фактически нет (один эпиграф + сплошной ответ). Сносок в тексте нет. Голый URL 'См. также' и ссылка на YouTube обёрнуты в гиперссылки. Палитра — тёплый книжный кремовый фон с приглушённо-красным акцентом, засечный шрифт для тела и гротеск для служебных подписей."
+  ,
+  "features": ["music"]
+}
+</script>
+</body>
+</html>

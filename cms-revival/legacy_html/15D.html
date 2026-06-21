@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7-е О. П. Комплексная модель ТС</title>
+<style>
+  :root{
+    --ink:#1d1a17;
+    --muted:#6b625a;
+    --accent:#9a3b2e;
+    --accent-soft:#c2705f;
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --rule:#ddd4c6;
+    --hl:#ffe9a8;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px;}
+  a:hover{color:var(--accent-soft);}
+
+  .wrap{
+    width:66%;
+    max-width:1180px;
+    min-height:100vh;
+    margin:0 auto;
+    background:var(--paper);
+    padding:38px 72px 80px;
+    border-left:1px solid var(--rule);
+    border-right:1px solid var(--rule);
+  }
+
+  nav.crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding-bottom:18px;
+    margin-bottom:30px;
+    border-bottom:1px solid var(--rule);
+  }
+  nav.crumbs a{color:var(--muted);text-decoration:none;}
+  nav.crumbs a:hover{color:var(--accent);}
+  nav.crumbs .sep{margin:0 .55em;color:var(--accent-soft);}
+
+  h1{
+    font-size:34px;
+    line-height:1.25;
+    font-weight:normal;
+    margin:0 0 6px;
+    letter-spacing:.005em;
+  }
+  .kicker{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:14px;
+  }
+  .title-rule{
+    width:80px;
+    height:3px;
+    background:var(--accent);
+    margin:22px 0 40px;
+  }
+
+  article p{margin:0 0 1.45em;}
+  article p:first-of-type::first-letter{
+    font-size:3.3em;
+    line-height:.85;
+    float:left;
+    padding:.05em .08em 0 0;
+    color:var(--accent);
+    font-weight:bold;
+  }
+
+  .sign{
+    color:var(--muted);
+    font-style:italic;
+    font-size:17px;
+  }
+  .closing{
+    font-variant:small-caps;
+    letter-spacing:.03em;
+    font-size:21px;
+    color:var(--accent);
+    margin-top:1.8em;
+  }
+  .datestamp{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.08em;
+    color:var(--muted);
+  }
+
+  /* footnotes */
+  sup.fnref{font-size:.62em;line-height:0;}
+  sup.fnref a{
+    text-decoration:none;
+    color:#fff;
+    background:var(--accent);
+    border-radius:3px;
+    padding:1px 4px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:bold;
+  }
+  sup.fnref a:hover{background:var(--accent-soft);}
+
+  .fn-pop{position:relative;}
+  .fn-pop .pop{
+    visibility:hidden;opacity:0;
+    position:absolute;
+    left:50%;transform:translateX(-50%);
+    bottom:150%;
+    width:320px;max-width:78vw;
+    background:#2a2520;color:#f4 efe6;color:#f4efe6;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px;line-height:1.5;
+    font-weight:normal;
+    letter-spacing:0;
+    text-transform:none;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 8px 26px rgba(0,0,0,.28);
+    transition:opacity .15s ease;
+    z-index:20;
+    pointer-events:none;
+  }
+  .fn-pop .pop a{color:#ffce8a;}
+  .fn-pop.below .pop{bottom:auto;top:150%;}
+  .fn-pop:hover .pop{visibility:visible;opacity:1;}
+
+  .notes{
+    margin-top:60px;
+    padding-top:26px;
+    border-top:2px solid var(--rule);
+  }
+  .notes h2{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent);font-weight:bold;margin:0 0 18px;
+  }
+  ol.fnlist{margin:0;padding-left:1.4em;font-size:16.5px;line-height:1.6;color:#352f29;}
+  ol.fnlist li{margin-bottom:14px;}
+  ol.fnlist li:target{
+    background:var(--hl);
+    border-radius:4px;
+    box-shadow:0 0 0 6px var(--hl);
+    transition:background .4s;
+  }
+  .backref{margin-left:.4em;text-decoration:none;font-weight:bold;}
+
+  /* bottom corpus nav */
+  .corpus-nav{
+    margin-top:64px;
+    padding-top:26px;
+    border-top:1px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    display:block;
+    text-decoration:none;
+    max-width:46%;
+  }
+  .corpus-nav .lbl{
+    display:block;
+    font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:4px;
+  }
+  .corpus-nav .ttl{font-size:17px;color:var(--accent);font-family:Georgia,serif;}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:46px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    line-height:1.55;
+    color:var(--muted);
+  }
+  footer.colophon a{color:var(--accent);}
+
+  @media(max-width:1000px){
+    .wrap{width:100%;max-width:760px;padding:30px 26px 64px;border:none;}
+    body{font-size:18px;}
+    h1{font-size:28px;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav a,.corpus-nav .next{max-width:100%;text-align:left;margin-left:0;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/15D.html">
+<meta name="description" content="Статья о седьмом объясняющем предположении и комплексной модели точки сборки: расширение модели Кастанеды через понятие вещественной и мнимой составляющих.">
+<meta property="og:title" content="7-е О. П. Комплексная модель ТС">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/15D.html">
+<meta property="og:description" content="Статья о седьмом объясняющем предположении и комплексной модели точки сборки: расширение модели Кастанеды через понятие вещественной и мнимой составляющих.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="7-е О. П. Комплексная модель ТС">
+<meta name="twitter:description" content="Статья о седьмом объясняющем предположении и комплексной модели точки сборки: расширение модели Кастанеды через понятие вещественной и мнимой составляющих.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №15D</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../cyberson/index.html">Киберсон</a>
+  </nav>
+
+  <div class="kicker">Объясняющее предположение · VII</div>
+  <h1>СЕДЬМОЕ “ОБЪЯСНЯЮЩЕЕ ПРЕДПОЛОЖЕНИЕ”<sup class="fnref fn-pop"><a href="#fn1" id="ref1">1</a><span class="pop">См. также: Шесть объясняющих предположений. Неопубликованная глава из Дара Орла. Карлос Кастанеда.</span></sup>. КОМПЛЕКСНАЯ МОДЕЛЬ ТОЧКИ СБОРКИ<a class="audio-link" href="https://t.me/art_017_tracks/322" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <div class="title-rule"></div>
+
+  <article>
+    <p>Мы привыкли представлять себе точку сборки, продолжая полетом своей фантазии модель, удачно созданную и распространенную магом и видящим прошлого тысячелетия, Карлосом Кастанедой (КК), как некоторое “перемещающееся” под воздействием обстоятельств и факторов, “мобильное явление” или абстрактный объект, в таком же абстрактном множестве всех возможных ее расположений, называемое в общем “светящимся яйцом” или “коконом восприятия” человеческого существа, у которого есть всевозможные “сечения”, продольные, поперечные, поверхностные, центральные, и т.п., имеющие определенные отражения в методике мироописания, точнее, миропутешествия этого самого объекта по разным местам, происходящим под воздействием разных групп характерных обстоятельств, “магической картины мира новых видящих”.</p>
+
+    <p>Модель очень хорошая, удачная, нет сомнения, и даже полезная почти всегда, когда в ней возникает потребность. Однако, модель слишком примитивная для того, чтобы представлять настоящий интерес, слишком линейная и предсказуемая, слишком механистическая и незамысловатая, чтобы претендовать на полезную в условиях бесконечной сложности и непостижимого совершенства воспринимаемой нами посредством нее Реальности. Давайте пофантазируем еще немного в предложенном КК направлении, и условимся, что эта точка, является не просто аналитическим объектом, но комплексным числом, в математическом смысле, т.е. состоящим из “вещественной” составляющей, которую мы ощущаем “реально”, как собственное состояние сознание, и “мнимой” составляющей, которая с нашим состоянием сознания и восприятием неразрывно связана, составляя вместе с ним единое целое, но не ощущаемая и не регистрируемое нами посредством ощущения и осознания. Причем, эти две величины (z=a+bi, как говорят математики) находятся друг относительно друга в определенном взаимоотношении, назовем это отношение “подобием свойств”. То есть часть “мнимая” всегда является “подобной” части вещественной, в том смысле, к примеру, в котором таковыми являются шайба и болт, на который эта шайба накручивается, благодаря совпадающей резьбе. В этом отношении существует ясное “подобие”, или “подходящесть”, но, если мы посмотрим непосредственно на то, какими являются форма этой шайбы и болта, то мы увидим, что они полностью противоположны по форме один другому. То есть резьба, в одном случае представляет собой повторяющиеся выпуклости, а в другом – соответствующие им вогнутости. Пока запомним, что “подобие свойств” – это такое отношение двух объектов или явлений, когда у них имеется полная взаимная противоположность формы, благодаря чему они наилучшим образом дополняют друг друга до единого функционального целого.</p>
+
+    <p>Кроме этого, мы помним, что одно из рассматриваемых явлений мы ощущаем и осознаем как состояние сознания и воспринимаемый мир, то есть, как то, что мы и называем привычно “точкой сборки” “как правило”. Однако, второе, связанное с ним “подобием”, явление, по определению и по своей неизменной собственной “магической” природе нами не ощущается и не осознается, хотя и участвует самым непосредственным образом в “настройке мира”, будучи его “изнанкой”, “обратной стороной” или “опорно-механической основой”, не участвующей в наделении создаваемых восприятием “комплексов” важностью и смыслом, который в результате осуществления настойки становится “первым”, либо “вторым” “вниманием”. Будем считать, что эта “мнимая” часть осуществляет “фиксацию” того, что было настроено. Что же именно было настроено, нам рассказывает “голос”, либо мы знаем это без слов, либо ощущаем это в органах ощущений, либо осознаем знанием тела, и т.п. Но мы ведь никогда не оказываемся говорящими, или осознающими что-то типа “вот это – моя настройка, или ощущение, а вот это – это некоторый объект, который держит ее фиксированным в том положении, которого она достигла, чтобы залетный ветер Нагваля не сдул меня вместе с настройкой в Бесконечность”, согласитесь? Вот и договорились: “ты ее видишь? Нет? Я тоже. Но она есть”. Потому что ветер не сдувает нашу настройку то и дело “обратно” в Нагваль, слава Господу.</p>
+
+    <p>Однако, не смотря на вышеописанное положение дел, и одна и другая часть включены самым непосредственным, и даже “одинаковым”, с точки зрения Намерения Духа, образом, в то, что является нашим намерением, или эманациями, заключенными связывающей Силой Жизни в конгломерат энергетических полей нашего кокона. И то и другое является эманациями Орла, которые Орел любезно позволяет нам “поймать”, и временно использовать, получая опыт восприятия себя и мира. В свою очередь, это означает, что принципиальная “неосознаваемость” и “нерегистрируемость” “фиксирующей” части конгломерата “засвеченных” в данном конкретном состоянии “энергетических полей”, не освобождает нас от того, чтобы использовать их вместе со всеми прочими задействованными эманациями, если мы хотим стремиться к осознанности и целостности самих себя, “остановке мира”, безупречности и достигать “видения”. Поскольку “видение” определяется как действие намеренного “сопоставления” эманаций внутри, в имеющейся под контролем осознания воина конфигурации, и тех же самых эманации в Великом, благодаря чему, “эманации получают возможность заметить самих себя”, то есть, происходит прекращение “создания мира” посредством их использования, поскольку в его процессе воином целенаправленно создается “препятствие”, которое мешает настройке быть задействованной в движении Намерения того или иного Кольца Силы, создавая из этих эманаций “комплексы восприятия”.</p>
+
+    <p>Механизм этого прерывания качественно не может быть достигнут иначе, чем посредством включения эманаций “обратной стороны”, которые не входят в реальность, воспринимаемую воином, а, значит, не могут, без совершенно особенной тактики, быть объектом “осознанного усилия” со стороны воина (он просто не узнает, к чему применять усилия, и каким образом), в стратегию “неделания” и тактику приложения усилий воином, согласно методике, в которой сложное “строение” самой точки сборки учитывается и используется согласно имеющемуся, в связи с обновленным мироописанием, разделом “Правила Орла”, который бы касался непосредственно того, как воину следует иметь дело с “вещественной” и “мнимой” частями своей восприятия так, чтобы это не мешало, а помогало ему достичь цели Пути воинов и реализовать практически данный ему Орлом шанс получить шанс (кстати, фраза “шанс иметь шанс” указывает именно на нашу “мнимую единицу”, являющуюся неотступным “множителем” всего, что имеет отношение к “мнимой части восприятия”, и которая и делает эту часть недоступной для “прямолинейной” тактики). Правило это, к счастью, у Орла для нас есть, и это правило, как раз и есть та “вишенка на торте” переданного нам Толтеками древнего Знания, которая “дает старт” “новому циклу современных видящих”, и, заодно, становится эдакой в масштабе всего человечества двояковогнутой “точкой невозврата”, разделяющей реальности завершившегося цикла “новых видящих” и начавшегося цикла “современных видящих”, в котором живем, пользуясь исключительно удачным для нас благоволением к этому Орла, мы с Вами, и в котором предстоит жить тем воинам, которые будут осваивать методику Пути Воина после нас, обоснованно рассчитывая на то, что мы не преминем оставить им важные указатели в тех местах, которые мы сами успешно прошли, проложив дорогу, чтобы исключить необходимость затрачивать значительную часть жизни на понимание того, почему “я все вроде делаю как надо, а годами топчусь на месте”, и т.п., и нахождение долгожданного “лекарства”. Собственно, это именно то, что делали для нас Дон Хуан и Кастанеда, и что является частью Пути каждого воина – совершение вклада в человеческий Дух, как минимум, соизмеримого с тем вкладом, который сделали для нас те, благодаря кому мы нашли этот Путь, и смогли по нему немного продвинуться, поскольку форма существования осознания в Бесконечности – это линия, бесконечная линия, “тонкая красная нить”, проложенная между теми, кто жил перед нами и теми, кто будет жить после. И непрерывность этой линии – главное условие успешного осуществления маневра, называемого “Огнем изнутри”, поскольку, образно говоря, если конкретный воин, или группа воинов, “не позаботились” о том, чтобы оставить после себя таковое наследие (либо не совершили другую, симметричную этой, работу, в относящемуся к человечеству объеме “второго внимания”), то “зажигать” в момент ухода из этого мира, будет нечего, даже если воин натренирован “безупречнее” самого Орла. Ведь кому он, в этом случае, такой бесформенный и безупречный в “третьем внимании” будет нужен, как считаете?</p>
+
+    <p class="closing">Сделаем и услышим!</p>
+
+    <p class="sign">Продолжение следует<sup class="fnref fn-pop"><a href="#fn2" id="ref2">2</a><span class="pop">Продолжение: <a href="185.html">Забывая о любви к Себе</a>.</span></sup></p>
+
+    <p class="datestamp">13.05.21</p>
+  </article>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol class="fnlist">
+      <li id="fn1">См. также: Шесть объясняющих предположений. Неопубликованная глава из Дара Орла. Карлос Кастанеда. <a class="backref" href="#ref1" title="Вернуться к тексту">↩</a></li>
+      <li id="fn2">Продолжение: <a href="185.html">Забывая о любви к Себе</a>. <a class="backref" href="#ref2" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="44Q.html">
+      <span class="lbl">← Предыдущая</span>
+      <span class="ttl">Чмоки, черти!</span>
+    </a>
+    <a class="next" href="54H.html">
+      <span class="lbl">Следующая →</span>
+      <span class="ttl">Горе от ума</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // выбор стороны popup: над маркером, либо под ним у верхнего края окна
+  document.querySelectorAll('.fn-pop').forEach(function(el){
+    el.addEventListener('mouseenter',function(){
+      var r=el.getBoundingClientRect();
+      el.classList.toggle('below', r.top < 180);
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — целостное теоретическое эссе об устройстве точки сборки в кастанедовской терминологии: сплошные длинные абзацы рассуждения, без стихотворных строк и строф. Поэтому выбрана редакторская (широкая) схема журнального лонгрида, а не узкий манускрипт для стихов. Колонку взял ~66% ширины окна с верхним пределом, чтобы мера строки оставалась читаемой при крупных мониторах; засечный шрифт Georgia для тела, гротеск для служебной обвязки (крошки, навигация, примечания) — чтобы визуально отделить аппарат от авторского текста. Палитра тёплая бумажная со сдержанным терракотовым акцентом, перекликающимся с тольтекской «красной нитью» из текста.",
+  "rationale_note": "",
+  "features": ["footnotes"]
+}
+</script>
+</body>
+</html>

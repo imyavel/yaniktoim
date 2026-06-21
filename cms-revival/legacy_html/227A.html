@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тайны Второго Внимания. Часть 2. Сосуд не-я</title>
+<style>
+  :root{
+    --bg:#f6f4ef;
+    --ink:#1f1c18;
+    --muted:#6b645a;
+    --accent:#8a5a2b;
+    --accent2:#b9892f;
+    --line:#ddd5c8;
+    --paper:#fffdf8;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:980px;
+    margin:0 auto;
+    padding:32px 28px 80px;
+  }
+  @media(max-width:1100px){.wrap{width:80%;}}
+  @media(max-width:760px){
+    body{font-size:18px;}
+    .wrap{width:100%;padding:20px 18px 60px;}
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .crumbs{
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--line);
+    padding-bottom:14px;
+    margin-bottom:28px;
+  }
+  .crumbs a{color:var(--muted);}
+  .crumbs .sep{margin:0 .5em;color:var(--accent2);}
+  .date{
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    letter-spacing:.04em;
+    margin-bottom:8px;
+  }
+  h1{
+    font-family:Georgia,serif;
+    font-weight:700;
+    font-size:34px;
+    line-height:1.25;
+    margin:6px 0 30px;
+    color:var(--ink);
+  }
+  @media(max-width:760px){h1{font-size:27px;}}
+  .epi{
+    border-left:3px solid var(--accent2);
+    margin:0 0 26px;
+    padding:6px 0 6px 22px;
+    color:#3c352c;
+    font-style:italic;
+    font-size:18px;
+    line-height:1.6;
+  }
+  .epi .src{
+    display:block;
+    font-style:normal;
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.03em;
+    color:var(--muted);
+    margin-top:8px;
+    text-align:right;
+  }
+  .body p{margin:0 0 1.45em;text-align:justify;}
+  .num{
+    font-weight:700;
+    color:var(--accent);
+  }
+  h2{
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:16px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:48px 0 18px;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--line);
+  }
+  /* footnote marker */
+  sup.fn{font-size:.7em;line-height:0;}
+  sup.fn a{
+    color:var(--accent2);
+    font-weight:700;
+    text-decoration:none;
+  }
+  .fnote{position:relative;}
+  .fnote .pop{
+    visibility:hidden;
+    opacity:0;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:140%;
+    width:300px;
+    max-width:78vw;
+    background:var(--paper);
+    border:1px solid var(--accent2);
+    box-shadow:0 6px 22px rgba(0,0,0,.18);
+    color:var(--ink);
+    font-size:15px;
+    font-style:normal;
+    line-height:1.5;
+    padding:12px 14px;
+    border-radius:5px;
+    z-index:30;
+    transition:opacity .15s;
+    text-align:left;
+  }
+  .fnote.below .pop{bottom:auto;top:140%;}
+  .fnote:hover .pop{visibility:visible;opacity:1;}
+  .notes ol{padding-left:1.4em;}
+  .notes li{
+    margin-bottom:.9em;
+    font-size:16px;
+    line-height:1.55;
+  }
+  .notes li:target{
+    background:#fbeecb;
+    outline:2px solid var(--accent2);
+    border-radius:4px;
+    padding:4px 8px;
+  }
+  .backref{font-size:.85em;margin-left:.4em;}
+  .extra{font-size:16px;color:var(--muted);margin-top:6px;}
+  /* music */
+  .music{margin-top:14px;}
+  .mlabel{
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.05em;
+    color:var(--muted);
+    margin-bottom:10px;
+  }
+  .track{
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:var(--paper);
+    margin-bottom:10px;
+    overflow:hidden;
+  }
+  .track .head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:13px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track .head:hover{background:#f1ebdf;}
+  .track .arrow{
+    color:var(--accent);
+    transition:transform .2s;
+    font-size:13px;
+  }
+  .track.open .arrow{transform:rotate(90deg);}
+  .track .tname{font-weight:700;}
+  .track .tart{color:var(--muted);font-size:.92em;}
+  .track .ext{margin-left:auto;color:var(--accent2);}
+  .track .frame{display:none;padding:0 16px 16px;}
+  .track.open .frame{display:block;}
+  .track .frame .ratio{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+  }
+  .track .frame iframe{
+    position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:4px;
+  }
+  .hashtag{
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    letter-spacing:.05em;
+    margin-top:36px;
+  }
+  /* corpus nav */
+  .corpusnav{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:56px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:15px;
+  }
+  .corpusnav a{display:block;max-width:46%;}
+  .corpusnav .lbl{
+    display:block;font-size:12px;text-transform:uppercase;
+    letter-spacing:.08em;color:var(--muted);margin-bottom:4px;
+  }
+  .corpusnav .next{text-align:right;margin-left:auto;}
+  footer.colophon{
+    margin-top:48px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer.colophon a{color:var(--accent);}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/227A.html">
+<meta name="description" content="Статья из цикла Конфронтология Духа о втором внимании по Кастанеде: природа подсознания, внутренний диалог и роль внешней управляющей ступени.">
+<meta property="og:title" content="Тайны Второго Внимания. Часть 2. Сосуд не-я">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/227A.html">
+<meta property="og:description" content="Статья из цикла Конфронтология Духа о втором внимании по Кастанеде: природа подсознания, внутренний диалог и роль внешней управляющей ступени.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Тайны Второго Внимания. Часть 2. Сосуд не-я">
+<meta name="twitter:description" content="Статья из цикла Конфронтология Духа о втором внимании по Кастанеде: природа подсознания, внутренний диалог и роль внешней управляющей ступени.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №227A</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <div class="date">7 февраля 2022 г.</div>
+
+  <h1>ТАЙНЫ ВТОРОГО ВНИМАНИЯ. ЧАСТЬ 2: СОСУД НЕ-Я<sup class="fn fnote" id="ref1"><a href="#fn1">*1</a><span class="pop">«<a href="221B.html">Неудобная реальность</a>.</span></sup><a class="audio-link" href="https://t.me/art_017_tracks/468" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <blockquote class="epi">
+    Искусство сновидения — это способность владеть своим обычным сном, переводя его в контролируемое состояние сознания при помощи особой формы внимания, которое называется вниманием сновидения, или вторым вниманием.
+    <span class="src">Колесо Времени, К.Кастанеда</span>
+  </blockquote>
+
+  <blockquote class="epi">
+    – Видящие считают, что существуют три типа внимания, – продолжал дон Хуан. – Ты понимаешь, конечно, что речь идет только о человеческих существах, а не о живых существах вообще. Но это не просто типы внимания. Это, скорее, три уровня достижения, три уровня развития. Их называют первым, вторым и третьим вниманием. И каждое из них являет собою совершенно независимую самодостаточную область.
+    <span class="src">Внутренний Огонь. К.Кастанеда</span>
+  </blockquote>
+
+  <div class="body">
+    <p><span class="num">1.</span> Подсознание человека есть ничто иное, как совокупность его повседневного мышления и поведения, в которой он думает и действует посредством передачи монополии владения самим собой, включая анализ, осознание и понимание происходящего, внешней управляющей ступени, работа которой производится таким же человеком этого мира, как и он сам, но только находящимся в данной совокупности межличностных отношений на ступени "Женщина", или "ведущий", "действующий", "взрослый", "Отец" (Аба) относительно самого человека, находящегося в этих отношениях на ступени "Мужчина", или "ведомый", "приводимый в действие", "воспитуемый", "Мать" (Има). Посредством этих отношений, всегда происходящих одинаковым образом, происходит развитие человека путем получения опыта посредством жизни этого мира. Не существует "подсознания", которое существовало бы в ком-то "само по себе", не будучи связанным с той или иной ступенью "этого мира", такой, как энерго-информационные явления, называемые "эргрегорами", которые производят непосредственное претворение в жизнь реальности некоторой формы и модели, имеющей отношение к межличностным взаимодействиям и характерным способам человека быть в осмысленном ощущаемом контакте с окружающим миром, частично относящимся к открытым и явным для него процессам и действиям, а частично - к т.н.з. "подсознанию", работу которого он не замечает, поскольку в это самое время его работы органы чувств, сердце и разум заняты осуществлением этой работы посредством "внешнего управления" человеком "старшей духовной сущности" и/или ее человеческих представителей, выполняющих общественно значимую функцию патронажа находящимся под контролем и управлением данной сущности объемом человеческого неосознанного материала.</p>
+
+    <p><span class="num">2.</span> Наиболее известный и очевидный случай происхождения в человеке такового процесса, хорошо известный каждому, это назойливый неутихающий "внутренний диалог", рассматриваемый человеком "подсознательно", то есть, автоматически и без попыток анализа, как "свой собственный голос", в то время, как "собственным" в его случае является только то, что этот голос производит, посредством возникновения и совершения человеком процесса думания. Однако движущей Силой, совершающий производящий этот процесс объем работы, равно как и контроль над тем, когда и как этот процесс происходит, находятся вне самого человека и относятся к т.н.з. "второму вниманию", посредством соединения со ступенью (явлением) которого, имеющаяся у человека ступень "первого внимания" получает возможность работать, не смотря на то, что сам человек не отдает себе никакого отчета в реальности того, как это происходит, посредством его собственных регулярных совершаемых им действий "здесь и сейчас", поскольку суть первого внимания заключается в "делегирование" определенного объема собственной повседневной реальности мышления, поведения, осознания и ощущения собственной жизни, внешней управляющей ступени, посредством чего человек приобретает опыт, связанный с функционированием самой этой ступени как таковой, т.е. управляющей и ведущей, по мере того, как у него накапливается опыт и определенный объем "личной истории" этого мира, в котором это функционирование раскрывается в полноте с одного из двух составляющих его общих ракурсов, т.е. с ракурса опыта, жизни и реальности "ведомого" субъекта данной пары межличностных отношений.</p>
+
+    <p><span class="num">3.</span> Получение этого опыта человеком происходит ради того, чтобы, получив опыт "ведомой" ступени", посредством этого опыта, соединиться с другим человеком, создавая в нем "печать" имеющейся у человека ступени опыта "ведомости", в той же самой форме отношений и взаимодействий, в точности, в которой он сам находился посредством обретения данного объема опыта в собственном прошлом, но теперь уже как "ведущий" и "сознательный" участник данного межличностного сопряжения. Получая вторую ступень опыта, человек проходит определенный качественный рубеж в своей структуре энерго-информационного взаимодействия и существования относительно человеческих социо-когнитивных основополагающих структур ("эргрегоров"), получая "ранг" "праотцов" в той структуре, которая управляла происхождением с ним и с его "Нуквой" имеющегося на данный момент у него опыта, завершенного в двух видах, из двух имеющихся на этой ступени "Мужчиной и Женщиной Он создал Их", чтобы обрести форму своего существования в реальности более "имманентной" и трансцендентной тому, что привык называть реальностью человек этого мира, реальностью невидимой глазу и не обнаружимой приборами, поскольку некому "скомандовать" этим приборам настроиться на ее обнаружение, а именно, подняться к ступени Арих Анпин, как ее называет Книга Зоар и Наука Каббала, или "третьего внимания", как его называют последователи К.Кастанеды, состояния, не являющегося отдельным навыком или действием, отличным от первых двух, но являющийся таким способом получать "опыт всех опытов", который из упоминаемой троицы наиболее близок к понятию управления и осознания себя, и поэтому назван КК "абсолютной свободой", чтобы подчеркнуть, что две предшествующие стадии "первое" и "второе" внимание не являются по-настоящему свободными достижениями и состояниями, а являются вехами на Пути обретения "третьего" состояния, которое только и является целевым и действительно "свободным" от внешнего ведения и управления старших управляющих ступеней, и является их целевой функцией, достигаемой человеком посредством последовательного нахождения в них. Это и есть то, что Дон Хуан называл "опытом всех опытов", поскольку три ступени, имеющие каждая собственную реальность самосознания и раскрываемый объем чувственного восприятия жизни, сильно отличающейся по качеству и интенсивности, одновременно существуют в том явлении, испытывая которое человек этого мира мыслит о том, что он существует, посредством своего существования в мысли ступени "второго внимания", которая осуществляет с ним это действие "здесь и сейчас", являясь его органической неотъемлемой частью, связанной с человеком этого мира единой реальностью жизни и судьбы этого мира, и которая предшествует возникновению такого явления как тело и психика, временные и быстротечные "тела сновидения этого мира". Однако само "второе внимание", при очевидном превосходстве контроля и самосознания, не имеет собственного существования вне контекста своей роли и производимой работы и функции в жизни человека этого мира, созданного им же объема реальности управляемого извне "сна внутри сна", в котором раскрывается определенный объем необходимой работы, связанной с получением определенного опыта, включающегося в последовательное развитие целостности самого себя, имеющегося в у человека в комплексе, и результате, как у процесса, состояния или явления, имеющего как минимум три обособленные реальностью собственного восприятия "точки сборки", связанные между собой таким образом, чтобы предоставлять канал распространения "сверху вниз" Света Жизни по эманациям Орла, поднимаясь посредством опыта этого мира в обратном направлении по мере роста сознания, опосредованного этим Светом, результатом чего должно стать (и обязательно станет, Дух и Орел не ошибаются и не просчитываются никогда) увековечивание осознание посредством развития "получающего", осознающего себя посредством опыта, по порядку на трех уровнях осознанности своей взаимовключенности в энерго-информационные процессы, которые происходят вокруг него, позволяя человеку реализовать себя и достичь одновременно и своей личной духовной Цели, но только "вместе" с достижением, главным и основным, цели и задачи, которую он достигает в общем состоянии единой реальности всех людей, взаимосвязанной и происходящей в гораздо более тесном и целенаправленном соединении и переплетении, чем можно себе предположить, не будучи функциональной частью этого процесса "здесь и сейчас" на ступени "второго внимания" как минимум.</p>
+  </div>
+
+  <h2>Музыка под настроение</h2>
+  <div class="music">
+    <div class="track" data-yt="AoQyF5Lzp8E">
+      <div class="head" onclick="toggleTrack(this)">
+        <span class="arrow">▶</span>
+        <span><span class="tname">Guardian Angel</span> <span class="tart">— Jadyn Rylee</span></span>
+        <a class="ext" href="https://youtu.be/AoQyF5Lzp8E" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a>
+      </div>
+      <div class="frame"><div class="ratio"></div></div>
+    </div>
+  </div>
+
+  <h2>Примечание</h2>
+  <div class="notes">
+    <ol>
+      <li id="fn1">"<a href="221B.html">Неудобная реальность</a>.
+        <a class="backref" href="#ref1">↩</a></li>
+    </ol>
+    <p class="extra">См. также: </p>
+    <p class="extra">Продолжение следует.</p>
+  </div>
+
+  <div class="hashtag">#AA227</div>
+
+  <nav class="corpusnav">
+    <a class="prev" href="221B.html"><span class="lbl">← Предыдущая</span>Неудобная реальность</a>
+    <a class="next" href="16F.html"><span class="lbl">Следующая →</span>Город, Которого нет</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+function toggleTrack(head){
+  var t=head.parentElement;
+  var open=t.classList.toggle('open');
+  if(open){
+    var fr=t.querySelector('.frame .ratio');
+    if(!fr.querySelector('iframe')){
+      var id=t.getAttribute('data-yt');
+      var f=document.createElement('iframe');
+      f.src='https://www.youtube.com/embed/'+id+'?rel=0';
+      f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen=true;
+      fr.appendChild(f);
+    }
+  }
+}
+// footnote popup positioning
+document.querySelectorAll('.fnote').forEach(function(el){
+  el.addEventListener('mouseenter',function(){
+    var r=el.getBoundingClientRect();
+    if(r.top<180) el.classList.add('below'); else el.classList.remove('below');
+  });
+});
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой плотный эзотерико-философский текст в прозе: три развёрнутых пронумерованных абзаца-рассуждения плюс два эпиграфа-цитаты из Кастанеды. Никаких стихотворных форм нет, поэтому выбрана редакторская широкоформатная схема с основной колонкой около 2/3 ширины окна, что комфортно для длинных тяжёлых периодов с многочисленными придаточными.\nПограничные решения: пронумерованные абзацы (1,2,3) — это не озаглавленные подразделы, а маркеры внутри связного текста, поэтому оглавление не строил (нет более одного именованного раздела помимо Примечания и Музыки, и сами абзацы заголовков не имеют). Единственный музыкальный трек оформлен как ленивый раскрывающийся YouTube-плеер; сводный раздел музыки не создавался, так как трек один (порог — более двух). Footnote *1 стоит в заголовке H1 и снабжён popup с выбором стороны и переходами вниз/вверх. Палитра — тёплая бумажная со сдержанным коричнево-охристым акцентом под рукописно-каббалистическую тематику, но в рамках чистой редакторской типографики на светлом фоне."
+  ,
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>

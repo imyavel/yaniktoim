@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Страх Творца, Свят Благословен Он</title>
+<style>
+  :root{
+    --bg:#f7f4 ef;
+    --ink:#23201b;
+    --muted:#6f685c;
+    --accent:#8a5a2b;
+    --accent-soft:#c8a06a;
+    --rule:#ddd4c4;
+    --card:#fffdf8;
+    --hl:#fdeec2;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft);}
+  a:hover{color:#5f3c18;border-bottom-color:var(--accent);}
+
+  .wrap{
+    width:66%;
+    max-width:1040px;
+    min-width:0;
+    margin:0 auto;
+    padding:40px 24px 80px;
+  }
+
+  /* breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:26px;
+  }
+  .breadcrumbs a{border-bottom:none;color:var(--muted);}
+  .breadcrumbs a:hover{color:var(--accent);}
+  .breadcrumbs .sep{margin:0 .5em;color:var(--accent-soft);}
+
+  .hero{margin:0 0 30px;}
+  .hero img{display:block;max-width:100%;width:auto;height:auto;border-radius:3px;}
+
+  h1{
+    font-size:2.05rem;
+    line-height:1.22;
+    font-weight:700;
+    margin:0 0 8px;
+    letter-spacing:.005em;
+  }
+  .title-rule{
+    width:90px;height:3px;background:var(--accent);
+    margin:18px 0 38px;border-radius:2px;
+  }
+
+  article p{margin:0 0 1.35em;}
+  article p:first-of-type{
+    font-size:1.06em;
+    color:var(--muted);
+    font-style:italic;
+  }
+
+  /* music */
+  .music{
+    margin:38px 0;
+    border:1px solid var(--rule);
+    background:var(--card);
+    border-radius:8px;
+    padding:18px 20px;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin-bottom:12px;
+  }
+  .track{border-top:1px dashed var(--rule);}
+  .track:first-of-type{border-top:none;}
+  .track-head{
+    display:flex;align-items:center;gap:10px;
+    cursor:pointer;padding:10px 2px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+  }
+  .track-head .arrow{
+    color:var(--accent);transition:transform .2s;font-size:14px;width:14px;
+  }
+  .track-head.open .arrow{transform:rotate(90deg);}
+  .track-head .tname{font-weight:600;}
+  .track-head .tartist{color:var(--muted);}
+  .track-head .ext{margin-left:auto;border-bottom:none;font-size:15px;}
+  .player{display:none;margin:6px 2px 14px;}
+  .player.open{display:block;}
+  .player .frame{
+    position:relative;width:100%;padding-bottom:56.25%;height:0;
+    border-radius:6px;overflow:hidden;background:#000;
+  }
+  .player iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+
+  /* footnotes */
+  sup.fnref{font-size:.7em;line-height:0;}
+  sup.fnref a{
+    border-bottom:none;font-weight:700;color:var(--accent);
+    padding:0 1px;
+  }
+  .fn-pop{
+    position:relative;cursor:help;
+  }
+  .fn-pop .pop{
+    display:none;position:absolute;left:50%;transform:translateX(-50%);
+    bottom:130%;
+    width:min(340px,80vw);
+    background:#2b2620;color:#f4ecdd;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;line-height:1.5;font-weight:400;
+    padding:12px 14px;border-radius:8px;
+    box-shadow:0 8px 24px rgba(0,0,0,.28);
+    z-index:30;text-align:left;
+  }
+  .fn-pop.below .pop{bottom:auto;top:130%;}
+  .fn-pop .pop a{color:var(--accent-soft);}
+  .fn-pop:hover .pop{display:block;}
+
+  .notes{
+    margin-top:54px;padding-top:24px;border-top:2px solid var(--rule);
+  }
+  .notes h2{
+    font-size:1.25rem;letter-spacing:.02em;margin:0 0 18px;
+  }
+  .notes ol{padding-left:1.4em;margin:0;}
+  .notes li{
+    font-size:.92em;color:#3a342c;margin-bottom:14px;line-height:1.6;
+  }
+  .notes li:target{background:var(--hl);border-radius:5px;
+    box-shadow:0 0 0 6px var(--hl);}
+  .notes .anon{list-style:none;margin-left:-1.4em;}
+  .backref{margin-left:6px;border-bottom:none;font-size:.95em;}
+
+  /* corpus nav */
+  .corpus-nav{
+    margin-top:60px;padding-top:26px;border-top:1px solid var(--rule);
+    display:flex;justify-content:space-between;gap:20px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    display:block;max-width:46%;border-bottom:none;
+    font-size:15px;line-height:1.4;
+  }
+  .corpus-nav .dir{
+    display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:4px;
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer{
+    margin-top:46px;padding-top:22px;border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;color:var(--muted);line-height:1.55;
+  }
+  footer a{color:var(--muted);}
+
+  @media (max-width:900px){
+    .wrap{width:100%;padding:26px 18px 60px;}
+    body{font-size:18px;}
+    h1{font-size:1.7rem;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav a,.corpus-nav .next{max-width:100%;text-align:left;margin-left:0;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/2AE.html">
+<meta name="description" content="Каббалистическое эссе о страхе Творца как первой заповеди Торы и вратах духовного пути по учению Книги Зоар и комментария Сулам.">
+<meta property="og:title" content="Страх Творца, Свят Благословен Он">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/2AE.html">
+<meta property="og:description" content="Каббалистическое эссе о страхе Творца как первой заповеди Торы и вратах духовного пути по учению Книги Зоар и комментария Сулам.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Страх Творца, Свят Благословен Он">
+<meta name="twitter:description" content="Каббалистическое эссе о страхе Творца как первой заповеди Торы и вратах духовного пути по учению Книги Зоар и комментария Сулам.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №2AE</span>
+<div class="wrap">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/2AE.jpg" alt="">
+  </div>
+
+  <h1>Страх Творца, Свят Благословен Он<a class="audio-link" href="https://t.me/art_017_tracks/527" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <div class="title-rule"></div>
+
+  <article>
+    <p>(Выдержки из комментариев к готовящейся к публикации нашей первой Книги)</p>
+
+    <p>Свят Благословен Он (Акадош Барух Ху, ивр.) — традиционная каббалистическая «присказка» к случаям упоминания в текстах каббалистов, в том или ином контексте, Имени (явления, «духовной ступени») Творца, Свят Благословен Он. Корень этого восходит к высказыванию мудрецов: «Работники Творца, Свят Благословен Он, верят, что Творец, Свят Благословен Он, — Бог веры». Другими словами, что вера каббалистов в Творца, Свят Благословен Он, «слепая» и не основанная на каких либо «рациональных обстоятельствах», как это бывает принято у человека этого мира. В действительности же, человек этого мира блуждает во тьме, и «умирает, не достигнув и половины того, к чему стремился», «преисполненный сожалениями о впустую потраченных годах», потеряв все, что имел, и что имело для него какой либо смысл и значение в бесцельно прожитой жизни, перед лицом окончательной смерти, держащей его за руку и говорящей «просыпайся дружок, пора умирать<sup class="fnref fn-pop" id="ref1"><a href="#fn1">1</a><span class="pop">Цитата из х/ф «Бегущий по лезвию бритвы» (первого).</span></sup>». Потому что «таковы объективные реальные обстоятельства человеческой жизни». А каббалист, делает хитрее — он с самого начала своего Пути (в «катнуте» периода подготовки) развивает в себе «Кли» (психическую способность) самому говорить «Реальности» (то есть, Творцу, Свят Благословен Он, в молитве) какие обстоятельства у Нее являются «объективными», а какие являются результатом его собственного «неисправленного», пока что, состояния «материальных» (т.е. эгоистических) органов ощущений этого мира, вводящие его в заблуждение о природе происходящего в Реальности. И, сделав так, каббалист обнаруживает, что именно так все и было (и есть) «на самом деле». А заодно — раскрывает Творца, Свят Благословен Он, т.е. чувствует, ощущает, познает, взаимодействует — в органах чувств «этого мира» при жизни его физ. тела «здесь и сейчас». Но не ранее! Этот неизменный порядок «духовной работы» называется «в Книге Зоар «первая заповедь Торы»: «СТРАХ ТВОРЦА, СВЯТ БЛАГОСЛОВЕН ОН», являющаяся «вратами» ко всему последующему Пути, без личного опытного «постижения» которых невозможно даже «правильно захотеть» на него ступить, не говоря уже о том, чтобы сделать малейший шаг к цели (См. также: Книга Зоар, перуш Сулам, том 1, п. 189, Заповеди Торы, заповедь первая)</p>
+
+    <div class="music">
+      <div class="music-label">Песнь Ступеней<sup class="fnref fn-pop" id="ref3"><a href="#fn3">3</a><span class="pop">Полная (со временем ;)) и удобная версия рубрикатора «Песнь Ступеней» доступна по адресу: </span></sup>:</div>
+      <div class="track">
+        <div class="track-head" data-embed="https://www.youtube-nocookie.com/embed/ySbLvg_9cEs?autoplay=1">
+          <span class="arrow">▶</span>
+          <span class="tname">Слепой</span>
+          <span class="tartist">— Би-2 и С. Сурганова</span>
+          <a class="ext" href="https://youtu.be/ySbLvg_9cEs" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+        </div>
+        <div class="player"><div class="frame"></div></div>
+      </div>
+    </div>
+
+    <section class="notes" id="notes">
+      <h2>Пост Скриптум</h2>
+      <ol>
+        <li id="fn1">Цитата из х/ф «Бегущий по лезвию бритвы» (первого). <a class="backref" href="#ref1" title="Вернуться к тексту">↩</a></li>
+        <li id="fn3">Полная (со временем ;)) и удобная версия рубрикатора «Песнь Ступеней» доступна по адресу:  <a class="backref" href="#ref3" title="Вернуться к тексту">↩</a></li>
+      </ol>
+    </section>
+  </article>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="18T.html">
+      <span class="dir">← Предыдущая</span>
+      Ревность ангелов Творца в духовной работе
+    </a>
+    <a class="next" href="16E.html">
+      <span class="dir">Следующая →</span>
+      Ева
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // lazy collapsible players
+  document.querySelectorAll('.track-head').forEach(function(head){
+    head.addEventListener('click', function(e){
+      if(e.target.closest('.ext')) return;
+      var player = head.parentElement.querySelector('.player');
+      var frame = player.querySelector('.frame');
+      var open = player.classList.toggle('open');
+      head.classList.toggle('open', open);
+      if(open && !frame.querySelector('iframe')){
+        var ifr = document.createElement('iframe');
+        ifr.src = head.getAttribute('data-embed');
+        ifr.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+        ifr.setAttribute('allowfullscreen','');
+        frame.appendChild(ifr);
+      }
+    });
+  });
+
+  // footnote popup edge flip
+  document.querySelectorAll('.fn-pop').forEach(function(el){
+    el.addEventListener('mouseenter', function(){
+      var r = el.getBoundingClientRect();
+      el.classList.toggle('below', r.top < 170);
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — прозаический комментарий-эссе каббалистического толка: один развёрнутый абзац рассуждения плюс короткий Пост Скриптум со сносками. Стихотворных форм нет, поэтому выбрана редакторская (широкая) схема с колонкой ~2/3 ширины окна и засечным шрифтом для длинного чтения; манускрипт отвергнут как предназначенный для стихов.\nРазвилки: маркер сноски *2 («нашей первой Книги*2») в Пост Скриптуме имеет лишь пустую заглушку «2*» без тела — по правилу о несопоставленных сносках маркер удалён из текста, тело не выводится. Сноска *3 привязана к метке музыкальной подборки «Песнь Ступеней», поэтому она сохранена и как popup на метке, и в аппарате примечаний. Трек один (YouTube), поэтому сделан единичный ленивый раскрывающийся плеер без сводного раздела музыки; атрибуция «Песнь Ступеней» сохранена как метка. Оглавление не делал — единственный содержательный раздел плюс примечания не дают более одного подраздела. Заголовок аппарата оставил авторским «Пост Скриптум», своих заголовков не добавлял; КАПС «СТРАХ ТВОРЦА…» и смайл ;) сохранены дословно, голые URL обёрнуты в ссылки."
+  ,
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Совместная духовная работа мужчин и женщин</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf8;
+    --ink:#22201c;
+    --muted:#6b6358;
+    --accent:#8a5a2b;
+    --accent-soft:#b98a4e;
+    --rule:#e2d9c8;
+    --q:#7a3f2d;
+    --hl:#fbe7c2;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.7;
+  }
+  .wrap{
+    width:66%;
+    max-width:1080px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 28px 80px;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft);}
+  a:hover{color:var(--q);border-bottom-color:var(--q);}
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    padding-bottom:18px;
+    margin-bottom:24px;
+    border-bottom:1px solid var(--rule);
+  }
+  .crumbs a{border-bottom:none;color:var(--accent);}
+  .crumbs a:hover{color:var(--q);}
+  .crumbs .sep{margin:0 .5em;color:var(--accent-soft);}
+
+  h1{
+    font-size:34px;
+    line-height:1.2;
+    font-weight:700;
+    margin:.2em 0 .1em;
+    color:var(--ink);
+    letter-spacing:.005em;
+  }
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    margin:0 0 34px;
+    font-style:normal;
+  }
+
+  .article p{margin:0 0 1.35em;}
+
+  .qa{margin:0 0 1.5em;}
+  .qa .label{
+    display:inline-block;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    font-size:14px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--q);
+    margin-right:.5em;
+  }
+  .q{
+    border-left:4px solid var(--accent-soft);
+    padding:2px 0 2px 22px;
+  }
+  .a{
+    border-left:4px solid var(--rule);
+    padding:2px 0 2px 22px;
+  }
+  .ps{
+    margin-top:2em;
+    padding-top:1.2em;
+    border-top:1px solid var(--rule);
+    font-size:.97em;
+    color:var(--muted);
+  }
+
+  /* footnotes */
+  sup.fnref{font-size:.7em;line-height:0;}
+  sup.fnref a{
+    border-bottom:none;
+    font-weight:700;
+    color:var(--accent);
+    padding:0 1px;
+  }
+  .fn-anchor{position:relative;}
+  .footnotes{
+    margin-top:56px;
+    padding-top:18px;
+    border-top:2px solid var(--rule);
+    font-size:16px;
+    color:var(--muted);
+  }
+  .footnotes h2{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--q);
+  }
+  .footnotes ol{padding-left:1.4em;margin:0;}
+  .footnotes li{margin-bottom:.7em;word-break:break-word;}
+  .footnotes li:target{background:var(--hl);border-radius:4px;}
+  .footnotes .backref{margin-left:.4em;border-bottom:none;font-weight:700;}
+
+  /* footnote popup */
+  .fn-pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:130%;
+    width:min(340px,80vw);
+    background:var(--paper);
+    color:var(--ink);
+    border:1px solid var(--accent-soft);
+    box-shadow:0 6px 22px rgba(0,0,0,.18);
+    padding:12px 14px;
+    border-radius:6px;
+    font-size:15px;
+    line-height:1.5;
+    font-family:Georgia,serif;
+    z-index:40;
+    text-align:left;
+    white-space:normal;
+    word-break:break-word;
+  }
+  .fn-pop.below{bottom:auto;top:130%;}
+  .fn-anchor:hover .fn-pop{display:block;}
+
+  /* corpus nav */
+  .corpusnav{
+    margin-top:60px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .corpusnav a{border-bottom:none;display:block;max-width:46%;}
+  .corpusnav .lbl{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+  .corpusnav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:46px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer.colophon a{color:var(--accent);}
+
+  @media (max-width:900px){
+    .wrap{width:100%;max-width:680px;padding:22px 18px 64px;}
+    body{font-size:18px;}
+    h1{font-size:28px;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/09S.html">
+<meta name="description" content="Статья-диалог о духовном корне запрета совместной каббалистической работы мужчин и женщин и возможности её преодоления для распространения учения.">
+<meta property="og:title" content="Совместная духовная работа мужчин и женщин">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/09S.html">
+<meta property="og:description" content="Статья-диалог о духовном корне запрета совместной каббалистической работы мужчин и женщин и возможности её преодоления для распространения учения.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Совместная духовная работа мужчин и женщин">
+<meta name="twitter:description" content="Статья-диалог о духовном корне запрета совместной каббалистической работы мужчин и женщин и возможности её преодоления для распространения учения.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №09S</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../shoshana/index.html">Роза Среди Шипов</a>
+  </nav>
+
+  <h1>Совместная духовная работа мужчин и женщин<a class="audio-link" href="https://t.me/art_017_tracks/520" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <p class="dateline">28 сентября 2020 г.<sup class="fnref fn-anchor"><a id="ref1" href="#fn1">*</a><span class="fn-pop">Источник: <a href="https://www.facebook.com/arykhanpin/posts/357404282080341">facebook.com/arykhanpin/posts/357404282080341</a></span></sup> ·</p>
+
+  <article class="article">
+
+    <div class="qa q">
+      <p><span class="label">Вопрос:</span>Из какого "духовного корня" следует запрет совместно заниматься "духовной работой" мужчинам и женщинам?</p>
+    </div>
+
+    <div class="qa a">
+      <p><span class="label">Ответ:</span>Корень называется "первое сокращение и скрытие". Свойство Малхут "прямого Света", это "та, что всех милее, всех румяней и белее". Но, как говорит нам Бааль Сулам, благословенна память праведника, это скрытие действует только в "духовном мире", а в материальном его нет, поскольку оно находится внутри этой самой Малхут, на Которую было сделано скрытие. И поэтому "ветвь" этого очень Высокого корня, который не может быть раскрыт (то есть использован) в "правильной форме" до Самого Мира Бесконечности, нам нужно самостоятельно скрывать в нашей духовной работе во Имя и во Славу Творца. А этой ветвью является женская красота, которой женщина пленяет мужчину, подчас так сильно, что мало кто из мужчин может сопротивляться "приказу" забыть обо всем на Свете кроме нее: "ты, Царица, всех милее, всех прекрасней и белее".</p>
+    </div>
+
+    <div class="qa q">
+      <p><span class="label">Вопрос:</span>Если все так серьезно, как мы можем, не смотря на это, вместе включиться в "духовную работу", ведь иначе нам никогда не исправить "разбиение", поскольку чем сильнее становится объединение мужчин "над экраном", тем усиливается "смертельная женская красота" под ним, поскольку мужчины и женщины это на самом деле одно кли? Получается, что, избегая выполнения совместной "духовной" работы в одной "десятке", мы движемся в обратную сторону, увеличивая разницу в свойствах, вместо того, чтобы сокращать ее? А может быть, мы для того и были Творцом подведены к такой черте, когда уже нестерпимо находиться по разные стороны "духовного барьера", по типу "железного занавеса", который ни поднять, ни перелезть, ни подкопать, чтобы вместе вскричать к Творцу, чтобы Он взял и поднял его, показав нам правильную форму скрытия "желания получать" в совместной духовной работе в "этом мире", такую, которая позволила бы работать в каббале мужчинам и женщинам совместно, доставляя этим наслаждение Творцу? Не может ли это быть тем самым рубиконом, который сдвинет с мертвой точки годами длящуюся стагнацию в распространении Науки Каббала учениками каббалистов всему миру? Ведь именно женщины наиболее близки к распространению, то есть к развитию, питанию и росту, но если им мужчины не передают "и рук в руки" Духовный Свет в процессе совместной духовной работы на уроках и семинарах, в котором эта Новая Жизнь может родиться и рости на радость Творцу, то женщины сами не в состоянии ничего "вырастить" из мертвой почвы? Как Вы думаете?</p>
+    </div>
+
+    <p class="ps">П.С. Подсказки искать тут: <a href="https://ilibrary.ru/text/457/p.1/index.html">https://ilibrary.ru/text/457/p.1/index.html</a></p>
+
+  </article>
+
+  <section class="footnotes">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1">Источник: <a href="https://www.facebook.com/arykhanpin/posts/357404282080341">https://www.facebook.com/arykhanpin/posts/357404282080341</a><a class="backref" href="#ref1" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpusnav">
+    <a class="prev" href="0AI.html"><span class="lbl">← Предыдущая</span>Круг Жизни-взрослая десятка</a>
+    <a class="next" href="227.html"><span class="lbl">Следующая →</span>Коуч. Введение</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // position footnote popups above, or below if not enough room
+  document.querySelectorAll('.fn-anchor').forEach(function(a){
+    a.addEventListener('mouseenter',function(){
+      var pop=a.querySelector('.fn-pop');
+      if(!pop)return;
+      pop.classList.remove('below');
+      var r=a.getBoundingClientRect();
+      if(r.top<180){pop.classList.add('below');}
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой прозаический текст в форме духовного диалога «Вопрос–Ответ» по каббале, без стихотворных строк, поэтому выбрана редакторская широкая схема (~2/3 ширины окна на десктопе, полная ширина на мобильном). Развилка касалась оглавления: формальных подразделов с заголовками в тексте нет (только реплики Q&A и постскриптум), поэтому TOC не делал — по правилу он нужен лишь при более чем одном подразделе. Реплики оформил как блоки с цветной вертикальной линией и метками «Вопрос/Ответ», не добавляя собственных заголовков и не меняя текст.",
+  "rationale_extra": "",
+  "features": ["footnotes"]
+}
+</script>
+</body>
+</html>

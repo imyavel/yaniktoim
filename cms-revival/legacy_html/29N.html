@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Последний Отсчет</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --muted:#6a6055;
+    --accent:#9a3b1f;
+    --accent2:#1d5b66;
+    --line:#ddd4c4;
+    --hl:#fde7c2;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    line-height:1.7;
+    font-size:19px;
+  }
+  .wrap{
+    width:66%;
+    max-width:1180px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 40px 80px;
+  }
+  @media(max-width:1100px){ .wrap{width:80%;} }
+  @media(max-width:760px){ .wrap{width:100%;padding:20px 18px 60px;} }
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--line);
+    padding-bottom:14px;
+    margin-bottom:26px;
+  }
+  .crumbs a{color:var(--accent2);text-decoration:none;}
+  .crumbs a:hover{text-decoration:underline;}
+  .crumbs span{margin:0 8px;color:#bcae97;}
+
+  .lead-img{display:block;width:auto;max-width:100%;height:auto;margin:0 auto 30px;border:1px solid var(--line);}
+
+  h1{
+    font-size:2.15rem;
+    line-height:1.18;
+    margin:0 0 6px;
+    font-weight:700;
+    letter-spacing:.01em;
+  }
+  .subtitle{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    margin:0 0 34px;
+  }
+
+  .work-title{
+    text-align:center;
+    margin:40px 0 4px;
+    font-size:1.5rem;
+    letter-spacing:.06em;
+    color:var(--accent);
+  }
+  .work-sub{
+    text-align:center;
+    color:var(--muted);
+    font-style:italic;
+    margin:0 0 6px;
+    font-size:1.05rem;
+  }
+  .note-line{
+    text-align:center;
+    font-style:italic;
+    color:var(--muted);
+    font-size:.95rem;
+    margin:0 0 30px;
+  }
+
+  p{margin:0 0 1.25em;text-align:justify;hyphens:auto;}
+  .num{
+    font-variant-numeric:tabular-nums;
+    color:var(--accent);
+    font-weight:700;
+    margin-right:.15em;
+  }
+  .closing{
+    border-top:1px solid var(--line);
+    margin-top:30px;
+    padding-top:24px;
+  }
+  .caps{}
+  strong.caps{font-weight:700;}
+
+  a.inline{color:var(--accent2);}
+
+  /* footnote markers */
+  .fnref{
+    color:var(--accent);
+    font-weight:700;
+    text-decoration:none;
+    cursor:pointer;
+    position:relative;
+  }
+  .fnref:hover{text-decoration:underline;}
+  .fnref .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:140%;
+    width:min(340px,72vw);
+    background:var(--ink);
+    color:#f4efe6;
+    font-family:Georgia,serif;
+    font-weight:400;
+    font-size:15px;
+    line-height:1.5;
+    text-align:left;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 8px 24px rgba(0,0,0,.28);
+    z-index:50;
+  }
+  .fnref .pop.below{bottom:auto;top:140%;}
+  .fnref .pop a{color:#ffd9a8;}
+  .fnref:hover .pop{display:block;}
+
+  /* sections */
+  h2.sec{
+    font-size:1.35rem;
+    color:var(--accent2);
+    border-bottom:2px solid var(--line);
+    padding-bottom:6px;
+    margin:48px 0 20px;
+    letter-spacing:.04em;
+  }
+
+  /* music */
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    font-size:13px;
+    color:var(--accent);
+    margin:0 0 12px;
+    font-weight:700;
+  }
+  .track{
+    border:1px solid var(--line);
+    background:var(--paper);
+    border-radius:8px;
+    margin-bottom:10px;
+    overflow:hidden;
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head:hover{background:#fbf6ea;}
+  .track-arrow{
+    color:var(--accent2);
+    transition:transform .2s;
+    font-size:13px;
+    width:14px;
+    flex:none;
+  }
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-meta{flex:1;line-height:1.3;}
+  .track-name{font-weight:700;}
+  .track-artist{color:var(--muted);font-size:.92em;}
+  .track-ext{
+    color:var(--accent2);
+    text-decoration:none;
+    font-size:1.1em;
+    flex:none;
+  }
+  .track-ext:hover{color:var(--accent);}
+  .player{display:none;background:#000;}
+  .track.open .player{display:block;}
+  .player iframe{display:block;width:100%;height:0;}
+  .player.ratio{position:relative;padding-bottom:56.25%;height:0;}
+  .player.ratio iframe{position:absolute;top:0;left:0;width:100%;height:100%;}
+
+  /* footnotes */
+  ol.fn{padding-left:1.4em;}
+  ol.fn li{margin-bottom:14px;color:var(--muted);font-size:.97rem;}
+  ol.fn li.target{background:var(--hl);transition:background 1.2s;border-radius:4px;}
+  .fn-back{color:var(--accent2);text-decoration:none;margin-left:6px;font-weight:700;}
+
+  /* bottom nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:54px;
+    border-top:1px solid var(--line);
+    padding-top:22px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    color:var(--accent2);
+    max-width:46%;
+    font-size:15px;
+  }
+  .corpus-nav a:hover{text-decoration:underline;}
+  .corpus-nav .lbl{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer.colophon{
+    margin-top:44px;
+    border-top:1px solid var(--line);
+    padding-top:20px;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer.colophon a{color:var(--accent2);}
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/29N.html">
+<meta name="description" content="Эссе о конфронтологии духа, культивации осознания и природе тоналя в традиции Кастанеды с отсылками к учению ДХ.">
+<meta property="og:title" content="Последний Отсчет">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/29N.html">
+<meta property="og:description" content="Эссе о конфронтологии духа, культивации осознания и природе тоналя в традиции Кастанеды с отсылками к учению ДХ.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Последний Отсчет">
+<meta name="twitter:description" content="Эссе о конфронтологии духа, культивации осознания и природе тоналя в традиции Кастанеды с отсылками к учению ДХ.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №29N</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span>›</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <img class="lead-img" src="../img/29N.jpg" alt="">
+
+  <h1>Последний Отсчет<a class="audio-link" href="https://t.me/art_017_tracks/402" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <p class="subtitle">Конфронтология Духа</p>
+
+  <h2 class="work-title">НОВОЕ НАЧАЛО</h2>
+  <p class="work-sub">(МИР В МИРЕ)</p>
+  <p class="note-line">Написано 23.09.22 в кулуарах форума ЛЛ(ККО) под новым всежесозданным ником ;)</p>
+
+  <p><span class="num">1.</span>Все истории Реального Мира выстроены по одному и тому же "лекалу", универсальному шаблону, который обобщает все, что происходит с "чувствующими существами" в процессе их яркого стремительного турне под названием "опыт всех опытов - быть живым" (КК).</p>
+
+  <p><span class="num">2.</span>КК утверждает, что цель всех чувствующих существ - это "культивация осознания" (тему питания Орла пока оставим в стороне, поскольку она слабо соответствует реальности, по моим ощущениям, во всяком случае нашей "здесь и сейчас", хотя, наверное, была вполне адекватным способом делать то, что ДХ делал с КК, рассказывая ему это в коротких перерывах между приступами безудержного хохота).</p>
+
+  <p><span class="num">3.</span>Культивация осознания - это развитие структурной целостности и содержательной насыщенности того, что каждый из нас испытывает в процессе жизни "здесь и сейчас", включая чувства, их осмысление, образ действия, канву развивающейся "цепочки событий", включая ее сущностные предпосылки и наиболее непосредственный результат. То есть повышение качества "конечного продукта" - примерно то же самое мы наблюдаем сейчас в "повседневном мире", с кинематографом в целом, и, в частности, с анимационной мультипликацией.</p>
+
+  <p><span class="num">4.</span>Здесь нужно сделать отступление и пояснить неочевидную для большинства "идущих" форму "безмолвного знания", говорящего о сути всех существующих в повседневном мире "привычных" нам форм явлений и устойчивых форм различных феноменов, т.е. все, что используем мы, либо что использует нас, в процессе того, как мы думаем, что делаем то же самое, что делают, более-менее, все и всегда, ну или что либо другое "делаем", или наблюдаем со стороны за тем, как делает кто-то другой, либо даже получаем "достоверную информацию" об этом через "третьи руки", ничтоже сумняшеся в том, что "все вот именно так и было/есть на самом деле, инфа 100%". Все эти формы, явления и образы существуют, конечно же, только у нас в голове.</p>
+
+  <p><span class="num">5.</span>Точнее, в тех образах, которые мы называем "своими мыслями" или "внутренним диалогом" (но которые "нами", или даже "нашими" не являются ни разу<span class="fnref"><a class="fnref" href="#fn1" id="ref1"><sup>*</sup></a><span class="pop">См. также: <a href="1AA.html">Бремя Власти Небес</a>, Зеир А"А</span></span>, даже приблизительно, поскольку являются порождениями чуждого нам типа создания неорганической природы, тщательно маскируемого под собственое "я" уникальной человеческой личности посредством тупой подмены и примитивного самообмана, поскольку человек сам выбирает быть т.о. введенным в неведение, следуя по путям своих учителей "черных магов" общества этого мира).</p>
+
+  <p><span class="num">6.</span>Эта самая форма является "зарисовками" явлений и событий "реального мира", т.е. фактуры и содержания "намерений Духа", "замыслов Абстрактного", которыми "соткана" вся реальность воспринимаемого Мира, называемого магами "реальным" (а человеком этого мира "подсознанием" и "коллективным бессознательным", "спящим 99% потенциалом коры головного мозга"). Сам "этот мир" относительно вышеописанного "массива" энергоинформации, актуальной "здесь и сейчас" в том или ином положении точки сборки, в целом называемым магами "неведомым", является не более, чем компактным структурно-однородным "островком", названным "видящими" "островом тоналя", или "известным".</p>
+
+  <p><span class="num">7.</span>То, что важно для нас в контексте начатой дискуссии, и что не было подобающим образом (вообще никаким, насколько я знаю) упомянуто в сухих мемуарах КК, это то, что этот "остров" является своеобразным, как могли бы выразится современные IT-шники, "словарем", точнее, "ключом" этого словаря, являющимся отдельным информационным "полем", содержащим закодированную краткую информацию о реально содержащихся в этом "словаре" данных, являющихся его настоящим "реальным" наполнением и "истинной сутью" (с т.з. "второго внимания", поскольку понятие "истинности" и "ложности" в Реальном Мире ну о-очень растяжимо, и зависит, главным образом, от целей конкретного пользователя).</p>
+
+  <p><span class="num">8.</span>Я не был щепетилен в согласовании точности описания типа данных из области IT, поскольку эта аналогия имеет второстепенное значение в данном контексте, служа лишь только для понимания сущностной взаимосвязи, имеющейся у "первого" и "второго" типа вниманий (или даже "колец Силы"), относительно "третьего", о котором мы, может быть, отдельно поговорим впоследствии. Так что прошу к деталям не придираться, отнимая впустую драгоценное время, которого у всех нас критически мало, чтобы заниматься вещами, не нужными никому, кроме энергопаразитов и прикормленных ими "форумных троллей" (которые существуют на каждом форуме и являются важной частью его экосистемы, не подумайте лишнего).</p>
+
+  <p><span class="num">9.</span>Сложность, или важный ньюанс, в нашем случае, заключается в том, что есть значительная разница между тем образом действия и мысли, понимания и целеполагания, т.е. пробужденности и осознанности, который имеется у человека, освоенного с вышеизложенным фактом о природе взаимосвязи двух типов вниманий, и не освоенного, будь он сам по себе хоть магом, хоть "видящим", хоть кем угодно еще. Человек, начинающий "догадываться" о существовании таковой взаимосвязи, начинает смотреть на события и явления вокруг него совершенно особым образом, меняя привычные приоритеты важности и значимости различных аспектов информационного пространства "повседневного мира".</p>
+
+  <p><span class="num">10.</span>В итоге перед таким исследователем (навигатору неведомого - терминология КК - требуется тщательно выверенная "карта местности", и взять ее откуда-либо, кроме как из "уже известного" человек не способен принципиально, что называется, по определению) разворачивается еще более широкий ракурс и перспектива дальнейших поисков и наблюдений, поскольку оказывается, что все, происходящее как в "повседневном мире" физических действий, скрытые побудительные мотивы которых, равно как и причинно-следственная "объективность" обуславливаемой ими "реальности", разворачивающейся на наших глазах в "реальном времени" наподобие киноленты, имеет внутренную связь и выстраивается в достаточно простые формулы, которых, в конечном итоге, оказывается совсем немного, и которые настолько универсальны, что сознание человека, равно как и "мага на пути воинов" просто не регистрирует их фабулу и канву как что-то отличное от того, что является "внешним фоном", на котором происходят и разворачиваются наши Пути и жизни.</p>
+
+  <p><span class="num">11.</span>У КК использована формулировка "Намерение Духа", но не сделано попытки осмыслить практически то, чем является по сути Его Намерение "в действительности", вместо этого делаются многочисленные указания на "безличность и внечеловечность" происходящего в Реальном Мире. Но это так только относительно нас и наших ограниченных по определению когнитивных возможностей (что такое "точка сборки", если не существенное и сущностное ограничение "сверху" потенциала роста осознания и уровня сознания? а это базовая форма нашего существования в принципе, вариант с "огнем изнутри" не относится вовсе никак, кроме приема -проскока мимо Орла-, к человеческому типу сознания и восприятию мира, равно как и жизни "здесь и сейчас", со всеми втекающими и вытекающими, очевидными и контринтуитивными, но от этого не менее актуальными и влияющими, выводами, следствиями, Законами, Командами, "энергофактами", безмолвными знаниями, абстрактными ядрами и иже с ними).</p>
+
+  <p><span class="num">12.</span>Относительно самого Абстракта, который включен в эти явления сущностно, "Намеревая" их Дух посредством "буквы" наших опосредуемых ими Путей и быстротечных жизней, вышеупомянутая сущностная взаимосвязь является явлением одного и того же порядка, что и все остальное, что является частью этого порядка, происходящей каким-то характерным образом не "просто так", потому что "так сложились звезды", как это естественно представляется любому "исследователю неведомого", подходящему к исследованию Реального Мира с какой угодно "стартовой позиции", буть то "науки этого мира", или же "энергетические дубли и волевые искусства" мира "магического", поскольку оба этих исследователя, при всем громадном, кажущемся, или вполне объективно существующем, не суть важно, отличии в их "исходных вводных" и уровне пробужденности и осознанности, арсенале и качестве развития используемых ими "рабочих инструментов", включая имеющиеся у них "научные/магические" парадигмы, картины мира и образы действия в первую очередь, - оказываются в позиции, принципиально и непреодолимо однобокой (оставаясь в рамках соответствующих парадигм, без серьезной попытки их переосмысления и конструктивного реформирования в соответствии с новой открывающейся посредством "контролируемого использования видения" /КК/ информацией о строении Реального Мира), лишенной "противоположной" половины всего открывающегося перед их глазами, приборами и "дублями", ансамбля происходящей "здесь и сейчас" единой и слитой, совершенной, полностью осознанной и безупречно выверенной (поскольку иное не называется "полной осознанностью"), до мелочей, Единой Реальности, раскрывающейся человеку в двух "ипостасях", исторически представляющихся ему взамоисключающими и отрицающими друг друга, а в действительности - тесно взаимодействующих и взаимодополняющих в удивительной гармонии и переплетении их развивающихся по единой, скрытой и контринтуитивной логике, Путей развития, связанных изначально вложенной в них Орлом единой, целостной и единственной, Целью своего происхождения "здесь и сейчас", в нашем восприятии принимающего формы отрицающие реальность друг друга и далекие одно от другого настолько, насколько это только возможно и может быть.</p>
+
+  <p>За границей очерченной формы соединения и взаимовключения двух "базовых" (относительно нас с Вами) типов "внимания", или уровней осознанности, типов "инструментов", имеющихся у человека разумного, обладающего голосом - способностью, уникальной среди всех имеющихся во Вселенной жизненных форм (ДХ) не случайно, а поскольку суть этой способности - это потенциал <strong class="caps">УПРАВЛЯЮЩЕЙ СТУПЕНИ, ПОСТУЛИРУЮЩЕЙ ФАКТЫ О ТОМ, ЧТО ПРОИСХОДИТ В РЕАЛЬНОСТИ</strong> - т.е. "Команды Орла", становящиеся затем имеющими Силу безусловных Законов для тех существ, которые во время их произнесения человеком, находящимся на пике своей "личной Силы" в "гармонии с Духом", и вершащего, по сути, судьбы Реального Мира, в том объеме и данности, которые соответствуют опосредуемому им действию "здесь и сейчас" в соответствии с тем же самым Намерением, которое включает на еще более высоком, принципиально непостижимым для человека, уровне совершенства и осуществленности, данные эпизоды, происходящие в "первом" и "втором" вниманиях по-раздельности, поскольку нахождение в них человека посредством управления фиксацией точки сборки, производимой средним человеком, и ее управляемым сдвигом, производимым магами, исключает возможность существования в воспринимаемой им Реальности "другой стороны медали" совершаемого и переживаемого им явления реального мира, лишая человека, находящегося в обоих формах "образа действия" и уровня осознания, какой-либо возможности учитывать и отражать в своем действии посредством целеполагания всю картину в целостности двух типов внимания, суть которой в том, что находится "выше" них, то есть, первичнее, универсальнее и "абстрактнее" их обоих, являясь их причиной и источником происхождения, а вместе с тем, истинным смыслом и целью происхождения в каждой конкретной "частной" воспринимаемой нами форме или временном этапе как процесса последовательного эволюционного развития и роста того, что является продуктом и сутью наших с вами Путей и жизней, кем бы мы ни были и кем бы ни считали себя, магами, обывателями, учеными, практиками, теоретиками, "воинами полной свободы" или "малыми частями целого".</p>
+
+  <p class="closing">Пока на этом все. Да прибудет с нами Сила, Доброта и Мудрость, поскольку мы являемся, согласны мы или не согласны, понимаем или не понимаем, хотим или не хотим активно участвовать - основоположниками "новейшего цикла современных видящих", единой эволюционной ступени будущего человека и Мира, более не делящегося на "магические" и "среднечеловеческие" сектора и образы жизни и сознательной деятельности, целеполагания и намерения своей "магической", "научной", "духовной", либо "просточеловеческой" повседневной работы. <strong class="caps">МЫ ВЕРШИМ ИСТОРИЮ НОВОГО МИРА!</strong> ;) С этим ничего не поделаешь, это просто "энергетический факт" о том особом промежутке времени в момент смены тысячелетних циклов, в эпицентре которого мы с Вами находимся "здесь и сейчас" и будем продолжать находиться в обозримом ближайшем будущем.</p>
+
+  <h2 class="sec">Песнь Ступеней</h2>
+  <p class="music-label">Песнь Ступеней:</p>
+
+  <div class="track" data-yt="9jK-NcRmVcw">
+    <div class="track-head" onclick="toggleTrack(this)">
+      <span class="track-arrow">▶</span>
+      <span class="track-meta">
+        <span class="track-name">1. Final Countdown</span><br>
+        <span class="track-artist">Europe</span>
+      </span>
+      <a class="track-ext" href="https://www.youtube.com/watch?v=9jK-NcRmVcw" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+    </div>
+    <div class="player ratio"></div>
+  </div>
+
+  <div class="track" data-yt="v3RQ6x9qD8w">
+    <div class="track-head" onclick="toggleTrack(this)">
+      <span class="track-arrow">▶</span>
+      <span class="track-meta">
+        <span class="track-name">2. Поезд в Огне</span><br>
+        <span class="track-artist">Аквариум</span>
+      </span>
+      <a class="track-ext" href="https://youtu.be/v3RQ6x9qD8w" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Открыть на YouTube">↗</a>
+    </div>
+    <div class="player ratio"></div>
+  </div>
+
+  <h2 class="sec">Пост Скриптум</h2>
+  <ol class="fn">
+    <li id="fn1" value="*"><span style="font-weight:700">*</span> &nbsp;См. также: <a href="1AA.html">Бремя Власти Небес</a>, Зеир А"А<a class="fn-back" href="#ref1" title="Вернуться к тексту">↩</a></li>
+  </ol>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="3A7.html"><span class="lbl">← Предыдущая</span>В духовном все наоборот</a>
+    <a class="next" href="2BNA.html"><span class="lbl">Следующая →</span>Зеркало Тр. Олли</a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+function toggleTrack(head){
+  var track=head.parentElement;
+  var player=track.querySelector('.player');
+  var open=track.classList.toggle('open');
+  if(open && !player.dataset.loaded){
+    var id=track.getAttribute('data-yt');
+    var ifr=document.createElement('iframe');
+    ifr.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+    ifr.setAttribute('allowfullscreen','');
+    ifr.src='https://www.youtube.com/embed/'+id+'?rel=0';
+    player.appendChild(ifr);
+    player.dataset.loaded='1';
+  }
+}
+// footnote popup side flip + target highlight
+document.querySelectorAll('.fnref').forEach(function(ref){
+  ref.addEventListener('mouseenter',function(){
+    var pop=ref.querySelector('.pop');
+    if(!pop)return;
+    pop.classList.remove('below');
+    var r=ref.getBoundingClientRect();
+    if(r.top<180){ pop.classList.add('below'); }
+  });
+});
+document.querySelectorAll('.fnref').forEach(function(ref){
+  ref.addEventListener('click',function(){
+    var id=ref.getAttribute('href').slice(1);
+    var li=document.getElementById(id);
+    if(!li)return;
+    document.querySelectorAll('ol.fn li').forEach(function(x){x.classList.remove('target');});
+    setTimeout(function(){li.classList.add('target');},50);
+  });
+});
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — насыщенный теоретический трактат-эссе в нумерованных абзацах прозы (рассуждения о Кастанеде, точке сборки, двух типах внимания), без стихотворной формы, поэтому выбрана редакторская широкоформатная схема с основной колонкой примерно в 2/3 ширины окна и justify-набором длинных абзацев. Манускрипт отвергнут как предназначенный для стихов/поэм. Заголовком страницы взято имя из метаданных «Последний Отсчет», а авторский внутренний титул «НОВОЕ НАЧАЛО (МИР В МИРЕ)» сохранён как центрированный заголовок произведения, чтобы не потерять текст и не подменять метаданные.",
+  "rationale_extra": "Развилки: TOC не делал — у текста нет множества внутренних подзаголовков-разделов (есть лишь нумерованные абзацы единого потока плюс концевые «Песнь Ступеней» и «Пост Скриптум»), поэтому условие «более одного подраздела» не выполняется. Музыка: два YouTube-трека под меткой «Песнь Ступеней» оформлены как сворачиваемые ленивые плееры с единой меткой над группой; так как треков всего два (не более двух), сводный раздел не создавался. Сноска одна — авторская звёздочка «*» из абзаца 5 с телом в «Пост Скриптум»: реализованы переход вниз/вверх, popup при наведении (с переворотом вверх/вниз у края экрана) и подсветка цели. Голый URL обёрнут в ссылку. КАПС-фрагменты сохранены как есть, авторский смайл ;) сохранён дословно.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>

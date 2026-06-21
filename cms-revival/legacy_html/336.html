@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Я счастлив</title>
+<style>
+  :root{
+    --paper:#fbf6ea;
+    --paper-2:#f4 ecd9;
+    --ink:#2a2018;
+    --ink-soft:#5a4a37;
+    --gold:#b07a1e;
+    --gold-deep:#8a5d12;
+    --rule:#d9c9a3;
+    --accent:#7a2e1f;
+    --maxw:820px;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 20% 0%, #fffdf6 0%, rgba(255,253,246,0) 55%),
+      radial-gradient(circle at 85% 100%, #f6eed9 0%, rgba(246,238,217,0) 50%),
+      var(--paper);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    line-height:1.6;
+    font-size:19px;
+  }
+  .page{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:28px 30px 60px;
+  }
+
+  /* Breadcrumbs */
+  .crumbs{
+    font-size:.78em;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:12px;
+    margin-bottom:22px;
+  }
+  .crumbs a{color:var(--gold-deep);text-decoration:none;border-bottom:1px dotted var(--gold);}
+  .crumbs a:hover{color:var(--accent);}
+  .crumbs .sep{margin:0 .55em;color:var(--rule);}
+
+  /* Illustration */
+  .hero{
+    text-align:center;
+    margin:0 0 26px;
+  }
+  .hero img{
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border:1px solid var(--rule);
+    border-radius:3px;
+    box-shadow:0 6px 22px rgba(70,50,20,.16);
+  }
+
+  /* Title */
+  h1{
+    font-family:"Cormorant Garamond","Palatino Linotype",Palatino,Georgia,serif;
+    text-align:center;
+    font-size:2.5em;
+    font-weight:600;
+    letter-spacing:.04em;
+    color:var(--accent);
+    margin:.1em 0 .15em;
+    line-height:1.1;
+  }
+  h1::after{
+    content:"❧";
+    display:block;
+    font-size:.45em;
+    color:var(--gold);
+    margin-top:.45em;
+    font-weight:400;
+  }
+
+  /* Stanzas */
+  .stanza{
+    text-align:center;
+    font-size:1.12em;
+    letter-spacing:.045em;
+    line-height:1.85;
+    color:var(--ink);
+    margin:30px auto;
+    max-width:30ch;
+    text-shadow:0 1px 0 rgba(255,255,255,.5);
+  }
+
+  /* Track / player */
+  .group-label{
+    text-align:center;
+    font-size:.72em;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--gold-deep);
+    margin:34px 0 8px;
+  }
+  .group-label::before,.group-label::after{
+    content:"·";
+    margin:0 .6em;
+    color:var(--gold);
+  }
+  .track{
+    max-width:520px;
+    margin:0 auto 6px;
+    background:linear-gradient(180deg,#fffaf0,#f6eedb);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 2px 8px rgba(80,55,15,.08);
+  }
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:.6em;
+    width:100%;
+    background:none;
+    border:none;
+    cursor:pointer;
+    font:inherit;
+    text-align:left;
+    padding:12px 15px;
+    color:var(--ink);
+  }
+  .track-arrow{
+    color:var(--gold);
+    transition:transform .2s ease;
+    font-size:.85em;
+    flex:0 0 auto;
+  }
+  .track.open .track-arrow{transform:rotate(90deg);}
+  .track-meta{flex:1 1 auto;font-size:.92em;}
+  .track-title{font-weight:600;color:var(--accent);}
+  .track-artist{color:var(--ink-soft);font-style:italic;}
+  .track-ext{
+    flex:0 0 auto;
+    color:var(--gold-deep);
+    text-decoration:none;
+    font-size:1.05em;
+    padding:0 .3em;
+  }
+  .track-ext:hover{color:var(--accent);}
+  .track-body{}
+  .track-frame{
+    position:relative;
+    width:100%;
+    padding-bottom:56.25%;
+    height:0;
+    background:#000;
+  }
+  .track-frame iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+  }
+
+  /* See also */
+  .seealso{
+    text-align:center;
+    font-style:italic;
+    color:var(--ink-soft);
+    margin:34px auto;
+    font-size:.95em;
+  }
+  .seealso a{color:var(--gold-deep);text-decoration:none;border-bottom:1px dotted var(--gold);}
+  .seealso a:hover{color:var(--accent);}
+
+  /* Music summary */
+  .section-title{
+    font-family:"Cormorant Garamond",Georgia,serif;
+    text-align:center;
+    font-size:1.7em;
+    color:var(--accent);
+    font-weight:600;
+    letter-spacing:.04em;
+    margin:50px 0 6px;
+  }
+  hr.orn{
+    border:none;
+    text-align:center;
+    margin:42px 0;
+    overflow:visible;
+  }
+  hr.orn::before{
+    content:"✦  ✦  ✦";
+    color:var(--gold);
+    letter-spacing:.5em;
+    font-size:.8em;
+  }
+  .summary-note{
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:.85em;
+    margin:0 0 14px;
+  }
+
+  /* Bottom nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    margin:54px 0 8px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:.9em;
+  }
+  .corpus-nav a{
+    color:var(--gold-deep);
+    text-decoration:none;
+    max-width:46%;
+  }
+  .corpus-nav a:hover{color:var(--accent);}
+  .corpus-nav .lbl{
+    display:block;
+    font-size:.72em;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .corpus-nav .nx{text-align:right;margin-left:auto;}
+
+  footer{
+    margin-top:34px;
+    padding-top:18px;
+    border-top:1px solid var(--rule);
+    font-size:.8em;
+    color:var(--ink-soft);
+    text-align:center;
+    line-height:1.6;
+  }
+  footer a{color:var(--gold-deep);}
+
+  @media(max-width:600px){
+    body{font-size:17px;}
+    .page{padding:20px 16px 44px;}
+    h1{font-size:2em;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav .nx{text-align:left;margin-left:0;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/336.html">
+<meta name="description" content="Эссе-композиция из песенных цитат о мире счастья, ролях и образах героя, любви и вечной весне с отсылкой к Псалму 150.">
+<meta property="og:title" content="Я счастлив">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/336.html">
+<meta property="og:description" content="Эссе-композиция из песенных цитат о мире счастья, ролях и образах героя, любви и вечной весне с отсылкой к Псалму 150.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Я счастлив">
+<meta name="twitter:description" content="Эссе-композиция из песенных цитат о мире счастья, ролях и образах героя, любви и вечной весне с отсылкой к Псалму 150.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="manuscript">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №336</span>
+<div class="page">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../dreamon/index.html">Мечтай!!</a>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/336.jpg" alt="Иллюстрация к статье «Я счастлив»">
+  </div>
+
+  <h1>Я СЧАСТЛИВ</h1>
+
+  <!-- Track 1 -->
+  <div class="group-label">Песнь Ступеней</div>
+  <div class="track" data-yt="1V_xRb0x9aw">
+    <button class="track-head" aria-expanded="false">
+      <span class="track-arrow">▸</span>
+      <span class="track-meta"><span class="track-title">Clint Eastwood</span> — <span class="track-artist">Gorillaz</span></span>
+      <a class="track-ext" href="https://www.youtube.com/watch?v=1V_xRb0x9aw" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </button>
+    <div class="track-body"></div>
+  </div>
+
+  <p class="stanza">
+    МИР СЧАСТЬЯ<br>
+    НЕ МИР ЛЮДЕЙ<br>
+    ТЕБЯ ТАМ<br>
+    НЕ ЖДУТ СОВСЕМ<br>
+    ТЫ МЫСЛИШЬ<br>
+    САМИМ СОБОЙ<br>
+    МИР ТВЕРДЫЙ<br>
+    ГДЕ ТЫ ГЕРОЙ.
+  </p>
+
+  <!-- Track 2 -->
+  <div class="group-label">Песнь Ступеней</div>
+  <div class="track" data-yt="HZSFCAQ7eWA">
+    <button class="track-head" aria-expanded="false">
+      <span class="track-arrow">▸</span>
+      <span class="track-meta"><span class="track-title">Писатель Гудвин</span> — <span class="track-artist">Король и Шут</span></span>
+      <a class="track-ext" href="https://www.youtube.com/watch?v=HZSFCAQ7eWA" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </button>
+    <div class="track-body"></div>
+  </div>
+
+  <p class="stanza">
+    СЦЕНАРИЙ ТВОЙ -<br>
+    «БОЛТАТЬ С СОБОЙ»<br>
+    ПРО СМЕРТЬ И БОЛЬ.<br>
+    ВСЕМУ ВИНОЙ<br>
+    ПИСАТЕЛЬ ЗЛОЙ<br>
+    НУ ОЧЕНЬ ЗЛОЙ<br>
+    ЗАТО ДАЛ РОЛЬ<br>
+    ВЕДЬ ТЫ ТАКОЙ<br>
+    АКТЕР - ХОТЬ СТОЙ…
+  </p>
+
+  <!-- Track 3 -->
+  <div class="group-label">Песнь Ступеней</div>
+  <div class="track" data-yt="aM56CgSR340">
+    <button class="track-head" aria-expanded="false">
+      <span class="track-arrow">▸</span>
+      <span class="track-meta"><span class="track-title">Русы косы</span> — <span class="track-artist">Пикник</span></span>
+      <a class="track-ext" href="https://www.youtube.com/watch?v=aM56CgSR340" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </button>
+    <div class="track-body"></div>
+  </div>
+
+  <p class="stanza">
+    ..ХОТЬ ДОГОНЯЙ,<br>
+    ДАВАЯ ВНОВЬ<br>
+    ДРУГУЮ РОЛЬ,<br>
+    СКАЗАВ «ЗАБУДЬ»<br>
+    ПРО СМЕРТЬ И БОЛЬ<br>
+    ВЕДЬ ТЫ ГЕРОЙ<br>
+    Я САМ ТАКОЙ,<br>
+    МИР СОЗДАЛ СВОЙ
+  </p>
+
+  <!-- Track 4 -->
+  <div class="group-label">Песнь Ступеней</div>
+  <div class="track" data-yt="hz4YfY4agT8">
+    <button class="track-head" aria-expanded="false">
+      <span class="track-arrow">▸</span>
+      <span class="track-meta"><span class="track-title">Верхом на Звезде</span> — <span class="track-artist">Найк Борзов</span></span>
+      <a class="track-ext" href="https://www.youtube.com/watch?v=hz4YfY4agT8" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </button>
+    <div class="track-body"></div>
+  </div>
+
+  <p class="stanza">
+    И В НЕМ ЖИВОЙ.<br>
+    НО ОН НЕ ТВОЙ -<br>
+    В НЕМ НЕТ РОЛЕЙ<br>
+    «СТРАХ СМЕРТЬ И БОЛЬ»<br>
+    ПОСКОЛЬКУ НЕТ<br>
+    «СЕБЯ С СОБОЙ»<br>
+    ЗАТО ТАМ МОЖНО<br>
+    БЫТЬ ЖИВОЙ
+  </p>
+
+  <!-- Track 5 -->
+  <div class="group-label">Песнь Ступеней</div>
+  <div class="track" data-yt="KbmYHDbaE-o">
+    <button class="track-head" aria-expanded="false">
+      <span class="track-arrow">▸</span>
+      <span class="track-meta"><span class="track-title">Дыши</span> — <span class="track-artist">Серебро</span></span>
+      <a class="track-ext" href="https://www.youtube.com/watch?v=KbmYHDbaE-o" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </button>
+    <div class="track-body"></div>
+  </div>
+
+  <p class="stanza">
+    ОДНОЙ, ЕДИНСТВЕННОЙ, ОДНОЙ<br>
+    ЛЮБОВЬЮ ПОЛНОЙ, КАК ВОДОЙ,<br>
+    МИР СЧАСТЬЯ СЛАВЯЩЕЙ ВО ВСЕХ<br>
+    КТО СОЗДАН БЫТЬ ЛЮБИМЫМ МНОЙ<br>
+    ДУШОЙ, ЧЬЕ ИМЯ «ЧЕЛОВЕК»
+  </p>
+
+  <!-- Track 6 -->
+  <div class="group-label">Песнь Ступеней</div>
+  <div class="track" data-yt="G4jvU6eDk9E">
+    <button class="track-head" aria-expanded="false">
+      <span class="track-arrow">▸</span>
+      <span class="track-meta"><span class="track-title">Псалом 150</span> — <span class="track-artist">Царь Давид</span></span>
+      <a class="track-ext" href="https://www.youtube.com/watch?v=G4jvU6eDk9E" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </button>
+    <div class="track-body"></div>
+  </div>
+
+  <p class="stanza">
+    «РОЖДЕННЫЙ ЖЕНЩИНОЙ ЖИВОЙ»<br>
+    «ВОЗЛЮБЛЕННОЙ СВОИМ ОТЦОМ»<br>
+    «В МИР «ДЕРЕВОМ, ЧТО ПЛОД ДАЕТ<br>
+    «ВЕЧНЫЙ АПРЕЛЬ ВЕЧНОЙ ВЕСНОЙ»<br>
+    «И В ПЛОДЕ ТОМ СЕМЯ СВОЕ»»<br>
+    «УВЕКОВЕЧИВ ДАР ОТЦОВ»<br>
+    «ДОЧКЕ ДАВ ВЫНОСИТЬ СВОЙ ПЛОД»<br>
+    «В КОТОРОМ СЫНОМ БУДЕТ ДОЧЬ»<br>
+    «С ВОЗЛЮБЛЕННОЙ ЕДИНЫМ ВНОВЬ»
+  </p>
+
+  <!-- Track 7 -->
+  <div class="group-label">Песнь Ступеней</div>
+  <div class="track" data-yt="xdzBf7xzqeI">
+    <button class="track-head" aria-expanded="false">
+      <span class="track-arrow">▸</span>
+      <span class="track-meta"><span class="track-title">Апрель</span> — <span class="track-artist">Кино</span></span>
+      <a class="track-ext" href="https://www.youtube.com/watch?v=xdzBf7xzqeI" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </button>
+    <div class="track-body"></div>
+  </div>
+
+  <p class="seealso">См. также: <a href="1C1.html" target="_blank" rel="noopener">Апрель навсегда, Элиягу Бар Малей</a></p>
+
+  <hr class="orn">
+
+  <!-- Music summary -->
+  <h2 class="section-title">Песнь Ступеней</h2>
+  <p class="summary-note">Все треки статьи в одном месте</p>
+
+  <div class="track" data-yt="1V_xRb0x9aw">
+    <button class="track-head" aria-expanded="false">
+      <span class="track-arrow">▸</span>
+      <span class="track-meta"><span class="track-title">Clint Eastwood</span> — <span class="track-artist">Gorillaz</span></span>
+      <a class="track-ext" href="https://www.youtube.com/watch?v=1V_xRb0x9aw" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </button>
+    <div class="track-body"></div>
+  </div>
+  <div class="track" data-yt="HZSFCAQ7eWA">
+    <button class="track-head" aria-expanded="false">
+      <span class="track-arrow">▸</span>
+      <span class="track-meta"><span class="track-title">Писатель Гудвин</span> — <span class="track-artist">Король и Шут</span></span>
+      <a class="track-ext" href="https://www.youtube.com/watch?v=HZSFCAQ7eWA" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </button>
+    <div class="track-body"></div>
+  </div>
+  <div class="track" data-yt="aM56CgSR340">
+    <button class="track-head" aria-expanded="false">
+      <span class="track-arrow">▸</span>
+      <span class="track-meta"><span class="track-title">Русы косы</span> — <span class="track-artist">Пикник</span></span>
+      <a class="track-ext" href="https://www.youtube.com/watch?v=aM56CgSR340" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </button>
+    <div class="track-body"></div>
+  </div>
+  <div class="track" data-yt="hz4YfY4agT8">
+    <button class="track-head" aria-expanded="false">
+      <span class="track-arrow">▸</span>
+      <span class="track-meta"><span class="track-title">Верхом на Звезде</span> — <span class="track-artist">Найк Борзов</span></span>
+      <a class="track-ext" href="https://www.youtube.com/watch?v=hz4YfY4agT8" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </button>
+    <div class="track-body"></div>
+  </div>
+  <div class="track" data-yt="KbmYHDbaE-o">
+    <button class="track-head" aria-expanded="false">
+      <span class="track-arrow">▸</span>
+      <span class="track-meta"><span class="track-title">Дыши</span> — <span class="track-artist">Серебро</span></span>
+      <a class="track-ext" href="https://www.youtube.com/watch?v=KbmYHDbaE-o" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </button>
+    <div class="track-body"></div>
+  </div>
+  <div class="track" data-yt="G4jvU6eDk9E">
+    <button class="track-head" aria-expanded="false">
+      <span class="track-arrow">▸</span>
+      <span class="track-meta"><span class="track-title">Псалом 150</span> — <span class="track-artist">Царь Давид</span></span>
+      <a class="track-ext" href="https://www.youtube.com/watch?v=G4jvU6eDk9E" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </button>
+    <div class="track-body"></div>
+  </div>
+  <div class="track" data-yt="xdzBf7xzqeI">
+    <button class="track-head" aria-expanded="false">
+      <span class="track-arrow">▸</span>
+      <span class="track-meta"><span class="track-title">Апрель</span> — <span class="track-artist">Кино</span></span>
+      <a class="track-ext" href="https://www.youtube.com/watch?v=xdzBf7xzqeI" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+    </button>
+    <div class="track-body"></div>
+  </div>
+
+  <!-- Corpus navigation -->
+  <nav class="corpus-nav">
+    <a href="33K.html" class="pv"><span class="lbl">← Предыдущая</span>Эй, Земля!</a>
+    <a href="322.html" class="nx"><span class="lbl">Следующая →</span>Кто создан Им</a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.track-head').forEach(function(h){
+    h.addEventListener('click',function(e){
+      if(e.target.closest('.track-ext'))return;
+      var t=h.closest('.track');
+      var body=t.querySelector('.track-body');
+      var open=t.classList.toggle('open');
+      h.setAttribute('aria-expanded',open?'true':'false');
+      if(open && !body.dataset.loaded){
+        var id=t.dataset.yt;
+        body.innerHTML='<div class="track-frame"><iframe src="https://www.youtube.com/embed/'+id+'?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>';
+        body.dataset.loaded='1';
+      }
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "manuscript",
+  "form": "стих",
+  "rationale": "Статья «Я счастлив» — это цельная стихотворная форма: шесть-семь строф с короткими строками, рифмой и сплошным КАПСом. По правилу «стих/поэма → манускрипт» выбрана узкая книжная полоса ~820px с засечным, рукописно-поэтичным характером, центрированными строфами и тёплой пергаментной палитрой с золотом и киноварью — это поддерживает медленное, ритмическое чтение псалмодической вещи. Заголовок и каждая строка КАПСа оставлены как есть, авторская пунктуация («…», «..ХОТЬ», вложенные кавычки) сохранена дословно.\n\nГлавная развилка касалась музыки: треков семь, все с единой атрибуцией «Песнь Ступеней», но они не идут подряд — каждый разделён строфой, поэтому метка повторяется над каждым плеером (а не сворачивается в одну группу), и, поскольку треков больше двух, перед концом добавлен сводный раздел «Песнь Ступеней» со всеми семью. Плееры свёрнуты и грузят iframe лениво по клику. Финальная строка «См. также: Апрель навсегда» распознана не как трек, а как обычная ссылка (proza.ru), обёрнута в гиперссылку. Оглавление не делалось: именованных подразделов в тексте нет, поэма — единый поток, а единственная служебная секция (сводная музыка) не образует структуры для TOC. Сносок в тексте нет."
+,
+  "features": ["music"]
+}
+</script>
+</body>
+</html>

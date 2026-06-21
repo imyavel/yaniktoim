@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Про Намерения Духа</title>
+<style>
+  :root{
+    --bg:#f6f4ef;
+    --paper:#fffdf8;
+    --ink:#23201b;
+    --muted:#6b6459;
+    --accent:#9a3b2e;
+    --accent2:#3a5a78;
+    --rule:#ddd6c8;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+  }
+  a{color:var(--accent2);text-decoration:none;border-bottom:1px solid rgba(58,90,120,.35);}
+  a:hover{border-bottom-color:var(--accent2);}
+  .wrap{
+    width:66%;
+    max-width:1080px;
+    min-width:0;
+    margin:0 auto;
+    padding:32px 40px 80px;
+  }
+  /* Breadcrumbs */
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:24px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .breadcrumbs a{color:var(--muted);border:none;}
+  .breadcrumbs a:hover{color:var(--accent);}
+  .breadcrumbs .sep{margin:0 .5em;opacity:.6;}
+  /* Hero image */
+  .hero{margin:0 0 28px;}
+  .hero img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    border-radius:3px;
+    box-shadow:0 8px 28px rgba(0,0,0,.12);
+  }
+  h1{
+    font-family:Georgia,serif;
+    font-weight:700;
+    font-size:2.4rem;
+    line-height:1.15;
+    margin:.1em 0 .15em;
+    color:var(--ink);
+  }
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    font-style:italic;
+    margin-bottom:36px;
+  }
+  article p{margin:0 0 1.35em;}
+  .qa{
+    margin:0 0 1.5em;
+  }
+  .qa .label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    font-size:.78em;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:block;
+    margin-bottom:.25em;
+  }
+  .qa.question{
+    border-left:3px solid var(--rule);
+    padding-left:20px;
+    color:var(--muted);
+    font-style:italic;
+  }
+  .glyph{font-style:normal;}
+  /* Music */
+  .music-block{
+    margin:40px 0 0;
+    border-top:1px solid var(--rule);
+    padding-top:22px;
+  }
+  .music-mood{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:12px;
+    font-weight:700;
+  }
+  .track{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .track summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .track .arrow{
+    color:var(--accent2);
+    transition:transform .2s ease;
+    font-size:.9em;
+  }
+  .track[open] .arrow{transform:rotate(90deg);}
+  .track .t-title{font-weight:700;}
+  .track .t-artist{color:var(--muted);}
+  .track .ext{
+    margin-left:auto;
+    font-size:1.05em;
+    border:none;
+  }
+  .player{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    background:#000;
+    border-top:1px solid var(--rule);
+  }
+  .player iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+  }
+  /* Bottom nav */
+  .corpus-nav{
+    margin-top:56px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+  }
+  .corpus-nav a{display:block;max-width:46%;}
+  .corpus-nav .dir{
+    display:block;
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border:none;
+  }
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+  footer{
+    margin-top:48px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer a{color:var(--muted);}
+  @media (max-width:900px){
+    .wrap{width:100%;max-width:100%;padding:24px 20px 60px;}
+    body{font-size:18px;}
+    h1{font-size:1.9rem;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/18M.html">
+<meta name="description" content="Заметка с форума о Духе как живом сознательном существе, о смелом открытом разговоре с Ним и о слиянии человечества в едином сознании.">
+<meta property="og:title" content="Про Намерения Духа">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/18M.html">
+<meta property="og:description" content="Заметка с форума о Духе как живом сознательном существе, о смелом открытом разговоре с Ним и о слиянии человечества в едином сознании.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Про Намерения Духа">
+<meta name="twitter:description" content="Заметка с форума о Духе как живом сознательном существе, о смелом открытом разговоре с Ним и о слиянии человечества в едином сознании.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №18M</span>
+<div class="wrap">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">/</span>
+    <a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/18M.jpg" alt="">
+  </div>
+
+  <h1>Про Намерения Духа<a class="audio-link" href="https://t.me/art_017_tracks/497" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <div class="dateline">Написано 22.08.21 на форуме «левой линии»</div>
+
+  <article>
+    <div class="qa question">
+      <span class="label">Вопрос</span>
+      («…за 1 последний год получил опыта…») Например?
+    </div>
+
+    <div class="qa answer">
+      <span class="label">Ответ</span>
+      Например, понял, что Дух помогает человеку только тогда, когда он не боится говорить с Ним открыто, смело и вслух, сам за себя и от себя, говоря о том, что реально волнует его сердце, а не транслируя то, чему «научился» из книжек или услышал по сарафанному радио «третий глаз будды», «командный голос нагваля» или «трубный рог избавителя». И только тогда, когда человек говорит с Ним о том, что является Его (Духа) реальным проектом, а не «проектом» самого человека. А еще понял, что Он (Дух, Орел) — живое сознательное существо. А я сам — деревянная кукла с надписью «я настоящий мальчик!!!111» на куске фанеры, криво прибитой гвоздями к фронтальному бруску. И Он — это и есть тот «мега-робот», который «самосоставляется» из всех людей на Земле. И что это «самосоставление» является функциональной целью всей эволюции человека и человечества, а не только какой-то отдельной человеческой жизни или эпохи. И что в третье внимание переходит именно Он, а не команда смелых буратин «спецназ Папы Карло» с барабанами наперевес. И многое другое, но главное — понял, что я Его люблю, и хочу быть слитым с Ним навечно, и не боюсь говорить Ему об этом прямо, на глазах у всей честной публики и добиваться взаимности!  <span class="glyph">:D</span>
+    </div>
+
+    <div class="music-block">
+      <div class="music-mood">Музыка под настроение</div>
+      <details class="track" data-embed="https://www.youtube.com/embed/tL25rbnvM4o">
+        <summary>
+          <span class="arrow">▶</span>
+          <span><span class="t-title">Phantom of the Opera</span> — <span class="t-artist">Nightwish</span></span>
+          <a class="ext" href="https://www.youtube.com/watch?v=tL25rbnvM4o" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+        </summary>
+        <div class="player"></div>
+      </details>
+    </div>
+  </article>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="1B3.html">
+      <span class="dir">← Предыдущая</span>
+      Последняя Битва Воина Исраэль
+    </a>
+    <a class="next" href="18K.html">
+      <span class="dir">Следующая →</span>
+      Вначале было Слово... часть 1
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.track').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open){
+        var box=d.querySelector('.player');
+        if(box && !box.querySelector('iframe')){
+          var f=document.createElement('iframe');
+          f.src=d.getAttribute('data-embed')+'?autoplay=1&rel=0';
+          f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          f.allowFullscreen=true;
+          box.appendChild(f);
+        }
+      }
+    });
+    var ext=d.querySelector('.ext');
+    if(ext){ext.addEventListener('click',function(e){e.stopPropagation();});}
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья — короткая прозаическая запись с форума в формате «вопрос — ответ», без стихотворных строк, поэтому выбрана редакторская широкая схема (колонка ~66% ширины окна, на мобильных — полная ширина). Развилка была лишь по ширине: текст совсем небольшой, и узкая книжная полоса манускрипта смотрелась бы здесь странно для разговорной прозы, так что широкий лонгрид-контейнер уместнее. Q/A оформил визуально разделёнными блоками с подписями «Вопрос»/«Ответ» — это не добавленные заголовки, а подсветка уже присутствующих в тексте слов; вопрос дан врезкой с левой линейкой, чтобы отделить цитату собеседника. Палитра — тёплый светлый фон, кирпичный акцент и приглушённо-синие ссылки, засечный шрифт для комфортного чтения. Авторский глиф :D сохранён дословно. Один YouTube-трек оформлен свёрнутым ленивым плеером (iframe создаётся только при раскрытии); сводный раздел музыки не делал — трек единственный (порог «более двух» не достигнут). Оглавление и сноски отсутствуют: подразделов нет, маркеров сносок в тексте нет.",
+  "features": ["music"]
+}
+</script>
+</body>
+</html>

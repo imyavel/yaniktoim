@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Нет Нагваля в своем Отечестве</title>
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#1f1b16;
+    --muted:#6a6055;
+    --accent:#8a3324;
+    --accent2:#b5651d;
+    --rule:#d9cfbe;
+    --link:#8a3324;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:66%;
+    max-width:1080px;
+    min-height:100vh;
+    margin:0 auto;
+    background:var(--paper);
+    padding:48px 64px 72px;
+    box-shadow:0 0 40px rgba(0,0,0,.06);
+  }
+  a{color:var(--link);}
+  a:hover{color:var(--accent2);}
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;
+    margin-bottom:24px;
+  }
+  .crumbs a{color:var(--muted);text-decoration:none;}
+  .crumbs a:hover{color:var(--accent);text-decoration:underline;}
+  .crumbs span{margin:0 8px;color:var(--rule);}
+
+  .hero{margin:0 0 28px;}
+  .hero img{display:block;max-width:100%;width:auto;height:auto;border:1px solid var(--rule);}
+
+  h1{
+    font-size:38px;
+    line-height:1.18;
+    margin:.2em 0 .15em;
+    font-weight:700;
+    color:var(--ink);
+    letter-spacing:-.01em;
+  }
+  .dateline{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    color:var(--muted);
+    font-style:normal;
+    margin:0 0 32px;
+    padding-bottom:18px;
+    border-bottom:2px solid var(--accent);
+  }
+
+  p{margin:0 0 1.15em;}
+  .speaker{
+    font-variant:small-caps;
+    font-weight:700;
+    color:var(--accent);
+    letter-spacing:.02em;
+  }
+  .ps{
+    font-style:italic;
+    color:var(--muted);
+    border-left:3px solid var(--rule);
+    padding-left:16px;
+    margin:1.4em 0;
+  }
+  .num{
+    font-weight:700;
+    color:var(--accent2);
+  }
+
+  /* footnote marker */
+  .fnref{
+    font-size:.72em;
+    vertical-align:super;
+    line-height:0;
+    text-decoration:none;
+    color:var(--accent);
+    font-weight:700;
+    position:relative;
+    cursor:pointer;
+  }
+  .fnref:hover{color:var(--accent2);}
+  .fnref .pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:140%;
+    width:300px;
+    max-width:72vw;
+    background:#2b241c;
+    color:#f4ecdd;
+    font-size:15px;
+    font-weight:400;
+    font-variant:normal;
+    line-height:1.5;
+    text-align:left;
+    padding:12px 14px;
+    border-radius:6px;
+    box-shadow:0 6px 22px rgba(0,0,0,.3);
+    z-index:30;
+    vertical-align:baseline;
+  }
+  .fnref .pop a{color:#f0c27b;}
+  .fnref.below .pop{bottom:auto;top:140%;}
+  .fnref:hover .pop{display:block;}
+
+  /* music */
+  .music{
+    margin:36px 0;
+    padding:22px 26px;
+    background:#f1ead9;
+    border:1px solid var(--rule);
+    border-radius:8px;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--accent);
+    margin:0 0 12px;
+    font-weight:700;
+  }
+  .track{
+    border-top:1px solid var(--rule);
+    padding-top:0;
+  }
+  .track:first-of-type{border-top:none;}
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 0;
+    cursor:pointer;
+    user-select:none;
+  }
+  .track-head .title{font-weight:700;}
+  .track-head .by{color:var(--muted);}
+  .track-head .arrow{
+    color:var(--accent2);
+    transition:transform .2s;
+    font-size:14px;
+  }
+  .track.open .track-head .arrow{transform:rotate(90deg);}
+  .track-head .ext{margin-left:auto;text-decoration:none;font-size:16px;}
+  .track-body{display:none;margin:6px 0 14px;}
+  .track.open .track-body{display:block;}
+  .track-body .frame{
+    position:relative;
+    width:100%;
+    padding-bottom:56.25%;
+    height:0;
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .track-body iframe{
+    position:absolute;top:0;left:0;width:100%;height:100%;border:0;
+  }
+
+  /* notes */
+  .notes{
+    margin-top:48px;
+    padding-top:20px;
+    border-top:2px solid var(--accent);
+  }
+  .notes h2{
+    font-size:22px;
+    color:var(--accent);
+    margin:0 0 14px;
+  }
+  .notes ol{padding-left:1.4em;margin:0;}
+  .notes li{
+    font-size:17px;
+    color:var(--ink);
+    margin-bottom:.7em;
+    line-height:1.6;
+  }
+  .notes li:target{
+    background:#fbe7b0;
+    border-radius:4px;
+    padding:4px 8px;
+    animation:flash 1.4s ease;
+  }
+  @keyframes flash{from{background:#f6cf57;}to{background:#fbe7b0;}}
+  .backref{text-decoration:none;margin-left:6px;color:var(--accent2);}
+
+  /* bottom nav */
+  .corpus-nav{
+    margin-top:54px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    text-decoration:none;
+    display:block;
+    max-width:46%;
+  }
+  .corpus-nav .dir{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--muted);
+    display:block;
+  }
+  .corpus-nav .ttl{font-weight:700;color:var(--accent);font-size:17px;}
+  .corpus-nav .next{text-align:right;margin-left:auto;}
+
+  footer{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  footer a{color:var(--accent);}
+
+  @media (max-width:900px){
+    .wrap{width:100%;padding:28px 20px 48px;}
+    body{font-size:18px;}
+    h1{font-size:30px;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav a{max-width:100%;}
+    .corpus-nav .next{text-align:left;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/18I.html">
+<meta name="description" content="Эссе о личном опыте практика, сравнивающее терминологию учения Кастанеды (Орёл, эманации, точка сборки) с понятиями каббалы и обсуждающее ступени духовного пути.">
+<meta property="og:title" content="Нет Нагваля в своем Отечестве">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/18I.html">
+<meta property="og:description" content="Эссе о личном опыте практика, сравнивающее терминологию учения Кастанеды (Орёл, эманации, точка сборки) с понятиями каббалы и обсуждающее ступени духовного пути.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Нет Нагваля в своем Отечестве">
+<meta name="twitter:description" content="Эссе о личном опыте практика, сравнивающее терминологию учения Кастанеды (Орёл, эманации, точка сборки) с понятиями каббалы и обсуждающее ступени духовного пути.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №18I</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>/</span><a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <div class="hero">
+    <img src="../img/18I.jpg" alt="">
+  </div>
+
+  <h1>Нет Нагваля в своем Отечестве<a class="audio-link" href="https://t.me/art_017_tracks/502" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <p class="dateline">Записано: 18.08.21 г. на форуме «левой линии»</p>
+
+  <p><span class="speaker">Доброжелатель:</span> iddqd, лучше вернись к точке сборки, где ты хоть что нибудь сможешь проверить практически. Есть ступени, которые нельзя перешагнуть, их не видно через призму чужих знаний. Вернись туда, где нет орлов и эманаций, если ты их практически обнаружишь позже, то ничего не потеряешь. Нащупай действия, с которыми твой Дух будет действительно резонировать, награждая опытом и перспективами.</p>
+
+  <p><span class="speaker">iddqd:</span></p>
+
+  <p><span class="num">1.</span> Я-то могу вернуться куда угодно, но тогда как ты узнаешь о ступенях, которые нельзя перешагнуть, если я тебе не расскажу о них?<br>
+  А знать о них надо, в том что я описал выше настолько важное понимание содержится, что оно буквально весь Путь человека перевернуть может, если статья прочитана хотя бы с минимальной трезвостью. И я по сути о них и пишу, мне об Орлах и самому писать мало кайфа. В непостижимое лучше не лезть без особенной надобности. Котелок прохудиться может. Но ты знаешь, без них не получится людям объяснить даже самые базовые вещи, понятные школьнику (см. эпиграф<span class="fnref"><a class="fnref" href="#fn1" id="ref1">*1</a><span class="pop">См. также: <a href="18HB.html">Получение Дара Орла</a></span></span>). Без них тебе просто никто не поверит (я понимаю, что никто не поверит и так и так, но, во всяком случае, в памяти уже информация отпечатается).</p>
+
+  <p><span class="num">2.</span> Если ты чего-то не перешагнул, это не значит, что это нельзя перешагнуть.<br>
+  Я давно не пользуюсь ни чьими паттернами или формулировками, уж тем более смыслами и целями. Все в моих статьях - это личный опыт исключительно. С художественным осмыслением и описанием, разумеется. Например, вышеописываемый опыт я приобрел когда он для меня ничего отдаленно похожего на Орла и Эманации не мог значить в принципе. Для меня это явление называется Малхут Мира Бесконечности и Ее «9 первых» (сфирот), ЗАТ Бины мира Адам Кадмон. Уже потом, через год примерно, я понял, что то, что я видел, КК и ДХ называют Орлом и Эманациями. И Намерением твоего Духа, кстати. Это все немного разные явления : ))</p>
+
+  <p class="ps">П.С. Спасибо за то, что ты ответил! Любой худой диалог лучше гордого одинокого молчания</p>
+
+  <p><span class="num">3.</span> Да, кстати. У этой ступени «опыта» есть одна особенность. Я ее описал в пункте 7 выше. Ее следствием является то, что имея 1 четко конкретный и определенный опыт (хотя придти к нему самостоятельно может быть сложно, и, наверное, даже стремиться к этому не стоит, а если тебе будет это полезно, то Дух тебе Сам все покажет и расскажет в нужное время) - ты можешь исписать Национальную Библиотеку Американского Конгресса оригинальной и уникальной (в рамках выбранного синтаксиса) информацией. Поэтому если я много пишу про разные вещи, которые считаются «ступенями, которые нельзя перешагнуть» в массовом воинском сознании, это не значит, что я хожу в непостижимое на чай попить каждое утро, это значит, что туда «сходить» достаточно 1 раз, на всю оставшуюся, вполне вероятно, жизнь этого мира. Практически достаточно. Потому что одно это действие на самом деле включает все. Не зря в Библии его называют «6 днями сотворения Мира», или «Маасе Берешит» (первоначальное действие). А про Нагваля тот же самый Источник пишет - МУЖЧИНОЙ И ЖЕНЩИНОЙ ОН СОЗДАЛ ИХ. Дар Орла называется «простым Желанием Творца, Свят Благословен Он, насладить Свои творения». Светящийся Кокон называется «духовный парцуф», Точка Сборки называется «экран в ‘голове’ парцуфа», настройка восприятия называется «распространением Высшего Света, одетого в отраженный Свет, в ‘тело’ парцуфа», непостижимое называется ГАР (Гимел Ришонот - три первые сфиры, Кетер, Хохма, и Бина), и точно также, как и у КК (редкое единомыслие между двумя системами знания, далекими по внешним формам, что называется, словно восток от запада) - строго запрещается ученикам их обсуждать или пытаться самим «увидеть». Но, в то же самое время, что КК, что Бааль Сулам, сами, разумеется, себя в изложении опыта и методики не ограничивают их не упоминанием совершенно. И это так происходит именно по вышеописанной причине. Им просто больше не о чем писать, если «вычеркнуть» этот опыт и не иметь в виду. Он определяет весь Путь для человека знания, и с него начинается, по сути, «взрослая» ступень всего духовного Пути. На котором человек впервые не будет транслировать чужие идеи и говорить заученными словами и формулировками, а самое главное, будет самостоятельно перед собой ставить Цели Пути и формулировать перед Духом, или Творцом, Свят Благословен Он, свои собственные, нигде не прочитанные, и не взятые «как есть», без всякой возможности понять, о чем он говорит ртом, когда открывает его на тему собственного Пути и собственной Жизни, намерения, предваряя своими командами Команды Орла, и этим «делая Команды Орла своими командами». Все таки понять эти ступени нужно стремиться, но только с предельной трезвостью и пробужденностью. Потому что это понимание будет твоим последним пониманием на этой Земле без всяких «возможно», «может быть» и «если», вне зависимости от твоего, моего, или чьего бы то ни было еще «особого мнения» по этому поводу.</p>
+
+  <p><span class="num">4.</span> А вообще, мои статьи - они для тех, кто проснулся. Не для тех, у кого все хорошо с тем, где они находятся, поскольку всерьез не верят (знают), что им когда либо удастся практически добиться того, к чему они сами стремились когда-то, пока не стерли свои зубы о гранит «духовной науки» или «магического учения», так, что грызть они больше ничего не могут, и не смогут уже никогда. Я многое увидел, с тех пор, как «удостоился» видеть правду, Милостью Благословенного, о которой с необходимой степенью точности, как мне кажется, не говорил пока никто, и многие из этих знаний звучат для человека этого мира в целом, и для воинов-адептов КК (равно как и любого другого учения, с небольшими вариациями), абсолютно нелестно, со многим я не мог смириться (а с чем-то не могу до сих пор - с тотальным неверием в то, что я говорю правду, и эта правда духовно идущим реально нужна - поскольку я знаю это, помня свой собственный Путь и собственные мысли на «этапе подготовки»). Но самое, пожалуй, глубоко впечатляющее из этого звучит очень просто: в старые мехи залить новое вино не получится. Оно им не нужно и не понятно, не близко их выстроенным годами тщательно продуманными во всех мелочах способами объяснять самим себе, почему в их жизни не должно ничего прямо сейчас поменяться. Научились отвечать самим себе на те вопросы, которые когда-то их толкали на начало и продолжение Пути, не давая остаться у теплой уютной, а главное, «родной» и «своей в доску» кормушки этого мира, вместе со всеми остальными людьми. Отвечать. А не задавать их снова и снова. С ними уже ничего нельзя поделать - птица свободы и они обитают в двух разных непересекающихся вселенных. Одна из них характерна временем, которое наступает на воина из будущего, и воин принимает его, вооружившись трепетом, благоговением и безусловной решимостью принести в жертву самого себя, чтобы сделать хоть одно малейшее действие из любви к свободе осознанно. Другая - характерна уходящим от человека временем, когда человека все в его налаженной, как часовой механизм, жизни, более менее устраивает, и он не видит смысла, и не имеет желания, менять что либо, ведь зачем что-либо менять, если оно работает? Не рационально. Зачем стремиться к практическому опыту, если каждой колдовской собаке понятно, что эти ступени человек никогда не испытает практически? Ведь он - птица явно не того полета, как КК, ДХ, БС, ИсХс, Будда и др. авторитетные товарищи «духовного цеха». Им самим, этим людям, а иногда и тем, кто находится рядом с ними, серьезно кажется, будто они, как и всегда, как и раньше, идут по Пути Воина. На самом деле они давно уже не по какому Пути не идут, кроме Пути возврата «своего личного» осознания и Света Жизни Тому, Кому полагается (ведь так говорят эти самые авторитетные товарищи, а им лучше верить на слово, даже не сомневаясь, себе дороже, - иначе выставишь себя на глазах взрослых, трезвых, духовных безупречных и осознанных людей самонадеянным невеждой, дураком, который много о себе возомнил. Дурак, что с такого возьмешь?..)<br>
+  Вторая категория людей, которых, к сожалению, всегда будет большинство среди «воинов», равно как и среди кого бы то ни было еще, принципиально не способна получить от любой «магической помощи» на Пути какую-либо иную «пользу», кроме магического coup de grace - ускорения долгожданной встречи Знающего все Тайны о Жизни с тем, кому нет до них никакого дела, поскольку он никогда в своей жизни не был Живым, и он не знает, что это вообще такое, смотря со снисходительной улыбкой в сторону тех, кто говорит про «мертвое звено» или про «мертвых грешников». Поэтому я пишу свои статьи, главным образом, не для них. Я пишу для тех, чьи глаза горят Битвой, но кто не готов удовлетвориться тем фактом о ней, который соответствует «аутентичным источникам», и одобряется «воинской общественностью», закрывая глаза на информацию, которая может этот «факт» подвергать серьезному обоснованному сомнению, просто потому, что не закрывать на нее глаза - слишком хлопотно. А он, как-никак, должен быть скрягой в отношении своей энергии... Для них, я абсолютно убежден, в моих статьях содержатся достаточно ценные крупицы Истины, ради извлечения которых стоит потратить время на их чтение хотя бы по одному разу. И я знаю, что это действие приносит пользу воинам, и, в конечном итоге, делает ненулевой вклад в человеческий дух. Но также я понимаю, что эта польза и этот вклад, вполне могут найти своих бенефициаров и получателей через несколько столетий. На все Воля Господа, Свят Благословен Он. Но даже тогда, они друг друга найдут, поэтому я писал, пишу, и буду писать, про Орла, и Его Эманации, про Настройку, Дар Орла, про Нагваля и Правило, Кокон, Точку Сборки и три типа внимания (три, а не два), равно как и про все остальное, что является объективной частью Путей воинов, независимо от их особого мнения о вероятности познакомиться им лично в жизни с этими ступенями на практическом личном опыте.</p>
+
+  <div class="music">
+    <p class="music-label">Музыка</p>
+    <div class="track" data-embed="https://www.youtube.com/embed/RYp1OmzaC5Y">
+      <div class="track-head">
+        <span class="arrow">▶</span>
+        <span class="title">Пророк</span>
+        <span class="by">— В.Кипелов</span>
+        <a class="ext" href="https://www.youtube.com/watch?v=RYp1OmzaC5Y" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </div>
+      <div class="track-body"></div>
+    </div>
+  </div>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1">См. также: <a href="18HB.html">Получение Дара Орла</a> <a class="backref" href="#ref1" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="18K.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="ttl">Вначале было Слово... часть 1</span>
+    </a>
+    <a class="next" href="18HA.html">
+      <span class="dir">Следующая →</span>
+      <span class="ttl">Командный Голос Нагваля</span>
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+  // Lazy YouTube player
+  document.querySelectorAll('.track').forEach(function(t){
+    var head=t.querySelector('.track-head');
+    var body=t.querySelector('.track-body');
+    var embed=t.getAttribute('data-embed');
+    head.addEventListener('click',function(e){
+      if(e.target.closest('.ext')) return;
+      var opening=!t.classList.contains('open');
+      t.classList.toggle('open');
+      if(opening && body && !body.dataset.loaded){
+        body.innerHTML='<div class="frame"><iframe src="'+embed+'?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>';
+        body.dataset.loaded='1';
+      }
+    });
+  });
+  // Footnote popup edge detection
+  document.querySelectorAll('.fnref').forEach(function(ref){
+    ref.addEventListener('mouseenter',function(){
+      var r=ref.getBoundingClientRect();
+      if(r.top<160) ref.classList.add('below'); else ref.classList.remove('below');
+    });
+  });
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — прозаический форумный диалог с развёрнутыми авторскими рассуждениями (реплика Доброжелателя и пронумерованные ответы iddqd), без стихотворной формы. Поэтому выбрана редакторская широкая схема: контейнер ~66% ширины окна, крупная книжная антиква для тела и санс-сериф для служебных элементов (крошки, навигация). Развилка была только по наличию оглавления — пронумерованные пункты 1–4 являются частью одной непрерывной реплики, а не озаглавленными разделами, поэтому TOC не вводил; единственная содержательная навигация — одна сноска *1 и один музыкальный трек.",
+  "rationale_extra": "",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>

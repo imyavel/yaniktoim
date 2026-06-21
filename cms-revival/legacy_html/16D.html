@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Почему мы называем ситра ахра злым началом, если..</title>
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --paper:#fffdf9;
+    --ink:#23211c;
+    --muted:#6b6457;
+    --rule:#ddd5c5;
+    --accent:#8a5a2b;
+    --accent2:#b07a3c;
+    --hi:#fff3cf;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    font-size:19px;
+    line-height:1.72;
+  }
+  .wrap{
+    width:66%;
+    max-width:920px;
+    min-width:0;
+    margin:0 auto;
+    padding:36px 28px 80px;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(138,90,43,.32);}
+  a:hover{color:var(--accent2);border-bottom-color:var(--accent2);}
+
+  /* breadcrumbs */
+  .crumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin:0 0 26px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .crumbs a{border:none;color:var(--accent);}
+  .crumbs span{color:var(--muted);margin:0 .5em;}
+
+  h1{
+    font-size:35px;
+    line-height:1.18;
+    font-weight:600;
+    margin:.2em 0 .15em;
+    letter-spacing:-.01em;
+  }
+  .date{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    margin:0 0 30px;
+  }
+
+  .question{
+    background:var(--paper);
+    border-left:4px solid var(--accent2);
+    padding:18px 22px;
+    margin:0 0 26px;
+    border-radius:2px;
+    box-shadow:0 1px 0 rgba(0,0,0,.03);
+  }
+  .question .lbl{
+    display:block;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:.35em;
+  }
+  p{margin:0 0 1.15em;}
+  .answer .lbl{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:block;
+    margin-bottom:.35em;
+  }
+  .ssv{
+    text-align:center;
+    font-style:italic;
+    font-size:23px;
+    color:var(--accent);
+    margin:1.6em 0;
+    letter-spacing:.01em;
+  }
+  h2{
+    font-size:22px;
+    font-weight:600;
+    margin:2em 0 .6em;
+    padding-top:.5em;
+    border-top:1px solid var(--rule);
+  }
+
+  /* footnote markers */
+  sup.fn{font-size:.66em;line-height:0;vertical-align:super;}
+  sup.fn a{
+    border:none;
+    background:var(--hi);
+    color:var(--accent);
+    padding:0 4px;
+    border-radius:6px;
+    font-weight:700;
+    cursor:pointer;
+  }
+  sup.fn a:hover{background:var(--accent2);color:#fff;}
+
+  /* notes */
+  .notes{margin-top:1em;}
+  .note{
+    display:flex;
+    gap:.7em;
+    padding:.5em .6em;
+    border-radius:4px;
+    margin:.2em 0;
+    transition:background .4s;
+  }
+  .note .num{
+    color:var(--accent);
+    font-weight:700;
+    flex:0 0 auto;
+    min-width:1.4em;
+  }
+  .note:target{background:var(--hi);}
+  .note .back{border:none;margin-left:.4em;font-size:.9em;}
+  .seealso{margin-top:1.4em;color:var(--muted);}
+
+  /* music player */
+  .music{margin:1.6em 0;}
+  .music .mlabel{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:.5em;
+  }
+  .track{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    background:var(--paper);
+    overflow:hidden;
+  }
+  .track summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:.7em;
+    padding:13px 16px;
+    user-select:none;
+  }
+  .track summary::-webkit-details-marker{display:none;}
+  .track .arrow{
+    transition:transform .25s;
+    color:var(--accent);
+    font-size:.9em;
+  }
+  .track[open] .arrow{transform:rotate(90deg);}
+  .track .tname{font-weight:600;}
+  .track .tartist{color:var(--muted);}
+  .track .ext{margin-left:auto;border:none;font-size:1.05em;}
+  .track .frame{padding:0 16px 16px;}
+  .track .frame .ratio{
+    position:relative;
+    width:100%;
+    padding-top:56.25%;
+    background:#000;
+    border-radius:5px;
+    overflow:hidden;
+  }
+  .track .frame iframe{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    border:0;
+  }
+
+  /* footnote popup */
+  #fnpop{
+    position:absolute;
+    z-index:50;
+    max-width:360px;
+    background:#2c2920;
+    color:#f4efe4;
+    font-size:15.5px;
+    line-height:1.5;
+    padding:11px 14px;
+    border-radius:8px;
+    box-shadow:0 8px 26px rgba(0,0,0,.28);
+    display:none;
+    pointer-events:none;
+  }
+  #fnpop a{color:#e9c98a;border:none;}
+  #fnpop .pn{color:#e9c98a;font-weight:700;margin-right:.4em;}
+
+  /* bottom nav */
+  .corpus-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:48px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+  }
+  .corpus-nav a{
+    flex:1 1 0;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:12px 16px;
+    background:var(--paper);
+  }
+  .corpus-nav a.next{text-align:right;}
+  .corpus-nav .dir{
+    display:block;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:.25em;
+  }
+  .corpus-nav .ttl{font-weight:600;}
+  footer.colophon{
+    margin-top:36px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:14.5px;
+    color:var(--muted);
+  }
+  footer.colophon a{color:var(--accent);}
+
+  @media (max-width:820px){
+    .wrap{width:100%;padding:22px 18px 60px;}
+    body{font-size:18px;}
+    h1{font-size:28px;}
+    .corpus-nav{flex-direction:column;}
+    .corpus-nav a.next{text-align:left;}
+  }
+</style>
+
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/16D.html">
+<meta name="description" content="Статья-ответ на вопрос ученика о ситра ахра как злом начале: разбор связи Света Хохма, Света Хасадим и состояний падения и подъёма.">
+<meta property="og:title" content="Почему мы называем ситра ахра злым началом, если..">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/16D.html">
+<meta property="og:description" content="Статья-ответ на вопрос ученика о ситра ахра как злом начале: разбор связи Света Хохма, Света Хасадим и состояний падения и подъёма.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Почему мы называем ситра ахра злым началом, если..">
+<meta name="twitter:description" content="Статья-ответ на вопрос ученика о ситра ахра как злом начале: разбор связи Света Хохма, Света Хасадим и состояний падения и подъёма.">
+<script src="../ya-switch.js"></script>
+</head>
+<body data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №16D</span>
+<div class="wrap">
+
+  <nav class="crumbs">
+    <a href="../index.html">Главная</a><span>/</span><a href="../confront/index.html">Конфронтология Духа</a>
+  </nav>
+
+  <h1>Почему мы называем ситра ахра злым началом, если..<a class="audio-link" href="https://t.me/art_017_tracks/422" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+  <p class="date">13 июня 2021 г.</p>
+
+  <div class="question">
+    <span class="lbl">Вопрос (с 1 части сегодняшнего у/у)</span>
+    Почему мы называем (ситра ахра) "злым началом", если оно здесь только затем, чтобы помочь нам?
+  </div>
+
+  <div class="answer">
+    <span class="lbl">Ответ</span>
+    <p>Мы называем злым началом (или падением, эгоизмом, т.п.) (свои собственные) состояния только до тех пор, пока нам не раскрывается, что это - форма управления Творца, Свят Благословен Он, что происходит в тот момент, когда мы правильно включаемся в действие Творца, и удостаиваемся завершить ступень "Кли" настоящей ступени и начать раскрывать ступень "Свет". Ступень "Кли" обязана присутствовать на каждой новой ступени, поскольку для раскрытия Света каждый раз со все большей Силой, человеку требуется обновлять свою нужду (хисарон) в помощи Творца, Свят Благословен Он, и искреннюю радость, когда эта помощь получена. Невозможен подъем на новую ступень из состояния, когда человека "и так все устраивает", то есть, когда он не чувствует острой потребности в том, чтобы получить помощь Свыше, чтобы удостоиться продолжить свой Путь.</p>
+
+    <p>Однако, в терминах методики "трех линий", строго говоря, эти два последовательных состояния, называемых "Свет и Кли", являются одним и тем же Светом Хохма, Который приходит от Творца, Свят Благословен Он, чтобы удостоить человека подняться на следующую духовную ступень. Его восприятие как "тьма", присутствующее в начале каждой индивидуальной ступени, не является частью методики (т.е. непреложным духовным Законом), а является следствием другого Закона, согласно которому, Свет Хохма может быть воспринят человеком "правильно" (согласно действительным свойствам Света) только при условии его "облачения" в Свет Хасадим (желание только отдавать и служить Творцу и товарищам), имеющийся у человека в достаточной мере, чтобы "покрыть" весь объем пришедшего к нему Света Цели творения. Именно недостаток Света Хасадим является причиной того, что мы начинаем работу из состояния падения. Восполнение этого Света производится человеком в свойствах стремления доставить добро другому (желания только отдавать, без всяких порывов получать пользу от этого действия ради самого себя). К счастью, оно может быть произведено не сразу, а поэтапно (методом накопления). Собственно, именно так и происходит переход человека на первую духовную ступень (проход через "махсом"), поскольку человек накапливает необходимый для раскрытия первой духовной ступени объем усилий на протяжении долгих лет всей предшествующей жизни. Именно на этой ступени мы получаем "помощь от обратного", поскольку у нас еще нет необходимых предпосылок для возможности раскрытия Света Хохма напрямую. Но это один и тот же Свет, Который светит человеку в "падении", погружая его во все большую тьму, и Который затем ему светит на "подъеме", когда он преодолевает падение Милостью Господа, буквально нет никакой разницы между этими двумя ступенями, кроме восприятия самого человека, которое изменяется со временем таким образом, что каждый раз, переходя из одного свойства работы в другое, человек, по сути, оказывается в реальности, в которой, по сути, "никакого другого свойства", противоположного, "в его жизни и Пути никогда не было", он так чувствует (не важно, что разум и память ему подсказывают, что они были, т.к. на Пути Творца идет в расчет только то "знание", которое не содержит слов и исходит из глубины сердца).</p>
+
+    <p>Наиболее прямой способ приложить усилия в верном направлении Цели Творца - это совместная молитва<sup class="fn"><a id="fnref1" href="#fn1" data-fn="fn1">1</a></sup> и распространение. Наименьшее условие "подобия свойств" в такой молитве - это совместное включение в молитве "желания получать" и экран на него (правая и левая линия) - противонаправленные векторы "вверх" и "вниз", которые не могут находиться единовременно в одном носителе. Более того, мужской тип "духовности" вообще не включает "настоящего" желания получать "от природы" (бытовой эгоизм - не является настоящим "желанием получать"). Поэтому, чтобы правильным образом, наиболее приятным Творцу, Свят Благословен Он, и направленным действительно напрямую к Его Цели, необходимо участие в совместной молитве мужских и женских духовных свойств (равно как и в распространении). Без этого не происходит настоящего движения в духовном "от победы к победе". И такое объединение, в котором нет взаимовключения мужчин и женщин, не создает возможности, фактически, идти вперед, не испытывая регулярных "падений" как таковых, посредством эффективной работы Круга (десятки), поскольку каббалистический Круг является "естественным генератором" этого самого Света (Хасадим) для его участников и участниц. В ином случае, "разбиения" все равно будут происходить на каждом шаге, чтобы участники Круга могли "переключаться" из одного свойства работы к другому. Кроме очевидных минусов в виде невозможности по-настоящему придти к оправданию Творца, Свят Благословен Он, при такой динамике работы, эти прерывания в непрерывном развитии человека закрывают для него возможность настоящего духовного роста, который, по сути, только начинается на ступенях "Гадлута" ("взрослого" духовного состояния "получения ради отдачи"), т.к. все, что им предшествует, даже если кажется человеку духовным ("В мире ослеплённых тьмой может солнцем показаться пламя от свечи"<sup class="fn"><a id="fnref2" href="#fn2" data-fn="fn2">2</a></sup>), на самом деле является лишь преддверием начала Пути, которое не создает в человеке таких следов, после которых он действительно глубоко меняется внутренне, постепенно переставая быть "личностью этого мира", и становясь каббалистом (получая и отдавая Свет Хохма, т.е. пока "не свидетельствует о нем Знающий Тайны, что не вернется больше к глупости своей"), раскрывая и распространяя Науку Каббала, и доставляя этим наслаждение Творцу, Свят Благословен Он, на деле, а не только на словах и в "добрых намерениях". Только Круг Жизни ("десятка", проходящая развитие и формирование по методике "Розы"<sup class="fn"><a id="fnref3" href="#fn3" data-fn="fn3">3</a></sup> Книги Зоар по ступеням "Гадлута"<sup class="fn"><a id="fnref4" href="#fn4" data-fn="fn4">4</a></sup>) обладает таким качеством духовной работы, которое позволяет, при правильной и плавной организации работы, всем его участникам идти "от победы к победе", фактически без ощутимых и всерьез различимых "пауз" в виде регулярных негативных состояний, то есть без постоянных "остановок" для накопления требуемой меры собственных усилий "от обратного" перед раскрытием каждой новой ступени Света Творца, Свят Благословен Он, на Его бесконечной лестнице в Небо.</p>
+  </div>
+
+  <p class="ssv">Сделаем и услышим!</p>
+
+  <div class="music">
+    <div class="mlabel">Рекомендуемая музыка</div>
+    <details class="track" data-embed="https://www.youtube.com/embed/RYp1OmzaC5Y">
+      <summary>
+        <span class="arrow">▶</span>
+        <span><span class="tartist">Кипелов — </span><span class="tname">Пророк</span></span>
+        <a class="ext" href="https://www.youtube.com/watch?v=RYp1OmzaC5Y" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a>
+      </summary>
+      <div class="frame"><div class="ratio"></div></div>
+    </details>
+  </div>
+
+  <h2>Пост скриптум</h2>
+  <div class="notes">
+    <div class="note" id="fn1">
+      <span class="num">*1</span>
+      <span>"Катнут свойства ЦЕЛЕМ Элоким" (техника совместной молитвы) <a href="https://www.facebook.com/.../permalink/2995837200651434/" target="_blank" rel="noopener">facebook.com/…/permalink/2995837200651434</a><a class="back" href="#fnref1" title="Вернуться к тексту">↩</a></span>
+    </div>
+    <div class="note" id="fn2">
+      <span class="num">*2</span>
+      <span>Пророк. В. Кипелов. <a href="https://www.youtube.com/watch?v=RYp1OmzaC5Y" target="_blank" rel="noopener">youtube.com/watch?v=RYp1OmzaC5Y</a><a class="back" href="#fnref2" title="Вернуться к тексту">↩</a></span>
+    </div>
+    <div class="note" id="fn3">
+      <span class="num">*3</span>
+      <span>Книга Зоар, том 1, "Роза", "Заповедь девятая", и др. <a href="https://imyavel.github.io/zohar-sulam/akdama/001.html" target="_blank" rel="noopener">akdama/001</a><a class="back" href="#fnref3" title="Вернуться к тексту">↩</a></span>
+    </div>
+    <div class="note" id="fn4">
+      <span class="num">*4</span>
+      <span>Кратная методика построения Кли Гадлута <a href="https://www.facebook.com/.../permalink/3061225640779256/" target="_blank" rel="noopener">facebook.com/…/permalink/3061225640779256</a><a class="back" href="#fnref4" title="Вернуться к тексту">↩</a></span>
+    </div>
+  </div>
+  <p class="seealso">См. также: </p>
+
+  <nav class="corpus-nav">
+    <a class="prev" href="179.html">
+      <span class="dir">← Предыдущая</span>
+      <span class="ttl">Опусти глаза вниз, и не смотри</span>
+    </a>
+    <a class="next" href="15J.html">
+      <span class="dir">Следующая →</span>
+      <span class="ttl">Красное и Белое</span>
+    </a>
+  </nav>
+
+  <footer class="colophon">
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<div id="fnpop"></div>
+
+<script>
+  // lazy youtube embed
+  document.querySelectorAll('.track').forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if(d.open){
+        var holder=d.querySelector('.ratio');
+        if(holder && !holder.querySelector('iframe')){
+          var f=document.createElement('iframe');
+          f.src=d.dataset.embed+'?autoplay=1&rel=0';
+          f.allow='acceler0meter; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          f.allowFullscreen=true;
+          holder.appendChild(f);
+        }
+      }
+    });
+  });
+
+  // footnote hover popups
+  (function(){
+    var pop=document.getElementById('fnpop');
+    function noteHtml(id){
+      var n=document.getElementById(id);
+      if(!n) return '';
+      var num=n.querySelector('.num').textContent;
+      var body=n.querySelector('span:last-child').cloneNode(true);
+      var b=body.querySelector('.back'); if(b) b.remove();
+      return '<span class="pn">'+num+'</span>'+body.innerHTML;
+    }
+    document.querySelectorAll('sup.fn a').forEach(function(a){
+      a.addEventListener('mouseenter',function(){
+        pop.innerHTML=noteHtml(a.dataset.fn);
+        pop.style.display='block';
+        var r=a.getBoundingClientRect();
+        var pr=pop.getBoundingClientRect();
+        var sx=window.scrollX, sy=window.scrollY;
+        var left=sx+r.left+r.width/2-pr.width/2;
+        left=Math.max(sx+8,Math.min(left, sx+document.documentElement.clientWidth-pr.width-8));
+        var top=sy+r.top-pr.height-8;
+        if(r.top-pr.height-8 < 0){ top=sy+r.bottom+8; }
+        pop.style.left=left+'px';
+        pop.style.top=top+'px';
+      });
+      a.addEventListener('mouseleave',function(){
+        pop.style.display='none';
+      });
+    });
+  })();
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Статья представляет собой богословско-каббалистический разбор в формате вопрос–ответ — сплошная аналитическая проза с длинными периодами, без единой стихотворной строки. Поэтому выбрана редакторская (широкая) схема: широкий контейнер около 66% ширины окна с разумным ограничением меры строки для удобного чтения плотного текста; засечный шрифт усиливает книжный, медитативный характер материала. Вопрос вынесен во врезку, ответ — основной массив, кода \"Сделаем и услышим!\" подана акцентом.",
+  "rationale_extra": "Оглавление не делалось: явных множественных подразделов с заголовками в тексте нет (Вопрос/Ответ/Пост скриптум — структурные части, а не раздельные главы). Музыкальный трек один (Кипелов — Пророк, YouTube), поэтому сделан единичный ленивый раскрывающийся плеер с меткой \"Рекомендуемая музыка\" по атрибуции автора; сводный раздел музыки не создавался, так как треков не больше двух. Сноски *1–*4 оформлены маркерами с переходом вниз/вверх, подсветкой цели и hover-popup, позиционируемым над маркером или под ним в зависимости от границы экрана. Голые и усечённые URL обёрнуты в ссылки дословно.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</body>
+</html>
