@@ -5,10 +5,243 @@
 <link rel="icon" type="image/png" href="../img/favicon.png">
 <link rel="apple-touch-icon" href="../img/favicon.png">
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Методика Трех Линий (111-115)</title>
-<style>
-  :root{
+<meta name="description" content="Статья о методике духовного саморазвития на основе трёх линий, описывающая её принципы, истоки в каббале и отличия от традиционных систем самосовершенствования.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/28M.html">
+<meta property="og:title" content="Методика Трех Линий (111-115)">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/28M.html">
+<meta property="og:description" content="Статья о методике духовного саморазвития на основе трёх линий, описывающая её принципы, истоки в каббале и отличия от традиционных систем самосовершенствования.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Методика Трех Линий (111-115)">
+<meta name="twitter:description" content="Статья о методике духовного саморазвития на основе трёх линий, описывающая её принципы, истоки в каббале и отличия от традиционных систем самосовершенствования.">
+
+<link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
+<style id="spl-base">
+/* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
+.wrap.w-narrow{max-width:820px;}
+.wrap.w-wide{max-width:1080px;}
+/* [spl] spoiler — structural, theme-agnostic. Themes may tune --spl-cover. */
+.spoiler{position:relative;display:inline-block;cursor:pointer;border-radius:3px;vertical-align:baseline;}
+.spoiler:not(.revealed) .spoiler-content{visibility:hidden;}
+.spoiler:not(.revealed)::before{content:"";position:absolute;inset:-1px;border-radius:3px;
+  background:var(--spl-cover,repeating-linear-gradient(45deg,#4a4a4a 0 7px,#2f2f2f 7px 14px));
+  background-size:auto;animation:spl-shimmer 1.4s linear infinite;}
+.spoiler.revealed{cursor:auto;}
+.spoiler:focus-visible{outline:2px solid currentColor;outline-offset:2px;}
+@keyframes spl-shimmer{from{background-position:0 0;}to{background-position:20px 0;}}
+@media (prefers-reduced-motion:reduce){.spoiler:not(.revealed)::before{animation:none;}}
+/* audio narration 🎧 by H1 — structural, theme-agnostic (themes may refine). */
+.audio-link{font-size:.62em;vertical-align:middle;margin-left:.4em;text-decoration:none;white-space:nowrap;}
+/* [subsec] section subtitle — base (themes refine): muted italic, tight to ## heading. */
+.sec-sub{margin:.15em 0 1.3em;font-style:italic;font-size:.95em;opacity:.7;line-height:1.45;text-indent:0;text-align:left;}
+h2 + .sec-sub, h2.subtitle + .sec-sub{margin-top:-.5em;}
+/* [meta] metadata card (proza-шапка) — base через :where() (0-специфичность → любое правило темы перебивает, хотя <style> идёт после <link> темы). */
+:where(.meta){margin:1.4em auto .6em;max-width:560px;padding:.85em 1.2em;background:var(--panel,rgba(128,128,128,.06));border:1px solid var(--rule,#ddd);border-left:4px solid var(--accent2,var(--accent,#999));border-radius:3px;line-height:1.5;color:var(--muted,inherit);text-indent:0;}
+:where(.meta b){color:var(--ink,inherit);font-weight:600;}
+:where(.meta .epi){display:block;margin-top:.5em;padding-top:.5em;border-top:1px dashed var(--rule,#ddd);font-style:italic;color:var(--accent,inherit);}
+/* [faw] free-associative writing — стихи, записанные прозой. Строки-сегменты «|»
+   → .faw-l.a/.b с чередованием стиля (границы строк видны на глаз). Режим (монолит
+   display:inline — swiss/editorial/cyberpunk · построчно display:block — manuscript/
+   ar_deco) и чередование задаёт ТЕМА. База — только отступ блока и нулевой-специфичности
+   фолбэк построчно через :where() (любое правило темы его перебивает; стиль <style> идёт
+   ПОСЛЕ <link> темы, поэтому обычное `.faw-l` затёрло бы тему — отсюда :where). */
+.faw{margin:1.5rem 0;}
+/* Абзацы внутри [faw] (безымянный [fp]): каждый — блок .faw-p, между ними отступ. Виден и
+   в монолитных темах (между блоками), и в построчных. Внутри .faw-p строки идут по теме. */
+.faw .faw-p + .faw-p{margin-top:1.1em;}
+:where(.faw-l){display:block;}
+/* [faw sta=N] зазор-строфа: пустая строка после каждых N строк. Верт. margin к inline
+   не применяется → в монолите параметр игнорируется (как и задумано). */
+:where(.faw-l.faw-se){margin-bottom:1em;}
+/* Капитализация первой буквы строки (.faw-cap) — фича ПОСТРОЧНЫХ тем (manuscript/ar_deco):
+   там строки начинаются с заглавной, как в стихах. Монолитные темы .faw-cap НЕ трогают —
+   текст течёт прозой в авторском регистре. См. THEME_CONTRACT. */
+/* [fp] маркер нумерованного пункта внутри [faw] (§2.5): инлайн-бейдж — строку НЕ рвёт (стих
+   течёт сквозь пункты), может стоять в середине строки; даёт якорь для TOC. Не наследует
+   курсив/регистр чередования. Базовый вид (тема может уточнить через --accent). */
+.faw-pt{display:inline-block;font-family:ui-sans-serif,system-ui,sans-serif;font-weight:700;
+  font-size:.62em;line-height:1.5;vertical-align:.16em;color:var(--accent,#777);
+  border:1px solid currentColor;border-radius:.5em;padding:0 .42em;margin:0 .45em 0 .1em;
+  font-style:normal;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;
+  scroll-margin-top:1.4rem;text-decoration:none;}
+.faw-l .faw-cap{font-style:inherit;}
+/* fn-ревью (2026-06-12) — структурная база новых конструкций; темы уточняют. */
+/* [^N] в H1: sup-маркер на глаз отличим от текста заголовка (THEME_CONTRACT). */
+h1#article-title sup{font-size:.42em;font-weight:400;line-height:0;letter-spacing:normal;vertical-align:super;}
+/* [line kind=tags|dateline] — служебная роль-строка; буквицы тем её пропускают. */
+p.line{font-size:.88em;opacity:.72;letter-spacing:.02em;text-indent:0;}
+/* [ul] — маркированный список; значок через --marker → li::marker. */
+ul.ul{margin:1em 0;padding-left:1.6em;}
+ul.ul li::marker{content:var(--marker, initial);}
+/* [num] со скобко-стилем «1)» (авторские номера держит li[value]). */
+ol.num.num-paren li::marker{content:counter(list-item) ") ";}
+/* [epi kind=dedi] — посвящение. */
+article .epigraph.dedication, article .epilogue.dedication{text-align:right;font-style:italic;}
+/* TOC: вложенный 2-й уровень (###). */
+details.article-toc ol ol{margin:.15em 0 .15em 1.1em;}
+/* [toc nonum]: заголовки сами нумерованы (1 / 1.1 / 1.1.1) → гасим авто-числа <ol>
+   (две класса-метки → перебивает per-theme `.article-toc ol{padding-left}` по специфичности) */
+details.article-toc.nonum ol{list-style:none; padding-left:0;}
+details.article-toc.nonum ol ol{margin-left:1.1em;}
+/* [sig] подпись / [cry] возглас (ZML3 C11) — base, themes refine. */
+.sig{text-align:right;font-style:italic;margin:1.4rem 0;}
+.cry{text-align:center;font-weight:700;letter-spacing:.05em;margin:1.6rem 0;}
+/* глифы (C13) + inline term/leit (C10) — base no-op-ish; themes colour or ignore. */
+.glyph{white-space:nowrap;}
+.term{text-decoration:underline dotted;text-underline-offset:3px;}
+.leit{font-style:italic;}
+/* музыка Б2: inter-track заметка (1AQA «Слушать вместе…») — base, themes refine. */
+.music-note{text-align:center;font-style:italic;opacity:.72;font-size:.92em;
+  margin:.2rem 0 .5rem;}
+/* музыка-плашка (канон оригинала): ▶ N) **Название** — *Автор* — название жирным,
+   автор обычным-курсивом, ► играбел-индикатор (крутится при раскрытии). Специфичность
+   `.music-group .title …` перебивает курсив `.title` темы. */
+.music-group .trk-play{display:inline-block;font-size:.82em;opacity:.65;margin-right:.1em;
+  transition:transform .18s ease;}
+details.music[open] .trk-play{transform:rotate(90deg);}
+.music-group .title .trk-num{opacity:.55;font-style:normal;font-variant-numeric:tabular-nums;}
+.music-group .title .trk-ttl{font-weight:600;font-style:normal;}
+.music-group .title .trk-sep{opacity:.5;font-weight:400;}
+.music-group .title .trk-art{font-weight:400;font-style:italic;opacity:.78;}
+/* трек-строка = flex: текст слева ВО ВСЕХ темах (перебивает theme text-align:center
+   у B_manuscript/ar_deco — флекс-айтемы паковка слева), динамик-mute прижат вправо
+   (2026-06-18). */
+.music-group details.music>summary,.music-group .music-noplayer>.summary{
+  display:flex; align-items:center; flex-wrap:wrap; gap:.12em; text-align:left;}
+.music-group .title{min-width:0;}
+/* кнопка-динамик (mute рекламы YouTube) — справа на строчке */
+.music-group .trk-mute{margin-left:auto; flex:0 0 auto; align-self:center;
+  cursor:pointer; opacity:.5; color:inherit; line-height:0; padding:.1em .2em;
+  border-radius:4px; transition:opacity .15s,color .15s;
+  -webkit-tap-highlight-color:transparent;}
+.music-group .trk-mute:hover,.music-group .trk-mute:focus-visible{opacity:1; outline:none;}
+.music-group .trk-mute svg{width:1.2em; height:1.2em; display:block;}
+.music-group .trk-mute .spk-slash{display:none;}
+.music-group .trk-mute[aria-pressed="true"]{opacity:.95; color:var(--accent,currentColor);}
+.music-group .trk-mute[aria-pressed="true"] .spk-wave{display:none;}
+.music-group .trk-mute[aria-pressed="true"] .spk-slash{display:inline;}
+/* [dlg] форум-стиль (№2, по образцу форума ccastaneda.ru): пост-в-рамке + метка
+   спикера small-caps. base — themes refine (--accent2 = акцент темы). */
+.dialog .post{border-left:3px solid var(--accent2,currentColor);
+  background:color-mix(in srgb, currentColor 4%, transparent);
+  padding:.55rem .95rem;margin:.7rem 0;border-radius:0 4px 4px 0;}
+.dialog .post-by{display:block;font-variant:small-caps;letter-spacing:.05em;
+  font-weight:700;font-style:normal;font-size:.9em;color:var(--accent2,inherit);
+  opacity:.95;margin-bottom:.25em;}
+.dialog .post-text{display:block;}
+.dialog .post-text + .post-text{margin-top:.55em;}/* многоабзацная реплика */
+.dialog .dlg-line{margin:.45rem 0;}
+/* viewbar — управление видом статьи (тема/ширина/оригинал/править).
+   Сидит в одной строке с крошками (крошки слева, управление справа).
+   Здесь только структура; типографика/цвета — у темы (.viewbar в THEME_CONTRACT). */
+header.breadcrumbs{display:flex;gap:1.2em;row-gap:.3em;align-items:baseline;flex-wrap:wrap;}
+/* крошки ВСЕГДА слева — перебиваем темы, центрирующие шапку (B_manuscript/ar_deco). */
+header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
+.viewbar{display:flex;gap:1.1em;row-gap:.3em;align-items:center;flex-wrap:wrap;
+  font-size:.78rem;margin:0 0 0 auto;}
+.viewbar label{display:inline-flex;gap:.35em;align-items:center;white-space:nowrap;}
+.viewbar select{font:inherit;color:inherit;background:transparent;border:none;
+  border-bottom:1px solid currentColor;padding:0 1px 1px;cursor:pointer;}
+.viewbar select option{color:#222;background:#fff;}
+.viewbar a{text-decoration:none;white-space:nowrap;}
+.viewbar .vb-edit{font:inherit;color:inherit;background:none;border:none;padding:0;white-space:nowrap;}
+.viewbar .vb-edit:disabled{opacity:.45;cursor:default;}
+/* по умолчанию кнопка СКРЫТА (hidden в разметке) — аноним/не-редактор её не видят;
+   ya-edit.js снимает hidden только у editor/admin. Явное правило перебивает темы. */
+.viewbar .vb-edit[hidden]{display:none;}
+</style>
+</head>
+<body class="article-page" data-art="28M" data-theme="swiss"
+  data-art-section="confront" data-art-type="prose_num"
+  data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
+<div class="wrap w-wide">
+<header class="breadcrumbs">
+<span class="crumbs"><a href="../index.html">Главная</a><span class="sep">›</span><a href="../confront/index.html">Конфронтология Духа</a></span>
+<nav class="viewbar" aria-label="Вид статьи">
+  <label>Тема
+    <select id="zml-theme">
+      <option value="A_editorial">editorial</option>
+      <option value="B_manuscript">manuscript</option>
+      <option value="cyberpunk">cyberpunk</option>
+      <option value="swiss">swiss</option>
+      <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
+    </select>
+  </label>
+  <label>Ширина
+    <select id="zml-width">
+      <option value="wide">широкая</option>
+      <option value="narrow">узкая</option>
+    </select>
+  </label>
+  <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
+</nav>
+</header>
+
+<h1 id="article-title">Методика Трех Линий (111-115)⁠<a class="audio-link" href="https://t.me/art_017_tracks/435" target="_blank" rel="noopener" title="Слушать аудио-озвучку" aria-label="Слушать аудио-озвучку">🎧</a></h1>
+<p class="byline">Элиягу Бар Малей · #28M · 2022-08-22 · Источник: <a href="https://proza.ru/2022/08/22/815" target="_blank" rel="noopener">proza.ru/2022/08/22/815</a></p>
+<article>
+
+<p class="line line-dateline">#AB28M · 22.08.22</p>
+
+<p>Интегральная методика духовного саморазвития человека, содержащая абсолютно новые основания и руководящие, мотивирующие и направляющие формы и принципы, серьезно отличающиеся от таковых, используемых всеми имеющимися, как относительно новыми, так и исторически традиционными, существующими в публичном пространстве парадигмами мироописания, и методиками самосовершенствования человека, базирующиеся на контр-интуитивных, и технологически не детектируемых человеком на данном этапе его цивилизационного развития, принципах, законах, механизмах и явлениях, тем не менее, не просто «существующих на самом деле», наблюдаемо и проверяемо (при наличии соответствующего набора инструментов, осваиваемых человеком посредством контролируемого целенаправленного самоизменения, следуя точной располагаемой методике), но являющихся настоящими драйверами, обуславливающими принципами и управляющими формами, относительно таковых, доступных глазу и механически регистрируемых посредством современной техники, механизмов, законов, процессов и явлений «реального объективного внешнего мира».</p>
+
+<p>(с) 2020-2022, BNEIADAM.COM, Зеир Арихович Анпин</p>
+
+<details class="article-toc nonum" open>
+<summary>Содержание</summary>
+<ol>
+<li><a href="#sec-intro">1. Введение</a>
+<ol>
+<li><a href="#sec-secret">1.1. Главный секрет евреев</a></li>
+</ol>
+</li>
+</ol>
+</details>
+
+<h2 id="sec-intro">1. Введение <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<h3 id="sec-secret">1.1. Главный секрет евреев <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h3>
+
+<p>1.1.1.Почему евреев? Ну, потому что им принадлежит «авторство» наиболее «продвинутой», из созданных когда-либо человеком, систем «духовного мироописания», с прилагающимся к нему набором практических инструментов осуществления человеком «духовного подъема» наподобие «лестницы» (Сулам - ивр.), который позволяет человеку не только читать об этих «духовных фишках», но и сделать их активной частью собственного ежедневного инструментария и арсенала взаимодействия с «этим миром», то есть самым что ни на есть «материальным» и плотным, частью которого мы все являемся явно и несомненно, поскольку под его «восприятие» «заточен» (посредством эволюции живых организмов за миллиарды лет, равно как и социальных институтов за многие века существования на Земле нашего, относительно «разумного», брата) «органический инструментарий», благодаря которому происходит вся наша жизнедеятельность, изначально вместе с «постановкой задачи» нашего пребывания здесь (не важно, кем, когда и как, на данном этапе достаточно допустить, что таковая имеется, или, как минимум, вероятность ее «присутствия» положительно отличается от нуля) включенный в «дано», и не зависит поэтому от того, насколько мы продвигаемся (или думаем, что не продвигаемся) в том, чтобы ознакомиться с ее предметом, и производить сближение с предполагаемой точкой встречи с ее разрешением (выполнением) нами наблюдаемым и проверяемым образом «здесь и сейчас». Да и вообще независимо от того, есть ли нам какое-либо до этих, равно как и подобных им вопросов, дело, или мы предпочитаем меньше думать, а больше действовать в том, с чем мы по-жизни относительно хорошо знакомы и освоены практически, обоснованно «не залезая» в области, в которых мы не понимаем почти ничего, не желая делать себя дураками большими, чем и так объективно по жизни являемся, если посмотреть правдиво, приспустив чуть-чуть не надолго розовые очки, столь необходимые нам как важный элемент социальной мимикрии в не прощающей ошибок агрессивной конкурентной среде «реального мира», устроенной, главным образом, так, что ресурсы в ней ограничивают те, кто ими обладает, а не те, кто их, по идее (ну, светлой и чистой, разумеется), должен потреблять, обеспечивая равномерный и симметричный рациональный расход. А поэтому, главной задачей в таковой среде становится не рациональная оптимизация собственного регулярного потребления, а доступ к ресурсу, позволяющий минимизировать (в идеале - совсем исключить) его потребление теми, кто не имеет к нему настолько же «эксклюзивного» доступа, как тот, который имеется у него.</p>
+
+<p>1.1.2.Вышеописанный принцип является строго иррациональным и контр-эффективным, если его рассматривать с позиции независящей от конкретики этого самого потребления, то есть не являясь частью процесса, в котором он определяет саму возможность что либо рассматривать, кроме дырки в кармане и пятен на скатерти, уныло смотря на ползущий темпами черепахи календарный лист, указывающий на число дней от предполагаемой будущей зарплаты до уныло побулькивающего в животе реально консумированного только что «сытного обеда». Другими словами, он выполняет функцию строго обратную той, которую должен выполнять механизм, находящийся на его месте в случае использования человеком способности разумно мыслить по прямому назначению - то есть для оптимизации процессов своей жизнедеятельности с целью максимизации этой самой жизнедеятельности, за счет минимизации времени, затрачиваемого на обеспечение ее принципиальной возможности и повседневной бытовой экзистенциальной осуществимости. Мы, чаще всего, не имеем такой роскоши, как возможность в принципе остановиться хотя бы на полчаса в процессе непрерывного решения задач этой самой экзистенциальной осуществимости, для того, чтобы просто определить принципиальное наличие в нашей жизни подобной проблематики, не говоря уже о том, чтобы сделать на основе произведенных наблюдений какие-либо полезные практические выводы. И уж точно не обладаем реальной возможностью таковые выводы, даже если они нами сделаны и детально очерчены, начать осуществлять, добившись в этом каких-либо заметных практически полезных и что либо в нашей жизни реально изменивших «к лучшему» результатов их претворения из голой идеи в повседневную действительность жизни. А вдруг если случается чудо, и таковой этап нами тоже оказывается достигнут, то, не успев как следует поздравить себя с этим, мы неизбежно обнаруживаем новые «подарки судьбы», то есть, «обстоятельства реального мира», которые только что достигнутый нами успех множат на 0, если не загоняют нас в «минус» относительно точки, с которой мы начинали «движение».</p>
+
+<p>1.1.3.На языке ученых вышеописанный порядок именуется законом постоянного увеличения энтропии, т.е. беспорядка во всем и всегда, со временем. А на «рабоче-крестьянском» называется «законом подлости» (не очень понятно, правда, чьей именно, и в чем она заключается, если мы продолжаем быть трезвыми рациональными здравомыслящими членами атеистически настроенного технократического общества, а не членами милой секты свидетелей чего нибудь доброго и прекрасного, равно как и далекого от реальности здесь и сейчас, продолжая бег по кругу в другом направлении, но с одинаковым успехом по большому счету). Или (на буржуйско-интеллигентском наречии) Законами Мерфи. Каждая из этих формулировок услужливо, снисходительно и терпеливо объясняет нам основной тезисный посыл, оправдывающий смысл своего существования в общем объеме информационного фона, сопровождающего нас по жизни так или иначе - невозможность ни при каких обстоятельствах «реального мира» как-либо воспрепятствовать неизбежной реализации данного фундаментального принципа, который, так или иначе (чаще именно «так», значительно реже «иначе») «работает» и проявляется везде и во всем, что бы мы ни пытались делать, чтобы не служить по-жизни (если приспустить розовые очки, разумеется, на какое-то время) характерным и достаточно недвусмысленным примером того, как именно этот принцип работает в наблюдаемой и проверяемой нами реальности.</p>
+
+<p>1.1.4.И, надо сказать, что таковой тезис, в общем и целом, формально в точности соответствует реальности. Воспрепятствовать реализации этого (равно как и многих других, похожих сущностно и онтологически) принципа в своей жизни невозможно. Однако, возможно прекратить лить воду на водяные мельницы, постоянно рассматривая происходящие в жизни события и явления именно с такого характерного ракурса «хронического неудачника со стажем», в результате чего хочешь-нехочешь задаваться вопросом о том, можно ли этому воспрепятствовать или нельзя, то есть, фактически, раз за разом таковое препятствование практически осуществляя, в виде разумной интенции и, как минимум, времени, потраченного в постоянных размышлениях об этом, что и является, на самом деле, «препятствованием», даже если нам кажется, что все наши усилия в этом направлении оказывались тщетны чуть более, чем полностью. Дело в том, что этот принцип является не «законом прямого действия», а «законом отрицательной обратной связи», и его настоящее присутствие в нашей жизни, определяющее значительную часть ее располагаемого контекста «здесь и сейчас», наблюдаемое, проверяемое и ощущаемое самым конкретным и неоспоримым образом на собственном личном опыте, обусловлено не тем, как на нас действуют «внешние, независящие от нас законы, силы и принципы» реального мира, а тем, как мы сами воздействуем на эти «законы, силы и принципы», запуская в них механизмы обратной связи, работающие исключительно «по запросу пользователя», и в соответствии с той повесткой, которую мы сами для них формируем, непосредственно перед тем, как «нажав на кнопку, получить результат», ошибочно интерпретируемый нами как наблюдаемое неоспоримое опытное подтверждение того, что реальность устроена так-то и так-то, и что на такие-то вещи мы можем пытаться повлиять, а на такие-то повлиять невозможно в принципе, и т.д. и т.п.</p>
+
+<p>1.1.5.Именно здесь-то и находится тайный «эзотерический», но от этого не менее практический и действенный, «принцип», который нашли много веков тому назад древние предки современных евреев, жившие в древности достаточно сплоченной немногочисленной общиной, с которой происходили достаточно интересные, по меркам любого исторического периода, социо-культурные и социо-психологические явления, формообразующие тот вид социальной организации, в котором эти общности находились какое-то заметное (им самим, как минимум) время в отдельные исторические периоды своего существования и сосуществования с прилежащими общностями, не пользовавшимися подобными «экспериментальными и концептуально продвинутыми» моделями социальной организации, а предпочитавшие жить «по старинке», ничего к худшему по своей воле не меняя (знакомый модус вивенди, правда?). Эти периоды в историко-культурной традиции и историографии евреев называются «периодами первого и второго Храмов», последний из них закончился в аккурат к началу эпохи христианства, фактически реформировавшего старую еврейскую веру и быт (который в то время с вероисповеданием был связи чуть более, чем полностью) общества и личности, перестраивая их на новый лад, и этим выделяя в отдельную масштабную историческую стезю из единственного на тот момент существовавшего в мире стандарта монотеизма деля на две существенно разные этно-мировоззренческие социальные группы - иудаизм и христианство. Примерно в это же время «родилась» и Наука Каббала (еще совсем недавно таковой эпитет духовного учения не вызывал автоматическую ухмылку у современного и просвещенного человека), посредством создания ее основного формообразующего столпа - многотомного собрания эзотерических текстов, называемого «КНИГА ЗОАР». Не будем останавливаться на спорных и не существенных, в действительности, от слова «совсем», моментах, связанных с ее написанием, в частности, с точным определением авторства и датировки. Наиболее важным для нас «здесь и сейчас», равно как и в актуально обозримом будущем, является то, что в 20 веке жил каббалист, которого звали Йегуда Лейб Алеви Ашлаг, и который получил «титул» (творческий псевдоним) Бааль Сулам (обладатель лестницы - ивр.) за свой монументальный многолетний труд, преобразовавший к пригодному для практического применения современным человеком виду, этот Первоисточник (а вместе с ним, «автоматически» - и весь объем богатого эзотерического, онтологического и философского наследия, связанного с еврейским народом в общем, в его внутреннем, «духовном» и тайном аспекте и значении, - до эпохи Бааля Сулама, по большому счету, недоступного «посторонним» по определению, - поскольку он весь, так или иначе, базировался на этой Книге), существовавший в виде несвязного, по большому счету, набора рассеянных и растерянных в веках документов, написанных на языке, допускавшем только две равнобезнадежные, с точки зрения извлечения из их существования человеком практической пользы, опции своего применения:</p>
+
+<ol class="num">
+<li>принятие на веру, произвольно выбранных характерных элементов богатого семантического поля Книги, не предполагающую допустимости критического, равно как и сколько нибудь серьезного онтологического, осмысления, анализа и оценки «изучаемого» материала;</li>
+<li>заучивания наизусть предполагаемых «духовных формул», с последующим выстраиванием на их основе системы «духовно продвинутой» самодисциплины, ограничивающей и направляющей адептов посредством единственно «истинной» интерпретации данного набора «формул», основанной на трактовке и объяснениях, данных отдельными историческими деятелями, предположительно, и/или реально имевших, во время своей активной творческой деятельности, связанной с рассматриваемой проблематикой по-жизни, реально располагаемый опыт собственного наблюдения и объективного свидетельствования истинности и настоящего значения (далеко не очевидного и не «интуитивно понятного» чуть более, чем везде) тех или иных описаний, сюжетов, терминов и формулировок, которые в этой Книге имеются, что наболее существенно выражалось, по располагаемому итогу, в железобетонной и неизменяемой психо-эмоциональной трактовке общего настроения и значения общей направленности всего рассматриваемого корпуса текстов, которые по факту и стали являться (а отнюдь не реальное понимание адептами, и исходящее из него практическое целевое использование, адекватное «исходному» намерению первоисточника) «визитной карточкой» и «областью определения» конкретных имеющихся «духовных» подходов к использованию, трактовке и интерпретации богатого содержания этой Книги в том числе современниками Вашего покорного слуги, с некоторым числом которых он имел возможность быть знакомым лично, либо, находиться в переписке, или, как минимум, знать о существовании и предполагаемом характере знакомства с первоисточником. «В сухом остатке» второй из описываемых традиционных «вариантов использования» Книги Зоар, хотя и отличается от первого замысловатостью и хитровыдуманностью, приносит (в настоящем, имеющемся «здесь и сейчас» временном историческом общем периоде развития человека и его инструментария познания и описания мира и роли в нем самого себя) почти столько же объективной пользы «прямым образом», т.е. приводя человека проверяемым и повторяемым способом к изначально формулируемой им самим перед собой и планируемым жизненным периодом «духовной практической деятельности» задачи и цели, как это можно обозначить объективно в отношении любого инструмента приобретения человеком навыков практической деятельности, полезной и жизненно необходимой ему для выполнения определенного спектра практических задач, являющегося частью общего спектра выполняемых и располагаемых задач всех людей в целом как внутренне монолитной единой цивилизации, самообусловленной выполнением и формулированием этих задач в имеющемся объеме своих «составных частей», в отношении происхождения с нами, главным образом неявных и скрытых, на данный момент от человека, но от этого не менее реальных, основополагающих и определяющих относительно самого ближайшего будущего, не говоря уже о более отдаленном - процессов, явлений и сфер влияния, интереса и практической деятельности, обладающих приоритетной важностью с точки зрения общегуманистической линии происхождения, бытия и развития, в частном и в общем, поскольку, как нас учит в том числе и эта Книга, при грамотном осуществлении эффективной стратегии взаимодействия с ней с целью извлечения опытной информации и реально ощущаемого раскрытия «скрытого» от человека ранее существенного объема мироздания реального мира «здесь и сейчас», - общее и частное (жизненный путь человеческой личности, и общий эволюционный путь развития человеческой цивилизации) тождественны друг другу во всех деталях, с точностью до масштабов опосредуемого ими объема изменений и затрагиваемых процессов реального мира.</li>
+</ol>
+
+<div class="cry">Продолжение следует</div>
+</article>
+
+<nav class="article-nav">
+  <span class="prev"><a href="2AFA.html">← Искусство читать между строк Бесконечности</a></span>
+  <span class="next"><a href="2CO.html">Один, Единственный и Единый →</a></span>
+</nav>
+
+<footer class="footer">
+<p class="editinfo">Редакция: Иван Иванович</p>
+<p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+<p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+</footer>
+</div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
     --bg:#f7f4ee;
     --paper:#fffdf9;
     --ink:#1f1b16;
@@ -19,8 +252,8 @@
     --maxw:1180px;
   }
   *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
     margin:0;
     background:var(--bg);
     color:var(--ink);
@@ -36,7 +269,7 @@
     padding:32px 0 80px;
   }
   @media(max-width:1100px){ .wrap{ width:86%; } }
-  @media(max-width:680px){ .wrap{ width:92%; font-size:18px; } body{font-size:18px;} }
+  @media(max-width:680px){ .wrap{ width:92%; font-size:18px; } .ya-old{font-size:18px;} }
 
   /* breadcrumbs */
   .breadcrumbs{
@@ -201,21 +434,7 @@
   }
   footer a{ color:var(--accent2); }
 </style>
-
-<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/28M.html">
-<meta name="description" content="Статья о методике духовного саморазвития на основе трёх линий, описывающая её принципы, истоки в каббале и отличия от традиционных систем самосовершенствования.">
-<meta property="og:title" content="Методика Трех Линий (111-115)">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/28M.html">
-<meta property="og:description" content="Статья о методике духовного саморазвития на основе трёх линий, описывающая её принципы, истоки в каббале и отличия от традиционных систем самосовершенствования.">
-<meta property="og:site_name" content="Путь Восходящей Звезды">
-<meta property="og:locale" content="ru_RU">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Методика Трех Линий (111-115)">
-<meta name="twitter:description" content="Статья о методике духовного саморазвития на основе трёх линий, описывающая её принципы, истоки в каббале и отличия от традиционных систем самосовершенствования.">
-<script src="../ya-switch.js"></script>
-</head>
-<body data-scheme="editorial">
+<div class="ya-old" data-scheme="editorial">
 <span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №28M</span>
 <div class="wrap" id="top">
 
@@ -289,5 +508,262 @@
   "features": ["toc"]
 }
 </script>
+</div></template>
+<script>
+// Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
+// no editor/login module is loaded.
+(function(){
+  var bubble = null, hideTimer = null;
+  function ensureBubble(){
+    if (bubble) return bubble;
+    bubble = document.createElement('div');
+    bubble.className = 'footnote-bubble';
+    bubble.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); });
+    bubble.addEventListener('mouseleave', scheduleHide);
+    document.body.appendChild(bubble);
+    return bubble;
+  }
+  function scheduleHide(){
+    if (hideTimer) clearTimeout(hideTimer);
+    hideTimer = setTimeout(function(){ if (bubble) bubble.classList.remove('show'); }, 180);
+  }
+  function show(link){
+    var href = link.getAttribute('href') || '';
+    if (!href.startsWith('#')) return;
+    var target = document.getElementById(href.slice(1));
+    if (!target) return;
+    var b = ensureBubble();
+    var clone = target.cloneNode(true);
+    var back = clone.querySelector('a.backref');
+    if (back) back.remove();
+    // муз-трек как цель сноски: во всплывашке — ТОЛЬКО название трека (+ ↗),
+    // БЕЗ плеера/iframe-фрейма и дубль-этикетки (вердикт оператора 14:46)
+    if ((clone.className || '').indexOf('music') >= 0 || clone.querySelector('iframe, .player')) {
+      Array.prototype.forEach.call(clone.querySelectorAll('.player, .caret, .label, .trk-play'),
+        function(e){ e.remove(); });
+    }
+    b.innerHTML = clone.innerHTML;
+    b.classList.add('show');
+    var r = link.getBoundingClientRect();
+    var sx = window.pageXOffset, sy = window.pageYOffset;
+    b.style.left = '0px'; b.style.top = '0px';
+    var bw = b.offsetWidth, bh = b.offsetHeight;
+    var left = sx + r.left + r.width/2 - bw/2;
+    var maxLeft = sx + document.documentElement.clientWidth - bw - 8;
+    if (left > maxLeft) left = maxLeft;
+    if (left < sx + 8) left = sx + 8;
+    var top = sy + r.top - bh - 10;
+    var placeBelow = (top - sy) < 8;
+    if (placeBelow) top = sy + r.bottom + 10;
+    b.style.left = left + 'px';
+    b.style.top  = top  + 'px';
+    b.classList.toggle('below', placeBelow);
+  }
+  function ytPost(f, func){
+    if (!f) return;
+    try { f.contentWindow.postMessage('{"event":"command","func":"'+func+'","args":[]}', '*'); } catch(e){}
+  }
+  function applyMute(d){
+    var btn = d.querySelector('.trk-mute'); if (!btn) return;
+    var f = d.querySelector('iframe');
+    if (!f || f.getAttribute('data-src')) return;   // плеер ещё не впрыснут
+    var func = btn.getAttribute('aria-pressed') === 'true' ? 'mute' : 'unMute';
+    ytPost(f, func);                                 // плеер готов (играет рекламу) → срабатывает сразу
+    setTimeout(function(){ ytPost(f, func); }, 700); // ретраи на случай «только что открыли»
+    setTimeout(function(){ ytPost(f, func); }, 1800);
+  }
+  function bindMusic(){
+    document.querySelectorAll('details.music').forEach(function(d){
+      if (d.dataset.musicBound) return; d.dataset.musicBound = '1';
+      d.addEventListener('toggle', function(){
+        if (!d.open) return;
+        var f = d.querySelector('iframe[data-src]');
+        if (f) {
+          var src = f.getAttribute('data-src');
+          src += (src.indexOf('?') >= 0 ? '&' : '?') + 'origin=' + encodeURIComponent(location.origin);
+          f.src = src; f.removeAttribute('data-src');
+        }
+        applyMute(d);                                // применить запомненное mute-состояние
+      });
+      var btn = d.querySelector('.trk-mute');
+      if (btn) {
+        var toggle = function(ev){
+          ev.preventDefault(); ev.stopPropagation();  // не дёргать details.open
+          var on = btn.getAttribute('aria-pressed') !== 'true';
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+          btn.setAttribute('aria-label', on ? 'Включить звук' : 'Заглушить звук');
+          btn.title = on ? 'Включить звук' : 'Заглушить звук (реклама YouTube)';
+          applyMute(d);
+        };
+        btn.addEventListener('click', toggle);
+        btn.addEventListener('keydown', function(ev){
+          if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') toggle(ev);
+        });
+      }
+    });
+  }
+  function bindFootnotes(){
+    document.querySelectorAll('sup a[href^="#cite_note-"]').forEach(function(a){
+      if (a.dataset.fnBound) return; a.dataset.fnBound = '1';
+      a.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); show(a); });
+      a.addEventListener('mouseleave', scheduleHide);
+      a.addEventListener('focus', function(){ show(a); });
+      a.addEventListener('blur',  scheduleHide);
+    });
+  }
+  function bindSpoilers(){
+    document.querySelectorAll('.spoiler').forEach(function(sp){
+      if (sp.dataset.splBound) return; sp.dataset.splBound = '1';
+      function reveal(){ sp.classList.add('revealed'); }
+      sp.addEventListener('click', reveal);
+      sp.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); reveal(); }
+      });
+    });
+  }
+  bindMusic(); bindFootnotes(); bindSpoilers();
+
+  // Общая левая рейка стихов: все .poem статьи ровняются по краю, который
+  // центрирует САМЫЙ ШИРОКИЙ из них (классическая осевая выключка, но единая
+  // на статью — края не скачут от блока к блоку). Пересчёт при смене
+  // темы/ширины/размера окна: метрики шрифта и мера меняются.
+  function alignPoems(){
+    var art = document.querySelector('article'); if (!art) return;
+    var poems = Array.prototype.slice.call(art.querySelectorAll('.poem'));
+    if (!poems.length) return;
+    poems.forEach(function(p){ p.style.marginLeft = ''; p.style.marginRight = ''; });
+    if (poems.length < 2) return; // одиночный стих — родное центрирование темы
+    var maxW = 0;
+    poems.forEach(function(p){ maxW = Math.max(maxW, p.getBoundingClientRect().width); });
+    var cs = getComputedStyle(art);
+    var artRect = art.getBoundingClientRect();
+    var contentLeft = artRect.left + parseFloat(cs.paddingLeft || 0) + parseFloat(cs.borderLeftWidth || 0);
+    var contentWidth = art.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+    var targetX = contentLeft + Math.max(0, (contentWidth - maxW) / 2);
+    poems.forEach(function(p){
+      p.style.marginLeft = '0px'; p.style.marginRight = 'auto';
+      var x = p.getBoundingClientRect().left;
+      p.style.marginLeft = (targetX - x) + 'px';
+    });
+  }
+  var alignTimer = null;
+  function alignPoemsSoon(){ if (alignTimer) clearTimeout(alignTimer); alignTimer = setTimeout(alignPoems, 60); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignPoemsSoon);
+  window.addEventListener('load', alignPoemsSoon);
+  window.addEventListener('resize', alignPoemsSoon);
+  alignPoemsSoon();
+
+  // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
+  var sel = document.getElementById('zml-theme');
+  var wsel = document.getElementById('zml-width');
+  var link = document.getElementById('theme-css');
+  var wrap = document.querySelector('.wrap');
+  var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
+  if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
+  if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
+  if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
+  if (sel) sel.addEventListener('change', function(){
+    var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
+    document.body.setAttribute('data-theme', t);
+    if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
+  });
+  if (wsel) wsel.addEventListener('change', function(){
+    if (!wrap) return;
+    wrap.classList.toggle('w-narrow', wsel.value==='narrow');
+    wrap.classList.toggle('w-wide', wsel.value==='wide');
+    alignPoemsSoon();
+  });
+
+  // Ф8′ ре-резолвинг вида. Настройки Admin (global design/width + правила по
+  // разделам/типам, с приоритетом per-article frontmatter) распространяются на
+  // ВСЕХ через ОДИН resolveDisplay (зеркало render.js). Залогинен → личные правила
+  // из worker KV (/api/settings); аноним → глобальный display.json (тот же файл,
+  // что коммитит Admin) → правки Admin доходят до анонимов В РАНТАЙМЕ, не только
+  // редирект «new/old». Запечённая build_views тема — лишь стартовый/no-JS дефолт:
+  // если совпадает с резолвом (обычный случай), apply() ничего не трогает (нет мигания).
+  (function(){
+    var body = document.body;
+    var section = body.getAttribute('data-art-section') || '';
+    var type    = body.getAttribute('data-art-type') || '';
+    var fmTheme = body.getAttribute('data-fm-theme') || '';
+    var fmWidth = body.getAttribute('data-fm-width') || '';
+    var worker  = (body.getAttribute('data-worker') || '').replace(/\/+$/, '');
+    var sess; try { sess = JSON.parse(localStorage.getItem('ya_session')||'null'); } catch(e){}
+    function resolve(cfg){
+      var g=(cfg&&cfg.global)||{}, rules=(cfg&&cfg.rules)||[], rd='', rw='';
+      for (var i=0;i<rules.length;i++){ var m=rules[i]&&rules[i].match; if(!m) continue;
+        if ((m.kind==='section'&&m.value===section)||(m.kind==='type'&&m.value===type)){
+          rd=rules[i].design||''; rw=rules[i].width||''; break; } }
+      return { design:(fmTheme||rd||g.design||'A_editorial'),
+               width:(fmWidth||rw||g.width||'wide') };
+    }
+    function apply(d){
+      if (sel && sel.value!==d.design){ sel.value=d.design; sel.dispatchEvent(new Event('change')); }
+      var w = /narrow|820/.test(d.width)?'narrow':'wide';
+      if (wsel && wsel.value!==w){ wsel.value=w; wsel.dispatchEvent(new Event('change')); }
+    }
+    // залогинен с воркером → личный KV; иначе (аноним) → общий display.json.
+    var src = (sess && sess.token && worker)
+      ? fetch(worker+'/api/settings',{headers:{Authorization:'Bearer '+sess.token}})
+      : fetch('../config/display.json',{cache:'no-cache'});
+    src.then(function(r){ return r.ok?r.json():null; })
+       .then(function(cfg){ if(cfg) apply(resolve(cfg)); })
+       .catch(function(){});
+  })();
+})();
+</script>
+<script src="../ya-edit.js" defer></script>
 </body>
 </html>

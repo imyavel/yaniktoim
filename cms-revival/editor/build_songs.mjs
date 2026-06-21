@@ -1,7 +1,8 @@
 // Build the «Песнь Ступеней» special page (ZML3 §6.8): docs/songs/index.zml →
 // docs/songs/index.view.html via template_songs.html. NOT an art-id article →
 // own template (no byline/prev-next/TOC), art-links get base "../art/".
-// Live docs/songs/index.html is NOT touched (cutover at Ф9). Reuses render.js.
+// url-unification: пишет ZML-рендер в docs/songs/index.html (единственный адрес);
+// index.view.html → редирект-заглушка. Reuses render.js.
 // Usage: node build_songs.mjs
 
 import { readFileSync, writeFileSync, readdirSync, copyFileSync, mkdirSync, existsSync } from "node:fs";
@@ -50,6 +51,16 @@ const html = renderSongsHtml({
   template, artHrefBase: "../art/", siteConfig, displayConfig, // docs/songs/ → docs/art/<id>.view.html
 });
 
-const out = argOut ? join(process.cwd(), argOut) : join(docsSongs, "index.view.html");
+// url-unification: единственный адрес — docs/songs/index.html (ZML-рендер; «old»-
+// варианта у songs нет). Прежний index.view.html → редирект-заглушка (как у статей).
+const out = argOut ? join(process.cwd(), argOut) : join(docsSongs, "index.html");
 writeFileSync(out, html);
 console.log("OK songs ->", out, html.length, "B");
+if (!argOut) {
+  const stub = '<!doctype html><html lang="ru"><head><meta charset="utf-8">\n' +
+    '<meta name="robots" content="noindex"><link rel="canonical" href="index.html">\n' +
+    '<meta http-equiv="refresh" content="0; url=index.html"></head>\n' +
+    '<body data-pagefind-ignore="all"><a href="index.html">→ Перейти к странице</a></body></html>\n';
+  writeFileSync(join(docsSongs, "index.view.html"), stub);
+  console.log("OK songs stub -> songs/index.view.html");
+}

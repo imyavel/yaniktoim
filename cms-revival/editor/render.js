@@ -1776,7 +1776,8 @@ export function renderSongsHtml(ctx) {
   const fmTheme = (p.fm.theme || "").trim();
   const fmWidth = (p.fm.width || "").trim();
   const resolved = resolveDisplay(ctx.displayConfig || null, "songs", "", fmTheme, fmWidth);
-  const theme = resolved.design;
+  // у songs «old»-варианта нет (P6.3): если правило/глобаль дали "old" — печём ZML-дефолт.
+  const theme = resolved.design === "old" ? "A_editorial" : resolved.design;
   const widthRaw = resolved.width.toLowerCase();
   const wrapClass = /narrow|820/.test(widthRaw) ? "w-narrow" : "w-wide";
   // p.title/p.description приходят RAW → экранируем здесь (как в исходном
@@ -1796,6 +1797,9 @@ export function renderSongsHtml(ctx) {
   // для клиентского ре-резолвинга у залогиненных (зеркало template_view).
   html = replaceAllLiteral(html, "{{FM_THEME}}", esc(fmTheme));
   html = replaceAllLiteral(html, "{{FM_WIDTH}}", esc(fmWidth));
+  // индексируемость (url-unification): songs/index.html — публичный адрес, попадает
+  // в Pagefind. Атрибут оставлен в шаблоне ради синка docs/editor/, из вывода убираем.
+  html = replaceAllLiteral(html, ' data-pagefind-ignore="all"', '');
   return html;
 }
 

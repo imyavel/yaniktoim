@@ -5,10 +5,564 @@
 <link rel="icon" type="image/png" href="../img/favicon.png">
 <link rel="apple-touch-icon" href="../img/favicon.png">
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Заря Близко</title>
-<style>
-  :root{
+<meta name="description" content="Эссе о возвращении к братьям по учению и Творцу, о ступени Катнут, поручительстве, памяти Клятвы у Синая и сути последнего поколения.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/1CB.html">
+<meta property="og:title" content="Заря Близко">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/1CB.html">
+<meta property="og:description" content="Эссе о возвращении к братьям по учению и Творцу, о ступени Катнут, поручительстве, памяти Клятвы у Синая и сути последнего поколения.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Заря Близко">
+<meta name="twitter:description" content="Эссе о возвращении к братьям по учению и Творцу, о ступени Катнут, поручительстве, памяти Клятвы у Синая и сути последнего поколения.">
+<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/1CB.jpg">
+<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/1CB.jpg">
+<link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
+<style id="spl-base">
+/* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
+.wrap.w-narrow{max-width:820px;}
+.wrap.w-wide{max-width:1080px;}
+/* [spl] spoiler — structural, theme-agnostic. Themes may tune --spl-cover. */
+.spoiler{position:relative;display:inline-block;cursor:pointer;border-radius:3px;vertical-align:baseline;}
+.spoiler:not(.revealed) .spoiler-content{visibility:hidden;}
+.spoiler:not(.revealed)::before{content:"";position:absolute;inset:-1px;border-radius:3px;
+  background:var(--spl-cover,repeating-linear-gradient(45deg,#4a4a4a 0 7px,#2f2f2f 7px 14px));
+  background-size:auto;animation:spl-shimmer 1.4s linear infinite;}
+.spoiler.revealed{cursor:auto;}
+.spoiler:focus-visible{outline:2px solid currentColor;outline-offset:2px;}
+@keyframes spl-shimmer{from{background-position:0 0;}to{background-position:20px 0;}}
+@media (prefers-reduced-motion:reduce){.spoiler:not(.revealed)::before{animation:none;}}
+/* audio narration 🎧 by H1 — structural, theme-agnostic (themes may refine). */
+.audio-link{font-size:.62em;vertical-align:middle;margin-left:.4em;text-decoration:none;white-space:nowrap;}
+/* [subsec] section subtitle — base (themes refine): muted italic, tight to ## heading. */
+.sec-sub{margin:.15em 0 1.3em;font-style:italic;font-size:.95em;opacity:.7;line-height:1.45;text-indent:0;text-align:left;}
+h2 + .sec-sub, h2.subtitle + .sec-sub{margin-top:-.5em;}
+/* [meta] metadata card (proza-шапка) — base через :where() (0-специфичность → любое правило темы перебивает, хотя <style> идёт после <link> темы). */
+:where(.meta){margin:1.4em auto .6em;max-width:560px;padding:.85em 1.2em;background:var(--panel,rgba(128,128,128,.06));border:1px solid var(--rule,#ddd);border-left:4px solid var(--accent2,var(--accent,#999));border-radius:3px;line-height:1.5;color:var(--muted,inherit);text-indent:0;}
+:where(.meta b){color:var(--ink,inherit);font-weight:600;}
+:where(.meta .epi){display:block;margin-top:.5em;padding-top:.5em;border-top:1px dashed var(--rule,#ddd);font-style:italic;color:var(--accent,inherit);}
+/* [faw] free-associative writing — стихи, записанные прозой. Строки-сегменты «|»
+   → .faw-l.a/.b с чередованием стиля (границы строк видны на глаз). Режим (монолит
+   display:inline — swiss/editorial/cyberpunk · построчно display:block — manuscript/
+   ar_deco) и чередование задаёт ТЕМА. База — только отступ блока и нулевой-специфичности
+   фолбэк построчно через :where() (любое правило темы его перебивает; стиль <style> идёт
+   ПОСЛЕ <link> темы, поэтому обычное `.faw-l` затёрло бы тему — отсюда :where). */
+.faw{margin:1.5rem 0;}
+/* Абзацы внутри [faw] (безымянный [fp]): каждый — блок .faw-p, между ними отступ. Виден и
+   в монолитных темах (между блоками), и в построчных. Внутри .faw-p строки идут по теме. */
+.faw .faw-p + .faw-p{margin-top:1.1em;}
+:where(.faw-l){display:block;}
+/* [faw sta=N] зазор-строфа: пустая строка после каждых N строк. Верт. margin к inline
+   не применяется → в монолите параметр игнорируется (как и задумано). */
+:where(.faw-l.faw-se){margin-bottom:1em;}
+/* Капитализация первой буквы строки (.faw-cap) — фича ПОСТРОЧНЫХ тем (manuscript/ar_deco):
+   там строки начинаются с заглавной, как в стихах. Монолитные темы .faw-cap НЕ трогают —
+   текст течёт прозой в авторском регистре. См. THEME_CONTRACT. */
+/* [fp] маркер нумерованного пункта внутри [faw] (§2.5): инлайн-бейдж — строку НЕ рвёт (стих
+   течёт сквозь пункты), может стоять в середине строки; даёт якорь для TOC. Не наследует
+   курсив/регистр чередования. Базовый вид (тема может уточнить через --accent). */
+.faw-pt{display:inline-block;font-family:ui-sans-serif,system-ui,sans-serif;font-weight:700;
+  font-size:.62em;line-height:1.5;vertical-align:.16em;color:var(--accent,#777);
+  border:1px solid currentColor;border-radius:.5em;padding:0 .42em;margin:0 .45em 0 .1em;
+  font-style:normal;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;
+  scroll-margin-top:1.4rem;text-decoration:none;}
+.faw-l .faw-cap{font-style:inherit;}
+/* fn-ревью (2026-06-12) — структурная база новых конструкций; темы уточняют. */
+/* [^N] в H1: sup-маркер на глаз отличим от текста заголовка (THEME_CONTRACT). */
+h1#article-title sup{font-size:.42em;font-weight:400;line-height:0;letter-spacing:normal;vertical-align:super;}
+/* [line kind=tags|dateline] — служебная роль-строка; буквицы тем её пропускают. */
+p.line{font-size:.88em;opacity:.72;letter-spacing:.02em;text-indent:0;}
+/* [ul] — маркированный список; значок через --marker → li::marker. */
+ul.ul{margin:1em 0;padding-left:1.6em;}
+ul.ul li::marker{content:var(--marker, initial);}
+/* [num] со скобко-стилем «1)» (авторские номера держит li[value]). */
+ol.num.num-paren li::marker{content:counter(list-item) ") ";}
+/* [epi kind=dedi] — посвящение. */
+article .epigraph.dedication, article .epilogue.dedication{text-align:right;font-style:italic;}
+/* TOC: вложенный 2-й уровень (###). */
+details.article-toc ol ol{margin:.15em 0 .15em 1.1em;}
+/* [toc nonum]: заголовки сами нумерованы (1 / 1.1 / 1.1.1) → гасим авто-числа <ol>
+   (две класса-метки → перебивает per-theme `.article-toc ol{padding-left}` по специфичности) */
+details.article-toc.nonum ol{list-style:none; padding-left:0;}
+details.article-toc.nonum ol ol{margin-left:1.1em;}
+/* [sig] подпись / [cry] возглас (ZML3 C11) — base, themes refine. */
+.sig{text-align:right;font-style:italic;margin:1.4rem 0;}
+.cry{text-align:center;font-weight:700;letter-spacing:.05em;margin:1.6rem 0;}
+/* глифы (C13) + inline term/leit (C10) — base no-op-ish; themes colour or ignore. */
+.glyph{white-space:nowrap;}
+.term{text-decoration:underline dotted;text-underline-offset:3px;}
+.leit{font-style:italic;}
+/* музыка Б2: inter-track заметка (1AQA «Слушать вместе…») — base, themes refine. */
+.music-note{text-align:center;font-style:italic;opacity:.72;font-size:.92em;
+  margin:.2rem 0 .5rem;}
+/* музыка-плашка (канон оригинала): ▶ N) **Название** — *Автор* — название жирным,
+   автор обычным-курсивом, ► играбел-индикатор (крутится при раскрытии). Специфичность
+   `.music-group .title …` перебивает курсив `.title` темы. */
+.music-group .trk-play{display:inline-block;font-size:.82em;opacity:.65;margin-right:.1em;
+  transition:transform .18s ease;}
+details.music[open] .trk-play{transform:rotate(90deg);}
+.music-group .title .trk-num{opacity:.55;font-style:normal;font-variant-numeric:tabular-nums;}
+.music-group .title .trk-ttl{font-weight:600;font-style:normal;}
+.music-group .title .trk-sep{opacity:.5;font-weight:400;}
+.music-group .title .trk-art{font-weight:400;font-style:italic;opacity:.78;}
+/* трек-строка = flex: текст слева ВО ВСЕХ темах (перебивает theme text-align:center
+   у B_manuscript/ar_deco — флекс-айтемы паковка слева), динамик-mute прижат вправо
+   (2026-06-18). */
+.music-group details.music>summary,.music-group .music-noplayer>.summary{
+  display:flex; align-items:center; flex-wrap:wrap; gap:.12em; text-align:left;}
+.music-group .title{min-width:0;}
+/* кнопка-динамик (mute рекламы YouTube) — справа на строчке */
+.music-group .trk-mute{margin-left:auto; flex:0 0 auto; align-self:center;
+  cursor:pointer; opacity:.5; color:inherit; line-height:0; padding:.1em .2em;
+  border-radius:4px; transition:opacity .15s,color .15s;
+  -webkit-tap-highlight-color:transparent;}
+.music-group .trk-mute:hover,.music-group .trk-mute:focus-visible{opacity:1; outline:none;}
+.music-group .trk-mute svg{width:1.2em; height:1.2em; display:block;}
+.music-group .trk-mute .spk-slash{display:none;}
+.music-group .trk-mute[aria-pressed="true"]{opacity:.95; color:var(--accent,currentColor);}
+.music-group .trk-mute[aria-pressed="true"] .spk-wave{display:none;}
+.music-group .trk-mute[aria-pressed="true"] .spk-slash{display:inline;}
+/* [dlg] форум-стиль (№2, по образцу форума ccastaneda.ru): пост-в-рамке + метка
+   спикера small-caps. base — themes refine (--accent2 = акцент темы). */
+.dialog .post{border-left:3px solid var(--accent2,currentColor);
+  background:color-mix(in srgb, currentColor 4%, transparent);
+  padding:.55rem .95rem;margin:.7rem 0;border-radius:0 4px 4px 0;}
+.dialog .post-by{display:block;font-variant:small-caps;letter-spacing:.05em;
+  font-weight:700;font-style:normal;font-size:.9em;color:var(--accent2,inherit);
+  opacity:.95;margin-bottom:.25em;}
+.dialog .post-text{display:block;}
+.dialog .post-text + .post-text{margin-top:.55em;}/* многоабзацная реплика */
+.dialog .dlg-line{margin:.45rem 0;}
+/* viewbar — управление видом статьи (тема/ширина/оригинал/править).
+   Сидит в одной строке с крошками (крошки слева, управление справа).
+   Здесь только структура; типографика/цвета — у темы (.viewbar в THEME_CONTRACT). */
+header.breadcrumbs{display:flex;gap:1.2em;row-gap:.3em;align-items:baseline;flex-wrap:wrap;}
+/* крошки ВСЕГДА слева — перебиваем темы, центрирующие шапку (B_manuscript/ar_deco). */
+header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
+.viewbar{display:flex;gap:1.1em;row-gap:.3em;align-items:center;flex-wrap:wrap;
+  font-size:.78rem;margin:0 0 0 auto;}
+.viewbar label{display:inline-flex;gap:.35em;align-items:center;white-space:nowrap;}
+.viewbar select{font:inherit;color:inherit;background:transparent;border:none;
+  border-bottom:1px solid currentColor;padding:0 1px 1px;cursor:pointer;}
+.viewbar select option{color:#222;background:#fff;}
+.viewbar a{text-decoration:none;white-space:nowrap;}
+.viewbar .vb-edit{font:inherit;color:inherit;background:none;border:none;padding:0;white-space:nowrap;}
+.viewbar .vb-edit:disabled{opacity:.45;cursor:default;}
+/* по умолчанию кнопка СКРЫТА (hidden в разметке) — аноним/не-редактор её не видят;
+   ya-edit.js снимает hidden только у editor/admin. Явное правило перебивает темы. */
+.viewbar .vb-edit[hidden]{display:none;}
+</style>
+</head>
+<body class="article-page" data-art="1CB" data-theme="swiss"
+  data-art-section="shoshana" data-art-type="prose_num"
+  data-fm-theme="" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
+<div class="wrap w-wide">
+<header class="breadcrumbs">
+<span class="crumbs"><a href="../index.html">Главная</a><span class="sep">›</span><a href="../shoshana/index.html">Роза Среди Шипов</a></span>
+<nav class="viewbar" aria-label="Вид статьи">
+  <label>Тема
+    <select id="zml-theme">
+      <option value="A_editorial">editorial</option>
+      <option value="B_manuscript">manuscript</option>
+      <option value="cyberpunk">cyberpunk</option>
+      <option value="swiss">swiss</option>
+      <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
+    </select>
+  </label>
+  <label>Ширина
+    <select id="zml-width">
+      <option value="wide">широкая</option>
+      <option value="narrow">узкая</option>
+    </select>
+  </label>
+  <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
+</nav>
+</header>
+<img class="cover" src="../img/1CB.jpg" alt="Заря Близко">
+
+<h1 id="article-title">Заря Близко⁠<a class="audio-link" href="https://t.me/art_017_tracks/510" target="_blank" rel="noopener" title="Слушать аудио-озвучку" aria-label="Слушать аудио-озвучку">🎧</a></h1>
+<p class="byline">Элиягу Бар Малей · #1CB · 2021-12-11 · Источник: <a href="https://proza.ru/2022/01/03/138" target="_blank" rel="noopener">proza.ru/2022/01/03/138</a></p>
+<article>
+
+<p class="line line-dateline">11 декабря 2021г.</p>
+
+<div class="epigraph" data-label="Эпиграф">
+<p>"У всего существующего в действительности, и хорошего, и плохого, и даже наихудшего и самого вредного в мире, есть право на существование. Никакое явление нельзя истреблять и уничтожать. На нас возложена задача лишь исправить его и возвратить к Источнику.</p>
+<p>Даже одного внимательного взгляда на процесс творения достаточно, чтобы прийти к осознанию величия и совершенства действия и Совершающего его. Мы должны понимать это и остерегаться пренебрежения любой частью творения под тем предлогом что она кажется лишней и бесполезной. Ведь тем самым мы пренебрегаем действием сотворения"</p>
+</div>
+
+<p>Мир в мире, Йегуда Лейб Алеви Ашлаг (Бааль Сулам)</p>
+
+<ol class="num">
+<li value="1">Я давно не был в Кли, и даже не смотрел уроков. Каюсь, Господь. Я потерял веру в себя, в то, что я когда либо смогу конструктивно найти общий язык со своими единоутробными братьями. Хотя давно уже понимаю, почему именно так и должно было быть. Но, одно дело - понимать умом, и совсем другое - принимать Сердцем. Сердцу не прикажешь. Сердцу уже приказано, и приказ давно выполнен. Осталось совсем немного. Все таки, я должен сделать вклад в человеческий Дух, даже если не могу поблагодарить лично тех, кто сделал мне много добра на моем Пути, а это действительно так. Самой большой загадкой для меня осталось то, как может существовать настоящая любовь между братьями на ступени Катнут. Ведь Любовь и Поручительство - это свойства Света Хохма, а Он относится к ступени Гадлут и "личному Концу Исправления". Как минимум, личному. Хотя и до "общего" нам уже не так далеко, как раньше.</li>
+<li value="2">Да, в "поручительство" не входят на ступени Катнут. Я и не входил ни в какое поручительство. Я "просто" удостоился, молитвами братьев и Рава, "вспомнить" ту ступень поручительства, которая между нами уже есть и пребудет вечно, поскольку Катнут является ступенью неотменяемой, один раз будучи достигнута, она остается у человека навсегда. Но вспоминать Ее приходится каждый раз заново, когда человек заново рождается в Этот Мир и перед ним стоит задача вспомнить себя, вспомнить Творца, Свят Благословен Он, и вспомнить своих любимых братьев. Я эту задачу выполнил. Милостью Благословенного Господа. И до конца своих дней буду любить Вас всем своим сердцем, независимо от моего "особого мнения" по этому поводу, в чем бы оно не заключалось. Мой любимый Народ Исраэль. 600 тысяч святых мучеников. Умирающих за свою веру и снова рождающихся вот уже 3000 лет, чтобы умереть заново. Пока не научимся помнить Творца, помнить себя и помнить о нашей Клятве, в каком Мире, Году или Душе мы бы не рождались. В этом Суть "последнего поколения". "Иванов не помнящих родства" в Нем уже не будет. В принципе, их и сейчас уже нет. Просто, одно дело - "помнить" умом, и совсем другое, принимать сердцем. Мы все давно уже пилим одну и ту же дыру в одной и той же лодке. Толкаясь локтями и благодаря Творца, Свят Благословен Он, когда Он нас удостаивает "пробиться" к месту пиления вне очереди и отнять друг у друга сверло. Мы никогда ничему не научимся. Потому что иначе нас некому будет учить, а мы этого не допустим никогда, потому что мы слишком любим нашего Учителя. И Его Учителей, смотрящих на нас сердито из недосягаемого Мира Бесконечности.</li>
+<li value="3">Братья, я вас люблю, и хочу быть слитым с Вами и с Творцом, Свят Благословен Он, навеки. К тому же, мы уже слиты с Ним навеки, ведь Он является и являлся нашим Единым Поручителем у Горы Синай. Моисей - лишь Его Раб, исполнявший Его Волю "от обратного", как и все каббалисты до и после него. Иначе чью-то чужую Волю исполнить просто невозможно. Таковы Законы духовной Реальности. Поэтому, Сделаем и услышим! Услышим, но не сделаем, потому что уже сделали все по другому. И время давно ушло вперед и теперь перед нами уже совсем другие действия. Но молитва каббалиста Творцу, Свят Благословен Он Один Единственный Единый навеки и воистину, работала, работает, и будет работать всегда, пока есть те, кто Говорят с Ним, и те, кто Его слушает, не важно, физически или "виртуально", в "десятке" учеников, каббалистов и духовных воинов "Кнессет Исраэль". Малхут Мира Бесконечности. Атик Йомин и Его Нуква, Которую мы должны для Него "раскрыть" и передать Ему, чтобы Он мог Ее наполнить Своим Светом Жизни, Мудрости и Любви Творца, Свят Благословен Он, к Своим творениям. А мы уж как нибудь обойдемся. Обходились весь как-то последние 2000 лет? Обойдемся еще 2000. Ор Хасадим - наше все, Он вечен и совершенен, но менее капризен и непредсказуем, чем Свет Хохма - его "темный Брат", светящий из Мира Простого Белого Света через "парсу" исчезающе тонкой линией, по которой наши души путешествуют туда и обратно, продолжая начатое Праотцом Адамом Ришон посредством Евы и "змея" нелегкое дело - ослушаться Творца, Свят Благословен Он. При этом, оставаясь Его преданными рабами, и исполняя Его Волю "вопреки" глазам, ушам и мозгам всех обитателей созданных Им миров, поскольку все они - ничто перед Ним Одним и не добавляют Ему ничего, а Он Им добавляет все, что в них было, есть и будет "добавлено" для "получения" нижними, выполняющими этим Его Святую Волю, чтобы становиться такими же, как Он. То есть, Одним Человеком Говорящим и слышащим Одним Сердцем. Говорящим с Творцом, Свят Благословен Он, и "слышащим" Его Голос посредством выбора Пути Сердца и благодарения Его за этот, единственно правильный, да и, вообще говоря, возможный, судьбоносный благословенный выбор.</li>
+<li value="4">Но перед нами стоит гораздо более сложная задача, поскольку Мы избраны Творцом, Свят Благословен Он, быть Ему "избранным народом" из всех народов, чтобы говорить с Ним от Имени всего Человечества, Которое слишком занято объективно более важными делами, и не хочет и не умеет и не будет, в массовом порядке, с Ним говорить "напрямую" в ежедневном режиме "не ради себя". Для этого и существуем Мы. И в самом Конце нашего общего Исправления Творцом, Свят Благословен Он, ничего в этом Подарке не изменится. Только мы сами станем Творцом, Свят Благословен Он, и поэтому нам понадобится все свойства, которые раскрывались на нашем долгом Пути становления, хоть один раз, независимо от того, "хорошие" они, или "плохие", "многочисленные" или "единичные". Из Песни слов не выкинешь. Его Песню можно только спеть. Встав в Круг и взявшись за руки под гитару уважаемого дорогого брата Саши Поровского.</li>
+</ol>
+
+<div class="music-group" data-label="Музыка под настроение">
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Саша Поровский</span></span><a class="ext" href="https://youtu.be/XzcJIlF160o" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/XzcJIlF160o?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+</div>
+
+<ol class="num">
+<li value="5">В начале письма я обещал вклад в человеческий Дух. Сейчас попытаюсь его сделать. Тут уж, как получится. Дареному Коню всадник без головы в зубы не смотрит. Ему нечем, незачем и не хочется отвлекать животное от важного процесса. Ведь именно Конь прокладывает Путь, будучи единственным в их тандеме, у кого для этого имеются минимально необходимые Келим. Пусть пока и без желаемого уровня раскрывающего их авиюта. Но зато созданные Творцом, Свят Благословен Он, до конца исправленными. И не имеющими своего собственного, чрезвычайно важного, как водится, "особого мнения" на счет выбираемого ими Пути. Конь достигнет Цели и выполнит Волю Всадника в любом случае, а больше его ничего не интересует. Его вообще ничего не интересует, кроме овса и водопоя. Такой уровень авиюта. Творцу, Свят Благословен Он, совершенно "не впадлу" дать нам весь Свой Свет Хохма даром прямо сейчас, равно как и был готов 6000 лет назад. И дал. Но дерево познания предопределило отказ от его получения, ведь если в Мире существует добро и существует зло, хотя бы гипотетически, в виде направления стрелки осциллографа на измерительном приборе, значит нельзя на все 100% быть уверенным, что хотя бы кто-то из нас свободен от зла окончательно. А значит и "виновны" мы все одинаково, и поэтому недостойны Его Получения в Келим Будущего Мира, пока жаренный Петух не прокукарекает и бедняк на осле не проедет в городские врата Иерусалима, сида задом наперед и дудя в дудку, как дурак, потому что никто его не слушает и никому нет до него никакого дела. Ведь, и правда, вдруг это не тот бедняк, или не тот осел, или, на худой конец, не та дудка? И почему он сидит на осле задом на перед, в 613 томах Святого Зоара об этом ничего не сказано? Нет, точно не Он. Подождем еще 6000 лет, рано или поздно или бедняк подохнет или осел. Или башня обветшает и обвалится, как это уже произошло один раз в далеком прошлом. Или Иерусалим захватят инопланетяне. Или Земляне вымрут от заразного вируса, передающегося через мысли. Для последнего достаточно убрать отсрочку их реализации из настоящего в будущее и отменить амнистию на мыслепреступления. О последнем и пойдет речь в дальнейшей части письма.</li>
+</ol>
+
+<div class="poem">6.
+
+Жили да были однажды и дважды,
+(Так как понравилось после "однажды"),
+Брат и сестра в деревушке у леса
+С бабушкой жили вдали от прогресса.
+
+Брату двенадцать в тот день исполнилось.
+Колей его называла сестра.
+Лиза два года его была младше
+Но они вместе как будто родились,
+
+Хотя и сводными были по факту.
+Коля уже целый год каждый день
+Думал о Лизе такое, признаться
+В чем - лучше было б ему умереть.
+
+Но никто Колю ведь в том не неволил?
+Значит все в целом у них хорошо...
+Или не так? Ведь страдал мальчик очень
+Из за того, что сказать ей не мог
+
+То, что его изнутри выжигает
+Каждый день Божий, прогнать был не в силах
+Мысли о Ней вновь и вновь приходили
+Пока не понял он - заболевает.
+
+Коля настолько влюбился в сестренку,
+В Лизочку, бывшую редкой красоткой
+По меркам возраста, да и вообще.
+В десять лет груди как взрослой уже
+
+Причем не малого взрослой размера
+Были. Врачи не нашли отклонений
+Лишь беспокойной мамаше сказали
+Что ее девочка опережает
+
+Темп полового развития сильно
+Но происходит оно гармонично.
+Рекомендацию дал врач давать
+Лизе лекарства, чтоб ей не желать
+
+Раньше, чем в срок как по мненью взрослых
+Всего того, что желает в подобных
+Случаях девочка лет на пять старше.
+Лиза (за что про себя несказанно
+
+Коля ее тогда благодарил),
+Лишь в свою комнату мама ушла,
+Эти таблетки все выбросила
+Плюнув с презрением в мусор вслед им.
+
+Очень хотелось узнать ее брату,
+Чем руководствовалась Лиза здесь,
+Почему сделала так она сразу,
+Как проявилось решение в ней
+
+Столь душу Колину что обогрело
+Хотя формально как будто все также
+Шансов стать ближе не видел к сестренке
+Но что-то с этим в невидимом плане
+
+Определенно их сделало ближе.
+Он ощущал, что она ощутила
+В то приблизительно время, когда
+Думала, стоит ли слушаться мать
+
+И принимать то, что "ей настроенье
+Стабилизирует, быть веселее
+В целом поможет, "прими, чего стоит?"
+Мать ей сказала, гримасу состроив
+
+И не дождавшись от дочки ответа
+Тут же ушла к себе в комнату. Дети
+Не различали кто чья была мама,
+А кто папа, а так, что родная
+
+✦ ✦ ✦
+
+Мне ее мама была, ей мой папа
+Но дочку чувствовать свою конечно
+Мама могла безошибочно сразу
+Ведь в Эли (полностью Елизавета,
+
+Мне больше нравится так сокращать)
+То что к лекарствам она испытала
+Было наследственным можно назвать.
+Их принимать никогда бы не стала
+
+✦ ✦ ✦
+
+Мама сама в детском возрасте, знать.
+Ну, прояснилось для Коли немного
+То, почему Эличка быстро так
+И так уверенно вылила сходу
+
+То, что не дешево стоило, знать.
+Но все равно было кое что кроме
+В этом приятном событии Коле.
+Очень хотел Коля это понять.
+
+В целом понять это было не сложно,
+Просто у Коли тогда специальных
+Знаний о психике было не много,
+А уж "духовных" совсем и подавно.
+
+Мальчик и девочка соединились
+В чувстве, которое близко к любви
+Хоть и совсем не похожи причины
+Что к испытанью его привели.
+
+Интуитивно о чем то подобном
+Коля и думал, пытаясь осмыслить
+Что его так в этом дне беспокоит
+Хоть уже месяца три как об этом
+
+Не говорили, не помнили дети,
+Взрослые тоже, глаза отведя,
+Не приставали с проверками к Эльзе
+Коля один продолжал вспоминать.
+
+Вот и сейчас, хоть его день рожденья
+Был и уже они двое под вечер
+От всех гостей отвязавшись, сидели
+В Элькиной комнате и на постели
+
+Ее, накрытой дневным покрывалом
+Чтобы удобнее было общаться.
+А два подростка, болтать были рады
+То, что меж ними взаимная тяга
+
+Было любому без всяких сомнений
+Сразу понятно, лишь взгляда хватало
+Как друг на дружку, играя, смотрели
+Чтобы сказать "все серьезно, ребята"...
+
+Лишь один Коля, и Эличка тоже
+По одинаково важной причине
+Это заметить в себе неспособны
+Были, ведь каждый таил ценой жизни,
+
+Если понадобиться, свою тайну,
+Чтобы (спаси, Господь Благословенный)
+Неосмотрительно в чувствах признавшись
+Больно любимому мальчику этим -
+
+Больно по глупости куколке нежной -
+Сделать, так лучше им умереть сразу.
+Но в этот вечер особенным были
+Взгляды их, если бы со стороны их
+
+Мог бы оценивать кто-то, опять же,
+Оба от этого дня что-то ждали
+И сильно верили в то, что их Ангел
+Будет к ним милостив, и испытать им
+
+Счастье позволит так, или иначе
+Вечером этим, друг с дружкой общаясь.
+Если бы милые наши герои
+Знали бы кое что, что сильно позже
+
+Радостью сердце наполнив друг дружке
+Они узнают, то тратить минуты
+Лишние, делая вечер волшебный
+Чуть чуть короче, да что там, бесценной
+
+Был каждый миг даже при бесконечной
+Гипотетической жизни их, вместе
+Быть когда рядом могли. Друг без друга
+Жить не могли дети к этой минуте.
+
+На самом деле, родители тему
+Между собой уже год вели эту.
+В начале трудно она им давалась -
+Все таки десять лет, а не пятнадцать
+
+Что если кто-то заметит, как дети
+В сводной семье не по возрасту эти
+От недосмотра родителей станут
+Чувства свои проявлять, не скрываясь?
+
+Много вокруг все еще в том столетье
+Было вокруг глаз завистливых, мерзких,
+Видящих смысл своей собственной жизни
+В том, сколько сломано радости ими
+
+В жизни других. Никогда не исчезнет
+Видимо это в крови человечьей.
+Значит есть точно у этого "целем"<sup id="cite_ref-1"><a href="#cite_note-1">[1]</a></sup>,
+Двум взрослым людям пока неизвестный,
+
+Но безусловно всем людям полезный.
+В их веке в школьной начальной программе
+Уже включенным был Йегуда Ашлаг
+И его Сын, Барух, был включен тоже.
+
+Хоть их обоих в ней было немного,
+Но и не требовалось людям в общем
+Больше, чем то, что все люди планеты
+Истиной признанной о человеке
+
+И его мире признали в то время.
+Милостиво да простят наши дети
+Автору строк этих взятое время
+На описанье духовных явлений,
+
+Лишь мудрецам, что суть жизни открыта
+Связь между этими Отцом и Сыном
+И между Девочкой с Мальчиком, ясной
+Четкой и сильной, благой и прекрасной
+
+И несомненно имевшей значенье
+Было даровано это прозренье.
+"На самом деле", немного слукавил
+Автор прекрасной любви описанья
+
+Перед детьми за отход извиняясь,
+Лишь чтобы снова к ним не возвращаться.
+На самом деле, забота о детях
+Будущего человека и мира
+
+Не происходит каким-то железным
+Их закрепленьем за кем-то конкретным.
+Мир же, где Души что ждут облаченья
+В новую жизнь своей новой ступени
+
+Ждут, помогая тем, кто уже создан,
+
+В жизни найти свое место и счастье,
+Осуществить их мечты, защищая,
+Правильный выбор, когда выбор важный,
+А информации есть недостаток,
+
+Лишь чуть-чуть на верный Путь направляя
+Но никогда не вмешательством явным...
+Ну, и конечно же, тех, кого раньше
+Звали "Амурами" из Херувимов
+
+И на чьей улице наступил праздник
+С новой эпохой всерьез долгожданный, -
+Думали люди, люди гадали,
+И не могли, пока были живыми
+
+В Силу Законов, которых Реальность
+Совсем недавно признали всем миром -
+Где же и как хоть намек получить бы
+Было на это нельзя, чтобы им же
+
+Путь совершенный к свободе и счастью
+Знанием этим не дать удлинять им,
+Может сейчас быть раскрыто для мира.
+МИР БЕСКОНЕЧНОСТИ, В НЕМ ВСЕ, ЧТО БЫЛО
+
+ЕСТЬ ИЛИ БУДЕТ - КАК ЗДЕСЬ И СЕЙЧАС
+ОДНОВРЕМЕННОЕ И БЕЗ РАЗЛИЧИЙ
+МЕЖДУ ЧЕМ ЛИБО, ПОСКОЛЬКУ ТАМ НАС
+ТО ЕСТЬ ЛЮДЕЙ И ЛЮБОЙ ДРУГОЙ ЖИЗНИ
+
+НЕ ПРОИСХОДИТ ЕЩЕ ХИТПАШТУТ<sup id="cite_ref-2"><a href="#cite_note-2">[2]</a></sup>
+ЖИЗНЬ И СОЗНАНИЕ ВЕЧНО ЕДИНЫ
+В ЭТОЙ СТУПЕНИ, ГДЕ МИР АЦИЛУТ
+В МИР БЕСКОНЕЧНОСТИ, ДУШУ ОЧИСТИВ,
+
+ЭТОЙ ДУШЕ ПОЗВОЛЯЕТ ПОДНЯТЬСЯ:
+ЭТО МИР СЧАСТЬЯ, ГДЕ НЕТУ РАЗЛИЧИЙ
+И НЕТ ЛЮДЕЙ, ЧТОБ ИНТЕРЕСОВАТЬСЯ.
+ЖИЗНЬ В ЭТОМ МИРЕ С СОЗНАНЬЕМ ЕДИНА
+
+ЗА ЭТИМ МИРОМ ОНА НАБЛЮДАЕТ
+В ФОРМЕ "ДОМ-2" КАК РЕАЛИТИ-ШОУ
+ВСЕ НАШИ СТЕНЫ ЗЕРКАЛЬНО ПРОЗРАЧНЫ
+ДУШИ РАСПАХНУТЫ, СКРЫТЬ НЕВОЗМОЖНО
+
+ХОТЬ САМЫЙ МАЛЫЙ ХОТЬ САМЫЙ БОЛЬШОЙ
+ХОТЬ САМЫЙ ВАЖНЫЙ, ХОТЬ МИЗЕРНЫЙ СТОЛЬ
+ЧТО НИКОМУ НЕИЗВЕСТЕН ПРИ ЖИЗНИ -
+НА НЕБЕСАХ БУДЕТ ОН ПЕРЕЧИСЛЕН
+
+В ТОМ ЖЕ РЯДУ ГДЕ УЧЕТ ВЕЧНЫХ ИСТИН
+ДЛЯ МИЛЛИОНОВ ГДЕ СМЫСЛ ИХ ЖИЗНЕЙ
+ВСЕ ОДИНАКОВО, РЯДОМ ДРУГ С ДРУГОМ
+И ВСЕ В ЕДИНОЙ И НЕПОСТИЖИМОЙ
+СЛИТО РЕАЛЬНОСТИ ЦЕЛЬНОЛИТНОЙ
+
+САМОЙ РЕАЛЬНОЙ, ПРЕДВЕЧНОЙ И ВЫСШЕЙ
+СРЕДИ ВСЕХ ПРОЧИХ ДУХОВНЫХ СТУПЕНЕЙ
+ГДЕ ЭТОТ МИР, В НЕМ "ДОМ-2" НАШИХ ЖИЗНЕЙ
+ПРОИЗОЙДЕТ "СДЕЛАЕМ И УСЛЫШИМ!"
+
+ИЗ ВСЕХ РЕАЛЬНЫХ СТУПЕНЕЙ ИХ НИЗШЕЙ
+ИМЕНЕМ "НУКВА"<sup id="cite_ref-4"><a href="#cite_note-4">[4]</a></sup> СТУПЕНЬЮ ПРЯМОГО
+СВЕТА ТВОРЦА, СВЯТ И БЛАГОСЛОВЕН ОН
+ТО ЕСТЬ АРЕНА "ГОЛОДНЫЕ ИГРЫ"
+
+РАДИ ЧЕГО СУЩЕСТВУЕТ В ТОЙ ФОРМЕ
+ОБЩЕЙ ДУШИ, ЧТО ЗОВЕТСЯ АДАМОМ
+ПЕРВЫМ ДУХОВНЫМ ЕДИНЫМ СТРОЕНЬЕМ
+СОЗДАНО, ТРУДИТСЯ И СУЩЕСТВУЕТ.
+
+БЫЛО, И ЕСТЬ, И КОГДА ЛИБО БУДЕТ
+ЛИШЬ САМЫЙ "НИЖНИЙ" ИМЕЕТ ЦЕЛЬ ЖИЗНИ
+ВСЕ ОСТАЛЬНЫЕ - ЧАСТЬ ФОРМЫ ДУХОВНОЙ
+"РАДИ СЕБЯ" ОНА НЕ СУЩЕСТВУЕТ
+
+НО ЛИШЬ СТРЕМЛЕНИЕМ "НИЖНЕГО" К ЦЕЛИ
+ЖИЗНЬ ПОЛУЧАЕТ И МЕСТО В ТВОРЕНЬИ
+ОБЩЕЙ ЕДИНОЙ ДУШИ БЕСКОНЕЧНОЙ
+СВОЙ СВЕТ ЛЮБВИ В ДАР ДАЕТ НАШИМ ДЕТЯМ
+
+САМ ЭТОТ СВЕТ ЭТО ОНА И ЕСТЬ
+ОН НЕ МЕНЯЕТ СВОИХ АВАЯ<sup id="cite_ref-3"><a href="#cite_note-3">[3]</a></sup>
+СКОЛЬКО ЕГО НЕ МЕНЯЙ МЕЖДУ МЕСТ
+ОН АБСОЛЮТЕН И БЛАГ, ЧЕЛОВЕК
+
+ЛИШЬ ЕМУ ВСЕМ БЫЛ И БУДЕТ ОБЯЗАН
+ОН ЧЕЛОВЕКУ РАСКРОЕТСЯ В СРОК
+ТАК, ЧТО ВЛЮБИВШИСЬ ЛЕТ В 10-15
+БУДЕТ ВСЮ ЖИЗНЬ ОН ИМ БЛАГОСЛОВЛЕН</div>
+
+<p>Ваш навечно и истинно</p>
+
+<div class="music-group" data-label="Музыка">
+<details class="music"><summary><span class="label">Музыка:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">PINK "Wild Hearts Can't Be Broken"</span> <span class="trk-sep">—</span> <span class="trk-art">cover by Jadyn Rylee</span></span><a class="ext" href="https://youtu.be/-x_8Lkb6sAM" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/-x_8Lkb6sAM?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+</div>
+
+<h2 id="notes">Примечания <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+<ol class="notes">
+<li id="cite_note-1" value="1"><a class="backref" href="#cite_ref-1" title="Вернуться к месту в тексте">↑</a> Целем (ивр.) - Образ цели. См. также: Заповедь девятая, том 1, Книга Зоар</li>
+<li id="cite_note-2" value="2"><a class="backref" href="#cite_ref-2" title="Вернуться к месту в тексте">↑</a> Хитпаштут (ивр.) - Распространение (двух свойств, бывших одним явлением в корне, из которого нельзя было выделить одно или иное в отдельности, пока не раскрылась последовательность этого выделения и выявления по мере "спуска" этого свойства из МБ до "этого мира", в котором этот процесс достигает своего логического предела и желаемого максимума, по мере его осознания человеком, совершающим его "в сотрудничестве" с Творцом, Свят Благословен Он)</li>
+<li id="cite_note-3" value="3"><a class="backref" href="#cite_ref-3" title="Вернуться к месту в тексте">↑</a> АВАЯ (j-h-v-j, четырехбуквенное непроизносимое ИМЯ ТВОРЦА, СВЯТ БЛАГОСЛОВЕН ОН, И ЧЕЛОВЕКА ЭТОГО МИРА)</li>
+<li id="cite_note-4" value="4"><a class="backref" href="#cite_ref-4" title="Вернуться к месту в тексте">↑</a> Нуква - (ивр.) Женская духовная ступень, "получающая", управляющая, целеполагающая, ведущая.</li>
+</ol>
+</article>
+
+<nav class="article-nav">
+  <span class="prev"><a href="11H.html">← Катнут свойства Образ Всесильного</a></span>
+  <span class="next"><a href="14U.html">Сияй, бриллиант безрассудный! →</a></span>
+</nav>
+
+<footer class="footer">
+<p class="editinfo">Редакция: Иван Иванович</p>
+<p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+<p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+</footer>
+</div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
     --bg:#f6f1e4;
     --panel:#fbf8ef;
     --ink:#2a231c;
@@ -19,8 +573,8 @@
     --rule:#d8cbac;
   }
   *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
     background:var(--bg);
     color:var(--ink);
     margin:0;
@@ -274,27 +828,13 @@
   footer a{color:var(--accent);}
 
   @media(max-width:560px){
-    body{font-size:17px;}
+    .ya-old{font-size:17px;}
     .wrap{padding:22px 16px 60px;}
     h1{font-size:29px;}
     .para{text-align:left;}
   }
 </style>
-
-<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/1CB.html">
-<meta name="description" content="Эссе о возвращении к братьям по учению и Творцу, о ступени Катнут, поручительстве, памяти Клятвы у Синая и сути последнего поколения.">
-<meta property="og:title" content="Заря Близко">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/1CB.html">
-<meta property="og:description" content="Эссе о возвращении к братьям по учению и Творцу, о ступени Катнут, поручительстве, памяти Клятвы у Синая и сути последнего поколения.">
-<meta property="og:site_name" content="Путь Восходящей Звезды">
-<meta property="og:locale" content="ru_RU">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Заря Близко">
-<meta name="twitter:description" content="Эссе о возвращении к братьям по учению и Творцу, о ступени Катнут, поручительстве, памяти Клятвы у Синая и сути последнего поколения.">
-<script src="../ya-switch.js"></script>
-</head>
-<body data-scheme="manuscript">
+<div class="ya-old" data-scheme="manuscript">
 <span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №1CB</span>
 <div class="wrap">
 
@@ -550,5 +1090,262 @@
   "features": ["music", "footnotes"]
 }
 </script>
+</div></template>
+<script>
+// Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
+// no editor/login module is loaded.
+(function(){
+  var bubble = null, hideTimer = null;
+  function ensureBubble(){
+    if (bubble) return bubble;
+    bubble = document.createElement('div');
+    bubble.className = 'footnote-bubble';
+    bubble.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); });
+    bubble.addEventListener('mouseleave', scheduleHide);
+    document.body.appendChild(bubble);
+    return bubble;
+  }
+  function scheduleHide(){
+    if (hideTimer) clearTimeout(hideTimer);
+    hideTimer = setTimeout(function(){ if (bubble) bubble.classList.remove('show'); }, 180);
+  }
+  function show(link){
+    var href = link.getAttribute('href') || '';
+    if (!href.startsWith('#')) return;
+    var target = document.getElementById(href.slice(1));
+    if (!target) return;
+    var b = ensureBubble();
+    var clone = target.cloneNode(true);
+    var back = clone.querySelector('a.backref');
+    if (back) back.remove();
+    // муз-трек как цель сноски: во всплывашке — ТОЛЬКО название трека (+ ↗),
+    // БЕЗ плеера/iframe-фрейма и дубль-этикетки (вердикт оператора 14:46)
+    if ((clone.className || '').indexOf('music') >= 0 || clone.querySelector('iframe, .player')) {
+      Array.prototype.forEach.call(clone.querySelectorAll('.player, .caret, .label, .trk-play'),
+        function(e){ e.remove(); });
+    }
+    b.innerHTML = clone.innerHTML;
+    b.classList.add('show');
+    var r = link.getBoundingClientRect();
+    var sx = window.pageXOffset, sy = window.pageYOffset;
+    b.style.left = '0px'; b.style.top = '0px';
+    var bw = b.offsetWidth, bh = b.offsetHeight;
+    var left = sx + r.left + r.width/2 - bw/2;
+    var maxLeft = sx + document.documentElement.clientWidth - bw - 8;
+    if (left > maxLeft) left = maxLeft;
+    if (left < sx + 8) left = sx + 8;
+    var top = sy + r.top - bh - 10;
+    var placeBelow = (top - sy) < 8;
+    if (placeBelow) top = sy + r.bottom + 10;
+    b.style.left = left + 'px';
+    b.style.top  = top  + 'px';
+    b.classList.toggle('below', placeBelow);
+  }
+  function ytPost(f, func){
+    if (!f) return;
+    try { f.contentWindow.postMessage('{"event":"command","func":"'+func+'","args":[]}', '*'); } catch(e){}
+  }
+  function applyMute(d){
+    var btn = d.querySelector('.trk-mute'); if (!btn) return;
+    var f = d.querySelector('iframe');
+    if (!f || f.getAttribute('data-src')) return;   // плеер ещё не впрыснут
+    var func = btn.getAttribute('aria-pressed') === 'true' ? 'mute' : 'unMute';
+    ytPost(f, func);                                 // плеер готов (играет рекламу) → срабатывает сразу
+    setTimeout(function(){ ytPost(f, func); }, 700); // ретраи на случай «только что открыли»
+    setTimeout(function(){ ytPost(f, func); }, 1800);
+  }
+  function bindMusic(){
+    document.querySelectorAll('details.music').forEach(function(d){
+      if (d.dataset.musicBound) return; d.dataset.musicBound = '1';
+      d.addEventListener('toggle', function(){
+        if (!d.open) return;
+        var f = d.querySelector('iframe[data-src]');
+        if (f) {
+          var src = f.getAttribute('data-src');
+          src += (src.indexOf('?') >= 0 ? '&' : '?') + 'origin=' + encodeURIComponent(location.origin);
+          f.src = src; f.removeAttribute('data-src');
+        }
+        applyMute(d);                                // применить запомненное mute-состояние
+      });
+      var btn = d.querySelector('.trk-mute');
+      if (btn) {
+        var toggle = function(ev){
+          ev.preventDefault(); ev.stopPropagation();  // не дёргать details.open
+          var on = btn.getAttribute('aria-pressed') !== 'true';
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+          btn.setAttribute('aria-label', on ? 'Включить звук' : 'Заглушить звук');
+          btn.title = on ? 'Включить звук' : 'Заглушить звук (реклама YouTube)';
+          applyMute(d);
+        };
+        btn.addEventListener('click', toggle);
+        btn.addEventListener('keydown', function(ev){
+          if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') toggle(ev);
+        });
+      }
+    });
+  }
+  function bindFootnotes(){
+    document.querySelectorAll('sup a[href^="#cite_note-"]').forEach(function(a){
+      if (a.dataset.fnBound) return; a.dataset.fnBound = '1';
+      a.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); show(a); });
+      a.addEventListener('mouseleave', scheduleHide);
+      a.addEventListener('focus', function(){ show(a); });
+      a.addEventListener('blur',  scheduleHide);
+    });
+  }
+  function bindSpoilers(){
+    document.querySelectorAll('.spoiler').forEach(function(sp){
+      if (sp.dataset.splBound) return; sp.dataset.splBound = '1';
+      function reveal(){ sp.classList.add('revealed'); }
+      sp.addEventListener('click', reveal);
+      sp.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); reveal(); }
+      });
+    });
+  }
+  bindMusic(); bindFootnotes(); bindSpoilers();
+
+  // Общая левая рейка стихов: все .poem статьи ровняются по краю, который
+  // центрирует САМЫЙ ШИРОКИЙ из них (классическая осевая выключка, но единая
+  // на статью — края не скачут от блока к блоку). Пересчёт при смене
+  // темы/ширины/размера окна: метрики шрифта и мера меняются.
+  function alignPoems(){
+    var art = document.querySelector('article'); if (!art) return;
+    var poems = Array.prototype.slice.call(art.querySelectorAll('.poem'));
+    if (!poems.length) return;
+    poems.forEach(function(p){ p.style.marginLeft = ''; p.style.marginRight = ''; });
+    if (poems.length < 2) return; // одиночный стих — родное центрирование темы
+    var maxW = 0;
+    poems.forEach(function(p){ maxW = Math.max(maxW, p.getBoundingClientRect().width); });
+    var cs = getComputedStyle(art);
+    var artRect = art.getBoundingClientRect();
+    var contentLeft = artRect.left + parseFloat(cs.paddingLeft || 0) + parseFloat(cs.borderLeftWidth || 0);
+    var contentWidth = art.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+    var targetX = contentLeft + Math.max(0, (contentWidth - maxW) / 2);
+    poems.forEach(function(p){
+      p.style.marginLeft = '0px'; p.style.marginRight = 'auto';
+      var x = p.getBoundingClientRect().left;
+      p.style.marginLeft = (targetX - x) + 'px';
+    });
+  }
+  var alignTimer = null;
+  function alignPoemsSoon(){ if (alignTimer) clearTimeout(alignTimer); alignTimer = setTimeout(alignPoems, 60); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignPoemsSoon);
+  window.addEventListener('load', alignPoemsSoon);
+  window.addEventListener('resize', alignPoemsSoon);
+  alignPoemsSoon();
+
+  // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
+  var sel = document.getElementById('zml-theme');
+  var wsel = document.getElementById('zml-width');
+  var link = document.getElementById('theme-css');
+  var wrap = document.querySelector('.wrap');
+  var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
+  if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
+  if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
+  if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
+  if (sel) sel.addEventListener('change', function(){
+    var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
+    document.body.setAttribute('data-theme', t);
+    if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
+  });
+  if (wsel) wsel.addEventListener('change', function(){
+    if (!wrap) return;
+    wrap.classList.toggle('w-narrow', wsel.value==='narrow');
+    wrap.classList.toggle('w-wide', wsel.value==='wide');
+    alignPoemsSoon();
+  });
+
+  // Ф8′ ре-резолвинг вида. Настройки Admin (global design/width + правила по
+  // разделам/типам, с приоритетом per-article frontmatter) распространяются на
+  // ВСЕХ через ОДИН resolveDisplay (зеркало render.js). Залогинен → личные правила
+  // из worker KV (/api/settings); аноним → глобальный display.json (тот же файл,
+  // что коммитит Admin) → правки Admin доходят до анонимов В РАНТАЙМЕ, не только
+  // редирект «new/old». Запечённая build_views тема — лишь стартовый/no-JS дефолт:
+  // если совпадает с резолвом (обычный случай), apply() ничего не трогает (нет мигания).
+  (function(){
+    var body = document.body;
+    var section = body.getAttribute('data-art-section') || '';
+    var type    = body.getAttribute('data-art-type') || '';
+    var fmTheme = body.getAttribute('data-fm-theme') || '';
+    var fmWidth = body.getAttribute('data-fm-width') || '';
+    var worker  = (body.getAttribute('data-worker') || '').replace(/\/+$/, '');
+    var sess; try { sess = JSON.parse(localStorage.getItem('ya_session')||'null'); } catch(e){}
+    function resolve(cfg){
+      var g=(cfg&&cfg.global)||{}, rules=(cfg&&cfg.rules)||[], rd='', rw='';
+      for (var i=0;i<rules.length;i++){ var m=rules[i]&&rules[i].match; if(!m) continue;
+        if ((m.kind==='section'&&m.value===section)||(m.kind==='type'&&m.value===type)){
+          rd=rules[i].design||''; rw=rules[i].width||''; break; } }
+      return { design:(fmTheme||rd||g.design||'A_editorial'),
+               width:(fmWidth||rw||g.width||'wide') };
+    }
+    function apply(d){
+      if (sel && sel.value!==d.design){ sel.value=d.design; sel.dispatchEvent(new Event('change')); }
+      var w = /narrow|820/.test(d.width)?'narrow':'wide';
+      if (wsel && wsel.value!==w){ wsel.value=w; wsel.dispatchEvent(new Event('change')); }
+    }
+    // залогинен с воркером → личный KV; иначе (аноним) → общий display.json.
+    var src = (sess && sess.token && worker)
+      ? fetch(worker+'/api/settings',{headers:{Authorization:'Bearer '+sess.token}})
+      : fetch('../config/display.json',{cache:'no-cache'});
+    src.then(function(r){ return r.ok?r.json():null; })
+       .then(function(cfg){ if(cfg) apply(resolve(cfg)); })
+       .catch(function(){});
+  })();
+})();
+</script>
+<script src="../ya-edit.js" defer></script>
 </body>
 </html>

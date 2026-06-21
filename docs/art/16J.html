@@ -5,10 +5,281 @@
 <link rel="icon" type="image/png" href="../img/favicon.png">
 <link rel="apple-touch-icon" href="../img/favicon.png">
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Только Ты будешь жить вечно</title>
-<style>
-  :root{
+<meta name="description" content="Эссе-сказка в форме речи мага-рассказчика о будущем человека, серафимах и эпохе конечного исправления, с эпиграфом из Книги Исайи.">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/16J.html">
+<meta property="og:title" content="Только Ты будешь жить вечно">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/16J.html">
+<meta property="og:description" content="Эссе-сказка в форме речи мага-рассказчика о будущем человека, серафимах и эпохе конечного исправления, с эпиграфом из Книги Исайи.">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Только Ты будешь жить вечно">
+<meta name="twitter:description" content="Эссе-сказка в форме речи мага-рассказчика о будущем человека, серафимах и эпохе конечного исправления, с эпиграфом из Книги Исайи.">
+
+<link id="theme-css" rel="stylesheet" href="../themes/swiss.css?v=20260620-01">
+<style id="spl-base">
+/* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
+.wrap.w-narrow{max-width:820px;}
+.wrap.w-wide{max-width:1080px;}
+/* [spl] spoiler — structural, theme-agnostic. Themes may tune --spl-cover. */
+.spoiler{position:relative;display:inline-block;cursor:pointer;border-radius:3px;vertical-align:baseline;}
+.spoiler:not(.revealed) .spoiler-content{visibility:hidden;}
+.spoiler:not(.revealed)::before{content:"";position:absolute;inset:-1px;border-radius:3px;
+  background:var(--spl-cover,repeating-linear-gradient(45deg,#4a4a4a 0 7px,#2f2f2f 7px 14px));
+  background-size:auto;animation:spl-shimmer 1.4s linear infinite;}
+.spoiler.revealed{cursor:auto;}
+.spoiler:focus-visible{outline:2px solid currentColor;outline-offset:2px;}
+@keyframes spl-shimmer{from{background-position:0 0;}to{background-position:20px 0;}}
+@media (prefers-reduced-motion:reduce){.spoiler:not(.revealed)::before{animation:none;}}
+/* audio narration 🎧 by H1 — structural, theme-agnostic (themes may refine). */
+.audio-link{font-size:.62em;vertical-align:middle;margin-left:.4em;text-decoration:none;white-space:nowrap;}
+/* [subsec] section subtitle — base (themes refine): muted italic, tight to ## heading. */
+.sec-sub{margin:.15em 0 1.3em;font-style:italic;font-size:.95em;opacity:.7;line-height:1.45;text-indent:0;text-align:left;}
+h2 + .sec-sub, h2.subtitle + .sec-sub{margin-top:-.5em;}
+/* [meta] metadata card (proza-шапка) — base через :where() (0-специфичность → любое правило темы перебивает, хотя <style> идёт после <link> темы). */
+:where(.meta){margin:1.4em auto .6em;max-width:560px;padding:.85em 1.2em;background:var(--panel,rgba(128,128,128,.06));border:1px solid var(--rule,#ddd);border-left:4px solid var(--accent2,var(--accent,#999));border-radius:3px;line-height:1.5;color:var(--muted,inherit);text-indent:0;}
+:where(.meta b){color:var(--ink,inherit);font-weight:600;}
+:where(.meta .epi){display:block;margin-top:.5em;padding-top:.5em;border-top:1px dashed var(--rule,#ddd);font-style:italic;color:var(--accent,inherit);}
+/* [faw] free-associative writing — стихи, записанные прозой. Строки-сегменты «|»
+   → .faw-l.a/.b с чередованием стиля (границы строк видны на глаз). Режим (монолит
+   display:inline — swiss/editorial/cyberpunk · построчно display:block — manuscript/
+   ar_deco) и чередование задаёт ТЕМА. База — только отступ блока и нулевой-специфичности
+   фолбэк построчно через :where() (любое правило темы его перебивает; стиль <style> идёт
+   ПОСЛЕ <link> темы, поэтому обычное `.faw-l` затёрло бы тему — отсюда :where). */
+.faw{margin:1.5rem 0;}
+/* Абзацы внутри [faw] (безымянный [fp]): каждый — блок .faw-p, между ними отступ. Виден и
+   в монолитных темах (между блоками), и в построчных. Внутри .faw-p строки идут по теме. */
+.faw .faw-p + .faw-p{margin-top:1.1em;}
+:where(.faw-l){display:block;}
+/* [faw sta=N] зазор-строфа: пустая строка после каждых N строк. Верт. margin к inline
+   не применяется → в монолите параметр игнорируется (как и задумано). */
+:where(.faw-l.faw-se){margin-bottom:1em;}
+/* Капитализация первой буквы строки (.faw-cap) — фича ПОСТРОЧНЫХ тем (manuscript/ar_deco):
+   там строки начинаются с заглавной, как в стихах. Монолитные темы .faw-cap НЕ трогают —
+   текст течёт прозой в авторском регистре. См. THEME_CONTRACT. */
+/* [fp] маркер нумерованного пункта внутри [faw] (§2.5): инлайн-бейдж — строку НЕ рвёт (стих
+   течёт сквозь пункты), может стоять в середине строки; даёт якорь для TOC. Не наследует
+   курсив/регистр чередования. Базовый вид (тема может уточнить через --accent). */
+.faw-pt{display:inline-block;font-family:ui-sans-serif,system-ui,sans-serif;font-weight:700;
+  font-size:.62em;line-height:1.5;vertical-align:.16em;color:var(--accent,#777);
+  border:1px solid currentColor;border-radius:.5em;padding:0 .42em;margin:0 .45em 0 .1em;
+  font-style:normal;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;
+  scroll-margin-top:1.4rem;text-decoration:none;}
+.faw-l .faw-cap{font-style:inherit;}
+/* fn-ревью (2026-06-12) — структурная база новых конструкций; темы уточняют. */
+/* [^N] в H1: sup-маркер на глаз отличим от текста заголовка (THEME_CONTRACT). */
+h1#article-title sup{font-size:.42em;font-weight:400;line-height:0;letter-spacing:normal;vertical-align:super;}
+/* [line kind=tags|dateline] — служебная роль-строка; буквицы тем её пропускают. */
+p.line{font-size:.88em;opacity:.72;letter-spacing:.02em;text-indent:0;}
+/* [ul] — маркированный список; значок через --marker → li::marker. */
+ul.ul{margin:1em 0;padding-left:1.6em;}
+ul.ul li::marker{content:var(--marker, initial);}
+/* [num] со скобко-стилем «1)» (авторские номера держит li[value]). */
+ol.num.num-paren li::marker{content:counter(list-item) ") ";}
+/* [epi kind=dedi] — посвящение. */
+article .epigraph.dedication, article .epilogue.dedication{text-align:right;font-style:italic;}
+/* TOC: вложенный 2-й уровень (###). */
+details.article-toc ol ol{margin:.15em 0 .15em 1.1em;}
+/* [toc nonum]: заголовки сами нумерованы (1 / 1.1 / 1.1.1) → гасим авто-числа <ol>
+   (две класса-метки → перебивает per-theme `.article-toc ol{padding-left}` по специфичности) */
+details.article-toc.nonum ol{list-style:none; padding-left:0;}
+details.article-toc.nonum ol ol{margin-left:1.1em;}
+/* [sig] подпись / [cry] возглас (ZML3 C11) — base, themes refine. */
+.sig{text-align:right;font-style:italic;margin:1.4rem 0;}
+.cry{text-align:center;font-weight:700;letter-spacing:.05em;margin:1.6rem 0;}
+/* глифы (C13) + inline term/leit (C10) — base no-op-ish; themes colour or ignore. */
+.glyph{white-space:nowrap;}
+.term{text-decoration:underline dotted;text-underline-offset:3px;}
+.leit{font-style:italic;}
+/* музыка Б2: inter-track заметка (1AQA «Слушать вместе…») — base, themes refine. */
+.music-note{text-align:center;font-style:italic;opacity:.72;font-size:.92em;
+  margin:.2rem 0 .5rem;}
+/* музыка-плашка (канон оригинала): ▶ N) **Название** — *Автор* — название жирным,
+   автор обычным-курсивом, ► играбел-индикатор (крутится при раскрытии). Специфичность
+   `.music-group .title …` перебивает курсив `.title` темы. */
+.music-group .trk-play{display:inline-block;font-size:.82em;opacity:.65;margin-right:.1em;
+  transition:transform .18s ease;}
+details.music[open] .trk-play{transform:rotate(90deg);}
+.music-group .title .trk-num{opacity:.55;font-style:normal;font-variant-numeric:tabular-nums;}
+.music-group .title .trk-ttl{font-weight:600;font-style:normal;}
+.music-group .title .trk-sep{opacity:.5;font-weight:400;}
+.music-group .title .trk-art{font-weight:400;font-style:italic;opacity:.78;}
+/* трек-строка = flex: текст слева ВО ВСЕХ темах (перебивает theme text-align:center
+   у B_manuscript/ar_deco — флекс-айтемы паковка слева), динамик-mute прижат вправо
+   (2026-06-18). */
+.music-group details.music>summary,.music-group .music-noplayer>.summary{
+  display:flex; align-items:center; flex-wrap:wrap; gap:.12em; text-align:left;}
+.music-group .title{min-width:0;}
+/* кнопка-динамик (mute рекламы YouTube) — справа на строчке */
+.music-group .trk-mute{margin-left:auto; flex:0 0 auto; align-self:center;
+  cursor:pointer; opacity:.5; color:inherit; line-height:0; padding:.1em .2em;
+  border-radius:4px; transition:opacity .15s,color .15s;
+  -webkit-tap-highlight-color:transparent;}
+.music-group .trk-mute:hover,.music-group .trk-mute:focus-visible{opacity:1; outline:none;}
+.music-group .trk-mute svg{width:1.2em; height:1.2em; display:block;}
+.music-group .trk-mute .spk-slash{display:none;}
+.music-group .trk-mute[aria-pressed="true"]{opacity:.95; color:var(--accent,currentColor);}
+.music-group .trk-mute[aria-pressed="true"] .spk-wave{display:none;}
+.music-group .trk-mute[aria-pressed="true"] .spk-slash{display:inline;}
+/* [dlg] форум-стиль (№2, по образцу форума ccastaneda.ru): пост-в-рамке + метка
+   спикера small-caps. base — themes refine (--accent2 = акцент темы). */
+.dialog .post{border-left:3px solid var(--accent2,currentColor);
+  background:color-mix(in srgb, currentColor 4%, transparent);
+  padding:.55rem .95rem;margin:.7rem 0;border-radius:0 4px 4px 0;}
+.dialog .post-by{display:block;font-variant:small-caps;letter-spacing:.05em;
+  font-weight:700;font-style:normal;font-size:.9em;color:var(--accent2,inherit);
+  opacity:.95;margin-bottom:.25em;}
+.dialog .post-text{display:block;}
+.dialog .post-text + .post-text{margin-top:.55em;}/* многоабзацная реплика */
+.dialog .dlg-line{margin:.45rem 0;}
+/* viewbar — управление видом статьи (тема/ширина/оригинал/править).
+   Сидит в одной строке с крошками (крошки слева, управление справа).
+   Здесь только структура; типографика/цвета — у темы (.viewbar в THEME_CONTRACT). */
+header.breadcrumbs{display:flex;gap:1.2em;row-gap:.3em;align-items:baseline;flex-wrap:wrap;}
+/* крошки ВСЕГДА слева — перебиваем темы, центрирующие шапку (B_manuscript/ar_deco). */
+header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
+.viewbar{display:flex;gap:1.1em;row-gap:.3em;align-items:center;flex-wrap:wrap;
+  font-size:.78rem;margin:0 0 0 auto;}
+.viewbar label{display:inline-flex;gap:.35em;align-items:center;white-space:nowrap;}
+.viewbar select{font:inherit;color:inherit;background:transparent;border:none;
+  border-bottom:1px solid currentColor;padding:0 1px 1px;cursor:pointer;}
+.viewbar select option{color:#222;background:#fff;}
+.viewbar a{text-decoration:none;white-space:nowrap;}
+.viewbar .vb-edit{font:inherit;color:inherit;background:none;border:none;padding:0;white-space:nowrap;}
+.viewbar .vb-edit:disabled{opacity:.45;cursor:default;}
+/* по умолчанию кнопка СКРЫТА (hidden в разметке) — аноним/не-редактор её не видят;
+   ya-edit.js снимает hidden только у editor/admin. Явное правило перебивает темы. */
+.viewbar .vb-edit[hidden]{display:none;}
+</style>
+</head>
+<body class="article-page" data-art="16J" data-theme="swiss"
+  data-art-section="best" data-art-type="prose_num"
+  data-fm-theme="swiss" data-fm-width="" data-worker="https://yaniktoim-auth.imyavel.workers.dev">
+<div class="wrap w-wide">
+<header class="breadcrumbs">
+<span class="crumbs"><a href="../index.html">Главная</a><span class="sep">›</span><a href="../best/index.html">Избранное</a></span>
+<nav class="viewbar" aria-label="Вид статьи">
+  <label>Тема
+    <select id="zml-theme">
+      <option value="A_editorial">editorial</option>
+      <option value="B_manuscript">manuscript</option>
+      <option value="cyberpunk">cyberpunk</option>
+      <option value="swiss">swiss</option>
+      <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
+    </select>
+  </label>
+  <label>Ширина
+    <select id="zml-width">
+      <option value="wide">широкая</option>
+      <option value="narrow">узкая</option>
+    </select>
+  </label>
+  <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
+</nav>
+</header>
+
+<h1 id="article-title">Только Ты будешь жить вечно<sup id="cite_ref-7"><a href="#cite_note-7">[7]</a></sup>⁠<a class="audio-link" href="https://t.me/art_017_tracks/274" target="_blank" rel="noopener" title="Слушать аудио-озвучку" aria-label="Слушать аудио-озвучку">🎧</a></h1>
+<p class="byline">Элиягу Бар Малей · #16J · 2021-06-19 · Источник: <a href="https://proza.ru/2021/08/28/1406" target="_blank" rel="noopener">proza.ru/2021/08/28/1406</a></p>
+<article>
+
+<h2 class="subtitle">Записано 19.06.2021 г. в Круге Жизни</h2>
+
+<details class="article-toc" open>
+<summary>Содержание</summary>
+<ol>
+<li><a href="#s-pre">Предисловие</a>
+</li>
+<li><a href="#s-epi">Эпиграф</a>
+</li>
+<li><a href="#s-music">Рекомендуемая музыка</a>
+</li>
+<li><a href="#notes">Пояснения</a>
+</li>
+</ol>
+</details>
+
+<h2 id="s-pre">Предисловие <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<p>Я долго не решался публиковать эту статью на форуме<sup id="cite_ref-13"><a href="#cite_note-13">[13]</a></sup>, слишком уж она "революционная" (и запутанная к тому же, чего греха таить) по содержащимся в ней идеям и концепциям, но, как мне кажется, сейчас "то самое" время настало, и форма найдена подходящая - Сказки о Силе, только это Сказка не о прошлом человека, а о его будущем :) А кое в чем уже вполне себе даже о "настоящем", но только не глазами человека этого мира, поскольку эти глаза пока еще закрыты от нас, а глазами мага-рассказчика, существа из Мифа. Сколько потребуется времени на полноценную реализацию описанного в статье сценария? Я так думаю, что около 500 лет. Правда, кое какие формы, подобные описываемым формам, существуют в человечестве уже давно. Они большей частью не афишируют себя, по понятным причинам. Нам эти "игры в прятки" не близки, мы видим свою задачу в максимальном распространении всех форм, которые нам открываются по мере практики, даже не задумываясь о том, насколько читатель "готов" или "не готов" их воспринять правильно. Приятного Вам чтения! Зеир Арихович Анпин</p>
+
+<h2 id="s-epi">Эпиграф<sup id="cite_ref-9"><a href="#cite_note-9">[9]</a></sup> <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<p>Древнееврейское слово «сараф» (ивр...) имеет несколько значений: пылающий, огненный; змей, летающий змей<sup id="cite_ref-5"><a href="#cite_note-5">[5]</a></sup>, змееподобная молния; летающий дракон или грифон, управляемый с земли<sup id="cite_ref-8"><a href="#cite_note-8">[8]</a></sup> воздушный змей…</p>
+
+<p>Согласно различным упоминаниям из апокрифических и канонических источников, серафимы есть ангелы, стоящие вокруг Бога. Первое упоминание серафимов в Библии находится в Книге Пророка Исайи (Ветхий завет); они появляются в его рассказе о странном видении перед призывом в Храм Иерусалимский:</p>
+
+<blockquote class="q">
+<p>Вокруг Него стояли Серафимы; у каждого из них по шести крыл: двумя закрывал каждый лице своё, и двумя закрывал ноги свои, и двумя летал. И взывали они друг ко другу и говорили: Свят, Свят, Свят Господь Саваоф! вся земля полна славы Его! — Ис. 6:2—3</p>
+</blockquote>
+
+<p>Серафимы прикрывают крыльями лица, чтобы не видеть лица Бога. Несколькими строфами ниже к пророку прилетает серафим, чтобы горячим углем очистить мужчину от скверны<sup id="cite_ref-11"><a href="#cite_note-11">[11]</a></sup>…</p>
+
+<p>- Статья “Серафимы”. Википедия<sup id="cite_ref-6"><a href="#cite_note-6">[6]</a></sup></p>
+
+<div class="music-group" data-label="Музыка под настроение">
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Dream On</span> <span class="trk-sep">—</span> <span class="trk-art">Jadyn Rylee feat. Aviv Cohen</span></span><a class="ext" href="https://www.youtube.com/watch?v=FsE3D1b9j-8" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/FsE3D1b9j-8?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+</div>
+
+<ol class="num">
+<li value="1">Мы – первая<sup id="cite_ref-14"><a href="#cite_note-14">[14]</a></sup> ступень Круга Света Жизни и осознанной Любви Творца к человеку, проявляемой посредством любви человека к ближнему своему, как к самому себе, являющийся сыном (результатом активной творческой деятельности) Человека Живого, не созданного отдельно мужчиной и отдельно женщиной, равно как и не созданный отдельно в “духовном” или “материальном” мире, и в этом “по свойствам” близкий к самой конечной желаемой ступени начавшегося посредством своего создания Творцом, Свят Благословен Он, на наших глазах и экранах (духовных, и материальных), “третьего тысячелетия”, эпохи “конечного исправления” Творцом, Свят Благословен Он, создаваемого Им Самим во Имя и во Славу Свою, человека этого мира, одного, единого и единственного, как и его Создатель, совершенного и вечного, непостижимо (с точки зрения человека разумного) мудрого и милосердного<sup id="cite_ref-4"><a href="#cite_note-4">[4]</a></sup>.</li>
+<li value="2">Мы выполняем Волю Творца, Свят Благословен Он, и служим Ему инструментом осуществления локальных практических задач вышеупомянутого процесса, характерного и актуального именно для нашего поколения, и с нарастающей актуальностью характерного для всех последующих поколений, последнее из которых, равно как и первое, Милостью Господа, уже созданное, собранное, сделанное и испытанное на деле, хоть и в “миниатюрной” форме, будет единым со своим духовным Корнем, и не будет делить мир на “духовное” и “материальное”, или даже понимать, как “брата по разуму”, того, кто будет иметь в виду правомерность возможного существования такого разделения в человеческой картине мира. Нас не понимают и не принимают наши братья и ближние, Милостью Господа, в виду нашей малости, стараясь просто не замечать, делать вид, что нас нет и никогда не было, и это, конечно же, благословение для нас, поскольку если бы нам пришлось отвечать на попытки “разобраться по понятиям” кто тут “хозяин горы”, а кто “хрен с бугра”, в отношении всех выше- и ниже-описываемых и приводимых понятий и определений, претендующих называться Наукой Каббала, в прямом и непосредственном, а не шуточном и оппортунистском, смысле и значении этого понятия, то мы бы вряд ли могли быть эффективными в выполнении той настоящей работы, ради которой мы были созданы Творцом, Свят Благословен Он. Работы и формы, которая, Милостью Господа, в очередной раз, близка к завершению своего собственного этапа становления и явного раскрытия Творцом, Свят Благословен Он, чтобы стать, на этот раз, уже чем-то более масштабным и значимым, чем “кружок по интересам”, и его “оригинальная” творческая самодеятельность “в палате №6”, вполне подходящего размера для того, чтобы смотреть на него сверху вниз со снисходительной улыбкой, выражающей нечто среднее между “чем бы дитя не тешилось, лишь бы не вешалось” и “перебесятся, повзрослеют и разбегутся сами, видели таких уже не раз”. Милостью Господа, первый год полет идет нормально, пояс Ориона видно из иллюминатора невооруженным взглядом, взятый курс стабильно подтверждается ежедневным сокращением оставшегося расстояния до точки назначения, "где один человек не будет учить другого" тому, как и зачем ему жить и рожать детей, а будет помогать ему в этом исключительно "материально" (а учиться тому, “что такое хорошо и что такое плохо” будут исключительно сами эти дети, причем на своем собственном опыте, получаемом в период начальной школы), равно как и удалением от пройденной в субсветовом полузабытом прошлом, где-то в близости от планеты Земля, “точки невозврата из мечты”.</li>
+<li value="3">В своем общем и окончательном Конечном Исправлении, человек, уподобляясь по свойствам Творцу (Свету Жизни и Любви), посредством Круга единомышленников, соединенных этим Светом, чтобы быть как Один Человек с Одним Сердцем, вступает в поручительство между собой, чтобы создать человека "из ничего"<sup id="cite_ref-15"><a href="#cite_note-15">[15]</a></sup>, используя Свет Творца как Кли (инструмент), посредством которого он будет жить вечно, помнить себя и увековечит этим осознание, данное ему Творцом, и культивируемое им посредством жизни и бесконечного восходящего духовного Пути, который не ведет никуда, также, как и все остальные Пути, которые были до него, но только делает это так, что, возвращаясь из ниоткуда, человек рождается не в “первом внимании” общества этого мира, забывая себя и забывая своих ближних, и, как следствие, забывая Творца и Его благословение вечной Жизни посредством Любви между мужчиной и женщиной, а рождается во “втором внимании”, как следующая ступень Самого Себя, в Которой Он будет в чем-то похож на каждого, кто Им являлся до него (и будет являться после). И это “что-то”, называется “духовное решимо”, оставленное для него товарищами и подругами, молившимися за успех его Путешествия с целью Возвращения в Круг из Мира Бесконечности Творца, Свят Благословен Он, с новыми задачами и новыми целями от Создателя, не для себя и не ради себя, а для того, и ради того, чтобы дать тем, кто его уже ждет, с бесконечной осознанной любовью в сердце, как своего собственного новорожденного ребенка, зачатого и рожденного в Круге, чтобы родиться заново Его же участником, и продолжить вечное служение Творцу, посредством получения ради отдачи Его благословенного Света Жизни, раскрывающего полученное Им в Мире Бесконечности “духовное решимо” в Круге Жизни, а затем, посредством распространения в “Келим этого мира”, реализующего его практическое содержание Творцом, Свят Благословен Он, открытое управление Которого всей действительностью происходит внутри этих Келим неявно и скрыто, пока не возникнут все условия для раскрытия и наслаждения, посредством их осознанного использования в Круге Света Жизни и Любви Творца, Свят Благословен Он, с намерением “ради отдачи”.</li>
+<li value="4">В начале своей новой Жизни человек этого мира рождается обычным ребенком, который также, как и все остальные дети, встречается с этим миром и другими людьми впервые, последовательно обучаясь тому, как вести себя, чтобы быть его неотъемлемой и органичной самостоятельной частью, имеющей все особенности личности, такие как уникальное, единственное в своем роде, состояние сознания, набор личностных черт и особенностей характера. Ребенком, корень души которого не появился из общего, нереализованного и неосознанного состояния души “периода подготовки” человечества к осознанию себя, и раскрытию Высшей Силы, благодаря включению Которой в действие своих родителей, человек обладает своей собственной Жизнью и существованием в мире, а который осознанно был выбран собственной душой для продолжения своей вечной жизни, посредством кругооборота “путешествия с целью возвращения” этого мира, чтобы продолжить Путь, обновив его и доставляя “важные сообщения” от Творца, Свят Благословен Он, родным и близким своим душам, проходящим свой собственный Путь в этом мире, подобно ему самому, и благодаря любви которых к нему, как к самому себе<sup id="cite_ref-1"><a href="#cite_note-1">[1]</a></sup>, в котором Творец, Свят Благословен Он, Бесконечный Свет Жизни и осознанной Любви человека к ближнему своему, дает человеческой семье, “ячейке общества” периода общего, “до конца исправленного”, последнего, поскольку новых душ “Иванов, не помнящих родства”, в нем появляться уже не будет, поколения будущего, благословение новыми задачами и целями, намерениями и возможностями, позволяющими действовать на благо общей души Человечества, и на благо Творца, Свят Благословен Он, а не для себя и не ради себя, даже если это касается “духовного окружения”, поскольку оно, также как и сам человек, является единым и неделимым в духовном истинном смысле на “человека и ближнего”, а является общностью самостоятельных и независимых частей лишь для внешнего взгляда наблюдателя из этого “мира действий” и следствий, корни, причины и побудительные силы которых всегда находятся “выше” этого мира, в мирах духовных, недоступных прямому наблюдению человеком, “скрытых” Сил, которые однако, управляют всем, что “открыто и явно” человеку так, что ни одна травинка на Земле не существует хоть в чем-то “независимо” от своего “духовного корня”, или Ангела Творца, Свят Благословен Он, который побуждает и обуславливает ее рост и развитие в соответствии с единым, совершенным и неуязвимым во всех возможных смыслах Замыслом своего Создателя.</li>
+<li value="5">Развитие такого ребенка, благодаря непрерывности цепи кругооборотов, благоприятствующей сохранению накопленной осознанности, корня собственной души, происходит значительно более быстрым темпом и по качеству заметно отличается от среднего ребенка, рожденного в “случайной семье” этого мира на этапе “периода подготовки”. Он развивается и приобретает знания о мире гораздо быстрее, буквально впитывая в себя то, что ему предоставляют для этого родители и учителя. Конец его обучения базовому набору необходимых знаний и навыков, позволяющих человеку быть сознательной частью общества того “взрослого” мира, в котором он оказывается, посредством прохождения своего “самого начального” образования, он приобретает к 6 годам<sup id="cite_ref-2"><a href="#cite_note-2">[2]</a></sup>. После этого происходит действие, точнее говоря, он совершает действие, сущностью которого является событие, происходящее с ним по Воле Творца, Свят Благословен Он, и в результате мудрого руководства его родителей и учителей, которое соответствует понятию “духовного посвящения”, “пробуждения”, или “второго рождения”, по сути являясь осознанным соединением человека с корнем своей собственной души. Необходимость “повторного соединения” продиктована тем, что на каждой ступени “этого мира”, созданной Творцом, Свят Благословен Он, с целью раскрыть Свое совершенство и насладить творения, обязаны присутствовать две последовательные стадии процесса становления, или “создания из ничего” Творцом, Свят Благословен Он, первая из которых происходит под действием “пробуждения Свыше”, что мы называем “неосознанным выполнением”, или состоянием “катнут” (малое), а вторая, которая является в точности тем же самым, чем являлась первая, но которая позволяет уже использовать знания и навыки, приобретенные человеком посредством “слепых” усилий во время обучения (на “периоде подготовки”), по свободной и самостоятельной, ничем не обуславливаемой, кроме внутреннего побуждения самого человека служить Творцу, Свят Благословен Он, открыто и явно, что мы называем “гадлут”, “взрослое” духовное состояние творения на Пути Творца, Свят Благословен Он. Действие это является именно тем, что Наукой Каббала называется “МАН”, поднимаемый “праведниками, души которых находятся в мирах БЕА” к ступени ЗОН Мира Ацилут, благодаря чему ЗОН поднимаются (приобретают ступень, становятся как) АВИ, а АВИ поворачиваются “лицом к лицу” к друг другу, чтобы получить для ЗОН и “праведников” Свет Творца, Свят Благословен Он, от единого, и не являющегося, подобно ЗОН и АВИ, частью “оборачивающегося” строения Круга Жизни, но существование которой скрыто от миров и душ праведников, проходящих процесс кругооборотов в этом мире, будучи связанным и слитым с ними, в то же самое время, самым внутренним и сущностным способом – т.е. Арих Анпин, Свет Создателя, Свят Благословен Он, “скрытая святая Хохма” Мира Ацилут, “не выходящий” за пределы Рош (головы духовного парцуфа), но “отвечающий” за его наполнение, поскольку является той самой Хохмой, в которой заключен “весь Свет Жизни, Который был, есть и будет у творений”. А Сам этот Свет, в Свою очередь, посредством Своего свойства “средней линии” являющийся одним, единым и единственным во всей Реальности, Светом Слияния и Светом божественной Мудрости, является связью, которая есть у творений и Творца, Свят Благословен Он, посредством которой Он Один управляет творениями как единым целым, каждым из них – лично и непосредственно (когда дело касается “второго внимания” – осознанного восприятия и Жизни этого мира человеком “пробужденным” посредством любви к ближнему, как к самому себе, к вечной Жизни и вечному осознанному и свободному служению Силе Природы, Творцу, Свят Благословен Он, что является наивысшим в глазах человека возможным благом для него и личной доблестью, выше которой нет и не может быть ничего), добрым (желаемым и приятным) путем, открыто и явно, непостижимо мудро, и в то же время, просто, непосредственно, очевидно и естественно для человека, коммуницирующего с Ним по принципу “из действий Моих познаете Меня”, который вполне можно было бы перефразировать, как “из собственного опыта, осознанного посредствам “перепросмотра” (духовной практики целенаправленного вспоминания и перепроживания), познаете самих себя”.</li>
+<li value="6">Из “подсказок”, истинность которых относительно описываемого “будущего” этого мира на следующей его ступени “эволюции” развития человека и человечества, на которой духовное и материальное вновь будут слитыми в одно, а жизнь человека этого мира и Путь работников Творца, Свят Благословен Он, снова станет одним и тем же понятием, между которым невозможно сделать какое-либо различие, потому что его действительно нет, и никогда не было, со значительной степенью уверенности можно декларировать уже сейчас, кроме<sup id="cite_ref-3"><a href="#cite_note-3">[3]</a></sup> вышеупомянутого значения в жизни человека “практики перепросмотра” (объектом которой будет становиться, главным образом, не жизненный путь, проходимый человеком в настоящий момент времени, а жизненный путь тех людей, которые связаны с этим человеком в единую цепь последовательно раскрывающихся ступеней одного и того же “духовного корня”, или являющихся тем же самым явлением, происходящим в разные времена и с разными исходными и сопутствующими внешними условиями и обстоятельствами их путей и судеб, последовательно развиваясь как единое целое, находящееся выше ограниченных и инструментальных, утилитарных, по сути своей, явлений, процессов и объектов этого мира, посредством чего человек будет все более отчетливо, целостно, осознанно и ясно, видеть лежащий перед ним конкретно, как одним из звеньев в этой единой непрерывной, и сущностно слитой в реальности более “настоящей”, чем этот мир и физическое тело, вместе со всеми его ощущениями, знаниями, опытом и другими деталями и свойствами, цепи вечной жизни (не начинающейся и не заканчивающейся жизнью человеческой личности и физического тела, ограниченных временными, отмеряемыми “естественным метрономом” физического тела, рамками органической и общественной жизни) человека, уподобленного и слитого по свойствам с Творцом, Свят Благословен Он, в Котором заключена самая его суть, из Которого состоит он сам, и больше ничего в нем самом нет в принципе, кроме внешних, подобно рубашке на теле человека этого мира, материальных оболочек и прочих утилитарных явлений и дополнительных инструментов – поскольку именно Свет Жизни, называемый нами Творцом, Свят Благословен Он, и действительно Им являющийся (во всех смыслах, которые могут сопутствовать понятию “являться” или “быть”, и т.п. относительно человека в принципе), является тем “материалом” из которого состоит этот человек по сути Своей, скрытой от “этого мира”, но открытой и явной для Круга, выстроенного этим Светом, как Кли Своей вечной Жизни, а “желание получать” настоящей природой человека не является вовсе, хоть и является всем, чем является “человек этого мира”, равно как и всем, чем что-либо, существующее во всех мирах может являться в принципе – т.к. оно является лишь способом, инструментом (Кли), позволяющим человеку возлюбить Творца, Свят Благословен Он, пользуясь Его Светом Жизни осознанно, как инструментом Любви к ближнему, как к самому себе, в которой “материальный” человек, являющийся звеном вечной цепи, видит смысл, цель и суть собственной жизни, поскольку это действительно так, ибо Нет никого кроме Него, что могло бы претендовать на эту роль, во всей реальности в принципе, независимо от “особого мнения” нашего брата по этому поводу, ведь даже если оно есть, рано или поздно его не будет, как и всего, что связано с конкретной жизнью, облаченной внутри материи, а Свет души останется слитым с Творцом в Мире Истинном, “который был до того, как после”, то есть “до того”, как понятия “до или после”, либо аналогичные им, стали для кого-либо иметь какое-то значение и смысл.</li>
+</ol>
+
+<div class="cry">ТОЛЬКО ВМЕСТЕ, МЫ - СИЛА!</div>
+
+<h2 id="s-music">Рекомендуемая музыка <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<div class="music-group has-heading" data-label="Музыка под настроение">
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Dream On</span> <span class="trk-sep">—</span> <span class="trk-art">Jadyn Rylee feat. Aviv Cohen</span></span><a class="ext" href="https://www.youtube.com/watch?v=FsE3D1b9j-8" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/FsE3D1b9j-8?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Moment of Peace</span> <span class="trk-sep">—</span> <span class="trk-art">Gregorian<sup id="cite_ref-12"><a href="#cite_note-12">[12]</a></sup></span></span><a class="ext" href="https://youtu.be/TF4Orx0765Q" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/TF4Orx0765Q?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="trk-play">▶</span> <span class="title"><span class="trk-ttl">Я вернусь</span> <span class="trk-sep">—</span> <span class="trk-art">Игорь Тальков</span></span><a class="ext" href="https://youtu.be/DFtOELd5pEI" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a><span class="trk-mute" role="button" tabindex="0" aria-pressed="false" aria-label="Заглушить звук" title="Заглушить звук (реклама YouTube)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk-cone" fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><g class="spk-wave" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16.4 8.6a5 5 0 0 1 0 6.8"/><path d="M18.8 6.2a8.5 8.5 0 0 1 0 11.6"/></g><line class="spk-slash" x1="3.4" y1="3.4" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/DFtOELd5pEI?enablejsapi=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+</div>
+
+<h2 id="notes">Пояснения <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+<ol class="notes">
+<li id="cite_note-1" value="1"><a class="backref" href="#cite_ref-1" title="Вернуться к месту в тексте">↑</a> иначе не бывает с собственными детьми и у “обычных” людей этого мира, только они, по сути, не понимают, почему Природа сделала именно так, поскольку фактический Путь новой личности этого мира редко бывает близок к таковому своих естественных родителей, так что даже для человека этого мира необходимость разграничивать одно и другое понятие “родства” часто является очевидным и не вызывает неприятия</li>
+<li id="cite_note-2" value="2"><a class="backref" href="#cite_ref-2" title="Вернуться к месту в тексте">↑</a> не следует слишком фиксироваться на конкретных приводимых цифрах, относящихся к реальности “будущего мира”, поскольку их точность может быть проверена и подтверждена (либо опровергнута) только в момент наступления этого самого будущего “на деле” (или “на теле”, что одно и то же ; : )</li>
+<li id="cite_note-3" value="3"><a class="backref" href="#cite_ref-3" title="Вернуться к месту в тексте">↑</a> изначально автор хотел написать о значении “второго” и “первого” внимания в достижении осознанности и памяти себя, про сон и пробуждение как ветвь и подобие вечной жизни посредствам перерождений, и, может быть, напишет об этом в будущих статьях. А если он сам не напишет, то те, кто будет в чем то похож на него, в будущем, являясь тем же самым, чем он на самом деле является, если, конечно, не считать человеком то, что мы видим на экране телевизора, обязательно напишут, поскольку все это – части одной мозаики, неизбежность и желательность раскрытия которой подобна Закону Природы прямого действия, реализация и точное безошибочное выполнение которого в “материальном мире” не зависит от мнений, случайностей и обстоятельств действующих лиц.</li>
+<li id="cite_note-4" value="4"><a class="backref" href="#cite_ref-4" title="Вернуться к месту в тексте">↑</a> а если что-то, вспоминая расхожую “народную мудрость”, плавает как утка, крякает как утка, и выглядит, как утка, то существует повышенная, как минимум, вероятность того, что это и есть утка, а не мутировавший детеныш лохнесского чудища, специально запущенный в пруд недоброжелателями, чтобы нас запутать и увести в сторону от понимания того, чем это “что-то” в действительности является и всегда являлось, даже если в прошлом это мало кому приходило в голову</li>
+<li id="cite_note-5" value="5"><a class="backref" href="#cite_ref-5" title="Вернуться к месту в тексте">↑</a> Также известного под именем “Кецалькоатля” (Quetzalcoatl) в традиции древних мексиканских индейцев, среди которых встречались “каббалисты” не менее видные, чем на другом континенте в то же самое время среди древнего “народа Исраэля”, в дохристианской эре существовавшего как праобраз человеческого общества “последнего поколения”, форма и вид которого в общем и целом (но совсем не обязательно – в деталях и частностях) соответствует таковым, описанным в настоящей статье.</li>
+<li id="cite_note-6" value="6"><a class="backref" href="#cite_ref-6" title="Вернуться к месту в тексте">↑</a> Справочник по “Келим этого мира”, созданный Творцом, Свят Благословен Он, для подспорья Своим работникам, выполняющим работу Творца периода “последнего поколения”, призванную осуществить последовательную интеграцию Творцом как самой Науки Каббала, так и всех остальных духовных и “материальных” Наук, учений и методик, в одно неразделимое целое, суть и значение которого не сводится ни к одной из этих форм по отдельности, но раскрывается только в их соединении в одном Кли, обладающим формой “подобия свойств” “конечного исправления”, описываемой в Книге Зоар и Торе (Берешит), как “Мужчиной и Женщиной Он создал их”, т.е. в таком Кли, которое способно соединять и объединять, вопреки логике “этого мира”, непересекающиеся и непохожие друг на друга до полной противоположности миры и явления, такие, как мужчина и женщина по сути своей в их внутренней “духовной работе”, и которые в ином случае были бы не только не способны объединиться и раскрыть предопределенное Природой единство своего истинного предназначения, но и у которых даже мысли подумать в эту сторону появиться бы не могло, на то они и “разные миры”.</li>
+<li id="cite_note-7" value="7"><a class="backref" href="#cite_ref-7" title="Вернуться к месту в тексте">↑</a> В Круге Жизни уже выходила недавно одна публикация под таким же названием (<a class="internal" href="16C.html">Вечное сияние чистого разума</a>). Сущностная разница между содержаниями настоящей и предыдущей статьи, позволяет оценить масштаб внутренних изменений, происходящих в человеке “этого мира”, от начала, и до времени реализации, его духовного Пути, будучи связанными друг с другом как “паним” и “ахораим” (лицевая и обратная сторона) одного и того же по сути своей явления, которое называется “этот мир”, (ивр. “олам азе” ). Равно как и различие между настроением и результатом “духовного Пути”, который человек пытается предпринимать в одиночку, и тем, посредством которого несколько мужчин и женщин соединяют свои усилия, стремления и результаты в одно.</li>
+<li id="cite_note-8" value="8"><a class="backref" href="#cite_ref-8" title="Вернуться к месту в тексте">↑</a> Совместными молитвами мужчин и женщин в Круге Жизни, которыми они создают свое будущее, и будущее своих ближних, Милостью Господа, и находясь с Ним “в сотрудничестве” посредством этого. "Новые небеса и новая земля, которых никогда не было в этом мире" (Зоар), "обратный мир увидел я": Творец и творение “меняются местами”, во всяком случае понимание того, Кто из них ответственен за работу “политрука” и “архитектора” своего собственного, Милостью Творца, Свят Благословен Он, ближайшего будущего и будущего этого мира как проекта в целом. Хотя, не исключена (за принципиальной недоказуемостью обратного) и такая версия событий, что меняются местами только “видимые” или явные “всем от мала до велика” части объективной Реальности, а скрытые и неявные, видеть которые человеку незачем, да и вообще вряд ли возможно, продолжают существовать таким образом, что человек принимает именно те решения и в нем появляются именно те желания и побуждения, и именно в то самое время, как и когда это необходимо для того, чтобы его близкие и он сам жили долго и счастливо не смотря ни на что, а если смотря – то еще дольше и счастливее, как будто в этой, как некоторым людям по неразумности, кажется, Богом забытой, Вселенной, существовал Кто-то, Кому таки есть до этого какое-то особенное дело.</li>
+<li id="cite_note-9" value="9"><a class="backref" href="#cite_ref-9" title="Вернуться к месту в тексте">↑</a> Также эпиграфом можно считать эту небольшую статью и текст на картинке (см. иллюстрацию к статье)</li>
+<li id="cite_note-10" value="10">А вообще, эпиграфом к этой статье вполне заслуженно можно считать все, что было создано и опубликовано Кругом Жизни за год своей успешной и плодотворной творческой деятельности, на страницах naasenishma and /atsilut, /arykhanpin, а также недавно начатый и постепенно заполняемый полный список произведений на сайте <a href="http://proza.ru/avtor/agent017" target="_blank" rel="noopener">http://proza.ru/avtor/agent017</a> . Приди и посмотри!</li>
+<li id="cite_note-11" value="11"><a class="backref" href="#cite_ref-11" title="Вернуться к месту в тексте">↑</a> См. также: <a class="internal" href="182.html">Летопись Живого Огня</a></li>
+<li id="cite_note-12" value="12"><a class="backref" href="#cite_ref-12" title="Вернуться к месту в тексте">↑</a> По всей видимости, название группы Gregorian - это анаграмма "I am Ergregor"</li>
+<li id="cite_note-13" value="13"><a class="backref" href="#cite_ref-13" title="Вернуться к месту в тексте">↑</a> Предисловие писалось к публикации статьи на форуме <a href="https://ccastaneda.ru/" target="_blank" rel="noopener">https://ccastaneda.ru/</a></li>
+<li id="cite_note-14" value="14"><a class="backref" href="#cite_ref-14" title="Вернуться к месту в тексте">↑</a> (Первый), но далеко не последний, и совсем не выделяющийся чем-то особенным, кроме хронологической первородности своего возникновения, прототип основной формы “духовной жизни” будущего мира, который постепенно начинает становится самым “настоящим” или “этим” миром, наблюдаемым все более и более различимо и недвусмысленно теми, чьи глаза и уши предрасположены к тому, чтобы слышать и видеть скрытое и неочевидное для других</li>
+<li id="cite_note-15" value="15"><a class="backref" href="#cite_ref-15" title="Вернуться к месту в тексте">↑</a> "Нечто из ничего" (Еш ми айн - каб. ивр. - характеристика создаваемого Творцом, Свят Благословен Он, "творения этого мира", т.е. человека, его восприятия и той реальности, которая у него/нее имеется в жизни. Указывает на, в определенном смысле, "нереальность" этой категории реальности, относительно "первоначальной" Реальности Творца, Свят Благословен Он, а с другой стороны, на то, что из этой "нереальности" возникает нечто, вполне конкретное и реальное на "своем месте", "здесь и сейчас", будучи сформировано, находясь в конечной точки процесса своего создания из ничего в сотрудничестве с Творцом, Свят Благословен Он, по своей собственной свободной воле и желанию сердца.</li>
+</ol>
+</article>
+
+<nav class="article-nav">
+  <span class="prev"><a href="2BN.html">← Немая Песнь Хозяйки Ночи</a></span>
+  <span class="next"><a href="384.html">Катехизис Детей Вечной Весны →</a></span>
+</nav>
+
+<footer class="footer">
+<p class="editinfo">Редакция: Иван Иванович</p>
+<p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+<p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+</footer>
+</div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"><style>
+  :host{
     --bg:#faf8f3;
     --paper:#ffffff;
     --ink:#2a2724;
@@ -19,8 +290,8 @@
     --link:#8a4b22;
   }
   *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
     margin:0;
     background:var(--bg);
     color:var(--ink);
@@ -29,7 +300,7 @@
     line-height:1.7;
     -webkit-text-size-adjust:100%;
   }
-  body[data-scheme="editorial"] .wrap{
+  .ya-old[data-scheme="editorial"] .wrap{
     width:66vw;
     max-width:1040px;
     min-width:0;
@@ -37,11 +308,11 @@
     padding:32px 28px 80px;
   }
   @media(max-width:1100px){
-    body[data-scheme="editorial"] .wrap{width:auto;max-width:760px;}
+    .ya-old[data-scheme="editorial"] .wrap{width:auto;max-width:760px;}
   }
   @media(max-width:680px){
-    body{font-size:18px;}
-    body[data-scheme="editorial"] .wrap{padding:18px 16px 60px;}
+    .ya-old{font-size:18px;}
+    .ya-old[data-scheme="editorial"] .wrap{padding:18px 16px 60px;}
   }
   a{color:var(--link);text-decoration:none;}
   a:hover{text-decoration:underline;}
@@ -284,21 +555,7 @@
   }
   .colophon a{color:var(--link);}
 </style>
-
-<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/16J.html">
-<meta name="description" content="Эссе-сказка в форме речи мага-рассказчика о будущем человека, серафимах и эпохе конечного исправления, с эпиграфом из Книги Исайи.">
-<meta property="og:title" content="Только Ты будешь жить вечно">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/16J.html">
-<meta property="og:description" content="Эссе-сказка в форме речи мага-рассказчика о будущем человека, серафимах и эпохе конечного исправления, с эпиграфом из Книги Исайи.">
-<meta property="og:site_name" content="Путь Восходящей Звезды">
-<meta property="og:locale" content="ru_RU">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Только Ты будешь жить вечно">
-<meta name="twitter:description" content="Эссе-сказка в форме речи мага-рассказчика о будущем человека, серафимах и эпохе конечного исправления, с эпиграфом из Книги Исайи.">
-<script src="../ya-switch.js"></script>
-</head>
-<body data-scheme="editorial">
+<div class="ya-old" data-scheme="editorial">
 <span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №16J</span>
 <div class="wrap">
 
@@ -524,5 +781,262 @@
   "features": ["music", "footnotes", "toc"]
 }
 </script>
+</div></template>
+<script>
+// Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
+// no editor/login module is loaded.
+(function(){
+  var bubble = null, hideTimer = null;
+  function ensureBubble(){
+    if (bubble) return bubble;
+    bubble = document.createElement('div');
+    bubble.className = 'footnote-bubble';
+    bubble.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); });
+    bubble.addEventListener('mouseleave', scheduleHide);
+    document.body.appendChild(bubble);
+    return bubble;
+  }
+  function scheduleHide(){
+    if (hideTimer) clearTimeout(hideTimer);
+    hideTimer = setTimeout(function(){ if (bubble) bubble.classList.remove('show'); }, 180);
+  }
+  function show(link){
+    var href = link.getAttribute('href') || '';
+    if (!href.startsWith('#')) return;
+    var target = document.getElementById(href.slice(1));
+    if (!target) return;
+    var b = ensureBubble();
+    var clone = target.cloneNode(true);
+    var back = clone.querySelector('a.backref');
+    if (back) back.remove();
+    // муз-трек как цель сноски: во всплывашке — ТОЛЬКО название трека (+ ↗),
+    // БЕЗ плеера/iframe-фрейма и дубль-этикетки (вердикт оператора 14:46)
+    if ((clone.className || '').indexOf('music') >= 0 || clone.querySelector('iframe, .player')) {
+      Array.prototype.forEach.call(clone.querySelectorAll('.player, .caret, .label, .trk-play'),
+        function(e){ e.remove(); });
+    }
+    b.innerHTML = clone.innerHTML;
+    b.classList.add('show');
+    var r = link.getBoundingClientRect();
+    var sx = window.pageXOffset, sy = window.pageYOffset;
+    b.style.left = '0px'; b.style.top = '0px';
+    var bw = b.offsetWidth, bh = b.offsetHeight;
+    var left = sx + r.left + r.width/2 - bw/2;
+    var maxLeft = sx + document.documentElement.clientWidth - bw - 8;
+    if (left > maxLeft) left = maxLeft;
+    if (left < sx + 8) left = sx + 8;
+    var top = sy + r.top - bh - 10;
+    var placeBelow = (top - sy) < 8;
+    if (placeBelow) top = sy + r.bottom + 10;
+    b.style.left = left + 'px';
+    b.style.top  = top  + 'px';
+    b.classList.toggle('below', placeBelow);
+  }
+  function ytPost(f, func){
+    if (!f) return;
+    try { f.contentWindow.postMessage('{"event":"command","func":"'+func+'","args":[]}', '*'); } catch(e){}
+  }
+  function applyMute(d){
+    var btn = d.querySelector('.trk-mute'); if (!btn) return;
+    var f = d.querySelector('iframe');
+    if (!f || f.getAttribute('data-src')) return;   // плеер ещё не впрыснут
+    var func = btn.getAttribute('aria-pressed') === 'true' ? 'mute' : 'unMute';
+    ytPost(f, func);                                 // плеер готов (играет рекламу) → срабатывает сразу
+    setTimeout(function(){ ytPost(f, func); }, 700); // ретраи на случай «только что открыли»
+    setTimeout(function(){ ytPost(f, func); }, 1800);
+  }
+  function bindMusic(){
+    document.querySelectorAll('details.music').forEach(function(d){
+      if (d.dataset.musicBound) return; d.dataset.musicBound = '1';
+      d.addEventListener('toggle', function(){
+        if (!d.open) return;
+        var f = d.querySelector('iframe[data-src]');
+        if (f) {
+          var src = f.getAttribute('data-src');
+          src += (src.indexOf('?') >= 0 ? '&' : '?') + 'origin=' + encodeURIComponent(location.origin);
+          f.src = src; f.removeAttribute('data-src');
+        }
+        applyMute(d);                                // применить запомненное mute-состояние
+      });
+      var btn = d.querySelector('.trk-mute');
+      if (btn) {
+        var toggle = function(ev){
+          ev.preventDefault(); ev.stopPropagation();  // не дёргать details.open
+          var on = btn.getAttribute('aria-pressed') !== 'true';
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+          btn.setAttribute('aria-label', on ? 'Включить звук' : 'Заглушить звук');
+          btn.title = on ? 'Включить звук' : 'Заглушить звук (реклама YouTube)';
+          applyMute(d);
+        };
+        btn.addEventListener('click', toggle);
+        btn.addEventListener('keydown', function(ev){
+          if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') toggle(ev);
+        });
+      }
+    });
+  }
+  function bindFootnotes(){
+    document.querySelectorAll('sup a[href^="#cite_note-"]').forEach(function(a){
+      if (a.dataset.fnBound) return; a.dataset.fnBound = '1';
+      a.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); show(a); });
+      a.addEventListener('mouseleave', scheduleHide);
+      a.addEventListener('focus', function(){ show(a); });
+      a.addEventListener('blur',  scheduleHide);
+    });
+  }
+  function bindSpoilers(){
+    document.querySelectorAll('.spoiler').forEach(function(sp){
+      if (sp.dataset.splBound) return; sp.dataset.splBound = '1';
+      function reveal(){ sp.classList.add('revealed'); }
+      sp.addEventListener('click', reveal);
+      sp.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); reveal(); }
+      });
+    });
+  }
+  bindMusic(); bindFootnotes(); bindSpoilers();
+
+  // Общая левая рейка стихов: все .poem статьи ровняются по краю, который
+  // центрирует САМЫЙ ШИРОКИЙ из них (классическая осевая выключка, но единая
+  // на статью — края не скачут от блока к блоку). Пересчёт при смене
+  // темы/ширины/размера окна: метрики шрифта и мера меняются.
+  function alignPoems(){
+    var art = document.querySelector('article'); if (!art) return;
+    var poems = Array.prototype.slice.call(art.querySelectorAll('.poem'));
+    if (!poems.length) return;
+    poems.forEach(function(p){ p.style.marginLeft = ''; p.style.marginRight = ''; });
+    if (poems.length < 2) return; // одиночный стих — родное центрирование темы
+    var maxW = 0;
+    poems.forEach(function(p){ maxW = Math.max(maxW, p.getBoundingClientRect().width); });
+    var cs = getComputedStyle(art);
+    var artRect = art.getBoundingClientRect();
+    var contentLeft = artRect.left + parseFloat(cs.paddingLeft || 0) + parseFloat(cs.borderLeftWidth || 0);
+    var contentWidth = art.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+    var targetX = contentLeft + Math.max(0, (contentWidth - maxW) / 2);
+    poems.forEach(function(p){
+      p.style.marginLeft = '0px'; p.style.marginRight = 'auto';
+      var x = p.getBoundingClientRect().left;
+      p.style.marginLeft = (targetX - x) + 'px';
+    });
+  }
+  var alignTimer = null;
+  function alignPoemsSoon(){ if (alignTimer) clearTimeout(alignTimer); alignTimer = setTimeout(alignPoems, 60); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignPoemsSoon);
+  window.addEventListener('load', alignPoemsSoon);
+  window.addEventListener('resize', alignPoemsSoon);
+  alignPoemsSoon();
+
+  // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
+  var sel = document.getElementById('zml-theme');
+  var wsel = document.getElementById('zml-width');
+  var link = document.getElementById('theme-css');
+  var wrap = document.querySelector('.wrap');
+  var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy || !wrap) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
+      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
+      hideEl(c);
+    });
+    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
+    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
+    wrap.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
+      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
+    });
+  }
+
+  if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
+  if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
+  if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
+  if (sel) sel.addEventListener('change', function(){
+    var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
+    document.body.setAttribute('data-theme', t);
+    if (link) link.setAttribute('href', '../themes/'+t+'.css'+(ver?('?v='+ver):''));
+  });
+  if (wsel) wsel.addEventListener('change', function(){
+    if (!wrap) return;
+    wrap.classList.toggle('w-narrow', wsel.value==='narrow');
+    wrap.classList.toggle('w-wide', wsel.value==='wide');
+    alignPoemsSoon();
+  });
+
+  // Ф8′ ре-резолвинг вида. Настройки Admin (global design/width + правила по
+  // разделам/типам, с приоритетом per-article frontmatter) распространяются на
+  // ВСЕХ через ОДИН resolveDisplay (зеркало render.js). Залогинен → личные правила
+  // из worker KV (/api/settings); аноним → глобальный display.json (тот же файл,
+  // что коммитит Admin) → правки Admin доходят до анонимов В РАНТАЙМЕ, не только
+  // редирект «new/old». Запечённая build_views тема — лишь стартовый/no-JS дефолт:
+  // если совпадает с резолвом (обычный случай), apply() ничего не трогает (нет мигания).
+  (function(){
+    var body = document.body;
+    var section = body.getAttribute('data-art-section') || '';
+    var type    = body.getAttribute('data-art-type') || '';
+    var fmTheme = body.getAttribute('data-fm-theme') || '';
+    var fmWidth = body.getAttribute('data-fm-width') || '';
+    var worker  = (body.getAttribute('data-worker') || '').replace(/\/+$/, '');
+    var sess; try { sess = JSON.parse(localStorage.getItem('ya_session')||'null'); } catch(e){}
+    function resolve(cfg){
+      var g=(cfg&&cfg.global)||{}, rules=(cfg&&cfg.rules)||[], rd='', rw='';
+      for (var i=0;i<rules.length;i++){ var m=rules[i]&&rules[i].match; if(!m) continue;
+        if ((m.kind==='section'&&m.value===section)||(m.kind==='type'&&m.value===type)){
+          rd=rules[i].design||''; rw=rules[i].width||''; break; } }
+      return { design:(fmTheme||rd||g.design||'A_editorial'),
+               width:(fmWidth||rw||g.width||'wide') };
+    }
+    function apply(d){
+      if (sel && sel.value!==d.design){ sel.value=d.design; sel.dispatchEvent(new Event('change')); }
+      var w = /narrow|820/.test(d.width)?'narrow':'wide';
+      if (wsel && wsel.value!==w){ wsel.value=w; wsel.dispatchEvent(new Event('change')); }
+    }
+    // залогинен с воркером → личный KV; иначе (аноним) → общий display.json.
+    var src = (sess && sess.token && worker)
+      ? fetch(worker+'/api/settings',{headers:{Authorization:'Bearer '+sess.token}})
+      : fetch('../config/display.json',{cache:'no-cache'});
+    src.then(function(r){ return r.ok?r.json():null; })
+       .then(function(cfg){ if(cfg) apply(resolve(cfg)); })
+       .catch(function(){});
+  })();
+})();
+</script>
+<script src="../ya-edit.js" defer></script>
 </body>
 </html>

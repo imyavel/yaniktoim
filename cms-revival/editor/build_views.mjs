@@ -81,6 +81,17 @@ function extractLegacy(oldHtml) {
   return `${styleBlock}\n<div class="ya-old"${schemeAttr}>${bodyInner}</div>`;
 }
 
+// Редирект-заглушка вместо прежнего .view.html: уже расшаренные …/NNN.view.html
+// (Telegram/закладки) не ломаем — мгновенный refresh на NNN.html. noindex +
+// data-pagefind-ignore, чтобы заглушки не конкурировали в выдаче/поиске. В sitemap
+// их нет (он исключает *.view.html). Идемпотентна — перезаписывается на каждый build.
+function redirectStub(target) {
+  return '<!doctype html><html lang="ru"><head><meta charset="utf-8">\n' +
+    '<meta name="robots" content="noindex"><link rel="canonical" href="' + target + '">\n' +
+    '<meta http-equiv="refresh" content="0; url=' + target + '"></head>\n' +
+    '<body data-pagefind-ignore="all"><a href="' + target + '">→ Перейти к статье</a></body></html>\n';
+}
+
 let ids = process.argv.slice(2);
 if (!ids.length) {
   ids = readdirSync(docsArt)
@@ -96,8 +107,11 @@ for (const art of ids) {
     try { legacyBody = extractLegacy(readFileSync(join(legacyDir, `${art}.html`), "utf8")); }
     catch (e) { legacyBody = ""; } // нет архива (zml-only статья) → опция «old» скрыта
     const html = renderArticleHtml({ zml, rec, manifest, manifestByArt, zoharIndex, template, properNouns, displayConfig, siteConfig, legacyBody });
-    writeFileSync(join(docsArt, `${art}.view.html`), html);
-    console.log("OK", art, "->", `art/${art}.view.html`, html.length, "B");
+    // url-unification: единственный публичный адрес — NNN.html (перезаписывает бывший
+    // старый html, он уже в архиве legacy_html). Прежний NNN.view.html → редирект-заглушка.
+    writeFileSync(join(docsArt, `${art}.html`), html);
+    writeFileSync(join(docsArt, `${art}.view.html`), redirectStub(`${art}.html`));
+    console.log("OK", art, "->", `art/${art}.html`, html.length, "B");
   } catch (e) {
     console.log("ERR", art, e.message);
   }
