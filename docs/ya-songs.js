@@ -1,11 +1,11 @@
 /* ya-songs.js — Ф8(c): правка ZML спец-страницы «Песнь Ступеней» прямо на сайте.
  *
- * На songs/index.view.html у залогиненного editor/admin кнопка «✎ Править»
+ * На songs/index.html у залогиненного editor/admin кнопка «✎ Править»
  * открывает общий оверлей-редактор (ze-core.js). Его «Просмотр» рендерит правку
  * тем же render.js::renderSongsHtml, что и build_songs.mjs (один код + те же
  * данные из /editor/ → байт-в-байт), «Сохранить» → POST /api/save с page:"songs"
- * (Worker коммитит docs/songs/index.zml + docs/songs/index.view.html). Живой
- * docs/songs/index.html НЕ трогается (cutover на Ф9). Аналог ya-edit.js.
+ * (Worker коммитит docs/songs/index.zml + docs/songs/index.html — единый адрес).
+ * Аналог ya-edit.js.
  *
  * NB: правка меняет уже собранный index.zml напрямую. Источник генерации
  * (convert/gen_songs_zml.py + songs_overrides.json) при следующем прогоне
@@ -103,21 +103,11 @@
       });
   }
 
-  // Ф8(d): правка «Песни Ступеней» делает её ZML-приоритетной — при открытии в
-  // frontmatter дописывается `view: zml` (если строки `view:` ещё нет; видна в
-  // textarea). На сайт это попадает по «Сохранить»: Worker (page:"songs") отражает
-  // `view:` в docs/config/forced_views.json под ключом "songs", а шим в
-  // songs/index.html по этому ключу редиректит на index.view.html. Оператор может
-  // удалить строку (вернётся к общему дефолту) или поставить `view: html`. Идентично
-  // ya-edit.js (статьи). Вход CRLF→LF (как ze-core baseline), иначе `^---\n` не сматчит.
+  // url-unification: `view:`/forced_views упразднены — у songs один адрес
+  // index.html, вид резолвится рантаймом; «old»-варианта нет. Редактор больше НЕ
+  // дописывает `view:`. Оставляем лишь нормализацию CRLF→LF (baseline ze-core/textarea).
   function ensureViewZml(zml) {
-    var text = String(zml == null ? "" : zml).replace(/\r\n/g, "\n");
-    var m = /^---\n([\s\S]*?)\n---\n?/.exec(text);
-    if (!m) return "---\nview: zml\n---\n" + text.replace(/^\n+/, "");
-    var inner = m[1];
-    if (/^[ \t]*view[ \t]*:/m.test(inner)) return text;
-    inner = inner.replace(/\s+$/, "") + "\nview: zml";
-    return "---\n" + inner + "\n---\n" + text.slice(m[0].length);
+    return String(zml == null ? "" : zml).replace(/\r\n/g, "\n");
   }
 
   function saveSongs(zml, html) {

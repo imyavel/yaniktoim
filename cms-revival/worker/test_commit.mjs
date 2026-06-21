@@ -68,21 +68,19 @@ function buildPayload() {
   const tplSection = T(join(data, "template_section.html"));
   const displayConfig = J(join(docs, "config", "display.json"));
   const siteConfig = J(join(data, "site.json"));
-  const zml = ["---", "title: " + title, 'art: "' + art + '"', "date: " + today, "type: prose", "view: zml", "---",
+  const zml = ["---", "title: " + title, 'art: "' + art + '"', "date: " + today, "type: prose", "---",
     "[epi kind=prose]", "Эпиграф.", "[/epi]", "", "Текст.[^1]", "", "[^1]: сноска.", ""].join("\n");
   const view = renderArticleHtml({ zml, rec: { art, section: slug, title, date_chosen: today, url: "" },
     manifest, manifestByArt, zoharIndex, template: tplView, properNouns, displayConfig, siteConfig });
   const st = J(join(docs, "config", "structure.json"));
   const maxO = st.articles.filter((a) => a.section === slug && a.status !== "archived").reduce((m, a) => Math.max(m, a.order), -1);
   st.articles.push({ art, section: slug, order: maxO + 1, status: "published", title, date: today });
-  const fc = J(join(docs, "config", "forced_views.json")); fc[art] = "zml";
   return [
     { path: "docs/config/structure.json", content: JSON.stringify(st, null, 2) + "\n" },
-    { path: "docs/config/forced_views.json", content: JSON.stringify(fc) + "\n" },
     { path: "docs/art/" + art + ".zml", content: zml },
-    { path: "docs/art/" + art + ".view.html", content: view },
+    { path: "docs/art/" + art + ".html", content: view },
     { path: "docs/index.html", content: renderIndexHtml({ structure: st, manifestByArt, template: tplIndex, buildDate: today }) },
-    { path: "docs/" + slug + "/index.html", content: renderSectionIndexHtml({ slug, structure: st, manifestByArt, template: tplSection, buildDate: today, forced: fc, defaultView: "old" }) },
+    { path: "docs/" + slug + "/index.html", content: renderSectionIndexHtml({ slug, structure: st, manifestByArt, template: tplSection, buildDate: today }) },
   ];
 }
 
@@ -97,19 +95,19 @@ try {
   const token = d.token;
 
   const files = buildPayload();
-  ok("payload = 6 файлов", files.length === 6);
+  ok("payload = 5 файлов (url-unification: без forced_views, .html)", files.length === 5);
   r = await call("POST", "/api/commit", { token, body: { files, message: "cms: новая статья 66I (best) — Admin" } });
   d = await r.json();
   ok("/api/commit admin → ok+sha", r.status === 200 && d.ok === true && d.sha === "NEWCOMMIT");
 
-  ok("создано 6 blob'ов", Object.keys(ghStore.blobs).length === 6);
+  ok("создано 5 blob'ов", Object.keys(ghStore.blobs).length === 5);
   const tree = ghStore.trees[ghStore.trees.length - 1];
   ok("tree.base_tree = BASETREE", tree && tree.base_tree === "BASETREE");
-  ok("пути дерева == 6 путей payload", JSON.stringify((tree.tree || []).map((t) => t.path).sort()) === JSON.stringify(files.map((f) => f.path).sort()));
+  ok("пути дерева == пути payload", JSON.stringify((tree.tree || []).map((t) => t.path).sort()) === JSON.stringify(files.map((f) => f.path).sort()));
   ok("все mode=100644 type=blob", (tree.tree || []).every((t) => t.mode === "100644" && t.type === "blob"));
   let contentOk = true;
   for (const t of tree.tree) if (dec(ghStore.blobs[t.sha].content) !== files.find((f) => f.path === t.path).content) { contentOk = false; console.log("    разошлось:", t.path); }
-  ok("содержимое всех 6 blob'ов == payload", contentOk);
+  ok("содержимое всех blob'ов == payload", contentOk);
   ok("ref heads/main → NEWCOMMIT", ghStore.refPatched && ghStore.refPatched.sha === "NEWCOMMIT");
   ok("commit-message сохранён", ghStore.commits[0].message.includes("новая статья 66I"));
   ok("author = ник Admin", ghStore.commits[0].author && ghStore.commits[0].author.name === "Admin");
@@ -140,16 +138,18 @@ try {
   r = await call("POST", "/api/save", { token: etoken, body: { art: "03H", zml: zmlText, html: htmlText, image: { name: "03H.jpg", content: imgB64 }, branch: "main" } });
   d = await r.json();
   ok("editor /api/save+image → ok+sha", r.status === 200 && d.ok === true && d.sha === "NEWCOMMIT");
-  ok("создано 3 blob'а (zml+view+img)", Object.keys(ghStore.blobs).length - before === 3);
+  ok("создано 4 blob'а (zml+html+view-заглушка+img)", Object.keys(ghStore.blobs).length - before === 4);
   const stree = ghStore.trees[ghStore.trees.length - 1];
-  ok("дерево = 3 пути", JSON.stringify((stree.tree || []).map((t) => t.path).sort()) ===
-    JSON.stringify(["docs/art/03H.view.html", "docs/art/03H.zml", "docs/img/03H.jpg"]));
+  ok("дерево = 4 пути", JSON.stringify((stree.tree || []).map((t) => t.path).sort()) ===
+    JSON.stringify(["docs/art/03H.html", "docs/art/03H.view.html", "docs/art/03H.zml", "docs/img/03H.jpg"]));
   const imgBlob = ghStore.blobs[stree.tree.find((t) => t.path === "docs/img/03H.jpg").sha];
   ok("img blob: encoding base64", imgBlob.encoding === "base64");
   ok("img blob: ЧИСТЫЙ base64 (НЕ двойное кодирование)",
     imgBlob.content === imgB64 && imgBlob.content !== Buffer.from(imgB64, "utf8").toString("base64"));
   ok("img blob: байты восстановлены точно", Buffer.from(imgBlob.content, "base64").equals(imgBytes));
   ok("zml blob: текст через utf8-обёртку", dec(ghStore.blobs[stree.tree.find((t) => t.path === "docs/art/03H.zml").sha].content) === zmlText);
+  ok("03H.html = переданный рендер", dec(ghStore.blobs[stree.tree.find((t) => t.path === "docs/art/03H.html").sha].content) === htmlText);
+  ok("03H.view.html = редирект-заглушка → .html", /refresh[\s\S]*url=03H\.html/.test(dec(ghStore.blobs[stree.tree.find((t) => t.path === "docs/art/03H.view.html").sha].content)));
 
   r = await call("POST", "/api/save", { token: etoken, body: { art: "03H", zml: zmlText, html: htmlText, image: { name: "../evil.jpg", content: imgB64 } } });
   ok("image имя с .. → 400", r.status === 400);
@@ -160,7 +160,7 @@ try {
   before = Object.keys(ghStore.blobs).length;
   r = await call("POST", "/api/save", { token: etoken, body: { art: "03H", zml: zmlText, html: htmlText } });
   d = await r.json();
-  ok("/api/save без image → 2 blob'а (совместимость)", r.status === 200 && d.ok && Object.keys(ghStore.blobs).length - before === 2);
+  ok("/api/save без image → 3 blob'а (zml+html+view-заглушка)", r.status === 200 && d.ok && Object.keys(ghStore.blobs).length - before === 3);
   r = await call("POST", "/api/save", { token: etoken, body: { art: "../../etc/x", zml: zmlText, html: htmlText } });
   ok("битый art-id → 400", r.status === 400);
 
@@ -171,10 +171,10 @@ try {
   r = await call("POST", "/api/save", { token: etoken, body: { page: "songs", zml: sZml, html: sHtml, branch: "main" } });
   d = await r.json();
   ok("editor /api/save page:songs → ok+sha", r.status === 200 && d.ok === true && d.sha === "NEWCOMMIT");
-  ok("songs: создано 2 blob'а", Object.keys(ghStore.blobs).length - before === 2);
+  ok("songs: создано 3 blob'а (zml+html+view-заглушка)", Object.keys(ghStore.blobs).length - before === 3);
   const songsTree = ghStore.trees[ghStore.trees.length - 1];
-  ok("songs: пути = index.zml + index.view.html", JSON.stringify((songsTree.tree || []).map((t) => t.path).sort()) ===
-    JSON.stringify(["docs/songs/index.view.html", "docs/songs/index.zml"]));
+  ok("songs: пути = index.zml + index.html + index.view.html", JSON.stringify((songsTree.tree || []).map((t) => t.path).sort()) ===
+    JSON.stringify(["docs/songs/index.html", "docs/songs/index.view.html", "docs/songs/index.zml"]));
   ok("songs: zml-blob == payload", dec(ghStore.blobs[songsTree.tree.find((t) => t.path === "docs/songs/index.zml").sha].content) === sZml);
   ok("songs: art-id НЕ требуется (нет docs/art/)", !(songsTree.tree || []).some((t) => t.path.startsWith("docs/art/")));
   ok("songs: commit-message про songs", ghStore.commits[ghStore.commits.length - 1].message.includes("edit songs"));
@@ -183,47 +183,15 @@ try {
   r = await call("POST", "/api/save", { body: { page: "songs", zml: sZml, html: sHtml } });
   ok("songs без токена → 401", r.status === 401);
 
-  // ── Ф8(d): /api/save отражает frontmatter `view:` в forced_views.json ────────
+  // ── url-unification: forced_views.json упразднён — /api/save его БОЛЬШЕ НЕ пишет ─
   const FV = "docs/config/forced_views.json";
   const lastTree = () => ghStore.trees[ghStore.trees.length - 1];
-  const fvBlob = () => { const t = (lastTree().tree || []).find((x) => x.path === FV); return t ? JSON.parse(dec(ghStore.blobs[t.sha].content)) : null; };
   const hasFv = () => (lastTree().tree || []).some((x) => x.path === FV);
-
-  // (1) view: zml, файла ещё нет → forced_views.json в коммите = {03H:"zml"}
   ghStore.files = {};
-  r = await call("POST", "/api/save", { token: etoken, body: { art: "03H", zml: "---\ntitle: T\nview: zml\n---\nтекст", html: htmlText, branch: "main" } });
-  d = await r.json();
-  ok("save view:zml → ok", r.status === 200 && d.ok === true);
-  ok("save view:zml → forced_views.json {03H:zml}", hasFv() && fvBlob()["03H"] === "zml");
-
-  // (2) view: html → forced_views.json {03H:"html"}
-  ghStore.files = {};
-  await (await call("POST", "/api/save", { token: etoken, body: { art: "03H", zml: "---\ntitle: T\nview: html\n---\nтекст", html: htmlText } })).json();
-  ok("save view:html → forced_views.json {03H:html}", hasFv() && fvBlob()["03H"] === "html");
-
-  // (3) нет view:, но 03H БЫЛ в карте → запись убирается, чужие остаются
-  ghStore.files = { [FV]: JSON.stringify({ "03H": "zml", "OTH": "zml" }) };
-  await (await call("POST", "/api/save", { token: etoken, body: { art: "03H", zml: "---\ntitle: T\n---\nтекст", html: htmlText } })).json();
-  ok("save без view: убирает 03H, чужой OTH цел", hasFv() && !("03H" in fvBlob()) && fvBlob()["OTH"] === "zml");
-
-  // (4) нет view: и 03H НЕ в карте → forced_views.json НЕ коммитим (нет изменений)
-  ghStore.files = { [FV]: JSON.stringify({ "OTH": "zml" }) };
-  before = Object.keys(ghStore.blobs).length;
-  await (await call("POST", "/api/save", { token: etoken, body: { art: "03H", zml: "---\ntitle: T\n---\nтекст", html: htmlText } })).json();
-  ok("save без изменения карты → forced_views.json НЕ в коммите", !hasFv());
-  ok("save без изменения карты → только 2 blob'а (zml+view)", Object.keys(ghStore.blobs).length - before === 2);
-
-  // (5) page:"songs" тоже отражает view: в forced_views.json под ключом "songs"
-  ghStore.files = {};
-  r = await call("POST", "/api/save", { token: etoken, body: { page: "songs", zml: "---\ntitle: Песнь\nview: zml\n---\n[shir]\n[/shir]", html: "<x>", branch: "main" } });
-  d = await r.json();
-  ok("songs save view:zml → ok", r.status === 200 && d.ok === true);
-  ok("songs save view:zml → forced_views.json {songs:zml}", hasFv() && fvBlob().songs === "zml");
-  ghStore.files = { [FV]: JSON.stringify({ "OTH": "zml" }) };
-  before = Object.keys(ghStore.blobs).length;
-  await (await call("POST", "/api/save", { token: etoken, body: { page: "songs", zml: "---\ntitle: Песнь\n---\n[shir]\n[/shir]", html: "<x>" } })).json();
-  ok("songs save без view: → forced_views.json НЕ в коммите", !hasFv());
-  ok("songs save без изменения карты → 2 blob'а (zml+view)", Object.keys(ghStore.blobs).length - before === 2);
+  await (await call("POST", "/api/save", { token: etoken, body: { art: "03H", zml: "---\ntitle: T\nview: zml\n---\nтекст", html: htmlText, branch: "main" } })).json();
+  ok("save статьи (даже с view: в zml) НЕ пишет forced_views.json", !hasFv());
+  await (await call("POST", "/api/save", { token: etoken, body: { page: "songs", zml: "---\ntitle: Песнь\nview: zml\n---\n[shir]\n[/shir]", html: "<x>" } })).json();
+  ok("save songs НЕ пишет forced_views.json", !hasFv());
   ghStore.files = {};
 
   // ── Ф8′: глобальные умолчания (анонимам) задаёт ТОЛЬКО ник Admin, не роль ─────

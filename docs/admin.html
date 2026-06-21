@@ -50,13 +50,6 @@
 
 <div id="editor" hidden>
   <fieldset>
-    <legend>Версия по умолчанию</legend>
-    <label><input type="radio" name="dv" value="old"> Старый HTML (по умолчанию)</label>
-    <label><input type="radio" name="dv" value="new"> Новая (ZML)</label>
-    <p class="scope" style="margin:.6em 0 0;">Какую версию видит читатель, открывая статью. Кнопка перехода есть в любом случае.</p>
-  </fieldset>
-
-  <fieldset>
     <legend>Общий стиль по умолчанию</legend>
     <label>Дизайн <select id="g-design"></select></label>
     <label>Ширина <select id="g-width"></select></label>
@@ -91,7 +84,8 @@
   var TYPES = [["verse","Обычный стих"],["poem","Поэма"],["prose","Проза"],
     ["dialog","Диалоги"],["prose_num","Проза с нумер. абзацами"]];
   var DESIGNS = [["A_editorial","editorial"],["B_manuscript","manuscript"],
-    ["cyberpunk","cyberpunk"],["swiss","swiss"],["ar_deco","ar-deco"]];
+    ["cyberpunk","cyberpunk"],["swiss","swiss"],["ar_deco","ar-deco"],
+    ["old","оригинал (старый HTML)"]];
   var WIDTHS = [["wide","широкая"],["narrow","узкая"]];
 
   function opts(sel, list, val) {
@@ -171,8 +165,6 @@
 
   function fill(cfg) {
     cfg = cfg || {};
-    var dv = cfg.default_view === "new" ? "new" : "old";
-    document.querySelector('input[name="dv"][value="' + dv + '"]').checked = true;
     var g = cfg.global || {};
     document.getElementById("g-design").value = g.design || "A_editorial";
     document.getElementById("g-width").value = g.width || "wide";
@@ -184,7 +176,6 @@
   function collect() {
     return {
       version: 1,
-      default_view: (document.querySelector('input[name="dv"]:checked') || {}).value || "old",
       global: { design: document.getElementById("g-design").value, width: document.getElementById("g-width").value },
       rules: rules.map(function (r) { return { match: r.match, design: r.design, width: r.width }; }),
     };

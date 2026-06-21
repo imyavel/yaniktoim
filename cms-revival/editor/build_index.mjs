@@ -18,19 +18,14 @@ const manifestByArt = Object.fromEntries(manifest.map((r) => [r.art, r]));
 const tplIndex = readFileSync(join(data, "template_index.html"), "utf8");
 const tplSection = readFileSync(join(data, "template_section.html"), "utf8");
 const buildDate = process.argv[2] || new Date().toISOString().slice(0, 10);
-// forced-view карта (art→zml|html) + глобальный default_view — чтобы ссылки
-// списков совпадали с build_views.targetFor (zml-only статьи → .view.html).
-let forced = {};
-try { forced = JSON.parse(readFileSync(join(docs, "config", "forced_views.json"), "utf8")); } catch {}
-let defaultView = "old";
-try { defaultView = JSON.parse(readFileSync(join(docs, "config", "display.json"), "utf8")).default_view || "old"; } catch {}
+// url-unification: forced_views/default_view упразднены — ссылки списков всегда NNN.html.
 
 writeFileSync(join(docs, "index.html"),
   renderIndexHtml({ structure, manifestByArt, template: tplIndex, buildDate }));
 console.log("OK index.html");
 
 for (const s of structure.sections.filter((x) => !x.archived)) {
-  const html = renderSectionIndexHtml({ slug: s.slug, structure, manifestByArt, template: tplSection, buildDate, forced, defaultView });
+  const html = renderSectionIndexHtml({ slug: s.slug, structure, manifestByArt, template: tplSection, buildDate });
   mkdirSync(join(docs, s.slug), { recursive: true });
   writeFileSync(join(docs, s.slug, "index.html"), html);
   console.log("OK", s.slug + "/index.html");

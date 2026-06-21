@@ -7,7 +7,7 @@
 //
 // Хранилище: KV namespace USERS. Ключи:
 //   user:<nick>      → { nick, role, salt, hash, createdAt }
-//   settings:<nick>  → личные настройки вида editor'а (Ф8′, default_view+global+rules)
+//   settings:<nick>  → личные настройки вида editor'а (Ф8′, global+rules; дизайн вкл. «old»)
 // Роли: "pending" (вошёл, писать нельзя) → "editor" (пишет) / "admin" (+управляет).
 //
 // Секреты (wrangler secret put …): GH_TOKEN, SESSION_SECRET, ADMIN_BOOTSTRAP.
@@ -199,35 +199,14 @@ const IMG_NAME_RX = /^[A-Za-z0-9_-]{1,64}\.(jpe?g|png|gif|webp)$/i;
 // Без точки/слэша → art безопасно подставлять в путь docs/art/<art>.*
 const ART_ID_RX = /^[A-Za-z0-9_-]{1,32}$/;
 
-// Ф8(d): frontmatter `view:` → forced-вид статьи: "zml" (=zml/new) | "html" (=html/old)
-// | null (строки нет). Совпадает с editor/build_views.mjs → локальная пересборка
-// даёт ту же карту forced_views.json (без дрейфа между Worker-правкой и build).
-function parseForcedView(zml) {
-  const m = /^---([\s\S]*?)---/.exec(zml || "");
-  if (!m) return null;
-  const vM = m[1].match(/^[ \t]*view[ \t]*:[ \t]*(\S+)/m);
-  if (!vM) return null;
-  const v = vM[1].toLowerCase();
-  if (v === "zml" || v === "new") return "zml";
-  if (v === "html" || v === "old") return "html";
-  return null;
-}
-
-// Ф8(d): отразить frontmatter `view:` правленого ZML в docs/config/forced_views.json
-// под ключом `key` (art-id статьи или "songs" для спец-страницы), добавив файл в тот
-// же коммит — но ТОЛЬКО при реальном изменении ключа (без шумовых коммитов). Так шим
-// (ya-switch для статьи / inline-шим songs/index.html) сразу показывает нужную версию
-// даже при default_view=old. Карта эквивалентна editor/build_views.mjs.
-async function reflectForcedView(env, files, key, zml, branch) {
-  const want = parseForcedView(zml);                       // "zml" | "html" | null
-  const fvText = await ghReadFileText(env, "docs/config/forced_views.json", branch || "main");
-  let fv = {};
-  if (fvText) { try { const o = JSON.parse(fvText); if (o && typeof o === "object") fv = o; } catch (e) { /* битый → с пустой */ } }
-  const has = (k) => Object.prototype.hasOwnProperty.call(fv, k);
-  const prev = has(key) ? fv[key] : undefined;
-  if (want) fv[key] = want; else delete fv[key];
-  const now = has(key) ? fv[key] : undefined;
-  if (now !== prev) files.push({ path: "docs/config/forced_views.json", content: JSON.stringify(fv) + "\n" });
+// url-unification: прежний NNN.view.html / songs/index.view.html → редирект-заглушка
+// (уже расшаренные ссылки не ломаем). noindex + pagefind-ignore. Та же форма, что в
+// editor/build_views.mjs. forced_views/`view:` упразднены — больше не отражаем.
+function redirectStub(target) {
+  return '<!doctype html><html lang="ru"><head><meta charset="utf-8">\n' +
+    '<meta name="robots" content="noindex"><link rel="canonical" href="' + target + '">\n' +
+    '<meta http-equiv="refresh" content="0; url=' + target + '"></head>\n' +
+    '<body data-pagefind-ignore="all"><a href="' + target + '">→ Перейти к статье</a></body></html>\n';
 }
 
 async function handleSave(env, payload, body) {
@@ -241,28 +220,27 @@ async function handleSave(env, payload, body) {
 
   let files, message;
   if (body.page === "songs") {
-    // Ф8(c): спец-страница «Песнь Ступеней» — фикс. пути (без art-id; источник
-    // истины docs/songs/index.zml + ZML-вид index.view.html, общий рендер
-    // render.js::renderSongsHtml = build_songs.mjs). Живой docs/songs/index.html
-    // НЕ трогаем (cutover на Ф9). Картинки-обложки у спец-страницы нет.
+    // спец-страница «Песнь Ступеней»: источник docs/songs/index.zml → единый
+    // рендер docs/songs/index.html (renderSongsHtml = build_songs.mjs). Прежний
+    // index.view.html → редирект-заглушка. «old»-варианта у songs нет.
     files = [
       { path: "docs/songs/index.zml", content: zml },
-      { path: "docs/songs/index.view.html", content: html },
+      { path: "docs/songs/index.html", content: html },
+      { path: "docs/songs/index.view.html", content: redirectStub("index.html") },
     ];
-    // Ф8(d): per-page forced view для спец-страницы (ключ "songs").
-    await reflectForcedView(env, files, "songs", zml, body.branch || "main");
     message = `cms: edit songs — ${payload.nick}`;
   } else {
     const art = body.art;
     if (!art) return json(env, { error: "нужны art, zml, html" }, 400);
     if (!ART_ID_RX.test(String(art))) return json(env, { error: "битый art-id" }, 400);
-    // Текущая (плоская) раскладка: источник истины — docs/art/<art>.zml,
-    // правка ZML обновляет ZML-вид docs/art/<art>.view.html (его рендерит браузер
-    // тем же render.js, что и build_views.mjs → паритет). Старый docs/art/<art>.html
-    // (legacy-снимок) НЕ трогаем — он замораживается до Ф9.
+    // url-unification: источник docs/art/<art>.zml → единый рендер docs/art/<art>.html
+    // (тот же render.js, что build_views.mjs → паритет). Прежний .view.html →
+    // редирект-заглушка. NB: браузерный рендер БЕЗ ctx.legacyBody → у правленой через
+    // веб статьи опция «old» временно скрыта до следующей полной build_views.
     files = [
       { path: `docs/art/${art}.zml`, content: zml },
-      { path: `docs/art/${art}.view.html`, content: html },
+      { path: `docs/art/${art}.html`, content: html },
+      { path: `docs/art/${art}.view.html`, content: redirectStub(`${art}.html`) },
     ];
     // Ф8(b) опц. иллюстрация: бинарная картинка в docs/img/<name>. content —
     // ЧИСТЫЙ base64 байтов (флаг binary → commitFiles кладёт в blob без utf8-обёртки).
@@ -279,8 +257,6 @@ async function handleSave(env, payload, body) {
       }
       files.push({ path: `docs/img/${name}`, content: img.content, binary: true });
     }
-    // Ф8(d): per-article forced view (ключ = art-id). Редактор авто-ставит `view: zml`.
-    await reflectForcedView(env, files, art, zml, body.branch || "main");
     message = `cms: edit ${art} — ${payload.nick}`;
   }
   const branch = body.branch || "main";
@@ -321,13 +297,14 @@ async function handleCommit(env, who, body) {
 }
 
 // ── Ф8′ display settings ─────────────────────────────────────────────────────
-// Персональные настройки вида (default_view + global + rules) у каждого юзера.
+// Персональные настройки вида (global + rules) у каждого юзера.
 //   • editor → личные в KV `settings:<nick>`;
 //   • admin  → ГЛОБАЛЬНЫЕ = коммит docs/config/display.json (видят анонимы).
 // GET у незаведённого editor отдаёт глобаль (стартовая точка = «как у анонима»).
-const F8_THEMES = ["A_editorial", "B_manuscript", "cyberpunk", "swiss", "ar_deco"];
+// url-unification: «old» — 6-й дизайн (не отдельная «версия»); default_view упразднён.
+const F8_THEMES = ["A_editorial", "B_manuscript", "cyberpunk", "swiss", "ar_deco", "old"];
 const F8_WIDTHS = ["narrow", "wide"];
-const F8_DEFAULT = { version: 1, default_view: "old", global: { design: "A_editorial", width: "wide" }, rules: [] };
+const F8_DEFAULT = { version: 1, global: { design: "A_editorial", width: "wide" }, rules: [] };
 
 function sanitizeSettings(o) {
   o = o && typeof o === "object" ? o : {};
@@ -345,7 +322,6 @@ function sanitizeSettings(o) {
   }).filter(Boolean) : [];
   return {
     version: 1,
-    default_view: o.default_view === "new" ? "new" : "old",
     global: {
       design: F8_THEMES.includes(g.design) ? g.design : "A_editorial",
       width: F8_WIDTHS.includes(g.width) ? g.width : "wide",

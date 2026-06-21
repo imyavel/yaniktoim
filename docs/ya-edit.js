@@ -4,8 +4,8 @@
  * оверлей-редактор (ze-core.js). Его «Просмотр» рендерит правку тем же
  * render.js, что и build_views.mjs (один код + те же данные из /editor/ →
  * байт-в-байт), «Сохранить» → POST /api/save (Worker коммитит
- * docs/art/<art>.zml + docs/art/<art>.view.html). Аноним/pending кнопку не
- * видят активной. Зависимости рендера тянутся лениво из /editor/.
+ * docs/art/<art>.zml + docs/art/<art>.html — единый адрес). Аноним/pending
+ * кнопку не видят активной. Зависимости рендера тянутся лениво из /editor/.
  */
 (function () {
   "use strict";
@@ -121,26 +121,12 @@
       });
   }
 
-  // Ф8(d): правка статьи делает её ZML-приоритетной. При ОТКРЫТИИ редактора в
-  // frontmatter дописывается `view: zml` (если строки `view:` ещё нет) — она
-  // видна в textarea. На сайт это попадает только по «Сохранить»: Worker
-  // отразит `view:` в docs/config/forced_views.json тем же коммитом → статья
-  // показывается как ZML даже при глобальном default_view=old. Оператор может
-  // удалить строку в textarea (статья вернётся к общему умолчанию) или сменить
-  // на `view: html` (форсировать старую) — существующий `view:` мы НЕ трогаем.
-  // baseline в ze-core берётся из этого же initialZml → открыть+Отмена не считается
-  // «грязным» (вставка применяется лишь при реальном Сохранении).
+  // url-unification: `view:`/forced_views упразднены — у статьи один адрес NNN.html,
+  // вид резолвится в рантайме. Редактор больше НЕ дописывает `view:` во фронтматтер.
+  // Оставляем лишь нормализацию CRLF→LF (корпус в CRLF; baseline ze-core/textarea —
+  // в LF), имя функции и место вызова не трогаем.
   function ensureViewZml(zml) {
-    // Корпус хранится в CRLF — нормализуем в LF (как ze-core делает с baseline:
-    // textarea всё равно нормализует, на сохранение уходит LF), иначе `^---\n` не
-    // сматчит `---\r\n` и frontmatter задвоится.
-    var text = String(zml == null ? "" : zml).replace(/\r\n/g, "\n");
-    var m = /^---\n([\s\S]*?)\n---\n?/.exec(text);
-    if (!m) return "---\nview: zml\n---\n" + text.replace(/^\n+/, "");
-    var inner = m[1];
-    if (/^[ \t]*view[ \t]*:/m.test(inner)) return text;   // уже задано — уважаем выбор
-    inner = inner.replace(/\s+$/, "") + "\nview: zml";
-    return "---\n" + inner + "\n---\n" + text.slice(m[0].length);
+    return String(zml == null ? "" : zml).replace(/\r\n/g, "\n");
   }
 
   // Пересчёт prev/next из живого structure.json (см. вызов выше). Read-only, без прав.
@@ -169,7 +155,7 @@
         if (!span) return;
         if (!rec) { span.innerHTML = ""; return; }
         var t = esc(ttl(rec));
-        span.innerHTML = '<a href="' + rec.art + '.view.html">' + (dir < 0 ? "← " + t : t + " →") + "</a>";
+        span.innerHTML = '<a href="' + rec.art + '.html">' + (dir < 0 ? "← " + t : t + " →") + "</a>";
       }
       fill(navPrev, idx > 0 ? sibs[idx - 1] : null, -1);
       fill(navNext, idx < sibs.length - 1 ? sibs[idx + 1] : null, 1);

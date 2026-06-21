@@ -25,7 +25,7 @@
   }
 
   var deps = {}, structure = null, byArt = {}, WORKER = "", expanded = {};
-  var forced = {}, defaultView = "old", artDeps = null;
+  var artDeps = null;
 
   Promise.all([
     import("./editor/render.js"),
@@ -34,8 +34,7 @@
     fetch("editor/data/template_index.tpl").then(t),
     fetch("editor/data/template_section.tpl").then(t),
     fetch("editor/data/site.json").then(j).catch(function () { return {}; }),
-    fetch("config/display.json").then(j).catch(function () { return { default_view: "old" }; }),
-    fetch("config/forced_views.json").then(j).catch(function () { return {}; })
+    fetch("config/display.json").then(j).catch(function () { return {}; })
   ]).then(function (a) {
     deps.renderIndexHtml = a[0].renderIndexHtml;
     deps.renderSectionIndexHtml = a[0].renderSectionIndexHtml;
@@ -47,9 +46,7 @@
     deps.tplSection = a[4];
     WORKER = ((a[5] && a[5].workerUrl) || "").replace(/\/+$/, "");
     deps.siteConfig = a[5] || {};
-    deps.displayConfig = a[6] || { default_view: "old" };
-    defaultView = (a[6] && a[6].default_view) || "old";
-    forced = a[7] || {};
+    deps.displayConfig = a[6] || {};
     render();
   }).catch(function (e) { root.innerHTML = '<p class="err">Ошибка загрузки: ' + esc(String(e.message || e)) + "</p>"; });
 
@@ -229,7 +226,7 @@
     files.push({ path: "docs/index.html", content: deps.renderIndexHtml({ structure: structure, manifestByArt: byArt, template: deps.tplIndex, buildDate: buildDate }) });
     activeSecs().forEach(function (s) {
       files.push({ path: "docs/" + s.slug + "/index.html",
-        content: deps.renderSectionIndexHtml({ slug: s.slug, structure: structure, manifestByArt: byArt, template: deps.tplSection, buildDate: buildDate, forced: forced, defaultView: defaultView }) });
+        content: deps.renderSectionIndexHtml({ slug: s.slug, structure: structure, manifestByArt: byArt, template: deps.tplSection, buildDate: buildDate }) });
     });
     status("Сохранение… (" + files.length + " файлов)");
     setBusy(true);
@@ -264,8 +261,8 @@
   // ── Ф10E: создание новой статьи ───────────────────────────────────────────────
   // Статья «рождается» в оверлей-редакторе (ze-core) из шаблона; на сайт попадает
   // ТОЛЬКО по «Сохранить» (тогда и становится «не горящей рукописью»). Отмена/
-  // закрытие — ничего не коммитит. Новая статья zml-only (старого .html нет) →
-  // forced=zml + ссылка списка на .view.html; заголовок/дата живут в записи
+  // закрытие — ничего не коммитит. Новая статья сразу = единый docs/art/NNN.html
+  // (ZML-рендер); «old»-варианта нет (нет архива). Заголовок/дата живут в записи
   // structure (manifest её ещё не знает) до следующей полной пересборки.
   var artDepsLoaded = null;
   function loadArtDeps() {
@@ -366,24 +363,24 @@
   function commitNewArticle(art, slug, zml, html, today) {
     if (!WORKER) return Promise.reject(new Error("не задан Worker URL (site.json)"));
     var title = parseTitle(zml) || "Новая статья";
-    // Клон structure+forced; живые не трогаем до успеха коммита (Отмена = ничего).
+    // Клон structure; живые не трогаем до успеха коммита (Отмена = ничего).
     var st = JSON.parse(JSON.stringify(structure));
     var ex = st.articles.find(function (a) { return a.art === art; });
     var maxO = st.articles.filter(function (a) { return a.section === slug && a.status !== "archived"; })
       .reduce(function (m, a) { return Math.max(m, a.order); }, -1);
     if (ex) { ex.section = slug; ex.status = "published"; ex.title = title; ex.date = today; }
     else st.articles.push({ art: art, section: slug, order: maxO + 1, status: "published", title: title, date: today });
-    var fc = {}; Object.keys(forced).forEach(function (k) { fc[k] = forced[k]; }); fc[art] = "zml";
     var bd = isoToday();
+    // url-unification: новая статья сразу = единый docs/art/NNN.html (ZML-рендер).
+    // forced_views/default_view упразднены; «old»-варианта у новой статьи нет.
     var files = [
       { path: "docs/config/structure.json", content: JSON.stringify(st, null, 2) + "\n" },
-      { path: "docs/config/forced_views.json", content: JSON.stringify(fc) + "\n" },
       { path: "docs/art/" + art + ".zml", content: zml },
-      { path: "docs/art/" + art + ".view.html", content: html },
+      { path: "docs/art/" + art + ".html", content: html },
       { path: "docs/index.html",
         content: deps.renderIndexHtml({ structure: st, manifestByArt: byArt, template: deps.tplIndex, buildDate: bd }) },
       { path: "docs/" + slug + "/index.html",
-        content: deps.renderSectionIndexHtml({ slug: slug, structure: st, manifestByArt: byArt, template: deps.tplSection, buildDate: bd, forced: fc, defaultView: defaultView }) }
+        content: deps.renderSectionIndexHtml({ slug: slug, structure: st, manifestByArt: byArt, template: deps.tplSection, buildDate: bd }) }
     ];
     return fetch(WORKER + "/api/commit", {
       method: "POST",
@@ -393,7 +390,7 @@
       .then(function (res) {
         if (!res.ok || !res.d.ok) throw new Error((res.d && res.d.error) || "HTTP");
         // успех → отражаем в живой структуре, чтобы дерево показало статью без reload
-        structure = st; forced = fc;
+        structure = st;
         if (!byArt[art]) byArt[art] = { art: art, title: title, section: slug, date_chosen: today };
         expanded[slug] = true;
         render();
@@ -416,7 +413,7 @@
           save: function (z, html) { return commitNewArticle(art, slug, z, html, today); },
           savedMessage: "Статья создана. Обновление сайта — 30–90 сек, затем Ctrl+R. Откройте её, чтобы продолжить правку тела.",
           savedPrimaryLabel: "Открыть статью",
-          onSavedPrimary: function () { location.href = "art/" + art + ".view.html"; }
+          onSavedPrimary: function () { location.href = "art/" + art + ".html"; }
         });
       }).catch(function (e) { status("ze-core: " + (e.message || e), true); });
     }).catch(function (e) { status("Загрузка движка статьи: " + (e.message || e), true); });

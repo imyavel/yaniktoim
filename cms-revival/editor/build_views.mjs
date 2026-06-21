@@ -117,41 +117,9 @@ for (const art of ids) {
   }
 }
 
-// ── Ф8′: forced per-article view: + ссылки списков разделов ───────────────────
-// Сканируем ВСЕ .zml (не только пересобранный subset) на frontmatter `view: zml|html`.
-// `view:` форсит версию (перебивает админский default_view). Пишем карту forced →
-// docs/config/forced_views.json (её читает шим ya-switch). Затем переписываем ссылки
-// статей в docs/<section>/index.html: forced ? (zml→.view.html / html→.html) :
-// (admin default_view==new ? .view.html : .html). Аноним получает прямую ссылку без
-// редиректа; залогиненный с иным дефолтом — шим доведёт.
-const allIds = readdirSync(docsArt).filter((f) => f.endsWith(".zml")).map((f) => f.replace(/\.zml$/, ""));
-const forced = {};
-for (const art of allIds) {
-  const fmM = readFileSync(join(docsArt, `${art}.zml`), "utf8").match(/^---([\s\S]*?)---/);
-  if (!fmM) continue;
-  const vM = fmM[1].match(/^view:[ \t]*(\S+)/m);
-  if (!vM) continue;
-  const v = /^(zml|new)$/i.test(vM[1]) ? "zml" : (/^(html|old)$/i.test(vM[1]) ? "html" : null);
-  if (v) forced[art] = v;
-}
-// Ф8(d): спец-страница «Песнь Ступеней» — не art-id, но тоже имеет per-page forced
-// view (ключ "songs"; шим в docs/songs/index.html по нему редиректит). Сканируем её
-// frontmatter, чтобы локальная пересборка НЕ затирала ключ, выставленный Worker'ом.
-try {
-  const sz = readFileSync(join(docsRoot, "songs", "index.zml"), "utf8");
-  const sfm = sz.match(/^---([\s\S]*?)---/);
-  const svM = sfm && sfm[1].match(/^view:[ \t]*(\S+)/m);
-  if (svM) {
-    const sv = /^(zml|new)$/i.test(svM[1]) ? "zml" : (/^(html|old)$/i.test(svM[1]) ? "html" : null);
-    if (sv) forced["songs"] = sv;
-  }
-} catch (e) { /* нет songs/index.zml — пропускаем */ }
-mkdirSync(join(docsRoot, "config"), { recursive: true });
-writeFileSync(join(docsRoot, "config", "forced_views.json"), JSON.stringify(forced) + "\n");
-console.log("forced_views.json:", Object.keys(forced).length, "переопределений");
-
-// url-unification: единственный адрес статьи — NNN.html. Регэксп ниже схлопывает
-// и старые .view.html-хвосты в индексах разделов на .html.
+// ── Ссылки статей в индексах разделов → единый NNN.html ───────────────────────
+// forced_views.json и default_view упразднены (url-unification): один адрес статьи,
+// вид (5 тем + «old») резолвится в рантайме. Регэксп схлопывает и старые .view-хвосты.
 const targetFor = (art) => `../art/${art}.html`;
 const sections = [...new Set(manifest.map((r) => r.section).filter(Boolean))];
 let touched = 0;
