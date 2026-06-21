@@ -158,6 +158,9 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 <body class="article-page" data-art="{{NUMBER}}" data-theme="{{THEME}}" data-pagefind-ignore="all"
   data-art-section="{{ART_SECTION}}" data-art-type="{{ART_TYPE}}"
   data-fm-theme="{{FM_THEME}}" data-fm-width="{{FM_WIDTH}}" data-worker="{{WORKER_URL}}">
+<!-- Поиск по арт-id: скрытый weighted токен (tools/add_artid_search.py) — теперь в самом
+     ZML-рендере NNN.html (раньше жил в старом html). «654/03H/№182» ранжирует статью первой. -->
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №{{NUMBER}}</span>
 <div class="wrap {{WRAP_CLASS}}">
 <header class="breadcrumbs">
 <span class="crumbs"><a href="../index.html">Главная</a><span class="sep">›</span><a href="{{SECTION_HREF}}">{{SECTION_NAME}}</a></span>
