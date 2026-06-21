@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Путь Восходящей Звезды — Руководство</title>
+<style>
+  @page { size: A4; margin: 20mm 22mm 22mm; }
+  @page :first { margin: 0; }
+
+  :root{
+    --ink:#1c1b19; --soft:#5c5852; --line:#d8d2c6; --bg:#fffefb;
+    --accent:#8a5a2b; --accent2:#3a6ea5; --code-bg:#f5f1e8; --demo-bg:#fcfaf4;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; background:var(--bg); color:var(--ink);
+    font:11.5pt/1.55 Georgia,"Times New Roman",serif; }
+  h1,h2,h3,h4,.ui,.toc,.cover,.kbd,.tag{ font-family:"Segoe UI",system-ui,Arial,sans-serif; }
+
+  /* ── cover (full A4 page) ── */
+  .cover{ height:297mm; display:flex; flex-direction:column; justify-content:center;
+    align-items:center; text-align:center; color:#fff;
+    background:linear-gradient(150deg,#2b2620,#4a3c2a 55%,#6b4a24);
+    break-after:page; padding:0 24mm; }
+  .cover .star{ font-size:54pt; color:#e9c46a; margin-bottom:8mm; line-height:1; }
+  .cover h1{ font-size:32pt; margin:0 0 4mm; letter-spacing:.5px; font-weight:600; }
+  .cover .sub{ font-size:15pt; opacity:.92; margin:0 0 16mm; font-weight:300; }
+  .cover .meta{ font-size:10.5pt; opacity:.72; letter-spacing:.4px; }
+  .cover .rule{ width:48mm; height:1px; background:#e9c46a; opacity:.7; margin:0 auto 16mm; }
+
+  /* ── headings ── */
+  h2.part{ break-before:page; font-size:23pt; color:var(--accent);
+    border-bottom:2px solid var(--accent); padding-bottom:2.5mm; margin:0 0 6mm;
+    font-weight:600; }
+  h2.part .pn{ display:block; font-size:10pt; color:var(--soft); letter-spacing:2px;
+    text-transform:uppercase; margin-bottom:1.5mm; }
+  h3.sec{ break-before:page; font-size:18pt; color:var(--ink); margin:0 0 4mm;
+    padding-top:1mm; font-weight:600; break-after:avoid; }
+  h3.sec .num{ color:var(--accent); margin-right:.4em; }
+  h4{ font-size:13pt; margin:6mm 0 2mm; color:var(--accent); break-after:avoid; }
+  p{ margin:0 0 2.8mm; }
+  .lead{ color:var(--soft); font-style:italic; margin-bottom:5mm; }
+  ul.plain{ margin:0 0 3.5mm; padding-left:6mm; }
+  ul.plain li{ margin:0 0 1.7mm; }
+  b,strong{ color:#000; }
+  a{ color:var(--accent2); text-decoration:none; }
+
+  /* ── callouts ── */
+  .box{ border-left:3px solid var(--accent2); background:#f3f6fa; padding:3mm 4mm;
+    margin:3.5mm 0; border-radius:0 4px 4px 0; break-inside:avoid; font-size:10.5pt; }
+  .box.tip{ border-color:#3a8a4a; background:#f0f7f1; }
+  .box.warn{ border-color:#c0532b; background:#fbf1ec; }
+  .box.tech{ border-color:#7a6aa5; background:#f4f2f9; }
+  .box .lbl{ font-family:"Segoe UI",sans-serif; font-weight:700; font-size:9pt;
+    text-transform:uppercase; letter-spacing:.6px; display:block; margin-bottom:1.2mm; }
+  .box.tip .lbl{ color:#2e7d40; } .box.warn .lbl{ color:#b0481f; }
+  .box .lbl{ color:#3a6ea5; } .box.tech .lbl{ color:#6354a0; }
+
+  /* ── code + demo ── */
+  .zml{ background:var(--code-bg); border:1px solid var(--line); border-radius:5px;
+    font:10.5pt/1.5 Consolas,"DejaVu Sans Mono",monospace; color:#33302a;
+    padding:3mm 3.5mm; margin:2.5mm 0; white-space:pre-wrap; break-inside:avoid; }
+  .zml .c{ color:#9a8f7a; } /* comment-ish */
+  .zml .k{ color:#8a5a2b; font-weight:bold; } /* tag/key */
+  .demo{ background:var(--demo-bg); border:1px solid var(--line); border-radius:5px;
+    padding:3.5mm 4mm; margin:2.5mm 0 4.5mm; break-inside:avoid; }
+  .demo .cap, .zml-cap{ font-family:"Segoe UI",sans-serif; font-size:8.5pt; font-weight:700;
+    text-transform:uppercase; letter-spacing:.7px; color:var(--soft); margin:0 0 1.8mm; }
+  .demo .cap.res{ color:var(--accent); }
+
+  /* demo render imitations */
+  .d-h1{ font-family:Georgia,serif; font-size:15pt; font-weight:bold; margin:0 0 1.2mm; }
+  .d-sub{ font-style:italic; color:var(--soft); margin:0 0 2.4mm; font-size:11pt; }
+  .d-poem{ font-style:italic; white-space:pre-wrap; line-height:1.6; }
+  .d-faw{ line-height:1.55; }
+  .d-faw span{ display:block; }
+  .d-faw .b{ font-style:italic; color:#6a6151; padding-left:3mm; }
+  .d-pt{ display:inline-block; font-family:"Segoe UI",sans-serif; font-weight:700; font-size:8.5pt;
+    color:var(--accent); border:1px solid var(--accent); border-radius:3px; padding:0 1.4mm; margin-right:1.5mm; }
+  .d-epi{ font-style:italic; color:#3a352c; border-left:2px solid var(--line);
+    padding-left:3.5mm; }
+  .d-epi .cite{ display:block; text-align:right; font-style:normal; font-size:9.5pt;
+    color:var(--soft); margin-top:1.2mm; }
+  .d-term{ border-bottom:1px dotted var(--accent); }
+  sup.fn{ color:var(--accent2); font-weight:bold; font-size:.75em; }
+  .d-note{ font-size:9.5pt; color:var(--soft); border-top:1px solid var(--line);
+    margin-top:2.4mm; padding-top:1.8mm; }
+  .d-spl{ background:linear-gradient(100deg,#e7e0d2,#cfc6b4,#e7e0d2);
+    border-radius:4px; padding:1mm 3mm; color:#6a6151; font-size:10.5pt; display:inline-block; }
+  .d-sig{ text-align:right; font-style:italic; color:#3a352c; }
+  .d-cry{ text-align:center; font-weight:bold; letter-spacing:1px; color:var(--accent); }
+  .d-grid{ display:flex; gap:2.5mm; }
+  .d-tile{ flex:1; border:1px solid var(--line); border-radius:5px; overflow:hidden;
+    background:#fff; }
+  .d-tile .thumb{ background:#2b2620; color:#e9c46a; text-align:center; padding:5mm 0;
+    font-size:15pt; }
+  .d-tile .tt{ padding:2mm 2.5mm; font-family:"Segoe UI",sans-serif; font-size:8.5pt; }
+  .d-tile .tt b{ display:block; }
+  .glyph{ color:var(--accent); font-weight:bold; }
+
+  /* UI mock (toolbar buttons etc.) */
+  .ui-btn{ display:inline-block; font-family:"Segoe UI",sans-serif; font-size:9.5pt;
+    background:#3a3a3a; color:#eee; border:1px solid #555; border-radius:4px;
+    padding:.4mm 2.2mm; white-space:nowrap; }
+  .ui-btn.pri{ background:#2d6cdf; border-color:#2d6cdf; }
+  .kbd{ display:inline-block; border:1px solid #b9b2a3; border-bottom-width:2px;
+    border-radius:3px; background:#faf8f3; padding:0 1.8mm; font-size:9pt; }
+  .tag{ display:inline-block; background:var(--code-bg); border:1px solid var(--line);
+    border-radius:3px; padding:0 1.6mm; font:9.5pt Consolas,monospace; color:var(--accent); }
+
+  /* TOC */
+  .toc{ break-after:page; }
+  .toc h2{ font-size:20pt; color:var(--accent); margin:0 0 5mm; border-bottom:2px solid var(--accent);
+    padding-bottom:2.5mm; }
+  .toc .pt{ font-family:"Segoe UI",sans-serif; font-weight:700; font-size:12.5pt; color:var(--ink);
+    margin:5mm 0 2mm; }
+  .toc ol{ list-style:none; margin:0 0 2.5mm; padding:0; }
+  .toc li{ margin:0 0 1.3mm; font-size:11.5pt; }
+  .toc li a{ color:var(--ink); }
+  .toc li .n{ color:var(--accent); display:inline-block; min-width:7mm; font-weight:bold; }
+
+  /* cheat-sheet table */
+  table.cheat{ width:100%; border-collapse:collapse; font-size:9.5pt; margin:2.5mm 0; break-inside:auto; }
+  table.cheat th{ text-align:left; background:var(--code-bg); color:var(--accent);
+    border:1px solid var(--line); padding:1.5mm 2.5mm; font-family:"Segoe UI",sans-serif; font-size:8.7pt; }
+  table.cheat td{ border:1px solid var(--line); padding:1.5mm 2.5mm; vertical-align:top; }
+  table.cheat td.s{ font-family:Consolas,monospace; color:#33302a; white-space:nowrap; }
+  .pgmark{ font-size:1px; color:#fffefb; } /* invisible page sentinel for bookmarks */
+  .fm-tbl{ width:100%; border-collapse:collapse; font-size:9.7pt; margin:2.5mm 0; }
+  .fm-tbl th,.fm-tbl td{ border:1px solid var(--line); padding:1.5mm 2.5mm; text-align:left; vertical-align:top; }
+  .fm-tbl th{ background:var(--code-bg); color:var(--accent); font-family:"Segoe UI",sans-serif; font-size:8.7pt; }
+  .fm-tbl td.s{ font-family:Consolas,monospace; white-space:nowrap; color:var(--accent); }
+
+</style>
+</head>
+<body>
+
+<!-- ════════ COVER ════════ -->
+<section class="cover">
+  <div class="star">✦</div>
+  <h1>Путь Восходящей&nbsp;Звезды</h1>
+  <div class="rule"></div>
+  <div class="sub">Руководство по управлению сайтом<br>и наглядный справочник формата&nbsp;ZML</div>
+  <div class="meta">Для редакторов и администраторов · imyavel.github.io/yaniktoim<br>Редакция от 21 июня 2026</div>
+</section>
+
+<!-- ════════ TOC ════════ -->
+<nav class="toc">
+  <h2>Оглавление</h2>
+  <p style="font-size:9.5pt;color:#5c5852;margin:-2mm 0 3mm;font-style:italic;">
+    Названия разделов кликабельны — нажмите, чтобы перейти. Слева в просмотрщике PDF
+    есть панель закладок с той же структурой.</p>
+
+  <div class="pt">Часть I · Управление сайтом</div>
+  <ol>
+    <li><span class="n">1</span><a href="#s1">Коротко о том, как устроен сайт</a></li>
+    <li><span class="n">2</span><a href="#s2">Вход и роли</a></li>
+    <li><span class="n">3</span><a href="#s3">Две версии статьи: старая и новая&nbsp;(ZML)</a></li>
+    <li><span class="n">4</span><a href="#s4">Редактирование статьи</a></li>
+    <li><span class="n">5</span><a href="#s5">Иллюстрация статьи</a></li>
+    <li><span class="n">6</span><a href="#s6">Создание новой статьи</a></li>
+    <li><span class="n">7</span><a href="#s7">Управление структурой</a></li>
+    <li><span class="n">8</span><a href="#s8">Архив: «рукописи не горят»</a></li>
+    <li><span class="n">9</span><a href="#s9">«Песнь Ступеней»</a></li>
+    <li><span class="n">10</span><a href="#s10">Админка вида: что видит читатель</a></li>
+    <li><span class="n">11</span><a href="#s11">Поиск по сайту</a></li>
+    <li><span class="n">12</span><a href="#s12">Когда правки видны · частые вопросы</a></li>
+  </ol>
+
+  <div class="pt">Часть II · Справочник ZML</div>
+  <ol>
+    <li><span class="n">13</span><a href="#s13">Что такое ZML</a></li>
+    <li><span class="n">14</span><a href="#s14">Шапка статьи (frontmatter)</a></li>
+    <li><span class="n">15</span><a href="#s15">Заголовки и разделы</a></li>
+    <li><span class="n">16</span><a href="#s16">Абзацы, курсив, ссылки</a></li>
+    <li><span class="n">17</span><a href="#s17">Сноски</a></li>
+    <li><span class="n">18</span><a href="#s18">Стихи и поэмы</a></li>
+    <li><span class="n">19</span><a href="#s19">Эпиграф, эпилог, посвящение</a></li>
+    <li><span class="n">20</span><a href="#s20">Цитата, подпись, возглас, диалог</a></li>
+    <li><span class="n">21</span><a href="#s21">Перечни и списки</a></li>
+    <li><span class="n">22</span><a href="#s22">Спойлер</a></li>
+    <li><span class="n">23</span><a href="#s23">Термины и лейтмотивы</a></li>
+    <li><span class="n">24</span><a href="#s24">Музыка и аудио</a></li>
+    <li><span class="n">25</span><a href="#s25">«Песнь Ступеней» — блок&nbsp;[shir]</a></li>
+    <li><span class="n">26</span><a href="#s26">Глифы и спецсимволы</a></li>
+    <li><span class="n">27</span><a href="#s27">Темы и ширина</a></li>
+    <li><span class="n">28</span><a href="#s28">Стихи, записанные прозой — [faw]</a></li>
+  </ol>
+
+  <div class="pt">Приложение</div>
+  <ol>
+    <li><span class="n">★</span><a href="#cheat">Шпаргалка ZML — одной страницей</a></li>
+  </ol>
+</nav>
+
+<!-- ════════════════════════ ЧАСТЬ I ════════════════════════ -->
+<h2 class="part"><span class="pgmark">~MKP1~</span><span class="pn">Часть первая</span>Управление сайтом</h2>
+<p class="lead">Эта часть — для всех, кто наполняет сайт. Технических знаний не требуется:
+достаточно уметь печатать текст. Места, важные только тем, кто хочет «заглянуть под капот»,
+помечены значком <span class="box tech" style="display:inline;padding:.2mm 1.5mm;margin:0;border-width:2px;"><b>Технически</b></span>.</p>
+
+<h3 class="sec" id="s1"><span class="pgmark">~MK01~</span><span class="num">1.</span>Коротко о том, как устроен сайт</h3>
+<p>Сайт — это сборник статей, разбитый на <b>разделы</b> (например «Избранное»,
+«Роза Среди Шипов», «Песнь Ступеней»). Каждая статья существует в <b>двух видах</b>:</p>
+<ul class="plain">
+  <li><b>Старый вид</b> — привычная страница, как была раньше.</li>
+  <li><b>Новый вид (ZML)</b> — та же статья, оформленная в одной из красивых тем; именно
+    новый вид можно <i>редактировать прямо на сайте</i>.</li>
+</ul>
+<p>Под каждым видом лежит <b>один источник текста</b> — файл в формате ZML (о нём — Часть&nbsp;II).
+Когда вы правите статью, вы правите этот источник, а красивая страница пересобирается сама.</p>
+<div class="box tip"><span class="lbl">Главное</span>
+Вы нигде не пишете код оформления. Вы пишете <b>текст с простой разметкой</b> (ZML),
+а внешний вид берёт на себя выбранная тема.</div>
+
+<h3 class="sec" id="s2"><span class="pgmark">~MK02~</span><span class="num">2.</span>Вход и роли</h3>
+<p>Чтобы редактировать, нужно войти. Ссылка <b>«Войти»</b> — в самом низу главной страницы
+(в подвале, рядом со счётчиком просмотров). Вход — по <b>нику и паролю</b>, которые выдаёт
+администратор. Читателям вход не нужен — они видят сайт и так.</p>
+<h4>Три роли</h4>
+<ul class="plain">
+  <li><b>Гость (pending)</b> — вошёл, но прав на правку ещё нет (ждёт, пока админ выдаст роль).</li>
+  <li><b>Редактор (editor)</b> — правит тексты статей, создаёт новые, загружает иллюстрации.</li>
+  <li><b>Администратор (admin)</b> — всё то же плюс управление структурой (разделы, порядок,
+    архив, перемещение) и настройки вида.</li>
+</ul>
+<div class="box"><span class="lbl">Особый ник «Admin»</span>
+Учётка с ником <b>Admin</b> — главная: только она задаёт <i>общие</i> настройки, которые видят
+все читатели без входа. Остальные администраторы меняют лишь <i>свои личные</i> настройки показа.</div>
+<div class="box tech"><span class="lbl">Технически</span>
+Логин обслуживает облачный сервис (Cloudflare Worker). Пароль хранится только там (в виде
+необратимого хеша), к браузеру не попадает. Поэтому «править можно только через сайт» — это и есть
+граница безопасности. Сессия живёт 12&nbsp;часов.</div>
+
+<h3 class="sec" id="s3"><span class="pgmark">~MK03~</span><span class="num">3.</span>Две версии статьи: старая и новая (ZML)</h3>
+<p>По умолчанию читатель открывает <b>старую</b> версию. В строке «хлебных крошек»
+(Главная&nbsp;/&nbsp;Раздел) справа есть ссылка <b>✦&nbsp;Новая версия&nbsp;(ZML)</b> — она ведёт на
+новый вид. На новом виде есть обратная кнопка <b>«Оригинал»</b>.</p>
+<p>Какую версию читатель увидит <i>сразу</i>, регулируется двумя способами:</p>
+<ul class="plain">
+  <li><b>Общая настройка</b> «версия по умолчанию» — в Админке вида (раздел&nbsp;10).</li>
+  <li><b>Пометка у конкретной статьи</b> — сильнее общей настройки (см. ниже, очень важно для правки).</li>
+</ul>
+<div class="box warn"><span class="lbl">Важно — что происходит при правке</span>
+Когда вы открываете статью на правку, редактор <b>автоматически помечает её как «показывать в виде
+ZML»</b> (строка <span class="tag">view: zml</span> в шапке). Поэтому отредактированная и сохранённая
+статья с этого момента <b>по умолчанию открывается в новом виде</b> — даже если общая настройка
+«старый HTML». Если этого не нужно — просто удалите строку <span class="tag">view: zml</span> в
+тексте перед сохранением (или замените на <span class="tag">view: html</span>, чтобы закрепить старый вид).</div>
+
+<h3 class="sec" id="s4"><span class="pgmark">~MK04~</span><span class="num">4.</span>Редактирование статьи</h3>
+<p>Откройте <b>новый вид</b> статьи (ссылка «✦&nbsp;Новая версия&nbsp;(ZML)»). Если вы вошли как
+редактор или администратор, вверху появится кнопка <span class="ui-btn">✎&nbsp;Править</span>.
+Нажмите — статья сменится на простой текстовый редактор.</p>
+<h4>Кнопки редактора</h4>
+<ul class="plain">
+  <li><span class="ui-btn">Просмотр</span> — показать, как правка будет выглядеть (ничего не сохраняет).</li>
+  <li><span class="ui-btn">← Редактировать</span> — вернуться из просмотра к тексту.</li>
+  <li><span class="ui-btn pri">Сохранить</span> — записать изменения (статья обновится на сайте).</li>
+  <li><span class="ui-btn">Отмена</span> — выйти без сохранения.</li>
+</ul>
+<p>В окне правки вы видите ZML-текст статьи: сверху <b>шапку</b> между строками <span class="tag">---</span>,
+ниже — само тело. Как устроен ZML — подробно в Части&nbsp;II; для начала достаточно править слова,
+не трогая разметку.</p>
+<div class="box tip"><span class="lbl">Совет</span>
+Перед «Сохранить» нажмите <span class="ui-btn">Просмотр</span> и проверьте результат. Если что-то
+сломалось в разметке — редактор покажет ошибку и <b>не</b> даст сохранить, пока не поправите.</div>
+<div class="box"><span class="lbl">После сохранения</span>
+Появится окно «Изменения сохранены». Сайт обновляется не мгновенно: подождите примерно
+<b>1–2&nbsp;минуты</b> и обновите страницу клавишами <span class="kbd">Ctrl</span>+<span class="kbd">F5</span>.</div>
+
+<h3 class="sec" id="s5"><span class="pgmark">~MK05~</span><span class="num">5.</span>Иллюстрация статьи</h3>
+<p>В окне правки есть строка <b>«Иллюстрация»</b> с кнопками:</p>
+<ul class="plain">
+  <li><span class="ui-btn">Загрузить…</span> / <span class="ui-btn">Заменить…</span> — выбрать
+    картинку (jpg, png, gif или webp, до 8&nbsp;МБ). Она встанет вверху статьи.</li>
+  <li><span class="ui-btn">Удалить</span> — отвязать картинку от статьи.</li>
+</ul>
+<p>После выбора файла нажмите <span class="ui-btn">Просмотр</span> — картинка уже будет видна.
+Окончательно она загрузится на сайт при <span class="ui-btn pri">Сохранить</span>.</p>
+<div class="box"><span class="lbl">«Рукописи не горят»</span>
+Кнопка «Удалить» лишь <i>отвязывает</i> картинку от статьи — сам файл остаётся в хранилище.
+Ничего безвозвратно не пропадает.</div>
+
+<h3 class="sec" id="s6"><span class="pgmark">~MK06~</span><span class="num">6.</span>Создание новой статьи</h3>
+<p>Создавать статьи может <b>администратор</b>. Откройте страницу <b>«Управление структурой»</b>
+(ссылка есть в Админке вида). У каждого раздела в шапке есть кнопка <span class="ui-btn">+ статья</span>.</p>
+<ol class="plain" style="list-style:decimal;padding-left:6mm;">
+  <li>Нажмите <span class="ui-btn">+ статья</span> у нужного раздела.</li>
+  <li>Сайт сам выдаст новой статье уникальный номер (арт-id) и откроет редактор с чистым шаблоном.</li>
+  <li>Впишите заголовок и текст (шаблон уже содержит примеры разметки).</li>
+  <li><span class="ui-btn">Просмотр</span> → проверьте → <span class="ui-btn pri">Сохранить</span>.</li>
+</ol>
+<div class="box warn"><span class="lbl">Важно</span>
+Статья появляется на сайте <b>только после «Сохранить»</b>. Пока вы её не сохранили (нажали «Отмена»
+или закрыли окно) — её на сайте нет. Черновиков «между» не остаётся.</div>
+
+<h3 class="sec" id="s7"><span class="pgmark">~MK07~</span><span class="num">7.</span>Управление структурой</h3>
+<p>Страница <b>«Управление структурой»</b> (только администратор) показывает дерево: разделы и
+статьи внутри них. Здесь можно:</p>
+<ul class="plain">
+  <li><b>Разделы:</b> менять порядок (↑↓), переименовывать, добавлять новые, удалять (только пустой раздел).</li>
+  <li><b>Статьи:</b> менять порядок, <b>переименовывать</b> (см. оговорку ниже), <b>перемещать</b> в другой
+    раздел, отправлять в <b>архив</b> и восстанавливать.</li>
+  <li>Разделы можно сворачивать, чтобы дерево было обозримым.</li>
+</ul>
+<p>Изменения вступают в силу после кнопки <span class="ui-btn pri">Сохранить</span> (один общий пакет правок).</p>
+<div class="box"><span class="lbl">Заголовок статьи</span>
+Отображаемый заголовок статьи правится не здесь, а в самом ZML-редакторе статьи (строка
+<span class="tag">title:</span> в шапке или строка <span class="tag">#</span> в теле). Переименование
+<i>раздела</i> — здесь.</div>
+<div class="box tech"><span class="lbl">Технически</span>
+Адрес статьи (URL) не зависит от раздела — он плоский (<span class="tag">art/&lt;id&gt;.html</span>).
+Поэтому перемещение статьи между разделами не ломает ссылки, перенаправления не нужны. Названия
+разделов хранятся в одном источнике (<span class="tag">structure.json</span>), а слаги (короткие
+адреса разделов) зафиксированы и через интерфейс не меняются.</div>
+
+<h3 class="sec" id="s8"><span class="pgmark">~MK08~</span><span class="num">8.</span>Архив: «рукописи не горят»</h3>
+<p>Удаление статьи — это не стирание, а перевод в <b>Архив</b> (мягкое удаление). Архивная статья
+исчезает из публичных списков, но её можно <b>восстановить</b> в любой момент. На странице структуры
+есть раздел «Архив» со списком и кнопкой «Восстановить».</p>
+<div class="box tech"><span class="lbl">Технически</span>
+Даже при настоящем удалении файла история git хранит всё — Архив это просто удобный слой поверх.
+Поэтому потерять текст практически невозможно.</div>
+
+<h3 class="sec" id="s9"><span class="pgmark">~MK09~</span><span class="num">9.</span>«Песнь Ступеней»</h3>
+<p>Это особая страница — сетка музыкальных плиток (YouTube) с подписями и ссылками на статьи.
+Она редактируется как обычная ZML-страница: откройте её новый вид и нажмите
+<span class="ui-btn">✎&nbsp;Править</span>. Каждая песня — это <b>одна строка</b> внутри блока
+<span class="tag">[shir]</span> (подробно — раздел&nbsp;25).</p>
+<div class="box"><span class="lbl">Подсказка</span>
+Чтобы добавить песню, скопируйте соседнюю строку и поменяйте в ней: ID&nbsp;ролика&nbsp;YouTube,
+название, автора и список статей. <span class="ui-btn">Просмотр</span> покажет результат.</div>
+
+<h3 class="sec" id="s10"><span class="pgmark">~MK10~</span><span class="num">10.</span>Админка вида: что видит читатель</h3>
+<p>Страница <b>«Админка вида»</b> управляет тем, как читатели видят статьи. Здесь три блока:</p>
+<ul class="plain">
+  <li><b>Версия по умолчанию</b> — «Старый HTML» или «Новая (ZML)». Какую версию открывает читатель
+    по умолчанию (кнопка перехода на другую версию есть всегда).</li>
+  <li><b>Общий стиль по умолчанию</b> — <b>дизайн</b> (тема) и <b>ширина</b> колонки, если статья не
+    попала ни под одно правило.</li>
+  <li><b>Правила</b> — «для такого-то раздела или типа работ — такой дизайн и ширина». Действует
+    первое подходящее правило сверху вниз.</li>
+</ul>
+<p>Темы: <i>editorial, manuscript, cyberpunk, swiss, ar-deco</i>. Ширина: <i>широкая</i> или <i>узкая</i>.</p>
+<div class="box"><span class="lbl">Личное и общее</span>
+Если вы вошли как <b>Admin</b> — ваши изменения глобальные, их видят все. Любой другой
+администратор/редактор меняет только <b>свои</b> настройки (применяются, пока он залогинен).</div>
+
+<h3 class="sec" id="s11"><span class="pgmark">~MK11~</span><span class="num">11.</span>Поиск по сайту</h3>
+<p>На главной есть поле поиска (отдельная страница поиска тоже есть). Поиск находит статьи по словам
+из текста, а также <b>по номеру статьи</b> (арт-id) — например <span class="tag">654</span> или
+<span class="tag">#03H</span>.</p>
+<div class="box tech"><span class="lbl">Технически</span>
+Поиск — статический индекс (Pagefind), он строится из готовых страниц. После правок прямо на сайте
+индекс обновится при ближайшей полной пересборке/публикации (скрипт <span class="tag">reindex.bat</span>
+перед <span class="tag">push.bat</span>). Точечная правка через сайт сразу в индекс не попадает —
+это нормально.</div>
+
+<h3 class="sec" id="s12"><span class="pgmark">~MK12~</span><span class="num">12.</span>Когда правки видны · частые вопросы</h3>
+<h4>«Сохранил, но на сайте по-старому»</h4>
+<p>Публикация занимает обычно <b>30–90&nbsp;секунд</b>. Подождите минуту и обновите страницу
+<span class="kbd">Ctrl</span>+<span class="kbd">F5</span> (это сбрасывает кэш браузера). Иногда кэш
+держится до ~10&nbsp;минут.</p>
+<h4>«Случайно что-то испортил»</h4>
+<p>Если ещё не сохранили — нажмите <span class="ui-btn">Отмена</span>. Если сохранили — текст не потерян:
+прежняя версия хранится в истории (обратитесь к администратору, чтобы откатить).</p>
+<h4>«Нужно вставить ссылку / сноску / стихи»</h4>
+<p>Всё это — простая разметка ZML. Смотрите Часть&nbsp;II: ссылки — раздел&nbsp;16, сноски —
+раздел&nbsp;17, стихи — раздел&nbsp;18.</p>
+<div class="box tech"><span class="lbl">Технически — массовые/локальные изменения</span>
+Правки <i>через сайт</i> публикуются сами (сервис коммитит в репозиторий). Массовая работа с корпусом
+ведётся локально: пересборка видов — <span class="tag">build_views.mjs</span>, публикация трёх
+репозиториев — <span class="tag">push.bat</span> (он же переиндексирует поиск и карту сайта).</div>
+
+<!-- ════════════════════════ ЧАСТЬ II ════════════════════════ -->
+<h2 class="part"><span class="pgmark">~MKP2~</span><span class="pn">Часть вторая</span>Справочник&nbsp;ZML</h2>
+<p class="lead">ZML — это текст статьи плюс простые пометки. Ниже каждая конструкция показана парой
+<b>«как пишется» → «как выглядит»</b>. Всё необязательное можно не использовать: базовая статья —
+это просто абзацы текста.</p>
+
+<h3 class="sec" id="s13"><span class="pgmark">~MK13~</span><span class="num">13.</span>Что такое ZML</h3>
+<p>Файл статьи устроен так: сверху <b>шапка</b> (служебные поля) между строками
+<span class="tag">---</span>, ниже — <b>тело</b> (текст с разметкой). Абзацы разделяются
+<b>пустой строкой</b>. Перенос строки внутри блока — значим (он сохранится).</p>
+<div class="zml"><span class="c">--- шапка ---</span>
+<span class="k">title:</span> Вначале
+<span class="k">art:</span> "03H"
+<span class="k">date:</span> 2020-03-17
+<span class="c">--- тело ---</span>
+
+Первый абзац статьи.
+
+Второй абзац — после пустой строки.</div>
+<div class="box tip"><span class="lbl">Принцип</span>
+Пишите осмысленный текст и помечайте лишь то, что нужно (сноску, стих, ссылку). Красоту добавит тема —
+вручную оформление набирать не нужно.</div>
+
+<h3 class="sec" id="s14"><span class="pgmark">~MK14~</span><span class="num">14.</span>Шапка статьи (frontmatter)</h3>
+<p>Между двумя строками <span class="tag">---</span>. Обязательны только <span class="tag">title</span>
+и <span class="tag">art</span>; остальное — по необходимости.</p>
+<table class="fm-tbl">
+  <tr><th>Поле</th><th>Зачем</th></tr>
+  <tr><td class="s">title</td><td>Название статьи (обязательно).</td></tr>
+  <tr><td class="s">art</td><td>Номер-идентификатор статьи (обязательно; выдаётся при создании).</td></tr>
+  <tr><td class="s">date</td><td>Дата в виде ГГГГ-ММ-ДД.</td></tr>
+  <tr><td class="s">view</td><td>Какую версию показывать по умолчанию: <span class="tag">zml</span> (новый вид) или <span class="tag">html</span> (старый). Редактор подставляет <span class="tag">zml</span> сам.</td></tr>
+  <tr><td class="s">image</td><td>Имя файла обложки (ставится кнопкой «Иллюстрация»).</td></tr>
+  <tr><td class="s">theme</td><td>Тема оформления: A_editorial, B_manuscript, cyberpunk, swiss, ar_deco.</td></tr>
+  <tr><td class="s">width</td><td>Ширина колонки: <span class="tag">wide</span> или <span class="tag">narrow</span>.</td></tr>
+  <tr><td class="s">summary</td><td>Краткое описание для поисковиков (в тексте не показывается).</td></tr>
+  <tr><td class="s">audio</td><td>Ссылки на аудио-озвучку (значок 🎧 у заголовка) — см. раздел&nbsp;24.</td></tr>
+  <tr><td class="s">notes_title</td><td>Своё название для раздела сносок (по умолчанию «Примечания»).</td></tr>
+  <tr><td class="s">caps</td><td><span class="tag">on</span> включает особую обработку ПРОПИСНЫХ (по умолчанию выключено).</td></tr>
+  <tr><td class="s">dropcap</td><td><span class="tag">off</span> убирает буквицу в начале (если тема её рисует).</td></tr>
+</table>
+<div class="box tech"><span class="lbl">Технически</span>
+Тема и ширина — два независимых рычага. Если в шапке их нет, значения берутся из Админки вида
+(общие или по правилу раздела/типа). Поле во frontmatter перебивает общую настройку.</div>
+
+<h3 class="sec" id="s15"><span class="pgmark">~MK15~</span><span class="num">15.</span>Заголовки и разделы</h3>
+<p><b>Заголовок статьи в теле</b> — строка с <span class="tag">#</span> (необязательно; если есть —
+заменяет <span class="tag">title</span> как видимый заголовок). <b>Жанровая пометка</b> под
+заголовком — <span class="tag">[sub]…[/sub]</span>.</p>
+<p><b>Разделы</b> внутри статьи — строка <span class="tag">##&nbsp;Заголовок</span>. Вложенный
+подзаголовок — <span class="tag">###</span>. Пояснение под заголовком раздела —
+<span class="tag">[subsec]…[/subsec]</span>. Оглавление статьи появляется там, где стоит маркер
+<span class="tag">[toc]</span>.</p>
+<div class="zml"><span class="k">#</span> Вначале
+<span class="k">[sub]</span>из размышлений о восхождении<span class="k">[/sub]</span>
+<span class="k">[toc]</span>
+
+<span class="k">##</span> Первая ступень {stupen-1}
+<span class="k">[subsec]</span>краткое пояснение к разделу<span class="k">[/subsec]</span>
+Текст раздела…</div>
+<div class="demo"><div class="cap res">как выглядит</div>
+  <div class="d-h1">Вначале</div>
+  <div class="d-sub">из размышлений о восхождении</div>
+  <div style="font-size:9pt;color:#5c5852;border:1px dashed #d8d2c6;padding:1mm 2mm;margin:2mm 0;">📑 Оглавление: Первая ступень …</div>
+  <div style="font-weight:bold;font-size:12pt;border-bottom:1px solid #d8d2c6;">Первая ступень <span style="color:#8a5a2b;font-weight:normal;">↑</span></div>
+  <div style="font-style:italic;color:#5c5852;font-size:9.5pt;">краткое пояснение к разделу</div>
+  <div style="margin-top:1mm;">Текст раздела…</div>
+</div>
+<div class="box"><span class="lbl">Где что</span>
+<span class="tag">[sub]</span> — это пометка-эхо под названием (жанр, посвящение), она не попадает в
+оглавление. Структуру статьи задают только <span class="tag">##</span> и <span class="tag">###</span>.</div>
+
+<p><b>Карточка-метаданные</b> (proza-шапка «Серия / Рассказ / Написано / Формат…») —
+<span class="tag">[meta]…[/meta]</span>. Каждая строка <span class="tag">Ярлык: значение</span>
+рисуется в рамке-карточке с цветным кантом слева, ярлык до двоеточия — <b>жирный</b>. Строка,
+отделённая в конце <b>пустой строкой</b>, становится курсивным деком под пунктиром.</p>
+<div class="zml"><span class="k">[meta]</span>
+Серия: ДОБРАЯ РЕЧЬ
+Рассказ: Апрель навсегда
+Написано: 01.12.21
+Формат: Школьная история
+
+Дети Будущего Мира…
+<span class="k">[/meta]</span></div>
+<div class="demo"><div class="cap res">как выглядит</div>
+  <div style="max-width:80%;background:#faf8f4;border:1px solid #e4ddd0;border-left:4px solid #b0843a;border-radius:3px;padding:2mm 3mm;font-size:9.5pt;line-height:1.55;color:#5c5852;">
+    <div><b style="color:#2b2722;">Серия:</b> ДОБРАЯ РЕЧЬ</div>
+    <div><b style="color:#2b2722;">Рассказ:</b> Апрель навсегда</div>
+    <div><b style="color:#2b2722;">Написано:</b> 01.12.21</div>
+    <div><b style="color:#2b2722;">Формат:</b> Школьная история</div>
+    <div style="margin-top:1.5mm;padding-top:1.5mm;border-top:1px dashed #d8d2c6;font-style:italic;color:#8a5a2b;">Дети Будущего Мира…</div>
+  </div>
+</div>
+<div class="box"><span class="lbl">Когда</span> карточку берём для proza-шапки с ярлыками (как
+в оригинале). Если рамки-шапки в оригинале не было — оставляем обычные абзацы.</div>
+
+<h3 class="sec" id="s16"><span class="pgmark">~MK16~</span><span class="num">16.</span>Абзацы, курсив, ссылки</h3>
+<p><b>Курсив</b> — обернуть фразу подчёркиваниями: <span class="tag">_вот так_</span>.<br>
+<b>Внешняя ссылка</b> — <span class="tag">[адрес|подпись]</span> (голые ссылки в тексте не используем).<br>
+<b>Ссылка на другую статью сборника</b> — <span class="tag">[[арт-id]]</span> (подпись подставится сама).<br>
+<b>Ссылка на Зоар</b> — <span class="tag">{chapter|N}</span>.</p>
+<div class="zml">Это _важная_ мысль; подробнее — в статье <span class="k">[[654]]</span>.
+Источник: <span class="k">[https://example.org|внешний текст]</span>.</div>
+<div class="demo"><div class="cap res">как выглядит</div>
+  Это <i>важная</i> мысль; подробнее — в статье <a href="#s16" style="color:#3a6ea5;">«Название статьи&nbsp;654»</a>.
+  Источник: <a href="#s16" style="color:#3a6ea5;">внешний текст</a>.</div>
+<div class="box tip"><span class="lbl">Совет</span>
+В ссылке <span class="tag">[[654]]</span> название статьи подставляется автоматически из каталога —
+не дублируйте его руками, иначе при переименовании разойдётся.</div>
+
+<h3 class="sec" id="s17"><span class="pgmark">~MK17~</span><span class="num">17.</span>Сноски</h3>
+<p>Сноска — две части: <b>маркер</b> в тексте <span class="tag">[^1]</span> и <b>определение</b>
+в конце <span class="tag">[^1]: текст сноски</span>. Маркеры кликабельны, определения собираются
+в разделе «Примечания».</p>
+<div class="zml">Мысль требует пояснения.<span class="k">[^1]</span>
+
+<span class="k">[^1]:</span> Это и есть пояснение.</div>
+<div class="demo"><div class="cap res">как выглядит</div>
+  Мысль требует пояснения.<sup class="fn">1</sup>
+  <div class="d-note"><b>Примечания</b><br><sup class="fn">1</sup>&nbsp;Это и есть пояснение. <span style="color:#8a5a2b;">↑</span></div>
+</div>
+<h4>Бывает ещё</h4>
+<ul class="plain">
+  <li><b>Звёздная</b> сноска — <span class="tag">[^*]</span> / <span class="tag">[^*]:</span>.</li>
+  <li><b>Анонимная</b> («См.&nbsp;также») — <span class="tag">[^]:</span>.</li>
+  <li><b>Группы сносок</b> — именованные <span class="tag">[^имя.1]</span>, а вывод группы на нужном
+    месте — блоком <span class="tag">[refs=имя]</span>.</li>
+</ul>
+<div class="box tech"><span class="lbl">Технически</span>
+Продолжение длинной сноски — с отступом в 4 пробела (станет переносом строки). Если у определения
+нет маркера в тексте — номер сохранится, но стрелки «назад» не будет (возвращаться некуда).</div>
+
+<h3 class="sec" id="s18"><span class="pgmark">~MK18~</span><span class="num">18.</span>Стихи и поэмы</h3>
+<p>Стихотворный блок — <span class="tag">[poem]…[/poem]</span>: переносы строк сохраняются как есть.
+Необязательный заголовок — <span class="tag">[poem title=Название]</span>. Если же стихи записаны
+сплошной прозой (без переносов) — см. раздел&nbsp;28, блок <span class="tag">[faw]</span>.</p>
+<div class="zml"><span class="k">[poem]</span>
+Я поднимаюсь по ступеням,
+сквозь свет и тень, сквозь шум и тишь,
+и каждый шаг — ответ сомненьям.
+<span class="k">[/poem]</span></div>
+<div class="demo"><div class="cap res">как выглядит</div>
+  <div class="d-poem">Я поднимаюсь по ступеням,
+сквозь свет и тень, сквозь шум и тишь,
+и каждый шаг — ответ сомненьям.</div></div>
+
+<h3 class="sec" id="s19"><span class="pgmark">~MK19~</span><span class="num">19.</span>Эпиграф, эпилог, посвящение</h3>
+<p>Один блок-роль <span class="tag">[epi]…[/epi]</span> — «обрамление». Вид задаётся
+<span class="tag">kind</span>: <span class="tag">prose</span> (по умолчанию), <span class="tag">verse</span>
+(стих), <span class="tag">aphorism</span> (краткая сентенция), <span class="tag">dedi</span> (посвящение).
+Источник цитаты — <span class="tag">cite=</span>.</p>
+<div class="zml"><span class="k">[epi kind=verse cite=Псалмы]</span>
+Из глубины воззвал я —
+и услышан был.
+<span class="k">[/epi]</span></div>
+<div class="demo"><div class="cap res">как выглядит</div>
+  <div class="d-epi">Из глубины воззвал я —<br>и услышан был.
+  <span class="cite">— Псалмы</span></div></div>
+<div class="box"><span class="lbl">Эпилог</span>
+Отдельного тега нет: <b>эпилог — это тот же <span class="tag">[epi]</span> в самом конце</b> статьи
+(перед сносками). Метку «Эпилог» рисует сам сайт по положению блока.</div>
+
+<h3 class="sec" id="s20"><span class="pgmark">~MK20~</span><span class="num">20.</span>Цитата, подпись, возглас, диалог</h3>
+<ul class="plain">
+  <li><b>Цитата-источник</b> в потоке текста — <span class="tag">[quote kind=scripture cite=…]…[/quote]</span>.</li>
+  <li><b>Подпись автора</b> (справа, курсивом) — <span class="tag">[sig]…[/sig]</span>.</li>
+  <li><b>Эмфатический возглас</b> (рефрен, слоган) — <span class="tag">[cry]…[/cry]</span>.</li>
+  <li><b>Диалог</b> — <span class="tag">[dlg]…[/dlg]</span> (реплики — обычными абзацами внутри).</li>
+</ul>
+<div class="zml"><span class="k">[cry]</span>Восходи!<span class="k">[/cry]</span>
+
+<span class="k">[sig]</span>— Автор<span class="k">[/sig]</span></div>
+<div class="demo"><div class="cap res">как выглядит</div>
+  <div class="d-cry">Восходи!</div>
+  <div class="d-sig" style="margin-top:2mm;">— Автор</div></div>
+
+<h3 class="sec" id="s21"><span class="pgmark">~MK21~</span><span class="num">21.</span>Перечни и списки</h3>
+<p><b>Маркированный список</b> — <span class="tag">[ul]…[/ul]</span>, пункты со «-&nbsp;». Свой значок —
+<span class="tag">[ul marker=◆]</span>.<br>
+<b>Нумерованный перечень</b> (с авторскими номерами) — <span class="tag">[num]…[/num]</span>.</p>
+<div class="zml"><span class="k">[ul]</span>
+- первый пункт
+- второй пункт
+<span class="k">[/ul]</span></div>
+<div class="demo"><div class="cap res">как выглядит</div>
+  <ul style="margin:0;padding-left:5mm;"><li>первый пункт</li><li>второй пункт</li></ul></div>
+<div class="box"><span class="lbl">Внимание</span>
+Диалоги оформляются не списком, а блоком <span class="tag">[dlg]</span> (раздел&nbsp;20) или прозой с тире.</div>
+
+<h3 class="sec" id="s22"><span class="pgmark">~MK22~</span><span class="num">22.</span>Спойлер</h3>
+<p>Скрытый под обложкой фрагмент (как в Телеграме): <span class="tag">[spl]…[/spl]</span>. Клик
+раскрывает. Можно задать свою картинку-обложку: <span class="tag">[spl="cover.gif"]…[/spl]</span>.
+Работает и внутри других блоков.</p>
+<div class="zml">Развязка: <span class="k">[spl]</span>он достиг вершины<span class="k">[/spl]</span>.</div>
+<div class="demo"><div class="cap res">как выглядит</div>
+  Развязка: <span class="d-spl">▓▓▓ нажмите, чтобы раскрыть ▓▓▓</span>.</div>
+
+<h3 class="sec" id="s23"><span class="pgmark">~MK23~</span><span class="num">23.</span>Термины и лейтмотивы</h3>
+<p>Необязательная инлайн-пометка смыслового термина или сквозного мотива:
+<span class="tag">{term|текст}</span> и <span class="tag">{leit|текст}</span>. Тема может их выделять
+или нет.</p>
+<div class="zml">Главное — это <span class="k">{term|</span>отдача<span class="k">}</span>,
+а сквозной мотив — <span class="k">{leit|</span>восхождение<span class="k">}</span>.</div>
+<div class="demo"><div class="cap res">как выглядит</div>
+  Главное — это <span class="d-term">отдача</span>, а сквозной мотив —
+  <span class="d-term" style="border-color:#3a6ea5;">восхождение</span>.</div>
+<div class="box tip"><span class="lbl">Совет</span>
+Метьте только редкие, осмысленные слова. Частые обороты помечать не нужно — это смысловое решение,
+а не «подсветить всё».</div>
+
+<h3 class="sec" id="s24"><span class="pgmark">~MK24~</span><span class="num">24.</span>Музыка и аудио</h3>
+<p><b>Музыкальный блок</b> в статье — <span class="tag">[mus]…[/mus]</span>, строки внутри:
+<span class="tag">адрес | название | автор</span>. Подпись блока — <span class="tag">[mus="Музыка"]</span>.</p>
+<div class="zml"><span class="k">[mus="Под настроение"]</span>
+https://youtu.be/ID | Песнь восхождения | Шломо Карлебах
+<span class="k">[/mus]</span></div>
+<p><b>Аудио-озвучка статьи</b> (значок 🎧 у заголовка) — поле <span class="tag">audio:</span> в шапке:</p>
+<div class="zml"><span class="k">audio:</span> [{"url": "https://t.me/...", "label": "Слушать озвучку"}]</div>
+<div class="demo"><div class="cap res">как выглядит</div>
+  <span class="d-h1" style="display:inline;">Вначале</span> <span style="font-size:11pt;">🎧</span></div>
+
+<h3 class="sec" id="s25"><span class="pgmark">~MK25~</span><span class="num">25.</span>«Песнь Ступеней» — блок [shir]</h3>
+<p>Сетка музыкальных плиток. Контейнер — <span class="tag">[shir cols=3 min=300]…[/shir]</span>.
+Одна песня = <b>одна строка</b>, колонки разделяются <span class="tag">|</span>:</p>
+<div class="zml"><span class="k">[shir cols=3 min=300]</span>
+<span class="c">ID-ролика | Композиция | Автор | статьи (арт-id через запятую)</span>
+dQw4w9WgXcQ | Песнь восхождения | Шломо Карлебах | 03H, 654
+<span class="k">[/shir]</span></div>
+<div class="demo"><div class="cap res">как выглядит</div>
+  <div class="d-grid">
+    <div class="d-tile"><div class="thumb">▶</div><div class="tt"><b>Песнь восхождения</b>Шломо Карлебах</div></div>
+    <div class="d-tile"><div class="thumb">▶</div><div class="tt"><b>Другая песнь</b>Автор</div></div>
+  </div></div>
+<div class="box"><span class="lbl">Колонки</span>
+Обязательны три: <b>ID&nbsp;YouTube</b>, <b>Композиция</b>, <b>Автор</b>. Четвёртая (список статей) —
+необязательна. ID&nbsp;ролика — чистый, без «?si». Если в названии нужен символ <span class="tag">|</span>
+— пишите <span class="tag">\|</span>.</div>
+<div class="box warn"><span class="lbl">Если плитка не появилась</span>
+Скорее всего в строке не хватает одного из трёх обязательных полей — проверьте разделители
+<span class="tag">|</span>. Ломается только эта строка, остальные плитки остаются.</div>
+
+<h3 class="sec" id="s26"><span class="pgmark">~MK26~</span><span class="num">26.</span>Глифы и спецсимволы</h3>
+<p>Некоторые авторские значки сайт оформляет особо (тема их подсвечивает): «руки вверх»
+<span class="tag">&lt;\^/&gt;</span>, «руки вниз» <span class="tag">&lt;/v\&gt;</span>, смайлы.
+Писать их можно прямо в тексте.</p>
+<div class="demo"><div class="cap res">как выглядит</div>
+  Слава Творцу <span class="glyph">&lt;\^/&gt;</span></div>
+<div class="box warn"><span class="lbl">Мусор из proza.ru</span>
+Цепочки из двух и более точек с запятой (<span class="tag">;;;;</span>) — это artefact импорта, не глиф.
+Их нужно убирать (восстановив нужный символ по смыслу).</div>
+
+<h3 class="sec" id="s27"><span class="pgmark">~MK27~</span><span class="num">27.</span>Темы и ширина</h3>
+<p>Внешний вид статьи задают два независимых параметра:</p>
+<ul class="plain">
+  <li><b>Тема</b> (<span class="tag">theme</span>): <i>A_editorial</i> (строгая редакторская),
+    <i>B_manuscript</i> (рукопись), <i>cyberpunk</i>, <i>swiss</i>, <i>ar_deco</i>.</li>
+  <li><b>Ширина</b> (<span class="tag">width</span>): <i>wide</i> (~1080px) или <i>narrow</i> (~820px).</li>
+</ul>
+<p>На новом виде статьи есть переключатель тем и ширины — можно подобрать вид на глаз. Выбор
+сохраняется во frontmatter (или задаётся правилами в Админке вида, раздел&nbsp;10).</p>
+<div class="box tip"><span class="lbl">Совет</span>
+Любая тема умеет показывать любой текст (и стихи, и прозу, и сноски). Лучше всего тема смотрится в
+своей «родной» ширине, но при смене ширины не ломается.</div>
+
+<h3 class="sec" id="s28"><span class="pgmark">~MK28~</span><span class="num">28.</span>Стихи, записанные прозой — [faw]</h3>
+<p>Иногда стихи записаны сплошной прозой подряд, но выдержаны в скрытом размере (счёт слогов).
+Блок <span class="tag">[faw]…[/faw]</span> помечает такой текст, чтобы сайт мог показать его
+стихотворными строками.</p>
+<p><b>По умолчанию [faw] показывается обычной прозой.</b> Чтобы включить стихотворный вид
+(разбивку на строки), добавьте в шапку <span class="tag">allow_faw: true</span> и нажмите
+<span class="ui-btn">Сохранить</span>.</p>
+<p><b>Разбивку на строки сайт расставляет сам</b> при «Сохранить» — знаком <span class="tag">|</span>
+по счёту слогов (можно поправить вручную). Нумерованный пункт отмечается отдельной строкой
+<span class="tag">=== 1 {s1} ===</span> (попадёт в оглавление и получит значок), а граница абзаца —
+просто пустой строкой. Музыку и сноски оставляйте <i>вне</i> <span class="tag">[faw]</span>.</p>
+<div class="zml"><span class="c">--- в шапке: allow_faw: true ---</span>
+<span class="k">[faw]</span>
+Я поднимаюсь по ступеням сквозь свет и тень сквозь шум и тишь и каждый шаг ответ сомненьям
+<span class="k">[/faw]</span></div>
+<div class="demo"><div class="cap res">как выглядит (allow_faw: true)</div>
+  <div class="d-faw"><span class="a">Я поднимаюсь по ступеням,</span><span class="b">Сквозь свет и тень, сквозь шум и тишь,</span><span class="a">И каждый шаг — ответ сомненьям.</span></div></div>
+<div class="box"><span class="lbl">Два вида</span>
+Пока <span class="tag">allow_faw</span> не включён, тот же блок виден сплошной прозой (абзацы и
+нумерованные пункты сохраняются). Поставьте <span class="tag">allow_faw: true</span> — и текст
+разобьётся на строки. Сама разметка <span class="tag">|</span> уже лежит в тексте и ждёт включения.</div>
+
+<!-- ════════════════════════ ПРИЛОЖЕНИЕ ════════════════════════ -->
+<h2 class="part"><span class="pgmark">~MKAP~</span><span class="pn">Приложение</span>Шпаргалка ZML</h2>
+<p class="lead" id="cheat">Самое нужное — одним взглядом.</p>
+<table class="cheat">
+  <tr><th>Что нужно</th><th>Как пишется</th></tr>
+  <tr><td>Шапка статьи</td><td class="s">--- title: … / art: … ---</td></tr>
+  <tr><td>Абзац</td><td class="s">текст + пустая строка</td></tr>
+  <tr><td>Заголовок в теле</td><td class="s"># Заголовок</td></tr>
+  <tr><td>Раздел / подзаголовок</td><td class="s">## Раздел · ### Вложенный</td></tr>
+  <tr><td>Жанровая пометка</td><td class="s">[sub]…[/sub]</td></tr>
+  <tr><td>Пояснение под разделом</td><td class="s">[subsec]…[/subsec]</td></tr>
+  <tr><td>Карточка-метаданные</td><td class="s">[meta]Ярлык: значение …[/meta]</td></tr>
+  <tr><td>Оглавление</td><td class="s">[toc]</td></tr>
+  <tr><td>Курсив</td><td class="s">_фраза_</td></tr>
+  <tr><td>Внешняя ссылка</td><td class="s">[адрес|подпись]</td></tr>
+  <tr><td>Ссылка на статью</td><td class="s">[[арт-id]]</td></tr>
+  <tr><td>Сноска</td><td class="s">текст[^1] … [^1]: пояснение</td></tr>
+  <tr><td>Стих</td><td class="s">[poem]…[/poem]</td></tr>
+  <tr><td>Стихи прозой</td><td class="s">[faw]…[/faw] + allow_faw: true</td></tr>
+  <tr><td>Эпиграф / эпилог</td><td class="s">[epi kind=verse]…[/epi]</td></tr>
+  <tr><td>Цитата-источник</td><td class="s">[quote kind=scripture]…[/quote]</td></tr>
+  <tr><td>Подпись · возглас</td><td class="s">[sig]…[/sig] · [cry]…[/cry]</td></tr>
+  <tr><td>Список · перечень</td><td class="s">[ul]…[/ul] · [num]…[/num]</td></tr>
+  <tr><td>Спойлер</td><td class="s">[spl]…[/spl]</td></tr>
+  <tr><td>Термин · мотив</td><td class="s">{term|…} · {leit|…}</td></tr>
+  <tr><td>Музыка</td><td class="s">[mus]url|назв.|автор[/mus]</td></tr>
+  <tr><td>Сетка песен</td><td class="s">[shir cols=3] id|назв.|автор|статьи [/shir]</td></tr>
+  <tr><td>Аудио 🎧 (в шапке)</td><td class="s">audio: [{"url":…,"label":…}]</td></tr>
+  <tr><td>Закрепить новый вид</td><td class="s">view: zml (в шапке)</td></tr>
+</table>
+<div class="box tip" style="margin-top:5mm;"><span class="lbl">И помните</span>
+Перед «Сохранить» — всегда <span class="ui-btn">Просмотр</span>. После — подождите минуту и
+<span class="kbd">Ctrl</span>+<span class="kbd">F5</span>.</div>
+
+</body>
+</html>

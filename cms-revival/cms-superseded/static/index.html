@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>yaniktoim-cms · editor</title>
+<link rel="stylesheet" href="/static/cms.css">
+</head>
+<body class="cms-list">
+<header class="cms-header">
+  <h1>yaniktoim-cms — список статей</h1>
+  <a class="open" href="/site/index.html" target="_blank" rel="noopener" title="открыть статичный сайт в новой вкладке">сайт ↗</a>
+  <span class="filters">
+    <label><input type="checkbox" id="f-zml" checked> с ZML</label>
+    <label><input type="checkbox" id="f-raw" checked> только raw</label>
+    <select id="f-section">
+      <option value="">все разделы</option>
+    </select>
+    <input id="f-search" placeholder="поиск по заголовку…" type="search">
+  </span>
+  <span class="counter" id="counter"></span>
+</header>
+
+<main>
+  <table class="articles">
+    <thead>
+      <tr>
+        <th>art</th>
+        <th>дата</th>
+        <th>раздел</th>
+        <th>заголовок</th>
+        <th>статус</th>
+        <th>действие</th>
+      </tr>
+    </thead>
+    <tbody id="rows">
+      <tr><td colspan="6" class="loading">загружаю…</td></tr>
+    </tbody>
+  </table>
+</main>
+
+<script>
+let ALL = [];
+let SECTIONS = new Set();
+
+async function load() {
+  const r = await fetch('/api/articles');
+  const j = await r.json();
+  ALL = j.articles;
+  ALL.forEach(a => SECTIONS.add(a.section));
+  const sel = document.getElementById('f-section');
+  [...SECTIONS].sort().forEach(s => {
+    const o = document.createElement('option');
+    o.value = s; o.textContent = s;
+    sel.appendChild(o);
+  });
+  render();
+}
+
+function render() {
+  const fZml = document.getElementById('f-zml').checked;
+  const fRaw = document.getElementById('f-raw').checked;
+  const sec  = document.getElementById('f-section').value;
+  const q = document.getElementById('f-search').value.toLowerCase();
+  const shown = ALL.filter(a => {
+    if (a.has_zml && !fZml) return false;
+    if (!a.has_zml && !fRaw) return false;
+    if (sec && a.section !== sec) return false;
+    if (q && !(a.title || '').toLowerCase().includes(q) && !a.art.toLowerCase().includes(q)) return false;
+    return true;
+  });
+  document.getElementById('counter').textContent = `${shown.length} / ${ALL.length}`;
+  document.getElementById('rows').innerHTML = shown.map(a => {
+    const cls = a.has_zml ? 'row has-zml' : 'row no-zml';
+    const status = a.has_zml ? '<span class="badge ok">ZML</span>' : '<span class="badge none">raw</span>';
+    const action = a.has_zml
+      ? `<a href="/editor.html?art=${a.art}" onclick="event.stopPropagation()">✎ редактировать</a>`
+      : `<button class="transform-btn" onclick="event.stopPropagation(); transform('${a.art}', this)">⚙ transform</button>`;
+    const click = a.has_zml
+      ? `onclick="location.href='/editor.html?art=${a.art}'"`
+      : '';
+    return `<tr class="${cls}" ${click}>
+      <td class="art"><b>${a.art}</b></td>
+      <td>${a.date_chosen || '—'}</td>
+      <td>${a.section}</td>
+      <td class="title">${escapeHtml(a.title)}</td>
+      <td>${status}</td>
+      <td class="action">${action} <a href="${a.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="оригинал на proza.ru">↗</a></td>
+    </tr>`;
+  }).join('') || '<tr><td colspan="6" class="loading">пусто</td></tr>';
+}
+
+async function transform(art, btn) {
+  if (!confirm(`Запустить transform для ${art}? Это займёт 1–15 минут (зависит от длины статьи), окно/вкладка должна остаться открытой.`))
+    return;
+  btn.disabled = true;
+  btn.textContent = '⏳ работает…';
+  const r = await fetch(`/api/transform/${art}`, {method: 'POST'});
+  const j = await r.json();
+  if (j.ok) {
+    btn.textContent = '✓ готово';
+    setTimeout(() => location.href = `/editor.html?art=${art}`, 500);
+  } else {
+    btn.textContent = '✗ ошибка';
+    alert('Transform failed:\n' + (j.error || '') + '\n\nstdout tail:\n' + (j.stdout || '') + '\n\nstderr tail:\n' + (j.stderr || ''));
+    btn.disabled = false;
+    btn.textContent = '⚙ transform';
+  }
+}
+
+function escapeHtml(s) {
+  return (s || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+}
+
+document.getElementById('f-zml').addEventListener('change', render);
+document.getElementById('f-raw').addEventListener('change', render);
+document.getElementById('f-section').addEventListener('change', render);
+document.getElementById('f-search').addEventListener('input', render);
+
+load();
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "_note": "Ручные правки канона песен для ZML-страницы «Песнь Ступеней». Источник: резолв реальных видео YouTube через браузерный MCP (2026-06-18). ytID → {comp, author}. gen_songs_zml.py применяет ПОСЛЕ сортировки (порядок плиток не меняется), переопределяя comp/author из songs_data.json. Были 17 карточек без автора / с кличкой-названием — теперь у всех канон Композиция+Автор (автор = исполнитель по конвенции страницы).",
+  "tracks": {
+    "mLC5Dt0HQRw": {"comp": "Песня о настоящем индейце", "author": "Ноль"},
+    "A2KcBLXdlNk": {"comp": "Jerusalem of Gold", "author": "Shuli Nathan"},
+    "bdB7jX7vnFQ": {"comp": "Позорная звезда", "author": "Агата Кристи"},
+    "r7pQsHPNgx8": {"comp": "Ни там ни тут", "author": "Агата Кристи"},
+    "XzcJIlF160o": {"comp": "Стражники зари", "author": "Александр Поровский"},
+    "lHytjEj7B9g": {"comp": "The NeverEnding Story", "author": "Limahl"},
+    "0ZQNAzPJ7bQ": {"comp": "Господи, помоги", "author": "Сектор Газа"},
+    "pWlT_fMIo6s": {"comp": "Улетай на крыльях ветра", "author": "Е. Сотникова"},
+    "_Xa_1KxR-8M": {"comp": "Noubliez Jamais", "author": "Joe Cocker"},
+    "FyubQByktHo": {"comp": "Песня Чебурашки", "author": "Владимир Шаинский"},
+    "hDpheC9Xra0": {"comp": "Берегись", "author": "Мастер"},
+    "_xRN_Ndl-A8": {"comp": "Голубой вагон", "author": "Большой Детский Хор"},
+    "PgsfVJMWL0E": {"comp": "Choose Life", "author": "Trainspotting"},
+    "jYe0VljGrEk": {"comp": "Warriors of the World", "author": "Brides of Lucifer"},
+    "5oQSie6Rk0Y": {"comp": "Бобр (Зимний сон)", "author": "Slava Skripka"},
+    "GMQ4nYWPCaE": {"comp": "Театр", "author": "Баста"},
+    "FnLVC8Z6WdI": {"comp": "Оно выделяло тепло", "author": "АИГЕЛ"}
+  }
+}

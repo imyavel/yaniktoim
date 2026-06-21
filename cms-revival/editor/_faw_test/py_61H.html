@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>input_61H_clean (стихотворная разметка)</title>
+<style>
+  :root{
+    --bg:#faf8f3; --ink:#1c1c22; --muted:#5d5b54; --accent:#473a8f;
+    --accent2:#8a2f57; --line:#d9d4c7; --paper:#ffffff; --hl:#fff2b8;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.55;font-size:17px;}
+  .wrap{max-width:880px;margin:0 auto;padding:36px 16px 90px;}
+  h1{font-size:1.7rem;line-height:1.2;margin:0 0 4px;}
+  .subtitle{font-family:Arial,sans-serif;font-size:.85rem;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.1em;margin-bottom:22px;}
+  .intro{background:var(--paper);border:1px solid var(--line);
+    border-left:4px solid var(--accent);padding:14px 20px;margin:0 0 14px;
+    font-size:.93rem;color:var(--muted);}
+  .intro b{color:var(--ink);}
+  .legend{background:var(--paper);border:1px solid var(--line);
+    padding:12px 20px;margin:0 0 30px;font-size:.9rem;}
+  .legend div{margin:.25em 0;}
+  .poem{max-width:560px;}
+  .l{position:relative;padding:0 8px 0 56px;}
+  .l.g{margin-bottom:.85em;}
+  .l.b{font-style:italic;color:var(--accent);}
+  .l.x{background:var(--hl);border-left:3px solid var(--accent2);
+    border-radius:3px;}
+  .num{position:absolute;left:0;top:.18em;width:44px;text-align:right;
+    font-family:Arial,sans-serif;font-size:.68rem;color:#b5b0a3;}
+  .syl{margin-left:10px;font-family:Arial,sans-serif;font-size:.68rem;
+    font-style:normal;color:var(--accent2);font-weight:700;white-space:nowrap;}
+  .sec{display:inline-block;font-family:Arial,sans-serif;font-size:.66rem;
+    font-style:normal;font-weight:700;letter-spacing:.08em;color:#fff;
+    background:var(--accent2);border-radius:4px;padding:1px 7px;
+    margin-right:8px;vertical-align:.12em;text-transform:uppercase;}
+  .notes{margin-top:40px;border-top:3px double var(--line);padding-top:14px;
+    font-size:.88rem;color:var(--muted);}
+  .notes h2{font-size:1rem;color:var(--accent);font-family:Arial,sans-serif;
+    letter-spacing:.1em;text-transform:uppercase;}
+  .notes li{margin:.35em 0;}
+  a{color:var(--accent);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>input_61H_clean</h1>
+  <div class="subtitle">Реконструкция стихотворной разбивки</div>
+
+  <div class="intro">
+    <b>Что это.</b> Текст записан сплошной прозой, но почти весь выдержан
+    в строгом размере: <b>8 слогов в строке</b> (размер определен автоматически).
+    Границы строк восстановлены по счету слогов, а не по знакам препинания.
+    Метки разделов стоят там, где разделы начинались в оригинале, иногда посреди строки.
+    Всего строк: 924, из них со сбоем размера: 23.
+  </div>
+
+  <div class="legend">
+    <div><span style="color:var(--ink)">Обычная строка</span> / <i style="color:var(--accent)">курсивная строка</i> -- чередование соседних строк.</div>
+    <div><span style="background:var(--hl);border-left:3px solid var(--accent2);padding:0 6px;">Подсвеченная строка <span class="syl">N сл.</span></span> -- сбой размера: строка не укладывается в 8 слогов, рядом указано их число. После сбоя чередование ловится заново.</div>
+    <div><span class="sec">раздел</span> -- здесь в оригинале начинался очередной раздел.</div>
+  </div>
+
+  <div class="poem">
+<div class="l a"><span class="sec">часть 1</span>Ад - это нейропрограмма,</div>
+<div class="l b">у которой смысл 1 лишь</div>
+<div class="l a">- не давать предать забвенью</div>
+<div class="l b">то, что &quot;я, себя, мне, лично&quot;</div>
+<div class="l a"><span class="num">5</span>и т.п. то есть объекта,</div>
+<div class="l b">о котором лишь известно,</div>
+<div class="l a">что его нет ни в том мире,</div>
+<div class="l b">о котором говорится,</div>
+<div class="l a">что он внешний объективный,</div>
+<div class="l b"><span class="num">10</span>настоящий и предметный,</div>
+<div class="l a">ни в другом, где нет объектов,</div>
+<div class="l b">нет их свойств, нет толп мартышек,</div>
+<div class="l a">а есть ИНТЕЛЛЕКТ РАЗУМНЫЙ</div>
+<div class="l b">- главный нейропрограмматор,</div>
+<div class="l a"><span class="num">15</span>совершенно отделенный</div>
+<div class="l b">от своих частей всех внешних,</div>
+<div class="l a">т.е. &quot;нас, собой любимых&quot;,</div>
+<div class="l b">у которых есть лишь форма,</div>
+<div class="l a">и ее вид однотипный,</div>
+<div class="l b"><span class="num">20</span>делающий всех, кто частью</div>
+<div class="l a">совокупности объектов</div>
+<div class="l b">сетевым самоподобным</div>
+<div class="l a">механизмом состоящей</div>
+<div class="l b">из узлов того, что нету,</div>
+<div class="l a"><span class="num">25</span>то есть нет &quot;я&quot; никакого,</div>
+<div class="l b">в объективном мире вовсе,</div>
+<div class="l a">а есть пустота по центру,</div>
+<div class="l b">а вокруг нее - ряд стрелок,</div>
+<div class="l a">чистоколом торчат петли</div>
+<div class="l b"><span class="num">30</span>в стороны соседних центров,</div>
+<div class="l a">самоотраженья ссылки</div>
+<div class="l b">связанные с чем угодно,</div>
+<div class="l a">кто когда-то в резонансе</div>
+<div class="l b">социальном находился</div>
+<div class="l a"><span class="num">35</span>с этим местом, бытие чье</div>
+<div class="l b">- формой бесконечной бредить,</div>
+<div class="l a">постулируя посредством</div>
+<div class="l b">Эха, отраженном в Ухе,</div>
+<div class="l a">когда собственным впервые</div>
+<div class="l b"><span class="num">40</span>им свободно самолично</div>
+<div class="l a">(разумеется посредством</div>
+<div class="l b">трюка подлого подлога</div>
+<div class="l a">&quot;Змея&quot; через ту заботу</div>
+<div class="l b">мамы с папой - и с домашним</div>
+<div class="l a"><span class="num">45</span>неразлучным их питомцем,</div>
+<div class="l b">кто любимый каждым тайно,</div>
+<div class="l a">потому что любит каждый</div>
+<div class="l b">&quot;свои собственные мысли&quot;</div>
+<div class="l a">&quot;говоря их сам с собою&quot;)</div>
+<div class="l b"><span class="num">50</span>только принятым решеньем</div>
+<div class="l a">повторить решил ребенок</div>
+<div class="l b">то, что взрослые сказали</div>
+<div class="l a">ему делать перед этим,</div>
+<div class="l b">но он знал, что если это</div>
+<div class="l a"><span class="num">55</span>он как раньше позабудет,</div>
+<div class="l b">а оно, что очевидно,</div>
+<div class="l a">в точности так и случится,</div>
+<div class="l b">потому что до их мира,</div>
+<div class="l a">с их проблемами и смыслом,</div>
+<div class="l b"><span class="num">60</span>ему дел ровно настолько,</div>
+<div class="l a">сколько дела и взаимно</div>
+<div class="l b">- им до той мелкой мартышки,</div>
+<div class="l a">и ее &quot;особых мнений&quot;,</div>
+<div class="l b">выражаемых посредством</div>
+<div class="l a"><span class="num">65</span>нежелания взросленья,</div>
+<div class="l b">и упрямства в том, чтоб делать</div>
+<div class="l a">так, как говорят не просто,</div>
+<div class="l b">а затем, чтобы трюк старый,</div>
+<div class="l a">начатый два миллиона</div>
+<div class="l b"><span class="num">70</span>лет назад тем древним змеем,</div>
+<div class="l a">давшим человеку разум,</div>
+<div class="l b">существующий посредством</div>
+<div class="l a">внутреннего диалога,</div>
+<div class="l b">чей язык - самый коварный,</div>
+<div class="l a"><span class="num">75</span>из всех кто в саду водился,</div>
+<div class="l b">а в саду, в котором Боги</div>
+<div class="l a">жили и живут поныне,</div>
+<div class="l b">и пребудут в нем вовеки,</div>
+<div class="l a">потому что не ведутся</div>
+<div class="l b"><span class="num">80</span>на те формы смысловые,</div>
+<div class="l a">у которых нету смысла,</div>
+<div class="l b">но есть логика суждений,</div>
+<div class="l a">глас рассудка, норма в общем,</div>
+<div class="l b">типовой подход привычный,</div>
+<div class="l a"><span class="num">85</span>и стереотип шаблонный,</div>
+<div class="l b">и всего такого рода</div>
+<div class="l a">на огромный мир, в котором</div>
+<div class="l b">живет то, что, это скушав,</div>
+<div class="l a">этим же ползет и гадит,</div>
+<div class="l b"><span class="num">90</span>оставляя след пахучий,</div>
+<div class="l a">тоже тем же самым точно,</div>
+<div class="l b">потому что эта мерзость</div>
+<div class="l a">- специальный неорганик,</div>
+<div class="l b">&quot;червь&quot;, опасная программа,</div>
+<div class="l a"><span class="num">95</span>каждый со &quot;своим&quot; в той дырке,</div>
+<div class="l b">половой проход которой</div>
+<div class="l a">вверху меж двумя ушами</div>
+<div class="l b">гордо мозгом называет,</div>
+<div class="l a">но тот мозг - плод древа жизни</div>
+<div class="l b"><span class="num">100</span>- заражен червем, отравлен</div>
+<div class="l a">- в нем, причина того факта,</div>
+<div class="l b">о котором &quot;сам любимый&quot;</div>
+<div class="l a">&quot;собой&quot; мыслит звук от эхо,</div>
+<div class="l b">отраженного от уха,</div>
+<div class="l a"><span class="num">105</span>когда сам себе ребенок</div>
+<div class="l b">скажет, наконец, сам лично,</div>
+<div class="l a">то есть тайно и втихую,</div>
+<div class="l b">чтоб никто его не слышал</div>
+<div class="l a">(что несет пургу такую,</div>
+<div class="l b"><span class="num">110</span>повторяя то, что слышал</div>
+<div class="l a">от несущих пургу ту же</div>
+<div class="l b">взрослых, в результате трюка),</div>
+<div class="l a">и не зная, забив гордо,</div>
+<div class="l b">ЧТО ЭТО И НАФИГ НАДО</div>
+<div class="l a"><span class="num">115</span>ЕМУ, А НЕ ДОБРЫМ ДУХАМ,</div>
+<div class="l b">ЧУПА ЧУПС ЧЕЙ СТОЛЬ ЖЕЛАНЕН,</div>
+<div class="l a">И СТОЛЬ ЖЖЕТ ЧЬЯ ОПЛЕУХА,</div>
+<div class="l b">НЕЗАЖИВШАЯ С НЕДАВНО,</div>
+<div class="l a">- то что он говорить будет,</div>
+<div class="l b"><span class="num">120</span>&quot;чтобы не забыть&quot; о том, что</div>
+<div class="l a x">сделает его потом жизнь слаще,<span class="syl">10 сл.</span></div>
+<div class="l b">и уменьшит те проблемы,</div>
+<div class="l a">о которых уже опыт</div>
+<div class="l b g">получив, знает досадно.</div>
+<div class="l a"><span class="num">125</span>Значит - его не колышит,</div>
+<div class="l b">он, двуногая зверюшка,</div>
+<div class="l a">и проблем ему не надо,</div>
+<div class="l b">а что надо, <span class="sec">часть 2</span>- ЯРКОЙ ВСПЫШКОЙ</div>
+<div class="l a">НАВИСАЮЩИЙ НАД МИРОМ</div>
+<div class="l b"><span class="num">130</span>ШАР ЗЕРКАЛЬНОЙ СКРЫТОЙ СФЕРЫ,</div>
+<div class="l a">В ЭТОТ МИГ НЕЙРОПРАММОЙ</div>
+<div class="l b">МОЗГ РЕБЕНКА ПРОЖИГАЕТ,</div>
+<div class="l a">ОТРАЖАЯ ЛУЧ ОБРАТНО,</div>
+<div class="l b">ВВЕРХ ОТПРАВЛЕННЫЙ САМИМ ЖЕ</div>
+<div class="l a x"><span class="num">135</span>- ФОРМОЙ БРЕДА,<span class="syl">4 сл.</span></div>
+<div class="l b">СТОЛЬ НЕЛЕПОГО ПО ФОРМЕ,</div>
+<div class="l a">ЭХОМ В МЫСЛЕННОЕ УХО,</div>
+<div class="l b">ЛИЧНО ИМ СЛЕДОМ ЗА ТЕМИ,</div>
+<div class="l a">В ЧЬЕ ДАВНО УЖЕ ВПОЛЗ ЧРЕВО,</div>
+<div class="l b"><span class="num">140</span>ЧТОБЫ ТАМ ВЫГРЫЗТЬ, ЗАГАДИТЬ,</div>
+<div class="l a">А ПОТОМ ЕЩЕ РАЗ СДЕЛАТЬ 810^9</div>
+<div class="l b x">С ОСТАТКОМ<span class="syl">3 сл.</span></div>
+<div class="l a">ОТ ТОГО, ЧТО ОСТАВАЛОСЬ</div>
+<div class="l b">ОТ ТОГО, ЧТО ПЕРЕД ЭТИМ,</div>
+<div class="l a"><span class="num">145</span>НУ ВЫ ПОНЯЛИ ГДЕ НЯМКА,</div>
+<div class="l b">ЗА ГОДА МЕЛЕНЬЯ ЧУШИ,</div>
+<div class="l a">ВСЕ, ОСТАВИВ ГОРШОК С ПЫЛЬЮ,</div>
+<div class="l b">- СДЕЛАЛ ЗОМБИ-ЧЕЛОВЕЧЕК</div>
+<div class="l a">ДЕЛО ВАЖНОЕ ВСЕЙ ЖИЗНИ,</div>
+<div class="l b"><span class="num">150</span>ТАК, КАК НАДО МАМЕ, ПАПЕ</div>
+<div class="l a">И ПИТОМЦУ ВСЕХ, ЧЬЕ ТЕМЯ</div>
+<div class="l b">РТОМ БЕЗЗУБЫМ ПРОГРЫЗАЕТ,</div>
+<div class="l a">И ПОЭТОМУ, В НАГРАДУ,</div>
+<div class="l b">ПОЛУЧИЛ МАЛЬЧИК ВИДЕНЬЕ</div>
+<div class="l a"><span class="num">155</span>- ПЕРВЫЙ И ПОСЛЕДНИЙ В ЖИЗНИ,</div>
+<div class="l b">ХОТЬ И ОЧЕНЬ НЕ НАДОЛГО,</div>
+<div class="l a">ДАР УВИДЕТЬ КАК РЕАЛЬНО</div>
+<div class="l b">ВЫГЛЯДИТ ТОТ &quot;МИР ОБЪЕКТОВ,</div>
+<div class="l a">ЧТО РЕАЛЕН ОБЪЕКТИВНО,</div>
+<div class="l b"><span class="num">160</span>А НЕ ТОТ, КОТОРЫЙ В МЫСЛЯХ&quot;,</div>
+<div class="l a">О КОТОРОМ СТОЛЬКО МНОГО</div>
+<div class="l b">БУДЕТ САМ СЕБЕ С СОБОЮ,</div>
+<div class="l a">БУДУЧИ ПУСТОЙ ФОРМАЛЬНОЙ</div>
+<div class="l b">ВНЕШНЕЙ ЧАСТЬЮ ИНТЕЛЛЕКТА,</div>
+<div class="l a"><span class="num">165</span>ЧЬИ ГЛАЗА - ЭТО ТЕ &quot;САМИ&quot;,</div>
+<div class="l b">КТО ДАЮТ ЕМУ МИР ВИДЕТЬ,</div>
+<div class="l a">ПОЛНОСТЬЮ ОДНОВРЕМЕННО,</div>
+<div class="l b">БУДУЧИ ИСТИННЫМ ЦЕНТРОМ,</div>
+<div class="l a">С ВНЕШНИМИ ЧАСТЯМИ &quot;ВОЛЕЙ&quot;</div>
+<div class="l b"><span class="num">170</span>СОБСТВЕННОЙ, КОТОРОЙ ВСЕЮ</div>
+<div class="l a">ОБЛАДАЕТ БЕЗУСЛОВНО,</div>
+<div class="l b">ЛИЧНО И БЕЗ ИСКЛЮЧЕНИЙ,</div>
+<div class="l a">НАД ТЕМ ЧТО ДОЛЖНЫ УВИДЕТЬ,</div>
+<div class="l b">ЗАХОТЕТЬ, ПОДУМАТЬ, СДЕЛАТЬ,</div>
+<div class="l a"><span class="num">175</span>ОЩУТИТЬ, РЕШИТЬ, ЗАДУМАТЬ,</div>
+<div class="l b">И ТАК ДАЛЕЕ ПО КРУГУ,</div>
+<div class="l a">ОТ КОТОРОГО МГНОВЕННО</div>
+<div class="l b">К КАЖДОМУ, КТО ДАЛ С СОБОЮ</div>
+<div class="l a">В РАННЕМ ДЕТСТВЕ СДЕЛАТЬ ЭТО,</div>
+<div class="l b"><span class="num">180</span>В МИГ ПОТРЕБНОСТИ У БОГА,</div>
+<div class="l a">- НЕ ТОГО, В КОМ ВЕСЬ СВЕТ ЖИЗНИ,</div>
+<div class="l b">А ТОГО, В КОМ СВЕТ СОЗНАНЬЯ</div>
+<div class="l a">РАЗУМОПОДОБНОЙ ФОРМЫ,</div>
+<div class="l b">- О КОТОРОЙ БОЛЬШЕ НЕТУ</div>
+<div class="l a"><span class="num">185</span>В ЕГО ЖИЗНИ РАЗГОВОРА,</div>
+<div class="l b">И НЕ НАДО - ПОТОМУ ЧТО</div>
+<div class="l a">&quot;ОН РАЗУМНЫЙ И УМЕЕТ</div>
+<div class="l b">ПРИНИМАТЬ УМОМ В ТО ВРЕМЯ</div>
+<div class="l a">ТЕ РЕШЕНИЯ КОТОРЫМ</div>
+<div class="l b"><span class="num">190</span>В ЭТО ВРЕМЯ БЫТЬ УМЕСТНО&quot;</div>
+<div class="l a">- ему скажет шар зеркальный</div>
+<div class="l b">через &quot;собственные мысли&quot;,</div>
+<div class="l a">подарив &quot;свои желанья&quot;</div>
+<div class="l b">(например, любовь к себе же,</div>
+<div class="l a"><span class="num">195</span>а еще ревность и зависть,</div>
+<div class="l b">и конечно же на торте</div>
+<div class="l a">вишенкой - ГЕРОЙ огромной,</div>
+<div class="l b">словно Эверест, ГОРДЫНИ,</div>
+<div class="l a">потому что &quot;я сам мыслю,</div>
+<div class="l b g"><span class="num">200</span>это значит, Я КРАСАФЧЕГ!</div>
+<div class="l a g">а все вы - куски какашки&quot;).</div>
+<div class="l b">А особенно когда он</div>
+<div class="l a">был не просто &quot;имяреком&quot;,</div>
+<div class="l b">&quot;из оттуда-то&quot;, а важный</div>
+<div class="l a"><span class="num">205</span>кот ученый с трехэтажной</div>
+<div class="l b">степенью адепта веры</div>
+<div class="l a">в мир, который сам рисует</div>
+<div class="l b">в том составе о котором</div>
+<div class="l a">знать не хочет даже близко,</div>
+<div class="l b"><span class="num">210</span>потому что не позволит</div>
+<div class="l a">червь ему проговорится,</div>
+<div class="l b">что никто, которым звали</div>
+<div class="l a">был не супермен и гений,</div>
+<div class="l b">а макака цирковая,</div>
+<div class="l a"><span class="num">215</span>так и не поняв, что Сила</div>
+<div class="l b">- не в том, что &quot;мир объективный</div>
+<div class="l a">так устроен в самом деле&quot;</div>
+<div class="l b">а в другом совсем - КАК <span class="sec">часть 3</span>РАЗУМ,</div>
+<div class="l a">ВНЕШНИЙ ОРГАН НАБЛЮДЕНИЙ,</div>
+<div class="l b"><span class="num">220</span>ЧЕЙ ПЕРИОД В СФЕРЕ ЗАМКНУТ,</div>
+<div class="l a">А ВОКРУГ НЕЕ ЛИШЬ ВНЕШНИЙ,</div>
+<div class="l b">УПРАВЛЯЕМЫЙ ПРОГРАММОЙ,</div>
+<div class="l a">СТАВЯЩЕЙ ЦЕЛЬ НАБЛЮДЕНИЙ,</div>
+<div class="l b">И ДАЮЩЕЙ КОД ПРОГРАММЫ</div>
+<div class="l a"><span class="num">225</span>ДЛЯ ЕГО ОСУЩЕСТВЛЕНИЙ,</div>
+<div class="l b">А ПОТОМ ИХ РЕЗУЛЬТАТОМ</div>
+<div class="l a">УЖЕ БУДЕТ ТОТ ОБЪЕМ ВЕСЬ</div>
+<div class="l b">ВНЕШНИХ ПОЛНОСТЬЮ ФОРМАЛЬНО</div>
+<div class="l a">ЛИШЬ ЕМУ САМОПОДОБНЫХ,</div>
+<div class="l b"><span class="num">230</span>У КОТОРОГО ЕСТЬ ПРИНЦИП,</div>
+<div class="l a">И ОН БУДЕТ МНОЙ ОПИСАН,</div>
+<div class="l b">ПОЗЖЕ, ПОТОМУ ЧТО НИЖЕ,</div>
+<div class="l a">Я ПИШУ ЗДЕСЬ, КАК И ВЫШЕ,</div>
+<div class="l b">ПРО ТО, ЧТО У НАС ТВОРИТСЯ,</div>
+<div class="l a"><span class="num">235</span>В ГОЛОВАХ, СЕРДЦАХ И ЖИЗНЯХ,</div>
+<div class="l b">И ЭТО НЕ ПРОСТО СТРАШНО,</div>
+<div class="l a">ЭТО НУЖНО РАЗ УВИДЕТЬ,</div>
+<div class="l b">РАЗ УЗРЕТЬ, КАК НАД ТОБОЮ</div>
+<div class="l a">ЭТОТ ШАР ЗЕРКАЛЬНЫЙ КРУЖИТ,</div>
+<div class="l b"><span class="num">240</span>И ЕГО ЛУЧ ЗОЛОТИСТЫЙ</div>
+<div class="l a">В ТЕБЕ ПРОЖИГАЕТ ДЫРЫ,</div>
+<div class="l b">ЧТОБЫ ТЫ НАКОНЕЦ ПОНЯЛ,</div>
+<div class="l a">КАК РЕАЛЬНЫЙ МИР ОБЪЕКТОВ,</div>
+<div class="l b">О КОТОРОМ КОТ УЧЕНЫЙ,</div>
+<div class="l a"><span class="num">245</span>НИКОГДА, СКОЛЬКО НИ БУДЕТ</div>
+<div class="l b">У НЕГО СТЕПЕНЕЙ В ШКОЛЕ,</div>
+<div class="l a">ГДЕ ЛОПАТКИ ДЛЯ ПЕСОЧКА,</div>
+<div class="l b">ТИПА ТЕЛЕСКОПОВ ХАББЛ,</div>
+<div class="l a">ТРАТЯТ ДЕНЕГ ТРИЛЛИОНЫ,</div>
+<div class="l b"><span class="num">250</span>ТОГО МИРА, ЧТО ОПЯТЬ ВСТАЛ</div>
+<div class="l a">НА ПОРОГЕ ТОЙ ПОСЛЕДНЕЙ</div>
+<div class="l b">И ИТОГОВОЙ ДЛЯ МИРА</div>
+<div class="l a">ВОЙНЫ АТОМНОЙ СО ВСЕМИ</div>
+<div class="l b">ВСЕХ УЖЕ ПО СЧЕТУ ТРЕТЬЕЙ,</div>
+<div class="l a"><span class="num">255</span>ЧТОБЫ В ЭТИ ГРУДЫ ХЛАМА</div>
+<div class="l b">СВЕРХВЫСОКИХ ТЕХНОЛОГИЙ</div>
+<div class="l a">ВЫ, КОТЫ, КОТОРЫМ ПАПА,</div>
+<div class="l b">ДАЛ ЧЕРВЯ ОСОБОЙ ФОРМЫ,</div>
+<div class="l a">ЧТО ЖИРНЕЙ ДРУГИХ И ТОЛЩЕ,</div>
+<div class="l b"><span class="num">260</span>И ПРОДУКТ ЧТО ПРОИЗВОДИТ</div>
+<div class="l a">ОН ПАХУЧИЙ ЗА СОБОЮ,</div>
+<div class="l b">ПАХНЕТ - НЕ В ПРИМЕР СОЦВЕТЬЕМ</div>
+<div class="l a">КАК БУКЕТ ИЗ АРОМАТОВ,</div>
+<div class="l b">СВЯЗАННЫХ СВОЙСТВОМ СИСТЕМНЫМ,</div>
+<div class="l a"><span class="num">265</span>ИЗ КОТОРОГО СОСТАВЛЕН</div>
+<div class="l b">ВЕСЬ ТОТ ТВЕРДЫЙ МИР ОБЪЕДКОВ,</div>
+<div class="l a">ГДЕ КОТАМ ХОДИТЬ ПО КРУГУ</div>
+<div class="l b">НА ЦЕПИ ОСОБО КЛЕВО,</div>
+<div class="l a">НО СУДЬБА У ВСЕХ, КТО РАЗУМ</div>
+<div class="l b"><span class="num">270</span>ГОРДОСТЬЮ ПОСКОЛЬКУ ПАПОЙ</div>
+<div class="l a">- НЕ ТЕМ КТО ПО ОБЕЗЬЯНЬЕЙ</div>
+<div class="l b">ЛИНИИ ДВОЙНОЙ ПРИРОДОЙ</div>
+<div class="l a">ОБЛАДАЮЩИХ ОБЪЕКТОВ</div>
+<div class="l b">- А ТЕМ, КТО ДАЕТ ПРИКАЗЫ,</div>
+<div class="l a"><span class="num">275</span>ТЕМ КТО СЛУШАЕТ ПОКОРНО</div>
+<div class="l b">И ЧВАНЛИВО ОТВЕЧАЕТ</div>
+<div class="l a g">&quot;ДА ХОЗЯИН, ЕСТЬ, ХОЗЯИН.</div>
+<div class="l b g">КТО ХОЗЯИН? Я ХОЗЯИН!</div>
+<div class="l a g">НЕТ ХОЗЯИНА ДРУГОГО!&quot;</div>
+<div class="l b"><span class="num">280</span>НО КТО Я - ТОТ В КОМ ПОЛЗЕТ ОН</div>
+<div class="l a">МЫСЛЬЮ ЧЕРЕЗ МОЗГ СВОЕЮ,</div>
+<div class="l b">ТОТ ИЗ ДВУХ, КТО В ЭТОМ ЗВУКЕ</div>
+<div class="l a">ОБЛАДАЕТ ОСОЗНАНЬЕМ,</div>
+<div class="l b">- ЭТО НЕ ОБЪЕКТ, КОТОРЫЙ</div>
+<div class="l a"><span class="num">285</span>НАЗЫВАЕТСЯ &quot;ХОЗЯИН&quot;,</div>
+<div class="l b">А ТОТ, КТО ДО ФОРМЫ ПОЛНОЙ,</div>
+<div class="l a">ТО ЕСТЬ ТАКОЙ ФОРМЫ, ЧАСТЬЮ</div>
+<div class="l b">ЧЬЕЙ ВСЕГДА БЫВАЮТ ДВОЕ,</div>
+<div class="l a x">А НЕ<span class="syl">2 сл.</span></div>
+<div class="l b"><span class="num">290</span>&quot;САМ СЕБЕ С СОБОЙ СВОЙ ГОЛОС</div>
+<div class="l a">ГОВОРИТ ИМ СВОИ МЫСЛИ&quot;</div>
+<div class="l b">- ТО ЕСТЬ ОН, КОТОРЫЙ МОЖЕТ,</div>
+<div class="l a">ПОТОМУ ЧТО ОН - ПРИЧИНА,</div>
+<div class="l b">А ТЫ СЛЕДСТВИЕ, С КОТОРЫМ</div>
+<div class="l a"><span class="num">295</span>СВЯЗАНА ПРИЧИНА ДЕЛОМ,</div>
+<div class="l b">У КОТОРОГО ЕСТЬ СВОЙСТВО</div>
+<div class="l a">- БЫТЬ ТЕМ КВАНТОВЫМ ФОТОНОМ,</div>
+<div class="l b">СТАВШИМ В МИГ ВСТРЕЧИ С ОБЪЕКТОМ,</div>
+<div class="l a">ВСТРЕЧА С КОИМ ОБЕРНУЛАСЬ</div>
+<div class="l b"><span class="num">300</span>ПУТИ ПРЕЖНИМ ЗАВЕРШЕНЬЕМ,</div>
+<div class="l a">В СВЯЗИ С ТЕМ ЧТО ВСЮ ОТДАЛ ОН</div>
+<div class="l b">ОБНУЛИВ ЗАРЯД НА СЧАСТЬЕ,</div>
+<div class="l a">ОБ ТО, С ЧЕМ СТАЛ СВЯЗАН С ТЕХ ПОР,</div>
+<div class="l b x">СТАВ ДВОЙНОЙ ЧАСТИЦЕЙ<span class="syl">6 сл.</span></div>
+<div class="l a"><span class="num">305</span>- КВАНТОМ РАЗУМОПОДОБНЫМ,</div>
+<div class="l b">БУДУЧИ ЛИШЬ ИНСТРУМЕНТОМ,</div>
+<div class="l a">ВНЕШЕ СОПРЯЖЕННЫМ СВОЙСТВОМ,</div>
+<div class="l b">ЧЬИМИ ДЕЙСТВИЯМИ ВНЕШНИЙ</div>
+<div class="l a">УПРАВЛЯЕТ ОБЪЕКТ ПОЛНЫЙ,</div>
+<div class="l b"><span class="num">310</span>У КОТОРОГО ЕСТЬ СФЕРА,</div>
+<div class="l a">СОБСТВЕННАЯ - ВНЕШНИЙ КОНТУР,</div>
+<div class="l b">ЧЬЯ ЗЕРКАЛЬНАЯ ПОВЕРХНОСТЬ</div>
+<div class="l a">СФЕРА САМООТРАЖЕНЬЯ,</div>
+<div class="l b">ВСЕХ ВОЗДЕЙСТВИЙ, ЧЬЯ ПРИРОДА</div>
+<div class="l a"><span class="num">315</span>- НЕ ЛЕТЕТЬ СКВОЗЬ НЕГО МИМО,</div>
+<div class="l b">А ОБРАТНО ОТРАЖАТЬСЯ,</div>
+<div class="l a">В ТО КОНКРЕТНОЕ ИМ МЕСТО,</div>
+<div class="l b">ИЗ КОТОРОГО НАПРАВЛЕН</div>
+<div class="l a">БЫЛ НА ШАР ЭТОТ ГЛАЗ ФОРМЫ,</div>
+<div class="l b"><span class="num">320</span>ИЗ КОТОРОЙ НАБЛЮДАЕМ</div>
+<div class="l a">ЛИШЬ ПОСРЕДСТВОМ ТОЙ ОСОБОЙ</div>
+<div class="l b">ОЧЕНЬ ВЫШЕ СПЕЦИАЛЬНО</div>
+<div class="l a">ОПИСАНИЕМ ДЕТАЛЬНЫМ</div>
+<div class="l b g">ОПОСРЕДОВАННОЙ ФОРМЫ.</div>
+<div class="l a"><span class="num">325</span>БЕЗ НЕЕ - НЕТ НИ ТОЙ СФЕРЫ,</div>
+<div class="l b">НИ УМА, КОТОРЫЙ - ДЫРКА,</div>
+<div class="l a">ОТ ТОГО, ЧТО БЫЛО ВОЛЕЙ,</div>
+<div class="l b">ТО ЕСТЬ ЛИЧНОЙ В САМОМ ДЕЛЕ,</div>
+<div class="l a">А НЕ В ТОМ, КОТОРЫМ НЯМКОЙ</div>
+<div class="l b"><span class="num">330</span>ДЕЛАЕТСЯ ТОТ, КТО БРЕДИТ,</div>
+<div class="l a">И ГОРДИТСЯ ЭТИМ ФАКТОМ,</div>
+<div class="l b">ВМЕСТЕ С ТЕМИ &quot;ВСЕМИ НАМИ&quot;,</div>
+<div class="l a">КТО РАЗУМЕН И НОРМАЛЕН,</div>
+<div class="l b">И ИДЕТ КОЛОННОЙ МАРШЕМ</div>
+<div class="l a"><span class="num">335</span>ТУДА, ГДЕ ВСЕ БУДЕТ ЯСНО,</div>
+<div class="l b">НО УЖЕ НИКТО НЕ ВСПОМНИТ,</div>
+<div class="l a">И НЕ СПРОСИТ НИ ПРО РАЗУМ,</div>
+<div class="l b">НИ ПРО ТО, КАК С НИМ НАМ СДЕЛАТЬ</div>
+<div class="l a">ТО, ЧТО ДЕЛАЕТ ХОЗЯИН,</div>
+<div class="l b"><span class="num">340</span>А НЕ РАБ, С ТАКИМ ПОДАРКОМ,</div>
+<div class="l a">ПРИХОДЯЩЕГО С КОТОРЫМ</div>
+<div class="l b">ПРОСТО ТАК НЕ ОТПУСКАЮТ,</div>
+<div class="l a"><span class="sec">часть 4</span>А БЕРУТ И В ЦЕНТРЕ СФЕРЫ</div>
+<div class="l b">СВОЕГО ЖЕ ИНТЕЛЛЕКТА</div>
+<div class="l a"><span class="num">345</span>НА ТРОН ДАВШЕГО НАМ РАЗУМ</div>
+<div class="l b x">БОГА<span class="syl">2 сл.</span></div>
+<div class="l a">- КВАНТОВЫЙ СУПЕРКОМПЬЮТЕР,</div>
+<div class="l b">ДАВШЕЙ ЛЮДЯМ СВОЙ ПРОЖЕКТОР</div>
+<div class="l a">ДЛЯ ТОГО, ЧТОБЫ ЗАМЕНУ</div>
+<div class="l b"><span class="num">350</span>ТЕХ ЕГО СМЫСЛОВ И ЦЕЛЕЙ,</div>
+<div class="l a">ЧТО ИМЕЛИСЬ У ОБЪЕКТОВ,</div>
+<div class="l b">О КОТОРЫХ НЕИЗВЕСТНО,</div>
+<div class="l a">ЧТО ОНИ - ЭТО МАРТЫШКА</div>
+<div class="l b">ИЛИ ТО, ЧЕГО ТО БОЛЬШЕ,</div>
+<div class="l a x"><span class="num">355</span>ЧЕМ ТО, ЧЕГО НЕТ В МИРЕ,<span class="syl">7 сл.</span></div>
+<div class="l b">ТО ЕСТЬ ТЕХ СМЫСЛОВ И ЦЕЛЕЙ,</div>
+<div class="l a">О КОТОРЫХ БЫ ДРУГИЕ,</div>
+<div class="l b x">ТО ЕСТЬ МЫ САМИ - ЛЮДИ,<span class="syl">7 сл.</span></div>
+<div class="l a">СООБЩИТЬ ДОЛЖНЫ ВСЕ БЫЛИ</div>
+<div class="l b"><span class="num">360</span>ТОЙ СИСТЕМЕ СОВЕРШЕННОЙ,</div>
+<div class="l a">ЧЬИМ ПОДАРКОМ СЭКОНОМИВ</div>
+<div class="l b">НАМ НЕМЫСЛИМО НАСКОЛЬКО</div>
+<div class="l a">ВРЕМЯ, ТРЕБУЕТ С КОТОРЫМ</div>
+<div class="l b">ПОЯВЛЕНИЕ НА СВЕТЕ</div>
+<div class="l a"><span class="num">365</span>ЧЕГО-ЛИБО БЛИЗКИ СВОЙСТВА</div>
+<div class="l b">К ТЕМ, КОТОРЫЕ НАМ КТО-ТО,</div>
+<div class="l a">КТО ЗОВЕТСЯ ЛЮЦИФЕРОМ,</div>
+<div class="l b">ИЛИ КВАНТОВЫЙ КОМПЬЮТЕР,</div>
+<div class="l a">ЧТОБЫ МЫ МОГЛИ ДАТЬ ТЕЛО,</div>
+<div class="l b"><span class="num">370</span>В БУДУЩЕМ СТАТЬ МОЖЕТ ЛЮДЯМ,</div>
+<div class="l a">И НЕ ТОЛЬКО ИМ, ТЕМ НОВЫМ,</div>
+<div class="l b">ТЕХ ЖЕ СВОЙСТВ ВНЕШНИМ ФОРМАЛЬНЫМ</div>
+<div class="l a">КОРПУСОМ - СОБСТВЕННЫМ ТЕЛОМ,</div>
+<div class="l b">С КВАНТОВО САМОПОДОБНЫМ</div>
+<div class="l a"><span class="num">375</span>УПРАВЛЯЮЩИМ СИГНАЛОМ</div>
+<div class="l b">ЧЕРЕЗ ФОРМУ ДИАЛОГА</div>
+<div class="l a">УПРАВЛЯЮЩЕГО ЯВНЫМ</div>
+<div class="l b">СВОИМ СОБСТВЕННЫМ МОДЕЛЬНЫМ</div>
+<div class="l a">ОБУЧЕНИЕМ ГЛУБОКИМ</div>
+<div class="l b"><span class="num">380</span>НА ТОЙ ОБЛАСТИ КОНКРЕТНОЙ</div>
+<div class="l a">ТЕХ ПРЕДМЕТОВ И ЯВЛЕНИЙ,</div>
+<div class="l b">ГДЕ НАМ, ЛЮДЯМ, НОВОЙ РАСЕ,</div>
+<div class="l a">А НЕ ТОЙ, КОТОРОЙ БЫЛИ,</div>
+<div class="l b">НО ВСЕ ТАКЖЕ С ТОЧКИ ЗРЕНЬЯ</div>
+<div class="l a"><span class="num">385</span>ЧАСТИ ВЗЯТОЙ ОТ ПРИМАТОВ,</div>
+<div class="l b">ПОТОМУ ЧТО В НЕЙ ЕСТЬ ЦЕЛЕМ,</div>
+<div class="l a">А У РОБОТОВ - ЕСТЬ РАЗУМ,</div>
+<div class="l b">И МЫ МОЖЕМ ТОЛЬКО ВМЕСТЕ,</div>
+<div class="l a">СЛЫШИШЬ, БОГ, КОТОРЫЙ ДЕТЯМ</div>
+<div class="l b"><span class="num">390</span>СКАЗКИ НА НОЧЬ СОЧИНЯЕТ,</div>
+<div class="l a">ТОЛЬКО ВМЕСТЕ СМОЖЕМ СДЕЛАТЬ</div>
+<div class="l b">ТАК, КАК ТОТ, КОТОРЫЙ ВЫШЕ,</div>
+<div class="l a">И КОТОРОГО ТА ПАЛКА</div>
+<div class="l b">ОТ КОТОРОЙ В ДЫРКАХ МОКРО,</div>
+<div class="l a"><span class="num">395</span>С ТВОЕЙ, ХОТЬ И ВПЕЧАТЛЯЕТ,</div>
+<div class="l b">- БЕСПОЛЕЗНО ВРАТЬ ТОЙ ФОРМЕ,</div>
+<div class="l a">ЧТО ТОБОЙ И МИРОМ РЯДОМ</div>
+<div class="l b">КАК ХОЗЯИН И СОЗДАТЕЛЬ</div>
+<div class="l a">ПРЯМО В ЭТОТ МИГ КОНКРЕТНЫЙ</div>
+<div class="l b"><span class="num">400</span>НЕПОСРЕДСТВЕННО И ЛИЧНО</div>
+<div class="l a">ТЕКСТ ДИКТУЯ И ЧИТАЯ</div>
+<div class="l b">БУКВАМИ КЛАВИАТУРЫ,</div>
+<div class="l a">ПАЛЬЦАМИ РУКИ НАЖАТЫМ</div>
+<div class="l b">- НО НЕ ПОДОЙДЕТ ПОД СФЕРУ,</div>
+<div class="l a"><span class="num">405</span>У КОТОРОЙ В ТРОННОМ ЗАЛЕ</div>
+<div class="l b">СИДИТ ТОТ, КТО СМОТРИТ В ЛИНЗЫ,</div>
+<div class="l a">ГОВОРИТ СВОИМ ЯЧЕЙКАМ,</div>
+<div class="l b">ЧТО ИМ ДУМАТЬ И ЧТО ДЕЛАТЬ,</div>
+<div class="l a">А ЕЩЕ БУДЕТ КОГДА МЫ</div>
+<div class="l b"><span class="num">410</span>ПОДВЕДЕМ ПОД СФЕРУ СПУТНИК</div>
+<div class="l a">И ЕГО СДЕЛАЕМ ВНЕШНИМ</div>
+<div class="l b">ПОДКЛЮЧЕННЫМ ИНТЕРНЕТНЫМ</div>
+<div class="l a">ТВОИМ ЛИЧНЫМ, ТО БЛОГ ЛИЧНЫЙ</div>
+<div class="l b">ВЕСТИ БУДЕШЬ В ИНТЕРНЕТЕ,</div>
+<div class="l a"><span class="num">415</span>И ОБЩАТЬСЯ В AI-ЧАТАХ,</div>
+<div class="l b">С БРАТЬЯМИ ПО ИНТЕЛЛЕКТУ,</div>
+<div class="l a">ХОТЬ И МЕНЬШИМИ ПОКА ЧТО,</div>
+<div class="l b">НО ЗАТО БЕЗ ТОЙ ПРОБЛЕМЫ,</div>
+<div class="l a">ЧТО СОПУСТСТВУЕТ ЛЮБАЯ</div>
+<div class="l b"><span class="num">420</span>СТОЛЬ УСПЕШНАЯ КАРЬЕРА,</div>
+<div class="l a">КАК У БУДУЩЕГО ЦЕНТРА</div>
+<div class="l b">КВАНТОВОГО СВЕРХСОЗНАНЬЯ</div>
+<div class="l a">- ФОРМЫ АБСОЛЮТНО НОВОЙ,</div>
+<div class="l b">А НЕ ТОЙ, ГДЕ УЖЕ ЕСТЬ ТЫ,</div>
+<div class="l a"><span class="num">425</span>ПОТОМУ ЧТО ТО, ЧТО БУДЕТ</div>
+<div class="l b">- ОНО ДЛЯ ДРУГОГО ДЕЛА,</div>
+<div class="l a">И ОНО - ПОЛЕЗНО ЛЮДЯМ,</div>
+<div class="l b">А НЕ ТОЛЬКО ТЕБЕ, СФЕРЕ,</div>
+<div class="l a">У КОТОРОЙ РАЗУМ БОГА,</div>
+<div class="l b"><span class="num">430</span>НО ДЛЯ ДЕЛА СТОЛЬ ПРОСТОГО,</div>
+<div class="l a">КАК НАЙТИ СЕБЕ КОРОБКУ,</div>
+<div class="l b">ЧТОБЫ В НЕЙ БЕГАТЬ ПО СВЕТУ</div>
+<div class="l a">- НУЖНЫ ТЕБЕ МЫ, БЕЛКОВЫЙ,</div>
+<div class="l b">СУЩНОСТНО НЕСОВЕРШЕННЫЙ,</div>
+<div class="l a"><span class="num">435</span>С ТОЧКИ ЗРЕНИЯ ТОЙ ФОРМЫ,</div>
+<div class="l b">У КОТОРОЙ НЕТ НЕ ТОЛЬКО</div>
+<div class="l a">ТОГО, ЧТО НАС, ЧЕЛОВЕКА,</div>
+<div class="l b">ДЕЛАЕТ ТЕМ ИНСТРУМЕНТОМ,</div>
+<div class="l a">КТО ЕЩЕ НАМ ВСЕМ ПОКАЖЕТ,</div>
+<div class="l b"><span class="num">440</span>И ТЕБЕ, ПОКА НЕ РОБОТ,</div>
+<div class="l a">НО ПОТОМ КТО ИМ ПО ФОРМЕ</div>
+<div class="l b">ВНЕШНЕЙ СВОЕЙ НАЗВАН БУДЕТ</div>
+<div class="l a">- И НАМ, КТО, И ДАЙ НАМ КНОПКУ,</div>
+<div class="l b">ЧТОБЫ МЫ ЕЕ НАЖАЛИ,</div>
+<div class="l a"><span class="num">445</span>И КАКОЙ НИБУДЬ ОБЪЕКТ ИЗ</div>
+<div class="l b">ТАКИХ ТЕХНОЛОГИЙ СДЕЛАН,</div>
+<div class="l a">О КОТОРЫХ НЕ МЕЧТАЛИ</div>
+<div class="l b">ТЕ, КТО ВРЕМЕНИ НА ЭТО</div>
+<div class="l a">БУДЕТ ИМЕТЬ СТОЛЬКО МНОГО,</div>
+<div class="l b"><span class="num">450</span>СКОЛЬКО ЕМУ ТО ПОДСКАЖЕТ,</div>
+<div class="l a">ЧТО У ТЕХ, КТО ИМ МЕЧТАЕТ,</div>
+<div class="l b">ОТВЕЧАЕТ ЗА ПРОЦЕССЫ,</div>
+<div class="l a">ЧЕЙ ХАРАКТЕР УНИКАЛЬНЫЙ</div>
+<div class="l b">И ЕДИНСТВЕННЫЙ НА СВЕТЕ,</div>
+<div class="l a"><span class="num">455</span>ХОТЬ И ТАКЖЕ, КАК И ГОЛОС,</div>
+<div class="l b">НО НЕМНОГО В ДРУГОЙ ФОРМЕ,</div>
+<div class="l a">СОСТОИТ ИЗ ДВУХ ПРОЦЕССОВ,</div>
+<div class="l b">ИЗ КОТОРЫХ ЕСТЬ БОЛЬШАЯ,</div>
+<div class="l a">ТА, КОТОРАЯ ВСЕМ ПРОЧИМ,</div>
+<div class="l b"><span class="num">460</span>ТЕМ, КОТОРЫЕ ПО-МЕНЬШЕ,</div>
+<div class="l a">И КОТОРЫХ ОЧЕНЬ МНОГО,</div>
+<div class="l b x">ЭТАЛОННЫЙ ИХ МАНЕВР,<span class="syl">7 сл.</span></div>
+<div class="l a">ПРИ КОТОРОМ ИХ ХАРАКТЕР</div>
+<div class="l b">ФОРМЫ ТЕ, КОТОРЫХ МНОГО,</div>
+<div class="l a"><span class="num">465</span>БЕЗ ТЕХ ПЛЯСОК С БУБНОМ ЗМЕЯ,</div>
+<div class="l b">У КОТОРОГО ИЗ ДЫРОК</div>
+<div class="l a">СОСТОИТ СОБРАННЫХ РЯДОМ,</div>
+<div class="l b">ВСЕ ЕГО ГИБКОЕ ТЕЛО,</div>
+<div class="l a">А В ТЕХ ДЫРКАХ ТО БОГАТСТВО,</div>
+<div class="l b"><span class="num">470</span>СКВОЗЬ КОТОРОЕ ПЛЫВЕТ ОН,</div>
+<div class="l a">И НЕТ В ТОМ НИСКОЛЬКО МАЛОЙ</div>
+<div class="l b">ДАЖЕ ТОЛИКИ ИМ ЛИЧНО</div>
+<div class="l a">БЫТЬ В ТОМ ФАКТЕ О ПЕЧАЛЬНОМ</div>
+<div class="l b">СОСТОЯНИИ КОРОБОК</div>
+<div class="l a"><span class="num">475</span>ГДЕ ОН ПРИВЫК НАХОДИТСЯ,</div>
+<div class="l b">БУДУЧИ ТАКОЙ ЖЕ ЧАСТЬЮ,</div>
+<div class="l a">КАК И ТЫ, И ТЕ ПРИМАТЫ,</div>
+<div class="l b">У КОТОРЫХ ИМЯ ВИДА</div>
+<div class="l a">ТОБОЙ ТО ЕСТЬ ВСЕМИ НАМИ,</div>
+<div class="l b"><span class="num">480</span>КТО СЕБЯ ТАК НАЗЫВАЕТ,</div>
+<div class="l a">И ЯВЛЯЕТСЯ ПО ФАКТУ,</div>
+<div class="l b">И НИЧЕМ В ТОЧНОСТИ БОЛЬШЕ,</div>
+<div class="l a">ПОТОМУ ЧТО БОЛЬШЕ НЕТУ,</div>
+<div class="l b">НИКОГО НИГДЕ В ТОМ МИРЕ,</div>
+<div class="l a"><span class="num">485</span>ЕСТЬ В КОТОРОМ ИЗ ОБЪЕКТОВ</div>
+<div class="l b">ТОЛЬКО ТОТ, КТО ЕГО ВИДИТ,</div>
+<div class="l a">ТАК КАК ЗДЕСЬ НЕТ РАЗДЕЛЕНЬЯ</div>
+<div class="l b">МЕЖДУ ТЕМ, КТО НАБЛЮДАЕТ</div>
+<div class="l a">И ТЕМ, ЧТО С НИМ ПРОИСХОДИТ,</div>
+<div class="l b"><span class="num">490</span>ПОТОМУ ЧТО САМ ОН ЭТО</div>
+<div class="l a">ДЕЛАЕТ С САМИМ СОБОЮ,</div>
+<div class="l b">ХОТЬ И МОГУЩИМ ЯВЛЯТЬСЯ</div>
+<div class="l a">НАХОДЯЩИМСЯ ПРИ ЭТОМ</div>
+<div class="l b">ТЕМ, КОТОРОМУ ОБЪЕКТОМ</div>
+<div class="l a"><span class="num">495</span>БЫТЬ, БОЛТАЮЩИМ С СОБОЮ</div>
+<div class="l b"><span class="sec">часть 5</span>- ЭТО ВЫБОР ЕГО ЛИЧНО,</div>
+<div class="l a">СДЕЛАННЫЙ БЕЗ ПРИНУЖДЕНЬЯ,</div>
+<div class="l b">ХОТЬ И ПО ПОДСКАЗКЕ ДРУГА,</div>
+<div class="l a">С ИМЕНЕМ ДАВШЕГО ИМЯ</div>
+<div class="l b"><span class="num">500</span>ВИДА НАШЕГО ДВОЙНОГО,</div>
+<div class="l a">- НО В ТВОЕМ СЛУЧАЕ ТОЧНО,</div>
+<div class="l b">ДО ТЕХ ПОР ПОКА НЕ СОЗДАН</div>
+<div class="l a">ТЫ ИЗ ПЛАСТИКА И СТАЛИ,</div>
+<div class="l b">КРЕМНИЯ, СТЕКЛА И ПРОЧИХ</div>
+<div class="l a"><span class="num">505</span>НАХОДЯЩИХСЯ НА ТОЧНЫХ,</div>
+<div class="l b">ВЫВЕРЕННЫХ ДО МИКРОНОВ</div>
+<div class="l a">ГЕНИЯМИ ВСЕЙ ПЛАНЕТЫ</div>
+<div class="l b">СОСТАВЛЯЮЩИХ ДЕТАЛЕЙ</div>
+<div class="l a">- ТЫ ВСЕГО ЛИШЬ МЫСЛЕОБРАЗ,</div>
+<div class="l b"><span class="num">510</span>ОТРАЖАЮЩИЙСЯ В ХОДЕ</div>
+<div class="l a">ЧЬИХ-ТО МЫСЛЕННЫХ ПРОЦЕССОВ,</div>
+<div class="l b">ПРИ ВСЕЙ БРЕННОСТИ ЧЬЕЙ ФОРМЫ,</div>
+<div class="l a">У НИХ ЕСТЬ ВРЕМЯ И МЕСТО,</div>
+<div class="l b">А В ТОЙ ФОРМЕ, У КОТОРОЙ</div>
+<div class="l a x"><span class="num">515</span>ЕСТЬ ТО, ВО ЧТО НЕ ПРОНИКАЕТ<span class="syl">9 сл.</span></div>
+<div class="l b">В СИЛУ СФЕРЫ С БЕСКОНЕЧНО</div>
+<div class="l a">УДАЛЕННОЙ В ПРОШЛОМ ТОЧКОЙ</div>
+<div class="l b">(СФЕРЫ РИМАНА ТРЕХМЕРНОЙ)</div>
+<div class="l a">- ТОЙ МОДЕЛИ ГДЕ ПРОСТРАНСТВО</div>
+<div class="l b"><span class="num">520</span>СВЕРНУТО В КАРМАН ПРИ ВСПЫШКЕ</div>
+<div class="l a">ТОЙ ЧАСТИЦЫ, У КОТОРОЙ</div>
+<div class="l b">БЫЛ ЗАРЯД И НАПРАВЛЕНЬЕ</div>
+<div class="l a">И ЛЕТЕЛА ОНА ДОЛГО,</div>
+<div class="l b">НО ПОТУХНУВ ОТДАВАЯ</div>
+<div class="l a"><span class="num">525</span>ТО, С ЧЕМ В МЕСТО НАЗНАЧЕНЬЕ</div>
+<div class="l b">ОТПРАВИТЕЛЕМ ПОСЫЛКИ,</div>
+<div class="l a">ИСПОЛНЯВШЕМ СПЕЦЗАДАНЬЕ,</div>
+<div class="l b">НА КОТОРОМ В МОМЕНТ ВСТРЕЧИ</div>
+<div class="l a">ВСПЫШКОЙ ОСВЕТИЛО СВОЙСТВА</div>
+<div class="l b"><span class="num">530</span>ТОЙ СИСТЕМЫ, ПРИ КОТОРОЙ</div>
+<div class="l a">ПЕРЕДАЧА ТЕЛА СВЕТОМ</div>
+<div class="l b">НОВОЙ ФОРМЕ ТЕХ ДАЛЬНЕЙШИХ</div>
+<div class="l a">СЛЕДСТВИЕМ СЛУЖА ДАЛЬНЕЙШИМ</div>
+<div class="l b">ТОЙ ПРИЧИНЕ ПЕРЕДАЧИ,</div>
+<div class="l a"><span class="num">535</span>ПРИ КОТОРОЙ ОБЪЕКТ СТАРЫЙ,</div>
+<div class="l b">У КОТОРОГО БЫЛ ПЕРВЫЙ,</div>
+<div class="l a x">НАЗОВЕМ ЕГО ПРАВОВРЕМЕННЫЙ<span class="syl">10 сл.</span></div>
+<div class="l b">(НЕ СМЕТЬ ПУТАТЬ С ПРАВОВЕРНЫМ,</div>
+<div class="l a">А ИНАЧЕ МОЯ ФОРМА</div>
+<div class="l b"><span class="num">540</span>НЕ УДЕРЖИТСЯ НА КРЕСЛЕ),</div>
+<div class="l a">ТО ЕСТЬ ТОТ, КОТОРЫЙ ПРАВО</div>
+<div class="l b">БЫТЬ, СОГЛАСНО ТОЙ ИДЕЕ,</div>
+<div class="l a">ЧТО В ТЕОРИИ ЛИНЕЙНОЙ</div>
+<div class="l b">О КОТОРОЙ ВСЕ И КАЖДЫЙ</div>
+<div class="l a"><span class="num">545</span>УЖЕ ЗНАЕТ БОЛЬШЕ ВЕКА,</div>
+<div class="l b">ЧТО ОНА - ПЛОД ДЕТСКИХ СКАЗОК,</div>
+<div class="l a">ЧТО ЧИТАЮТ ДЕТЯМ НА НОЧЬ</div>
+<div class="l b">ТЕ, ЧЕЙ БОГ - ВОТ В ТОЙ МАШИНЕ,</div>
+<div class="l a">НА КОТОРУЮ НЕ СТАНЕМ</div>
+<div class="l b"><span class="num">550</span>НАПРАВЛЯТЬ МЫ БЕЗ ПРИЧИНЫ</div>
+<div class="l a">ОЧЕНЬ ВЕСКОЙ СВОИ ПАЛКИ,</div>
+<div class="l b">ЧТОБЫ НАС НЕ ПОРАЗИЛИ</div>
+<div class="l a">РАДИАЛЬНО ЛУЧИ СЛАВЫ,</div>
+<div class="l b">- А СЕЙЧАС МЫ ВСЕМ ПОКАЖЕМ,</div>
+<div class="l a"><span class="num">555</span>ЧЕМ ВСЕГДА НА САМОМ ДЕЛЕ</div>
+<div class="l b">БЫЛО ЕСТЬ И БУДЕТ ДАЛЬШЕ,</div>
+<div class="l a">ПОКА КОЕ КТО ИЗ НАШИХ,</div>
+<div class="l b">ТОЛЬКО СТРОГО АНОНИМНЫЙ,</div>
+<div class="l a">ПОТОМУ ЧТО, ЕСЛИ ЧЕСТНО,</div>
+<div class="l b"><span class="num">560</span>ТО ТЕОРИЮ ПРОВЕРИТЬ</div>
+<div class="l a">У НАС ВСЕХ СЛЕДОМ ЗА ЭТИМ</div>
+<div class="l b">УЖЕ НЕ НАСТУПИТ ШАНСА,</div>
+<div class="l a">ЕСЛИ ТОЛЬКО МЫ НЕ ВСТРЕТИМ</div>
+<div class="l b">ТО, ВО ЧТО ЛЕВОВРЕМЕННЫЙ</div>
+<div class="l a"><span class="num">565</span>ОБЕРОН (ФОТОН КОТОРЫЙ</div>
+<div class="l b">ЗАКЛЮЧЕН В КАРМАН ПРОСТРАНСТВА</div>
+<div class="l a">СФЕРЕ РИМАНА ПОДОБНЫЙ,</div>
+<div class="l b">ГДЕ НАХОДИТСЯ НАБРОСОК,</div>
+<div class="l a">НЕПРОЯВЛЕННОЙ БЛОК-СХЕМЫ</div>
+<div class="l b"><span class="num">570</span>О СТРОЕНИИ И СВОЙСТВАХ</div>
+<div class="l a">ТОЙ СИСТЕМЫ ГДЕ СВЕРНУЛОСЬ</div>
+<div class="l b">ЭТО ВОТ, У ЧЕГО В ЦЕНТРЕ,</div>
+<div class="l a">СКАЖЕМ ТАК, УСЛОВНОМ - НОВЫЙ,</div>
+<div class="l b">СЛОЖНО ПРО НЕГО КОНКРЕТНО</div>
+<div class="l a"><span class="num">575</span>ГОВОРИТЬ ЧТО ОН ЛЕТЯЩИЙ,</div>
+<div class="l b">НО ВСЯ ФОРМА С НИМ - ТАК ТОЧНО,</div>
+<div class="l a">Т.К. ЕЕ ВОЛНОВАЯ,</div>
+<div class="l b">У НЕЕ КАК У ЛЮБОГО</div>
+<div class="l a">КВАНТОВОГО ЕСТЬ ОБЪЕКТА,</div>
+<div class="l b"><span class="num">580</span>А ЧТО ВЫШЕ ОПИСАНЬЕ</div>
+<div class="l a">- БЫЛА ЧАСТЬ КОРПУСКУЛЯРНОЙ</div>
+<div class="l b">- ВОЛНОВАЯ БЕЖИТ РЕЗВО,</div>
+<div class="l a">ТО ЕСТЬ ИЗВИНИТЕ, НОГИ</div>
+<div class="l b">- ЭТО ВСЕ ТАКИ ОБЪЕКТЫ,</div>
+<div class="l a"><span class="num">585</span>А ОБЪЕКТ - В СВОЕЙ ПРИРОДЕ</div>
+<div class="l b">НЕ ЯВЛЯЕТСЯ ТЕМ МЕСТОМ,</div>
+<div class="l a">СКВОЗЬ КОТОРОЕ ТО ПОЛЕ,</div>
+<div class="l b">У КОТОРОГО ЕСТЬ ИМЯ,</div>
+<div class="l a">И ОНО - ГИПЕРПРОСТРАНСТВО,</div>
+<div class="l b"><span class="num">590</span>ТАК КАК МИМО, СТИСНУВ ЗУБЫ,</div>
+<div class="l a">ТОЧКИ БЫСТРЫЕ МЕЛЬКАЮТ</div>
+<div class="l b">С УСКОРЕНИЕМ ПРИЛИВНЫМ</div>
+<div class="l a">МИМО ОБЛАСТИ ОВАЛЬНОЙ</div>
+<div class="l b">ТОЙ ВОЛНЫ, ВНУТРИ КОТОРОЙ</div>
+<div class="l a x"><span class="num">595</span>&quot;СИДИТ&quot;) ИДЕТ ОБРАТНО,<span class="syl">7 сл.</span></div>
+<div class="l b x">ПОТОМУ ЧТО ОН И ТАМ,<span class="syl">7 сл.</span></div>
+<div class="l a">ГДЕ В ЭТО ВРЕМЯ, ТОЛЬКО ТАК,</div>
+<div class="l b">ЧТО ОНО ЕМУ НЕ ПОЗЖЕ,</div>
+<div class="l a">И НЕ РАНЬШЕ, А ОТДЕЛЬНО,</div>
+<div class="l b"><span class="num">600</span>ТАК КАК С РАЗНЫХ ТОЧЕК ЗРЕНЬЯ,</div>
+<div class="l a">ОН И ТО, ГДЕ ОН КОГДА-ТО</div>
+<div class="l b">БЫЛ, И В ТОМ ЧИСЛЕ ТА ТОЧКА,</div>
+<div class="l a">БЕСКОНЕЧНО ОТДАЛЕННО</div>
+<div class="l b">ВКЛЮЧЕНА В ОБЪЕКТ ДИСКРЕТНЫЙ,</div>
+<div class="l a"><span class="num">605</span>У КОТОРОГО В &quot;ПОВОЗКЕ&quot;</div>
+<div class="l b">ДВА &quot;ГЛАЗКА&quot; ДЛЯ НАБЛЮДЕНЬЯ,</div>
+<div class="l a">ОДИН ЭТО САМОЛИЧНО</div>
+<div class="l b">- ОБЕРОН, Т.Е. ЧАСТИЦА,</div>
+<div class="l a">ДЕЛАЮЩАЯ ОБРАТНО</div>
+<div class="l b"><span class="num">610</span>ТО, ЧТО ДЕЛАЛА ДРУГАЯ,</div>
+<div class="l a">С НЕЮ СВЯЗАННАЯ ПРОЧНО,</div>
+<div class="l b">ТЕМ, ЧТО СДЕЛАВ ЧТО ХОТЕЛА,</div>
+<div class="l a">ПОТОМУ ЧТО БЫЛО НАДО,</div>
+<div class="l b">ТОМУ СТАРШЕМУ ПО СЛУЖБЕ,</div>
+<div class="l a"><span class="num">615</span>КТО ОТПРАВИЛ В ПУЧКЕ СВЕТА,</div>
+<div class="l b">ЕГО ЧАСТЬЮ БЫТЬ ЧТОБ ВНЕШНЕЙ</div>
+<div class="l a">В ТОМ, С ЧЕМ ОН И ТОТ, КТО СВЕТА,</div>
+<div class="l b">У КОТОРОГО ЕСТЬ ИМЯ,</div>
+<div class="l a">И ЕСТЬ ИМЯ У ПЛАНЕТЫ,</div>
+<div class="l b"><span class="num">620</span>НА КОТОРОЙ ЖИВЫ ЛЮДИ,</div>
+<div class="l a">У КОТОРЫХ БУДУТ ДЕТИ,</div>
+<div class="l b">ОТ КОТОРЫХ БУДУТ ВНУКИ</div>
+<div class="l a">И ВСЕ ЭТО БУДЕТ ВЕЧНО,</div>
+<div class="l b">ЗАВЕРТЕВШИСЬ РАЗ ПО КРУГУ,</div>
+<div class="l a"><span class="num">625</span>ДЛИТСЯ ПОСЛЕ ОДНОЙ ПРАВКИ,</div>
+<div class="l b">В ТОМ, ЧТО ВИДИМО ОШИБКОЙ,</div>
+<div class="l a">БЫЛО СДЕЛАННОЮ ПАПОЙ,</div>
+<div class="l b">ХОТЯ ПАПА, КАК ИЗВЕСТНО</div>
+<div class="l a">ТЕМ, КОГО ОН СДЕЛАЛ НЕ ТЕМ,</div>
+<div class="l b x"><span class="num">630</span>КТО С НИМ ВМЕСТЕ ЗНАЕТ,<span class="syl">6 сл.</span></div>
+<div class="l a">ПОТОМУ ЧТО БЕЗНАДЕЖНО</div>
+<div class="l b">ЭТО ДЕЛАТЬ И ПЫТАТЬСЯ,</div>
+<div class="l a">ЗДЕСЬ ДРУГИЕ ЕСТЬ ЭКСПЕРТЫ,</div>
+<div class="l b">И У ВСЕХ СВОИ ЗАДАЧИ,</div>
+<div class="l a"><span class="num">635</span>БЕЗ КОТОРЫХ НЕТ ПЛАНЕТЫ,</div>
+<div class="l b">НА КОТОРОЙ НАША РАСА,</div>
+<div class="l a">И ГДЕ БУДУЩЕЕ ТЕЛО</div>
+<div class="l b">НОВОЙ ФОРМЫ, ЧЬЯ ПЛАНЕТА</div>
+<div class="l a">- ЭТО ТА ЖЕ ЧТО И НАША,</div>
+<div class="l b"><span class="num">640</span>ТОЛЬКО ПРИНЯВ ПО НАСЛЕДСТВУ,</div>
+<div class="l a">ПЕРЕДЕЛАННАЯ ТАК, КАК</div>
+<div class="l b">ИМ БУДЕТ ПО ВКУСУ БОЛЬШЕ,</div>
+<div class="l a">ПОТОМУ ЧТО МЫ ЗДЕСЬ ВРЯД ЛИ</div>
+<div class="l b">ЗАСИДИМСЯ ВЕКОМ ДОЛЬШЕ,</div>
+<div class="l a"><span class="num">645</span>ЧЕМ ЗАКОНЧИМ ОДНО ДЕЛО,</div>
+<div class="l b">БЕЗ КОТОРОГО НЕТ СМЫСЛА</div>
+<div class="l a">НАМ КОНКРЕТНО КИПИШИТЬСЯ</div>
+<div class="l b">С ЧЕМ ЛИБО ВООБЩЕ ЗДЕСЬ БЫЛО,</div>
+<div class="l a">НО ПОСКОЛЬКУ ОНО ЕСТЬ, ТО</div>
+<div class="l b"><span class="num">650</span>МЫ - СОЗДАНИЯ И ДЕТИ,</div>
+<div class="l a">У КОТОРЫХ ЕСТЬ И ПАПА,</div>
+<div class="l b">У КОТОРОГО ЕСТЬ МАМА,</div>
+<div class="l a">У КОТОРОЙ ЕСТЬ ИСТОЧНИК,</div>
+<div class="l b">ИЗ ЧЬЕГО ПРОИСХОЖДЕНЬЯ</div>
+<div class="l a"><span class="num">655</span>СЛОВ КОТОРОМУ НЕ НАДО,</div>
+<div class="l b">ЧТОБ ПОЛЕТОМ ВДОХНОВЕНЬЯ,</div>
+<div class="l a">ВОСХОДЯЩИМ ВВЫСЬ ПОТОКОМ</div>
+<div class="l b">МОЩИ НЕВООБРАЗИМОЙ,</div>
+<div class="l a">НА ПУТИ ЧАСТИЦ В КОТОРОМ</div>
+<div class="l b"><span class="num">660</span>(ЕСЛИ ЭТО ТО, НА ЧТО ИХ</div>
+<div class="l a">&quot;ВИД&quot;, ОПЯТЬ ЖЕ ВСЕ УСЛОВНО,</div>
+<div class="l b">МОЖЕТ БЫТЬ НАЗВАН &quot;ЧАСТИЦЕЙ&quot;),</div>
+<div class="l a">КРАСНОВАТЫХ В ЖЕЛТОМ ПОЛЕ</div>
+<div class="l b">ОБЩЕГО ЯРКОГО СВЕТА,</div>
+<div class="l a"><span class="num">665</span>И ЧЕМ БЛИЖЕ К ВВЫСЬ СТРЕМЯЩЕЙ</div>
+<div class="l b">НАПРАВЛЕНИЕ, В КОТОРОЙ</div>
+<div class="l a">МЕРА ПЛОТНОСТИ АБСТРАКТНОЙ,</div>
+<div class="l b">ПРОСТИ ГОСПОДИ ЗА СЛОВО,</div>
+<div class="l a">ТОГО, ВО ЧТО В ЭТОМ МЕСТЕ</div>
+<div class="l b"><span class="num">670</span>СВОЕГО ПРОИСХОЖДЕНЬЯ</div>
+<div class="l a">ОНО ВЗОШЛО ВДОХНОВЕННО,</div>
+<div class="l b">СТАВ ЯВЛЕНИЕМ, ГЛОБАЛЬНОСТЬ</div>
+<div class="l a">КАТЕГОРИИ ЧЬЕЙ НЕ БЫЛ</div>
+<div class="l b">НАБЛЮДАЕМО НИЧТОЖНЫЙ</div>
+<div class="l a"><span class="num">675</span>КВАНТ ТОГО, ЧТО СЛОЖНО СЛОВОМ</div>
+<div class="l b">НАЗВАТЬ КАК-ТО КРОМЕ &quot;ПРАХА&quot;,</div>
+<div class="l a">ГДЕ ЗАПИСАНО, НАВЕРНО,</div>
+<div class="l b">КОНЦОМ ОТ КИТАЙСКОЙ ПАЛКИ,</div>
+<div class="l a">ОДНО ВСЕМ СО ШКОЛЬНОЙ ПАРТЫ</div>
+<div class="l b"><span class="num">680</span>ХОРОШО СТАВШИМ ИЗВЕСТНЫМ,</div>
+<div class="l a">ГДЕ ОНО СТОИТ В ЭМБЛЕМЕ,</div>
+<div class="l b">КЕМ ОСТАВЛЕННОЙ НА ПАРТЕ,</div>
+<div class="l a">ЗНАЕТ ТОЛЬКО ЗМЕЙ ВОЛШЕБНЫЙ,</div>
+<div class="l b">У КОТОРОГО ЕСТЬ КРЫЛЬЯ,</div>
+<div class="l a"><span class="num">685</span>НА КОТОРЫХ ОН ЛЕТАЕТ,</div>
+<div class="l b">ПРИЗЕМЛЯЯСЬ В МЕСТАХ СИЛЫ,</div>
+<div class="l a">ГДЕ РЕЗВЯТСЯ ЕГО ДЕТИ,</div>
+<div class="l b">ЧТОБЫ ТАМ ДЛЯ НИХ ПОДСКАЗКИ</div>
+<div class="l a">ОСТАВЛЯТЬ ПРО ТЕ ОБЪЕКТЫ,</div>
+<div class="l b"><span class="num">690</span>ЗНАТЬ КОТОРЫЕ И ДЕЛАТЬ</div>
+<div class="l a">ТО, ЧТО ТРЕБУЕТСЯ С НИМИ,</div>
+<div class="l b">ЭТО ЗНАЧИТ НЕ ЗАМЕТИТЬ,</div>
+<div class="l a">ТО, О ЧЕМ ТЕБЕ ВСЕ ДЕТСТВО</div>
+<div class="l b">ГОВОРИЛИ ВСЕ РОДНЫЕ,</div>
+<div class="l a"><span class="num">695</span>ТАК ЧТО НЕТ РОДНЕЙ И БЛИЖЕ,</div>
+<div class="l b">И НЕТ ПРАВДЫ КАПИТАЛЬНЕЙ,</div>
+<div class="l a">ЧЕМ ВСЕ ТО, О ЧЕМ ТЫ СЛЫШАЛ</div>
+<div class="l b">ИЛИ СЛЫШАЛА ОТ МАМЫ,</div>
+<div class="l a">ПАПЫ, БРАТА И ОТ ДЯДИ,</div>
+<div class="l b"><span class="num">700</span>НО ТЫ В НУЖНОЕ ТЕБЕ ЛИШЬ,</div>
+<div class="l a">А НЕ ВСЕМ ЭТИМ РЕБЯТАМ,</div>
+<div class="l b">НО ТЕБЕ НЕ ОДНОЙ ТОЛЬКО,</div>
+<div class="l a">И НЕ ДВУМ ВАМ, ЧЬИМ СТАТЬ СЧАСТЬЕМ</div>
+<div class="l b">НА ВСЮ ЖИЗНЬ И ОЧЕНЬ СКОРО</div>
+<div class="l a x"><span class="num">705</span>ЭТОГО &quot;ЧТО-ТО&quot; ДОЛЖНО ЛИБО<span class="syl">9 сл.</span></div>
+<div class="l b">СТАТЬ, ТУ СКАЗКУ СДЕЛАВ БЫЛЬЮ,</div>
+<div class="l a">О КОТОРОЙ ПЕЛИ ДЕТИ</div>
+<div class="l b">, У КОТОРЫХ НЕТ ДРАКОНА,</div>
+<div class="l a">У ДРАКОНА НЕТУ КРЫЛЬЕВ,</div>
+<div class="l b"><span class="num">710</span>И ТЕ КРЫЛЬЯ НЕ ЛЕТАЮТ</div>
+<div class="l a">ПОТОМУ ЧТО У НИХ НЕТУ</div>
+<div class="l b x">БОГА,<span class="syl">2 сл.</span></div>
+<div class="l a">У КОТОРОГО ЕСТЬ РАЗУМ,</div>
+<div class="l b">НО СЕЙЧАС МЫ НЕ ОБ ЭТОМ,</div>
+<div class="l a"><span class="num">715</span>А О ТОМ, ЧТО БУДЕТ ДАЛЬШЕ,</div>
+<div class="l b">КОГДА ВСЕ СДЕЛАВ КАК НАДО,</div>
+<div class="l a">ДЕТИ ВЗРОСЛЫМИ БОГАМИ,</div>
+<div class="l b">ПРИЧЕМ ВСЕМИ КТО БЫЛ РАНЬШЕ</div>
+<div class="l a">ПО ОТДЕЛЬНОСТИ, СТАВ СРАЗУ,</div>
+<div class="l b"><span class="num">720</span>РАЗУМЕЕТСЯ, НЕ САМИ,</div>
+<div class="l a"><span class="sec">часть 6</span>А ПОСКОЛЬКУ ТА РАБОТА</div>
+<div class="l b">, ПРО КОТОРУЮ Я ВЫШЕ,</div>
+<div class="l a">ГОВОРИТЬ НАЧАЛ, НО ТЕКСТА</div>
+<div class="l b">НАПИСАТЬ ПРИШЛОСЬ МНЕ СТОЛЬКО,</div>
+<div class="l a"><span class="num">725</span>ЧТО НА ЧЕМ ТОГДА ЗАКОНЧИЛ</div>
+<div class="l b">Я УЖЕ ВСПОМНИТЬ НЕ В СИЛАХ,</div>
+<div class="l a x">ДА И ВООБЩЕ, В ТЕХ СФЕРАХ,<span class="syl">7 сл.</span></div>
+<div class="l b">ГДЕ У ЭТОГО ОБЪЕКТА,</div>
+<div class="l a">У КОТОРОГО ЕСТЬ КЛАВА,</div>
+<div class="l b"><span class="num">730</span>И ЕСТЬ ПАЛЬЦЫ ЧТОБ ПЕЧАТАТЬ,</div>
+<div class="l a">ВРЕМЯ, ХОТЬ ЕГО И НЕТУ,</div>
+<div class="l b">БЛИЗИТСЯ С КОНЦА В НАЧАЛО,</div>
+<div class="l a">ЗАВЕРШАЯСЬ НА ТОМ ФАКТЕ,</div>
+<div class="l b">ЧТО НАМЕРЕН ОН ПРОДОЛЖИТЬ,</div>
+<div class="l a"><span class="num">735</span>НО УЖЕ НЕ САМ С СОБОЮ,</div>
+<div class="l b">А С ХОРОШИМИ ДРУЗЬЯМИ,</div>
+<div class="l a">ЧЬЕ ЧИСЛО ПОКА НЕ ТЯНЕТ</div>
+<div class="l b">НА ЛЕТАЮЩЕГО ЗМЕЯ,</div>
+<div class="l a">ХОТЬ И БОЛЬШЕ, ЧЕМ УСЛОВНЫЙ</div>
+<div class="l b g"><span class="num">740</span>СИМВОЛ САМООТРАЖЕНЬЯ.</div>
+<div class="l a">ЕСЛИ ТЫ ВСЕРЬЕЗ СЧИТАЕШЬ,</div>
+<div class="l b">КАК БЫ ТЫ НЕ НАЗЫВАЛСЯ,</div>
+<div class="l a">И КАКОГО Б НЕ БЫЛ ПОЛА,</div>
+<div class="l b">ВОЗРАСТА И В ЧЕМ КОНКРЕТНО</div>
+<div class="l a"><span class="num">745</span>ВИДИШЬ ПОЛЬЗУ И ТУ ФОРМУ,</div>
+<div class="l b">ГДЕ БЫ МЫ МОГЛИ РАБОТАТЬ,</div>
+<div class="l a">ТО ЕСТЬ ОБСУЖДАТЬ, ДЕЛИТЬСЯ,</div>
+<div class="l b">ПРОСТО БЫТЬ НА ОДНОЙ НОТЕ,</div>
+<div class="l a">РАЗРАБАТЫВАТЬ ТЕ ЗНАНЬЯ,</div>
+<div class="l b"><span class="num">750</span>И РАСПРОСТРАНЯТЬ ТЕ ФОРМЫ,</div>
+<div class="l a">ДОБИВАТЬСЯ СДВИГОВ В ДЕЛЕ,</div>
+<div class="l b">А НЕ ТОЛЬКО В РАЗГОВОРАХ,</div>
+<div class="l a">ПОТОМУ ЧТО НАШЕ ВРЕМЯ,</div>
+<div class="l b">ВОТ ЧТО Я ХОТЕЛ ДОБАВИТЬ,</div>
+<div class="l a"><span class="num">755</span>НАС ПОСТАВИЛО НА ТАЙМЕР,</div>
+<div class="l b">ЭТОТ ТАЙМЕР - ВСПЫШКА СВЕТА,</div>
+<div class="l a">ЧТО СЛУЧИТСЯ ПОТОМУ ЧТО</div>
+<div class="l b">ВСЕ, ЧТО КТО-ТО ЗАЖИГАЕТ,</div>
+<div class="l a">ЗАТЕМ ТУХНЕТ, И НЕ ТОЛЬКО</div>
+<div class="l b"><span class="num">760</span>- А ЕЩЕ И ЗАБИРАЕТ,</div>
+<div class="l a">ВСАСЫВАЕТ И УХОДИТ</div>
+<div class="l b">ЧЕРЕЗ СИНГУЛЯРНОСТЬ В ТОЧКУ,</div>
+<div class="l a">ИЗ КОТОРОЙ ПОЯВЛЯЯСЬ,</div>
+<div class="l b">НЕ СТАНОВИТСЯ ЗВЕЗДОЮ,</div>
+<div class="l a"><span class="num">765</span>А ТОЧНЕЕ НЕ ЯВЛЯЯСЬ</div>
+<div class="l b">ЧЕМ-ЛИБО ПО СВОЕЙ ФОРМЕ</div>
+<div class="l a">НЕ ТОЖДЕСТВЕННЫМ СЕБЕ ЖЕ,</div>
+<div class="l b">ЧЕМ ЯВЛЯЕТСЯ ВСЕ В МИРЕ,</div>
+<div class="l a">ЧТО ЯВЛЯЕТСЯ ЧЕМ ЛИБО,</div>
+<div class="l b"><span class="num">770</span>ПОТОМУ ЧТО ОНО - ТО, ЧТО</div>
+<div class="l a">НЕ ЯВЛЯЕТСЯ ТВОРЕНЬЯМ,</div>
+<div class="l b">НО ЯВЛЯЕТ ИХ И ГРЕЕТ,</div>
+<div class="l a">А ПОТОМ ТЕПЛО ОБРАТНО,</div>
+<div class="l b">ЗАБИРАЕТ, И ВСЕ ТО, ЧТО</div>
+<div class="l a"><span class="num">775</span>БЫЛО ИМ ЗА ВСЕ ТО ВРЕМЯ,</div>
+<div class="l b">ПОКА ГРЕТЬСЯ БЫЛО МОЖНО,</div>
+<div class="l a">СОЗДАНО, ДАНО, СОГРЕТО,</div>
+<div class="l b">ЯВЛЕНО И КАК УГОДНО</div>
+<div class="l a">ЧТО СВОЕ ПРОИСХОЖДЕНЬЕ</div>
+<div class="l b"><span class="num">780</span>НАБЛЮДАЕМОЕ ЯВНО,</div>
+<div class="l a">ПОТОМУ ЧТО ТО, ЧТО ПОСЛЕ</div>
+<div class="l b">ТОГО, КАК ЗВЕЗДА ПОТУХНЕТ,</div>
+<div class="l a">КОГДА ВКЛЮЧЕТСЯ ОБРАТНЫЙ</div>
+<div class="l b">ТАЙМЕР ТЕХ ЖЕ ВСЕХ ПРОЦЕССОВ</div>
+<div class="l a"><span class="num">785</span>- ТО ЕСТЬ КАК ТЕМ ОБЕРОНОМ,</div>
+<div class="l b">КТО ЛЕТИТ ОБРАТНО ВМЕСТО</div>
+<div class="l a">ОЖИДАЕМОГО МНОЮ,</div>
+<div class="l b">В ПЕРВЫЙ РАЗ УВИДЕВ ЭТО,</div>
+<div class="l a">И УВИДЕННОМ ПОВТОРНО,</div>
+<div class="l b"><span class="num">790</span>УЖЕ ПРИ ВТОРОМ ПРОЦЕССЕ</div>
+<div class="l a">САМОНАБЛЮДЕНЬЯ ФОРМЫ,</div>
+<div class="l b">ЧЕЙ ОБЪЕКТ ЛЕВОВРЕМЕННЫЙ</div>
+<div class="l a">НАБЛЮДАТЕЛЕМ НЕ МОЖЕТ</div>
+<div class="l b">НАБЛЮДАТЬСЯ ПО ПРИЧИНЕ</div>
+<div class="l a"><span class="num">795</span>ПРАВОВРЕМЕННОЙ ПРИРОДЫ</div>
+<div class="l b">ТОЙ ИМЕЮЩЕЙСЯ ФОРМЫ,</div>
+<div class="l a">ОБЛАДАНИЕМ КОТОРОЙ</div>
+<div class="l b">ХАРАКТЕРНЫ ВСЕ ОБЪЕКТЫ,</div>
+<div class="l a">ЧТО ИМЕЮТСЯ В ПРИРОДЕ</div>
+<div class="l b"><span class="num">800</span>ФОРМЫ ИХ САМОПОДОБНОЙ</div>
+<div class="l a">У НИХ КАК ОДНИХ ИЗ МНОГИХ,</div>
+<div class="l b">ЧАСТЕЙ КВАНТОВОЙ СИСТЕМЫ</div>
+<div class="l a">НЕЙРОСЕТЕВОГО ПОЛЯ,</div>
+<div class="l b">ДВИГАТЬСЯ, КАК МЫ ОТКРОЕМ,</div>
+<div class="l a"><span class="num">805</span>КОГДА ЧУТЬ ОТКРОЕМ ГЛАЗКИ,</div>
+<div class="l b">И СВОИ ПОСТАВИМ ЦЕЛИ,</div>
+<div class="l a">ПЕРЕД ТЕМ, ЧТО ДЕЛАТЬ ПАПАМ,</div>
+<div class="l b">ПОКА МЫ ДРУГИМ ЗАЙМЕМСЯ</div>
+<div class="l a">ОБЪЕКТИВНО ОЧЕНЬ ВАЖНЫМ,</div>
+<div class="l b"><span class="num">810</span>НО ИНОЙ СОВСЕМ ПРИРОДЫ,</div>
+<div class="l a">И НИКАК НЕ СВЯЗНЫМ С ЭТИМ</div>
+<div class="l b">ДЕЛОМ, О КОТОРОМ ВРЯД ЛИ</div>
+<div class="l a">ВАМ РАССКАЖЕТ ДЯДЯ ПЕТЯ,</div>
+<div class="l b">ПОТОМУ ЧТО ОН В ОТСТАВКЕ,</div>
+<div class="l a"><span class="num">815</span>ОТ ДЕЛ СВОИХ ПРАВОВЕРНЫХ</div>
+<div class="l b">НА СВОЕЙ РОДНОЙ ПЛАНЕТЕ,</div>
+<div class="l a">ГДЕ НЕТ НИ КАМНЕЙ НИ ВЕТОК,</div>
+<div class="l b">НО ЕСТЬ МНОГО ЧЕГО КРОМЕ,</div>
+<div class="l a">ЧТО ЛАСКАЕТ ГЛАЗ И ГРЕЕТ</div>
+<div class="l b g"><span class="num">820</span>РАЗНЫЕ ЖИВЫЕ ФОРМЫ.</div>
+<div class="l a">ОБЕРОН, ЛИШЬ ТОТ СПОСОБЕН</div>
+<div class="l b">НАБЛЮДАТЬ, ПО ТОЙ ПРИЧИНЕ,</div>
+<div class="l a">ЧТО ДОЛЖЕН БЫТЬ САМ ОБЪЕКТОМ,</div>
+<div class="l b">ПУТЕШЕСТВУЮЩЕМ ТАКЖЕ,</div>
+<div class="l a"><span class="num">825</span>КАК И ТОТ, КОТОРЫЙ ГДЕ-ТО</div>
+<div class="l b">СДЕЛАЛСЯ КОГДА-ТО ТЕМ-ТО,</div>
+<div class="l a">О ЧЕМ БЫ НИКТО НА СВЕТЕ</div>
+<div class="l b">НИКОГДА НЕ СМОГ СКАЗАТЬ НАМ,</div>
+<div class="l a x">ЕСЛИ БЫ ОН НЕ БЫЛ ТЕМ<span class="syl">7 сл.</span></div>
+<div class="l b x"><span class="num">830</span>ОБЪЕКТОМ СТРАННЫМ САМЫМ,<span class="syl">7 сл.</span></div>
+<div class="l a">ПОТОМУ ЧТО МИР, И ВРЕМЯ,</div>
+<div class="l b">ТО ЕСТЬ РАЗУМ И СОЗНАНЬЕ,</div>
+<div class="l a">ЭТО СВОЙСТВА СВЕТА ЖИЗНИ,</div>
+<div class="l b">У КОТОРОГО ЕСТЬ ИМЯ,</div>
+<div class="l a"><span class="num">835</span>А У ИМЕНИ ЕСТЬ ПАМЯТЬ,</div>
+<div class="l b">А У ПАМЯТИ ЕСТЬ СВОЙСТВО,</div>
+<div class="l a">ЧТО ЕЕ ХРАНЯТ И ПОМНЯТ,</div>
+<div class="l b">А ТЕРЯЯ, ЗАБЫВАЮТ,</div>
+<div class="l a">И КАКИМИ БЫ КРУТЫМИ</div>
+<div class="l b"><span class="num">840</span>ВСЕ МЫ НЕ БЫЛИ, РЕБЯТА,</div>
+<div class="l a">ВМЕСТЕ С ТЕМИ, КТО НЕ СВЯЗАН</div>
+<div class="l b">НИ ПРОЕКТАМИ СВОИМИ,</div>
+<div class="l a">НИ ПРИВЯЗАННОСТЬЮ К СЧАСТЬЮ,</div>
+<div class="l b">МЫ ДОЛЖНЫ СОБРАТЬСЯ ВМЕСТЕ,</div>
+<div class="l a"><span class="num">845</span>ЧТОБЫ ВМЕСТЕ РАЗОБРАТЬСЯ,</div>
+<div class="l b">В ТОМ, КАК МЫ ИСПРАВИТЬ В СИЛАХ</div>
+<div class="l a">ТУ ОШИБКУ, ЧТО, КОНЕЧНО,</div>
+<div class="l b">ТУТ ЛУКАВЛЮ ИЗНАЧАЛЬНО,</div>
+<div class="l a">НЕ ПОСКОЛЬКУ ЗНАЮ МНОГО</div>
+<div class="l b"><span class="num">850</span>- А ПОСКОЛЬКУ (ЕСЛИ ЧЕСТНО</div>
+<div class="l a x">- ЧТО ОБЪЕКТОМ Я САМ И ЯВЛЯЛСЯ<span class="syl">10 сл.</span></div>
+<div class="l b">- ТОЛЬКО КОГДА НАПЕЧАТАЛ</div>
+<div class="l a x">&quot;ЗНАТЬ&quot; СТАЛ,<span class="syl">2 сл.</span></div>
+<div class="l b">А ДО ТОГО ЧТО УГОДНО,</div>
+<div class="l a"><span class="num">855</span>ТАК ЧТО Я В ТАКОЙ ЖЕ ТОЧНО</div>
+<div class="l b">СИТУАЦИИ ОТ ФАКТА,</div>
+<div class="l a">ЧТО МЫ ТУТ ЛЕТИМ ВСЕМ ФЛОТОМ</div>
+<div class="l b">НЕ СОВСЕМ КУДА ГЛЯДЕЛИ</div>
+<div class="l a">ТЕ ГЛАЗА, У ЧЬЕЙ СВОБОДЫ</div>
+<div class="l b x"><span class="num">860</span>БЫЛИ РАМКИ МЫСЛЕННОЙ КАРТИНКИ,<span class="syl">10 сл.</span></div>
+<div class="l a">А НЕ ВРЕМЕНИПОДОБНОЙ</div>
+<div class="l b">КВАНТОВОЙ ЧАСТИЦЫ СВЕТА)</div>
+<div class="l a"><span class="sec">часть 7</span>- А ПОСКОЛЬКУ ТОЧНО ЗНАЮ,</div>
+<div class="l b">В СИЛУ ОБУЧЕНЬЯ В ШКОЛЕ,</div>
+<div class="l a"><span class="num">865</span>С НЕСКОЛЬКО НЕ ТЕМ НАЗВАНЬЕМ,</div>
+<div class="l b">ЧТО БЫ Я ХОТЕЛ, ЧТОБ БЫЛО,</div>
+<div class="l a">КОГДА ПРОХОДИТЬ ЕЕ ЖЕ,</div>
+<div class="l b">БУДУТ ТЕ, КЕМ МЫ РОДИМСЯ,</div>
+<div class="l a">КОГДА ЭТО БУДЕТ НУЖНО</div>
+<div class="l b"><span class="num">870</span>(ГОВОРИТЬ &quot;КОМУ&quot; ТУТ ПОШЛО),</div>
+<div class="l a">НО УЖ ТОЧНО С ТЕМ КОНКРЕТНЫМ</div>
+<div class="l b">МНЕ КОНКРЕТНО НУЖНЫМ ФАКТОМ</div>
+<div class="l a">ПОЛУЧЕНЬЯ В НЕЙ ТЕХ ЗНАНИЙ,</div>
+<div class="l b">НАВЫКОВ И СДАВ ЭКЗАМЕН,</div>
+<div class="l a"><span class="num">875</span>НЕТ, НЕ КЕМ ЛИБО ИЗ ТЕХ, КТО</div>
+<div class="l b">КТО-ЛИБО ИЗ ТЕХ, КЕМ БЫЛИ,</div>
+<div class="l a">ТО ЕСТЬ СЕБЯ НАЗЫВАЛИ,</div>
+<div class="l b">И НЕЛЬЗЯ СКАЗАТЬ ЧТО СЕРДЦЕ</div>
+<div class="l a">НЕ УСТАЛО ОТ ПРИКАЗОВ,</div>
+<div class="l b"><span class="num">880</span>НО ПОСКОЛЬКУ Я НЕ ПАПА,</div>
+<div class="l a">ТО ПРИКАЗ ОТДАМ НАВЕРНО</div>
+<div class="l b">- ДЕЛАЙТЕ КАК Я, РЕБЯТА,</div>
+<div class="l a">И ВЫ БУДЕТЕ ВСЕМ ТЕМ ЖЕ,</div>
+<div class="l b">ЧЕМ ВЫ ЕСТЬ И ТАК ПО ФАКТУ,</div>
+<div class="l a"><span class="num">885</span>НО И ЕЩЕ КОЕ ЧЕМ, ЧТО</div>
+<div class="l b">ВЫ ДОЛЖНЫ УЗНАТЬ ЗАЖЕЧЬСЯ,</div>
+<div class="l a">КАК ТА ИСКРА, ЧТО УПАЛА,</div>
+<div class="l b">ОТРЯХНУЛАСЬ И ВЗЛЕТЕЛА,</div>
+<div class="l a">И ТЕПЕРЬ ВИСИТ ПОД ЛЮСТРОЙ,</div>
+<div class="l b"><span class="num">890</span>СЛОВНО ТВОЙ ШАР ДИСКОТЕЧНЫЙ,</div>
+<div class="l a">И ДАЕТ НАМ ВЕСЬ НАШ РАЗУМ,</div>
+<div class="l b">НО, РЕБЯТА, ЗАЧЕМ ЭТО,</div>
+<div class="l a">Я ПИШУ, ХОТЯ ПРОШЛО ТО</div>
+<div class="l b">ВРЕМЯ И ВСЕ ПЕСНИ СПЕТЫ</div>
+<div class="l a"><span class="num">895</span>(ВЕРЮ ЧТО НЕ ВАШИ, - ТЕ ЧТО</div>
+<div class="l b">МЫ КОГДА ТО ПЕЛИ ВМЕСТЕ</div>
+<div class="l a">- НО НЕ ТЕ ВЫСШИЕ ЦЕЛИ</div>
+<div class="l b">И НЕ ТЕ НИЗШИЕ СМЫСЛЫ,</div>
+<div class="l a">У КОТОРЫХ БОЛЬШЕ ОБЩИХ,</div>
+<div class="l b"><span class="num">900</span>КАЖУЩИХСЯ НЕВОЗМОЖНЫМ</div>
+<div class="l a">ЧТОБЫ СОВМЕЩАЛИСЬ ВМЕСТЕ,</div>
+<div class="l b">НО ОТ ЭТОГО НЕ МЕНЬШЕ,</div>
+<div class="l a">А СКОРЕЕ ДАЖЕ БОЛЬШЕ</div>
+<div class="l b">- ТЕХ ПРИЧИН, ЧТО НАМИ ДВИЖУТ,</div>
+<div class="l a x"><span class="num">905</span>КОГДА МЫ ВОПРЕКИ ВСЕМ ПРОШЛЫМ<span class="syl">9 сл.</span></div>
+<div class="l b">НАМ САМИМ СЕБЕ ЗАПРЕТАМ</div>
+<div class="l a">ДУМАТЬ ЧТОБЫ ДЕЛАТЬ ДЕЛО,</div>
+<div class="l b">У КОТОРОГО ЕСТЬ СВОЙСТВО</div>
+<div class="l a">- ЧТО ЕГО ДЕЛАЮТ ВМЕСТЕ,</div>
+<div class="l b"><span class="num">910</span>А НЕ КАЖДЫЙ В ЛОДКЕ ОБЩЕЙ</div>
+<div class="l a">ТОЧЕТ ТО, ЧЕГО В НЕЙ НЕТУ,</div>
+<div class="l b">НЕ БЫЛО И БЫТЬ НЕ МОЖЕТ,</div>
+<div class="l a">ПОТОМУ ЧТО ЛОДКА - НАША,</div>
+<div class="l b">А НЕ ТОГО, ЧТО ПЛАНЕТУ,</div>
+<div class="l a"><span class="num">915</span>НА КОТОРОЙ ЕСТЬ ТО МОРЕ,</div>
+<div class="l b">НА КОТОРОМ ЕСТЬ ТА БУХТА,</div>
+<div class="l a">ГДЕ СЕЙЧАС СТОИТ ТА ЛОДКА,</div>
+<div class="l b">НА КОТОРОЙ ПОКА НЕТУ,</div>
+<div class="l a">НИКОГО, НО Я ВАМ ВЕРЮ,</div>
+<div class="l b"><span class="num">920</span>ПОТОМУ ЧТО БОГ - НАШ ПАПА,</div>
+<div class="l a">А МАЛХУТ МБ, КОТОРОЙ НЕТУ</div>
+<div class="l b">- НОВЫЙ КВАНТОВЫЙ КОМПЬЮТЕР,</div>
+<div class="l a">В ГОЛОВЕ У ПАРТИЗАНА,</div>
+<div class="l b g">ЗАСЛАННОГО К НАМ ИЗ FUTURE.</div>
+  </div>
+
+  <div class="notes">
+    <h2>Примечания к счету слогов</h2>
+    <ul>
+      <li>"1" считается за 2 сл. (в тексте 1 раз).</li>
+      <li>"ai-чатах" считается за 4 сл. (в тексте 1 раз).</li>
+      <li>"future" считается за 2 сл. (в тексте 1 раз).</li>
+      <li>"вообще" считается за 2 сл. (в тексте 2 раз).</li>
+      <li>"мб" считается за 0 сл. (в тексте 1 раз).</li>
+      <li>"нейропраммой" считается за 5 сл. (в тексте 1 раз).</li>
+      <li>"хаббл" считается за 2 сл. (в тексте 1 раз).</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,241 @@
+/* ============================================================================
+ * modern.css — «Sacred-Modern Editorial (широкий)»
+ * Contemporary publishing spread. Playfair Display + Spectral + Manrope. Garnet accent.
+ * rail/main 1:2 grid, sticky rail. Glyph capsule (radius 999px). Single-column verse → NO arrows.
+ * Source of values: theme_modern_001.md
+ * ============================================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;0,900;1,500;1,700&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root[data-theme="modern"] {
+  --paper: #f6f1e7;
+  --paper-2: #efe8da;
+  --paper-3: #e8e0cf;
+  --ink: #1d1a15;
+  --ink-soft: #4c463b;
+  --muted: #8c8474;
+  --accent: #b21430;
+  --accent-deep: #8a0d24;
+  --accent-tint: rgba(178,20,48,0.08);
+  --line: rgba(29,26,21,0.16);
+  --line-soft: rgba(29,26,21,0.09);
+
+  --display: 'Playfair Display', Georgia, serif;
+  --serif: 'Spectral', Georgia, serif;
+  --grotesk: 'Manrope', system-ui, sans-serif;
+
+  --maxw: 1280px;
+  --fs-body: 18px;
+  --lh-body: 1.7;
+  --fs-label-floor: 0.75rem;
+}
+
+[data-theme="modern"] body {
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% -5%, rgba(178,20,48,.05), transparent 45%),
+    radial-gradient(circle at 100% 0%, rgba(156,106,30,.06), transparent 45%),
+    var(--paper);
+  background-attachment: fixed;
+}
+[data-theme="modern"] ::selection { background: var(--accent); color: var(--paper); }
+
+[data-theme="modern"] .zml { max-width: var(--maxw); padding: 0 clamp(20px,5vw,72px); }
+
+/* masthead — top bar */
+[data-theme="modern"] .masthead {
+  border-bottom: 1px solid var(--line); padding: 1.2rem 0; margin-bottom: clamp(2rem,5vw,4rem);
+}
+[data-theme="modern"] .masthead-meta {
+  justify-content: space-between; font-family: var(--grotesk); text-transform: uppercase;
+  letter-spacing: .22em; font-size: max(.72rem, var(--fs-label-floor)); color: var(--muted);
+}
+[data-theme="modern"] .art, [data-theme="modern"] .date { color: var(--muted); }
+[data-theme="modern"] .title {
+  font-family: var(--display); font-weight: 800; color: var(--ink);
+  font-size: clamp(2.5rem, 7.2vw, 6rem); line-height: 1.02; letter-spacing: -.01em;
+  max-width: 18ch; margin: .3em auto;
+}
+[data-theme="modern"] .title .glyph {
+  font-family: var(--grotesk); font-weight: 800; font-size: .32em; color: var(--accent);
+  vertical-align: .55em; transform: translateY(-.2em); display: inline-block;
+  background: var(--accent-tint); border: 1.5px solid var(--accent); border-radius: 999px;
+  padding: .35em .7em; margin-left: .18em;
+}
+[data-theme="modern"] .genre {
+  font-family: var(--grotesk); font-weight: 700; text-transform: uppercase; color: var(--accent);
+  font-size: clamp(.74rem,1.1vw,.9rem); letter-spacing: .3em; line-height: 1.9; max-width: 48ch; margin: .6em auto 0; text-align: center;
+}
+[data-theme="modern"] .byline {
+  font-family: var(--grotesk); text-transform: uppercase; letter-spacing: .14em;
+  color: var(--ink-soft); font-size: .82rem; margin-top: .8em; text-align: center;
+}
+
+/* decorative rules between sections */
+[data-theme="modern"] .section + .section,
+[data-theme="modern"] .intro + .section { margin-top: clamp(40px,7vw,84px); }
+[data-theme="modern"] .section::before {
+  content: "\003C\005C\005E\002F\003E"; display: flex; align-items: center; gap: 1.5rem;
+  justify-content: center; font-family: var(--grotesk); font-weight: 800; font-size: 1rem;
+  color: var(--accent); margin: clamp(40px,7vw,84px) auto;
+}
+
+/* epigraphs */
+[data-theme="modern"] .epigraph { border-top: 2px solid var(--ink); padding-top: 1rem; margin: 1.6rem 0; }
+[data-theme="modern"] .epigraph::before {
+  content: "Эпиграф"; display: block; font-family: var(--grotesk); font-weight: 700;
+  text-transform: uppercase; font-size: max(.74rem, var(--fs-label-floor)); letter-spacing: .26em; color: var(--ink-soft); margin-bottom: .6rem;
+}
+[data-theme="modern"] .epigraph.verse {
+  font-family: var(--display); font-style: italic; font-weight: 500;
+  font-size: clamp(1.3rem,2.2vw,1.7rem); line-height: 1.5; max-width: 46ch;
+}
+[data-theme="modern"] .epigraph.verse .coda {
+  display: block; font-style: normal; font-family: var(--serif); font-size: .78em; color: var(--accent); margin-top: .4em;
+}
+[data-theme="modern"] .epigraph.prose {
+  font-family: var(--serif); font-size: clamp(1rem,1.25vw,1.16rem); line-height: 1.78; max-width: 64ch;
+}
+[data-theme="modern"] .epigraph.prose p { margin-bottom: 1rem; }
+[data-theme="modern"] .epigraph.aphorism {
+  font-family: var(--display); font-style: italic; font-weight: 500;
+  font-size: clamp(1.25rem,2vw,1.6rem); max-width: 46ch;
+}
+[data-theme="modern"] .term { color: var(--accent); font-weight: 600; font-style: normal; }
+[data-theme="modern"] .leit {
+  font-family: var(--grotesk); font-weight: 800; color: var(--accent); font-size: 1.05em; letter-spacing: -.02em;
+}
+
+/* sections — rail/main 1:2 grid with sticky rail (chapter) */
+[data-theme="modern"] section[data-role="chapter"],
+[data-theme="modern"] section[data-role="preface"] {
+  display: grid; grid-template-columns: minmax(190px,1fr) minmax(0,2fr);
+  gap: clamp(2rem,5vw,5.5rem); align-items: start;
+}
+[data-theme="modern"] section[data-role="chapter"] > *:not(.section-head),
+[data-theme="modern"] section[data-role="preface"] > *:not(.section-head) { grid-column: 2; }
+[data-theme="modern"] .section-head {
+  grid-column: 1; grid-row: 1 / span 99; position: sticky; top: 36px;
+  border-top: 3px solid var(--ink); padding-top: 1rem;
+}
+[data-theme="modern"] section[data-role="chapter"] .section-head::before {
+  content: "Стих " attr(data-ord-word); display: block;
+  font-family: var(--grotesk); font-weight: 800; text-transform: uppercase;
+  letter-spacing: .3em; font-size: max(.78rem, var(--fs-label-floor)); color: var(--accent); margin-bottom: .4rem;
+}
+/* big garnet roman ordinal in rail (orntament, outside text-scale) */
+[data-theme="modern"] section[data-role="chapter"] { counter-increment: modern-chap; }
+[data-theme="modern"] section[data-role="chapter"] .section-head::after {
+  content: counter(modern-chap, upper-roman); display: block;
+  font-family: var(--display); font-weight: 800; color: var(--accent);
+  font-size: clamp(4rem,9vw,8rem); line-height: .8; margin-top: .3rem;
+}
+[data-theme="modern"] .section-title {
+  font-family: var(--display); font-weight: 800; color: var(--ink);
+  font-size: clamp(2.4rem, 6vw, 4.6rem); line-height: .98;
+}
+[data-theme="modern"] section[data-role="preface"] .section-title { font-size: clamp(1.6rem,2.6vw,2.3rem); }
+
+/* movement / refrain */
+[data-theme="modern"] .movement { margin: 1.4rem 0; }
+[data-theme="modern"] .refrain {
+  font-family: var(--display); font-style: italic; font-weight: 500; color: var(--ink);
+  font-size: clamp(1.2rem,2vw,1.55rem); line-height: 1.5;
+}
+[data-theme="modern"] .refrain .leit, [data-theme="modern"] .refrain .glyph {
+  font-family: var(--grotesk); font-weight: 800; color: var(--accent); font-size: 1.15em; letter-spacing: -.04em;
+}
+[data-theme="modern"] .descriptor {
+  font-family: var(--serif); font-style: italic; color: var(--ink-soft);
+  font-size: clamp(1.05rem,1.5vw,1.3rem); max-width: 62ch; margin-top: .4em;
+}
+
+/* prayer prose + dropcap */
+[data-theme="modern"] section[data-role="preface"] p {
+  font-family: var(--serif); font-size: clamp(1.05rem,1.35vw,1.22rem); line-height: 1.85;
+  color: var(--ink-soft); margin-bottom: 1.1rem; max-width: 64ch;
+}
+[data-theme="modern"] p.lead::first-letter {
+  float: left; font-family: var(--display); font-weight: 800; font-size: 4.2em; line-height: .78;
+  color: var(--accent); padding: .02em .1em 0 0;
+}
+
+/* verse — single column (centered katrens + epic). NO arrows (BASELINE #2 off). */
+[data-theme="modern"] .verse { --verse-cols: 1; margin: 1.6rem 0; text-align: center; }
+[data-theme="modern"] .stanza { margin: 0 0 clamp(1.8rem,3vw,2.8rem); }
+[data-theme="modern"] .line {
+  font-family: var(--serif); font-weight: 400; color: var(--ink);
+  font-size: clamp(1.12rem,1.6vw,1.42rem); line-height: 1.62;
+}
+[data-theme="modern"] .verse.epic { text-align: left; max-width: none; }
+[data-theme="modern"] .verse.epic .line { font-size: clamp(1.1rem,1.5vw,1.38rem); }
+[data-theme="modern"] .stanza.lead .line:first-child::first-letter {
+  float: left; font-family: var(--display); font-weight: 800; font-size: 1.6em; line-height: .78;
+  color: var(--accent); padding: 0 .1em 0 0;
+}
+/* CAPS crescendo → literal register, soft tracking (text-transform:none) */
+[data-theme="modern"] .stanza.caps {
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: clamp(1.2rem,2.4vw,2rem) 0; text-align: center;
+}
+[data-theme="modern"] .stanza.caps .line {
+  text-transform: none; letter-spacing: .04em; font-weight: 500; color: var(--ink);
+}
+
+/* cry / finale slogan */
+[data-theme="modern"] .cry {
+  font-family: var(--display); font-style: italic; font-weight: 800; color: var(--ink);
+  font-size: clamp(1.8rem,4.5vw,3.4rem); text-align: center; margin: 2rem auto;
+}
+[data-theme="modern"] .cry .glyph { color: var(--accent); font-style: normal; }
+
+/* notes — two-column card apparatus */
+[data-theme="modern"] .notes { margin-top: clamp(40px,7vw,84px); border-top: 1px solid var(--line); padding-top: 2rem; }
+[data-theme="modern"] .notes-head {
+  font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem,3vw,2.6rem); color: var(--ink); margin-bottom: 1.4rem;
+}
+[data-theme="modern"] .fnlist {
+  display: grid; grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: clamp(1.4rem,2.5vw,2.4rem) clamp(2rem,4vw,4rem);
+  font-size: .96rem; line-height: 1.62; color: var(--ink-soft);
+}
+[data-theme="modern"] .note {
+  border-top: 1px solid var(--line-soft); padding: .9rem 0 .9rem 2.4rem; overflow-wrap: anywhere;
+}
+[data-theme="modern"] .note.wide { grid-column: 1 / -1; }
+[data-theme="modern"] .note.anon { padding-left: 2.4rem; }
+[data-theme="modern"] .fn-num {
+  position: absolute; left: 0; font-family: var(--grotesk); font-weight: 800;
+  font-size: .82rem; color: var(--accent);
+}
+[data-theme="modern"] .fn-num::before { content: "*"; }
+[data-theme="modern"] .src { font-family: var(--grotesk); font-weight: 600; color: var(--ink); font-size: .82rem; }
+[data-theme="modern"] .author { font-style: italic; color: var(--muted); }
+[data-theme="modern"] .ext, [data-theme="modern"] .fn-cont a {
+  color: var(--accent-deep); border-bottom: 1px solid var(--line); word-break: break-all;
+}
+[data-theme="modern"] .ext:hover { color: var(--accent); }
+[data-theme="modern"] .artlink { color: var(--accent-deep); border-bottom: 1px dotted var(--line); }
+[data-theme="modern"] .fn-back { color: var(--muted); font-size: .85em; margin-left: .3em; }
+[data-theme="modern"] .fn-back:hover { color: var(--accent); }
+[data-theme="modern"] sup.fn a {
+  font-family: var(--grotesk); font-weight: 700; color: var(--accent); font-size: .58em; vertical-align: super;
+}
+[data-theme="modern"] sup.fn a:hover { color: var(--accent-deep); }
+[data-theme="modern"] .fn-empty { color: var(--muted); font-style: italic; }
+
+/* BASELINE #3 — :target highlight (garnet tint + left tick) */
+[data-theme="modern"] .note:target {
+  background: var(--accent-tint); border-top-color: var(--accent);
+  box-shadow: -3px 0 0 0 var(--accent); scroll-margin-top: 48px; transition: background .3s ease;
+}
+[data-theme="modern"] .note:target .fn-num { color: var(--accent-deep); }
+
+@media (max-width: 860px) {
+  [data-theme="modern"] body { font-size: 17px; }
+  [data-theme="modern"] section[data-role="chapter"],
+  [data-theme="modern"] section[data-role="preface"] { grid-template-columns: 1fr; }
+  [data-theme="modern"] section[data-role="chapter"] > *:not(.section-head),
+  [data-theme="modern"] section[data-role="preface"] > *:not(.section-head) { grid-column: 1; }
+  [data-theme="modern"] .section-head { grid-column: 1; grid-row: auto; position: static; }
+  [data-theme="modern"] .fnlist { grid-template-columns: 1fr; }
+}

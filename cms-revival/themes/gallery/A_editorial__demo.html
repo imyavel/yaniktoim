@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Демо ZML — все типы блоков — Путь Восходящей Звезды</title>
+<meta name="description" content="Технический образец формата с минимальным примером каждой конструкции — для визуальной проверки рендера.">
+<link rel="stylesheet" href="../A_editorial.css">
+<style id="spl-base">
+/* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
+.wrap.w-narrow{max-width:820px;}
+.wrap.w-wide{max-width:1080px;}
+/* [spl] spoiler — structural, theme-agnostic. Themes may tune --spl-cover. */
+.spoiler{position:relative;display:inline-block;cursor:pointer;border-radius:3px;vertical-align:baseline;}
+.spoiler:not(.revealed) .spoiler-content{visibility:hidden;}
+.spoiler:not(.revealed)::before{content:"";position:absolute;inset:-1px;border-radius:3px;
+  background:var(--spl-cover,repeating-linear-gradient(45deg,#4a4a4a 0 7px,#2f2f2f 7px 14px));
+  background-size:auto;animation:spl-shimmer 1.4s linear infinite;}
+.spoiler.revealed{cursor:auto;}
+.spoiler:focus-visible{outline:2px solid currentColor;outline-offset:2px;}
+@keyframes spl-shimmer{from{background-position:0 0;}to{background-position:20px 0;}}
+@media (prefers-reduced-motion:reduce){.spoiler:not(.revealed)::before{animation:none;}}
+</style>
+</head>
+<body class="article-page" data-art="65S" data-theme="A_editorial">
+<button id="edit-fab" class="edit-fab" type="button" title="Редактировать (Edit)" hidden>✎</button>
+<div class="wrap w-wide">
+<header class="breadcrumbs"><a href="../index.html">Главная</a><span class="sep">›</span><a href="../other/index.html">Без категории</a><span class="sep">›</span>Демо ZML — все типы блоков</header>
+
+<h1 id="article-title">Демо ZML — все типы блоков</h1>
+<p class="byline">Элиягу Бар Малей · #65S · 28 мая 2026 г. · Оригинал: <a href="" target="_blank" rel="noopener"></a></p>
+<article>
+<details class="article-toc">
+<summary>Содержание</summary>
+<ol>
+<li><a href="#akt-1"><span class="sb">Акт первый. Обычный параграф и ссылки</span></a></li>
+<li><a href="#akt-2"><span class="sb">Акт второй. Стих с caps-включениями</span></a></li>
+<li><a href="#akt-3"><span class="sb">Акт третий. Цитата и эпилог</span></a></li>
+<li><a href="#akt-4"><span class="sb">Акт четвёртый. Музыка и «см. Также»</span></a></li>
+<li><a href="#notes">Примечания</a></li>
+</ol>
+</details>
+<h2 class="subtitle">Демо ZML — <span class="spoiler" tabindex="0" role="button" aria-label="Спойлер — нажмите, чтобы открыть"><span class="spoiler-content">все типы</span></span> блоков<sup id="cite_ref-1"><a href="#cite_note-1">[1]</a></sup></h2>
+
+<p>Это пример лидирующей атрибуции — короткий вводный параграф до первой секции.</p>
+
+<p>Спойлер в тексте — как в Телеграме: <span class="spoiler" tabindex="0" role="button" aria-label="Спойлер — нажмите, чтобы открыть"><span class="spoiler-content">скрытая фраза, раскрывается по клику</span></span>. Со вложенной разметкой внутри: <span class="spoiler" tabindex="0" role="button" aria-label="Спойлер — нажмите, чтобы открыть"><span class="spoiler-content">тайна про <em>курсив</em> и ссылку <a class="broken" href="#">[[078]]</a></span></span>.</p>
+
+<div class="epigraph" data-label="Эпиграф">
+<p>Воин выбирает свой путь сердца и идёт по нему до конца.</p>
+<span class="cite">— К. Кастанеда</span>
+</div>
+
+<div class="epigraph" data-label="Эпиграф">
+<p>Цитата эпиграфа в несколько строк — без указания автора в той же строке.</p>
+<p>Второй абзац того же эпиграфа.</p>
+</div>
+
+<div class="poem">Свет наполнит это Кли<sup id="cite_ref-2"><a href="#cite_note-2">[2]</a></sup>
+Трепетной любовью
+Ты держи Его внутри
+Как свое, родное.
+
+Стих второй строфы
+Тоже четыре строки
+И последняя
+Здесь стоит.</div>
+
+<ol class="num">
+<li>Первый тезис нумерованной группы — рендер сам поставит «1.» перед ним.</li>
+<li>Второй тезис — внутри работает обычная inline-разметка, включая ссылки на <a class="broken" href="#">[[195]]</a> и сноски<sup id="cite_ref-2"><a href="#cite_note-2">[2]</a></sup>.</li>
+<li>Третий тезис может занимать несколько строк подряд внутри одного абзаца, но без пустых строк, иначе разделится на новый пункт.</li>
+</ol>
+
+<h2 id="akt-1"><span class="sb">Акт первый. Обычный параграф и ссылки</span> <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<p>О связи духовной Любви и материальной любви, о Пути Воина-Исраэль (синтез учения К.Кастанеды и Каббалы). Подробности см. <a class="broken" href="#">[[078]]</a> или <a class="broken" href="#">[[170]]</a> — обе резолвятся во внутренние ссылки с автоматическим заголовком из manifest.</p>
+
+<p>Каббалистический контекст — <a class="zohar" href="https://imyavel.github.io/zohar-sulam/akdama/004.html">Книга Зоар. Введение (Акдама). «МИ бара ЭЛЕ» Элияhу</a>, и параллельно <a class="broken" href="#">{beresheet|17}</a> — оба отображаются золотистым «зоарным» цветом с автоподстановкой полного заголовка из zohar_index.</p>
+
+<p>Внешний ресурс — <a href="http://proza.ru/avtor/viktor1717" target="_blank" rel="noopener">страница автора viktor1717</a> — остаётся обычной ссылкой `target="_blank"`. Без анкора было бы <a href="http://proza.ru/avtor/viktor1717" target="_blank" rel="noopener">http://proza.ru/avtor/viktor1717</a> — анкор взялся бы из самого URL.</p>
+
+<p><span class="sb">Внимание: полностью-caps параграф должен превратиться в small-caps с восстановлением имён: Орёл, Творец, Адам, Господь, Бог, Ева.</span></p>
+
+<p><span class="sb">А вот пример маркера `^`: тропа Воина ведёт через Кли к Нагвалю и к Орлу — первые три слова выделены вручную через ^, последнее поднялось автоматом из встроенного списка.</span></p>
+
+<h2 id="akt-2"><span class="sb">Акт второй. Стих с caps-включениями</span> <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<div class="poem">Обычная строка стиха
+Ещё одна обычная
+
+<span class="sb">Верхнерегистровый кусок с Кетер внутри
+Продолжает Хохма ещё одной
+Строкой — рендер соединит в один span</span>
+
+И снова обычная строка
+после возвращения регистра.</div>
+
+<h2 id="akt-3"><span class="sb">Акт третий. Цитата и эпилог</span> <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<blockquote class="q" data-label="Цитата">
+<p>Только наполнение Светом с Его последующим исчезновением делает Кли пригодным к выполнению своего предназначения.</p>
+<span class="cite">— Бааль Сулам</span>
+</blockquote>
+
+<p>Параграф между цитатой и эпилогом — поясняет связь.</p>
+
+<div class="epilogue" data-label="Эпилог">
+<p>Здесь подведение итогов всей статьи. Класс epilogue — близкий родственник эпиграфа, но с меткой «Эпилог» вместо «Эпиграф».</p>
+</div>
+
+<h2 id="akt-4"><span class="sb">Акт четвёртый. Музыка и «см. Также»</span> <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<div class="music-group" data-label="Музыка под настроение">
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="title">Within Temptation — Let Us Burn</span><span class="caret">›</span><a class="ext" href="https://youtu.be/5DBuIhr1Id4" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/5DBuIhr1Id4" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="title">Metallica — Sanitarium</span><span class="caret">›</span><a class="ext" href="https://youtu.be/oAycSf8COQo" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/oAycSf8COQo" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="title">Браво — Это за окном Рассвет</span><span class="caret">›</span><a class="ext" href="https://youtu.be/yLUOwe9f2X8" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/yLUOwe9f2X8" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+<div class="music-noplayer"><div class="summary"><span class="label">Музыка под настроение:</span><span class="title">Неизвестный исполнитель — Песня без рабочей ссылки</span></div></div>
+</div>
+
+<h2 id="notes">Примечания <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+<ol class="notes">
+<li id="cite_note-1" value="1"><a class="backref" href="#cite_ref-1" title="Вернуться к месту в тексте">↑</a> Демонстрационная сноска — показывает popup-bubble на hover и переход к телу сноски при клике.</li>
+<li id="cite_note-2" value="2"><a class="backref" href="#cite_ref-2" title="Вернуться к месту в тексте">↑</a> Кли (- ивр. каб.: инструмент, желание, сосуд, способ, действие, механизм). "Только наполнение Светом с Его последующим исчезновением (осветлением - издохехут ивр.) делают Кли пригодным к выполнению своего предназначения" - Бааль Сулам, Введение в Науку Каббала. См. также: <a class="broken" href="#">[[078]]</a></li>
+<li class="anon">См. также: <a href="http://proza.ru/avtor/viktor1717" target="_blank" rel="noopener">страница автора viktor1717</a></li>
+<li class="anon">См. также: <a class="broken" href="#">[[195]]</a> — параллельная работа на ту же тему.</li>
+<li class="anon">Дополнение: <a class="zohar" href="https://imyavel.github.io/zohar-sulam/akdama/004.html">Книга Зоар. Введение (Акдама). «МИ бара ЭЛЕ» Элияhу</a> — каббалистический контекст.</li>
+</ol>
+</article>
+
+<nav class="article-nav">
+  <span class="prev"></span>
+  <span class="next"></span>
+</nav>
+
+<footer class="footer">
+<p class="editinfo">Последняя правка: Иван Иванович</p>
+<p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+<p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+</footer>
+</div>
+<script>
+// Article behaviours, wrapped so the in-page editor can re-bind them after a
+// live re-render (window.yanikBindArticle). Idempotent via data-* guards.
+(function(){
+  var bubble = null, hideTimer = null;
+  function ensureBubble(){
+    if (bubble) return bubble;
+    bubble = document.createElement('div');
+    bubble.className = 'footnote-bubble';
+    bubble.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); });
+    bubble.addEventListener('mouseleave', scheduleHide);
+    document.body.appendChild(bubble);
+    return bubble;
+  }
+  function scheduleHide(){
+    if (hideTimer) clearTimeout(hideTimer);
+    hideTimer = setTimeout(function(){ if (bubble) bubble.classList.remove('show'); }, 180);
+  }
+  function show(link){
+    var href = link.getAttribute('href') || '';
+    if (!href.startsWith('#')) return;
+    var target = document.getElementById(href.slice(1));
+    if (!target) return;
+    var b = ensureBubble();
+    var clone = target.cloneNode(true);
+    var back = clone.querySelector('a.backref');
+    if (back) back.remove();
+    b.innerHTML = clone.innerHTML;
+    b.classList.add('show');
+    var r = link.getBoundingClientRect();
+    var sx = window.pageXOffset, sy = window.pageYOffset;
+    b.style.left = '0px'; b.style.top = '0px';
+    var bw = b.offsetWidth, bh = b.offsetHeight;
+    var left = sx + r.left + r.width/2 - bw/2;
+    var maxLeft = sx + document.documentElement.clientWidth - bw - 8;
+    if (left > maxLeft) left = maxLeft;
+    if (left < sx + 8) left = sx + 8;
+    var top = sy + r.top - bh - 10;
+    var placeBelow = (top - sy) < 8;
+    if (placeBelow) top = sy + r.bottom + 10;
+    b.style.left = left + 'px';
+    b.style.top  = top  + 'px';
+    b.classList.toggle('below', placeBelow);
+  }
+  // Lazy YouTube embed: data-src → src on first open (avoids YouTube Error 153
+  // inside a zero-size closed <details>).
+  function bindMusic(){
+    document.querySelectorAll('details.music').forEach(function(d){
+      if (d.dataset.musicBound) return; d.dataset.musicBound = '1';
+      d.addEventListener('toggle', function(){
+        if (!d.open) return;
+        var f = d.querySelector('iframe[data-src]');
+        if (f) { f.src = f.getAttribute('data-src'); f.removeAttribute('data-src'); }
+      });
+    });
+  }
+  function bindFootnotes(){
+    document.querySelectorAll('sup a[href^="#cite_note-"]').forEach(function(a){
+      if (a.dataset.fnBound) return; a.dataset.fnBound = '1';
+      a.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); show(a); });
+      a.addEventListener('mouseleave', scheduleHide);
+      a.addEventListener('focus', function(){ show(a); });
+      a.addEventListener('blur',  scheduleHide);
+    });
+  }
+  // [spl] spoiler reveal: click / Enter / Space drops the cover. Idempotent.
+  function bindSpoilers(){
+    document.querySelectorAll('.spoiler').forEach(function(sp){
+      if (sp.dataset.splBound) return; sp.dataset.splBound = '1';
+      function reveal(){ sp.classList.add('revealed'); }
+      sp.addEventListener('click', reveal);
+      sp.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); reveal(); }
+      });
+    });
+  }
+  window.yanikBindArticle = function(){ bindMusic(); bindFootnotes(); bindSpoilers(); };
+  window.yanikBindArticle();
+
+  // Load the editor/login module. It decides what to show: a discreet «Вход»
+  // button in Worker mode (→ ✎ once a writer logs in), or ✎ in interim PAT mode
+  // when ?edit=1 set the yanik_edit flag. The heavy renderer is lazy-loaded only
+  // on entering edit, so readers stay light.
+  try{
+    var p = new URLSearchParams(location.search);
+    if (p.get('edit') === '1') localStorage.setItem('yanik_edit','1');
+    if (p.get('edit') === '0') localStorage.removeItem('yanik_edit');
+    var s = document.createElement('script');
+    s.type = 'module'; s.src = '../editor/inline.js?v=20260529-05';
+    document.body.appendChild(s);
+  }catch(e){}
+})();
+</script>
+</body>
+</html>

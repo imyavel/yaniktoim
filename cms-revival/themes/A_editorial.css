@@ -1,0 +1,262 @@
+/* ===========================================================================
+   Тема A — EDITORIAL  (якорь анти-регресса; язык корпуса yaniktoim, тип 654)
+   Тёплая кремовая бумага · old-style serif · терракотовый акцент ·
+   H1 слева с короткой линейкой · выключка по ширине · широкая колонка (~1080).
+   Form-agnostic: покрывает весь контракт render.js (см. THEME_CONTRACT.md).
+   =========================================================================== */
+:root{
+  color-scheme: only light; /* гасит Chrome Auto-Dark инверсию (поймано в реальном браузере 2026-06-11) */
+  --bg:#f6f3ec; --paper:#fffdf8; --ink:#1f1b16; --muted:#6b6258;
+  --accent:#8a3324; --accent-soft:#c2784f; --rule:#ddd4c4; --hl:#ffe9a8;
+  --gold:#7a5a1a;
+  --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+  --sans:"Helvetica Neue",Arial,system-ui,sans-serif;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--serif); font-size:19px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:760px; margin:0 auto; padding:1.2rem 1.5rem 4rem;}
+.wrap.wide{max-width:1080px;}
+
+/* — Шапка — */
+header.breadcrumbs{
+  font-family:var(--sans); font-size:.8rem; letter-spacing:.02em;
+  color:var(--muted); margin-bottom:1.6rem; padding-bottom:.7rem;
+  border-bottom:1px solid var(--rule);
+}
+header.breadcrumbs a{color:var(--muted); text-decoration:none;}
+header.breadcrumbs a:hover{color:var(--accent);}
+header.breadcrumbs .sep{margin:0 .45rem; color:var(--rule);}
+
+img.cover{display:block; max-width:100%; height:auto; margin:0 0 1.6rem; border-radius:2px;}
+
+h1#article-title{
+  font-family:var(--serif); font-weight:700; font-size:2.4rem; line-height:1.18;
+  letter-spacing:-.01em; color:var(--ink); margin:.1em 0 .55rem;
+}
+h1#article-title::after{
+  content:""; display:block; width:84px; height:3px;
+  background:var(--accent); margin:.5rem 0 0;
+}
+p.byline{
+  font-family:var(--sans); font-size:.85rem; color:var(--muted);
+  margin:0 0 1.8rem; letter-spacing:.01em;
+}
+p.byline a{color:var(--muted);}
+
+/* — Тело статьи: течёт по странице, без карточки, ПО ВСЕЙ полосе wrap.
+   Мера строки НЕ ограничивается темой: «wide» обязана быть широкой (вердикт
+   оператора 2026-06-11 — попытки капа 72ch убивали смысл ширины); узкая мера =
+   per-article выбор `width: narrow`. Все блоки одной ширины — края ровные. — */
+article{margin:0;}
+article p{margin:0 0 1.05rem; text-align:justify; hyphens:auto;}
+article p:first-of-type{margin-top:0;}
+article p.attribution{font-style:italic; color:var(--muted); text-align:left; margin:0 0 1.6rem;}
+article p.colophon{
+  text-align:center; font-family:var(--sans); color:var(--muted); font-size:.82rem;
+  margin:2.6rem 0 0; padding-top:1rem; border-top:1px dashed var(--rule); max-width:none;
+}
+
+article h2,article h3{font-family:var(--serif); font-weight:700; color:var(--ink); text-align:left;}
+article h2{font-size:1.55rem; line-height:1.25; margin:2.6rem 0 .9rem; padding-bottom:.3rem; border-bottom:1px solid var(--rule);}
+article h3{font-size:1.22rem; margin:2rem 0 .7rem;}
+article h2.subtitle{
+  border:none; font-weight:400; font-style:italic; color:var(--muted);
+  font-size:1.18rem; text-align:left; margin:.2rem 0 1.5rem;
+}
+article h2 .back-to-toc,article h3 .back-to-toc{
+  font-family:var(--sans); text-decoration:none; font-size:.7em;
+  color:var(--muted); margin-left:.5rem; vertical-align:middle;
+}
+article h2 .back-to-toc:hover,article h3 .back-to-toc:hover{color:var(--accent);}
+
+/* — Оглавление: квадратная карточка с левой акцент-полосой (тип 654) — */
+details.article-toc{
+  display:block; margin:1.8rem 0 2.2rem; background:var(--paper);
+  border:1px solid var(--rule); border-left:4px solid var(--accent);
+  padding:.9rem 1.4rem 1.1rem; font-family:var(--sans);
+}
+details.article-toc:first-child{margin-top:0;}
+details.article-toc summary{
+  cursor:pointer; list-style:none; color:var(--accent);
+  font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; font-weight:700;
+}
+details.article-toc summary::-webkit-details-marker{display:none;}
+details.article-toc summary::before{content:"▸ "; }
+details[open].article-toc summary::before{content:"▾ ";}
+details.article-toc ol{margin:.7rem 0 0; padding-left:1.7rem; font-size:.95rem;}
+details.article-toc ol li{margin:.28rem 0;}
+details.article-toc a{color:var(--ink); text-decoration:none;}
+details.article-toc a:hover{color:var(--accent); text-decoration:underline;}
+
+/* — Стих — */
+.poem{
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  font-size:1.08rem; line-height:1.5; white-space:pre-wrap;
+  width:fit-content; max-width:80%; margin:1.7rem auto; color:#2a2620;
+}
+.poem .poem-title{display:block; font-weight:700; text-align:center; margin-bottom:.6rem;}
+
+/* — Обрамление: эпиграф (вправо), цитата (влево), эпилог (полная), все — акцент-полоса+метка — */
+.epigraph,.epilogue,blockquote.q{
+  font-style:italic; background:#f6efe1; position:relative;
+  padding:1.4rem 1.4rem .7rem; margin:1.6rem 0;
+}
+.epigraph::before,.epilogue::before,blockquote.q::before{
+  content:attr(data-label); position:absolute; top:.4rem;
+  font-family:var(--sans); font-style:normal; font-size:.66rem;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--accent); opacity:.75;
+  pointer-events:none;
+}
+.epigraph .cite,.epilogue .cite,blockquote.q .cite{
+  display:block; text-align:right; font-style:normal; color:var(--muted);
+  font-size:.88rem; margin-top:.4rem;
+}
+.epigraph p,.epilogue p,blockquote.q p{text-align:left; text-indent:0;}
+.epigraph{width:66%; margin-left:auto; border-right:3px solid var(--accent); padding-left:1rem;}
+.epigraph::before{left:1rem;}
+blockquote.q{width:66%; margin-right:auto; border-left:3px solid var(--accent);}
+blockquote.q::before{right:.9rem;}
+.epilogue{border-left:3px solid var(--accent-soft);}
+.epilogue::before{right:.9rem;}
+@media(max-width:760px){.epigraph,blockquote.q{width:auto;}}
+
+/* — Нумерованная группа — */
+ol.num{margin:1.2rem 0 1.4rem; padding-left:2.3rem;}
+ol.num li{margin-bottom:.7rem;}
+ol.num li::marker{color:var(--accent); font-weight:700;}
+ol.num li p{text-indent:0; text-align:justify;}
+
+/* — Музыка: карточка бумаги с левой акцент-полосой, метка капителью — */
+.music-group{
+  background:var(--paper); border:1px solid var(--rule); border-left:4px solid var(--accent-soft);
+  padding:1.9rem 1.3rem .8rem; margin:1.6rem 0; position:relative;
+}
+.music-group::before{
+  content:attr(data-label); position:absolute; top:.4rem; left:1rem;
+  font-family:var(--sans); font-size:.66rem; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--muted);
+}
+.music-group.has-heading::before{display:none;}
+.music-group.has-label-row::before{display:none;}
+.music-group .music-label{position:absolute; top:.4rem; left:1rem; margin:0;
+  font-family:var(--sans); font-size:.66rem; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--muted);}
+.music-group>details.music,.music-group>.music-noplayer{margin:0 0 .3rem; background:transparent; border:none;}
+.music-group>:last-child{margin-bottom:0;}
+.music-group .label{display:none;}
+details.music summary,.music-noplayer .summary{
+  padding:.35rem 0; cursor:pointer; list-style:none; font-family:var(--sans); font-size:.92rem;
+}
+details.music summary::-webkit-details-marker{display:none;}
+.music-noplayer{background:transparent;}
+details.music summary .title,.music-noplayer .summary .title{color:var(--accent); font-style:italic;}
+details.music summary .caret{color:var(--muted); margin-left:.4rem; display:inline-block; transition:transform .15s;}
+details.music[open] summary .caret{transform:rotate(90deg);}
+details.music summary .ext{color:var(--muted); text-decoration:none; margin-left:.6rem; font-size:.9em;}
+details.music summary .ext:hover{color:var(--accent);}
+details.music .player{padding:.4rem 0 .6rem;}
+details.music .player iframe{display:block; width:100%; aspect-ratio:16/9; border:0;}
+
+/* — Ссылки / инлайн — */
+a{color:var(--accent);}
+a:hover{color:#5f2218;}
+em{font-style:italic;} strong{font-weight:700;}
+a.internal{color:var(--accent); text-decoration:none; border-bottom:1px dotted var(--accent);}
+a.internal:hover{border-bottom-style:solid;}
+a.zohar{color:var(--gold); text-decoration:none; border-bottom:1px dotted var(--gold);}
+a.zohar:hover{border-bottom-style:solid;}
+a.broken{color:#a33; text-decoration:line-through dotted;}
+
+/* — КАПС → капитель — */
+.sb{font-variant:small-caps; letter-spacing:.03em; font-weight:600;}
+
+/* — Сноски — */
+sup a{text-decoration:none; color:var(--accent);}
+sup a:hover{text-decoration:underline;}
+ol.notes{margin:0; padding-left:1.6rem; font-size:.92rem; color:var(--muted);}
+ol.notes li{margin-bottom:.5rem;}
+ol.notes a{color:var(--muted); text-decoration:underline;}
+ol.notes a.backref{text-decoration:none; margin-right:.3rem; color:var(--accent);}
+ol.notes li.anon{list-style:none; margin-left:0;}
+ol.notes li.anon:first-of-type{margin-top:.8rem;}
+ol.notes li:target,sup:target a{background:var(--hl);}
+
+.footnote-bubble{
+  position:absolute; z-index:1000; max-width:28rem; background:var(--paper); color:var(--ink);
+  border:1px solid var(--rule); border-radius:4px; box-shadow:0 6px 20px rgba(0,0,0,.16);
+  padding:.7rem .9rem; font-size:.88rem; line-height:1.5; opacity:0;
+  transform:translateY(4px) scale(.96); transform-origin:bottom center; pointer-events:none;
+  transition:opacity .15s ease, transform .15s ease;
+}
+.footnote-bubble.show{opacity:1; transform:translateY(0) scale(1); pointer-events:auto;}
+.footnote-bubble.below{transform-origin:top center;}
+.footnote-bubble::after{
+  content:""; position:absolute; left:50%; margin-left:-7px; width:0; height:0;
+  border:7px solid transparent; border-top-color:var(--paper); bottom:-14px;
+  filter:drop-shadow(0 1px 0 var(--rule));
+}
+.footnote-bubble.below::after{bottom:auto; top:-14px; border-top-color:transparent; border-bottom-color:var(--paper); filter:drop-shadow(0 -1px 0 var(--rule));}
+.footnote-bubble a{color:var(--accent);}
+
+/* — Навигация / подвал — */
+nav.article-nav{
+  display:flex; justify-content:space-between; gap:1rem; margin-top:2.4rem;
+  padding-top:1rem; border-top:1px solid var(--rule); font-family:var(--sans); font-size:.9rem;
+}
+nav.article-nav a{text-decoration:none;}
+footer.footer{
+  margin-top:3rem; padding-top:1rem; border-top:1px solid var(--rule);
+  color:var(--muted); font-family:var(--sans); font-size:.82rem; text-align:center;
+}
+footer.footer p{margin:.35rem 0; line-height:1.5;}
+footer.footer a{color:var(--muted); text-decoration:underline;}
+
+/* — ZML3-элементы (фаза сборки): глифы (C13), sig/cry (C11), term/leit (C10) — */
+.glyph{color:var(--accent);}
+.sig{color:var(--muted);}
+.cry{font-size:1.1em; letter-spacing:.04em;}
+.term{text-decoration-color:var(--accent);}
+.leit{color:var(--accent);}
+/* ── .viewbar — управление видом статьи (тема/ширина/оригинал/править) ── */
+.viewbar{font-family:var(--sans); color:var(--muted); letter-spacing:.02em;}
+.viewbar select{border-bottom-color:var(--rule);}
+.viewbar select:hover{color:var(--accent);}
+.viewbar a{color:var(--muted);}
+.viewbar a:hover{color:var(--accent);}
+/* — fn-ревью (2026-06-12): [line], [ul], H1-sup, dedication, ### в TOC — */
+p.line{font-family:var(--sans); color:var(--muted); text-align:left; text-indent:0; font-size:.86rem;}
+p.line-dateline{font-style:italic;}
+ul.ul{--marker:"– ";}
+ul.ul li{margin-bottom:.45rem;}
+ul.ul li::marker{color:var(--accent); font-weight:700;}
+h1#article-title sup a{font-family:var(--sans); color:var(--accent); font-weight:400;}
+.epigraph.dedication,.epilogue.dedication{width:66%; margin-left:auto; text-align:right;}
+.epigraph.dedication p,.epilogue.dedication p{text-align:right;}
+/* — ZML3 polish (сборка 2026-06-17): audio-🎧 · sec-sub · verse-эпиграф — */
+.audio-link{filter:grayscale(.35) saturate(.7); opacity:.82; transition:filter .15s, opacity .15s;}
+.audio-link:hover{filter:none; opacity:1;}
+.sec-sub{color:var(--muted); opacity:1;}
+details.article-toc ol ol{font-size:.93em;}
+/* ── [shir] плитка муз-грида (ZML3 §6.7) — бумага + левая акцент-полоса (язык TOC/music) ── */
+.songgrid .song{background:var(--paper); border:1px solid var(--rule);
+  border-left:4px solid var(--accent-soft); border-radius:3px; box-shadow:0 1px 4px rgba(60,40,20,.07);}
+.songgrid .song:hover{border-color:var(--accent); box-shadow:0 4px 14px rgba(60,40,20,.13);}
+.songgrid .song .yt:hover .play{background:var(--accent);}
+.songgrid .song .t{font-family:var(--serif); color:var(--ink);}
+.songgrid .song .t .trk-art{font-style:italic; color:var(--muted); opacity:1;}
+.songgrid .song .a{font-family:var(--serif);}
+.songgrid .song .a a{color:var(--accent); border-bottom:1px dotted var(--accent);}
+.songgrid .song .a a:hover{border-bottom-style:solid;}
+.songgrid .song .a .sep{color:var(--accent-soft); opacity:.9;}
+
+/* ── [faw] free-associative writing — стихи, записанные прозой ────────────────
+   editorial: МОНОЛИТ (inline), чередование роман / курсив-rust — как у
+   реконструктора стихотворной разбивки; границы строк видны, текст течёт прозой. */
+.faw{font-family:var(--serif); margin:1.7rem 0; line-height:1.8;}
+.faw-l{display:inline;}
+.faw-l.a{color:var(--ink); font-style:normal;}
+.faw-l.b{color:var(--accent-soft); font-style:italic;}

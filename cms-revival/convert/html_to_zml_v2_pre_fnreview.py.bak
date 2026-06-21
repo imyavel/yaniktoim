@@ -1,0 +1,1195 @@
+# -*- coding: utf-8 -*-
+"""Ф4 — HTML→ZML экстрактор, v2 (единый role-based walk; решение оператора 2026-06-12,
+вариант B аудита `audit_generalizability_001.md`).
+
+Корпус свёрстан LLM с РАЗНЫМИ именами классов на статью, но единой СЕМАНТИКОЙ
+(convert_prompt_005). Принципы v2:
+  1. ОДИН проход в документ-порядке; спуск в ЛЮБУЮ незнакомую обёртку.
+  2. Роли определяются структурой/позицией, а не перечнем классов, где возможно.
+  3. НИЧЕГО не выбрасывается молча: неопознанное → проза + флаг.
+  4. 📏-инвариант (SPEC §9): авторские <br> не плющатся — маршрутизируются
+     ([poem] / абзацный разрыв / continuation сноски). Косметический whitespace
+     разметки отделяется от авторских <br> сентинелом \\x00 (режим br='mark').
+  5. Оракул-гейт: после конвертации сверка текст-массы оригинал↔ZML;
+     покрытие <0.97 или >1.20 → флаг к разбору.
+
+Usage: python html_to_zml.py <art-id> [<art-id> ...]
+  читает ../../yaniktoim/docs/art/<id>.html, пишет out/<id>.zml и out/<id>.flags.txt
+"""
+import json
+import re
+import sys
+from html.parser import HTMLParser
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+ART = ROOT / "yaniktoim" / "docs" / "art"
+MANIFEST = {r["art"]: r for r in json.loads((ROOT / "yaniktoim/manifest.json").read_text("utf-8"))}
+OUT = Path(__file__).resolve().parent / "out"
+OUT.mkdir(exist_ok=True)
+
+VOID = {"br", "img", "hr", "meta", "link", "input", "source"}
+BR = "\x00"  # сентинел авторского <br> (отличаем от косметических \n разметки)
+
+
+class Tree(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.root = {"tag": "#root", "attrs": {}, "kids": []}
+        self.stack = [self.root]
+
+    def handle_starttag(self, t, attrs):
+        n = {"tag": t, "attrs": dict(attrs), "kids": []}
+        self.stack[-1]["kids"].append(n)
+        if t not in VOID:
+            self.stack.append(n)
+
+    def handle_startendtag(self, t, attrs):
+        self.stack[-1]["kids"].append({"tag": t, "attrs": dict(attrs), "kids": []})
+
+    def handle_endtag(self, t):
+        if t in VOID:
+            return
+        for i in range(len(self.stack) - 1, 0, -1):
+            if self.stack[i]["tag"] == t:
+                del self.stack[i:]
+                break
+
+    def handle_data(self, d):
+        self.stack[-1]["kids"].append(d)
+
+
+def cls(n):
+    return set((n.get("attrs", {}).get("class", "") or "").split())
+
+
+def find(n, pred, acc=None):
+    acc = acc if acc is not None else []
+    for k in n["kids"]:
+        if isinstance(k, dict):
+            if pred(k):
+                acc.append(k)
+            find(k, pred, acc)
+    return acc
+
+
+def first(n, pred):
+    r = find(n, pred)
+    return r[0] if r else None
+
+
+def prune(n, pred):
+    """Remove matching descendants in place."""
+    n["kids"] = [k for k in n["kids"] if not (isinstance(k, dict) and pred(k))]
+    for k in n["kids"]:
+        if isinstance(k, dict):
+            prune(k, pred)
+    return n
+
+
+def raw_text(n):
+    out = []
+    for k in n["kids"]:
+        if isinstance(k, str):
+            out.append(k)
+        elif k["tag"] == "br":
+            out.append("\n")
+        else:
+            out.append(raw_text(k))
+    return "".join(out)
+
+
+FLAGS = []
+
+
+def flag(art, msg):
+    FLAGS.append(f"[{art}] {msg}")
+
+
+# ── inline reconstruction ──────────────────────────────────────────────────
+FNREF_A_CLS = {"fnref", "fn-ref", "fnmark", "fn-mark", "noteref", "note-ref", "fn-anchor"}
+POPUP_CLS = {"pop", "fn-pop", "fnpop", "fn-preview", "tooltip", "tip"}
+
+
+def inline(n, art, br="space"):
+    """Serialize children to ZML inline text.
+    br: 'space' (схлопнуть) | 'nl' (\\n) | 'mark' (сентинел BR — авторский перенос,
+    отличимый от косметических \\n pretty-print)."""
+    brchar = {"space": " ", "nl": "\n", "mark": BR}[br]
+    out = []
+    for k in n["kids"]:
+        if isinstance(k, str):
+            out.append(k)
+            continue
+        t = k["tag"]
+        c = cls(k)
+        if t == "br":
+            out.append(brchar)
+        elif t == "sup":
+            out.append(fn_ref(k, art))
+        elif t == "a":
+            if c & FNREF_A_CLS:  # сноска-маркер ссылкой без <sup>
+                n2 = _ref_num(k["attrs"].get("href", ""), raw_text(k))
+                out.append(f"[^{n2}]" if n2 is not None else "")
+            else:
+                out.append(link(k, art))
+        elif t in ("em", "i"):
+            inner = inline(k, art, br).strip()
+            out.append(f"_{inner}_" if inner else "")
+        elif t in ("b", "strong"):
+            out.append(inline(k, art, br))  # ZML has no bold marker; keep text
+        elif t == "span":
+            if c & POPUP_CLS:
+                # preview-пузырь сноски — generated, drop; НО в части схем (185A)
+                # попап-обёртка содержит и сам маркер-ссылку — извлечь его.
+                mk = first(k, lambda x: bool(cls(x) & FNREF_A_CLS) or x["tag"] == "sup")
+                if mk is not None:
+                    n2 = _ref_num(mk["attrs"].get("href", ""), raw_text(mk))
+                    out.append(f"[^{n2}]" if n2 is not None else "")
+                continue
+            if c & FNREF_A_CLS:
+                n2 = _ref_num(k["attrs"].get("href", ""), raw_text(k))
+                out.append(f"[^{n2}]" if n2 is not None else "")
+                continue
+            out.append(inline(k, art, br))
+        else:
+            out.append(inline(k, art, br))
+    return "".join(out)
+
+
+FN_ID_MAP = {}  # anchor-id определения → финальный номер (заполняет collect_footnotes)
+
+
+def _ref_num(href, text):
+    """Номер сноски для маркера: сперва по карте якорей (надёжно при
+    пер-секционных схемах #s7-fnN — 217A), затем последняя цифра-группа."""
+    frag = (href or "").lstrip("#")
+    if frag and frag in FN_ID_MAP:
+        return FN_ID_MAP[frag]
+    m = re.search(r"fn[-_]?(\d+)", href or "")
+    if m:
+        return int(m.group(1))
+    nums = re.findall(r"\d+", href or "") or re.findall(r"\d+", text or "")
+    return int(nums[-1]) if nums else None
+
+
+def fn_ref(sup, art):
+    a = first(sup, lambda x: x["tag"] == "a")
+    if not a:
+        n = _ref_num("", raw_text(sup))
+        return f"[^{n}]" if n is not None else ""
+    n = _ref_num(a["attrs"].get("href", ""), raw_text(a))
+    return f"[^{n}]" if n is not None else ""
+
+
+AUDIO_HREFS = set()  # href'ы, признанные озвучкой (заполняет convert per-article)
+
+
+def link(a, art):
+    href = a["attrs"].get("href", "")
+    c = cls(a)
+    txt = inline(a, art, "space").strip()
+    if "audio-link" in c or href in AUDIO_HREFS:
+        return ""  # audio narration → frontmatter audio: (collected in convert)
+    if "back" in c or "self" in c or href.startswith("#"):
+        frag = href.lstrip("#")
+        if frag in FN_ID_MAP and FN_ID_MAP[frag] is not None:
+            # якорь-маркер сноски (`<a href="#fn2">**</a>` — 182) → [^N]/[^**]
+            return "[^%s]" % FN_ID_MAP[frag]
+        # anchor / back-to-top. If it WRAPS real text (corpus puts the section
+        # title inside the #top link), keep the text; if it's just an arrow, drop.
+        if txt and not re.fullmatch(r"[↑↟↩↪⮌▴▾^⌃→←»«›‹\s]+", txt):
+            return txt
+        return ""  # bare back-to-top / backref — render regenerates it
+    mz = re.search(r"zohar-sulam/([a-z][a-z-]*)/0*(\d+)\.html", href)
+    if mz:
+        return "{%s|%s}" % (mz.group(1), mz.group(2))
+    if re.fullmatch(r"[A-Za-z0-9_]+\.html", href):  # local corpus article
+        return "[[%s]]" % href[:-5]
+    if href.startswith("http"):
+        return "[%s|%s]" % (href, txt) if txt and txt != href else "[%s]" % href
+    return txt
+
+
+# ── 📏 авторские переносы → структура ────────────────────────────────────────
+def _mark_lines(node, art):
+    """inline в режиме 'mark' → строки по авторским <br>; косметический
+    whitespace разметки (\\n+отступы pretty-print) схлопнут в пробел."""
+    txt = inline(node, art, "mark")
+    txt = re.sub(r"\s+", " ", txt)  # \x00 не входит в \s — авторские переносы живут
+    return [ln.strip() for ln in txt.split(BR)]
+
+
+def _line_groups(lines):
+    """Строки → группы, разделённые пустыми строками (двойной <br>)."""
+    groups, cur = [], []
+    for ln in lines:
+        if ln:
+            cur.append(ln)
+        elif cur:
+            groups.append(cur)
+            cur = []
+    if cur:
+        groups.append(cur)
+    return groups
+
+
+def _versey(lines):
+    nb = [l for l in lines if l]
+    return len(nb) >= 2 and sum(len(l) for l in nb) / len(nb) < 50
+
+
+def para_blocks(node, art):
+    """<p>/текст-ран → список ZML-блоков с 📏-маршрутизацией:
+    стих-форма → [poem]; <br><br> → отдельные абзацы; одиночные <br> в длинной
+    прозе → flow (канон: CAPS-периоды/wrapped prose не стих)."""
+    lines = _mark_lines(node, art)
+    groups = _line_groups(lines)
+    if not groups:
+        return []
+    if _versey(lines):  # весь узел — стих-в-<p> → [poem], строфы по <br><br>
+        body = "\n\n".join("\n".join(g) for g in groups)
+        return ["[poem]\n%s\n[/poem]" % body]
+    out = [re.sub(r"\s{2,}", " ", " ".join(g)).strip() for g in groups if g]
+    # декоративные разделители (✦ ✦ ✦ / *** / ⁂) и сирота-лейбл «Эпиграф» — не контент
+    out = [p for p in out
+           if re.search(r"\w", p) and p.lower().strip() not in ("эпиграф", "эпиграфы")]
+    return out
+
+
+# ── epigraph detection (role-based, scheme-agnostic) ──────────────────────────
+def is_epi(x):
+    if not isinstance(x, dict):
+        return False
+    c = cls(x)
+    if "epis" in c:                       # the .epis WRAPPER, not an epigraph
+        return False
+    if "epi" in c and x["tag"] in ("div", "p", "blockquote"):
+        return True
+    if "epigraph" in c and x["tag"] in ("blockquote", "div", "p"):
+        return True
+    return False
+
+
+def _epi_is_cite(x):
+    return isinstance(x, dict) and (
+        x["tag"] == "cite" or bool(cls(x) & {"cite", "epi-cite", "src", "epigraph-src",
+                                             "epi-source", "epigraph-author", "author"}))
+
+
+def _shallow(n):
+    return {"tag": n["tag"], "attrs": n["attrs"], "kids": list(n["kids"])}
+
+
+# ── block emitters ──────────────────────────────────────────────────────────
+def _cite_of(n):
+    cite_el = first(n, _epi_is_cite)
+    if not cite_el:
+        return ""
+    tmp = _shallow(cite_el)
+    prune(tmp, lambda x: x["tag"] == "sup")  # drop footnote ref from cite text
+    return re.sub(r"\s+", " ", raw_text(tmp)).strip().strip("—").strip()
+
+
+def emit_epi(n, art):
+    cite = _cite_of(n)
+    body = first(n, lambda x: "epi-body" in cls(x)) or n
+    # serialize body WITHOUT the cite element so its text isn't duplicated.
+    body = prune(_shallow(body), _epi_is_cite)
+    prune(body, lambda x: bool(cls(x) & {"epi-label", "epigraph-label", "epi-h", "epi-tag"}))
+    lines = _mark_lines(body, art)
+    groups = _line_groups(lines)
+    if not groups:
+        return ""
+    nonblank = [l for l in lines if l]
+    verse = _versey(nonblank)
+    if verse:
+        txt = "\n\n".join("\n".join(g) for g in groups)  # строки + строфы
+    else:
+        # 📏 fix (а): <br><br> = авторский абзацный разрыв → пустая строка ZML
+        # (render рисует отдельными <p>); одиночные <br> длинной прозы — flow.
+        txt = "\n\n".join(re.sub(r"\s{2,}", " ", " ".join(g)).strip() for g in groups)
+    attrs = ' kind="verse"' if verse else ""
+    if cite:
+        attrs += ' cite="%s"' % cite
+    return "[epi%s]\n%s\n[/epi]" % (attrs, txt)
+
+
+def emit_quote(n, art):
+    """blockquote вне роли эпиграфа → [quote] (роль «цитата», C12).
+    kind=scripture при одноимённом классе."""
+    cite = _cite_of(n)
+    body = prune(_shallow(n), _epi_is_cite)
+    lines = _mark_lines(body, art)
+    groups = _line_groups(lines)
+    if not groups:
+        return ""
+    txt = "\n\n".join(re.sub(r"\s{2,}", " ", " ".join(g)).strip() for g in groups)
+    attrs = ' kind="scripture"' if "scripture" in cls(n) else ""
+    if cite:
+        attrs += ' cite="%s"' % cite
+    return "[quote%s]\n%s\n[/quote]" % (attrs, txt)
+
+
+def emit_subsec(node, art):
+    lines = [l for l in _mark_lines(node, art) if l]
+    return "[subsec]\n" + "\n".join(lines) + "\n[/subsec]" if lines else ""
+
+
+def _verse_lines(node, art):
+    """Строки стиха: в СТИХ-контексте значимы и <br>, и текстовые переносы
+    исходника (LLM кладёт каждую строку стиха на свою строку разметки — 29M:
+    div.stanza>p без <br>). В прозе текст-\\n косметичен — там _mark_lines."""
+    return [ln.strip() for ln in inline(node, art, "nl").split("\n") if ln.strip()]
+
+
+def emit_stanzas(stanzas, art):
+    """Build a [poem] from stanza nodes. Lines come from .line/.ln children
+    (34O/29M scheme), else from <br>/newline-split text (237/29M schemes)."""
+    out = []
+    for st in stanzas:
+        line_els = [k for k in st["kids"]
+                    if isinstance(k, dict) and (cls(k) & {"line", "ln", "verse-line"})]
+        if line_els:
+            lines = [re.sub(r"\s+", " ", inline(l, art, "space").strip()) for l in line_els]
+            s = "\n".join(l for l in lines if l)
+        else:
+            s = "\n".join(_verse_lines(st, art))
+        if s:
+            out.append(s)
+    return "[poem]\n" + "\n\n".join(out) + "\n[/poem]" if out else ""
+
+
+def emit_verse_blocks(n, art):
+    """Поэма-обёртка со СМЕШАННЫМИ детьми (строфы + прозо-<p> между ними — 323):
+    идём по детям в документ-порядке, строфы группируем в [poem], прозу эмитим
+    абзацами между поэмами. → список блоков."""
+    kids = [k for k in n["kids"] if isinstance(k, dict)]
+    direct_st = [k for k in kids if cls(k) & {"st", "stanza"}]
+    if not direct_st or len(direct_st) == len(kids):
+        b = emit_verse(n, art)
+        return [b] if b else []
+    out, run = [], []
+
+    def flush():
+        if run:
+            out.append(emit_stanzas(run, art))
+            run.clear()
+    for k in kids:
+        if cls(k) & {"st", "stanza"}:
+            run.append(k)
+        elif k["tag"] == "p":
+            flush()
+            out.extend(para_blocks(k, art))
+        else:
+            run.append(k)  # безымянная обёртка внутри поэмы — как строфа
+    flush()
+    return [b for b in out if b]
+
+
+def emit_verse(n, art):
+    # a .verse/.poem wrapper, a single stanza, or a block of <br>/newline-lines.
+    sts = find(n, lambda x: cls(x) & {"st", "stanza"})
+    if sts:
+        return emit_stanzas(sts, art)
+    if cls(n) & {"st", "stanza"}:
+        return emit_stanzas([n], art)
+    # строфы = <p>-дети (29M-стиль) либо разрывы пустыми строками
+    psts = [k for k in n["kids"] if isinstance(k, dict) and k["tag"] == "p"]
+    if psts:
+        out = ["\n".join(_verse_lines(p, art)) for p in psts]
+        out = [s for s in out if s]
+        return "[poem]\n" + "\n\n".join(out) + "\n[/poem]" if out else ""
+    stanzas = []
+    for b in re.split(r"\n\s*\n", inline(n, art, "nl")):
+        lines = [ln.strip() for ln in b.split("\n") if ln.strip()]
+        if lines:
+            stanzas.append("\n".join(lines))
+    return "[poem]\n" + "\n\n".join(stanzas) + "\n[/poem]" if stanzas else ""
+
+
+# ── музыка ───────────────────────────────────────────────────────────────────
+TITLE_CLS = {"t-name", "tname", "tk-name", "name", "t-title", "ttitle",
+             "track-title", "track-name", "m-title", "song-title", "tk-title",
+             "ttl", "tt", "t"}
+ARTIST_CLS = {"t-art", "tartist", "t-artist", "tk-art", "t-author", "artist",
+              "track-artist", "ta", "by", "author"}
+LABEL_CLS = {"music-label", "lbl", "label", "mus-label"}
+
+
+def _clean_track_text(s):
+    s = re.sub(r"[\s\x00]+", " ", s or "").strip()
+    s = re.sub(r"^[▶▷►▸‣▹➤·•\s]+", "", s)
+    s = re.sub(r"\s*[↗↪➚⧉⇗➦]\s*$", "", s).strip()
+    return s
+
+
+def is_track(n):
+    """Трек-плитка. Признак ЛОКАЛЕН: класс/атрибут на самом узле, либо data-yt
+    в потомках у МАЛЕНЬКОГО листа (короткий текст, без заголовков) — иначе любой
+    верхний wrap, где глубоко лежит музыка, съедал бы статью целиком."""
+    if n["tag"] not in ("div", "details", "figure", "li"):
+        return False
+    c = cls(n)
+    if c & {"track", "player"}:
+        return True
+    a = n.get("attrs", {})
+    if a.get("data-yt") or a.get("data-embed"):
+        return True
+    if first(n, lambda x: x["tag"] in ("h1", "h2", "h3", "p")):
+        return False
+    if len(re.sub(r"\s+", "", raw_text(n))) > 200:
+        return False
+    return bool(first(n, lambda x: isinstance(x, dict) and (
+        x.get("attrs", {}).get("data-yt") or x.get("attrs", {}).get("data-embed"))))
+
+
+def is_music_container(n):
+    if n["tag"] not in ("div", "section", "details", "aside"):
+        return False
+    return any("music" in c for c in cls(n)) and "music-label" not in cls(n)
+
+
+def _yt_id(url):
+    m = re.search(r"(?:v=|youtu\.be/|embed/)([A-Za-z0-9_-]{11})", url or "")
+    return m.group(1) if m else None
+
+
+def emit_music(blocks, art):
+    """blocks: list of track-ish nodes (and labels). Build one [mus]."""
+    label = ""
+    entries = []
+    for b in blocks:
+        c = cls(b)
+        if c & LABEL_CLS:
+            label = raw_text(b).strip().rstrip(":")
+            continue
+        url = ""
+        ae = first(b, lambda x: x["tag"] == "a" and ("ext" in " ".join(cls(x)) or "youtu" in x["attrs"].get("href", "")))
+        if ae:
+            url = ae["attrs"].get("href", "")
+        if not url:
+            de = first(b, lambda x: x.get("attrs", {}).get("data-embed") or x.get("attrs", {}).get("data-yt"))
+            if de:
+                d = de["attrs"].get("data-embed") or de["attrs"].get("data-yt")
+                url = d if d.startswith("http") else "https://youtu.be/" + d
+            elif b["attrs"].get("data-yt") or b["attrs"].get("data-embed"):
+                d = b["attrs"].get("data-yt") or b["attrs"].get("data-embed")
+                url = d if d.startswith("http") else "https://youtu.be/" + d
+        # title/author: известные классы → структурный фолбэк (b/strong = title;
+        # остаток после «—» = author) → raw split « — ». Имена классов per-article
+        # случайны — перечень не закроется, структура надёжнее (аудит §3).
+        name = (first(b, lambda x: cls(x) & {"t-name", "tname", "tk-name", "name"})
+                or first(b, lambda x: cls(x) & (TITLE_CLS - {"t"}))
+                or first(b, lambda x: "t" in cls(x) and x["tag"] == "span"))
+        artn = first(b, lambda x: cls(x) & ARTIST_CLS)
+        if name:
+            title = _clean_track_text(raw_text(name))
+            author = _clean_track_text(re.sub(r"^[—–-]\s*", "", raw_text(artn))) if artn else ""
+        else:
+            bo = first(b, lambda x: x["tag"] in ("b", "strong"))
+            full = _clean_track_text(raw_text(b))
+            if bo:
+                title = _clean_track_text(raw_text(bo))
+                rem = full.replace(title, "", 1) if title and title in full else ""
+                author = _clean_track_text(re.sub(r"^[—–-]\s*", "", rem))
+            else:
+                title, author = full, ""
+        if not author and " — " in title:  # "Song — Author" combined
+            title, author = [_clean_track_text(s) for s in title.split(" — ", 1)]
+        author = re.sub(r"^[—–-]\s*", "", author).strip()  # ведущее тире остатка (368)
+        if not url and not title:
+            continue  # ZML3: a [mus] track is valid with ≥1 field (title OR url)
+        entries.append((url, title, author))
+    # дедуп: безымянная url-строка (голый embed-плеер рядом с титулованной
+    # строкой того же видео — 185A/34O) дропается, если ID уже представлен с title
+    titled_ids = {_yt_id(u) for u, t, a in entries if t and _yt_id(u)}
+    lines, seen = [], set()
+    for url, title, author in entries:
+        vid = _yt_id(url)
+        if not title and vid and vid in titled_ids:
+            continue
+        key = (vid or url, title, author)
+        if key in seen:
+            continue
+        seen.add(key)
+        lines.append("[%s|%s|%s]" % (url, title, author))
+    head = "[mus]" if not label or "настроени" in label.lower() else '[mus="%s"]' % label
+    if not lines:
+        return ""
+    return head + "\n" + "\n".join(lines) + "\n[/mus]"
+
+
+def slug_of(h2, block):
+    for el in (block, h2):
+        i = el["attrs"].get("id")
+        if i:
+            return i
+    a = first(h2, lambda x: x["tag"] == "a" and x["attrs"].get("name"))
+    return a["attrs"].get("name") if a else None
+
+
+# ── footnotes v2 (контейнер-роль, не классы айтемов) ─────────────────────────
+NOTES_CONT_CLS = {"notes", "footnotes", "fnlist", "fn-list", "notelist",
+                  "notes-list", "endnotes", "fns", "fnotes", "fnitems"}
+ITEM_CLS = {"fn", "note", "fnote", "footnote", "fn-item", "fnitem", "fnentry",
+            "note-item", "fn-note"}
+BACKREF_CLS = {"back", "backref", "fn-back", "ret", "return", "back-ref"}
+_ID_RX = re.compile(r"^(fn|note|n|fnote|footnote|ref-?def)[-_]?\d+$", re.I)
+
+
+def _has_backref(n):
+    return bool(first(n, lambda x: x["tag"] == "a" and (
+        bool(cls(x) & BACKREF_CLS)
+        or (x["attrs"].get("href", "").startswith("#")
+            and re.fullmatch(r"[↑↟↩↪⮌⤴⬆\s]+", raw_text(x) or " ") is not None
+            and raw_text(x).strip() != ""))))
+
+
+def _is_note_item(n, in_notes_cont):
+    if n["tag"] not in ("li", "p", "div"):
+        return False
+    c = cls(n)
+    if c & ITEM_CLS:
+        return True
+    if _ID_RX.match(n["attrs"].get("id", "")):
+        return True
+    if _has_backref(n):
+        return True
+    if in_notes_cont and n["tag"] == "li":
+        return True  # безклассовый li внутри notes-контейнера (09S: section>ol>li)
+    return False
+
+
+def collect_footnotes(root, art):
+    """→ (fns: [(num, txt)], consumed_ids: set, first_container_node).
+    Инвариант корпуса — КОНТЕЙНЕР сносок (section.notes и родня) + айтемы с
+    backref/id; имена классов айтемов случайны (аудит §2)."""
+    # 1. контейнеры по классу
+    containers = find(root, lambda x: x["tag"] in ("section", "div", "ol", "ul")
+                      and bool(cls(x) & NOTES_CONT_CLS) and "toc" not in cls(x))
+    # 2. + родители айтемов с независимыми уликами (класс/id И backref) вне их
+    cont_ids = {id(c) for c in containers}
+    extra_parents = {}
+    def scan(node, anc_in_cont):
+        for k in node["kids"]:
+            if not isinstance(k, dict):
+                continue
+            inside = anc_in_cont or id(k) in cont_ids
+            if not inside and k["tag"] in ("li", "p", "div") and (
+                    (cls(k) & ITEM_CLS) or _ID_RX.match(k["attrs"].get("id", ""))) \
+                    and _has_backref(k):
+                extra_parents[id(node)] = node
+            scan(k, inside)
+    scan(root, False)
+    containers += [p for pid, p in extra_parents.items() if pid not in cont_ids]
+    # внешние контейнеры поглощают вложенные (section.notes > ol.fnlist)
+    keep = []
+    cids = [id(c) for c in containers]
+    for c in containers:
+        if not any(id(c) != id(o) and id(c) in {id(d) for d in find(o, lambda x: True)}
+                   for o in containers):
+            keep.append(c)
+    containers = keep
+
+    fns, consumed = [], set()
+    first_item = None
+    # документ-порядок контейнеров
+    order = {id(n): i for i, n in enumerate(find(root, lambda x: True))}
+    containers.sort(key=lambda c: order.get(id(c), 0))
+    for cont in containers:
+        # ВАЖНО: потребляем ТОЛЬКО айтемы (+их поддеревья), а не контейнер целиком —
+        # рядом с айтемами живут НЕ-сносочные абзацы («П.С.», звёздные определения
+        # без разметки — 2CQ), их обязан подобрать обычный walk (ничего не терять).
+        # айтемы: прямые дети-элементы контейнера (и спуск в один уровень обёрток)
+        items = []
+        def gather(node, depth=0):
+            for k in node["kids"]:
+                if not isinstance(k, dict):
+                    continue
+                if _is_note_item(k, True):
+                    items.append(k)
+                elif depth < 2 and k["tag"] in ("div", "ol", "ul", "section"):
+                    gather(k, depth + 1)
+        gather(cont)
+        in_ol = cont["tag"] == "ol" or bool(first(cont, lambda x: x["tag"] == "ol"))
+        seq = 0
+        for it in items:
+            consumed.add(id(it))
+            for d in find(it, lambda x: True):
+                consumed.add(id(d))
+            if first_item is None:
+                first_item = it
+            seq += 1
+            num = _fn_number(it)
+            be = (first(it, lambda x: bool(cls(x) & {"fn-body", "fn-text", "note-body", "body", "txt"}))
+                  or it)
+            be = prune(_shallow(be), lambda x: bool(cls(x) & ({"num", "marker"} | BACKREF_CLS)))
+            txt = _fn_text(be, art)
+            # литеральный звёздный маркер «*N.» в начале тела — АВТОРИТЕТНЫЙ номер
+            # (надёжнее id: в пер-секционных схемах id-цифры врут — 217A)
+            starred = False
+            # авторский звёздный маркер анонимной сноски («*», «**») — хранить
+            # как `[^|*]:` (render рисует его, а не дефолт «См. также») — 182
+            prefix = ""
+            mk = first(it, lambda x: bool(cls(x) & {"marker", "num"}))
+            if mk is not None and re.fullmatch(r"\*+", raw_text(mk).strip() or "#"):
+                prefix = raw_text(mk).strip()
+            mstar = re.match(r"^\*+\s*(\d+)\s*[.)]?\s*", txt or "")
+            if mstar:
+                num = int(mstar.group(1))
+                txt = txt[mstar.end():].strip()
+                starred = True
+            elif not prefix:
+                mb = re.match(r"^(\*+)\s+", txt or "")  # звёзды голым текстом в теле
+                if mb:
+                    prefix = mb.group(1)
+                    txt = txt[mb.end():].strip()
+            if num is None and in_ol and it["tag"] == "li":
+                # последовательная нумерация <ol> (если нет анон-маркера « * »)
+                mk = first(it, lambda x: bool(cls(x) & {"marker", "num"}))
+                if not (mk and "*" in raw_text(mk)):
+                    num = seq
+            if txt:
+                fns.append([num, txt, it["attrs"].get("id") or "", starred, prefix])
+    # коллизии номеров (пер-секционные «Примечания» у каждой записи — 217A):
+    # перенумеровываем глобально в документ-порядке; ссылки в теле найдут свои
+    # определения через карту якорей FN_ID_MAP (#s7-fnN → финальный номер).
+    nums = [e[0] for e in fns if e[0] is not None]
+    if len(nums) != len(set(nums)):
+        flag(art, "пер-секционная нумерация сносок → глобальная перенумерация (%d шт.)" % len(fns))
+        for i, e in enumerate(fns):
+            e[0] = i + 1
+    for e in fns:
+        # маркер «N.»/«N)» голым текстом в начале тела (не в span.num) — срезаем
+        # при совпадении с ФИНАЛЬНЫМ номером (после возможной перенумерации);
+        # звёздно-очищенные не трогаем, (?!\d) бережёт «22 буквы» при num=2 (186A)
+        if e[0] is not None and e[1] and not e[3]:
+            e[1] = re.sub(r"^\**\s*0*%d(?!\d)\s*[.):—-]?\s*" % e[0], "", e[1]).strip()
+    for e in fns:
+        if e[2]:
+            # значение карты: номер ИЛИ звёздный маркер ('**') — тогда ссылка в
+            # теле, целящая в этот якорь, станет [^**] (кликабельно, как номерная)
+            FN_ID_MAP[e[2]] = e[0] if e[0] is not None else (e[4] or None)
+    return [(n, t, pre) for n, t, _a, _s, pre in fns if t], consumed, first_item
+
+
+def _fn_text(be, art):
+    """Тело сноски; 📏 — многострочность через continuation (отступ 4 пробела).
+    Строки = <br>-переносы ИЛИ построчные спаны (.vsub — стих-в-сноске, 182)."""
+    line_els = [k for k in be["kids"] if isinstance(k, dict)
+                and (cls(k) & {"vsub", "line", "ln", "verse-line"})]
+    if len(line_els) >= 2:
+        lines = [re.sub(r"\s+", " ", inline(l, art, "space")).strip() for l in line_els]
+    else:
+        lines = _mark_lines(be, art)
+    lines = [strip_backref(l) for l in lines if l]
+    lines = [l for l in lines if l]
+    if not lines:
+        return ""
+    return "\n    ".join(lines)
+
+
+def _fn_number(fn):
+    """Authoritative note number: .num/.marker span → back-arrow href → id."""
+    numspan = first(fn, lambda x: bool(cls(x) & {"num", "marker"}))
+    if numspan:
+        m = re.search(r"\d+", raw_text(numspan))
+        if m:
+            return int(m.group())
+        if "*" in raw_text(numspan):
+            return None  # звёздочная анон-сноска
+    back = first(fn, lambda x: x["tag"] == "a" and (bool(cls(x) & BACKREF_CLS) or "back" in " ".join(cls(x))))
+    if back:
+        m = re.search(r"#r(?:ef)?[-_]?(\d+)", back["attrs"].get("href", ""))
+        if m:
+            return int(m.group(1))
+    fid = fn["attrs"].get("id", "")
+    m = re.search(r"fn[-_]?(\d+)", fid)  # «s7-fn3» → 3, не 7 (217A)
+    if m:
+        return int(m.group(1))
+    nums = re.findall(r"\d+", fid)
+    if nums:
+        return int(nums[-1])
+    return None
+
+
+def strip_backref(s):
+    return re.sub(r"\s*[↑↩↪⮌⤴⬆]\s*$", "", s).strip()
+
+
+def find_notes_title(root, art, first_item):
+    """Последний <h2> в документ-порядке перед ПЕРВЫМ айтемом сносок (не
+    контейнером: в sec-block-схеме заголовок «Полезные ссылки» лежит ВНУТРИ
+    контейнера, перед айтемами — 237)."""
+    if first_item is None:
+        return ""
+    state = {"h2": "", "found": None}
+
+    def walk(n):
+        for k in n["kids"]:
+            if not isinstance(k, dict) or state["found"] is not None:
+                continue
+            if id(k) == id(first_item):
+                state["found"] = state["h2"]
+                return
+            if k["tag"] == "h2":
+                state["h2"] = re.sub(r"\s+", " ", inline(k, art).strip())
+            walk(k)
+
+    walk(root)
+    return state["found"] or ""
+
+
+# ── единый walk (v2) ─────────────────────────────────────────────────────────
+CHROME_TAGS = {"header", "nav", "footer", "h1", "hr", "button", "form",
+               "iframe", "svg", "template", "audio", "video", "canvas"}
+CHROME_CLS = {"crumbs", "breadcrumbs", "toc", "byline", "artline", "colophon",
+              "corpus-nav", "corpusnav", "section-nav", "sectionnav", "nav",
+              "license", "attrib", "attribution", "build-date", "hashtag",
+              "hero", "cover", "lead-img", "rule-orn", "title-orn", "ornament",
+              "rule", "divider", "sep", "pager", "prevnext", "pagenav",
+              "back-to-top", "totop", "skip", "sr-only",
+              "epi-label", "epigraph-label", "epi-h", "epi-tag"}
+INLINE_TAGS = {"a", "em", "i", "b", "strong", "span", "sup", "sub", "small",
+               "u", "s", "code", "mark", "cite", "abbr", "br", "img", "wbr", "time"}
+DIALOG_CLS = {"q", "a", "qa", "dialog", "dialogue", "question", "answer",
+              "speaker", "replica", "line-q", "line-a"}
+
+
+def walk(node, blocks, art, st):
+    """Единый проход: документ-порядок, спуск во всё незнакомое, эмит по роли.
+    st: {'consumed': ids сносок, 'started': bool} — позиционный контекст."""
+    kids = node["kids"]
+    runbuf = []
+
+    def flush_run():
+        if not runbuf:
+            return
+        syn = {"tag": "p", "attrs": {}, "kids": list(runbuf)}
+        runbuf.clear()
+        out = para_blocks(syn, art)
+        if out:
+            st["started"] = True
+        blocks.extend(out)
+
+    i = 0
+    while i < len(kids):
+        k = kids[i]
+        if isinstance(k, str):
+            runbuf.append(k)
+            i += 1
+            continue
+        t, c = k["tag"], cls(k)
+        if id(k) in st["consumed"]:        # сноски собраны отдельно
+            flush_run()
+            i += 1
+            continue
+        if t in INLINE_TAGS and not (c & {"track"}) and t != "img":
+            runbuf.append(k)
+            i += 1
+            continue
+        flush_run()
+        # ---- хром ----
+        if t in CHROME_TAGS or (c & CHROME_CLS):
+            i += 1
+            continue
+        if t == "details" and "toc" in c:
+            i += 1
+            continue
+        if t == "img":
+            if st["started"]:
+                flag(art, "изображение в теле статьи — вне формата (потеряно, нужен разбор)")
+            i += 1
+            continue
+        if c & {"dateline", "date", "kicker"} and not st["started"]:
+            # шапочная дата/киккер — byline-роль, render регенерит из FM
+            if "kicker" in c:
+                sub = re.sub(r"\s+", " ", inline(k, art).strip())
+                if sub:
+                    blocks.append("[sub]%s[/sub]" % sub)
+                    flag(art, "kicker (надзаголовок) → [sub]")
+            else:
+                dt = re.sub(r"\s+", " ", raw_text(k)).strip()
+                if dt:
+                    flag(art, "шапочная дата «%s» опущена — render рисует дату из FM" % dt[:30])
+            i += 1
+            continue
+        # ---- роли ----
+        if is_epi(k):
+            b = emit_epi(k, art)
+            if b:
+                blocks.append(b)
+                st["started"] = True
+            i += 1
+            continue
+        if t in ("h2", "h3"):
+            htext = re.sub(r"\s+", " ", inline(k, art).strip())
+            low = htext.lower()
+            hid = k["attrs"].get("id", "")
+            if hid == "epigraph" or low in ("эпиграф", "эпиграфы"):
+                i += 1
+                continue  # надпись над [epi]-блоком — render её не требует
+            if htext:
+                # слаг: id самого h2 → id родителя-СЕКЦИИ (sec-див с единственным
+                # h2, 237) → <a name>. Родителя-контейнера с многими h2 не брать.
+                slug = k["attrs"].get("id")
+                if not slug and node["attrs"].get("id") and 1 == sum(
+                        1 for x in node["kids"]
+                        if isinstance(x, dict) and x["tag"] in ("h2", "h3")):
+                    slug = node["attrs"].get("id")
+                if not slug:
+                    a = first(k, lambda x: x["tag"] == "a" and x["attrs"].get("name"))
+                    slug = a["attrs"].get("name") if a else None
+                blocks.append("## %s%s" % (htext, " {%s}" % slug if slug else ""))
+                st["started"] = True
+                if t == "h3":
+                    flag(art, "h3 «%s» → ## (в ZML3 нет ###)" % htext[:40])
+            i += 1
+            continue
+        if is_music_container(k):
+            labels = find(k, lambda x: bool(cls(x) & LABEL_CLS))
+            tracks = find(k, is_track)
+            b = emit_music(labels + tracks, art)
+            if b:
+                blocks.append(b)
+                st["started"] = True
+            i += 1
+            continue
+        if is_track(k) or (c & LABEL_CLS):
+            run = []
+            while i < len(kids):  # пробельные текст-ноды между плитками не рвут ран
+                k2 = kids[i]
+                if isinstance(k2, str):
+                    if k2.strip():
+                        break
+                    i += 1
+                    continue
+                if is_track(k2) or (cls(k2) & LABEL_CLS):
+                    run.append(k2)
+                    i += 1
+                else:
+                    break
+            b = emit_music(run, art)
+            if b:
+                blocks.append(b)
+                st["started"] = True
+            continue
+        if "sec-sub" in c:
+            b = emit_subsec(k, art)
+            if b:
+                blocks.append(b)
+            i += 1
+            continue
+        if "subtitle" in c and t in ("div", "p", "h2", "h3"):
+            sub = re.sub(r"\s+", " ", inline(k, art).strip())
+            if sub:
+                blocks.append("[sub]%s[/sub]" % sub)
+            i += 1
+            continue
+        if c & {"verse", "poem"} or t == "pre":
+            vb = emit_verse_blocks(k, art)
+            if vb:
+                blocks.extend(vb)
+                st["started"] = True
+            i += 1
+            continue
+        if c & {"stanza", "st"}:
+            run = []
+            while i < len(kids):  # пробельные текст-ноды между строфами не рвут ран (182)
+                k2 = kids[i]
+                if isinstance(k2, str):
+                    if k2.strip():
+                        break
+                    i += 1
+                    continue
+                if cls(k2) & {"stanza", "st"}:
+                    run.append(k2)
+                    i += 1
+                else:
+                    break
+            b = emit_stanzas(run, art)
+            if b:
+                blocks.append(b)
+                st["started"] = True
+            continue
+        if t == "blockquote":
+            b = emit_quote(k, art)
+            if b:
+                blocks.append(b)
+                st["started"] = True
+            i += 1
+            continue
+        if t == "ol":
+            items = []
+            for li in [x for x in k["kids"] if isinstance(x, dict) and x["tag"] == "li"
+                       and id(x) not in st["consumed"]]:
+                lines = [l for l in _mark_lines(li, art) if l]
+                if len(lines) > 1:
+                    flag(art, "переносы внутри пункта [num] сплющены (формат flow)")
+                txt = " ".join(lines).strip()
+                if txt:
+                    items.append(txt)
+            if items:
+                blocks.append("[num]\n" + "\n\n".join(items) + "\n[/num]")
+                st["started"] = True
+            i += 1
+            continue
+        if t == "ul":
+            emitted = False
+            for li in [x for x in k["kids"] if isinstance(x, dict) and x["tag"] == "li"
+                       and id(x) not in st["consumed"]]:
+                txt = " ".join(l for l in _mark_lines(li, art) if l).strip()
+                if txt:
+                    blocks.append("— " + txt)
+                    emitted = True
+            if emitted:
+                st["started"] = True
+                flag(art, "ul-список → абзацы с тире (bulleted-блока в ZML3 нет)")
+            i += 1
+            continue
+        if t in ("table", "dl"):
+            for row in find(k, lambda x: x["tag"] in ("tr", "dt", "dd")):
+                txt = re.sub(r"\s+", " ", inline(row, art, "space")).strip()
+                if txt:
+                    blocks.append(txt)
+            flag(art, "%s — вне формата, строки выгружены прозой (нужен ручной/LLM разбор)" % t)
+            i += 1
+            continue
+        if t == "p":
+            if c & DIALOG_CLS:
+                flag(art, "диалоговая разметка (.%s) → проза" % "/".join(sorted(c & DIALOG_CLS)))
+            out = para_blocks(k, art)
+            if out:
+                st["started"] = True
+            blocks.extend(out)
+            i += 1
+            continue
+        if c & DIALOG_CLS:
+            flag(art, "диалоговая разметка (.%s) → проза" % "/".join(sorted(c & DIALOG_CLS)))
+            walk(k, blocks, art, st)
+            i += 1
+            continue
+        # значимый голый текст прямо в контейнере → лист-абзац (аудит: 1277 узлов)
+        direct = "".join(x for x in k["kids"] if isinstance(x, str))
+        has_block_kids = any(isinstance(x, dict) and x["tag"] not in INLINE_TAGS
+                             for x in k["kids"])
+        if re.sub(r"\s+", "", direct) and not has_block_kids:
+            out = para_blocks(k, art)
+            if out:
+                st["started"] = True
+            blocks.extend(out)
+            i += 1
+            continue
+        # неопознанная обёртка → спуск (НИЧЕГО не выбрасываем молча)
+        walk(k, blocks, art, st)
+        i += 1
+    flush_run()
+
+
+# ── оракул покрытия ──────────────────────────────────────────────────────────
+ORACLE_CHROME = CHROME_CLS | {"pop", "fn-pop", "fnpop", "dateline", "date",
+                              "prev", "next"}
+
+
+def visible_text(root):
+    def deep(n):
+        out = []
+        for k in n["kids"]:
+            if isinstance(k, str):
+                out.append(k)
+                continue
+            if k["tag"] in ("header", "nav", "footer", "h1"):
+                continue
+            if cls(k) & ORACLE_CHROME:
+                continue
+            out.append(deep(k))
+        return "".join(out)
+    return deep(root)
+
+
+_BLOCK_TAG_RX = re.compile(r"^\[/?(mus|poem|epi|quote|num|sub|subsec|spl|sig|cry|shir)\b[^\]]*\]\s*$")
+
+
+def zml_visible_text(zml):
+    out = []
+    mfm = re.match(r"^---(.*?)---\s*", zml, flags=re.S)
+    body = zml[mfm.end():] if mfm else zml
+    if mfm:  # notes_title из FM рисуется render'ом — видимый текст
+        mt = re.search(r"^notes_title:\s*(.+)$", mfm.group(1), re.M)
+        if mt:
+            out.append(mt.group(1))
+    for ln in body.split("\n"):
+        s = ln.strip()
+        if _BLOCK_TAG_RX.match(s):
+            # текст в атрибутах блока (cite=/label) — тоже видимый контент
+            out.append(" ".join(re.findall(r'="([^"]*)"', s)))
+            if re.match(r"^\[mus\]\s*$", s):
+                out.append("Музыка под настроение")  # дефолт-лейбл render'а
+            continue
+        if s.startswith("## "):
+            out.append(s[3:])
+            continue
+        m = re.match(r"^\[(\S*)\|([^|\]]*)\|([^|\]]*)\]$", s)  # трек-строка
+        if m:
+            out.append(m.group(2) + " " + m.group(3))
+            continue
+        s = re.sub(r"\[/?(?:mus|poem|epi|quote|num|sub|subsec|spl|sig|cry|shir)\b[^\]]*\]",
+                   " ", s)  # однострочная форма [sub]…[/sub]
+        s = re.sub(r"\[\^[\d*]*(?:\|[^\]]*)?\]:?", "", s)
+        s = re.sub(r"\[\^?\d*\]:?", "", s)
+        s = re.sub(r"\[[^\]|]*\|([^\]]*)\]", r"\1", s)
+        # [[ID]] render резолвит в заголовок статьи — он видим в оригинале
+        s = re.sub(r"\[\[([^\]]*)\]\]",
+                   lambda m: MANIFEST.get(m.group(1), {}).get("title", ""), s)
+        s = re.sub(r"\{[^}]*\}", "", s)
+        out.append(s)
+    return " ".join(out)
+
+
+def coverage(root, zml):
+    ov = len(re.sub(r"\s+", "", visible_text(root)))
+    zv = len(re.sub(r"\s+", "", zml_visible_text(zml)))
+    return round(zv / ov, 3) if ov else None
+
+
+# ── main ─────────────────────────────────────────────────────────────────────
+def convert(art):
+    html = (ART / f"{art}.html").read_text("utf-8")
+    meta = {}
+    mm = re.search(r'id="yanik-meta"[^>]*>\s*(\{.*?\})\s*</script>', html, re.S)
+    if mm:
+        try:
+            meta = json.loads(mm.group(1))
+        except Exception:
+            pass
+    body_html = re.search(r"<body[^>]*>(.*)</body>", html, re.S).group(1)
+    body_html = re.sub(r"<(script|style)[^>]*>.*?</\1>", "", body_html, flags=re.S)
+    t = Tree()
+    t.feed(body_html)
+    root = t.root
+
+    rec = MANIFEST.get(art, {})
+    scheme = meta.get("scheme", "editorial")
+    theme = "B_manuscript" if scheme == "manuscript" else "A_editorial"
+    width = "narrow" if scheme == "manuscript" else "wide"
+
+    # title — ZML3 B8: in-article H1 takes PRIORITY over the manifest title
+    h1 = first(root, lambda x: x["tag"] == "h1")
+    h1txt = re.sub(r"\s+", " ", inline(h1, art).strip()).replace("🎧", "").strip() if h1 else ""
+    h1txt = re.sub(r"\[\^\d*\]", "", h1txt).strip()  # сноска-маркер в title не живёт
+    title = h1txt or rec.get("title") or art
+
+    # audio narration 🎧 → frontmatter audio:[{url,label}]. Озвучка — это ЯВНЫЙ
+    # признак: класс audio-link / «ауди»-подпись / t.me-ссылка в шапке (h1 или
+    # рядом с лейблом «Аудиоверсия»). Голая t.me-ссылка в ТЕЛЕ — контент (42DA),
+    # остаётся обычной ссылкой.
+    audio = []
+    seen_audio = set()
+    h1_ids = {id(x) for x in find(h1, lambda y: True)} if h1 else set()
+    # ссылки внутри явных аудио-контейнеров (p.audio > span.label «Аудиоверсия:» — 29M)
+    for box in find(root, lambda x: any("audio" in cc for cc in cls(x))
+                    or re.match(r"(?i)\s*(аудио|озвучк)", raw_text(x) or "")
+                    and len(raw_text(x)) < 120):
+        h1_ids |= {id(x) for x in find(box, lambda y: True)}
+    AUDIO_HREFS.clear()
+    for a in find(root, lambda x: x["tag"] == "a" and (x["attrs"].get("href") or "")):
+        href = (a["attrs"].get("href") or "").strip()
+        c = cls(a)
+        label = (a["attrs"].get("title") or a["attrs"].get("aria-label") or "").strip()
+        is_audio = ("audio-link" in c
+                    or ("t.me/" in href and (
+                        re.search(r"(?i)ауди|озвуч", label)
+                        or id(a) in h1_ids
+                        or "audio" in " ".join(c))))
+        if not is_audio or not href or href in seen_audio:
+            continue
+        seen_audio.add(href)
+        AUDIO_HREFS.add(href)
+        audio.append({"url": href, "label": label})
+
+    # сноски — ДО walk (walk скипает consumed-узлы; FN_ID_MAP — до резолва ссылок)
+    FN_ID_MAP.clear()
+    fns, consumed, first_cont = collect_footnotes(root, art)
+    if not fns:
+        # схема 1CB: notes-секции НЕТ, определения живут ВНУТРИ inline-попапов
+        # span.fnref («1Целем (ивр.) - …») — маркер inline() извлекает, тело
+        # иначе пропадало бы. Цифра + содержательное тело → [^N]-определение.
+        seen_n = set()
+        for sp in find(root, lambda x: x["tag"] in ("span", "sup")
+                       and bool(cls(x) & FNREF_A_CLS)):
+            txt = re.sub(r"\s+", " ", raw_text(sp)).strip()
+            m = re.match(r"^(\d+)\s*(\S.{15,})$", txt)
+            if m and int(m.group(1)) not in seen_n:
+                seen_n.add(int(m.group(1)))
+                fns.append((int(m.group(1)), m.group(2).strip(), ""))
+        if fns:
+            flag(art, "inline-определения сносок (в .fnref-попапах) → [^N] (%d шт.)" % len(fns))
+    fn_lines = []
+    for num, txt, prefix in fns:
+        if num is not None:
+            fn_lines.append("[^%d]: %s" % (num, txt))
+        elif prefix and re.fullmatch(r"\*+", prefix):
+            fn_lines.append("[^%s]: %s" % (prefix, txt))  # звёздная сноска (первоклассная)
+        elif prefix:
+            fn_lines.append("[^|%s]: %s" % (prefix, txt))
+        else:
+            fn_lines.append("[^]: %s" % txt)
+
+    blocks = []
+    st = {"consumed": consumed, "started": False}
+    walk(root, blocks, art, st)
+
+    # notes_title (A2): авторский заголовок секции сносок → frontmatter
+    notes_title = find_notes_title(root, art, first_cont) if fns else ""
+    if notes_title:
+        pat = re.compile(r"##\s+" + re.escape(notes_title) + r"(?:\s+\{[^}]*\})?\s*$")
+        blocks = [b for b in blocks if not (isinstance(b, str) and pat.match(b))]
+
+    # сирота-лейбл аудио после выноса 🎧 в FM
+    if audio:
+        blocks = [b for b in blocks if not (isinstance(b, str) and re.match(
+            r"(?i)^(аудио[\w-]*|озвучк[аи]|слушать(\s+аудио\w*)?)\s*:?\s*$", b.strip()))]
+
+    # дубль title первым абзацем (бывает эхо H1) — не трогаем: H1-приоритет уже в FM
+
+    fm = ["---",
+          "title: %s" % title,
+          'art: "%s"' % art,
+          "date: %s" % rec.get("date_chosen", ""),
+          "image: %s.jpg" % art,
+          "theme: %s" % theme,
+          "width: %s" % width]
+    if notes_title and notes_title != "Примечания":
+        fm.append("notes_title: %s" % notes_title)
+    if audio:
+        fm.append("audio: %s" % json.dumps(audio, ensure_ascii=False))
+    fm += ["---", ""]
+    zml = "\n".join(fm) + "\n\n".join(b for b in blocks if b) + "\n"
+    if fn_lines:
+        zml += "\n\n" + "\n\n".join(fn_lines) + "\n"
+
+    # оракул-гейт: текст-масса оригинал↔ZML (вариант B аудита)
+    cov = coverage(root, zml)
+    if cov is not None and cov < 0.97:
+        flag(art, "ОРАКУЛ: покрытие %.3f < 0.97 — потеря текста, нужен разбор" % cov)
+    elif cov is not None and cov > 1.20:
+        flag(art, "ОРАКУЛ: покрытие %.3f > 1.20 — хром утёк в текст?" % cov)
+
+    (OUT / f"{art}.zml").write_text(zml, "utf-8")
+    (OUT / f"{art}.flags.txt").write_text(
+        "\n".join(f for f in FLAGS if f.startswith(f"[{art}]")) or "(нет флагов)", "utf-8")
+    return zml, cov
+
+
+if __name__ == "__main__":
+    ids = sys.argv[1:] or ["654", "237"]
+    for art in ids:
+        FLAGS.clear()
+        try:
+            zml, cov = convert(art)
+            print("OK", art, "cov=%.3f" % cov if cov is not None else "cov=?")
+        except Exception as e:
+            import traceback
+            print("ERR", art, e)
+            traceback.print_exc()

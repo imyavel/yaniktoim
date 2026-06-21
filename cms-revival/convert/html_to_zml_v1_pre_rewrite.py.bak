@@ -1,0 +1,739 @@
+# -*- coding: utf-8 -*-
+"""Ф4 — HTML→ZML экстрактор (первый срез, role-based).
+Корпус свёрстан LLM с РАЗНЫМИ именами классов на статью, но единой СЕМАНТИКОЙ
+(convert_prompt_005). Поэтому мапим по РОЛИ (структура + эвристики классов), а не
+по имени класса. Неуверенные места складываем в FLAGS — это материал для разбора
+«баг/не баг» с оператором.
+
+Usage: python html_to_zml.py <art-id> [<art-id> ...]
+  читает ../../yaniktoim/docs/art/<id>.html, пишет out/<id>.zml и out/<id>.flags.txt
+"""
+import json
+import re
+import sys
+from html.parser import HTMLParser
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+ART = ROOT / "yaniktoim" / "docs" / "art"
+MANIFEST = {r["art"]: r for r in json.loads((ROOT / "yaniktoim/manifest.json").read_text("utf-8"))}
+OUT = Path(__file__).resolve().parent / "out"
+OUT.mkdir(exist_ok=True)
+
+VOID = {"br", "img", "hr", "meta", "link", "input", "source"}
+
+
+class Tree(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.root = {"tag": "#root", "attrs": {}, "kids": []}
+        self.stack = [self.root]
+
+    def handle_starttag(self, t, attrs):
+        n = {"tag": t, "attrs": dict(attrs), "kids": []}
+        self.stack[-1]["kids"].append(n)
+        if t not in VOID:
+            self.stack.append(n)
+
+    def handle_startendtag(self, t, attrs):
+        self.stack[-1]["kids"].append({"tag": t, "attrs": dict(attrs), "kids": []})
+
+    def handle_endtag(self, t):
+        if t in VOID:
+            return
+        for i in range(len(self.stack) - 1, 0, -1):
+            if self.stack[i]["tag"] == t:
+                del self.stack[i:]
+                break
+
+    def handle_data(self, d):
+        self.stack[-1]["kids"].append(d)
+
+
+def cls(n):
+    return set((n.get("attrs", {}).get("class", "") or "").split())
+
+
+def find(n, pred, acc=None):
+    acc = acc if acc is not None else []
+    for k in n["kids"]:
+        if isinstance(k, dict):
+            if pred(k):
+                acc.append(k)
+            find(k, pred, acc)
+    return acc
+
+
+def first(n, pred):
+    r = find(n, pred)
+    return r[0] if r else None
+
+
+def prune(n, pred):
+    """Remove matching descendants in place (used to drop footnote .num chrome)."""
+    n["kids"] = [k for k in n["kids"] if not (isinstance(k, dict) and pred(k))]
+    for k in n["kids"]:
+        if isinstance(k, dict):
+            prune(k, pred)
+    return n
+
+
+def raw_text(n):
+    out = []
+    for k in n["kids"]:
+        if isinstance(k, str):
+            out.append(k)
+        elif k["tag"] == "br":
+            out.append("\n")
+        else:
+            out.append(raw_text(k))
+    return "".join(out)
+
+
+FLAGS = []
+
+
+def flag(art, msg):
+    FLAGS.append(f"[{art}] {msg}")
+
+
+# ── inline reconstruction ──────────────────────────────────────────────────
+def inline(n, art, br="space"):
+    """Serialize children to ZML inline text. br: 'space'|'nl'."""
+    out = []
+    for k in n["kids"]:
+        if isinstance(k, str):
+            out.append(k)
+            continue
+        t = k["tag"]
+        c = cls(k)
+        if t == "br":
+            out.append("\n" if br == "nl" else " ")
+        elif t == "sup":
+            out.append(fn_ref(k, art))
+        elif t == "a":
+            out.append(link(k, art))
+        elif t in ("em", "i"):
+            inner = inline(k, art, br).strip()
+            out.append(f"_{inner}_" if inner else "")
+        elif t in ("b", "strong"):
+            out.append(inline(k, art, br))  # ZML has no bold marker; keep text
+        elif t == "span":
+            if "pop" in c:
+                continue  # footnote preview bubble — generated, drop
+            out.append(inline(k, art, br))
+        else:
+            out.append(inline(k, art, br))
+    return "".join(out)
+
+
+def fn_ref(sup, art):
+    a = first(sup, lambda x: x["tag"] == "a")
+    if not a:
+        return ""
+    href = a["attrs"].get("href", "")
+    m = re.search(r"#(?:fn|cite_note-)?(\d+)", href) or re.search(r"(\d+)", raw_text(a))
+    return f"[^{m.group(1)}]" if m else ""
+
+
+def link(a, art):
+    href = a["attrs"].get("href", "")
+    c = cls(a)
+    txt = inline(a, art, "space").strip()
+    if "audio-link" in c or "t.me/" in href:
+        return ""  # audio narration → frontmatter audio: (collected in convert)
+    if "back" in c or "self" in c or href.startswith("#"):
+        # anchor / back-to-top. If it WRAPS real text (corpus puts the section
+        # title inside the #top link), keep the text; if it's just an arrow, drop.
+        if txt and not re.fullmatch(r"[↑↟↩↪⮌▴▾^⌃→←»«›‹\s]+", txt):
+            return txt
+        return ""  # bare back-to-top / backref — render regenerates it
+    mz = re.search(r"zohar-sulam/([a-z][a-z-]*)/0*(\d+)\.html", href)
+    if mz:
+        return "{%s|%s}" % (mz.group(1), mz.group(2))
+    if re.fullmatch(r"[A-Za-z0-9]+\.html", href):  # local corpus article
+        return "[[%s]]" % href[:-5]
+    if href.startswith("http"):
+        if "zohar-sulam" in href:  # site root etc — keep as external
+            return "[%s|%s]" % (href, txt) if txt and txt != href else "[%s]" % href
+        return "[%s|%s]" % (href, txt) if txt and txt != href else "[%s]" % href
+    return txt
+
+
+# ── epigraph detection (role-based, scheme-agnostic) ──────────────────────────
+# The corpus marks an epigraph THREE ways: div.epi>.epi-body (237), bare p.epi
+# with a .src cite (266), blockquote.epigraph with <cite> (34O). All are one role.
+def is_epi(x):
+    if not isinstance(x, dict):
+        return False
+    c = cls(x)
+    if "epis" in c:                       # the .epis WRAPPER, not an epigraph
+        return False
+    if "epi" in c and x["tag"] in ("div", "p"):
+        return True
+    if "epigraph" in c and x["tag"] in ("blockquote", "div", "p"):
+        return True
+    return False
+
+
+def _epi_is_cite(x):
+    return isinstance(x, dict) and (
+        x["tag"] == "cite" or bool(cls(x) & {"cite", "epi-cite", "src"}))
+
+
+def _shallow(n):
+    return {"tag": n["tag"], "attrs": n["attrs"], "kids": list(n["kids"])}
+
+
+# ── block emitters ──────────────────────────────────────────────────────────
+def emit_epi(n, art):
+    # cite: a .cite/.epi-cite/.src span or a <cite> tag (may be nested in body).
+    cite_el = first(n, _epi_is_cite)
+    cite = ""
+    if cite_el:
+        tmp = _shallow(cite_el)
+        prune(tmp, lambda x: x["tag"] == "sup")  # drop footnote ref from cite text
+        cite = re.sub(r"\s+", " ", raw_text(tmp)).strip().strip("—").strip()
+    body = first(n, lambda x: "epi-body" in cls(x)) or n
+    # serialize body WITHOUT the cite element (p.epi>.src / blockquote>cite nest
+    # it inside the body) so its text isn't duplicated into the epigraph.
+    body = prune(_shallow(body), _epi_is_cite)
+    # <br> = authorial line break; the source leaves a cosmetic "\n+indent" after
+    # each. Strip that (newline followed by spaces → space) but keep bare <br>
+    # newlines — so a double <br> survives as a blank line = authorial stanza gap.
+    raw = re.sub(r"\n[ \t]+", " ", inline(body, art, "nl"))
+    rawlines = [ln.strip() for ln in raw.split("\n")]
+    lines = []
+    for ln in rawlines:  # collapse blank runs to one, keep single stanza gaps
+        if ln or (lines and lines[-1]):
+            lines.append(ln)
+    while lines and not lines[-1]:
+        lines.pop()
+    while lines and not lines[0]:
+        lines.pop(0)
+    nonblank = [l for l in lines if l]
+    # verse = several short, line-broken lines; long <br>-runs (CAPS periods /
+    # wrapped prose) are NOT verse → flow them. Operator overrides kind= in editor.
+    verse = len(nonblank) >= 2 and sum(len(l) for l in nonblank) / len(nonblank) < 50
+    if verse:
+        txt = "\n".join(lines)  # keep line breaks AND blank-line stanza gaps
+    else:
+        txt = re.sub(r"\s{2,}", " ", " ".join(nonblank)).strip()
+    attrs = ' kind="verse"' if verse else ""
+    if cite:
+        attrs += ' cite="%s"' % cite
+    return "[epi%s]\n%s\n[/epi]" % (attrs, txt)
+
+
+def emit_subsec(node, art):
+    # section subtitle (.sec-sub): keep authorial <br> lines; strip cosmetic indent.
+    lines = [l.strip() for l in re.sub(r"\n[ \t]+", " ", inline(node, art, "nl")).split("\n") if l.strip()]
+    return "[subsec]\n" + "\n".join(lines) + "\n[/subsec]"
+
+
+def _clean_stanza(raw):
+    # source HTML pretty-prints verse lines as "<br>\n      next" → strip the
+    # indentation/newlines per line, drop blanks; one clean \n between lines.
+    lines = [ln.strip() for ln in raw.split("\n")]
+    lines = [ln for ln in lines if ln]
+    return "\n".join(lines)
+
+
+def emit_stanzas(stanzas, art):
+    """Build a [poem] from stanza nodes. Lines come from .line/.ln children
+    (34O/29M scheme), else from <br>-split text (237 scheme)."""
+    out = []
+    for st in stanzas:
+        line_els = [k for k in st["kids"]
+                    if isinstance(k, dict) and (cls(k) & {"line", "ln", "verse-line"})]
+        if line_els:
+            lines = [re.sub(r"\s+", " ", inline(l, art, "space").strip()) for l in line_els]
+            s = "\n".join(l for l in lines if l)
+        else:
+            s = _clean_stanza(inline(st, art, "nl"))
+        if s:
+            out.append(s)
+    return "[poem]\n" + "\n\n".join(out) + "\n[/poem]" if out else ""
+
+
+def emit_verse(n, art):
+    # a .verse/.poem wrapper, a single stanza, or a block of <br>-lines.
+    sts = find(n, lambda x: cls(x) & {"st", "stanza"})
+    if sts:
+        return emit_stanzas(sts, art)
+    if cls(n) & {"st", "stanza"}:
+        return emit_stanzas([n], art)
+    stanzas = []
+    for b in re.split(r"\n\s*\n", inline(n, art, "nl")):
+        s = _clean_stanza(b)
+        if s:
+            stanzas.append(s)
+    return "[poem]\n" + "\n\n".join(stanzas) + "\n[/poem]" if stanzas else ""
+
+
+def _clean_track_text(s):
+    # raw_text leaks pretty-print newlines and, when a control glyph isn't in its
+    # own classed span, the ▶ play arrow (t-arrow) / ↗ ext-link (t-ext). Collapse
+    # whitespace and strip those edge glyphs so the [url|title|author] line stays
+    # single-line and parseable by render.
+    s = re.sub(r"\s+", " ", s or "").strip()
+    s = re.sub(r"^[▶▷►▸‣▹➤·•\s]+", "", s)
+    s = re.sub(r"\s*[↗↪➚⧉⇗➦]\s*$", "", s).strip()
+    return s
+
+
+def emit_music(blocks, art):
+    """blocks: list of track-ish nodes (and a label). Build one [mus]."""
+    label = ""
+    lines = []
+    for b in blocks:
+        c = cls(b)
+        if "music-label" in c:
+            label = raw_text(b).strip().rstrip(":")
+            continue
+        # find url
+        url = ""
+        ae = first(b, lambda x: x["tag"] == "a" and ("ext" in " ".join(cls(x)) or "youtu" in x["attrs"].get("href", "")))
+        if ae:
+            url = ae["attrs"].get("href", "")
+        if not url:
+            de = first(b, lambda x: x.get("attrs", {}).get("data-embed") or x.get("attrs", {}).get("data-yt"))
+            if de:
+                d = de["attrs"].get("data-embed") or de["attrs"].get("data-yt")
+                url = d if d.startswith("http") else "https://youtu.be/" + d
+            elif b["attrs"].get("data-yt") or b["attrs"].get("data-embed"):
+                d = b["attrs"].get("data-yt") or b["attrs"].get("data-embed")
+                url = d if d.startswith("http") else "https://youtu.be/" + d
+        # title / author. Recognise the corpus' title-span classes (incl. t-title,
+        # which wraps "<b>title</b> <span>— author</span>"). Prefer the INNER name
+        # span over a .track-title WRAPPER that would swallow the artist span.
+        name = (first(b, lambda x: cls(x) & {"t-name", "tname", "tk-name", "name"})
+                or first(b, lambda x: cls(x) & {"t-title", "ttitle", "track-title", "track-name", "m-title", "song-title"}))
+        artn = first(b, lambda x: cls(x) & {"t-art", "tartist", "t-artist", "tk-art", "t-author", "artist"})
+        if name:
+            title = _clean_track_text(raw_text(name))
+            author = _clean_track_text(re.sub(r"^[—–-]\s*", "", raw_text(artn))) if artn else ""
+        else:
+            title = _clean_track_text(raw_text(b))
+            author = ""
+        if not author and " — " in title:  # "Song — Author" combined in one span
+            title, author = [_clean_track_text(s) for s in title.split(" — ", 1)]
+        if not url and not title:
+            continue  # ZML3: a [mus] track is valid with ≥1 field (title OR url);
+        lines.append("[%s|%s|%s]" % (url, title, author))  # keep url-only / title-only
+    head = "[mus]" if not label or "настроени" in label.lower() else '[mus="%s"]' % label
+    if not lines:
+        return ""  # no valid tracks → no empty [mus]
+    return head + "\n" + "\n".join(lines) + "\n[/mus]"
+
+
+def slug_of(h2, block):
+    for el in (block, h2):
+        i = el["attrs"].get("id")
+        if i:
+            return i
+    a = first(h2, lambda x: x["tag"] == "a" and x["attrs"].get("name"))
+    return a["attrs"].get("name") if a else None
+
+
+# ── footnotes ────────────────────────────────────────────────────────────────
+def collect_footnotes(body, art):
+    out = []
+    # style 654: <ol class="notes"><li id="fnN">body <a.back href=#refN></li>
+    ol = first(body, lambda x: x["tag"] == "ol" and "notes" in cls(x))
+    if ol:
+        for li in find(ol, lambda x: x["tag"] == "li"):
+            num = _fn_number(li, from_id=True)
+            prune(li, lambda x: "num" in cls(x))
+            txt = strip_backref(inline(li, art, "space"))
+            out.append((num, txt))
+        return out
+    # style 237: <div class="fn">…<a.back href=#rN></div> (+ .fn.anon)
+    div_fns = find(body, lambda x: x["tag"] == "div" and "fn" in cls(x))
+    if div_fns:
+        for fn in div_fns:
+            num = _fn_number(fn, from_id=False)
+            prune(fn, lambda x: "num" in cls(x))  # number is carried by the [^N] marker
+            txt = strip_backref(inline(fn, art, "space"))
+            out.append((num, txt))
+        return out
+    # style 266: <ul class="fnlist"><li class="fn" id="fnN"><span.num>[N]</span>
+    #            <span.fn-body>…</span><a.backref>↩</a></li>  (otherwise the [N]
+    # markers in the body dangle — the definitions would be lost entirely).
+    li_fns = find(body, lambda x: x["tag"] == "li" and "fn" in cls(x))
+    if li_fns:
+        for li in li_fns:
+            num = _fn_number(li, from_id=True)
+            be = first(li, lambda x: "fn-body" in cls(x))
+            if be is None:
+                be = prune(_shallow(li), lambda x: bool(cls(x) & {"num", "backref", "back"}))
+            txt = strip_backref(inline(be, art, "space"))
+            out.append((num, txt))
+        return out
+    # style 182: <p class="note" id="fnN"><span class="marker">*N</span>…<a.back>↑</p>
+    # (asterisk markers; the number comes from the back-ref href / id, not .marker)
+    for p in find(body, lambda x: x["tag"] == "p" and "note" in cls(x)):
+        num = _fn_number(p, from_id=True)
+        be = prune(_shallow(p), lambda x: bool(cls(x) & {"marker", "num", "back", "backref"}))
+        txt = strip_backref(inline(be, art, "space"))
+        out.append((num, txt))
+    return out
+
+
+def _fn_number(fn, from_id):
+    """Authoritative note number: prefer the .num span, then the back-arrow href,
+    then the id. Keeps orphan/anon notes numbered instead of dropping to [^]."""
+    numspan = first(fn, lambda x: "num" in cls(x))
+    if numspan:
+        m = re.search(r"\d+", raw_text(numspan))
+        if m:
+            return int(m.group())
+    back = first(fn, lambda x: "back" in cls(x))
+    if back:
+        m = re.search(r"#r(?:ef)?(\d+)", back["attrs"].get("href", ""))
+        if m:
+            return int(m.group(1))
+    if from_id:
+        m = re.search(r"(\d+)", fn["attrs"].get("id", ""))
+        if m:
+            return int(m.group(1))
+    return None
+
+
+def strip_backref(s):
+    # corpus ends a note with a back-to-reference arrow: ↑ or ↩ (variants ↪⮌)
+    return re.sub(r"\s*[↑↩↪⮌]\s*$", "", s).strip()
+
+
+def find_notes_title(root, art):
+    """Authorial heading that titles the COLLECTED notes block (ZML3 A2): the last
+    <h2> in document order before the notes container (ol.notes / div.fn) begins.
+    e.g. «Полезные ссылки» (237, id=notes), «Пост скриптум» (654, id=sec3)."""
+    state = {"h2": "", "found": None}
+
+    def is_start(x):
+        c = cls(x)
+        return ((x["tag"] == "ol" and "notes" in c)
+                or (x["tag"] == "div" and "fn" in c)
+                or (x["tag"] == "li" and "fn" in c)
+                or (x["tag"] == "p" and "note" in c))
+
+    def walk(n):
+        for k in n["kids"]:
+            if not isinstance(k, dict) or state["found"] is not None:
+                continue
+            if is_start(k):
+                state["found"] = state["h2"]
+                return
+            if k["tag"] == "h2":
+                state["h2"] = re.sub(r"\s+", " ", inline(k, art).strip())
+            walk(k)
+
+    walk(root)
+    return state["found"] or ""
+
+
+# ── main walk ────────────────────────────────────────────────────────────────
+def convert(art):
+    html = (ART / f"{art}.html").read_text("utf-8")
+    meta = {}
+    mm = re.search(r'id="yanik-meta"[^>]*>\s*(\{.*?\})\s*</script>', html, re.S)
+    if mm:
+        try:
+            meta = json.loads(mm.group(1))
+        except Exception:
+            pass
+    body_html = re.search(r"<body[^>]*>(.*)</body>", html, re.S).group(1)
+    body_html = re.sub(r"<(script|style)[^>]*>.*?</\1>", "", body_html, flags=re.S)
+    t = Tree()
+    t.feed(body_html)
+    root = t.root
+
+    rec = MANIFEST.get(art, {})
+    scheme = meta.get("scheme", "editorial")
+    theme = "B_manuscript" if scheme == "manuscript" else "A_editorial"
+    width = "narrow" if scheme == "manuscript" else "wide"
+
+    # title — ZML3 B8: an in-article H1 takes PRIORITY over the manifest title
+    # (the H1 is the authorial long form, e.g. 237; manifest is the short fallback).
+    h1 = first(root, lambda x: x["tag"] == "h1")
+    h1txt = re.sub(r"\s+", " ", inline(h1, art).strip()).replace("🎧", "").strip() if h1 else ""
+    title = h1txt or rec.get("title") or art
+
+    # audio narration 🎧 (ZML3 new element): t.me links in/near H1, possibly
+    # several (by parts of the article). Captured into frontmatter audio:[{url,
+    # label}]; render draws the 🎧 by H1. (Body inline() drops them — see link().)
+    audio = []
+    seen_audio = set()
+    for a in find(root, lambda x: x["tag"] == "a" and (
+            "audio-link" in cls(x) or "t.me/" in (x["attrs"].get("href") or ""))):
+        href = (a["attrs"].get("href") or "").strip()
+        if not href or href in seen_audio:
+            continue
+        seen_audio.add(href)
+        label = (a["attrs"].get("title") or a["attrs"].get("aria-label") or "").strip()
+        audio.append({"url": href, "label": label})
+    if audio:
+        flag(art, "аудио-озвучка 🎧 ×%d → frontmatter audio:" % len(audio))
+
+    blocks = []  # ordered ZML chunks (body)
+
+    # subtitle
+    sub = first(root, lambda x: x["tag"] in ("div", "p") and "subtitle" in cls(x))
+    if sub:
+        blocks.append("[sub]%s[/sub]" % re.sub(r"\s+", " ", inline(sub, art).strip()))
+
+    # lead-source (654) → leading paragraph
+    ls = first(root, lambda x: "lead-source" in cls(x))
+    if ls:
+        blocks.append(inline(ls, art).strip())
+        flag(art, "lead-source отображён как лид-параграф")
+
+    # sections: prefer .sec-block; else flat (h2 + following siblings)
+    secblocks = find(root, lambda x: "sec-block" in cls(x))
+
+    # epigraphs INSIDE a section are emitted by walk_section (in document order);
+    # the head loop must take ONLY intro-level epigraphs, else section epigraphs
+    # would be duplicated (the global find() recurses into sec-blocks too).
+    sec_epi_ids = {id(e) for sb in secblocks for e in find(sb, is_epi)}
+    for epi in find(root, is_epi):
+        if id(epi) not in sec_epi_ids:
+            blocks.append(emit_epi(epi, art))
+
+    n_before = len(blocks)
+    if secblocks:
+        for sb in secblocks:
+            walk_section(sb, blocks, art)
+    else:
+        walk_flat(root, blocks, art)
+    # Fallback for the many per-article class schemes the specific walks miss
+    # (.wrap/.body containers, bare .stanza verse, .music-block, .t-name/.tname…):
+    # if the specific walk produced no body blocks, walk the document generically.
+    if not [b for b in blocks[n_before:] if b]:
+        flag(art, "generic-walk fallback (специфичный walk пуст — другая схема классов)")
+        walk_generic(root, blocks, art)
+
+    # footnotes
+    fns = collect_footnotes(root, art)
+    fn_lines = []
+    for num, txt in fns:
+        if num is None:
+            fn_lines.append("[^]: %s" % txt)
+        else:
+            fn_lines.append("[^%d]: %s" % (num, txt))
+
+    # notes-section title (ZML3 A2): keep the authorial heading («Полезные ссылки»,
+    # «Пост скриптум» …) in frontmatter; render draws it instead of «Примечания».
+    # Only act when footnotes were actually collected — otherwise the in-body
+    # heading still anchors note paragraphs the collector missed (182/266 schemes).
+    notes_title = find_notes_title(root, art) if fns else ""
+    if notes_title:
+        # drop the in-body heading that titled the notes block — render re-emits it
+        # (the collected notes moved into the «Примечания»/notes_title section).
+        pat = re.compile(r"##\s+" + re.escape(notes_title) + r"(?:\s+\{[^}]*\})?\s*$")
+        blocks = [b for b in blocks if not (isinstance(b, str) and pat.match(b))]
+
+    # drop an orphan audio label («Аудиоверсия:», «Аудио:» …) left in the body after
+    # its 🎧 link was lifted to frontmatter — else it dangles as a label with no link.
+    if audio:
+        blocks = [b for b in blocks if not (isinstance(b, str) and re.match(
+            r"(?i)^(аудио[\w-]*|озвучк[аи]|слушать(\s+аудио\w*)?)\s*:?\s*$", b.strip()))]
+
+    fm = ["---",
+          "title: %s" % title,
+          'art: "%s"' % art,
+          "date: %s" % rec.get("date_chosen", ""),
+          "image: %s.jpg" % art,
+          "theme: %s" % theme,
+          "width: %s" % width]
+    if notes_title and notes_title != "Примечания":
+        fm.append("notes_title: %s" % notes_title)
+    if audio:
+        fm.append("audio: %s" % json.dumps(audio, ensure_ascii=False))
+    fm += ["---", ""]
+    zml = "\n".join(fm) + "\n\n".join(b for b in blocks if b) + "\n"
+    if fn_lines:
+        zml += "\n\n" + "\n\n".join(fn_lines) + "\n"
+    (OUT / f"{art}.zml").write_text(zml, "utf-8")
+    (OUT / f"{art}.flags.txt").write_text("\n".join(f for f in FLAGS if f.startswith(f"[{art}]")) or "(нет флагов)", "utf-8")
+    return zml
+
+
+SKIP_CLASS = {"crumbs", "breadcrumbs", "toc", "rule-orn", "artline", "byline",
+              "title", "subtitle", "hero", "lead-source", "epis", "epi",
+              "notes", "fn", "attrib", "license", "music-label"}
+
+
+def is_music(n):
+    c = cls(n)
+    return ("track" in c or "music-group" in c or "player" in c
+            or n["attrs"].get("data-yt") or "music-label" in c)
+
+
+def walk_section(sb, blocks, art):
+    # notes section (.fn divs, no prose/verse/music): footnotes are collected
+    # globally and render.js auto-adds the «Примечания» heading → skip entirely.
+    if find(sb, lambda x: x["tag"] == "div" and "fn" in cls(x)) and not find(
+        sb, lambda x: bool(cls(x) & {"prose", "verse"}) or is_music(x)):
+        return
+    h2 = first(sb, lambda x: x["tag"] == "h2")
+    if h2:
+        slug = slug_of(h2, sb)
+        htxt = re.sub(r"\s+", " ", inline(h2, art).strip())
+        blocks.append("## %s%s" % (htxt, " {%s}" % slug if slug else ""))
+    # music section: gather all tracks into one [mus].
+    if find(sb, is_music):
+        ss = first(sb, lambda x: "sec-sub" in cls(x))
+        if ss:
+            blocks.append(emit_subsec(ss, art))
+        labels = find(sb, lambda x: "music-label" in cls(x))
+        tracks = find(sb, lambda x: ("track" in cls(x) or "player" in cls(x)) and x["tag"] in ("div", "details"))
+        blocks.append(emit_music(labels + tracks, art))
+        return
+    # otherwise walk direct children IN DOCUMENT ORDER (sec-sub → epigraph →
+    # verse → prose), so a section epigraph stays BEFORE its verse, not after.
+    for ch in sb["kids"]:
+        if not isinstance(ch, dict) or ch is h2:
+            continue
+        c = cls(ch)
+        if "sec-sub" in c:
+            blocks.append(emit_subsec(ch, art))
+        elif is_epi(ch):
+            blocks.append(emit_epi(ch, art))
+        elif "verse" in c:
+            blocks.append(emit_verse(ch, art))
+        elif "prose" in c:
+            for p in find(ch, lambda x: x["tag"] == "p"):
+                blocks.append(inline(p, art).strip())
+        elif ch["tag"] == "p":
+            txt = inline(ch, art).strip()
+            if txt:
+                blocks.append(txt)
+
+
+def walk_flat(root, blocks, art):
+    # 654-style: iterate direct children of the content container in order
+    cont = first(root, lambda x: "container" in cls(x) or x["tag"] == "article") or root
+    pending_music = []
+    for k in cont["kids"]:
+        if not isinstance(k, dict):
+            continue
+        c = cls(k)
+        if k["tag"] == "h2":
+            slug = slug_of(k, k)
+            blocks.append("## %s%s" % (re.sub(r"\s+", " ", inline(k, art).strip()), " {%s}" % slug if slug else ""))
+        elif "music-group" in c:
+            labels = find(k, lambda x: "music-label" in cls(x))
+            tracks = find(k, lambda x: "track" in cls(x))
+            blocks.append(emit_music(labels + tracks, art))
+        elif is_epi(k):
+            continue  # intro-level epigraphs already emitted by the head loop
+        elif "verse" in c:
+            blocks.append(emit_verse(k, art))
+        elif k["tag"] == "p" and not (
+                c & {"attrib", "license", "lead-source", "epi", "epigraph",
+                     "epigraph-label", "epi-label"}):
+            txt = inline(k, art).strip()
+            if txt:
+                blocks.append(txt)
+
+
+# ── generic fallback walk (scheme-agnostic, per-article class names) ───────────
+MUSIC_CONT = {"music", "music-block", "music-group"}
+SKIP_GEN = SKIP_CLASS | {
+    "colophon", "hashtag", "ornament", "corpus-nav", "section-nav",
+    "build-date", "crumbs", "cover", "hero", "ratio", "player",
+    "epigraph-label", "epi-label", "title-orn", "src",
+}
+
+
+def walk_generic(node, blocks, art):
+    """Descend the document IN ORDER, emit blocks by ROLE (heading / music /
+    verse / prose), skip chrome. Epigraphs are emitted by the head loop, so they
+    are skipped here. Handles per-article class schemes the specific walks miss."""
+    kids = [k for k in node["kids"] if isinstance(k, dict)]
+    i = 0
+    while i < len(kids):
+        el = kids[i]
+        c = cls(el)
+        t = el["tag"]
+        if t in ("header", "nav", "footer", "script", "style", "h1") or (c & SKIP_GEN):
+            i += 1
+            continue
+        if is_epi(el):
+            i += 1  # epigraphs are emitted by the head loop, in document order
+            continue
+        if t == "h2":
+            hid = el["attrs"].get("id", "")
+            htext = re.sub(r"\s+", " ", inline(el, art).strip()).strip().lower()
+            # the «Эпиграф» section heading is redundant once the epigraph is a
+            # proper [epi] block at the top → suppress it.
+            if hid == "epigraph" or htext in ("эпиграф", "эпиграфы"):
+                i += 1
+                continue
+            slug = slug_of(el, el)
+            blocks.append("## %s%s" % (re.sub(r"\s+", " ", inline(el, art).strip()),
+                                       " {%s}" % slug if slug else ""))
+            i += 1
+            continue
+        if c & MUSIC_CONT:
+            labels = find(el, lambda x: "music-label" in cls(x))
+            tracks = find(el, lambda x: x["tag"] in ("div", "details") and "track" in cls(x))
+            blocks.append(emit_music(labels + tracks, art))
+            i += 1
+            continue
+        if el["tag"] in ("div", "details") and "track" in c:
+            # flat tracks NOT wrapped in a .music container (182): gather the run
+            # of consecutive track siblings into one [mus] (else each is descended
+            # into and its text lost).
+            run = []
+            while (i < len(kids) and kids[i]["tag"] in ("div", "details")
+                   and "track" in cls(kids[i])):
+                run.append(kids[i])
+                i += 1
+            blocks.append(emit_music(run, art))
+            continue
+        if "sec-sub" in c:
+            blocks.append(emit_subsec(el, art))
+            i += 1
+            continue
+        if "verse" in c:
+            blocks.append(emit_verse(el, art))
+            i += 1
+            continue
+        if c & {"stanza", "st"}:  # bare stanzas → group consecutive into one poem
+            run = []
+            while i < len(kids) and (cls(kids[i]) & {"stanza", "st"}):
+                run.append(kids[i])
+                i += 1
+            blocks.append(emit_stanzas(run, art))
+            continue
+        if "prose" in c:
+            for p in find(el, lambda x: x["tag"] == "p"):
+                txt = inline(p, art).strip()
+                if txt:
+                    blocks.append(txt)
+            i += 1
+            continue
+        if t == "p":
+            txt = inline(el, art).strip()
+            if txt:
+                blocks.append(txt)
+            i += 1
+            continue
+        # unrecognized wrapper (.wrap/.body/.content/div) → descend
+        walk_generic(el, blocks, art)
+        i += 1
+
+
+if __name__ == "__main__":
+    ids = sys.argv[1:] or ["654", "237"]
+    for art in ids:
+        FLAGS.clear()
+        try:
+            convert(art)
+            print("OK", art, "->", f"out/{art}.zml")
+        except Exception as e:
+            import traceback
+            print("ERR", art, e)
+            traceback.print_exc()

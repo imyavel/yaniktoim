@@ -1,0 +1,113 @@
+/* ============================================================================
+ * base.css — ZML 2 invisible skeleton (theme-agnostic)
+ * ----------------------------------------------------------------------------
+ * Reset + structural defaults + variable HOOKS that every <theme>.css overrides.
+ * Carries the cross-theme BASELINE behaviors that the spec mandates everywhere:
+ *   (1) type-scale guard rails (floors/ceilings via clamp + min sizes);
+ *   (2) :target footnote highlight scaffolding (each theme paints it);
+ *   (3) reading-order connector scaffolding for multi-column verse themes.
+ * No palette/fonts here — only structure. Themes paint; base lays the bones.
+ * ============================================================================ */
+
+/* ---- variable hooks (neutral fallbacks; themes override in :root) --------- */
+:root {
+  --bg: #f4ede0;
+  --paper: #fbf7ee;
+  --ink: #221b12;
+  --ink-soft: #4a4036;
+  --muted: #8a7c66;
+  --accent: #9a2c23;
+  --accent-deep: #7d1f18;
+  --gold: #9a7a3b;
+  --rule: #d9ccb1;
+  --line: rgba(29,24,19,.18);
+
+  --display: Georgia, "Times New Roman", serif;
+  --serif: Georgia, "Times New Roman", serif;
+  --label: system-ui, sans-serif;
+
+  --maxw: 760px;
+  --measure: 42rem;
+
+  /* type-scale guard rails (BASELINE #1) — themes may tighten, not loosen */
+  --fs-body: 1rem;
+  --fs-note-floor: 0.8rem;   /* footnote text never smaller than this */
+  --fs-label-floor: 0.72rem; /* tracked caps labels floor */
+  --lh-body: 1.7;
+}
+
+/* ---- reset ---------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: 16px; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, p, ol, ul, blockquote, figure { margin: 0; }
+ol.fnlist { list-style: none; padding: 0; }
+a { color: inherit; }
+
+/* ---- document scaffolding ------------------------------------------------- */
+.zml { max-width: var(--maxw); margin: 0 auto; }
+.masthead { text-align: center; }
+.masthead-meta { display: flex; gap: 1em; justify-content: center; }
+.title { font-family: var(--display); }
+.title .glyph { white-space: nowrap; }
+
+/* epigraph structural defaults */
+.epigraph { margin: 2rem 0; }
+.epi-line { display: block; }
+.coda { display: block; }
+
+/* movement / refrain group */
+.movement { }
+.refrain { }
+.descriptor { }
+
+/* verse structural model: every line is its own block, lineation preserved */
+.verse { }
+.stanza { }
+.line { display: block; }
+/* CAPS comes literally from data — NEVER transform it (spec §5) */
+.stanza.caps .line,
+.epigraph.prose,
+.cry { text-transform: none; }
+
+/* inline hooks (themes may restyle; default no-op so source stays readable) */
+.term, .leit { font-style: inherit; }
+.glyph { display: inline; }
+em { font-style: italic; }
+a.ext, a.artlink, a.chapter-ref { text-decoration: none; }
+
+/* ---- footnotes: structural anchor model (theme-independent) --------------- */
+sup.fn { line-height: 0; }
+sup.fn a { text-decoration: none; }
+.note { position: relative; }
+.fn-num { font-variant-numeric: lining-nums; }
+.fn-back { text-decoration: none; }
+/* footnote text floor — readability guard (BASELINE #1) */
+.fnlist { font-size: max(var(--fs-note-floor), 0.875rem); }
+/* scroll target never glued to the viewport top */
+.note { scroll-margin-top: 2.5rem; }
+
+/* BASELINE #3 — :target highlight is MANDATORY in every theme.
+   Neutral fallback here; each theme.css repaints it with its own palette. */
+.note:target {
+  background: rgba(154,124,47,0.12);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+.note:target .fn-num { color: var(--accent); }
+sup.fn a:target, *:target > sup.fn a { outline: 2px solid var(--accent); }
+
+/* ---- BASELINE #2 — reading-order connectors (multi-column verse only) -----
+   Off by default. A theme that lays verse in >=2 columns sets --verse-cols
+   and adds .verse[data-stanzas] connectors. Single-column themes (manuscript-
+   narrow, classic-narrow) leave this untouched, so NO arrows appear there. */
+.verse { --verse-cols: 1; }
+.flow-hint { display: none; }

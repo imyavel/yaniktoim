@@ -1,0 +1,19 @@
+name = "yaniktoim-auth"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+# Публичные настройки (НЕ секреты).
+[vars]
+ALLOW_ORIGIN = "https://imyavel.github.io"
+REPO = "imyavel/yaniktoim"
+# INVITE_CODE = "..."   # раскомментируй, чтобы регистрация требовала инвайт-код
+
+# KV-хранилище пользователей. id подставит `wrangler kv namespace create USERS`.
+[[kv_namespaces]]
+binding = "USERS"
+id = "2a6d63cdc96c447491471c80cb62bb5c"
+
+# Секреты (НЕ здесь, а через `wrangler secret put`):
+#   GH_TOKEN         — fine-grained PAT: репо yaniktoim, Contents: Read and write
+#   SESSION_SECRET   — случайная строка (подпись сессий), напр. `openssl rand -hex 32`
+#   ADMIN_BOOTSTRAP  — "ТвойНик:пароль" — при первом логине создаст тебя админом

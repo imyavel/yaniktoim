@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дано Творцу, Свят Благословен Он, право любить — каббалистическая трилогия в стихах</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;0,900;1,500;1,700&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f6f1e7;
+    --paper-2:#efe8da;
+    --paper-3:#e8e0cf;
+    --ink:#1d1a15;
+    --ink-soft:#4c463b;
+    --muted:#8c8474;
+    --accent:#b21430;
+    --accent-deep:#8a0d24;
+    --accent-tint:rgba(178,20,48,0.08);
+    --line:rgba(29,26,21,0.16);
+    --line-soft:rgba(29,26,21,0.09);
+    --maxw:1280px;
+    --serif:"Spectral",Georgia,serif;
+    --display:"Playfair Display",Georgia,serif;
+    --grotesk:"Manrope",system-ui,sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:18px;
+    line-height:1.7;
+    text-rendering:optimizeLegibility;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      radial-gradient(circle at 12% -5%, rgba(178,20,48,0.05), transparent 42%),
+      radial-gradient(circle at 100% 0%, rgba(140,118,80,0.06), transparent 38%);
+  }
+  ::selection{background:var(--accent);color:var(--paper);}
+
+  a{color:var(--accent-deep);text-decoration:none;}
+  a:hover{text-decoration:underline;text-underline-offset:3px;}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,72px);}
+
+  /* ---------- shared section grid: rail (1) + main (2) => main ≈ 2/3 ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:minmax(190px,1fr) minmax(0,2fr);
+    gap:clamp(2rem,5vw,5.5rem);
+    align-items:start;
+  }
+  .rail{align-self:start;}
+  @media(min-width:1024px){
+    .rail.sticky{position:sticky;top:36px;}
+  }
+
+  /* ---------- eyebrow / labels ---------- */
+  .eyebrow{
+    font-family:var(--grotesk);
+    font-weight:700;
+    font-size:.72rem;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:inline-flex;
+    align-items:center;
+    gap:.7em;
+  }
+  .eyebrow::before{
+    content:"";
+    width:34px;height:2px;
+    background:var(--accent);
+    display:inline-block;
+  }
+  .label{
+    font-family:var(--grotesk);
+    font-weight:700;
+    font-size:.74rem;
+    letter-spacing:.26em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .label-accent{color:var(--accent);}
+
+  /* ---------- masthead ---------- */
+  .masthead{
+    border-bottom:1px solid var(--line);
+    padding-top:clamp(24px,4vw,40px);
+    padding-bottom:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:1rem;
+    font-family:var(--grotesk);
+    font-size:.72rem;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--muted);
+    flex-wrap:wrap;
+  }
+  .masthead .mh-emblem{color:var(--accent);font-weight:800;letter-spacing:.1em;}
+
+  /* ---------- hero ---------- */
+  .hero{padding:clamp(48px,9vw,120px) 0 clamp(40px,6vw,72px);}
+  .hero .genre{
+    font-family:var(--grotesk);
+    font-weight:700;
+    font-size:clamp(.74rem,1.1vw,.9rem);
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 clamp(24px,4vw,40px);
+    max-width:48ch;
+    line-height:1.9;
+  }
+  h1.title{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(2.5rem,7.2vw,6rem);
+    line-height:1.02;
+    letter-spacing:-.01em;
+    margin:0;
+    text-transform:none;
+    max-width:18ch;
+  }
+  h1.title .em{
+    display:inline-block;
+    margin-left:.25em;
+    color:var(--accent);
+    font-family:var(--grotesk);
+    font-weight:800;
+    font-size:.32em;
+    vertical-align:.55em;
+    letter-spacing:0;
+    transform:translateY(-.2em);
+    background:var(--accent-tint);
+    border:1.5px solid var(--accent);
+    border-radius:999px;
+    padding:.35em .7em;
+    line-height:1;
+  }
+  .hero-meta{
+    margin-top:clamp(30px,5vw,52px);
+    display:flex;
+    gap:clamp(1.5rem,4vw,3.5rem);
+    flex-wrap:wrap;
+    font-family:var(--grotesk);
+    font-size:.82rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .hero-meta b{color:var(--accent);font-weight:800;}
+
+  /* ---------- ornamental divider ---------- */
+  .rule{
+    display:flex;align-items:center;gap:1.4rem;
+    margin:clamp(40px,7vw,84px) 0;
+    color:var(--accent);
+  }
+  .rule::before,.rule::after{content:"";flex:1;height:1px;background:var(--line);}
+  .rule .glyph{
+    font-family:var(--grotesk);
+    font-weight:800;
+    letter-spacing:.05em;
+    font-size:1rem;
+    white-space:nowrap;
+  }
+
+  /* ---------- section heads ---------- */
+  .section{padding:clamp(28px,5vw,56px) 0;}
+  .section-head{margin-bottom:clamp(28px,4vw,48px);}
+  .section-head h2{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(1.7rem,3vw,2.6rem);
+    line-height:1.05;
+    margin:.5rem 0 0;
+  }
+
+  /* ---------- epigraphs ---------- */
+  .epigraphs{
+    display:grid;
+    grid-template-columns:0.82fr 1.18fr;
+    gap:clamp(2rem,4vw,4rem);
+    align-items:start;
+  }
+  .epi-col{display:flex;flex-direction:column;gap:clamp(1.8rem,3vw,3rem);}
+  .epi{
+    border-top:2px solid var(--ink);
+    padding-top:1.1rem;
+  }
+  .epi .label{display:block;margin-bottom:1rem;}
+  .epi-verse{
+    font-family:var(--display);
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(1.3rem,2.2vw,1.7rem);
+    line-height:1.5;
+    color:var(--ink);
+  }
+  .epi-verse .tail{
+    display:block;
+    margin-top:.7rem;
+    font-style:normal;
+    font-family:var(--serif);
+    font-size:.78em;
+    color:var(--accent);
+  }
+  .epi-prose{
+    font-family:var(--serif);
+    font-size:clamp(1rem,1.25vw,1.16rem);
+    line-height:1.78;
+    letter-spacing:.005em;
+  }
+  .epi-prose p{margin:0 0 1.1rem;}
+  .epi-prose .katnut{
+    font-family:var(--display);
+    font-weight:700;
+    font-style:italic;
+    color:var(--accent);
+    font-size:1.5rem;
+    letter-spacing:.02em;
+    margin:1.4rem 0;
+  }
+  .epi-strong{
+    font-family:var(--display);
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(1.25rem,2vw,1.6rem);
+    line-height:1.5;
+  }
+
+  /* ---------- prayer ---------- */
+  .refrain{
+    font-family:var(--display);
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(1.2rem,2vw,1.55rem);
+    line-height:1.4;
+    color:var(--ink);
+    margin:0 0 clamp(1.8rem,3vw,2.6rem);
+    display:flex;align-items:baseline;gap:.6em;flex-wrap:wrap;
+  }
+  .refrain .glyph{
+    font-family:var(--grotesk);
+    font-weight:800;
+    color:var(--accent);
+    font-style:normal;
+    letter-spacing:-.04em;
+    font-size:1.15em;
+  }
+  .prose{
+    font-size:clamp(1.05rem,1.35vw,1.22rem);
+    line-height:1.85;
+    color:var(--ink-soft);
+  }
+  .prose p{margin:0 0 1.3rem;}
+  .prose .drop::first-letter{
+    font-family:var(--display);
+    font-weight:800;
+    color:var(--accent);
+    float:left;
+    font-size:4.2em;
+    line-height:.78;
+    padding:.05em .12em 0 0;
+    margin-right:.04em;
+  }
+
+  /* ---------- chapter ---------- */
+  .chapter{padding:clamp(40px,7vw,90px) 0 0;}
+  .chapter-head{
+    border-top:3px solid var(--ink);
+    padding-top:clamp(20px,3vw,34px);
+    margin-bottom:clamp(32px,5vw,56px);
+  }
+  .chapter-head .topline{
+    display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;flex-wrap:wrap;margin-bottom:clamp(14px,2vw,22px);
+  }
+  .chapter-head .num{
+    font-family:var(--grotesk);
+    font-weight:800;
+    font-size:.78rem;
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+  .chapter-head h2{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(2.4rem,6vw,4.6rem);
+    line-height:.98;
+    margin:0;
+    letter-spacing:-.015em;
+  }
+  .chapter-head .descriptor{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:clamp(1.05rem,1.5vw,1.3rem);
+    color:var(--ink-soft);
+    max-width:62ch;
+    margin:1.2rem 0 0;
+    line-height:1.6;
+  }
+  .chapter-head .descriptor .give{color:var(--accent);font-style:normal;font-weight:600;}
+
+  .inline-epi{
+    margin:clamp(20px,3vw,30px) 0 0;
+    padding:1.3rem 0 1.3rem 1.6rem;
+    border-left:3px solid var(--accent);
+    font-family:var(--display);
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(1.15rem,1.8vw,1.45rem);
+    line-height:1.5;
+    color:var(--ink);
+    max-width:64ch;
+  }
+  .inline-epi .q{display:block;margin:.15em 0;}
+  .inline-epi .ask{color:var(--ink-soft);font-size:.86em;}
+
+  /* big numeral in rail */
+  .stich-mark{line-height:1;}
+  .stich-mark .roman{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(4rem,9vw,8rem);
+    color:var(--accent);
+    display:block;
+    line-height:.8;
+  }
+  .stich-mark .stich-word{
+    font-family:var(--grotesk);
+    font-weight:700;
+    font-size:.72rem;
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    display:block;
+    margin-top:.9rem;
+  }
+
+  /* ---------- verses ---------- */
+  .verse{font-family:var(--serif);}
+  .verse.center{text-align:center;}
+  .stanza{margin:0 0 clamp(1.8rem,3vw,2.8rem);}
+  .stanza .line{
+    font-size:clamp(1.12rem,1.6vw,1.42rem);
+    line-height:1.62;
+    font-weight:400;
+    color:var(--ink);
+  }
+  .stanza.caps .line{
+    text-transform:none;
+    letter-spacing:.04em;
+    font-weight:500;
+  }
+  .stanza.caps{
+    color:var(--ink);
+  }
+  /* crescendo surge block */
+  .surge{
+    margin-top:clamp(2rem,3vw,3rem);
+    padding:clamp(1.5rem,3vw,2.4rem) 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    text-align:center;
+  }
+  .surge .line{
+    font-size:clamp(1.05rem,1.45vw,1.3rem);
+    line-height:1.66;
+    letter-spacing:.035em;
+    font-weight:500;
+  }
+  .surge .invoke{color:var(--accent);font-weight:600;}
+
+  /* epic (long line) verse, stich III */
+  .verse.epic{text-align:left;max-width:none;}
+  .verse.epic .stanza .line{
+    font-size:clamp(1.1rem,1.5vw,1.38rem);
+    line-height:1.72;
+  }
+  .verse.epic .stanza{position:relative;padding-left:clamp(0px,2vw,1.6rem);}
+  .verse.epic .dropline::first-letter{
+    font-family:var(--display);
+    font-weight:800;
+    color:var(--accent);
+    font-size:1.6em;
+    line-height:1;
+  }
+
+  /* ---------- finale refrain ---------- */
+  .finale{
+    text-align:center;
+    padding:clamp(40px,7vw,80px) 0 clamp(20px,3vw,40px);
+  }
+  .finale .big{
+    font-family:var(--display);
+    font-weight:800;
+    font-style:italic;
+    font-size:clamp(1.8rem,4.5vw,3.4rem);
+    line-height:1.15;
+    margin:0;
+    letter-spacing:-.01em;
+  }
+  .finale .big .g{color:var(--accent);font-style:normal;}
+
+  /* ---------- footnotes ---------- */
+  .notes-wrap{padding-bottom:clamp(40px,6vw,80px);}
+  .notes{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:clamp(1.4rem,2.5vw,2.4rem) clamp(2rem,4vw,4rem);
+  }
+  .note{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:1rem;
+    padding-top:1rem;
+    border-top:1px solid var(--line-soft);
+    font-size:.96rem;
+    line-height:1.62;
+    color:var(--ink-soft);
+  }
+  .note--wide{grid-column:1 / -1;}
+  .note__num{
+    font-family:var(--grotesk);
+    font-weight:800;
+    font-size:.82rem;
+    color:var(--accent);
+    letter-spacing:.04em;
+    padding-top:.18em;
+    white-space:nowrap;
+  }
+  .note__body{min-width:0;word-wrap:break-word;overflow-wrap:anywhere;}
+  .note__body .src{font-family:var(--grotesk);font-weight:600;color:var(--ink);font-size:.82rem;letter-spacing:.04em;}
+  .note__body a{display:inline-block;word-break:break-all;font-size:.9em;}
+  .note__back{margin-left:.4em;color:var(--muted);font-size:.85em;}
+  .note__sub{margin:.6rem 0 0;padding-left:1rem;border-left:2px solid var(--line);}
+  .note__sub p{margin:.4rem 0;}
+  .note__sub .k{font-family:var(--grotesk);font-weight:700;color:var(--accent);font-size:.78rem;margin-right:.4em;}
+
+  /* footnote markers in text */
+  sup.fn{
+    font-family:var(--grotesk);
+    font-weight:700;
+    font-size:.58em;
+    line-height:0;
+    vertical-align:super;
+  }
+  sup.fn a{
+    color:var(--accent);
+    padding:0 .12em;
+  }
+  sup.fn a:hover{text-decoration:none;color:var(--accent-deep);}
+
+  /* glyph inline emphasis */
+  .gl{color:var(--accent);font-family:var(--grotesk);font-weight:700;font-style:normal;letter-spacing:-.02em;}
+
+  /* ---------- colophon ---------- */
+  .colophon{
+    border-top:1px solid var(--line);
+    padding:clamp(28px,4vw,44px) 0 clamp(48px,7vw,80px);
+    display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;flex-wrap:wrap;
+    font-family:var(--grotesk);
+    font-size:.78rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .colophon .author{color:var(--ink);font-weight:700;}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:860px){
+    body{font-size:17px;}
+    .grid{grid-template-columns:1fr;gap:1.5rem;}
+    .rail.sticky{position:static;}
+    .epigraphs{grid-template-columns:1fr;}
+    .notes{grid-template-columns:1fr;}
+    .stich-mark{display:flex;align-items:baseline;gap:1rem;}
+    .stich-mark .roman{font-size:3.4rem;}
+    .stich-mark .stich-word{margin-top:0;}
+    .verse.center{text-align:left;}
+    .surge{text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap masthead">
+  <span>Зеир Арихович Анпин &nbsp;·&nbsp; Proza</span>
+  <span class="mh-emblem">&lt;\^/&gt;</span>
+  <span>Арт. #AP237</span>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="wrap hero">
+  <p class="genre">Каббалистическая трилогия в стихах<br>о пути любви и жизни</p>
+  <h1 class="title">Дано Творцу,<br>Свят Благословен Он,<br>право любить<span class="em">&lt;\^/&gt;</span></h1>
+  <div class="hero-meta">
+    <span><b>Арт.</b> #AP237</span>
+    <span>Написано <b>7 марта 2022</b> г.</span>
+    <span>Трилогия · стихи · проза</span>
+  </div>
+</section>
+
+<div class="wrap"><div class="rule"><span class="glyph">&lt;\^/&gt;</span></div></div>
+
+<!-- ============ EPIGRAPHS ============ -->
+<section class="wrap section">
+  <div class="section-head">
+    <span class="eyebrow">Три эпиграфа</span>
+    <h2>Перед началом пути</h2>
+  </div>
+
+  <div class="epigraphs">
+    <div class="epi-col">
+      <div class="epi">
+        <span class="label">Эпиграф&nbsp;I</span>
+        <div class="epi-verse">
+          «Мы расскажем правду чадам,<br>
+          Знаем, им не все равно<span class="gl">::</span><br>
+          Удивительное&nbsp;— рядом»<sup class="fn"><a id="ref9" href="#fn9">9</a></sup>,
+          <span class="tail">И оно разрешено&nbsp;&nbsp;;::)))</span>
+        </div>
+      </div>
+
+      <div class="epi">
+        <span class="label">Эпиграф&nbsp;III</span>
+        <div class="epi-strong">
+          Не жалей мёртвых, жалей живых. А особенно тех, кто живёт без любви.<sup class="fn"><a id="ref11" href="#fn11">11</a></sup>
+        </div>
+      </div>
+    </div>
+
+    <div class="epi epi-col">
+      <span class="label">Эпиграф&nbsp;II</span>
+      <div class="epi-prose">
+        <p>Всё явное рано или поздно становится тайным, чтобы совершить новый кругооборот круга жизни «этого мира» бесконечности, в котором новые души посредством этого смогут стремиться и достигать высшей благословенной цели жизненного пути, стремясь раскрыть и распространить то, что скрыто под покровом тайны, сделав его явным и доступным каждой и каждому.</p>
+        <p class="katnut">Это «катнут».<sup class="fn"><a id="ref13" href="#fn13">13</a></sup></p>
+        <p>А любовь, что живёт в твоём сердце&nbsp;— это «гадлут», раскрывающий настоящий смысл «катнута», и его принципиальное отличие от судьбы бегающего по колесу мышонка в клетке<sup class="fn"><a id="ref7" href="#fn7">7</a></sup>&nbsp;— смысл в огромной духовной половой любви, с которой встречаются мужчина и женщина, созданные Творцом, Свят Благословен Он, единым кли (инструментом и сосудом) духовной половой любви Творца, Свят Благословен Он, к Своим творениям, по мере достижения успеха в раскрытии тайн реального мира, в котором в принципе отсутствуют стены, а все перегородки, которые есть, зеркально прозрачны, как в «Доме&nbsp;2»<sup class="fn"><a id="ref8" href="#fn8">8</a></sup></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="rule"><span class="glyph">;;;;</span></div></div>
+
+<!-- ============ PRAYER ============ -->
+<section class="wrap section">
+  <div class="grid">
+    <aside class="rail sticky">
+      <span class="eyebrow">Молитва</span>
+      <div class="section-head" style="margin-top:1rem">
+        <h2 style="font-size:clamp(1.6rem,2.6vw,2.3rem)">Предваряющая молитва Адама</h2>
+      </div>
+    </aside>
+    <div class="main">
+      <p class="refrain"><span class="glyph">;;;;</span><sup class="fn"><a id="ref29" href="#fn29">29</a></sup>&nbsp;Мужчиной и Женщиной Он создал Их</p>
+      <div class="prose">
+        <p class="drop">Благодарю Господь! Твой Адам обязательно раскроет, милостью ТвоеЮ. Твой Великий Замысел Любви, Мы сумеем Все раскрыть и мы выполним Замысел и соединимся Вместе и на Земле и на Небесах! Амэн ве Амэн! Аллилуйя! Сделаем и услышим!</p>
+        <p>Сделаем и услышим! Благодарю Тебя, Господь, за молитву моей и Твоей возлюбленной, за Твои Дары и Благословения созданным Твоим творениям, Мужчиной и Женщиной Ты создал Их, которые Ты даруешь Им в прошлом, настоящем и Будущем Твоем Благословенном Мире, Благодарю Тебя, Великий и Святый. Да будет так, как хочешь Ты, вовеки и воистину, да случится с Твоими творениями, с возлюбленными Тобой, и с возлюбленными Твоим Адамом, Мужчиной и Женщиной Ты создал Их, только самое-самое приятное и желаемое. Амен ве Амен</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ СТИХ ПЕРВЫЙ ============ -->
+<section class="wrap chapter">
+  <header class="chapter-head">
+    <div class="topline">
+      <span class="num">Стих первый</span>
+      <span class="num">I — III</span>
+    </div>
+    <h2>Экран</h2>
+    <p class="refrain" style="margin-top:1.4rem"><span class="glyph">;;;;</span>&nbsp;Мужчиной и Женщиной Он создал Их:</p>
+    <p class="descriptor">Практическая духовная форма «Будущего Мира».</p>
+    <blockquote class="inline-epi">
+      <span class="q">«Ты почувствуешь его. Если и он выберет тебя, действуй быстро…</span>
+      <span class="q ask">— А как понять, что он меня выбрал?</span>
+      <span class="q">— Он захочет тебя убить.»<sup class="fn"><a id="ref15" href="#fn15">15</a></sup></span>
+    </blockquote>
+  </header>
+
+  <div class="grid">
+    <aside class="rail sticky">
+      <div class="stich-mark"><span class="roman">I</span><span class="stich-word">Экран</span></div>
+    </aside>
+    <div class="main verse center">
+      <div class="stanza">
+        <div class="line">В Духовной Половой Любви</div>
+        <div class="line">Между мужским и женским магом</div>
+        <div class="line">Рождается Новое Кли,</div>
+        <div class="line">Которое зовут Экраном.</div>
+      </div>
+      <div class="stanza">
+        <div class="line">Экран меж ними&nbsp;- неорганик<sup class="fn"><a id="ref27" href="#fn27">27</a></sup>,</div>
+        <div class="line">«Союзником» для них обеих</div>
+        <div class="line">Становится. По Силе равным</div>
+        <div class="line">Задействованной точной мере</div>
+      </div>
+      <div class="stanza">
+        <div class="line">В настройке их Любви ступени</div>
+        <div class="line">Творцом, Благословен и Свят Он,</div>
+        <div class="line">Данному Жизненному Свету</div>
+        <div class="line">Мужчину с Женщиной Адамом</div>
+      </div>
+      <div class="stanza">
+        <div class="line">Посредством этого Зивуга</div>
+        <div class="line">Единым ставшим ради Духа</div>
+        <div class="line">Чтобы в Любви Ему служили</div>
+        <div class="line">В раскрытой мере Авиюта.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ СТИХ ВТОРОЙ ============ -->
+<section class="wrap chapter">
+  <header class="chapter-head">
+    <div class="topline">
+      <span class="num">Стих второй</span>
+      <span class="num">II — III</span>
+    </div>
+    <h2>Настройка восприятия</h2>
+    <p class="refrain" style="margin-top:1.4rem"><span class="glyph">;;;;</span>&nbsp;Мужчиной и Женщиной Он создал Их.</p>
+    <p class="descriptor">Форма «Гадлута»&nbsp;— «второго внимания».</p>
+  </header>
+
+  <div class="grid">
+    <aside class="rail sticky">
+      <div class="stich-mark"><span class="roman">II</span><span class="stich-word">Настройка</span></div>
+    </aside>
+    <div class="main verse center">
+      <div class="stanza">
+        <div class="line">Как работает НАСТРОЙКА</div>
+        <div class="line">При акцентов расстановке</div>
+        <div class="line">Знания безмолвный опыт</div>
+        <div class="line">Без труда понять дает нам.</div>
+      </div>
+      <div class="stanza">
+        <div class="line">Нас в ней трое, как ни странно</div>
+        <div class="line">Женщина, Мужчина, «Ангел»,</div>
+        <div class="line">Или, если вам привычней</div>
+        <div class="line">Говорить, созданный Духом</div>
+      </div>
+      <div class="stanza">
+        <div class="line">Женщиной с Мужчиной вместе</div>
+        <div class="line">Неорганик, их «союзник»</div>
+        <div class="line">Позволяющий посредством</div>
+        <div class="line">Действия, стремиться к Цели</div>
+      </div>
+      <div class="stanza">
+        <div class="line">Очень личной субъективно</div>
+        <div class="line">Для того, кто Мир Шаманов<sup class="fn"><a id="ref18" href="#fn18">18</a></sup></div>
+        <div class="line">Вознамерился «увидеть»</div>
+        <div class="line">Несгибаемо и явно,</div>
+      </div>
+      <div class="stanza">
+        <div class="line">Помня и осознавая</div>
+        <div class="line">Истину Пути и Жизни:</div>
+        <div class="line">Что ты «видишь» не суть важно</div>
+        <div class="line">Важно то, что дашь «увидеть»</div>
+      </div>
+      <div class="stanza">
+        <div class="line">Той/тому, кто в этом Мире</div>
+        <div class="line">Часть твоей души и тела</div>
+        <div class="line">Человечек, весь Свет Жизни</div>
+        <div class="line">Твоей кто в себе содержит</div>
+      </div>
+      <div class="stanza">
+        <div class="line">В ком все то, зачем ты дышишь</div>
+        <div class="line">И живым быть хочешь дальше</div>
+        <div class="line">Только в ней/лишь в нем «услышишь»</div>
+        <div class="line">То, что жил ты не напрасно</div>
+      </div>
+      <div class="stanza">
+        <div class="line">Что создавшая НАСТРОЙКА</div>
+        <div class="line">Тебя с «ближним» одним целым</div>
+        <div class="line">Не бесцельно происходит</div>
+        <div class="line">Но для службы совершенной</div>
+      </div>
+      <div class="stanza">
+        <div class="line">Высшей и Непостижимой</div>
+        <div class="line">Мудрой, Вечной, Справедливой</div>
+        <div class="line">В неописываемой мере</div>
+        <div class="line">ФОРМЕ ПОЛОВОГО ЧЛЕНА<sup class="fn"><a id="ref5" href="#fn5">5</a></sup></div>
+      </div>
+
+      <!-- caps crescendo -->
+      <div class="stanza caps">
+        <div class="line">ПОЗНАЮЩЕГО ВАС ВМЕСТЕ</div>
+        <div class="line">ЧЕРЕЗ ЧУВСТВА, МЫСЛЬ И ОПЫТ</div>
+        <div class="line">ПОЛОВОГО НАСЛАЖДЕНЬЯ</div>
+        <div class="line">ЧТО ИСПЫТЫВАТЬ ДАЕТЕ</div>
+      </div>
+      <div class="stanza caps">
+        <div class="line">ПОЛУЧАЯ В КЛИ ДРУГ ДРУГА</div>
+        <div class="line">ОТ НЕГО, РАДИ ДРУГОГО</div>
+        <div class="line">НАБИРАЯ МОЩЬ ЗИВУГА</div>
+        <div class="line">СУТЬ КОТОРОГО&nbsp;- ТО СЛОВО</div>
+      </div>
+      <div class="stanza caps">
+        <div class="line">ЧТО «ВНАЧАЛЕ» ЕСТЬ У БОГА</div>
+        <div class="line">РЕЧЬ ВЛОЖИВШЕГО В ДВОЙНОГО</div>
+        <div class="line">СОЗДАННОГО В КЛИ ГАДЛУТА</div>
+        <div class="line">ЖЕНЩИНОЙ С МУЖЧИНОЙ ДУХОМ</div>
+      </div>
+      <div class="stanza caps">
+        <div class="line">ДЛЯ ЛЮБВИ И ДЛЯ МОЛИТВЫ<sup class="fn"><a id="ref30" href="#fn30">30</a></sup></div>
+        <div class="line">КТО В СОТРУДНИЧЕСТВЕ СМОЖЕТ</div>
+        <div class="line">С НИМ, ПРОИЗНЕСТИ СВОИМИ</div>
+        <div class="line">СОБСТВЕННЫМИ РЕЧЬ УСТАМИ:</div>
+      </div>
+      <div class="stanza caps">
+        <div class="line">ТО, ЗАЧЕМ МИР СУЩЕСТВУЕТ</div>
+        <div class="line">ТО, ЗАЧЕМ МИР СОЗДАН БОГОМ</div>
+        <div class="line">ТО, ЗАЧЕМ ОН В НЕМ ЖИТЬ БУДЕТ</div>
+        <div class="line">В ДНЕ ЕДИНОМ ХОТЕТЬ СНОВА</div>
+      </div>
+      <div class="stanza caps">
+        <div class="line">ТО, ЗА ЧТО ОН НЕУСТАННО</div>
+        <div class="line">ВОЗДАЕТ ТВОРЦУ МОЛИТВЫ<sup class="fn"><a id="ref19" href="#fn19">19</a></sup></div>
+        <div class="line">ТО, В ЧЕМ ЦЕЛЬ ВСЕХ НАСТОЯЩИХ</div>
+        <div class="line">ЖЕНЩИНЫ С МУЖЧИНОЙ ЖИЗНЕЙ</div>
+      </div>
+      <div class="stanza caps">
+        <div class="line">ПОТОМУ ЧТО ЗНАЕТ ТОЧНО<sup class="fn"><a id="ref21" href="#fn21">21</a></sup></div>
+        <div class="line">ЧТО ТВОРЕЦ, БЛАГОСЛОВЕН ОН</div>
+        <div class="line">СОЗДАЛ МИР СВОЕЙ ЛЮБОВЬЮ</div>
+        <div class="line">МОЩНОЙ, ЛИЧНОЙ, СОВЕРШЕННОЙ</div>
+      </div>
+      <div class="stanza caps">
+        <div class="line">ДАВ СВОЕ БЛАГОСЛОВЕНЬЕ</div>
+        <div class="line">СОЗДАННОМУ ИМ АДАМУ</div>
+        <div class="line">ЖЕНЩИНОЙ С МУЖЧИНОЙ ВМЕСТЕ</div>
+        <div class="line">ЧТОБЫ РАЗВИВАТЬ ЭКРАНЫ</div>
+      </div>
+      <div class="stanza caps">
+        <div class="line">С НЕЖНОЙ ТРЕПЕТНОЙ ЛЮБОВЬЮ</div>
+        <div class="line">КАЖДОМУ ДАВАЯ ИМЯ<sup class="fn"><a id="ref16" href="#fn16">16</a></sup></div>
+        <div class="line">ЧЕЛОВЕКА, ЧЬЕЙ СУДЬБОЮ</div>
+        <div class="line">ИХ ЛЮБОВЬ В БУДУЩЕМ МИРЕ</div>
+      </div>
+      <div class="stanza caps">
+        <div class="line">СМОЖЕТ СТАТЬ БЛАГОСЛОВЕННОЙ</div>
+        <div class="line">ДУХОМ ЖИЗНИ, КОГДА ДВОЕ</div>
+        <div class="line">В ГОДЫ ШКОЛЬНОЙ ДРУЖБЫ НЕЖНОЙ</div>
+        <div class="line">СЛИВШИСЬ ТЕЛОМ И ДУШОЮ</div>
+      </div>
+      <div class="stanza caps">
+        <div class="line">ПРИМУТ ДАР И ДАР РАСКРОЮТ,</div>
+        <div class="line">ЧТОБЫ УМНОЖАЛОСЬ СЧАСТЬЕ</div>
+        <div class="line">В МИРЕ МЕРТВЫХ<sup class="fn"><a id="ref17" href="#fn17">17</a></sup>, ЖИВЫМ СЛОВОМ</div>
+        <div class="line">СОЗДАВАЯ МИР РЕАЛЬНЫЙ</div>
+      </div>
+      <div class="stanza caps">
+        <div class="line">БУДУЩИХ ДЕТЕЙ<sup class="fn"><a id="ref26" href="#fn26">26</a></sup> НАСТРОЙКОЙ</div>
+        <div class="line">НА СТУПЕНИ ИХ ЭКРАНОВ,</div>
+        <div class="line">РЕШИМОТ ИХ ФОРМ И СУДЕБ</div>
+        <div class="line">СОДЕРЖАЩИХ В СЕБЕ ЯВНО</div>
+      </div>
+      <div class="stanza caps">
+        <div class="line">ВМЕСТЕ С СИЛОЮ КОМАНДЫ</div>
+        <div class="line">СДЕЛАННОЙ ТВОРЦОМ ДВОИМИ</div>
+        <div class="line">ЧТОБЫ ДАТЬ ДВОИМ УСЛЫШАТЬ</div>
+        <div class="line">ОБЛАЧИВ ДУХ ВЕЧНОЙ ЖИЗНИ</div>
+      </div>
+      <div class="stanza caps">
+        <div class="line">НАПОЛНЯЮЩИЙ КЛИ МИРА</div>
+        <div class="line">КТО АДАМА СДЕЛАЛ СЛОВОМ</div>
+        <div class="line">О ЛЮБВИ С ЕВОЙ ЗАПРЕТНОЙ</div>
+        <div class="line">О ЛЮБВИ С ЕГО ЖЕНОЮ</div>
+      </div>
+      <div class="stanza caps">
+        <div class="line">СКРЫТОЙ<sup class="fn"><a id="ref20" href="#fn20">20</a></sup>, СВЯТОЙ, НЕДОСТУПНОЙ</div>
+        <div class="line">ЦАРСТВА ВСЕХ МИРОВ ШХИНОЮ</div>
+        <div class="line">СТАТЬ ВОЗЛЮБЛЕННОЙ СУПРУГОЙ</div>
+        <div class="line">УДОСТОИЛ, СЛИВ НАСТРОЙКУ</div>
+        <div class="line">ТРЕХ ВНИМАНИЙ ВОЕДИНО:</div>
+      </div>
+      <div class="stanza caps">
+        <div class="line"><span class="gl">;</span> ВСЕОТЕЦ МИРАМИ ПРАВИТ</div>
+        <div class="line">В ТОЧНОСТИ ТАКОЙ СУДЬБОЮ</div>
+        <div class="line">ОТ КОТОРОЙ СЫН ИЗБАВЛЕН</div>
+        <div class="line">ЕЕ<sup class="fn"><a id="ref25" href="#fn25">25</a></sup> ТРЕПЕТНОЙ ЛЮБОВЬЮ <span class="gl">;</span></div>
+      </div>
+
+      <!-- giant continuous surge -->
+      <div class="surge">
+        <div class="line">ВСЕОТЕЦ&nbsp;- ВНИМАНЬЕМ ТРЕТЬИМ</div>
+        <div class="line">ТОЧКУ СБОРКИ РАЗМЕЩАЕТ</div>
+        <div class="line">СЫН ЖИВЕТ В СОБРАННОМ МИРЕ</div>
+        <div class="line">ПЕРВЫМ ПОЛЬЗУЯСЬ ВНИМАНЬЕМ</div>
+        <div class="line">ИХ ВОЗЛЮБЛЕННАЯ СЛУЖИТ</div>
+        <div class="line">СВЯЗЬЮ МЕЖ ОТЦОМ И СЫНОМ</div>
+        <div class="line">СВЕТ ИХ ЖИЗНЕЙ, ЦЕЛЬ ИХ СУДЕБ</div>
+        <div class="line">СДЕЛАВ ПУТЬ ВАЖНЕЕ ЖИЗНИ</div>
+        <div class="line">КЛИ ПОСРЕДСТВОМ НАПОЛНЕНЬЯ</div>
+        <div class="line">ПОЛОВОЙ ЛЮБВИ ДУХОВНОЙ</div>
+        <div class="line">В ФОРМЕ СВЕТА ПОЛУЧЕНЬЯ</div>
+        <div class="line">СНИЗУ ВВЕРХ ЛЮБВИ ГЛАГОЛОМ</div>
+        <div class="line">ПОДНИМАЯ КЛИ ЭКРАНА</div>
+        <div class="line">В КЛИ ТВОРЦА, БЛАГОСЛОВЕН ОН&nbsp;-</div>
+        <div class="line">БУДУЩЕГО МИРА СЧАСТЬЯ,</div>
+        <div class="line">СПРАВЕДЛИВ И СОВЕРШЕНЕН</div>
+        <div class="line">НЕСРАВНИМО С МИРОМ ПРОШЛОЙ</div>
+        <div class="line">СВОЕЙ СОБСТВЕННОЙ СТУПЕНИ</div>
+        <div class="line">СЛУЖАЩЕЙ ИСПРАВНО ПОРШНЕМ</div>
+        <div class="line">СНИЗУ ВВЕРХ ИХ НАПОЛНЕНЬЯ.</div>
+        <div class="line invoke">МИЛОСТИВЫЙ ЦАРЬ ВСЕВЫШНИЙ,</div>
+        <div class="line invoke">УДОСТОЙ РАБА И СЫНА</div>
+        <div class="line invoke">СДЕЛАТЬ КЛИ, СОЕДИНИВШИСЬ</div>
+        <div class="line invoke">С НАСТОЯЩИМ ЧЕЛОВЕКОМ!</div>
+        <div class="line invoke">СДЕЛАТЬ ИХ ДОЧКОЙ И СЫНОМ</div>
+        <div class="line invoke">СВОДНЫМ БРАТОМ И СЕСТРОЮ<sup class="fn"><a id="ref1" href="#fn1">1</a></sup></div>
+        <div class="line invoke">ЧТОБЫ ИМ В БУДУЩЕМ МИРЕ</div>
+        <div class="line invoke">БЫЛО ЛЕГЧЕ СТАТЬ ТОБОЮ.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ СТИХ ТРЕТИЙ ============ -->
+<section class="wrap chapter">
+  <header class="chapter-head">
+    <div class="topline">
+      <span class="num">Стих третий<sup class="fn"><a id="ref12" href="#fn12">12</a></sup></span>
+      <span class="num">III — III</span>
+    </div>
+    <h2>Замыкая круг</h2>
+    <p class="refrain" style="margin-top:1.4rem"><span class="glyph">;;;;</span>&nbsp;Мужчиной и Женщиной Он создал Их.</p>
+    <p class="descriptor">Форма «первого внимания». До Конца Исправленного Этого Мира Счастья, в Котором нас пока еще нет, но очень скоро будем, вне всякого сомнения. <span class="give">Даю Вам Слово<sup class="fn"><a id="ref3" href="#fn3">3</a></sup>.</span></p>
+  </header>
+
+  <div class="grid">
+    <aside class="rail sticky">
+      <div class="stich-mark"><span class="roman">III</span><span class="stich-word">Замыкая круг</span></div>
+    </aside>
+    <div class="main verse epic">
+      <div class="stanza">
+        <div class="line dropline">У каждой ступени Реального Мира</div>
+        <div class="line">Есть три компоненты, реальность которых</div>
+        <div class="line">Взаимно для прочих двух полностью скрыта,</div>
+        <div class="line">Так, каждый «реальным» считает лишь только</div>
+        <div class="line">Ту часть из своей полной формы, чьи свойства</div>
+        <div class="line">Он сам непосредственно, в жизни и мире</div>
+        <div class="line">В конкретный момент получает как опыт,</div>
+        <div class="line">С которым его восприятие слито.</div>
+        <div class="line">При этом являясь и Тем, Кто дарует</div>
+        <div class="line">И тем, кто в Дар Жизнь от Творца получает.</div>
+        <div class="line">А кроме того, тем, кто первым двум служит</div>
+        <div class="line">Живым инструментом их взаимосвязи.</div>
+        <div class="line">При этом три вышеописанных формы</div>
+        <div class="line">Находятся каждый миг жизни в процессе</div>
+        <div class="line">Подъема и формирования, чтобы</div>
+        <div class="line">Свой Путь продолжать от ступени к ступени,</div>
+        <div class="line">Которая Цель перед ним сейчас ставит</div>
+        <div class="line">(И этим не Воли свободной лишает,</div>
+        <div class="line">А наоборот, обрести помогает,</div>
+        <div class="line">Поскольку до срока без помощи этой</div>
+        <div class="line">Стремился бы мог лишь к животной ступени)</div>
+        <div class="line">Дающий Дар Жизни Творец и Хозяин</div>
+        <div class="line">Всего, что посредством Его Доброй Воли</div>
+        <div class="line">Реальность имеет и воспринимает</div>
+        <div class="line">Объем мироздания, чувственный опыт,&nbsp;-</div>
+        <div class="line">Является самым верховным явленьем</div>
+        <div class="line">Доступным для опыта и выяснений.</div>
+        <div class="line">Его Цель&nbsp;- Любовь между Ним и Твореньем</div>
+        <div class="line">Таким же Единым, как Он, на ступени,</div>
+        <div class="line">Которая выше, чем время и место<sup class="fn"><a id="ref24" href="#fn24">24</a></sup></div>
+        <div class="line">И все, что мы чувствуем и ощущаем</div>
+        <div class="line">В течение жизней своих быстротечных.</div>
+        <div class="line">Но именно в Нем, хоть и непостигаем,</div>
+        <div class="line">Пока достигаем и осуществляем,</div>
+        <div class="line">Практическим действием жизненный опыт,&nbsp;-</div>
+        <div class="line">В подъеме над всем, что мы можем представить</div>
+        <div class="line">Туда, где из Мысли рождается Словом</div>
+        <div class="line">Творец, наших жизней и судеб Хозяин,&nbsp;-</div>
+        <div class="line">Дающий Дар Вечной Любви и Свободы</div>
+        <div class="line">Посредством всего, что мы воспринимаем</div>
+        <div class="line">И что составляет наш чувственный опыт</div>
+        <div class="line">К Себе поднимает<sup class="fn"><a id="ref23" href="#fn23">23</a></sup> Он Души творений<sup class="fn"><a id="ref14" href="#fn14">14</a></sup>,</div>
+        <div class="line">Им созданных, чтобы давать наслажденье</div>
+        <div class="line">Любви Абсолютной и Жизни Свободной,&nbsp;-</div>
+        <div class="line">В уста Человека вложил Свое Слово</div>
+        <div class="line">И, дав испытать личный чувственный опыт,</div>
+        <div class="line">Того, как с Ним вместе его произносит,</div>
+        <div class="line">Мир дивной Мечты, где нет зла, создавая</div>
+        <div class="line">Для тех, кому в будущем он испытает,</div>
+        <div class="line">Подарок Творца, Свят и Благословен Он,</div>
+        <div class="line">Великий и Непостижимо Реальный,</div>
+        <div class="line">В Кли Будущего Человека и Мира,</div>
+        <div class="line">Их делая вместе с Творцом Настоящим</div>
+        <div class="line">Мужчиной и Женщиной, их Духом Жизни</div>
+        <div class="line">Навеки воистину слитым Адамом</div>
+        <div class="line">Посредством Возлюбленной Отцом и Сыном</div>
+        <div class="line">В Чьем Лоне Любовь, что творениям дарят</div>
+        <div class="line">Отец и Сын вместе<span class="gl">::</span>ведь принято между</div>
+        <div class="line">Друзьями, любить то, что сердцу другого</div>
+        <div class="line">Любимо и близко, всего что важнее&nbsp;-</div>
+        <div class="line">Любить должен это и друг всей душою.</div>
+        <div class="line">И слитыми будут тогда с Одним Сердцем</div>
+        <div class="line">Живым и наполненным в Мудрости Светом</div>
+        <div class="line">Вовеки с Творцом, Свят и Благословен Он,</div>
+        <div class="line">Мужчина и Женщина, Дочкой и Сыном</div>
+        <div class="line">Которым Творец<sup class="fn"><a id="ref2" href="#fn2">2</a></sup>, замыкая Круг Жизни</div>
+        <div class="line">В Исправленный Мир неся Счастье, родится.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINALE REFRAIN ============ -->
+<section class="wrap finale">
+  <p class="big">Одним словом <span class="g">;</span> Будущее<sup class="fn"><a id="ref22" href="#fn22">22</a></sup> за нами<span class="g">;</span></p>
+</section>
+
+<div class="wrap"><div class="rule"><span class="glyph">;;;;</span></div></div>
+
+<!-- ============ FOOTNOTES ============ -->
+<section class="wrap notes-wrap">
+  <div class="section-head">
+    <span class="eyebrow">Аппарат</span>
+    <h2>Полезные ссылки</h2>
+  </div>
+
+  <div class="notes">
+    <div class="note" id="fn1"><div class="note__num">*1</div><div class="note__body"><span class="src">См. также::</span>Последнее Поколение (Заря Близко)::Зеир Арихович Анпин <a class="note__back" href="#ref1">↩</a></div></div>
+
+    <div class="note" id="fn2"><div class="note__num">*2</div><div class="note__body"><span class="src">См. также::</span>Моя Ть;Mа.::Зеир Арихович Анпин<br><a href="http://proza.ru/2021/12/08/551">proza.ru/2021/12/08/551</a> <a class="note__back" href="#ref2">↩</a></div></div>
+
+    <div class="note" id="fn3"><div class="note__num">*3</div><div class="note__body"><span class="src">См. также::</span>Вначале было Слово…(ч.1)::Зеир Арихович Анпин <a class="note__back" href="#ref3">↩</a></div></div>
+
+    <div class="note" id="fn4"><div class="note__num">*4</div><div class="note__body"><span class="src">См. также::</span>Вспоминая о Любви к Тебе::Зеир Арихович Анпин</div></div>
+
+    <div class="note" id="fn5"><div class="note__num">*5</div><div class="note__body"><span class="src">См. также::</span>Конечное Исправление::Зеир Арихович Анпин <a class="note__back" href="#ref5">↩</a></div></div>
+
+    <div class="note" id="fn6"><div class="note__num">*6</div><div class="note__body"><span class="src">См. также::</span>Человек человеку WALK::Зеир Арихович Анпин<br><a href="https://www.patreon.com/user/creators?u=67576945">patreon.com/user/creators?u=67576945</a></div></div>
+
+    <div class="note" id="fn7"><div class="note__num">*7</div><div class="note__body"><span class="src">См. также::</span>Летопись Живого Огня::Зеир Арихович Анпин <a class="note__back" href="#ref7">↩</a></div></div>
+
+    <div class="note" id="fn8"><div class="note__num">*8</div><div class="note__body"><span class="src">См. также::</span>Заря Близко (Последнее Поколение)::Зеир Арихович Анпин <a class="note__back" href="#ref8">↩</a></div></div>
+
+    <div class="note" id="fn9"><div class="note__num">*9</div><div class="note__body"><span class="src">См. также::</span>Мальчишки и девчонки, а также их родители::Зеир Арихович Анпин <a class="note__back" href="#ref9">↩</a></div></div>
+
+    <div class="note" id="fn10"><div class="note__num">*10</div><div class="note__body"><span class="src">Музыка::</span>Дорогая передача::Владимир Высоцкий</div></div>
+
+    <div class="note" id="fn11"><div class="note__num">*11</div><div class="note__body">Цитата из Х/Ф Гарри Поттер и Дары Смерти, ч.&nbsp;2 <a class="note__back" href="#ref11">↩</a></div></div>
+
+    <div class="note" id="fn12"><div class="note__num">*12</div><div class="note__body"><span class="src">Музыка::</span>Замыкая Круг::Все звезды<br><a href="https://www.youtube.com/watch?v=EkZwyOT9szo&amp;ab_channel=">youtube.com/watch?v=EkZwyOT9szo</a> <a class="note__back" href="#ref12">↩</a></div></div>
+
+    <div class="note" id="fn13"><div class="note__num">*13</div><div class="note__body"><span class="src">См. также::</span>Онтология единства человеческой Души::Зеир Арихович Анпин <a class="note__back" href="#ref13">↩</a></div></div>
+
+    <div class="note" id="fn14"><div class="note__num">*14</div><div class="note__body"><span class="src">См. также::</span>Откуда берутся дети (и куда они потом деваются)::Зеир Арихович Анпин <a class="note__back" href="#ref14">↩</a></div></div>
+
+    <div class="note" id="fn15"><div class="note__num">*15</div><div class="note__body">Цитата из Х/Ф Аватар::Джейк и Банши выбирают друг друга<br><a href="https://www.youtube.com/watch?v=Way4s-FMI6w&amp;ab_channel=">youtube.com/watch?v=Way4s-FMI6w</a> <a class="note__back" href="#ref15">↩</a></div></div>
+
+    <div class="note note--wide" id="fn16"><div class="note__num">*16</div><div class="note__body"><span class="src">Цитата::</span>«И сказано: „Здесь говорится о действии (асия; ;;;;), и также в другом месте сказано: «Имя того человека, у которого я сделала (аси;ти ;;;;;;;;;) это сегодня, – Боаз». И „сделала (асити ;;;;;;;;;)“ означает – милость, и так же здесь – «создадим (наасэ; ;;;;)» говорит о милости“. Другими словами, действие «создания», о котором говорится при сотворении Адама, указывает на заповедь «поступать милосердно»»::Заповедь девятая, п.&nbsp;236 (в конце текста), Том&nbsp;1, Книга Зоар (перуш Сулам)::РАШБИ-Бааль Сулам <a class="note__back" href="#ref16">↩</a></div></div>
+
+    <div class="note" id="fn17"><div class="note__num">*17</div><div class="note__body"><span class="src">См. также::</span>Живые Нити и мертвые люди::Зеир Арихович Анпин <a class="note__back" href="#ref17">↩</a></div></div>
+
+    <div class="note" id="fn18"><div class="note__num">*18</div><div class="note__body"><span class="src">См. также::</span>Колесо Времени, Важнейшие понятия из «Сказок о Силе»::Карлос Кастанеда <a class="note__back" href="#ref18">↩</a></div></div>
+
+    <div class="note" id="fn19"><div class="note__num">*19</div><div class="note__body"><span class="src">См. также::</span>Катнут свойства Образ Всесильного::Зеир Арихович Анпин <a class="note__back" href="#ref19">↩</a></div></div>
+
+    <div class="note" id="fn20"><div class="note__num">*20</div><div class="note__body"><span class="src">См. также::</span>Бина Анеле::Зеир Арихович Анпин <a class="note__back" href="#ref20">↩</a></div></div>
+
+    <div class="note" id="fn21"><div class="note__num">*21</div><div class="note__body"><span class="src">См. также::</span>Ты не знаешь::Зеир Арихович Анпин <a class="note__back" href="#ref21">↩</a></div></div>
+
+    <div class="note" id="fn22"><div class="note__num">*22</div><div class="note__body"><span style="color:var(--muted)">— без указания источника —</span> <a class="note__back" href="#ref22">↩</a></div></div>
+
+    <div class="note" id="fn23"><div class="note__num">*23</div><div class="note__body"><span class="src">См. также::</span>Я летала::Зеир Арихович Анпин<br><a href="http://proza.ru/2021/11/26/1340">proza.ru/2021/11/26/1340</a> <a class="note__back" href="#ref23">↩</a></div></div>
+
+    <div class="note" id="fn24"><div class="note__num">*24</div><div class="note__body"><span class="src">См. также::</span>Забывая о Любви к Себе::Зеир Арихович Анпин <a class="note__back" href="#ref24">↩</a></div></div>
+
+    <div class="note" id="fn25"><div class="note__num">*25</div><div class="note__body"><span class="src">Музыка::</span>Can you feel the Love tonight::Elton John <a class="note__back" href="#ref25">↩</a></div></div>
+
+    <div class="note" id="fn26"><div class="note__num">*26</div><div class="note__body"><span class="src">См. также::</span>Предисловие к серии Добрая Речь::Зеир Арихович Анпин<br><a href="http://proza.ru/2022/05/05/1219">proza.ru/2022/05/05/1219</a> <a class="note__back" href="#ref26">↩</a></div></div>
+
+    <div class="note note--wide" id="fn27"><div class="note__num">*27</div><div class="note__body">«Неорганик» (неорганическое живое существо, терминология и элемент системы знания Учения «левой линии» К.&nbsp;Кастанеды) ~ aka «Ангел» <a class="note__back" href="#ref27">↩</a></div></div>
+
+    <div class="note note--wide" id="fn28"><div class="note__num">*28</div><div class="note__body"><span class="src">См. также::</span>Гимн Любви Царя Давида (Теилим №119)::Благослови, Господь, стремящихся к Тебе, равно как и тех, кто будет, Твоей Благословенной Милостью, к Тебе стремиться в Будущем! Амен ве Амен</div></div>
+
+    <div class="note note--wide" id="fn29"><div class="note__num">*29</div><div class="note__body">
+      <span class="src">::1::&nbsp;;&nbsp;::2::&nbsp;;&nbsp;::3::&nbsp;;&nbsp;::4::&nbsp;;</span>
+      <div class="note__sub">
+        <p><span class="k">::1::</span>Малхут Мира Бесконечности, Атик Йомин, Творец, Свят Благословен Он</p>
+        <p><span class="k">::2::</span>Форма Женской ступени, Дающая мужчине пространство взаимодействия с Творцом, Свят Благословен Он, посредством «облачения» сверху вниз, т.е. в форме раздельного восприятия МЖОСИ=ОНДСТ (Одно напротив другого создал Творец).</p>
+        <p><span class="k">::3::</span>Форма Мужской ступени, Отражающей «получаемый» от Творца, Свят Благословен Он, Свет Любви «снизу вверх» в Кли Женщины=Кли Этого Мира.</p>
+        <p><span class="k">::4::</span>Творец, Свят Благословен Он, Царь Машиах, Свет, Который не входит в Келим, но служит им «транспортным средством» в их путешествиях Туда и Обратно (из Ада в Рай с подарками)</p>
+      </div>
+      <a class="note__back" href="#ref29">↩</a>
+    </div></div>
+
+    <div class="note note--wide" id="fn30"><div class="note__num">*30</div><div class="note__body"><span class="src">См. также::</span>Эзер Кенегдо (<a href="https://adam.fandom.com/ru/wiki/Эзер_кенегдо">adam.fandom.com/ru/wiki/Эзер_кенегдо</a>)::Благодарю Тебя, Господь, за Милость Твою к рабу Твоему, за Твое Абсолютное и Совершенное Непостижимое, но практически осуществимое Тобой над человеком, находящимся с Тобой в сотрудничестве, Твоей Благословенной Милостью, Мудрое и Справедливое, всеми возможными и невозможными видами Совершенства, Мудрости и Справедливости, равно как и всех прочих существующих и не существующих в человеческом языке качеств, свойств, и эпитетов Полноты, Цельности, Наполненности и Осуществленности, Высшее Святое Личное Управление Твоим рабом, и его, Милостью Твоей, возлюбленной, Твоей Благословенной Возлюбленной, как Один Человек с Одним Сердцем, Мужчиной и Женщиной Ты создал Их, и ТЕБЕ ЭТО ПОНРАВИЛОСЬ (а уж Им то и подавно, тут вообще не о чем говорить), посредством Которого Ты даруешь Свое Благословение и Благоволение человеку «этого мира», получающему опыт Жизни посредством нахождения с Тобой в сотрудничестве на Твоем Благословенном Пути Воина^Исраэль Твоей Благословенной Милостью, позволяя ему последовательно раскрывать и одновременно «получая, отдавать» это Благословение явным и открытым образом в «Келим» «этого», и «Будущего» Твоего благословенного Мира, равно как и всех других созданных Тобой во Имя и во Славу Твоих Благословенных Миров и их Келим, служащих Тебе посредством чувственного восприятия жизни из Любви к Свободе, «здесь и сейчас», позволяя молиться Тебе в форме «молитвы Духовного Общества» и «Единого Адама», Мужчиной и Женщиной Ты создал Их, и получать в облачении вышеназванных и не названных Твоих благословенных Келим Твое Святое наполнение Твоим Животворящим и Наполняющим создаваемые Тобой Миры и Души, Светом Жизни Любви, Свободы и Мудрости, облекаясь Твоей Благословенной Милостью намерением «не ради себя», дарующим благословенную форму Духовной Веры, становящуюся Ключом, открывающим «взрослую» ступень «Гадлут» человека и Круга Жизни, посредством собираемых Тобой духовных Воинов^Исраэль, единомышленников, стремящихся доставить Тебе наслаждение, доставляя Твое наслаждение Духовной Половой Любви создаваемым Твоим творениям «этого», «будущего», и любого иного Твоего Благословенного Мира, посредством его «получения» с ними в «хитколелуте», Мужчиной и Женщиной Ты создал Их, И НИКТО ИЗ НИХ БОЛЬШЕ НЕ ПРИТВОРЯЛСЯ, ЧТО ОН НЕ ЗНАЕТ, ЗНАЕТ ОН ИЛИ НЕ ЗНАЕТ, ЧТО ЕМУ И ЕЙ ЭТО ДЕЙСТВИТЕЛЬНО НРАВИТСЯ, ПОТОМУ ЧТО ЭТО НРАВИТСЯ ТЕБЕ, И ОНИ ЭТО ЗНАЮТ, ПОСКОЛЬКУ ИМЕЮТ ЛИЧНОЕ ОТНОШЕНИЕ К ОБСУЖДАЕМОЙ СТУПЕНИ И НЕ МОГУТ НЕ ЗНАТЬ ТОГО, ЧТО ТЫ С НЕЙ ДЕЛАЕШЬ ТЕМ ГЛАЗОМ, КОТОРЫЙ НЕ ВИДЕЛ И НЕ УВИДИТ ВСЕСИЛЬНОГО, НО ЛИШЬ ТЕБЯ. Да будет так, как хочешь Ты, чтобы было, вовеки и воистину, и да случится с Твоими творениями, благословенными Тобой и совершенными, поскольку созданы Совершенным Благословенным Творцом Истины вовеки, только самое-самое-самое-самое-самое-самое клевое, сильное, личное, теплое и трепетное, что, случившись, порвет их «этот мир» в клочья Твоей Благословенной Милостью, и даст «собрать» из его «ошметков» новый, гораздо более Реальный, Настоящий, Правдивый, Благой и Совершенный, чем кто-либо из действующих лиц мог подумать, представить, захотеть, вознамериться и осмелиться СОЗДАТЬ, МЕЧТАЯ О ТВОЕЙ ЛЮБВИ ПО^НАСТОЯЩЕМУ, ощущая эту Любовь «здесь и сейчас» открыто и явно, когда либо ранее. СДЕЛАЕМ И УСЛЫШИМ, УСЛЫШИМ И СДЕЛАЕМ ВСЕ НАОБОРОТ, ПОЛУЧИВ В ТОЧНОСТИ ВСЕ ТО, ЧТО И ТРЕБОВАЛОСЬ! <a class="note__back" href="#ref30">↩</a></div></div>
+  </div>
+</section>
+
+<!-- ============ FINAL REFRAIN ============ -->
+<section class="wrap finale">
+  <p class="big">Одним словом <span class="g">;</span> Будущее <span class="g">^</span> за нами<span class="g">;</span></p>
+</section>
+
+<!-- ============ COLOPHON ============ -->
+<footer class="wrap colophon">
+  <span>© Copyright: <span class="author">Элиягу Бар Малей</span>, 2022</span>
+  <span class="mh-emblem" style="color:var(--accent);font-weight:800">&lt;\^/&gt;</span>
+  <span>Свидетельство о публикации №&nbsp;222050500670</span>
+</footer>
+
+</body>
+</html>

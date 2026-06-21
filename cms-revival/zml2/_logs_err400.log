@@ -1,0 +1,18 @@
+**Вердикт.** Причина — клиентский баг Claude Code в пересборке истории при extended thinking + tool use, НЕ API и НЕ кириллица (уверенность ~90%).
+
+**Механизм (доказан транскриптами + issue #63147).** CLI сохраняет thinking-блоки с пустым телом (`"thinking":""`), но хранит `signature`. При сборке следующего запроса в сессии шлёт `{thinking:"", signature:<оригинал>}`; сервер по подписи восстанавливает непустой текст → пустое тело не сходится → 400. Всегда `messages.1` — там самая ранняя цепочка подписанных блоков; разные `content.56/16` — лишь позиция блока.
+
+**Улики.** thinking len=0 + signature на всех блоках; `redacted_thinking` нет; в `94b6cc1d` ошибка `content.16` при всего 14 логированных блоках → запрос пересобран; маркеры `queue-operation`/`last-prompt` (несколько промптов в сессии); компакции НЕТ; request_id совпадает с synthesis-логом.
+
+**Гипотеза про не-ASCII: опровергнута.** signature — непрозрачный шифрованный токен без кириллицы, сервер сам его расшифровывает; «модификация» = обнуление тела, а не байты. Ретраи с той же кириллицей проходили. Кириллица — максимум косвенный усилитель (объём → длиннее цепочка блоков).
+
+**Топ-2 альтернативы.** (1) Накопление длинной interleaved-цепочки в одном `messages.1`; (2) очередь догоняющих промптов в одной сессии (объясняет недетерминизм «до/после Write»). Компакция (#13012) — родственный путь, но в этих сессиях не задействован.
+
+**Главная митигация.** Один `claude -p` = одна атомарная задача (запись файла + итог в одном проходе), без догоняющих промптов/`--resume`; для механических Write-шагов — отключить extended thinking.
+
+Отчёт: `C:\Users\admin\design-experiment\error400_analysis_001.md`
+
+Sources:
+- [Issue #63147 — empty thinking text + retained signature](https://github.com/anthropics/claude-code/issues/63147)
+- [Issue #13012 — same error via auto-compaction](https://github.com/anthropics/claude-code/issues/13012)
+- [Building with extended thinking — Claude API Docs](https://platform.claude.com/docs/en/build-with-claude/extended-thinking)

@@ -1,0 +1,21 @@
+{
+  "_note": "Ручные/oEmbed-вердикты для треков вне базы songs (NODB) и точечные правки. Ключ = YouTube-id, значение = канон «Название|Автор». Загружается music_canon.py поверх базы songs. Источник имён для мусорных карточек — YouTube oEmbed (2026-06-13).",
+  "tracks": {
+    "bTBVd_m75oY": {"title": "Magnetic Fields, Pt. 2", "author": "Jean-Michel Jarre"},
+    "KbJ8MbxVjVY": {"title": "Tears of Time", "author": "Zoom"},
+    "sSRJvq4Wd48": {"title": "Far above the clouds", "author": "Mike Oldfield"},
+    "eTsH1NcoFa8": {"title": "The Riddler", "author": "Nightwish"},
+    "jVjTFdK3T7s": {"title": "Чёрное солнце", "author": "Би-2"},
+    "t8Lb14kRRBc": {"title": "Blue Cafe", "author": "Chris Rea"},
+    "pQ6r80lfIsw": {"title": "Remember The Time", "author": "NANA"},
+    "X-jdl9hcCeg": {"title": "The Godfather (Orchestral Suite)", "author": "Danish National Symphony Orchestra"},
+    "NeQM1c-XCDc": {"title": "Deutschland", "author": "Rammstein"},
+    "KgW0tSoggBk": {"title": "It's Like That", "author": "Run-D.M.C."},
+    "B7UmUX68KtE": {"title": "Popcorn", "author": "The Muppets"},
+    "w9vjuj1t1IU": {"title": "Чёрная луна", "author": "Агата Кристи"},
+    "zinzvs86qNA": {"title": "Наблюдатель", "author": "Король и Шут"},
+    "9OydVHXO4CM": {"title": "Моя Звезда", "author": "Вячеслав Бутусов"},
+    "XkptwawfnJQ": {"title": "Не думай о секундах свысока", "author": "к/ф «17 мгновений весны»"},
+    "3JWTaaS7LdU": {"title": "I Will Always Love You", "author": "Whitney Houston"}
+  }
+}

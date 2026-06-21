@@ -1,0 +1,14 @@
+All deliverables complete. Final state of `proof1\`:
+
+**Gate result: PASS.** Reversibility is proven — `node render.mjs` regenerates all 5 themes (exit 0), and the rendered HTML bodies are **byte-identical across themes** once the theme name is normalized; the only per-theme difference in the document is `<html data-theme="…">` and the `<link>` to its CSS. One semantic source → one skeleton → 5 CSS skins.
+
+**Files created/verified under `proof1\`:**
+- `render.mjs` — theme-agnostic zml2→HTML renderer (class contract in header)
+- `themes/base.css` — invisible skeleton + baseline scaffolding
+- `themes/manuscript-narrow.css`, `manuscript-wide.css`, `classic-narrow.css`, `editorial.css`, `modern.css` — 5 skins
+- `out/*.html` ×5 — regenerated
+- `divergence_001.md` — gate report
+
+**Baselines:** #1 type-scale floors/ceilings in `base.css` + per-theme clamps; #2 reading-order connectors present only in `manuscript-wide`/`editorial` (multi-column), absent in the two narrow themes and in `modern` (single-column by spec); #3 `:target` footnote highlight in all 5, palette-matched.
+
+**Key format gaps flagged for Phase 2** (in `divergence_001.md`): (1) chapter ordinal fused into the heading string — no separate `ordinal`/`title`; (2) CAPS-crescendo register is derived heuristically, not a data flag; (3) footnote `{source, author, url}` parsed by regex and mis-tags cases like `[^7]` (Avatar description tagged as author); (4) footnote `wide`/weight is length-heuristic; (5) no nested sub-item model in footnotes, so the glyph-legend grid can't be built; (6) in-chapter dialogue block type doesn't exist (Avatar quote lives in a footnote); (7) empty footnote bodies `[^22]`/`[^26]` — confirm content vs defect. The multi-column connector is also noted as a CSS approximation (top-of-verse hint, not true per-boundary arrows) since pure CSS can't locate column breaks.

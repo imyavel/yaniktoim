@@ -1,0 +1,1872 @@
+# -*- coding: utf-8 -*-
+"""Ф4 — HTML→ZML экстрактор, v2 (единый role-based walk; решение оператора 2026-06-12,
+вариант B аудита `audit_generalizability_001.md`).
+
+Корпус свёрстан LLM с РАЗНЫМИ именами классов на статью, но единой СЕМАНТИКОЙ
+(convert_prompt_005). Принципы v2:
+  1. ОДИН проход в документ-порядке; спуск в ЛЮБУЮ незнакомую обёртку.
+  2. Роли определяются структурой/позицией, а не перечнем классов, где возможно.
+  3. НИЧЕГО не выбрасывается молча: неопознанное → проза + флаг.
+  4. 📏-инвариант (SPEC §9): авторские <br> не плющатся — маршрутизируются
+     ([poem] / абзацный разрыв / continuation сноски). Косметический whitespace
+     разметки отделяется от авторских <br> сентинелом \\x00 (режим br='mark').
+  5. Оракул-гейт: после конвертации сверка текст-массы оригинал↔ZML;
+     покрытие <0.97 или >1.20 → флаг к разбору.
+
+Usage: python html_to_zml.py <art-id> [<art-id> ...]
+  читает ../../yaniktoim/docs/art/<id>.html, пишет out/<id>.zml и out/<id>.flags.txt
+"""
+import json
+import re
+import sys
+from html.parser import HTMLParser
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+ART = ROOT / "yaniktoim" / "docs" / "art"
+MANIFEST = {r["art"]: r for r in json.loads((ROOT / "yaniktoim/manifest.json").read_text("utf-8"))}
+OUT = Path(__file__).resolve().parent / "out"
+OUT.mkdir(exist_ok=True)
+
+VOID = {"br", "img", "hr", "meta", "link", "input", "source"}
+BR = "\x00"  # сентинел авторского <br> (отличаем от косметических \n разметки)
+
+
+class Tree(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.root = {"tag": "#root", "attrs": {}, "kids": []}
+        self.stack = [self.root]
+
+    def handle_starttag(self, t, attrs):
+        n = {"tag": t, "attrs": dict(attrs), "kids": []}
+        self.stack[-1]["kids"].append(n)
+        if t not in VOID:
+            self.stack.append(n)
+
+    def handle_startendtag(self, t, attrs):
+        self.stack[-1]["kids"].append({"tag": t, "attrs": dict(attrs), "kids": []})
+
+    def handle_endtag(self, t):
+        if t in VOID:
+            return
+        for i in range(len(self.stack) - 1, 0, -1):
+            if self.stack[i]["tag"] == t:
+                del self.stack[i:]
+                break
+
+    def handle_data(self, d):
+        self.stack[-1]["kids"].append(d)
+
+
+def cls(n):
+    return set((n.get("attrs", {}).get("class", "") or "").split())
+
+
+def find(n, pred, acc=None):
+    acc = acc if acc is not None else []
+    for k in n["kids"]:
+        if isinstance(k, dict):
+            if pred(k):
+                acc.append(k)
+            find(k, pred, acc)
+    return acc
+
+
+def first(n, pred):
+    r = find(n, pred)
+    return r[0] if r else None
+
+
+def prune(n, pred):
+    """Remove matching descendants in place."""
+    n["kids"] = [k for k in n["kids"] if not (isinstance(k, dict) and pred(k))]
+    for k in n["kids"]:
+        if isinstance(k, dict):
+            prune(k, pred)
+    return n
+
+
+def raw_text(n):
+    out = []
+    for k in n["kids"]:
+        if isinstance(k, str):
+            out.append(k)
+        elif k["tag"] == "br":
+            out.append("\n")
+        else:
+            out.append(raw_text(k))
+    return "".join(out)
+
+
+FLAGS = []
+
+
+def flag(art, msg):
+    FLAGS.append(f"[{art}] {msg}")
+
+
+# ── inline reconstruction ──────────────────────────────────────────────────
+FNREF_A_CLS = {"fnref", "fn-ref", "fnmark", "fn-mark", "noteref", "note-ref", "fn-anchor"}
+POPUP_CLS = {"pop", "fn-pop", "fnpop", "fn-preview", "tooltip", "tip"}
+
+
+def inline(n, art, br="space"):
+    """Serialize children to ZML inline text.
+    br: 'space' (схлопнуть) | 'nl' (\\n) | 'mark' (сентинел BR — авторский перенос,
+    отличимый от косметических \\n pretty-print)."""
+    brchar = {"space": " ", "nl": "\n", "mark": BR}[br]
+    out = []
+    for k in n["kids"]:
+        if isinstance(k, str):
+            out.append(k)
+            continue
+        t = k["tag"]
+        c = cls(k)
+        if t == "br":
+            out.append(brchar)
+        elif t == "sup":
+            out.append(fn_ref(k, art))
+        elif t == "a":
+            if c & FNREF_A_CLS:  # сноска-маркер ссылкой без <sup>
+                n2 = _ref_num(k["attrs"].get("href", ""), raw_text(k))
+                out.append(f"[^{n2}]" if n2 is not None else "")
+            else:
+                out.append(link(k, art))
+        elif t in ("em", "i"):
+            inner = inline(k, art, br).strip()
+            out.append(f"_{inner}_" if inner else "")
+        elif t in ("b", "strong"):
+            out.append(inline(k, art, br))  # ZML has no bold marker; keep text
+        elif t == "p":
+            # вложенный <p> = авторская граница абзаца (инвариант 14:25: не
+            # склеивать); двойной разделитель → пустая строка → разрыв группы
+            out.append(brchar * 2 + inline(k, art, br) + brchar * 2)
+        elif t == "span":
+            if c & {"term", "leit"}:
+                # C10: авторская разметка термина/лейтмотива (158: span.term ×20)
+                kind = "term" if "term" in c else "leit"
+                inner = inline(k, art, br).strip()
+                out.append("{%s|%s}" % (kind, inner) if inner else "")
+                continue
+            if c & POPUP_CLS:
+                # preview-пузырь сноски — generated, drop; НО в части схем (185A)
+                # попап-обёртка содержит и сам маркер-ссылку — извлечь его.
+                mk = first(k, lambda x: bool(cls(x) & FNREF_A_CLS) or x["tag"] == "sup")
+                if mk is not None:
+                    n2 = _ref_num(mk["attrs"].get("href", ""), raw_text(mk))
+                    out.append(f"[^{n2}]" if n2 is not None else "")
+                continue
+            if c & FNREF_A_CLS:
+                n2 = _ref_num(k["attrs"].get("href", ""), raw_text(k))
+                out.append(f"[^{n2}]" if n2 is not None else "")
+                continue
+            if (c & {"anchor-hint", "anchorhint", "anchor-note", "anchor", "up"}
+                    and re.fullmatch(r"[↑↟▴^\s]*(наверх)?",
+                                     raw_text(k).strip(), re.I)):
+                # хинт «↑ наверх» в заголовках (18T/189/55D…) — артефакт навигации
+                continue
+            if "kicker" in c:
+                # киккер-спан ВНУТРИ H1 (59C/1B5A/416B) — рубрика/надзаголовок,
+                # НЕ часть названия: тёк в title («Да будет Свет!И это только
+                # начало») — снять (вердикт 21:12 2026-06-12)
+                flag(art, "kicker-спан внутри строки снят («%s»)" % raw_text(k).strip()[:30])
+                continue
+            out.append(inline(k, art, br))
+        else:
+            out.append(inline(k, art, br))
+    return "".join(out)
+
+
+FN_ID_MAP = {}  # anchor-id определения → финальный номер (заполняет collect_footnotes)
+
+
+def _ref_num(href, text):
+    """Номер сноски для маркера: сперва по карте якорей (надёжно при
+    пер-секционных схемах #s7-fnN — 217A), затем последняя цифра-группа."""
+    frag = (href or "").lstrip("#")
+    if frag and frag in FN_ID_MAP:
+        return FN_ID_MAP[frag]
+    m = re.search(r"fn[-_]?(\d+)", href or "")
+    if m:
+        return int(m.group(1))
+    nums = re.findall(r"\d+", href or "") or re.findall(r"\d+", text or "")
+    return int(nums[-1]) if nums else None
+
+
+def fn_ref(sup, art):
+    a = first(sup, lambda x: x["tag"] == "a")
+    if not a:
+        n = _ref_num("", raw_text(sup))
+        return f"[^{n}]" if n is not None else ""
+    n = _ref_num(a["attrs"].get("href", ""), raw_text(a))
+    return f"[^{n}]" if n is not None else ""
+
+
+AUDIO_HREFS = set()  # href'ы, признанные озвучкой (заполняет convert per-article)
+
+
+def link(a, art):
+    href = a["attrs"].get("href", "")
+    c = cls(a)
+    txt = inline(a, art, "space").strip()
+    if "audio-link" in c or href in AUDIO_HREFS:
+        return ""  # audio narration → frontmatter audio: (collected in convert)
+    if "back" in c or "self" in c or href.startswith("#"):
+        frag = href.lstrip("#")
+        if frag in FN_ID_MAP and FN_ID_MAP[frag] is not None:
+            # якорь-маркер сноски (`<a href="#fn2">**</a>` — 182) → [^N]/[^**]
+            return "[^%s]" % FN_ID_MAP[frag]
+        # anchor / back-to-top. If it WRAPS real text (corpus puts the section
+        # title inside the #top link), keep the text; if it's just an arrow, drop.
+        if txt and not re.fullmatch(r"[↑↟↩↪⮌▴▾^⌃→←»«›‹\s]+", txt):
+            return txt
+        return ""  # bare back-to-top / backref — render regenerates it
+    mz = re.search(r"zohar-sulam/([a-z][a-z-]*)/0*(\d+)\.html", href)
+    if mz:
+        return "{%s|%s}" % (mz.group(1), mz.group(2))
+    if re.fullmatch(r"[A-Za-z0-9_]+\.html", href):  # local corpus article
+        return "[[%s]]" % href[:-5]
+    if href.startswith("http"):
+        return "[%s|%s]" % (href, txt) if txt and txt != href else "[%s]" % href
+    return txt
+
+
+# ── 📏 авторские переносы → структура ────────────────────────────────────────
+def _mark_lines(node, art):
+    """inline в режиме 'mark' → строки по авторским <br>; косметический
+    whitespace разметки (\\n+отступы pretty-print) схлопнут в пробел."""
+    txt = inline(node, art, "mark")
+    txt = re.sub(r"\s+", " ", txt)  # \x00 не входит в \s — авторские переносы живут
+    return [ln.strip() for ln in txt.split(BR)]
+
+
+def _line_groups(lines):
+    """Строки → группы, разделённые пустыми строками (двойной <br>)."""
+    groups, cur = [], []
+    for ln in lines:
+        if ln:
+            cur.append(ln)
+        elif cur:
+            groups.append(cur)
+            cur = []
+    if cur:
+        groups.append(cur)
+    return groups
+
+
+def _versey(lines):
+    nb = [l for l in lines if l]
+    return len(nb) >= 2 and sum(len(l) for l in nb) / len(nb) < 50
+
+
+def _groups_text(groups):
+    """ГЛОБАЛЬНЫЙ ИНВАРИАНТ (оператор, 2026-06-12 14:25): авторские переносы
+    НЕ плющатся НИГДЕ. Группы (между пустыми строками) → абзацы; строки внутри
+    группы сохраняются \\n (render рисует <br>). Чистится только двойной пробел."""
+    return "\n\n".join(
+        "\n".join(re.sub(r"\s{2,}", " ", l).strip() for l in g if l.strip())
+        for g in groups if g)
+
+
+def para_blocks(node, art):
+    """<p>/текст-ран → список ZML-блоков с 📏-маршрутизацией:
+    стих-форма → [poem]; <br><br> → отдельные абзацы; одиночные <br> в длинной
+    прозе → flow (канон: CAPS-периоды/wrapped prose не стих)."""
+    lines = _mark_lines(node, art)
+    groups = _line_groups(lines)
+    if not groups:
+        return []
+    if _versey(lines):  # стих-ФОРМА → [poem]-обёртка (чисто стилевой выбор)
+        body = "\n\n".join("\n".join(g) for g in groups)
+        return ["[poem]\n%s\n[/poem]" % body]
+    # инвариант 14:25: строки групп СОХРАНЯЮТСЯ (\n), плющится только двойной пробел
+    out = ["\n".join(re.sub(r"\s{2,}", " ", l).strip() for l in g if l.strip())
+           for g in groups if g]
+    # декоративные разделители (✦ ✦ ✦ / *** / ⁂) и сирота-лейбл «Эпиграф» — не контент
+    out = [p for p in out
+           if re.search(r"\w", p) and p.lower().strip() not in ("эпиграф", "эпиграфы")]
+    return out
+
+
+# ── epigraph detection (role-based, scheme-agnostic) ──────────────────────────
+def is_epi(x):
+    if not isinstance(x, dict):
+        return False
+    c = cls(x)
+    if "epis" in c:                       # the .epis WRAPPER, not an epigraph
+        return False
+    if "epi" in c and x["tag"] in ("div", "p", "blockquote"):
+        return True
+    if "epigraph" in c and x["tag"] in ("blockquote", "div", "p"):
+        return True
+    return False
+
+
+def _epi_is_cite(x):
+    return isinstance(x, dict) and (
+        x["tag"] == "cite" or bool(cls(x) & {"cite", "epi-cite", "src", "epigraph-src",
+                                             "epi-source", "epigraph-author", "author"}))
+
+
+def _shallow(n):
+    return {"tag": n["tag"], "attrs": n["attrs"], "kids": list(n["kids"])}
+
+
+# ── block emitters ──────────────────────────────────────────────────────────
+def _cite_of(n):
+    cite_el = first(n, _epi_is_cite)
+    if not cite_el:
+        return ""
+    tmp = _shallow(cite_el)
+    prune(tmp, lambda x: x["tag"] == "sup")  # drop footnote ref from cite text
+    return re.sub(r"\s+", " ", raw_text(tmp)).strip().strip("—").strip()
+
+
+def emit_epi(n, art, kind=None):
+    """kind: None (авто: verse-эвристика) | 'dedi' (посвящение, вердикт 8)."""
+    cite = _cite_of(n)
+    body = first(n, lambda x: "epi-body" in cls(x)) or n
+    # serialize body WITHOUT the cite element so its text isn't duplicated.
+    body = prune(_shallow(body), _epi_is_cite)
+    prune(body, lambda x: bool(cls(x) & {"epi-label", "epigraph-label", "epi-h", "epi-tag"}))
+    lines = _mark_lines(body, art)
+    groups = _line_groups(lines)
+    if not groups:
+        return ""
+    nonblank = [l for l in lines if l]
+    verse = _versey(nonblank)
+    # инвариант 14:25: строки сохраняются при ЛЮБОМ kind (verse — стилевой класс)
+    txt = _groups_text(groups)
+    if kind:
+        attrs = ' kind="%s"' % kind  # явная роль (dedi) сильнее verse-эвристики
+    else:
+        attrs = ' kind="verse"' if verse else ""
+    if cite:
+        attrs += ' cite="%s"' % cite
+    return "[epi%s]\n%s\n[/epi]" % (attrs, txt)
+
+
+_QUOTE_LABEL_RX = re.compile(r'^[«"“]?\s*цитата\s*[:.]?\s*[»"”]?$', re.I)
+
+
+def emit_quote(n, art):
+    """blockquote/div.quote вне роли эпиграфа → [quote] (роль «цитата», C12).
+    kind=scripture при одноимённом классе. Label-спан/строка «Цитата» снимается
+    (вердикт A6 — дубль лейбла карточки, 1CM)."""
+    cite = _cite_of(n)
+    body = prune(_shallow(n), _epi_is_cite)
+    prune(body, lambda x: bool(cls(x) & {"label", "q-label", "quote-label", "qlabel"}))
+    lines = _mark_lines(body, art)
+    groups = _line_groups(lines)
+    if not groups:
+        return ""
+    # инвариант 14:25: строки внутри цитаты сохраняются (\n)
+    paras = ["\n".join(re.sub(r"\s{2,}", " ", l).strip() for l in g if l.strip())
+             for g in groups if g]
+    if paras and _QUOTE_LABEL_RX.match(paras[0].split("\n", 1)[0]):
+        head = paras[0].split("\n", 1)
+        paras = ([head[1]] if len(head) > 1 else []) + paras[1:]
+        flag(art, "label-строка «Цитата» снята с [quote]")
+    if not paras:
+        return ""
+    txt = "\n\n".join(paras)
+    attrs = ' kind="scripture"' if "scripture" in cls(n) else ""
+    if cite:
+        attrs += ' cite="%s"' % cite
+    return "[quote%s]\n%s\n[/quote]" % (attrs, txt)
+
+
+def emit_subsec(node, art):
+    lines = [l for l in _mark_lines(node, art) if l]
+    return "[subsec]\n" + "\n".join(lines) + "\n[/subsec]" if lines else ""
+
+
+def _verse_lines(node, art):
+    """Строки стиха: в СТИХ-контексте значимы и <br>, и текстовые переносы
+    исходника (LLM кладёт каждую строку стиха на свою строку разметки — 29M:
+    div.stanza>p без <br>). В прозе текст-\\n косметичен — там _mark_lines."""
+    return [ln.strip() for ln in inline(node, art, "nl").split("\n") if ln.strip()]
+
+
+def emit_stanzas(stanzas, art):
+    """Build a [poem] from stanza nodes. Lines come from .line/.ln children
+    (34O/29M scheme), else from <br>/newline-split text (237/29M schemes)."""
+    out = []
+    for st in stanzas:
+        line_els = [k for k in st["kids"]
+                    if isinstance(k, dict) and (cls(k) & {"line", "ln", "verse-line"})]
+        if line_els:
+            lines = [re.sub(r"\s+", " ", inline(l, art, "space").strip()) for l in line_els]
+            s = "\n".join(l for l in lines if l)
+        else:
+            s = "\n".join(_verse_lines(st, art))
+        if s:
+            out.append(s)
+    # label-литерал «Цитата» первой строкой стиха (1CM, вердикт A6) — снять
+    if out:
+        head = out[0].split("\n", 1)
+        if _QUOTE_LABEL_RX.match(head[0].strip()):
+            out[0] = head[1] if len(head) > 1 else ""
+            out = [s for s in out if s]
+            flag(art, "label-строка «Цитата» снята с [poem]")
+    return "[poem]\n" + "\n\n".join(out) + "\n[/poem]" if out else ""
+
+
+def emit_verse_blocks(n, art):
+    """Поэма-обёртка со СМЕШАННЫМИ детьми (строфы + прозо-<p> между ними — 323):
+    идём по детям в документ-порядке, строфы группируем в [poem], прозу эмитим
+    абзацами между поэмами. → список блоков."""
+    kids = [k for k in n["kids"] if isinstance(k, dict)]
+    direct_st = [k for k in kids if cls(k) & {"st", "stanza"}]
+    if not direct_st or len(direct_st) == len(kids):
+        b = emit_verse(n, art)
+        return [b] if b else []
+    out, run = [], []
+
+    def flush():
+        if run:
+            out.append(emit_stanzas(run, art))
+            run.clear()
+    for k in kids:
+        if cls(k) & {"st", "stanza"}:
+            run.append(k)
+        elif k["tag"] == "p":
+            flush()
+            out.extend(para_blocks(k, art))
+        else:
+            run.append(k)  # безымянная обёртка внутри поэмы — как строфа
+    flush()
+    return [b for b in out if b]
+
+
+def emit_verse(n, art):
+    # a .verse/.poem wrapper, a single stanza, or a block of <br>/newline-lines.
+    sts = find(n, lambda x: cls(x) & {"st", "stanza"})
+    if sts:
+        return emit_stanzas(sts, art)
+    if cls(n) & {"st", "stanza"}:
+        return emit_stanzas([n], art)
+    # строфы = <p>-дети (29M-стиль) либо разрывы пустыми строками
+    psts = [k for k in n["kids"] if isinstance(k, dict) and k["tag"] == "p"]
+    if psts:
+        out = ["\n".join(_verse_lines(p, art)) for p in psts]
+        out = [s for s in out if s]
+        return "[poem]\n" + "\n\n".join(out) + "\n[/poem]" if out else ""
+    stanzas = []
+    for b in re.split(r"\n\s*\n", inline(n, art, "nl")):
+        lines = [ln.strip() for ln in b.split("\n") if ln.strip()]
+        if lines:
+            stanzas.append("\n".join(lines))
+    return "[poem]\n" + "\n\n".join(stanzas) + "\n[/poem]" if stanzas else ""
+
+
+# ── музыка ───────────────────────────────────────────────────────────────────
+TITLE_CLS = {"t-name", "tname", "tk-name", "name", "t-title", "ttitle",
+             "track-title", "track-name", "m-title", "song-title", "tk-title",
+             "ttl", "tt", "t"}
+ARTIST_CLS = {"t-art", "tartist", "t-artist", "tk-art", "t-author", "artist",
+              "track-artist", "ta", "by", "author"}
+LABEL_CLS = {"music-label", "lbl", "label", "mus-label"}
+
+
+def _clean_track_text(s):
+    s = re.sub(r"[\s\x00]+", " ", s or "").strip()
+    s = re.sub(r"^[▶▷►▸‣▹➤·•\s]+", "", s)
+    # глифы-артефакты исходной разметки внутри строки («↗↑›» — 12F; «▾» — 16J)
+    s = re.sub(r"\s*[↗↪➚⧉⇗➦↑›‹▾▴▿▵]+\s*", " ", s)
+    return re.sub(r"\s{2,}", " ", s).strip()
+
+
+def is_track(n):
+    """Трек-плитка. Признак ЛОКАЛЕН: класс/атрибут на самом узле, либо data-yt
+    в потомках у МАЛЕНЬКОГО листа (короткий текст, без заголовков) — иначе любой
+    верхний wrap, где глубоко лежит музыка, съедал бы статью целиком."""
+    if n["tag"] not in ("div", "details", "figure", "li"):
+        return False
+    c = cls(n)
+    if c & {"track", "player"}:
+        return True
+    a = n.get("attrs", {})
+    if a.get("data-yt") or a.get("data-embed"):
+        return True
+    if first(n, lambda x: x["tag"] in ("h1", "h2", "h3", "p")):
+        return False
+    if len(re.sub(r"\s+", "", raw_text(n))) > 200:
+        return False
+    return bool(first(n, lambda x: isinstance(x, dict) and (
+        x.get("attrs", {}).get("data-yt") or x.get("attrs", {}).get("data-embed"))))
+
+
+def is_music_container(n):
+    if n["tag"] not in ("div", "section", "details", "aside"):
+        return False
+    return any("music" in c for c in cls(n)) and "music-label" not in cls(n)
+
+
+def _yt_id(url):
+    m = re.search(r"(?:v=|youtu\.be/|embed/)([A-Za-z0-9_-]{11})", url or "")
+    return m.group(1) if m else None
+
+
+def _is_fnmark(x):
+    return x["tag"] == "sup" or (x["tag"] in ("a", "span") and bool(cls(x) & FNREF_A_CLS))
+
+
+def emit_music(blocks, art):
+    """blocks: list of track-ish nodes (and labels). Build one [mus].
+    Реф-маркеры сносок в полях трека/лейбла ОСТАЮТСЯ НА МЕСТЕ текстовым `[^N]`
+    (оператор 15:14, кейс Gregorian[12] 16J) — render рисует рабочий sup+popup."""
+    label = ""
+    entries = []
+
+    def _inline_refs(node):
+        """sup/fnref-узлы → текст-маркер `[^N]` на своём месте (in place)."""
+        sh = _shallow(node)
+
+        def walk_repl(n):
+            for idx, kd in enumerate(n["kids"]):
+                if not isinstance(kd, dict):
+                    continue
+                if _is_fnmark(kd):
+                    if kd["tag"] == "sup":
+                        r = fn_ref(kd, art)
+                    else:
+                        n2 = _ref_num(kd["attrs"].get("href", ""), raw_text(kd))
+                        r = "[^%s]" % n2 if n2 is not None else ""
+                    n["kids"][idx] = r or ""
+                else:
+                    walk_repl(kd)
+        walk_repl(sh)
+        return sh
+
+    for b in blocks:
+        c = cls(b)
+        if c & LABEL_CLS:
+            label = raw_text(_inline_refs(b)).strip().rstrip(":")
+            if "[^" in label:
+                # data-label темы — плоский текст, render маркер там не нарисует
+                flag(art, "маркер сноски на label [mus] «%s» — render рисует строку-этикетку со сноской (.music-label)" % label[:40])
+            continue
+        b = _inline_refs(b)
+        url = ""
+        ae = first(b, lambda x: x["tag"] == "a" and ("ext" in " ".join(cls(x)) or "youtu" in x["attrs"].get("href", "")))
+        if ae:
+            url = ae["attrs"].get("href", "")
+        if not url:
+            de = first(b, lambda x: x.get("attrs", {}).get("data-embed") or x.get("attrs", {}).get("data-yt"))
+            if de:
+                d = de["attrs"].get("data-embed") or de["attrs"].get("data-yt")
+                url = d if d.startswith("http") else "https://youtu.be/" + d
+            elif b["attrs"].get("data-yt") or b["attrs"].get("data-embed"):
+                d = b["attrs"].get("data-yt") or b["attrs"].get("data-embed")
+                url = d if d.startswith("http") else "https://youtu.be/" + d
+        # title/author: известные классы → структурный фолбэк (b/strong = title;
+        # остаток после «—» = author) → raw split « — ». Имена классов per-article
+        # случайны — перечень не закроется, структура надёжнее (аудит §3).
+        name = (first(b, lambda x: cls(x) & {"t-name", "tname", "tk-name", "name"})
+                or first(b, lambda x: cls(x) & (TITLE_CLS - {"t"}))
+                or first(b, lambda x: "t" in cls(x) and x["tag"] == "span"))
+        artn = first(b, lambda x: cls(x) & ARTIST_CLS)
+        if name:
+            title = _clean_track_text(raw_text(name))
+            author = _clean_track_text(re.sub(r"^[—–-]\s*", "", raw_text(artn))) if artn else ""
+        else:
+            bo = first(b, lambda x: x["tag"] in ("b", "strong"))
+            full = _clean_track_text(raw_text(b))
+            if bo:
+                # b-узел отображается в карточке ПЕРВЫМ; render склеивает
+                # «author — title» → b-текст идёт в author (порядок = оригинал;
+                # чинит «Moment of Peace — Gregorian» 16J, «Circle of Life —
+                # Elton John» 12L — поля больше не переворачиваются)
+                author = _clean_track_text(raw_text(bo))
+                rem = full.replace(author, "", 1) if author and author in full else ""
+                title = _clean_track_text(re.sub(r"^[—–-]\s*", "", rem.strip()))
+            else:
+                title, author = full, ""
+        if not author and " — " in title:
+            # комбо-строка «X — Y»: кто автор — не определить; render склеивает
+            # «author — title» → первый кусок в author-слот = АВТОРСКИЙ порядок
+            # отображения сохраняется (12L «Elton John — Circle of Life»)
+            author, title = [_clean_track_text(s) for s in title.split(" — ", 1)]
+        author = re.sub(r"^[—–-]\s*", "", author).strip()  # ведущее тире остатка (368)
+        if not author:
+            # «Композиция, АВТОР» (финальный трек-лист 12F, вердикт A5г) — автор
+            # капсом после запятой → раздельные поля (render сам склеит «А — К»)
+            mca = re.match(r"^(.{2,}?),\s+([А-ЯЁ][А-ЯЁ\s.&«»'-]{2,})$", title)
+            if mca:
+                title, author = mca.group(1).strip(), mca.group(2).strip()
+                flag(art, "трек «Композиция, АВТОР» → раздельные поля")
+        if not url and not title:
+            continue  # ZML3: a [mus] track is valid with ≥1 field (title OR url)
+        entries.append((url, title, author))
+    # дедуп: безымянная url-строка (голый embed-плеер рядом с титулованной
+    # строкой того же видео — 185A/34O) дропается, если ID уже представлен с title
+    titled_ids = {_yt_id(u) for u, t, a in entries if (t or a) and _yt_id(u)}
+    lines, seen = [], set()
+    for url, title, author in entries:
+        vid = _yt_id(url)
+        if not title and not author and vid and vid in titled_ids:
+            continue
+        key = (vid or url, title, author)
+        if key in seen:
+            continue
+        seen.add(key)
+        lines.append("[%s|%s|%s]" % (url, title, author))
+    # дефолт-лейбл («Музыка под настроение») опускается, НО не когда несёт маркер
+    # сноски — иначе сноска с этикетки гибнет (1C8C «…[^4]», вердикт 20:27)
+    head = ("[mus]"
+            if not label or ("настроени" in label.lower() and "[^" not in label)
+            else '[mus="%s"]' % label)
+    if not lines:
+        return ""
+    return head + "\n" + "\n".join(lines) + "\n[/mus]"
+
+
+def slug_of(h2, block):
+    for el in (block, h2):
+        i = el["attrs"].get("id")
+        if i:
+            return i
+    a = first(h2, lambda x: x["tag"] == "a" and x["attrs"].get("name"))
+    return a["attrs"].get("name") if a else None
+
+
+# ── footnotes v2 (контейнер-роль, не классы айтемов) ─────────────────────────
+NOTES_CONT_CLS = {"notes", "footnotes", "fnlist", "fn-list", "notelist",
+                  "notes-list", "endnotes", "fns", "fnotes", "fnitems"}
+ITEM_CLS = {"fn", "note", "fnote", "footnote", "fn-item", "fnitem", "fnentry",
+            "note-item", "fn-note"}
+BACKREF_CLS = {"back", "backref", "fn-back", "ret", "return", "back-ref"}
+# спан с номером/значком сноски В АЙТЕМЕ (имена per-article: num/fn-num/mark/mk…)
+MARKER_CLS = {"num", "marker", "fn-num", "fnnum", "fn-mark", "fnmark", "mark", "mk"}
+_ID_RX = re.compile(r"^(fn|note|n|fnote|footnote|ref-?def)[-_]?\d+$", re.I)
+
+
+def _has_backref(n):
+    return bool(first(n, lambda x: x["tag"] == "a" and (
+        bool(cls(x) & BACKREF_CLS)
+        or (x["attrs"].get("href", "").startswith("#")
+            and re.fullmatch(r"[↑↟↩↪⮌⤴⬆\s]+", raw_text(x) or " ") is not None
+            and raw_text(x).strip() != ""))))
+
+
+def _is_note_item(n, in_notes_cont):
+    if n["tag"] not in ("li", "p", "div"):
+        return False
+    c = cls(n)
+    if c & ITEM_CLS:
+        return True
+    if _ID_RX.match(n["attrs"].get("id", "")):
+        return True
+    if _has_backref(n):
+        return True
+    if in_notes_cont and n["tag"] == "li":
+        return True  # безклассовый li внутри notes-контейнера (09S: section>ol>li)
+    return False
+
+
+def _star_norm(s):
+    """Юникод-звёзды (∗ U+2217, ✱, ⁎) → ASCII '*' для маркер-логики (239)."""
+    return re.sub(r"[∗✱⁎]", "*", s or "")
+
+
+def _fn_glyph(it):
+    """Авторский значок серии из .num/.marker спана («¤1» → '¤'; 1CM ¤ ¶ ^ ‡,
+    341A '*N'). None, если маркер чисто числовой."""
+    sp = first(it, lambda x: bool(cls(x) & MARKER_CLS))
+    if not sp:
+        return None
+    g = re.sub(r"[\d\s.): ]+", "", _star_norm(raw_text(sp)))
+    return g if 0 < len(g) <= 2 else None
+
+
+def collect_footnotes(root, art):
+    """→ (fns: [(num, txt, prefix)], groups, consumed_ids, first_container_node).
+
+    Один контейнер сносок (норма корпуса) → дефолт-группа `[^N]:` хвостом
+    (поведение как раньше). НЕСКОЛЬКО контейнеров (пер-секционные схемы 12F/1CM/
+    217A/341A) → ГРУППЫ ZML3 §4.1 (fn-ревью, вердикты 1+3+5): каждый контейнер —
+    именованная группа s1, s2…; определения `[^sK.N]:` в хвосте, вывод `[refs=sK
+    glyph=…]` на месте контейнера (walk эмитит по first-item-id); нумерация
+    ПЕР-ГРУППОВАЯ авторская (серии не сливаются). groups: [{name, items, first_id,
+    glyph}]. Инвариант корпуса — КОНТЕЙНЕР сносок + айтемы с backref/id."""
+    # 1. контейнеры по классу
+    containers = find(root, lambda x: x["tag"] in ("section", "div", "ol", "ul")
+                      and bool(cls(x) & NOTES_CONT_CLS) and "toc" not in cls(x))
+    # 2. + родители айтемов с независимыми уликами (класс/id И backref) вне их
+    cont_ids = {id(c) for c in containers}
+    extra_parents = {}
+    def scan(node, anc_in_cont):
+        for k in node["kids"]:
+            if not isinstance(k, dict):
+                continue
+            inside = anc_in_cont or id(k) in cont_ids
+            if not inside and k["tag"] in ("li", "p", "div") and (
+                    (cls(k) & ITEM_CLS) or _ID_RX.match(k["attrs"].get("id", ""))) \
+                    and _has_backref(k):
+                extra_parents[id(node)] = node
+            scan(k, inside)
+    scan(root, False)
+    containers += [p for pid, p in extra_parents.items() if pid not in cont_ids]
+    # внешние контейнеры поглощают вложенные (section.notes > ol.fnlist)
+    keep = []
+    cids = [id(c) for c in containers]
+    for c in containers:
+        if not any(id(c) != id(o) and id(c) in {id(d) for d in find(o, lambda x: True)}
+                   for o in containers):
+            keep.append(c)
+    containers = keep
+
+    consumed = set()
+    first_item = None
+    cont_fns = []  # per-container: (cont, [(num, txt, anchor, starred, prefix, glyph)], first_item_id)
+    # документ-порядок контейнеров
+    order = {id(n): i for i, n in enumerate(find(root, lambda x: True))}
+    containers.sort(key=lambda c: order.get(id(c), 0))
+    for cont in containers:
+        fns = []
+        cont_first = None
+        # ВАЖНО: потребляем ТОЛЬКО айтемы (+их поддеревья), а не контейнер целиком —
+        # рядом с айтемами живут НЕ-сносочные абзацы («П.С.», звёздные определения
+        # без разметки — 2CQ), их обязан подобрать обычный walk (ничего не терять).
+        # айтемы: прямые дети-элементы контейнера (и спуск в один уровень обёрток)
+        items = []
+        def gather(node, depth=0):
+            for k in node["kids"]:
+                if not isinstance(k, dict):
+                    continue
+                # вложенная обёртка-контейнер (section.notes > div.notelist, 35Q):
+                # сама проходит _is_note_item через _has_backref (upref у потомков) —
+                # СПУСКАЕМСЯ в неё, а не глотаем 9 айтемов одним блобом
+                if (depth < 2 and k["tag"] in ("div", "ol", "ul", "section")
+                        and bool(cls(k) & NOTES_CONT_CLS)):
+                    gather(k, depth + 1)
+                elif _is_note_item(k, True):
+                    items.append(k)
+                elif depth < 2 and k["tag"] in ("div", "ol", "ul", "section"):
+                    gather(k, depth + 1)
+        gather(cont)
+        in_ol = cont["tag"] == "ol" or bool(first(cont, lambda x: x["tag"] == "ol"))
+        seq = 0
+        for it in items:
+            consumed.add(id(it))
+            for d in find(it, lambda x: True):
+                consumed.add(id(d))
+            if first_item is None:
+                first_item = it
+            if cont_first is None:
+                cont_first = id(it)
+            seq += 1
+            num = _fn_number(it)
+            be = (first(it, lambda x: bool(cls(x) & {"fn-body", "fn-text", "note-body", "body", "txt"}))
+                  or it)
+            be = prune(_shallow(be), lambda x: bool(cls(x) & (MARKER_CLS | BACKREF_CLS)))
+            txt = _fn_text(be, art)
+            # литеральный звёздный маркер «*N.» в начале тела — АВТОРИТЕТНЫЙ номер
+            # (надёжнее id: в пер-секционных схемах id-цифры врут — 217A)
+            starred = False
+            # авторский звёздный маркер анонимной сноски («*», «**») — хранить
+            # как `[^|*]:` (render рисует его, а не дефолт «См. также») — 182
+            prefix = ""
+            mk = first(it, lambda x: bool(cls(x) & MARKER_CLS))
+            if mk is not None and re.fullmatch(r"\*+", _star_norm(raw_text(mk).strip()) or "#"):
+                prefix = _star_norm(raw_text(mk).strip())
+            # юникод-звёзды (∗∗∗ — 239) нормализуются к '*' для маркер-логики
+            mstar = re.match(r"^\*+\s*(\d+)\s*[.)]?\s*", _star_norm(txt or ""))
+            if mstar:
+                num = int(mstar.group(1))
+                txt = txt[mstar.end():].strip()
+                starred = True
+            elif not prefix:
+                mb = re.match(r"^(\*+)\s+", _star_norm(txt or ""))  # звёзды голым текстом в теле
+                if mb:
+                    prefix = mb.group(1)
+                    txt = txt[mb.end():].strip()
+            if num is None and in_ol and it["tag"] == "li":
+                # последовательная нумерация <ol> (если нет анон-маркера « * »)
+                mk = first(it, lambda x: bool(cls(x) & MARKER_CLS))
+                if not (mk and "*" in _star_norm(raw_text(mk))):
+                    num = seq
+            if txt:
+                # be храним: тела пере-сериализуются ПОСЛЕ заполнения FN_ID_MAP
+                # (кросс-рефы сносок на ГРУППОВЫЕ определения — 341A [^s2.1])
+                fns.append([num, txt, it["attrs"].get("id") or "", starred, prefix,
+                            _fn_glyph(it), be])
+        if fns:
+            cont_fns.append((cont, fns, cont_first))
+
+    def _strip_lead_num(e):
+        # маркер «N.»/«N)» голым текстом в начале тела (не в span.num) — срезаем
+        # при совпадении с ФИНАЛЬНЫМ номером; звёздно-очищенные не трогаем,
+        # (?!\d) бережёт «22 буквы» при num=2 (186A)
+        if e[0] is not None and e[1] and not e[3]:
+            e[1] = re.sub(r"^\**\s*0*%d(?!\d)\s*[.):—-]?\s*" % e[0], "", e[1]).strip()
+
+    def _reserialize(e):
+        # второй проход: тело заново через inline() с ПОЛНОЙ FN_ID_MAP (кросс-
+        # рефы между группами), затем те же срезы маркеров, что в item-loop
+        be = e[6]
+        if be is None:
+            return
+        txt = _fn_text(be, art)
+        mstar = re.match(r"^\*+\s*(\d+)\s*[.)]?\s*", _star_norm(txt or ""))
+        if e[3] and mstar:
+            txt = txt[mstar.end():].strip()
+        elif e[4]:
+            mb = re.match(r"^(\*+)\s+", _star_norm(txt or ""))
+            if mb:
+                txt = txt[mb.end():].strip()
+        e[1] = txt
+        _strip_lead_num(e)
+
+    groups = []
+    if len(cont_fns) <= 1:
+        # ── дефолт-группа (норма корпуса): хвост с notes_title, как раньше ──
+        fns = cont_fns[0][1] if cont_fns else []
+        nums = [e[0] for e in fns if e[0] is not None]
+        if len(nums) != len(set(nums)):
+            flag(art, "коллизия номеров в одном контейнере → перенумерация (%d шт.)" % len(fns))
+            for i, e in enumerate(fns):
+                e[0] = i + 1
+        for e in fns:
+            if e[2]:
+                # значение карты: номер ИЛИ звёздный маркер ('**') — ссылка в
+                # теле, целящая в этот якорь, станет [^**] (кликабельно)
+                FN_ID_MAP[e[2]] = e[0] if e[0] is not None else (e[4] or None)
+        for e in fns:
+            _reserialize(e)
+        return ([(n, t, pre) for n, t, _a, _s, pre, _g, _b in fns if t],
+                groups, consumed, first_item)
+
+    # ── ГРУППЫ (fn-ревью, вердикты 1+3+5): несколько контейнеров — каждый своя
+    # именованная группа sK; пер-групповая авторская нумерация; глиф-серии. ──
+    flag(art, "пер-секционные сноски → группы [refs] (%d контейнеров)" % len(cont_fns))
+    default_fns = []
+    staged = []  # (gname, numbered, glyph, cfirst) — пока без финальных текстов
+    for gi, (cont, fns, cfirst) in enumerate(cont_fns, 1):
+        gname = "s%d" % gi
+        numbered = [e for e in fns if e[0] is not None]
+        anon = [e for e in fns if e[0] is None]
+        nums = [e[0] for e in numbered]
+        if len(nums) != len(set(nums)):
+            flag(art, "группа %s: коллизия номеров → перенумерация внутри группы (%d шт.)" % (gname, len(numbered)))
+            for i, e in enumerate(numbered):
+                e[0] = i + 1
+        # глиф серии: единый по всем numbered-айтемам группы (¤ ¶ ^ ‡ — 1CM; '*' — 341A)
+        glyphs = {e[5] for e in numbered}
+        glyph = glyphs.pop() if len(glyphs) == 1 and None not in glyphs else None
+        if glyph is None and numbered and all(e[3] for e in numbered):
+            glyph = "*"  # звёздная серия «*1/*2» (341A) → [refs=… glyph=*]
+        for e in numbered:
+            if e[2]:
+                FN_ID_MAP[e[2]] = "%s.%d" % (gname, e[0])
+        # анон/звёздные определения внутри группового контейнера групповой формы
+        # не имеют (§4.1 — группы числовые) → дефолт-хвост + флаг
+        for e in anon:
+            if e[2]:
+                FN_ID_MAP[e[2]] = e[4] or None
+            default_fns.append(e)
+            flag(art, "группа %s: анонимное/звёздное определение → дефолт-хвост" % gname)
+        staged.append((gname, numbered, glyph, cfirst))
+    # карта якорей ПОЛНА → финальная сериализация тел (кросс-рефы групп верны)
+    for gname, numbered, glyph, cfirst in staged:
+        for e in numbered:
+            _reserialize(e)
+        if numbered:
+            groups.append({"name": gname,
+                           "items": [(e[0], e[1]) for e in numbered if e[1]],
+                           "first_id": cfirst, "glyph": glyph})
+    for e in default_fns:
+        _reserialize(e)
+    return ([(n, t, pre) for n, t, _a, _s, pre, _g, _b in default_fns if t],
+            groups, consumed, first_item)
+
+
+def _fn_text(be, art):
+    """Тело сноски; 📏 — многострочность через continuation (отступ 4 пробела).
+    Строки = <br>-переносы ИЛИ построчные спаны (.vsub — стих-в-сноске, 182)."""
+    line_els = [k for k in be["kids"] if isinstance(k, dict)
+                and (cls(k) & {"vsub", "line", "ln", "verse-line"})]
+    if len(line_els) >= 2:
+        lines = [re.sub(r"\s+", " ", inline(l, art, "space")).strip() for l in line_els]
+    else:
+        lines = _mark_lines(be, art)
+    lines = [strip_backref(l) for l in lines if l]
+    lines = [l for l in lines if l]
+    if not lines:
+        return ""
+    return "\n    ".join(lines)
+
+
+def _fn_number(fn):
+    """Authoritative note number: .num/.marker span → back-arrow href → id."""
+    numspan = first(fn, lambda x: bool(cls(x) & MARKER_CLS))
+    if numspan:
+        m = re.search(r"\d+", raw_text(numspan))
+        if m:
+            return int(m.group())
+        if "*" in raw_text(numspan):
+            return None  # звёздочная анон-сноска
+    back = first(fn, lambda x: x["tag"] == "a" and (bool(cls(x) & BACKREF_CLS) or "back" in " ".join(cls(x))))
+    if back:
+        m = re.search(r"#r(?:ef)?[-_]?(\d+)", back["attrs"].get("href", ""))
+        if m:
+            return int(m.group(1))
+    fid = fn["attrs"].get("id", "")
+    m = re.search(r"fn[-_]?(\d+)", fid)  # «s7-fn3» → 3, не 7 (217A)
+    if m:
+        return int(m.group(1))
+    nums = re.findall(r"\d+", fid)
+    if nums:
+        return int(nums[-1])
+    return None
+
+
+def strip_backref(s):
+    return re.sub(r"\s*[↑↩↪⮌⤴⬆]\s*$", "", s).strip()
+
+
+def find_notes_title(root, art, first_item):
+    """Последний <h2> в документ-порядке перед ПЕРВЫМ айтемом сносок (не
+    контейнером: в sec-block-схеме заголовок «Полезные ссылки» лежит ВНУТРИ
+    контейнера, перед айтемами — 237)."""
+    if first_item is None:
+        return ""
+    state = {"h2": "", "found": None}
+
+    def walk(n):
+        for k in n["kids"]:
+            if not isinstance(k, dict) or state["found"] is not None:
+                continue
+            if id(k) == id(first_item):
+                state["found"] = state["h2"]
+                return
+            if k["tag"] == "h2":
+                state["h2"] = re.sub(r"\s+", " ", inline(k, art).strip())
+            walk(k)
+
+    walk(root)
+    return state["found"] or ""
+
+
+# ── единый walk (v2) ─────────────────────────────────────────────────────────
+CHROME_TAGS = {"header", "nav", "footer", "h1", "hr", "button", "form",
+               "iframe", "svg", "template", "audio", "video", "canvas"}
+CHROME_CLS = {"crumbs", "breadcrumbs", "toc", "byline", "artline", "colophon",
+              "corpus-nav", "corpusnav", "section-nav", "sectionnav", "nav",
+              "license", "attrib", "attribution", "build-date", "hashtag",
+              "hero", "cover", "lead-img", "rule-orn", "title-orn", "ornament",
+              "rule", "divider", "sep", "pager", "prevnext", "pagenav",
+              "back-to-top", "totop", "skip", "sr-only",
+              "epi-label", "epigraph-label", "epi-h", "epi-tag"}
+INLINE_TAGS = {"a", "em", "i", "b", "strong", "span", "sup", "sub", "small",
+               "u", "s", "code", "mark", "cite", "abbr", "br", "img", "wbr", "time"}
+DIALOG_CLS = {"q", "a", "qa", "dialog", "dialogue", "question", "answer",
+              "speaker", "replica", "line-q", "line-a"}
+
+# строка-дата (киккер-даты и пр.): «25 февраля 2021 г.» / 2021-02-25 / 20.02.23
+_DATEISH_RX = re.compile(
+    r"\d{1,2}\s+[а-яё]+\s+\d{4}|\d{4}[/.\-]\d{2}[/.\-]\d{2}|\d{2}[.\-/]\d{2}[.\-/]\d{2,4}", re.I)
+
+
+def _hangnum(p_node):
+    """Висячая ручная нумерация (вердикт 7): <p><span class="n">1.</span>текст…
+    → (номер, скобко-знак) либо None. Только В ТЕЛЕ (сноски consumed раньше)."""
+    if not (isinstance(p_node, dict) and p_node["tag"] == "p"):
+        return None
+    for x in p_node["kids"]:
+        if isinstance(x, str):
+            if x.strip():
+                return None
+            continue
+        if x["tag"] == "span" and (cls(x) & {"n", "num"}):
+            m = re.fullmatch(r"(\d+)\s*([.)])?", raw_text(x).strip())
+            return (int(m.group(1)), m.group(2) or ".") if m else None
+        return None
+    return None
+
+
+def _label_marker_to_heading(blocks, art):
+    """Маркер сноски на label [mus] при ## с ТОЙ ЖЕ надписью прямо над карточкой
+    (11H «Песнь Ступеней[^7]») → перенос маркера в ## — сноска видна, надпись
+    не дублируется (вердикт 20:27 2026-06-12)."""
+    if len(blocks) < 2 or not blocks[-1].startswith('[mus="') \
+            or not blocks[-2].startswith("##"):
+        return
+    m = re.match(r'\[mus="([^"]*)"\]', blocks[-1])
+    if not m:
+        return
+    marks = re.findall(r"\[\^[^\]]+\]", m.group(1))
+    if not marks:
+        return
+    plain = re.sub(r"\[\^[^\]]+\]", "", m.group(1)).strip().rstrip(":").strip()
+    mh = re.match(r"^(#{2,3})\s+(.*?)(\s*\{[^}]*\})?$", blocks[-2])
+    if not mh or mh.group(2).strip().lower() != plain.lower():
+        return
+    blocks[-2] = "%s %s%s%s" % (mh.group(1), mh.group(2).strip(),
+                                "".join(marks), mh.group(3) or "")
+    blocks[-1] = blocks[-1].replace(m.group(0), '[mus="%s"]' % plain, 1)
+    flag(art, "маркер с label [mus] перенесён в ## «%s» (без дубля надписи)" % plain[:30])
+
+
+def _rich_li(x):
+    """Блочный ребёнок li, который нельзя плющить в текст пункта: цитаты,
+    заголовки, вложенные списки/таблицы, треки-details (35Q), div с абзацами."""
+    return (x["tag"] in ("blockquote", "h2", "h3", "table", "ol", "ul",
+                         "details", "iframe")
+            or (x["tag"] == "div" and first(x, lambda y: y["tag"] == "p") is not None))
+
+
+def _toc_heading(k, blocks, art, st):
+    """Пункт оригинального TOC на БЕЗЗАГОЛОВОЧНЫЙ блок → настоящий ## из текста
+    пункта («идём за оригиналом», вердикт 19:21 2026-06-12; обобщение муз-правила
+    158/17BA: 2BG «Эпиграф» → #epigraph-секция, 0BH «Текст» → #body)."""
+    kid = k["attrs"].get("id")
+    if kid and kid in st.get("toc_items", {}) and first(
+            k, lambda x: x["tag"] in ("h1", "h2", "h3", "h4")) is None:
+        blocks.append("## %s {%s}" % (st["toc_items"][kid], kid))
+        st["started"] = True
+        flag(art, "TOC-пункт «%s» → ## (беззаголовочный блок)" % st["toc_items"][kid][:30])
+
+
+def walk(node, blocks, art, st):
+    """Единый проход: документ-порядок, спуск во всё незнакомое, эмит по роли.
+    st: {'consumed': ids сносок, 'started': bool, 'refs_at': {item-id→group},
+    'refs_done': set, 'dates': str|None, 'toc_done': bool, 'epi_pending': bool}."""
+    kids = node["kids"]
+    runbuf = []
+
+    def emit_refs_for(item_node):
+        """[refs=…] на месте первого айтема группы (§4.1)."""
+        ref = st.get("refs_at", {}).get(id(item_node))
+        if ref is not None and ref["name"] not in st["refs_done"]:
+            st["refs_done"].add(ref["name"])
+            gl = " glyph=%s" % ref["glyph"] if ref.get("glyph") else ""
+            blocks.append("[refs=%s%s]" % (ref["name"], gl))
+            st["started"] = True
+
+    def flush_run():
+        if not runbuf:
+            return
+        syn = {"tag": "p", "attrs": {}, "kids": list(runbuf)}
+        runbuf.clear()
+        out = para_blocks(syn, art)
+        if out:
+            st["started"] = True
+        blocks.extend(out)
+
+    i = 0
+    while i < len(kids):
+        k = kids[i]
+        if isinstance(k, str):
+            runbuf.append(k)
+            i += 1
+            continue
+        t, c = k["tag"], cls(k)
+        if id(k) in st["consumed"]:        # сноски собраны отдельно
+            flush_run()
+            emit_refs_for(k)  # группы (§4.1): [refs] на месте первого айтема
+            i += 1
+            continue
+        if t in INLINE_TAGS and not (c & {"track"}) and t != "img":
+            # голый inline-лейбл «ЭПИГРАФ» на блочном уровне (35Q: <strong>Эпиграф
+            # </strong> + blockquote в li) → epi-роль следующему блоку (вердикт 9)
+            if t in ("strong", "b") and not any(
+                    (isinstance(x, str) and x.strip()) or isinstance(x, dict)
+                    for x in runbuf):
+                lbl = re.sub(r"\s+", " ", raw_text(k)).strip().rstrip(":").lower()
+                if lbl in ("эпиграф", "эпиграфы"):
+                    st["epi_pending"] = True
+                    flag(art, "inline-лейбл ЭПИГРАФ → [epi]-роль")
+                    i += 1
+                    continue
+            # висячий номер-метка СНАРУЖИ абзаца (16J: <span class="num-h">1.</span>
+            # + <p>тезис</p>) → нумерованный абзац [num] (решение оператора 14:55)
+            if t == "span" and (c & {"num-h", "numh", "num-head", "para-num"}) and not any(
+                    isinstance(x, str) and x.strip() or isinstance(x, dict) for x in runbuf):
+                mnum = re.fullmatch(r"(\d+)\s*([.)])?", raw_text(k).strip())
+                if mnum:
+                    j = i + 1
+                    while j < len(kids) and isinstance(kids[j], str) and not kids[j].strip():
+                        j += 1
+                    if j < len(kids) and isinstance(kids[j], dict) and kids[j]["tag"] == "p":
+                        out = para_blocks(kids[j], art)
+                        if out and not out[0].startswith("["):
+                            # kind=toc конвертер НЕ ставит (15:08: опция ручная,
+                            # деф. ВЫКЛ) — включается правкой тега в источнике
+                            blocks.append("[num]\n%s%s %s\n[/num]"
+                                          % (mnum.group(1), mnum.group(2) or ".", out[0]))
+                            blocks.extend(out[1:])
+                            st["started"] = True
+                            flag(art, "висячий номер-метка span.num-h → [num]")
+                            i = j + 1
+                            continue
+            runbuf.append(k)
+            i += 1
+            continue
+        flush_run()
+        # ---- [toc]-маркер (вердикт 11): авторское место TOC, ДО хром-скипа ----
+        if t in ("details", "nav", "div", "ol", "ul", "aside", "section") \
+                and (any("toc" in cc for cc in c) or k["attrs"].get("id") == "toc"):
+            if not st["toc_done"]:
+                st["toc_done"] = True
+                collapsed = (t == "details" and "open" not in k["attrs"])
+                blocks.append("[toc collapsed]" if collapsed else "[toc]")
+            i += 1
+            continue
+        # ---- хром ----
+        if t in CHROME_TAGS or (c & CHROME_CLS):
+            i += 1
+            continue
+        if t == "img":
+            if st["started"]:
+                flag(art, "изображение в теле статьи — вне формата (потеряно, нужен разбор)")
+            i += 1
+            continue
+        if "kicker" in c and not st["started"]:
+            # шапочный киккер — [sub] (вердикт 11); киккер-ДАТА («25 февраля
+            # 2021 г.», 4 ст.) — дата-строка → [line kind=dateline] на месте
+            # (решение 13:59: дата-строки в теле, дубль с byline — норма)
+            sub = re.sub(r"\s+", " ", inline(k, art).strip())
+            if sub and len(sub) < 40 and _DATEISH_RX.search(sub):
+                blocks.append("[line kind=dateline]%s[/line]" % sub)
+                st["started"] = True
+                flag(art, "kicker-дата → [line kind=dateline]")
+            elif sub and sub.lower() in st.get("sec_names", set()):
+                # вердикт 21:22: киккер = точный дубль названия раздела из
+                # крошек («Конфронтология Духа»…) — мусор адаптатора, снять
+                flag(art, "kicker-дубль раздела снят («%s»)" % sub[:30])
+            elif sub:
+                blocks.append("[sub]%s[/sub]" % sub)
+                flag(art, "kicker (надзаголовок) → [sub]")
+            i += 1
+            continue
+        if c & {"dateline", "secmeta"}:
+            # вердикт 8 + решение 13:59: ВСЕ дата-строки (вкл. диапазон 163A) —
+            # [line kind=dateline] на своём месте; byline всегда manifest-дата
+            dt = re.sub(r"\s+", " ", inline(k, art).strip())
+            if dt:
+                blocks.append("[line kind=dateline]%s[/line]" % dt)
+                st["started"] = True
+            i += 1
+            continue
+        if "date" in c and t in ("p", "div"):
+            # .date-строка ГДЕ УГОДНО (шапка 16 ст. / даты стихов сборника 184A)
+            # — дата-строка → [line kind=dateline] на месте (решение 13:59)
+            dt = re.sub(r"\s+", " ", inline(k, art).strip())
+            if dt:
+                blocks.append("[line kind=dateline]%s[/line]" % dt)
+                st["started"] = True
+                flag(art, ".date → [line kind=dateline]")
+            i += 1
+            continue
+        if "tags" in c and t in ("p", "div"):
+            txt = re.sub(r"\s+", " ", inline(k, art).strip())
+            if txt:
+                blocks.append("[line kind=tags]%s[/line]" % txt)
+                st["started"] = True
+            i += 1
+            continue
+        if c & {"seealso", "see-also"} and t in ("p", "div"):
+            # «См. также» — блок со смыслом примечаний (оператор 15:31, 158):
+            # тело (+ соседние p.tag-хэштеги) → анонимная сноска `[^]: …`
+            # (render рисует «См. также: …»); пустой шаблон-огрызок опускается
+            body = re.sub(r"\s+", " ", inline(k, art).strip())
+            body = re.sub(r"(?i)^см\.?\s*также\s*:?\s*", "", body).strip()
+            j = i + 1
+            while j < len(kids):
+                k2 = kids[j]
+                if isinstance(k2, str):
+                    if k2.strip():
+                        break
+                    j += 1
+                    continue
+                if k2["tag"] == "p" and "tag" in cls(k2):
+                    tg = re.sub(r"\s+", " ", inline(k2, art).strip())
+                    if tg:
+                        body = (body + " " + tg).strip()
+                    j += 1
+                    continue
+                break
+            if body:
+                # вердикт 21:12 (59C): см.-также остаётся НА АВТОРСКОМ МЕСТЕ
+                # видимой строкой (анон-сноска утаскивала вниз в Примечания)
+                blocks.append("См. также: %s" % body)
+                st["started"] = True
+                flag(art, "блок «См. также» → строка на месте")
+            else:
+                flag(art, "пустой «См. также:» опущен")
+            i = j
+            continue
+        if "tag" in c and t == "p":
+            # одиночный p.tag (хэштег) без seealso — служебная тег-строка
+            txt = re.sub(r"\s+", " ", inline(k, art).strip())
+            if txt:
+                blocks.append("[line kind=tags]%s[/line]" % txt)
+                st["started"] = True
+            i += 1
+            continue
+        if c & {"closing", "banner", "shout", "call", "center-call", "resume"} and t in ("p", "div"):
+            # вердикт 8: роль-строки .closing/.banner → [cry]; + .shout/.call/
+            # .center-call (вердикт 20:53: в оригинале выделены — 16J/11T/12FA/
+            # 17DB/21L/2B6… 13 ст.; span-носители внутри абзацев НЕ трогаем);
+            # + .resume (35Q «Резюме: ВО ВСЕЙ ВСЕЛЕННОЙ…» — плашка, вердикт 21:41)
+            lines = [l for l in _mark_lines(k, art) if l]
+            if lines:
+                blocks.append("[cry]\n" + "\n".join(lines) + "\n[/cry]")
+                st["started"] = True
+            i += 1
+            continue
+        if "dedication" in c and t in ("p", "div", "blockquote"):
+            b = emit_epi(k, art, kind="dedi")  # вердикт 8: посвящение
+            if b:
+                blocks.append(b)
+                st["started"] = True
+            i += 1
+            continue
+        if "coda" in c and t in ("p", "div", "blockquote"):
+            b = emit_epi(k, art)  # вердикт 8: кода = хвостовое обрамление [epi]
+            if b:
+                blocks.append(b)
+                st["started"] = True
+            i += 1
+            continue
+        # ---- роли ----
+        if st.get("epi_pending") and (t == "blockquote" or t in ("p", "div")):
+            # вердикт 9: за снятым лейблом «ЭПИГРАФ» контент уходит в [epi]-роль
+            st["epi_pending"] = False
+            b = emit_epi(k, art)
+            if b:
+                blocks.append(b)
+                st["started"] = True
+                flag(art, "лейбл ЭПИГРАФ → [epi] (постатейная проверка)")
+                i += 1
+                continue
+        if is_epi(k):
+            _toc_heading(k, blocks, art, st)
+            b = emit_epi(k, art)
+            if b:
+                blocks.append(b)
+                st["started"] = True
+            i += 1
+            continue
+        if t in ("h2", "h3", "h4"):
+            if c & {"poemsub", "poem-sub", "poemtitle", "poem-title"}:
+                # вердикт 4: poemsub (239 «Dream On…») — НЕ заголовок → [subsec]
+                b = emit_subsec(k, art)
+                if b:
+                    blocks.append(b)
+                    flag(art, "poemsub → [subsec] (не заголовок)")
+                i += 1
+                continue
+            htext = re.sub(r"\s+", " ", inline(k, art).strip())
+            low = re.sub(r"\[\^[^\]]*\]", "", htext).strip().lower()
+            hid = k["attrs"].get("id", "")
+            if hid in ("epigraph", "epigraf", "s-epi", "epi") or low in ("эпиграф", "эпиграфы"):
+                if re.search(r"\[\^", htext):
+                    # маркер сноски НА лейбле (16J/1CI/571 — источник эпиграфа):
+                    # снять нельзя, сноска осиротеет → оставляем ## (спорное)
+                    flag(art, "лейбл ЭПИГРАФ несёт маркер сноски — оставлен заголовком (спорное, оператору)")
+                else:
+                    # вердикт 19:21 2026-06-12: эпиграф-заголовок, бывший пунктом
+                    # оригинального TOC, остаётся настоящим ## (TOC ведёт на него);
+                    # содержимое следом всё равно уходит в [epi]-роль
+                    anchor = hid if hid in st.get("toc_items", {}) else (
+                        node["attrs"].get("id")
+                        if node["attrs"].get("id") in st.get("toc_items", {}) else None)
+                    if anchor:
+                        blocks.append("## %s {%s}" % (htext, anchor))
+                        st["started"] = True
+                        flag(art, "TOC-пункт «%s» → ## перед [epi]" % htext[:30])
+                    # вердикт 9: лейбл снимается, СОДЕРЖИМОЕ следом → [epi]-роль
+                    st["epi_pending"] = True
+                    i += 1
+                    continue
+            if htext:
+                # слаг: id самого h2 → id родителя-СЕКЦИИ (sec-див с единственным
+                # h2, 237) → <a name>. Родителя-контейнера с многими h2 не брать.
+                slug = k["attrs"].get("id")
+                if not slug and node["attrs"].get("id") and 1 == sum(
+                        1 for x in node["kids"]
+                        if isinstance(x, dict) and x["tag"] in ("h2", "h3", "h4")):
+                    slug = node["attrs"].get("id")
+                if not slug:
+                    a = first(k, lambda x: x["tag"] == "a" and x["attrs"].get("name"))
+                    slug = a["attrs"].get("name") if a else None
+                # вердикт 4: h2 → ##; h3 И h4 → ### (один вложенный уровень)
+                hh = "##" if t == "h2" else "###"
+                blocks.append("%s %s%s" % (hh, htext, " {%s}" % slug if slug else ""))
+                st["started"] = True
+                if t == "h4":
+                    flag(art, "h4 «%s» → ### (брат h3 — проверить структуру)" % htext[:40])
+            i += 1
+            continue
+        if is_music_container(k):
+            # заголовок ВНУТРИ муз-секции (28MA: section.music-summary > h2
+            # «Песнь Ступеней») — эмитить ## ПЕРЕД [mus], не терять (вердикт A5б)
+            hd = first(k, lambda x: x["tag"] in ("h2", "h3"))
+            if hd is None and k["attrs"].get("id") in st.get("toc_items", {}):
+                # «идём за оригиналом» (15:31): муз-блок был ПУНКТОМ TOC без
+                # заголовка (158/17QA) → настоящий ## из текста TOC-пункта;
+                # render скроет дубль-этикетку карточки (has-heading)
+                ttxt = st["toc_items"][k["attrs"]["id"]]
+                blocks.append("## %s {%s}" % (ttxt, k["attrs"]["id"]))
+                st["started"] = True
+                flag(art, "TOC-пункт «%s» → ## перед [mus]" % ttxt[:30])
+            if hd is not None:
+                htext = re.sub(r"\s+", " ", inline(hd, art).strip())
+                slug = hd["attrs"].get("id") or k["attrs"].get("id")
+                if htext:
+                    blocks.append("%s %s%s" % ("##" if hd["tag"] == "h2" else "###",
+                                               htext, " {%s}" % slug if slug else ""))
+                    st["started"] = True
+            labels = find(k, lambda x: bool(cls(x) & LABEL_CLS))
+            tracks = find(k, is_track)
+            b = emit_music(labels + tracks, art)
+            if b:
+                blocks.append(b)
+                st["started"] = True
+                _label_marker_to_heading(blocks, art)
+            i += 1
+            continue
+        if is_track(k) or (c & LABEL_CLS):
+            run = []
+            while i < len(kids):  # пробельные текст-ноды между плитками не рвут ран
+                k2 = kids[i]
+                if isinstance(k2, str):
+                    if k2.strip():
+                        break
+                    i += 1
+                    continue
+                if is_track(k2) or (cls(k2) & LABEL_CLS):
+                    run.append(k2)
+                    i += 1
+                else:
+                    break
+            b = emit_music(run, art)
+            if b:
+                blocks.append(b)
+                st["started"] = True
+                _label_marker_to_heading(blocks, art)
+            continue
+        if "sec-sub" in c:
+            b = emit_subsec(k, art)
+            if b:
+                blocks.append(b)
+            i += 1
+            continue
+        if ("subtitle" in c or ("sub" in c and not st["started"])) \
+                and t in ("div", "p", "h2", "h3"):
+            # класс subtitle ИЛИ шапочный div.sub (35Q «Коллекция Целемов · …»,
+            # вердикт 21:41) → жанровая пометка [sub]
+            sub = re.sub(r"\s+", " ", inline(k, art).strip())
+            if sub:
+                blocks.append("[sub]%s[/sub]" % sub)
+            i += 1
+            continue
+        if c & {"verse", "poem"} or t == "pre":
+            # сборник стихов (184A): section.poem ДЕРЖИТ h2-заголовки/даты
+            # стихов — цельный emit их плющил; спуск обрабатывает по ролям
+            if t != "pre" and first(k, lambda x: x["tag"] in ("h2", "h3", "h4")):
+                walk(k, blocks, art, st)
+                i += 1
+                continue
+            vb = emit_verse_blocks(k, art)
+            if vb:
+                blocks.extend(vb)
+                st["started"] = True
+            i += 1
+            continue
+        if c & {"stanza", "st"}:
+            run = []
+            while i < len(kids):  # пробельные текст-ноды между строфами не рвут ран (182)
+                k2 = kids[i]
+                if isinstance(k2, str):
+                    if k2.strip():
+                        break
+                    i += 1
+                    continue
+                if cls(k2) & {"stanza", "st"}:
+                    run.append(k2)
+                    i += 1
+                else:
+                    break
+            b = emit_stanzas(run, art)
+            if b:
+                blocks.append(b)
+                st["started"] = True
+            continue
+        if c & {"qlabel", "q-label", "quote-label"} and t in ("div", "p"):
+            # label-строка «Цитата» СНАРУЖИ цитаты (35Q ol.celems) — снимается
+            flag(art, "label-строка «Цитата» (отдельным узлом) снята")
+            i += 1
+            continue
+        if t == "blockquote" or (t in ("div", "p") and any(
+                "quote" in cc and "label" not in cc for cc in c)):
+            # blockquote ИЛИ div.quote/longquote (12F/35Q) → [quote]
+            b = emit_quote(k, art)
+            if b:
+                blocks.append(b)
+                st["started"] = True
+            i += 1
+            continue
+        if t == "ol":
+            # consumed-айтемы внутри ol walk'ом не посещаются — [refs] ставим здесь
+            for li in [x for x in k["kids"] if isinstance(x, dict) and id(x) in st["consumed"]]:
+                emit_refs_for(li)
+            lis = [x for x in k["kids"] if isinstance(x, dict) and x["tag"] == "li"
+                   and id(x) not in st["consumed"]]
+            # «богатый» li (35Q: лейблы+blockquote/longquote, треки-details) — НЕ
+            # плющить: богатые li разворачиваются поблочно walk'ом, раны плоских
+            # соседей остаются [num] с ЯВНЫМИ номерами (дыры на местах богатых —
+            # авторская нумерация сохранена; вердикты 21:35/21:41)
+            if any(first(li, _rich_li) for li in lis):
+                flag(art, "ol с блочными пунктами — богатые развёрнуты, номера плоских сохранены")
+                plain = []
+                for idx, li in enumerate(lis, 1):
+                    if first(li, _rich_li):
+                        if plain:
+                            blocks.append("[num]\n" + "\n\n".join(plain) + "\n[/num]")
+                            plain = []
+                        walk(li, blocks, art, st)
+                    else:
+                        txt = "\n".join(l for l in _mark_lines(li, art) if l).strip()
+                        if txt:
+                            plain.append("%d. %s" % (idx, txt))
+                if plain:
+                    blocks.append("[num]\n" + "\n\n".join(plain) + "\n[/num]")
+                st["started"] = True
+                i += 1
+                continue
+            items = []
+            for li in lis:
+                # инвариант 14:25: переносы внутри пункта сохраняются (\n → <br>)
+                txt = "\n".join(l for l in _mark_lines(li, art) if l).strip()
+                if txt:
+                    items.append(txt)
+            if items:
+                blocks.append("[num]\n" + "\n\n".join(items) + "\n[/num]")
+                st["started"] = True
+            i += 1
+            continue
+        if t == "ul":
+            # вердикт 12: ul → блок [ul], пункты строками «- »
+            for li in [x for x in k["kids"] if isinstance(x, dict) and id(x) in st["consumed"]]:
+                emit_refs_for(li)
+            uls = [x for x in k["kids"] if isinstance(x, dict) and x["tag"] == "li"
+                   and id(x) not in st["consumed"]]
+            if any(first(li, _rich_li) for li in uls):
+                flag(art, "ul с блочными пунктами — богатые развёрнуты, плоские раны остались [ul]")
+                plain = []
+                for li in uls:
+                    if first(li, _rich_li):
+                        if plain:
+                            blocks.append("[ul]\n" + "\n".join(plain) + "\n[/ul]")
+                            plain = []
+                        walk(li, blocks, art, st)
+                    else:
+                        lns = [l for l in _mark_lines(li, art) if l]
+                        if lns:
+                            plain.append("- " + "\n".join(lns))
+                if plain:
+                    blocks.append("[ul]\n" + "\n".join(plain) + "\n[/ul]")
+                st["started"] = True
+                i += 1
+                continue
+            items = []
+            for li in [x for x in k["kids"] if isinstance(x, dict) and x["tag"] == "li"
+                       and id(x) not in st["consumed"]]:
+                # инвариант 14:25: внутренние переносы пункта — continuation-строки
+                lns = [l for l in _mark_lines(li, art) if l]
+                if lns:
+                    items.append("- " + "\n".join(lns))
+            if items:
+                blocks.append("[ul]\n" + "\n".join(items) + "\n[/ul]")
+                st["started"] = True
+            i += 1
+            continue
+        if t in ("table", "dl"):
+            for row in find(k, lambda x: x["tag"] in ("tr", "dt", "dd")):
+                txt = re.sub(r"\s+", " ", inline(row, art, "space")).strip()
+                if txt:
+                    blocks.append(txt)
+            flag(art, "%s — вне формата, строки выгружены прозой (нужен ручной/LLM разбор)" % t)
+            i += 1
+            continue
+        if t == "p" and _hangnum(k) is not None:
+            # вердикт 7: ран соседних <p> с висячим span.n/.num → [num] с
+            # АВТОРСКИМИ номерами и скобко-стилем («1.»/«1)»)
+            items = []
+            while i < len(kids):
+                k2 = kids[i]
+                if isinstance(k2, str):
+                    if k2.strip():
+                        break
+                    i += 1
+                    continue
+                hn = _hangnum(k2)
+                if hn is None:
+                    break
+                sh = _shallow(k2)
+                prune(sh, lambda x: x["tag"] == "span" and bool(cls(x) & {"n", "num"}))
+                # инвариант 14:25: переносы внутри пункта сохраняются
+                txt = "\n".join(l for l in _mark_lines(sh, art) if l).strip()
+                if txt:
+                    items.append("%d%s %s" % (hn[0], hn[1], txt))
+                i += 1
+            if items:
+                blocks.append("[num]\n" + "\n\n".join(items) + "\n[/num]")
+                st["started"] = True
+                flag(art, "висячая нумерация span.n/.num → [num] (%d п.)" % len(items))
+            continue
+        if c & DIALOG_CLS:
+            # вердикт 21:27 2026-06-12 (сменил «прозой-тире»): опознанный диалог
+            # ПОМЕЧАЕТСЯ — ран соседних диалог-узлов (p.speaker×N, section.question/
+            # answer, div.dialog…) → один [dlg]; внутри только абзацы, иначе фолбэк
+            run = [k]
+            i += 1
+            while i < len(kids):
+                k2 = kids[i]
+                if isinstance(k2, str):
+                    if k2.strip():
+                        break
+                    i += 1
+                    continue
+                if cls(k2) & DIALOG_CLS:
+                    run.append(k2)
+                    i += 1
+                    continue
+                break
+            tmp = []
+            for k2 in run:
+                if k2["tag"] == "p":
+                    tmp.extend(para_blocks(k2, art))
+                else:
+                    walk(k2, tmp, art, st)
+            plain = all(not b2.lstrip().startswith(("[", "#")) for b2 in tmp)
+            if tmp and plain:
+                blocks.append("[dlg]\n" + "\n\n".join(tmp) + "\n[/dlg]")
+                st["started"] = True
+                flag(art, "диалоговая разметка → [dlg] (%d узлов)" % len(run))
+            elif tmp:
+                blocks.extend(tmp)
+                st["started"] = True
+                flag(art, "диалог с НЕ-абзацными блоками внутри — оставлен прозой (фолбэк)")
+            continue
+        if t == "p":
+            # вердикт A5в: label-строка «Музыка под настроение» перед карточкой —
+            # дубль лейбла [mus] (и ловит буквицу) → съедается
+            ptxt = re.sub(r"\s+", " ", raw_text(k)).strip().rstrip(":").lower()
+            if ptxt == "музыка под настроение":
+                flag(art, "label-строка «Музыка под настроение» перед [mus] снята")
+                i += 1
+                continue
+            out = para_blocks(k, art)
+            if out:
+                st["started"] = True
+            blocks.extend(out)
+            i += 1
+            continue
+        # значимый голый текст прямо в контейнере → лист-абзац (аудит: 1277 узлов)
+        direct = "".join(x for x in k["kids"] if isinstance(x, str))
+        has_block_kids = any(isinstance(x, dict) and x["tag"] not in INLINE_TAGS
+                             for x in k["kids"])
+        if re.sub(r"\s+", "", direct) and not has_block_kids:
+            out = para_blocks(k, art)
+            if out:
+                st["started"] = True
+            blocks.extend(out)
+            i += 1
+            continue
+        # неопознанная обёртка → спуск (НИЧЕГО не выбрасываем молча)
+        _toc_heading(k, blocks, art, st)
+        walk(k, blocks, art, st)
+        i += 1
+    flush_run()
+
+
+# ── оракул покрытия ──────────────────────────────────────────────────────────
+# "dateline"/"date" больше НЕ хром: ВСЕ дата-строки переносятся в тело
+# ([line kind=dateline], решение 13:59) и считаются с обеих сторон оракула.
+ORACLE_CHROME = CHROME_CLS | {"pop", "fn-pop", "fnpop",
+                              "prev", "next"}
+
+
+def visible_text(root):
+    def deep(n):
+        out = []
+        for k in n["kids"]:
+            if isinstance(k, str):
+                out.append(k)
+                continue
+            if k["tag"] in ("header", "nav", "footer", "h1"):
+                continue
+            if cls(k) & ORACLE_CHROME:
+                continue
+            out.append(deep(k))
+        return "".join(out)
+    return deep(root)
+
+
+_BLOCK_TAG_RX = re.compile(r"^\[/?(mus|poem|epi|quote|num|sub|subsec|spl|sig|cry|shir|ul|line|refs|toc)\b[^\]]*\]\s*$")
+
+
+def zml_visible_text(zml):
+    out = []
+    mfm = re.match(r"^---(.*?)---\s*", zml, flags=re.S)
+    body = zml[mfm.end():] if mfm else zml
+    if mfm:  # notes_title из FM рисуется render'ом — видимый текст
+        mt = re.search(r"^notes_title:\s*(.+)$", mfm.group(1), re.M)
+        if mt:
+            out.append(mt.group(1))
+    for ln in body.split("\n"):
+        s = ln.strip()
+        if _BLOCK_TAG_RX.match(s):
+            # текст в атрибутах блока (cite=/label) — тоже видимый контент
+            out.append(" ".join(re.findall(r'="([^"]*)"', s)))
+            if re.match(r"^\[mus\]\s*$", s):
+                out.append("Музыка под настроение")  # дефолт-лейбл render'а
+            continue
+        if s.startswith("## "):
+            out.append(s[3:])
+            continue
+        if s.startswith("### "):
+            out.append(s[4:])
+            continue
+        # трек-строка [url|title|author] — поля могут нести маркеры [^N]
+        if s.startswith("[") and s.endswith("]") and "|" in s and not s.startswith("[^"):
+            parts = s[1:-1].split("|")
+            if len(parts) >= 2:
+                out.append(re.sub(r"\[\^[^\]]*\]", "", " ".join(parts[1:])))
+                continue
+        s = re.sub(r"\[/?(?:mus|poem|epi|quote|num|sub|subsec|spl|sig|cry|shir|ul|line)\b[^\]]*\]",
+                   " ", s)  # однострочная форма [sub]…[/sub] / [line kind=…]…[/line]
+        if s.startswith("[^]:"):
+            out.append("См. также")  # дефолт-префикс анон-сноски рисует render
+        s = re.sub(r"\[\^[^\]]*\]:?", "", s)  # маркеры/определения, вкл. группы [^s1.3]
+        s = re.sub(r"\[\^?\d*\]:?", "", s)
+        s = re.sub(r"\[[^\]|]*\|([^\]]*)\]", r"\1", s)
+        # [[ID]] render резолвит в заголовок статьи — он видим в оригинале
+        s = re.sub(r"\[\[([^\]]*)\]\]",
+                   lambda m: MANIFEST.get(m.group(1), {}).get("title", ""), s)
+        s = re.sub(r"\{[^}]*\}", "", s)
+        out.append(s)
+    return " ".join(out)
+
+
+def coverage(root, zml):
+    ov = len(re.sub(r"\s+", "", visible_text(root)))
+    zv = len(re.sub(r"\s+", "", zml_visible_text(zml)))
+    return round(zv / ov, 3) if ov else None
+
+
+# ── main ─────────────────────────────────────────────────────────────────────
+def convert(art):
+    html = (ART / f"{art}.html").read_text("utf-8")
+    meta = {}
+    mm = re.search(r'id="yanik-meta"[^>]*>\s*(\{.*?\})\s*</script>', html, re.S)
+    if mm:
+        try:
+            meta = json.loads(mm.group(1))
+        except Exception:
+            pass
+    body_html = re.search(r"<body[^>]*>(.*)</body>", html, re.S).group(1)
+    body_html = re.sub(r"<(script|style)[^>]*>.*?</\1>", "", body_html, flags=re.S)
+    t = Tree()
+    t.feed(body_html)
+    root = t.root
+
+    rec = MANIFEST.get(art, {})
+    scheme = meta.get("scheme", "editorial")
+    theme = "B_manuscript" if scheme == "manuscript" else "A_editorial"
+    width = "narrow" if scheme == "manuscript" else "wide"
+
+    # title — ZML3 B8: in-article H1 takes PRIORITY over the manifest title.
+    # Вердикт 2 (fn-ревью): маркеры [^N] в H1 СОХРАНЯЮТСЯ в title: (позиция
+    # значима; render рисует sup в H1, чистит в <title>/крошках). NB: inline()
+    # резолвит маркеры ПОСЛЕ collect_footnotes (FN_ID_MAP) — h1txt берём ниже.
+    h1 = first(root, lambda x: x["tag"] == "h1")
+
+    # audio narration 🎧 → frontmatter audio:[{url,label}]. Озвучка — это ЯВНЫЙ
+    # признак: класс audio-link / «ауди»-подпись / t.me-ссылка в шапке (h1 или
+    # рядом с лейблом «Аудиоверсия»). Голая t.me-ссылка в ТЕЛЕ — контент (42DA),
+    # остаётся обычной ссылкой.
+    audio = []
+    seen_audio = set()
+    h1_ids = {id(x) for x in find(h1, lambda y: True)} if h1 else set()
+    # ссылки внутри явных аудио-контейнеров (p.audio > span.label «Аудиоверсия:» — 29M)
+    for box in find(root, lambda x: any("audio" in cc for cc in cls(x))
+                    or re.match(r"(?i)\s*(аудио|озвучк)", raw_text(x) or "")
+                    and len(raw_text(x)) < 120):
+        h1_ids |= {id(x) for x in find(box, lambda y: True)}
+    AUDIO_HREFS.clear()
+    for a in find(root, lambda x: x["tag"] == "a" and (x["attrs"].get("href") or "")):
+        href = (a["attrs"].get("href") or "").strip()
+        c = cls(a)
+        label = (a["attrs"].get("title") or a["attrs"].get("aria-label") or "").strip()
+        is_audio = ("audio-link" in c
+                    or ("t.me/" in href and (
+                        re.search(r"(?i)ауди|озвуч", label)
+                        or id(a) in h1_ids
+                        or "audio" in " ".join(c))))
+        if not is_audio or not href or href in seen_audio:
+            continue
+        seen_audio.add(href)
+        AUDIO_HREFS.add(href)
+        audio.append({"url": href, "label": label})
+
+    # сноски — ДО walk (walk скипает consumed-узлы; FN_ID_MAP — до резолва ссылок)
+    FN_ID_MAP.clear()
+    fns, groups, consumed, first_cont = collect_footnotes(root, art)
+
+    # title — теперь, когда FN_ID_MAP заполнена (маркеры в H1 резолвятся верно)
+    h1txt = re.sub(r"\s+", " ", inline(h1, art).strip()).replace("🎧", "").strip() if h1 else ""
+    h1txt = re.sub(r"\[\^\]", "", h1txt).strip()  # пустые (неразрешённые) маркеры
+    title = h1txt or rec.get("title") or art
+    if re.search(r"\[\^[^\]]+\]", title):
+        flag(art, "маркер сноски в title: сохранён (вердикт 2)")
+
+    # обложка (вердикт A1): ТОЛЬКО реальный <img src> оригинала; нет — нет поля
+    img_el = first(root, lambda x: x["tag"] == "img" and (x["attrs"].get("src") or "").strip())
+    image = ""
+    if img_el:
+        msrc = re.search(r"([^/\\?#]+)(?:[?#].*)?$", img_el["attrs"]["src"].strip())
+        image = msrc.group(1) if msrc else ""
+    if not fns:
+        # схема 1CB: notes-секции НЕТ, определения живут ВНУТРИ inline-попапов
+        # span.fnref («1Целем (ивр.) - …») — маркер inline() извлекает, тело
+        # иначе пропадало бы. Цифра + содержательное тело → [^N]-определение.
+        seen_n = set()
+        for sp in find(root, lambda x: x["tag"] in ("span", "sup")
+                       and bool(cls(x) & FNREF_A_CLS)):
+            txt = re.sub(r"\s+", " ", raw_text(sp)).strip()
+            m = re.match(r"^(\d+)\s*(\S.{15,})$", txt)
+            if m and int(m.group(1)) not in seen_n:
+                seen_n.add(int(m.group(1)))
+                fns.append((int(m.group(1)), m.group(2).strip(), ""))
+        if fns:
+            flag(art, "inline-определения сносок (в .fnref-попапах) → [^N] (%d шт.)" % len(fns))
+    fn_lines = []
+    for num, txt, prefix in fns:
+        if num is not None:
+            fn_lines.append("[^%d]: %s" % (num, txt))
+        elif prefix and re.fullmatch(r"\*+", prefix):
+            fn_lines.append("[^%s]: %s" % (prefix, txt))  # звёздная сноска (первоклассная)
+        elif prefix:
+            fn_lines.append("[^|%s]: %s" % (prefix, txt))
+        else:
+            fn_lines.append("[^]: %s" % txt)
+
+    blocks = []
+    # пункты ОРИГИНАЛЬНОГО TOC (якорь → текст): беззаголовочные блоки, бывшие
+    # пунктами TOC, получают настоящий ## («идём за оригиналом», 15:31)
+    toc_items = {}
+    for tocel in find(root, lambda x: x["tag"] in ("details", "nav", "div", "ol", "ul")
+                      and (any("toc" in cc for cc in cls(x)) or x["attrs"].get("id") == "toc")):
+        for a in find(tocel, lambda x: x["tag"] == "a"
+                      and (x["attrs"].get("href") or "").startswith("#")):
+            toc_items[a["attrs"]["href"].lstrip("#")] = re.sub(
+                r"\s+", " ", raw_text(a)).strip()
+
+    # названия разделов из крошек (для подавления киккеров-дублей, вердикт 21:22)
+    sec_names = {re.sub(r"\s+", " ", raw_text(a)).strip().lower()
+                 for a in find(root, lambda x: x["tag"] == "a" and re.fullmatch(
+                     r"\.\./[A-Za-z0-9_-]+/index\.html", x["attrs"].get("href") or ""))}
+    st = {"consumed": consumed, "started": False,
+          "refs_at": {g["first_id"]: g for g in groups if g.get("first_id") is not None},
+          "refs_done": set(), "toc_done": False, "epi_pending": False,
+          "toc_items": toc_items, "sec_names": sec_names}
+    walk(root, blocks, art, st)
+    # группа, чей первый айтем не встретился в walk (вложенные схемы) — [refs] хвостом
+    for g in groups:
+        if g["name"] not in st["refs_done"]:
+            gl = ' glyph=%s' % g["glyph"] if g.get("glyph") else ""
+            blocks.append("[refs=%s%s]" % (g["name"], gl))
+            flag(art, "[refs=%s] не нашёл позицию первого айтема — выведен хвостом" % g["name"])
+
+    # соседние [num]-блоки → один (16J: нумерованные абзацы живут в РАЗНЫХ
+    # section-обёртках, walk эмитит их по одному; авторские номера в li value).
+    # Сливаются только блоки с ОДИНАКОВОЙ головой ([num] ≠ [num kind=toc]).
+    merged = []
+    for b in blocks:
+        if (merged and isinstance(b, str) and b.startswith("[num")
+                and isinstance(merged[-1], str) and merged[-1].startswith("[num")
+                and merged[-1].endswith("\n[/num]")
+                and b.split("\n", 1)[0] == merged[-1].split("\n", 1)[0]):
+            merged[-1] = merged[-1][:-len("\n[/num]")] + "\n\n" + b.split("\n", 1)[1]
+        else:
+            merged.append(b)
+    blocks = merged
+
+    # notes_title (A2): авторский заголовок секции сносок → frontmatter.
+    # ТОЛЬКО одиночный контейнер (группы сами держат свои заголовки — вердикт A2:
+    # не красть заголовки секций); подавляем in-body дубль ТОЛЬКО если это
+    # ПОСЛЕДНИЙ заголовок статьи (иначе украли секцию — guard 12F/1CM).
+    notes_title = find_notes_title(root, art, first_cont) if (fns and not groups) else ""
+    if notes_title:
+        pat = re.compile(r"##\s+" + re.escape(notes_title) + r"(?:\s+\{[^}]*\})?\s*$")
+        m_idx = [i for i, b in enumerate(blocks) if isinstance(b, str) and pat.match(b)]
+        h_idx = [i for i, b in enumerate(blocks) if isinstance(b, str) and b.startswith("## ")]
+        if m_idx and h_idx and m_idx[-1] == h_idx[-1]:
+            del blocks[m_idx[-1]]
+        elif m_idx:
+            flag(art, "notes_title «%s» совпал с НЕ-последним ## — не подавлен, поле сброшено" % notes_title[:40])
+            notes_title = ""
+
+    # сирота-лейбл аудио после выноса 🎧 в FM
+    if audio:
+        blocks = [b for b in blocks if not (isinstance(b, str) and re.match(
+            r"(?i)^(аудио[\w-]*|озвучк[аи]|слушать(\s+аудио\w*)?)\s*:?\s*$", b.strip()))]
+
+    # дубль title первым абзацем (бывает эхо H1) — не трогаем: H1-приоритет уже в FM
+
+    fm = ["---",
+          "title: %s" % title,
+          'art: "%s"' % art,
+          "date: %s" % rec.get("date_chosen", "")]
+    if image:
+        fm.append("image: %s" % image)  # вердикт A1: только реальный src
+    fm += ["theme: %s" % theme,
+           "width: %s" % width]
+    if notes_title and notes_title != "Примечания":
+        fm.append("notes_title: %s" % notes_title)
+    if audio:
+        fm.append("audio: %s" % json.dumps(audio, ensure_ascii=False))
+    fm += ["---", ""]
+    # см.-также больше НЕ уходят в хвост анон-сносками — остаются на авторском
+    # месте видимой строкой (вердикт 21:12 2026-06-12, кейс 59C)
+
+    # определения групп (§4.1) — хвостом, в документ-порядке групп, до дефолтных
+    group_lines = []
+    for g in groups:
+        for num, txt in g["items"]:
+            group_lines.append("[^%s.%d]: %s" % (g["name"], num, txt))
+    zml = "\n".join(fm) + "\n\n".join(b for b in blocks if b) + "\n"
+    if group_lines or fn_lines:
+        zml += "\n\n" + "\n\n".join(group_lines + fn_lines) + "\n"
+
+    # оракул-гейт: текст-масса оригинал↔ZML (вариант B аудита)
+    cov = coverage(root, zml)
+    if cov is not None and cov < 0.97:
+        flag(art, "ОРАКУЛ: покрытие %.3f < 0.97 — потеря текста, нужен разбор" % cov)
+    elif cov is not None and cov > 1.20:
+        flag(art, "ОРАКУЛ: покрытие %.3f > 1.20 — хром утёк в текст?" % cov)
+
+    (OUT / f"{art}.zml").write_text(zml, "utf-8")
+    (OUT / f"{art}.flags.txt").write_text(
+        "\n".join(f for f in FLAGS if f.startswith(f"[{art}]")) or "(нет флагов)", "utf-8")
+    return zml, cov
+
+
+if __name__ == "__main__":
+    ids = sys.argv[1:] or ["654", "237"]
+    for art in ids:
+        FLAGS.clear()
+        try:
+            zml, cov = convert(art)
+            print("OK", art, "cov=%.3f" % cov if cov is not None else "cov=?")
+        except Exception as e:
+            import traceback
+            print("ERR", art, e)
+            traceback.print_exc()

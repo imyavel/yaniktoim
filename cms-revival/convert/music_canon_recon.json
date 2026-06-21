@@ -1,0 +1,1374 @@
+{
+ "actions": {
+  "KEEP": 293,
+  "SWAP": 62,
+  "FILL": 65,
+  "FILLBOTH": 34,
+  "NODB": 35
+ },
+ "total": 489,
+ "art_changes": {
+  "11H": [
+   [
+    "SWAP",
+    "AMD2TwRvuoU",
+    "Seal | Kiss From A Rose",
+    "Kiss From A Rose | Seal"
+   ]
+  ],
+  "11U": [
+   [
+    "NODB",
+    "KgW0tSoggBk",
+    "YouTube | ",
+    ""
+   ]
+  ],
+  "127A": [
+   [
+    "FILL",
+    "jLpwlEUJe70",
+    "Oxygene 7Jean-Michel Jarre | ",
+    "Oxygène 7 | Oxygene 7Jean-Michel Jarre"
+   ]
+  ],
+  "12F": [
+   [
+    "SWAP",
+    "n3KhG_FUGHE",
+    "КРЕМАТОРИЙ | Мусорный ветер",
+    "Мусорный ветер | КРЕМАТОРИЙ"
+   ],
+   [
+    "SWAP",
+    "84kbG2ExdZs",
+    "НЮША | Цунами",
+    "Цунами | НЮША"
+   ],
+   [
+    "SWAP",
+    "DFtOELd5pEI",
+    "Игорь ТАЛЬКОВ | Я вернусь",
+    "Я вернусь | Игорь ТАЛЬКОВ"
+   ],
+   [
+    "FILL",
+    "DFtOELd5pEI",
+    "Я вернусь, Игорь ТАЛЬКОВ | ",
+    "Я вернусь | Я вернусь, Игорь ТАЛЬКОВ"
+   ]
+  ],
+  "12P": [
+   [
+    "NODB",
+    "_WbFR-weSLA",
+    "Once Again | Rafaele Castiglione",
+    ""
+   ]
+  ],
+  "12PA": [
+   [
+    "FILLBOTH",
+    "ftI_p44xGWU",
+    "трек под настроение | YouTube",
+    "Magnetic Fields, Pt. 2 | Jean-Michel Jarre"
+   ]
+  ],
+  "12PB": [
+   [
+    "SWAP",
+    "16ukY5QqHGs",
+    "Самый классный клип !!! | ЭНИГМАТИК — Zoom Tears of Time (Новинка)",
+    "ЭНИГМАТИК — Zoom Tears of Time (Новинка) | Самый классный клип !!!"
+   ]
+  ],
+  "14R": [
+   [
+    "NODB",
+    "bTBVd_m75oY",
+    "Jean-Michel Jarre | Magnetic Fields, Pt. 2",
+    ""
+   ]
+  ],
+  "14U": [
+   [
+    "FILL",
+    "cWGE9Gi0bB0",
+    "Сияй, бриллиант безрассудный!youtu.be/cWGE9Gi0bB0 | ",
+    "Сияй, бриллиант безрассудный!youtu.be/cWGE9Gi0bB0 | Pink Floyd"
+   ]
+  ],
+  "158A": [
+   [
+    "FILLBOTH",
+    "-6Xl9tBWt54",
+    "YouTube www.youtube.com/watch?v=-6Xl9tBWt54 | ",
+    "Hard Rock Hallelujah | Lordi"
+   ]
+  ],
+  "15R": [
+   [
+    "FILL",
+    "KbmYHDbaE-o",
+    "Дыши | ",
+    "Дыши | Серебро"
+   ]
+  ],
+  "165A": [
+   [
+    "NODB",
+    "t8Lb14kRRBc",
+    "t8Lb14kRRBc | YouTube",
+    ""
+   ]
+  ],
+  "16C": [
+   [
+    "NODB",
+    "B7UmUX68KtE",
+    "Popcorn | ",
+    ""
+   ]
+  ],
+  "16E": [
+   [
+    "NODB",
+    "6pHik_RkGlg",
+    "Tears of Time | Zoom",
+    ""
+   ]
+  ],
+  "16F": [
+   [
+    "FILL",
+    "A2KcBLXdlNk",
+    "Jerusalem of Gold | ",
+    "Jerusalem of Gold | "
+   ],
+   [
+    "FILL",
+    "iSb8RkSfWys",
+    "Город, которого нет | ",
+    "Город, которого нет | Игорь Корнелюк"
+   ],
+   [
+    "FILL",
+    "Eqilin4Cv08",
+    "Chronologie, pt. 4 | ",
+    "Chronologie, pt. 4 | Jean-Michel Jarre"
+   ]
+  ],
+  "17B": [
+   [
+    "NODB",
+    "lYjpd-FJGfc",
+    "Мусорный ветер | Крематорий",
+    ""
+   ]
+  ],
+  "17D": [
+   [
+    "SWAP",
+    "MQpTyHJ6pKQ",
+    "Ария | Игра с Огнем",
+    "Игра с Огнем | Ария"
+   ]
+  ],
+  "17DB": [
+   [
+    "SWAP",
+    "5uFNyJm-dnA",
+    "Аркадий Духин | Глас Зовущего",
+    "Глас Зовущего | Аркадий Духин"
+   ]
+  ],
+  "17O": [
+   [
+    "SWAP",
+    "Jfh_v9pORWc",
+    "Enigma | The Roundabout",
+    "The Roundabout | Enigma"
+   ]
+  ],
+  "182": [
+   [
+    "SWAP",
+    "5DBuIhr1Id4",
+    "Within Temptation | Let Us Burn",
+    "Let Us Burn | Within Temptation"
+   ],
+   [
+    "SWAP",
+    "oAycSf8COQo",
+    "Metallica | Sanitarium",
+    "Sanitarium | Metallica"
+   ],
+   [
+    "SWAP",
+    "cmsll_arD4I",
+    "Богдан Титамир | Делай как я",
+    "Делай как я | Богдан Титамир"
+   ],
+   [
+    "SWAP",
+    "yLUOwe9f2X8",
+    "Браво | Это за окном Рассвет",
+    "Это за окном Рассвет | Браво"
+   ]
+  ],
+  "185": [
+   [
+    "NODB",
+    "KbJ8MbxVjVY",
+    "Zoom | Tears of Time",
+    ""
+   ]
+  ],
+  "186B": [
+   [
+    "FILL",
+    "mpLE30Nadfs",
+    "Моя Звезда | ",
+    "Моя Звезда | Вячеслав Бутусов"
+   ]
+  ],
+  "189": [
+   [
+    "FILL",
+    "qT6XCvDUUsU",
+    "Why Does My Heart Feel So Bad? | ",
+    "Why Does My Heart Feel So Bad? | Moby"
+   ],
+   [
+    "FILL",
+    "Jn1kng-nFuY",
+    "Я искала Тебя | ",
+    "Я искала Тебя | The Рифма"
+   ]
+  ],
+  "18AA": [
+   [
+    "FILL",
+    "nj4mXWKgKXc",
+    "«REQUIEM FOR A DREAM» | ",
+    "«REQUIEM FOR A DREAM» | Hans Zimmer Orchestra"
+   ]
+  ],
+  "18HA": [
+   [
+    "SWAP",
+    "NAEppFUWLfc",
+    "Simon & Garfunkel | Sound of Silence",
+    "Sound of Silence | Simon & Garfunkel"
+   ]
+  ],
+  "18HB": [
+   [
+    "SWAP",
+    "KjgWWjkNbhU",
+    "Elton John | Can you feel the love tonight",
+    "Can you feel the love tonight | Elton John"
+   ]
+  ],
+  "18I": [
+   [
+    "SWAP",
+    "RYp1OmzaC5Y",
+    "В.Кипелов | Пророк",
+    "Пророк | В.Кипелов"
+   ]
+  ],
+  "18T": [
+   [
+    "NODB",
+    "yivLt9cTaio",
+    "Kiss from a Rose | Seal",
+    ""
+   ]
+  ],
+  "1AD": [
+   [
+    "SWAP",
+    "5BtnPBEUxc0",
+    "Jean-Michel Jarre | Oxygene 7",
+    "Oxygene 7 | Jean-Michel Jarre"
+   ]
+  ],
+  "1AH": [
+   [
+    "SWAP",
+    "KjgWWjkNbhU",
+    "Elton John | Can You Feel the Love Tonight",
+    "Can You Feel the Love Tonight | Elton John"
+   ],
+   [
+    "FILLBOTH",
+    "djV11Xbc914",
+    "видео к части | YouTube",
+    "Take On Me | a-ha"
+   ]
+  ],
+  "1AN": [
+   [
+    "FILLBOTH",
+    "ngH0fkiNo-g",
+    "YouTube | Музыка в тему",
+    "You Don't Know | Eminem"
+   ]
+  ],
+  "1AP": [
+   [
+    "FILLBOTH",
+    "XS088Opj9o0",
+    "YouTube | ",
+    "Frozen | Madonna"
+   ]
+  ],
+  "1AQ": [
+   [
+    "NODB",
+    "X-jdl9hcCeg",
+    "Музыка под настроение Nicht verstehen | ",
+    ""
+   ]
+  ],
+  "1AS": [
+   [
+    "NODB",
+    "9OydVHXO4CM",
+    "Моя Звезда Всегда Со Мной | ",
+    ""
+   ]
+  ],
+  "1AT": [
+   [
+    "SWAP",
+    "oAycSf8COQo",
+    "Metallica | Welcome Home (Sanitarium)",
+    "Welcome Home (Sanitarium) | Metallica"
+   ],
+   [
+    "SWAP",
+    "hz4YfY4agT8",
+    "Найк Борзов | Верхом на звезде",
+    "Верхом на звезде | Найк Борзов"
+   ],
+   [
+    "SWAP",
+    "ngH0fkiNo-g",
+    "Eminem | You Don't Know",
+    "You Don't Know | Eminem"
+   ],
+   [
+    "SWAP",
+    "pX06wlCAcUI",
+    "Владимир Высоцкий | Дорогая передача",
+    "Дорогая передача | Владимир Высоцкий"
+   ]
+  ],
+  "1ATA": [
+   [
+    "NODB",
+    "pQ6r80lfIsw",
+    "Слушать на YouTube | ",
+    ""
+   ],
+   [
+    "FILLBOTH",
+    "fQqhRHucLHE",
+    "Слушать на YouTube | ",
+    "А я всё летала | Блестящие"
+   ]
+  ],
+  "1B3": [
+   [
+    "FILL",
+    "hz4YfY4agT8",
+    "Верхом на Звезде | ",
+    "Верхом на Звезде | Найк Борзов"
+   ]
+  ],
+  "1B5A": [
+   [
+    "FILL",
+    "bdB7jX7vnFQ",
+    "Звёздный дебют | ",
+    "Звёздный дебют | "
+   ]
+  ],
+  "1B7": [
+   [
+    "NODB",
+    "sSRJvq4Wd48",
+    "Mike Oldfield | Far above the clouds",
+    ""
+   ]
+  ],
+  "1BH": [
+   [
+    "NODB",
+    "XkptwawfnJQ",
+    "Не думай о секундах свысока | ",
+    ""
+   ]
+  ],
+  "1BJ": [
+   [
+    "FILLBOTH",
+    "ba9AeUMjoBo",
+    "YouTube | ",
+    "Terminator 2 Main Theme | Brad Fiedel"
+   ]
+  ],
+  "1BJA": [
+   [
+    "FILLBOTH",
+    "ORrzn7AhwgA",
+    "YouTube | ",
+    "Не было такой и не будет | БГ"
+   ]
+  ],
+  "1BP": [
+   [
+    "FILLBOTH",
+    "r7pQsHPNgx8",
+    "слушать | YouTube",
+    "Ни там ни тут | "
+   ]
+  ],
+  "1C8": [
+   [
+    "NODB",
+    null,
+    "Living on a Prayer | ",
+    ""
+   ]
+  ],
+  "1CB": [
+   [
+    "FILL",
+    "XzcJIlF160o",
+    "Саша Поровский | ",
+    "Саша Поровский | "
+   ],
+   [
+    "SWAP",
+    "-x_8Lkb6sAM",
+    "cover by Jadyn Rylee | PINK \"Wild Hearts Can't Be Broken\"",
+    "PINK \"Wild Hearts Can't Be Broken\" | cover by Jadyn Rylee"
+   ]
+  ],
+  "1CIA": [
+   [
+    "NODB",
+    "claKl5gUL6w",
+    "Поехали! | Хава Нагила",
+    ""
+   ],
+   [
+    "NODB",
+    "NeQM1c-XCDc",
+    "под настроение | Музыка",
+    ""
+   ]
+  ],
+  "1CM": [
+   [
+    "FILL",
+    "CUmOFqQRkco",
+    "Celine Dion. My Heart will Go On. Перевод: Я буду любить Тебя вечно | ",
+    "Celine Dion. My Heart will Go On. Перевод: Я буду любить Тебя вечно | Celine Dion"
+   ],
+   [
+    "FILL",
+    "KbmYHDbaE-o",
+    "SEREBRO. Дыши | ",
+    "SEREBRO. Дыши | Серебро"
+   ],
+   [
+    "FILL",
+    "tL25rbnvM4o",
+    "Nightwish. The Phantom of the Opera, Перевод: Призрак Оперы | ",
+    "Nightwish. The Phantom of the Opera, Перевод: Призрак Оперы | Nightwish"
+   ],
+   [
+    "FILL",
+    "fQqhRHucLHE",
+    "Блестящие. А я все летала | ",
+    "Блестящие. А я все летала | Блестящие"
+   ],
+   [
+    "NODB",
+    "vx2u5uUu3DE",
+    "Bon Jovi. Its My Life. Это Моя Жизнь (Перевод мой) | ",
+    ""
+   ],
+   [
+    "FILL",
+    "lDK9QqIzhwk",
+    "Bon Jovi. Living on a Prayer. Для перевода рекомендую Яндекс, мозг и словарь : )) | ",
+    "Bon Jovi. Living on a Prayer. Для перевода рекомендую Яндекс, мозг и словарь : )) | Bon Jovi"
+   ],
+   [
+    "FILL",
+    "oAycSf8COQo",
+    "Metallica. Sanitarium | ",
+    "Welcome Home (Sanitarium) | Metallica. Sanitarium"
+   ],
+   [
+    "FILL",
+    "lWA2pjMjpBs",
+    "Rihanna. Diamonds (Алмазы в Небе) | ",
+    "Rihanna. Diamonds (Алмазы в Небе) | Rihanna"
+   ]
+  ],
+  "215": [
+   [
+    "SWAP",
+    "lHytjEj7B9g",
+    "Theme Song | The Neverending Story",
+    "The Neverending Story | Theme Song"
+   ]
+  ],
+  "217A": [
+   [
+    "FILL",
+    "yLUOwe9f2X8",
+    "Браво «Это за окном рассвет» | ",
+    "Браво «Это за окном рассвет» | Браво"
+   ],
+   [
+    "FILL",
+    "GCQ0ndJdYNc",
+    "The Blue Cafe | ",
+    "The Blue Cafe | Chris Rea"
+   ],
+   [
+    "FILL",
+    "WM8bTdBs-cw",
+    "Metallica: One | ",
+    "One | Metallica: One"
+   ],
+   [
+    "FILL",
+    "A2KcBLXdlNk",
+    "Jerusalem of Gold | ",
+    "Jerusalem of Gold | "
+   ],
+   [
+    "FILL",
+    "44ByJufeZWk",
+    "По утру, Б. Гребенщиков | ",
+    "По утру | По утру, Б. Гребенщиков"
+   ],
+   [
+    "SWAP",
+    "0ehtJfoIv68",
+    "Carcinoma Angel | Benediction",
+    "Benediction | Carcinoma Angel"
+   ],
+   [
+    "FILL",
+    "kIBdpFJyFkc",
+    "Nightwish – Nemo | ",
+    "Nemo | Nightwish – Nemo"
+   ],
+   [
+    "SWAP",
+    "0VcnB_2jKnw",
+    "Jadyn Rylee | God's country",
+    "God's country | Jadyn Rylee"
+   ],
+   [
+    "FILL",
+    "0ZQNAzPJ7bQ",
+    "Песенка «в тему» | ",
+    "Песенка «в тему» | "
+   ],
+   [
+    "FILL",
+    "_DOAHSUfM1o",
+    "гр. ГороД – Звезды святят, но не греют.. | ",
+    "гр. ГороД – Звезды святят, но не греют.. | гр. ГороД"
+   ],
+   [
+    "FILL",
+    "G4jvU6eDk9E",
+    "Псалом 150 | ",
+    "Псалом 150 | Царь Давид"
+   ],
+   [
+    "FILLBOTH",
+    "pWlT_fMIo6s",
+    "Музыка под настроение | ",
+    "Улетай на крыльях ветра  -  Е.  Сотникова | "
+   ],
+   [
+    "FILLBOTH",
+    "_Xa_1KxR-8M",
+    "Музыка под настроения | ",
+    "Joe Cocker - Noubliez Jamais (Official Video) | "
+   ],
+   [
+    "FILLBOTH",
+    "oAycSf8COQo",
+    "Музыка под настроение | ",
+    "Welcome Home (Sanitarium) | Metallica"
+   ],
+   [
+    "FILL",
+    "ToNDxon_nAM",
+    "Александр Поровский. Мы падаем вверх | ",
+    "Мы падаем вверх | Александр Поровский. Мы падаем вверх"
+   ],
+   [
+    "FILL",
+    "Eqilin4Cv08",
+    "Jean-Michel Jarre - Chronology, Pt. 4 | ",
+    "Jean-Michel Jarre - Chronology, Pt. 4 | Jean-Michel Jarre"
+   ],
+   [
+    "FILLBOTH",
+    "lHytjEj7B9g",
+    "Музыка под настроение | ",
+    "The NeverEnding Story (Theme) | "
+   ],
+   [
+    "FILL",
+    "GCQ0ndJdYNc",
+    "The Blue Cafe | ",
+    "The Blue Cafe | Chris Rea"
+   ],
+   [
+    "FILL",
+    "WM8bTdBs-cw",
+    "Metallica: One | ",
+    "One | Metallica: One"
+   ],
+   [
+    "FILL",
+    "A2KcBLXdlNk",
+    "Jerusalem of Gold | ",
+    "Jerusalem of Gold | "
+   ],
+   [
+    "FILL",
+    "44ByJufeZWk",
+    "По утру, Б. Гребенщиков | ",
+    "По утру | По утру, Б. Гребенщиков"
+   ],
+   [
+    "SWAP",
+    "0ehtJfoIv68",
+    "Carcinoma Angel | Benediction",
+    "Benediction | Carcinoma Angel"
+   ],
+   [
+    "FILL",
+    "kIBdpFJyFkc",
+    "Nightwish – Nemo | ",
+    "Nemo | Nightwish – Nemo"
+   ],
+   [
+    "SWAP",
+    "0VcnB_2jKnw",
+    "Jadyn Rylee | God's country",
+    "God's country | Jadyn Rylee"
+   ],
+   [
+    "FILL",
+    "_DOAHSUfM1o",
+    "гр. ГороД – Звезды святят, но не греют.. | ",
+    "гр. ГороД – Звезды святят, но не греют.. | гр. ГороД"
+   ],
+   [
+    "FILL",
+    "0ZQNAzPJ7bQ",
+    "Песенка «в тему» | ",
+    "Песенка «в тему» | "
+   ],
+   [
+    "FILL",
+    "G4jvU6eDk9E",
+    "Псалом 150 | ",
+    "Псалом 150 | Царь Давид"
+   ],
+   [
+    "FILLBOTH",
+    "pWlT_fMIo6s",
+    "Музыка под настроение (без названия) | ",
+    "Улетай на крыльях ветра  -  Е.  Сотникова | "
+   ],
+   [
+    "FILLBOTH",
+    "_Xa_1KxR-8M",
+    "Музыка под настроения (без названия) | ",
+    "Joe Cocker - Noubliez Jamais (Official Video) | "
+   ],
+   [
+    "FILLBOTH",
+    "oAycSf8COQo",
+    "Музыка под настроение (без названия) | ",
+    "Welcome Home (Sanitarium) | Metallica"
+   ],
+   [
+    "FILL",
+    "ToNDxon_nAM",
+    "Александр Поровский. Мы падаем вверх | ",
+    "Мы падаем вверх | Александр Поровский. Мы падаем вверх"
+   ],
+   [
+    "FILL",
+    "Eqilin4Cv08",
+    "Jean-Michel Jarre - Chronology, Pt. 4 | ",
+    "Jean-Michel Jarre - Chronology, Pt. 4 | Jean-Michel Jarre"
+   ],
+   [
+    "FILLBOTH",
+    "lHytjEj7B9g",
+    "Музыка под настроение (без названия) | ",
+    "The NeverEnding Story (Theme) | "
+   ]
+  ],
+  "227A": [
+   [
+    "FILL",
+    "AoQyF5Lzp8E",
+    "Guardian Angel | ",
+    "Guardian Angel | Jadyn Rylee"
+   ]
+  ],
+  "22R": [
+   [
+    "FILL",
+    "DFtOELd5pEI",
+    "Я вернусь | ",
+    "Я вернусь | Игорь Тальков"
+   ]
+  ],
+  "22S": [
+   [
+    "NODB",
+    "KG7Bs_BCC5w",
+    "Mea Culpa | Enigma",
+    ""
+   ]
+  ],
+  "237": [
+   [
+    "NODB",
+    null,
+    "Дорогая передача | Владимир Высоцкий",
+    ""
+   ],
+   [
+    "NODB",
+    null,
+    "Can you feel the Love tonight | Elton John",
+    ""
+   ]
+  ],
+  "23TA": [
+   [
+    "NODB",
+    "eTsH1NcoFa8",
+    "Nightwish | The Riddler",
+    ""
+   ]
+  ],
+  "24H": [
+   [
+    "SWAP",
+    "KbmYHDbaE-o",
+    "СЕРЕБРО | ДЫШИ",
+    "ДЫШИ | СЕРЕБРО"
+   ]
+  ],
+  "254": [
+   [
+    "SWAP",
+    "J_xdcq0vZw0",
+    "Звери | Просто такая сильная Любовь",
+    "Просто такая сильная Любовь | Звери"
+   ]
+  ],
+  "26Q": [
+   [
+    "SWAP",
+    "l4eJXnx2tf0",
+    "Кино | Дальше действовать будем Mы",
+    "Дальше действовать будем Mы | Кино"
+   ]
+  ],
+  "28MA": [
+   [
+    "NODB",
+    "XkptwawfnJQ",
+    "Не думай о секундах свысока | к/ф 17 мгновений весны",
+    ""
+   ]
+  ],
+  "29NA": [
+   [
+    "FILL",
+    "FyubQByktHo",
+    "Взгляд очевидца | YouTube",
+    "Взгляд очевидца | "
+   ]
+  ],
+  "2AB": [
+   [
+    "NODB",
+    "B7UmUX68KtE",
+    "YouTube | видео",
+    ""
+   ]
+  ],
+  "2AFA": [
+   [
+    "SWAP",
+    "GvSQvf6J96I",
+    "В. Высоцкий | В далеком созвездии Тау Кита",
+    "В далеком созвездии Тау Кита | В. Высоцкий"
+   ]
+  ],
+  "2AN": [
+   [
+    "SWAP",
+    "ABSXJiYQFuI",
+    "Elton John | Believe",
+    "Believe | Elton John"
+   ]
+  ],
+  "2B3": [
+   [
+    "FILL",
+    "U52aAa9VkEk",
+    "Think of me long enough to make a memory Come to bless the child one more time... | ",
+    "Think of me long enough to make a memory Come to bless the child one more time... | Nightwish"
+   ]
+  ],
+  "2BA": [
+   [
+    "FILLBOTH",
+    "ngH0fkiNo-g",
+    "YouTube | видео-пандан",
+    "You Don't Know | Eminem"
+   ]
+  ],
+  "2BK": [
+   [
+    "SWAP",
+    "eyBG-YFo4Vc",
+    "Joslin (Hans Zimmer) | Time (Время) Inception (Начало)",
+    "Time (Время) Inception (Начало) | Joslin (Hans Zimmer)"
+   ],
+   [
+    "SWAP",
+    "ba9AeUMjoBo",
+    "Joslin - Brad Fiedel | Terminator 2 - Main theme",
+    "Terminator 2 - Main theme | Joslin - Brad Fiedel"
+   ]
+  ],
+  "2C3": [
+   [
+    "NODB",
+    "_zlVnbM4xFA",
+    "You know, you're acting like you don't know | Eminem vs 50 Cent",
+    ""
+   ]
+  ],
+  "2CQ": [
+   [
+    "SWAP",
+    "SINxD9KmiT0",
+    "Машина Времени | Однажды",
+    "Однажды | Машина Времени"
+   ],
+   [
+    "SWAP",
+    "35fXhrFvuNY",
+    "В. Кипелов | Реки Времен",
+    "Реки Времен | В. Кипелов"
+   ],
+   [
+    "SWAP",
+    "SINxD9KmiT0",
+    "Машина Времени | Однажды",
+    "Однажды | Машина Времени"
+   ],
+   [
+    "SWAP",
+    "35fXhrFvuNY",
+    "В. Кипелов | Реки Времен",
+    "Реки Времен | В. Кипелов"
+   ],
+   [
+    "SWAP",
+    "s7eCWgjfvBE",
+    "Машина Времени | Мой друг (лучше всех играет блюз)",
+    "Мой друг (лучше всех играет блюз) | Машина Времени"
+   ]
+  ],
+  "31I": [
+   [
+    "FILL",
+    "-9yYJ6ZAYns",
+    "\"See You On The Other Side\" | ",
+    "\"See You On The Other Side\" | Ozzy Osbourne"
+   ],
+   [
+    "NODB",
+    null,
+    "I Will Always Love You | ",
+    ""
+   ],
+   [
+    "FILL",
+    "R_gG4IwR9mk",
+    "\"Voices\" (1995) | ",
+    "\"Voices\" (1995) | Vangelis"
+   ]
+  ],
+  "323": [
+   [
+    "FILL",
+    "TLGWQfK-6DY",
+    "It's like that | ",
+    "It's like that | Run-D.M.C."
+   ]
+  ],
+  "324": [
+   [
+    "NODB",
+    "jVjTFdK3T7s",
+    "БИ-2 | Черное Солнце",
+    ""
+   ]
+  ],
+  "32F": [
+   [
+    "NODB",
+    "u7qyqtP4Yl4",
+    "Чёрное солнце | Би-2",
+    ""
+   ]
+  ],
+  "32J": [
+   [
+    "NODB",
+    "6pHik_RkGlg",
+    "Tears of Time | Zoom",
+    ""
+   ]
+  ],
+  "334": [
+   [
+    "FILL",
+    "L3wKzyIN1yk",
+    "That Is Not Dead Which Can Eternal Lie | YouTube",
+    "Human | That Is Not Dead Which Can Eternal Lie"
+   ]
+  ],
+  "336": [
+   [
+    "NODB",
+    "xdzBf7xzqeI",
+    "Апрель | Кино",
+    ""
+   ],
+   [
+    "NODB",
+    "xdzBf7xzqeI",
+    "Апрель | Кино",
+    ""
+   ]
+  ],
+  "337": [
+   [
+    "FILL",
+    "hDpheC9Xra0",
+    "Берегись, Мастер | ",
+    "Берегись, Мастер | "
+   ],
+   [
+    "SWAP",
+    "BB4yVXvMWVA",
+    "Ария | Колизей",
+    "Колизей | Ария"
+   ],
+   [
+    "FILL",
+    "bfarmu6JvrY",
+    "Костер, Машина Времени | ",
+    "Костёр | Костер, Машина Времени"
+   ],
+   [
+    "FILL",
+    "gXi-neuuz1s",
+    "Время, назад! (Сплин) | ",
+    "Время, назад! (Сплин) | Сплин"
+   ],
+   [
+    "FILL",
+    "hDpheC9Xra0",
+    "Берегись, Мастер | ",
+    "Берегись, Мастер | "
+   ],
+   [
+    "SWAP",
+    "BB4yVXvMWVA",
+    "Ария | Колизей",
+    "Колизей | Ария"
+   ],
+   [
+    "FILL",
+    "bfarmu6JvrY",
+    "Костер, Машина Времени | ",
+    "Костёр | Костер, Машина Времени"
+   ],
+   [
+    "FILL",
+    "gXi-neuuz1s",
+    "Время, назад! (Сплин) | ",
+    "Время, назад! (Сплин) | Сплин"
+   ]
+  ],
+  "339": [
+   [
+    "SWAP",
+    "gaAtqgbA5WA",
+    "Mark Knopfler | Ahead of the Game",
+    "Ahead of the Game | Mark Knopfler"
+   ]
+  ],
+  "33F": [
+   [
+    "NODB",
+    "-8UAlSpIpgI",
+    "Far above the Clouds | Mike Oldfield",
+    ""
+   ]
+  ],
+  "33G": [
+   [
+    "FILL",
+    "_xRN_Ndl-A8",
+    "Голубой Вагон | ",
+    "Голубой Вагон | "
+   ]
+  ],
+  "341": [
+   [
+    "NODB",
+    "zinzvs86qNA",
+    "Наблюдатель | ",
+    ""
+   ],
+   [
+    "FILL",
+    "N9PNCCW7hvo",
+    "Черно-Белые Дни | ",
+    "Черно-Белые Дни | Amatory"
+   ]
+  ],
+  "341B": [
+   [
+    "SWAP",
+    "CZMuDbaXbC8",
+    "Clint Mansell | Lux Aeterna",
+    "Lux Aeterna | Clint Mansell"
+   ],
+   [
+    "SWAP",
+    "z0rwAWz7K0o",
+    "Вера Брежнева | Любовь спасет мир",
+    "Любовь спасет мир | Вера Брежнева"
+   ]
+  ],
+  "34T": [
+   [
+    "SWAP",
+    "CJI7_-3PVCM",
+    "Mike Oldfield | Far Above the Clouds",
+    "Far Above the Clouds | Mike Oldfield"
+   ]
+  ],
+  "357": [
+   [
+    "SWAP",
+    "hHkhzNLHC4g",
+    "Rammstein & Tatu | Moskau",
+    "Moskau | Rammstein & Tatu"
+   ]
+  ],
+  "368": [
+   [
+    "SWAP",
+    "3H5gVP-doac",
+    "Tony Cosinec | Its All One",
+    "Its All One | Tony Cosinec"
+   ],
+   [
+    "SWAP",
+    "buzmOo18j1Y",
+    "Oxxxymiron | Там, где нас нет",
+    "Там, где нас нет | Oxxxymiron"
+   ],
+   [
+    "SWAP",
+    "4rakKAuiy7k",
+    "Гарик Харламов и Ко | Нормальный человек",
+    "Нормальный человек | Гарик Харламов и Ко"
+   ]
+  ],
+  "3B7": [
+   [
+    "FILL",
+    "PgsfVJMWL0E",
+    "Choose Life. Trainspotting | ",
+    "Choose Life. Trainspotting | "
+   ]
+  ],
+  "3C5": [
+   [
+    "SWAP",
+    "7oJ6sbYRSmw",
+    "Tito & Tarantula | After Dark",
+    "After Dark | Tito & Tarantula"
+   ]
+  ],
+  "3CM": [
+   [
+    "FILLBOTH",
+    "rJpPqSXw3Tw",
+    "YouTube | ",
+    "Мама | Константин Кинчев"
+   ]
+  ],
+  "42D": [
+   [
+    "FILLBOTH",
+    "ZWHgeMX4RcA",
+    "https://youtu.be/ZWHgeMX4RcA | ",
+    "Время, вперёд | Георгий Свиридов"
+   ],
+   [
+    "FILLBOTH",
+    "PezxCBnVt9c",
+    "https://youtu.be/PezxCBnVt9c | ",
+    "Мёртвый Распутин | Коррозия Металла"
+   ],
+   [
+    "FILLBOTH",
+    "0VHZN6g8etQ",
+    "https://youtu.be/0VHZN6g8etQ | ",
+    "Никита Рязанский | Сергей Калугин"
+   ],
+   [
+    "FILLBOTH",
+    "CxV0sReQOTA",
+    "https://youtu.be/CxV0sReQOTA | ",
+    "Вальпургиева ночь | Сектор Газа"
+   ],
+   [
+    "FILLBOTH",
+    "N9PNCCW7hvo",
+    "https://youtu.be/N9PNCCW7hvo | ",
+    "Чёрно-белые дни | Amatory"
+   ],
+   [
+    "FILLBOTH",
+    "lX7LkEjWW_I",
+    "https://youtu.be/lX7LkEjWW_I | ",
+    "Восхождение Чёрной Луны | Оргия Праведников"
+   ],
+   [
+    "NODB",
+    "w9vjuj1t1IU",
+    "https://youtu.be/w9vjuj1t1IU | ",
+    ""
+   ],
+   [
+    "FILLBOTH",
+    "T5IdKd8Ka3o",
+    "https://youtu.be/T5IdKd8Ka3o | ",
+    "Грязная кровь | Сектор Газа"
+   ],
+   [
+    "FILLBOTH",
+    "CduA0TULnow",
+    "https://youtu.be/CduA0TULnow | ",
+    "Oops!... I Did It Again | Britney Spears"
+   ],
+   [
+    "FILLBOTH",
+    "ZWHgeMX4RcA",
+    "https://youtu.be/ZWHgeMX4RcA | ",
+    "Время, вперёд | Георгий Свиридов"
+   ],
+   [
+    "FILLBOTH",
+    "PezxCBnVt9c",
+    "https://youtu.be/PezxCBnVt9c | ",
+    "Мёртвый Распутин | Коррозия Металла"
+   ],
+   [
+    "FILLBOTH",
+    "0VHZN6g8etQ",
+    "https://youtu.be/0VHZN6g8etQ | ",
+    "Никита Рязанский | Сергей Калугин"
+   ],
+   [
+    "FILLBOTH",
+    "CxV0sReQOTA",
+    "https://youtu.be/CxV0sReQOTA | ",
+    "Вальпургиева ночь | Сектор Газа"
+   ],
+   [
+    "FILLBOTH",
+    "N9PNCCW7hvo",
+    "https://youtu.be/N9PNCCW7hvo | ",
+    "Чёрно-белые дни | Amatory"
+   ],
+   [
+    "FILLBOTH",
+    "lX7LkEjWW_I",
+    "https://youtu.be/lX7LkEjWW_I | ",
+    "Восхождение Чёрной Луны | Оргия Праведников"
+   ],
+   [
+    "NODB",
+    "w9vjuj1t1IU",
+    "https://youtu.be/w9vjuj1t1IU | ",
+    ""
+   ],
+   [
+    "FILLBOTH",
+    "T5IdKd8Ka3o",
+    "https://youtu.be/T5IdKd8Ka3o | ",
+    "Грязная кровь | Сектор Газа"
+   ]
+  ],
+  "457": [
+   [
+    "SWAP",
+    "sybxMdW6kSY",
+    "Хоровая студия Фантазия | Песенка Бармалея",
+    "Песенка Бармалея | Хоровая студия Фантазия"
+   ],
+   [
+    "SWAP",
+    "KjgWWjkNbhU",
+    "Elton John (из м/ф Lion King) | Can you feel the Love Tonight",
+    "Can you feel the Love Tonight | Elton John (из м/ф Lion King)"
+   ],
+   [
+    "SWAP",
+    "CduA0TULnow",
+    "Britney Spears | Oops, I did it again...",
+    "Oops, I did it again... | Britney Spears"
+   ],
+   [
+    "SWAP",
+    "FsE3D1b9j-8",
+    "Jadyn Rylee feat. Aviv Cohen | Dream On",
+    "Dream On | Jadyn Rylee feat. Aviv Cohen"
+   ],
+   [
+    "SWAP",
+    "sybxMdW6kSY",
+    "Хоровая студия Фантазия | Песенка Бармалея",
+    "Песенка Бармалея | Хоровая студия Фантазия"
+   ],
+   [
+    "SWAP",
+    "KjgWWjkNbhU",
+    "Elton John (из м/ф Lion King) | Can you feel the Love Tonight",
+    "Can you feel the Love Tonight | Elton John (из м/ф Lion King)"
+   ],
+   [
+    "SWAP",
+    "CduA0TULnow",
+    "Britney Spears | Oops, I did it again...",
+    "Oops, I did it again... | Britney Spears"
+   ],
+   [
+    "SWAP",
+    "FsE3D1b9j-8",
+    "Jadyn Rylee feat. Aviv Cohen | Dream On",
+    "Dream On | Jadyn Rylee feat. Aviv Cohen"
+   ]
+  ],
+  "463": [
+   [
+    "SWAP",
+    "mG05YzmmiCU",
+    "Al Bano & Romina Power | Liberta",
+    "Liberta | Al Bano & Romina Power"
+   ]
+  ],
+  "53KA": [
+   [
+    "FILL",
+    "mpLE30Nadfs",
+    "1.Моя Звезда | ",
+    "1.Моя Звезда | Вячеслав Бутусов"
+   ],
+   [
+    "FILL",
+    "5oQSie6Rk0Y",
+    "2.Бобр | ",
+    "2.Бобр | "
+   ],
+   [
+    "FILL",
+    "GMQ4nYWPCaE",
+    "3.Театр | ",
+    "3.Театр | "
+   ],
+   [
+    "FILL",
+    "FnLVC8Z6WdI",
+    "4.Оно выделяло тепло | ",
+    "4.Оно выделяло тепло | "
+   ],
+   [
+    "FILL",
+    "dsz8DyL8aso",
+    "5.Небо Тебя Найдет | ",
+    "5.Небо Тебя Найдет | Ария"
+   ]
+  ],
+  "55K": [
+   [
+    "SWAP",
+    "rFvV5_UnSeM",
+    "Серебро | Мама Люба",
+    "Мама Люба | Серебро"
+   ]
+  ],
+  "654": [
+   [
+    "SWAP",
+    "yLUOwe9f2X8",
+    "Браво | Это за окном рассвет",
+    "Это за окном рассвет | Браво"
+   ],
+   [
+    "SWAP",
+    "v0uSOjnRm3U",
+    "Кино | Пачка Сигарет",
+    "Пачка Сигарет | Кино"
+   ]
+  ],
+  "Z46": [
+   [
+    "FILL",
+    "Wfrp8xHiqU8",
+    "Много неясного в странной стране | ",
+    "Много неясного в странной стране | Владимир Высоцкий"
+   ]
+  ]
+ }
+}

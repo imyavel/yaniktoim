@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>editor — yaniktoim-cms</title>
+<link rel="stylesheet" href="/static/cms.css">
+</head>
+<body class="cms-editor">
+<header class="cms-header">
+  <a href="/" class="back">← Список</a>
+  <span id="art-label">…</span>
+  <span class="status" id="status">⏸ ещё не сохранено</span>
+  <button id="save-btn" onclick="save()">Сохранить · Ctrl+S</button>
+  <button id="reload-preview" onclick="reloadPreview()">↻ preview</button>
+  <a class="open" id="open-original" target="_blank" rel="noopener">источник ↗</a>
+</header>
+
+<main class="split">
+  <section class="pane">
+    <textarea id="zml" spellcheck="false" placeholder="загружаю…"></textarea>
+  </section>
+  <section class="pane">
+    <iframe id="preview" src="about:blank"></iframe>
+  </section>
+</main>
+
+<script>
+const qs = new URLSearchParams(location.search);
+const ART = qs.get('art');
+let META = null;
+let ORIGINAL = '';
+let DIRTY = false;
+
+document.title = `${ART} · editor`;
+document.getElementById('art-label').textContent = ART;
+
+async function load() {
+  const r = await fetch(`/api/article/${ART}`);
+  if (!r.ok) { setStatus('✗ не найдено', 'err'); return; }
+  const j = await r.json();
+  META = j.meta;
+  ORIGINAL = j.zml;
+  document.getElementById('zml').value = j.zml;
+  document.getElementById('open-original').href = META.url || '#';
+  reloadPreview();
+  setStatus('✓ загружено', 'ok');
+  watchDirty();
+}
+
+function watchDirty() {
+  const ta = document.getElementById('zml');
+  ta.addEventListener('input', () => {
+    DIRTY = (ta.value !== ORIGINAL);
+    setStatus(DIRTY ? '● изменено (Ctrl+S)' : '✓ сохранено', DIRTY ? 'dirty' : 'ok');
+  });
+}
+
+async function save() {
+  const ta = document.getElementById('zml');
+  const zml = ta.value;
+  setStatus('⏳ сохраняю…', 'wait');
+  const r = await fetch(`/api/article/${ART}`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({zml}),
+  });
+  const j = await r.json();
+  if (j.ok) {
+    ORIGINAL = zml;
+    DIRTY = false;
+    setStatus('✓ сохранено + re-render', 'ok');
+    reloadPreview();
+  } else {
+    setStatus(`✗ ошибка: ${j.error}`, 'err');
+    if (j.traceback) console.error(j.traceback);
+  }
+}
+
+function reloadPreview() {
+  const iframe = document.getElementById('preview');
+  // Cache-bust to force fresh load after re-render.
+  iframe.src = `/preview/${ART}?t=${Date.now()}`;
+}
+
+function setStatus(text, cls) {
+  const el = document.getElementById('status');
+  el.textContent = text;
+  el.className = 'status ' + (cls || '');
+}
+
+// Ctrl+S / Cmd+S → save
+window.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    save();
+  }
+});
+
+// Warn on unsaved navigation.
+window.addEventListener('beforeunload', e => {
+  if (DIRTY) {
+    e.preventDefault();
+    e.returnValue = '';
+  }
+});
+
+load();
+</script>
+</body>
+</html>

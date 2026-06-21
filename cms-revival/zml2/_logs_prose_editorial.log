@@ -1,0 +1,17 @@
+All anchors check out: 15 footnote cards (`fn-1`…`fn-15`), all 14 inline `*N` anchors present (two pairs share a line — `*5/*8` in the epigraph, `*14/*4` in §1), and 14 back-links (`*10` correctly has none — it's defined but never referenced inline).
+
+## Резюме
+
+**Новые прозаические блоки** (которых не было в стихотворной спеке) и как тема их оформила:
+- **Предисловие** → `.section-open` + `.prose.dropcap` + правая подпись `.sig`; **заголовки разделов** → `.section-title` (`--display` 900 UPPERCASE, `clamp(2rem,5vw,3.6rem)`, ceil из §3) + `.h3`.
+- **Длинные абзацы** → `.prose`/`.arg-text` мерой `max-width:72ch`, `line-height:1.72`; **нумерованные пункты 1–6** → `.arg-list` (grid `auto 1fr`, accent-номер `.arg-num`).
+- **Библейская blockquote** → `border-left:4px var(--accent)` + cite `«— Ис. 6:2—3»` — отличается от **эпиграфа** (`.epi-feature`: тёмный баннер `--ink`, watermark-кавычка 7rem, без cite). Плюс музыкальные врезки `.aside-music` (gold-линейка).
+
+**В данные (ZML 2):** роль раздела, тип цитаты (blockquote vs epigraph), cite/source, нумерация пунктов, `fn-kind` (8 категорий), отсутствие back-link у `*10`, флаг `fn-wide` (`*3,4,6,8,15`), лейтмотив «Мужчиной и Женщиной…», литеральный КАПС титула/рефрена.
+**Чистый CSS темы:** меры/lh, размеры заголовков, буквицы, accent-линейки, аппарат сносок и `:target`-подсветка (дословно §6), окраска глифов/КАПС.
+
+**Спека держалась:** да, узнаваемо та же — шрифты, палитра, фон, тип-скейл, модель сносок с `:target`, глифы (`<\^/>`, `; : )`, `;;; ;;;;`) и КАПС литерально. **Единственное содержательное отклонение:** многоколоночная «модель стиха» §5 заменена одноколоночной прозаической мерой `72ch` (длинные периоды иначе нечитаемы), и как следствие отключены стрелки-коннекторы §5.
+
+**Файлы:**
+- `C:\Users\admin\design-experiment\prose_editorial\index.html`
+- `C:\Users\admin\design-experiment\theme_editorial_prose_001.md`

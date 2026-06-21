@@ -1,0 +1,201 @@
+/* ============================================================================
+ * manuscript-narrow.css — «Иллюминированный манускрипт (узкий)»
+ * Single-column parchment scroll. Cormorant Garamond + Lora. Rubric red + gold.
+ * Source of values: theme_manuscript-narrow_001.md
+ * ============================================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Marck+Script&display=swap');
+
+:root[data-theme="manuscript-narrow"] {
+  --parch: #f5ecd6;
+  --parch-deep: #ecdfc1;
+  --parch-edge: #e3d3ab;
+  --ink: #3a2e21;
+  --ink-soft: #5d4b37;
+  --muted: #8a755a;
+  --gold: #a9812f;
+  --gold-deep: #8a6720;
+  --accent: #9a2c23;       /* --rubric */
+  --accent-deep: #9a2c23;
+  --indigo: #345070;
+  --rule: rgba(169,129,47,.35);
+
+  --display: 'Cormorant Garamond', serif;
+  --serif: 'Lora', Georgia, 'Times New Roman', serif;
+  --script: 'Marck Script', cursive;
+
+  --maxw: 780px;
+  --fs-body: clamp(16px, 1.05rem + 0.2vw, 19px);
+  --lh-body: 1.78;
+}
+
+[data-theme="manuscript-narrow"] body {
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -10%, #fbf5e6 0%, transparent 55%),
+    radial-gradient(ellipse 90% 120% at 50% 120%, #e7d8b4 0%, transparent 50%),
+    linear-gradient(180deg, #f1e6cb 0%, #efe3c5 100%);
+  background-attachment: fixed;
+  padding: clamp(14px,4vw,56px) clamp(10px,4vw,40px);
+}
+[data-theme="manuscript-narrow"] ::selection { background: rgba(169,129,47,.22); }
+
+/* the scroll/sheet */
+[data-theme="manuscript-narrow"] .zml {
+  position: relative;
+  background:
+    radial-gradient(circle at 18% 8%, rgba(255,250,235,.6), transparent 40%),
+    radial-gradient(circle at 86% 96%, rgba(201,166,86,.18), transparent 45%),
+    linear-gradient(180deg, var(--parch), var(--parch-deep));
+  border: 1px solid var(--parch-edge);
+  border-radius: 3px;
+  padding: clamp(26px,6vw,72px) clamp(20px,6vw,74px) clamp(40px,7vw,80px);
+  box-shadow:
+    0 0 0 1px rgba(255,252,244,.5) inset,
+    0 0 0 2px rgba(169,129,47,.10) inset,
+    0 30px 70px -30px rgba(58,46,33,.42);
+}
+[data-theme="manuscript-narrow"] .zml::before,
+[data-theme="manuscript-narrow"] .zml::after {
+  content: ""; position: absolute; pointer-events: none; border: 1px solid rgba(169,129,47,.20);
+}
+[data-theme="manuscript-narrow"] .zml::before { inset: clamp(10px,2.4vw,20px); border-color: rgba(169,129,47,.45); }
+[data-theme="manuscript-narrow"] .zml::after  { inset: clamp(14px,3vw,26px); }
+
+/* masthead */
+[data-theme="manuscript-narrow"] .masthead { margin-bottom: 2.4em; }
+[data-theme="manuscript-narrow"] .masthead-meta { gap: .8em; color: var(--muted); }
+[data-theme="manuscript-narrow"] .art, [data-theme="manuscript-narrow"] .date {
+  font-family: var(--serif); font-style: italic; font-size: .86rem; letter-spacing: .04em;
+}
+[data-theme="manuscript-narrow"] .art::before { content: "Арт. № "; }
+[data-theme="manuscript-narrow"] .title {
+  font-family: var(--display); font-weight: 600; color: var(--accent);
+  font-size: clamp(1.9rem, 6vw, 3.15rem); line-height: 1.14; text-wrap: balance;
+  margin: .2em auto; max-width: 22ch;
+}
+[data-theme="manuscript-narrow"] .title .glyph {
+  font-style: italic; color: var(--gold-deep); margin-left: .18em; display: inline-block;
+  transform: translateY(-0.04em);
+}
+[data-theme="manuscript-narrow"] .genre {
+  font-family: var(--display); font-weight: 500; text-transform: uppercase;
+  letter-spacing: .26em; color: var(--ink-soft);
+  font-size: clamp(.74rem, 2.4vw, .95rem); max-width: 32ch; margin: .8em auto 0;
+}
+[data-theme="manuscript-narrow"] .byline {
+  font-family: var(--display); font-style: italic; color: var(--muted);
+  font-size: .92rem; margin-top: .7em; letter-spacing: .04em;
+}
+
+/* divider fleurons between major blocks */
+[data-theme="manuscript-narrow"] .section + .section,
+[data-theme="manuscript-narrow"] .intro + .section { margin-top: 3.2em; }
+[data-theme="manuscript-narrow"] .section::before {
+  content: "❖"; display: block; text-align: center; color: var(--gold);
+  font-family: var(--display); font-size: 1.4rem; letter-spacing: .4em; margin: 2.4em auto;
+  opacity: .9;
+}
+
+/* epigraphs */
+[data-theme="manuscript-narrow"] .epigraph { margin: 1.6em auto; }
+[data-theme="manuscript-narrow"] .epigraph.verse {
+  max-width: 46ch; text-align: center; font-style: italic; color: var(--ink-soft);
+  font-size: 1.06rem;
+}
+[data-theme="manuscript-narrow"] .epigraph.verse .coda { font-style: italic; margin-top: .6em; color: var(--gold-deep); }
+[data-theme="manuscript-narrow"] .epigraph.prose {
+  max-width: 48ch; font-size: .96rem; line-height: 1.75; text-align: justify;
+  text-align-last: center; hyphens: auto; color: var(--ink-soft); margin-inline: auto;
+}
+[data-theme="manuscript-narrow"] .epigraph.prose p { margin-bottom: .8em; }
+[data-theme="manuscript-narrow"] .epigraph.aphorism {
+  font-family: var(--display); font-weight: 600; color: var(--accent);
+  letter-spacing: .14em; font-size: 1.05rem; text-align: center; max-width: 40ch; margin-inline: auto;
+}
+[data-theme="manuscript-narrow"] .term { color: var(--accent); font-weight: 600; }
+[data-theme="manuscript-narrow"] .leit { font-style: italic; color: var(--gold-deep); }
+
+/* section heads — ordinal kicker generated by theme (counters) */
+[data-theme="manuscript-narrow"] section[data-role="chapter"] { counter-increment: chap; }
+[data-theme="manuscript-narrow"] .section-head { text-align: center; margin-bottom: 1em; }
+[data-theme="manuscript-narrow"] section[data-role="chapter"] .section-head::before {
+  content: "Стих " attr(data-ord-word);
+  display: block; font-family: var(--display); text-transform: uppercase;
+  letter-spacing: .3em; font-size: .8rem; color: var(--gold-deep); margin-bottom: .4em;
+}
+[data-theme="manuscript-narrow"] .section-title {
+  font-family: var(--display); font-weight: 700; color: var(--accent);
+  font-size: clamp(1.5rem, 5vw, 2.3rem); letter-spacing: .04em; line-height: 1.1;
+}
+
+/* movement / refrain */
+[data-theme="manuscript-narrow"] .movement { text-align: center; margin: 1.4em auto; max-width: 48ch; }
+[data-theme="manuscript-narrow"] .refrain {
+  font-family: var(--display); font-weight: 600; color: var(--accent);
+  letter-spacing: .12em; font-size: clamp(1.05rem,3.4vw,1.45rem);
+}
+[data-theme="manuscript-narrow"] .descriptor {
+  font-family: var(--display); font-weight: 500; color: var(--muted);
+  letter-spacing: .04em; font-size: 1.02rem; margin-top: .3em;
+}
+
+/* prayer prose + dropcap */
+[data-theme="manuscript-narrow"] section[data-role="preface"] p { max-width: 60ch; margin: 0 auto 1em; text-align: justify; hyphens: auto; }
+[data-theme="manuscript-narrow"] p.lead::first-letter {
+  float: left; font-family: var(--display); font-weight: 700; font-size: 3.5em;
+  line-height: .8; color: var(--accent); padding: .05em .12em 0 0;
+}
+
+/* verse */
+[data-theme="manuscript-narrow"] .verse { max-width: 38ch; margin: 1.4em auto 0; }
+[data-theme="manuscript-narrow"] .stanza { margin-bottom: 1.6em; }
+[data-theme="manuscript-narrow"] .verse.epic .stanza { margin-bottom: 1.4em; }
+[data-theme="manuscript-narrow"] .line { line-height: 1.62; font-size: 1.06rem; }
+[data-theme="manuscript-narrow"] .stanza.lead .line:first-child::first-letter {
+  float: left; font-family: var(--display); font-weight: 700; font-size: 3.5em;
+  line-height: .72; color: var(--accent); padding: .04em .1em 0 0;
+}
+/* CAPS crescendo: warmer ink + slight tracking, register literal */
+[data-theme="manuscript-narrow"] .stanza.caps .line { letter-spacing: .04em; color: #5a4226; }
+
+/* cry */
+[data-theme="manuscript-narrow"] .cry {
+  font-family: var(--display); font-weight: 600; color: var(--accent);
+  letter-spacing: .12em; font-size: clamp(1.05rem,3.4vw,1.45rem); text-align: center; margin: 2em auto;
+}
+[data-theme="manuscript-narrow"] .cry .glyph { color: var(--gold-deep); font-style: italic; }
+
+/* notes */
+[data-theme="manuscript-narrow"] .notes { margin-top: 3.2em; }
+[data-theme="manuscript-narrow"] .notes-head {
+  font-family: var(--display); font-weight: 600; text-transform: uppercase;
+  letter-spacing: .28em; color: var(--gold-deep); font-size: 1rem; text-align: center; margin-bottom: 1em;
+}
+[data-theme="manuscript-narrow"] .fnlist { font-size: .9rem; color: var(--ink-soft); }
+[data-theme="manuscript-narrow"] .note {
+  padding: .55em 0 .55em 2.6em; border-top: 1px solid rgba(169,129,47,.16);
+}
+[data-theme="manuscript-narrow"] .note:last-child { border-bottom: 1px solid rgba(169,129,47,.16); }
+[data-theme="manuscript-narrow"] .fn-num {
+  position: absolute; left: 0; width: 2em; text-align: right;
+  font-family: var(--display); font-weight: 700; color: var(--gold-deep);
+}
+[data-theme="manuscript-narrow"] .note.anon { padding-left: 2.6em; }
+[data-theme="manuscript-narrow"] .src { color: var(--gold-deep); font-weight: 600; }
+[data-theme="manuscript-narrow"] .author { font-style: italic; color: var(--muted); }
+[data-theme="manuscript-narrow"] .ext { color: var(--indigo); border-bottom: 1px dotted rgba(52,80,112,.4); word-break: break-word; }
+[data-theme="manuscript-narrow"] .ext:hover { color: var(--accent); }
+[data-theme="manuscript-narrow"] .artlink { color: var(--gold-deep); border-bottom: 1px dotted var(--rule); }
+[data-theme="manuscript-narrow"] .fn-back { color: var(--gold); font-size: .85em; margin-left: .3em; }
+[data-theme="manuscript-narrow"] .fn-back:hover { color: var(--accent); }
+[data-theme="manuscript-narrow"] sup.fn a { color: var(--gold-deep); font-weight: 600; font-size: .62em; }
+[data-theme="manuscript-narrow"] sup.fn a:hover { color: var(--accent); }
+[data-theme="manuscript-narrow"] .fn-empty { color: var(--muted); font-style: italic; }
+
+/* BASELINE #3 — :target highlight (gold, palette-matched) */
+[data-theme="manuscript-narrow"] .note:target {
+  background: rgba(169,129,47,0.12); box-shadow: inset 3px 0 0 var(--gold-deep); border-radius: 2px;
+}
+[data-theme="manuscript-narrow"] .note:target .fn-num { color: var(--accent); }
+
+/* single column -> NO reading-order arrows (BASELINE #2: correctly absent) */

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZML3 ТЕСТ КОНСТРУКЦИЙ &lt;\^/&gt;</title>
+<meta name="description" content="">
+<meta name="robots" content="noindex">
+<link id="theme-css" rel="stylesheet" href="../../themes/cyberpunk.css?v=20260612-02">
+<style id="spl-base">
+/* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
+.wrap.w-narrow{max-width:820px;}
+.wrap.w-wide{max-width:1080px;}
+/* [spl] spoiler — structural, theme-agnostic. Themes may tune --spl-cover. */
+.spoiler{position:relative;display:inline-block;cursor:pointer;border-radius:3px;vertical-align:baseline;}
+.spoiler:not(.revealed) .spoiler-content{visibility:hidden;}
+.spoiler:not(.revealed)::before{content:"";position:absolute;inset:-1px;border-radius:3px;
+  background:var(--spl-cover,repeating-linear-gradient(45deg,#4a4a4a 0 7px,#2f2f2f 7px 14px));
+  background-size:auto;animation:spl-shimmer 1.4s linear infinite;}
+.spoiler.revealed{cursor:auto;}
+.spoiler:focus-visible{outline:2px solid currentColor;outline-offset:2px;}
+@keyframes spl-shimmer{from{background-position:0 0;}to{background-position:20px 0;}}
+@media (prefers-reduced-motion:reduce){.spoiler:not(.revealed)::before{animation:none;}}
+/* audio narration 🎧 by H1 — structural, theme-agnostic (themes may refine). */
+.audio-link{font-size:.62em;vertical-align:middle;margin-left:.4em;text-decoration:none;white-space:nowrap;}
+/* [subsec] section subtitle — base (themes refine): muted italic, tight to ## heading. */
+.sec-sub{margin:.15em 0 1.3em;font-style:italic;font-size:.95em;opacity:.7;line-height:1.45;text-indent:0;text-align:left;}
+h2 + .sec-sub, h2.subtitle + .sec-sub{margin-top:-.5em;}
+/* fn-ревью (2026-06-12) — структурная база новых конструкций; темы уточняют. */
+/* [^N] в H1: sup-маркер на глаз отличим от текста заголовка (THEME_CONTRACT). */
+h1#article-title sup{font-size:.42em;font-weight:400;line-height:0;letter-spacing:normal;vertical-align:super;}
+/* [line kind=tags|dateline] — служебная роль-строка; буквицы тем её пропускают. */
+p.line{font-size:.88em;opacity:.72;letter-spacing:.02em;text-indent:0;}
+/* [ul] — маркированный список; значок через --marker → li::marker. */
+ul.ul{margin:1em 0;padding-left:1.6em;}
+ul.ul li::marker{content:var(--marker, initial);}
+/* [num] со скобко-стилем «1)» (авторские номера держит li[value]). */
+ol.num.num-paren li::marker{content:counter(list-item) ") ";}
+/* [epi kind=dedi] — посвящение. */
+article .epigraph.dedication, article .epilogue.dedication{text-align:right;font-style:italic;}
+/* TOC: вложенный 2-й уровень (###). */
+details.article-toc ol ol{margin:.15em 0 .15em 1.1em;}
+/* [sig] подпись / [cry] возглас (ZML3 C11) — base, themes refine. */
+.sig{text-align:right;font-style:italic;margin:1.4rem 0;}
+.cry{text-align:center;font-weight:700;letter-spacing:.05em;margin:1.6rem 0;}
+/* глифы (C13) + inline term/leit (C10) — base no-op-ish; themes colour or ignore. */
+.glyph{white-space:nowrap;}
+.term{text-decoration:underline dotted;text-underline-offset:3px;}
+.leit{font-style:italic;}
+/* viewbar — управление видом статьи (тема/ширина/оригинал/править).
+   Сидит в одной строке с крошками (крошки слева, управление справа).
+   Здесь только структура; типографика/цвета — у темы (.viewbar в THEME_CONTRACT). */
+header.breadcrumbs{display:flex;gap:1.2em;row-gap:.3em;align-items:baseline;flex-wrap:wrap;}
+header.breadcrumbs .crumbs{flex:1 1 auto;}
+.viewbar{display:flex;gap:1.1em;row-gap:.3em;align-items:center;flex-wrap:wrap;
+  font-size:.78rem;margin:0 0 0 auto;}
+.viewbar label{display:inline-flex;gap:.35em;align-items:center;white-space:nowrap;}
+.viewbar select{font:inherit;color:inherit;background:transparent;border:none;
+  border-bottom:1px solid currentColor;padding:0 1px 1px;cursor:pointer;}
+.viewbar select option{color:#222;background:#fff;}
+.viewbar a{text-decoration:none;white-space:nowrap;}
+.viewbar .vb-edit{font:inherit;color:inherit;background:none;border:none;padding:0;white-space:nowrap;}
+.viewbar .vb-edit:disabled{opacity:.45;cursor:default;}
+</style>
+</head>
+<body class="article-page" data-art="zml3test" data-theme="cyberpunk" data-pagefind-ignore="all">
+<div class="wrap w-narrow">
+<header class="breadcrumbs">
+<span class="crumbs"><a href="../index.html">Главная</a><span class="sep">›</span><a href="../best/index.html">Избранное</a></span>
+<nav class="viewbar" aria-label="Вид статьи">
+  <label>Тема
+    <select id="zml-theme">
+      <option value="A_editorial">editorial</option>
+      <option value="B_manuscript">manuscript</option>
+      <option value="cyberpunk">cyberpunk</option>
+      <option value="swiss">swiss</option>
+      <option value="ar_deco">ar-deco</option>
+    </select>
+  </label>
+  <label>Ширина
+    <select id="zml-width">
+      <option value="wide">широкая</option>
+      <option value="narrow">узкая</option>
+    </select>
+  </label>
+  <a class="vb-orig" href="zml3test.html">Оригинал</a>
+  <button class="vb-edit" type="button" disabled aria-disabled="true" title="Редактирование появится позже">✎ Править</button>
+</nav>
+</header>
+
+<h1 id="article-title">ZML3 ТЕСТ КОНСТРУКЦИЙ<sup id="cite_ref-21"><a href="#cite_note-21">[21]</a></sup> <span class="glyph">&lt;\^/&gt;</span></h1>
+<p class="byline">Элиягу Бар Малей · #zml3test · Записано 2021/06/03 — 2021/06/25 — 2021/08/09 · Источник: <a href="https://example.org" target="_blank" rel="noopener">example.org</a></p>
+<article>
+
+<details class="article-toc" open>
+<summary>Содержание</summary>
+<ol>
+<li><a href="#секция-с-возгласом">Секция с возгласом</a>
+<ol>
+<li><a href="#вложенный-подзаголовок">Вложенный подзаголовок (###)</a></li>
+<li><a href="#авторская-нумерация-num">Авторская нумерация [num]</a></li>
+</ol>
+</li>
+<li><a href="#books">Книги</a>
+</li>
+<li><a href="#посвящение-и-подпись">Посвящение и подпись</a>
+</li>
+<li><a href="#notes">Ор Пашут:</a>
+</li>
+</ol>
+</details>
+
+<p class="line line-tags">Будущий мир · Круг Жизни · Конфронтология</p>
+
+<p>Проза с инлайн-крючками: <span class="term">Экран</span> — это <span class="term">Кли</span> средней линии, а фраза <span class="leit">Роза среди шипов</span> — лейтмотив корпуса. Глиф рук вверх <span class="glyph">&lt;\^/&gt;</span> и рук вниз <span class="glyph">&lt;/v\&gt;</span>, и авторский эмотикон <span class="glyph">;::)))</span> в потоке текста. Сноска дефолт-группы<sup id="cite_ref-1"><a href="#cite_note-1">[1]</a></sup>, сноска из группы книг<sup id="cite_ref-kn-1"><a href="#cite_note-kn-1">¤1</a></sup> и звёздная<sup id="cite_ref-star1"><a href="#cite_note-star1">*</a></sup>.</p>
+
+<p class="line line-dateline">Написано: Понедельник, 15 Февраля 2021 г.</p>
+
+<h2 id="секция-с-возгласом">Секция с возгласом <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<div class="cry">СДЕЛАЕМ И УСЛЫШИМ!</div>
+
+<p>Абзац после возгласа, обычный поток — буквица B-темы НЕ должна падать на [line] выше. Ещё ссылка на группу книг<sup id="cite_ref-kn-2"><a href="#cite_note-kn-2">¤2</a></sup> и повтор первой<sup id="cite_ref-1-extra1"><a href="#cite_note-1">[1]</a></sup>.</p>
+
+<h3 id="вложенный-подзаголовок">Вложенный подзаголовок (###) <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h3>
+
+<p>Абзац под h3 — в TOC этот заголовок должен сидеть вторым уровнем.</p>
+
+<ul class="ul" style="--marker:'◆ '">
+<li>первый пункт списка с ромбом</li>
+<li>второй пункт, длинный, чтобы проверить перенос строки внутри пункта на узкой мере</li>
+<li>третий пункт</li>
+</ul>
+
+<ul class="ul">
+<li>пункт со значком темы (без атрибута marker)</li>
+<li>ещё один</li>
+</ul>
+
+<h3 id="авторская-нумерация-num">Авторская нумерация [num] <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h3>
+
+<ol class="num">
+<li value="1">первый авторский пункт с точкой</li>
+<li value="4">четвёртый (дыра 2–3 — авторская)</li>
+</ol>
+
+<ol class="num num-paren">
+<li value="1">первый со скобкой</li>
+<li value="2">второй со скобкой</li>
+</ol>
+
+<h2 id="books">Книги <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<ol class="notes">
+<li class="anon" id="cite_note-kn-1"><a class="backref" href="#cite_ref-kn-1" title="Вернуться к месту в тексте">↑</a> ¤1 Первая книга серии ¤.</li>
+<li class="anon" id="cite_note-kn-2"><a class="backref" href="#cite_ref-kn-2" title="Вернуться к месту в тексте">↑</a> ¤2 Вторая книга серии ¤.</li>
+<li class="anon" id="cite_note-kn-7">¤7 Орфан группы ¤ — номер есть, стрелки ↑ нет.</li>
+</ol>
+
+<h2 id="посвящение-и-подпись">Посвящение и подпись <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<div class="epigraph dedication" data-label="Посвящение">
+<p>Посвящается Воинам Духа — идущим средней линией</p>
+</div>
+
+<div class="sig">Элиягу Бар Малей<br>
+22 сентября 2022</div>
+
+<h2 id="notes">Ор Пашут<sup id="cite_ref-2"><a href="#cite_note-2">[2]</a></sup>: <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+<ol class="notes">
+<li id="cite_note-1" value="1"><a class="backref" href="#cite_ref-1" title="Вернуться к месту в тексте">↑</a> Сноска дефолт-группы; на неё ссылаются дважды.</li>
+<li id="cite_note-2" value="2"><a class="backref" href="#cite_ref-2" title="Вернуться к месту в тексте">↑</a> Сноска, на которую ссылается notes_title.</li>
+<li id="cite_note-21" value="21"><a class="backref" href="#cite_ref-21" title="Вернуться к месту в тексте">↑</a> Сноска из H1 — маркер в заголовке кликабелен, в &lt;title&gt;/крошках вычищен.</li>
+<li class="anon" id="cite_note-star1"><a class="backref" href="#cite_ref-star1" title="Вернуться к месту в тексте">↑</a> * Звёздная сноска.</li>
+</ol>
+</article>
+
+<nav class="article-nav">
+  <span class="prev"></span>
+  <span class="next"></span>
+</nav>
+
+<footer class="footer">
+<p class="editinfo">Редакция: Иван Иванович</p>
+<p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+<p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+</footer>
+</div>
+<script>
+// Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
+// no editor/login module is loaded.
+(function(){
+  var bubble = null, hideTimer = null;
+  function ensureBubble(){
+    if (bubble) return bubble;
+    bubble = document.createElement('div');
+    bubble.className = 'footnote-bubble';
+    bubble.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); });
+    bubble.addEventListener('mouseleave', scheduleHide);
+    document.body.appendChild(bubble);
+    return bubble;
+  }
+  function scheduleHide(){
+    if (hideTimer) clearTimeout(hideTimer);
+    hideTimer = setTimeout(function(){ if (bubble) bubble.classList.remove('show'); }, 180);
+  }
+  function show(link){
+    var href = link.getAttribute('href') || '';
+    if (!href.startsWith('#')) return;
+    var target = document.getElementById(href.slice(1));
+    if (!target) return;
+    var b = ensureBubble();
+    var clone = target.cloneNode(true);
+    var back = clone.querySelector('a.backref');
+    if (back) back.remove();
+    b.innerHTML = clone.innerHTML;
+    b.classList.add('show');
+    var r = link.getBoundingClientRect();
+    var sx = window.pageXOffset, sy = window.pageYOffset;
+    b.style.left = '0px'; b.style.top = '0px';
+    var bw = b.offsetWidth, bh = b.offsetHeight;
+    var left = sx + r.left + r.width/2 - bw/2;
+    var maxLeft = sx + document.documentElement.clientWidth - bw - 8;
+    if (left > maxLeft) left = maxLeft;
+    if (left < sx + 8) left = sx + 8;
+    var top = sy + r.top - bh - 10;
+    var placeBelow = (top - sy) < 8;
+    if (placeBelow) top = sy + r.bottom + 10;
+    b.style.left = left + 'px';
+    b.style.top  = top  + 'px';
+    b.classList.toggle('below', placeBelow);
+  }
+  function bindMusic(){
+    document.querySelectorAll('details.music').forEach(function(d){
+      if (d.dataset.musicBound) return; d.dataset.musicBound = '1';
+      d.addEventListener('toggle', function(){
+        if (!d.open) return;
+        var f = d.querySelector('iframe[data-src]');
+        if (f) { f.src = f.getAttribute('data-src'); f.removeAttribute('data-src'); }
+      });
+    });
+  }
+  function bindFootnotes(){
+    document.querySelectorAll('sup a[href^="#cite_note-"]').forEach(function(a){
+      if (a.dataset.fnBound) return; a.dataset.fnBound = '1';
+      a.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); show(a); });
+      a.addEventListener('mouseleave', scheduleHide);
+      a.addEventListener('focus', function(){ show(a); });
+      a.addEventListener('blur',  scheduleHide);
+    });
+  }
+  function bindSpoilers(){
+    document.querySelectorAll('.spoiler').forEach(function(sp){
+      if (sp.dataset.splBound) return; sp.dataset.splBound = '1';
+      function reveal(){ sp.classList.add('revealed'); }
+      sp.addEventListener('click', reveal);
+      sp.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); reveal(); }
+      });
+    });
+  }
+  bindMusic(); bindFootnotes(); bindSpoilers();
+
+  // Общая левая рейка стихов: все .poem статьи ровняются по краю, который
+  // центрирует САМЫЙ ШИРОКИЙ из них (классическая осевая выключка, но единая
+  // на статью — края не скачут от блока к блоку). Пересчёт при смене
+  // темы/ширины/размера окна: метрики шрифта и мера меняются.
+  function alignPoems(){
+    var art = document.querySelector('article'); if (!art) return;
+    var poems = Array.prototype.slice.call(art.querySelectorAll('.poem'));
+    if (!poems.length) return;
+    poems.forEach(function(p){ p.style.marginLeft = ''; p.style.marginRight = ''; });
+    if (poems.length < 2) return; // одиночный стих — родное центрирование темы
+    var maxW = 0;
+    poems.forEach(function(p){ maxW = Math.max(maxW, p.getBoundingClientRect().width); });
+    var cs = getComputedStyle(art);
+    var artRect = art.getBoundingClientRect();
+    var contentLeft = artRect.left + parseFloat(cs.paddingLeft || 0) + parseFloat(cs.borderLeftWidth || 0);
+    var contentWidth = art.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+    var targetX = contentLeft + Math.max(0, (contentWidth - maxW) / 2);
+    poems.forEach(function(p){
+      p.style.marginLeft = '0px'; p.style.marginRight = 'auto';
+      var x = p.getBoundingClientRect().left;
+      p.style.marginLeft = (targetX - x) + 'px';
+    });
+  }
+  var alignTimer = null;
+  function alignPoemsSoon(){ if (alignTimer) clearTimeout(alignTimer); alignTimer = setTimeout(alignPoems, 60); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignPoemsSoon);
+  window.addEventListener('load', alignPoemsSoon);
+  window.addEventListener('resize', alignPoemsSoon);
+  alignPoemsSoon();
+
+  // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  var sel = document.getElementById('zml-theme');
+  var wsel = document.getElementById('zml-width');
+  var link = document.getElementById('theme-css');
+  var wrap = document.querySelector('.wrap');
+  var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+  if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
+  if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
+  if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
+  if (sel) sel.addEventListener('change', function(){
+    var t = sel.value;
+    document.body.setAttribute('data-theme', t);
+    if (link) link.setAttribute('href', '../../themes/'+t+'.css'+(ver?('?v='+ver):''));
+  });
+  if (wsel) wsel.addEventListener('change', function(){
+    if (!wrap) return;
+    wrap.classList.toggle('w-narrow', wsel.value==='narrow');
+    wrap.classList.toggle('w-wide', wsel.value==='wide');
+    alignPoemsSoon();
+  });
+})();
+</script>
+</body>
+</html>

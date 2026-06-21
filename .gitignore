@@ -43,3 +43,15 @@ SEO_HANDOFF.md
 
 # descriptions_full.* — отчёт-экспорт (html/json/pdf), «посторонний»; канон = descriptions.json
 /descriptions_full.*
+
+# cms-revival (внесён в репо 2026-06-21): тяжёлое/регенерируемое/мёртвое НЕ версионируем.
+# node_modules/, __pycache__/, *.pyc уже покрыты глобально выше.
+# recon/ — ~145M скриншотов разведки Ф1 (мёртвый артефакт). convert/out* — дубль docs/art (канон там).
+cms-revival/worker/.wrangler/
+cms-revival/recon/
+cms-revival/convert/out/
+cms-revival/convert/out_v1_canon/
+cms-revival/convert/out_v2/
+cms-revival/convert/audit_out/
+cms-revival/guide_build/guide_raw.pdf
+cms-revival/guide_build/guide.pdf

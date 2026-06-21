@@ -1,0 +1,13 @@
+All anchors verified: 15 footnote items, 14 two-way refs (only `*10` without a backref — it's defined in «Пояснения» but never cited in the body, mirroring the spec's "cited-in-text vs list-only" rule), 14 in-text `*N` anchors. Both files written.
+
+## Резюме
+
+**Новые прозаические блоки** (которых не было в стиховой спеке): предисловие (`section.preface` + `.section-head`) с буквицей и подписью-byline; заголовки разделов H2/H3 (`.section-head`/`.subhead`); нумерованные «движения» 1–6 (`ol.argument > li.movement` с рубрицированной Playfair-цифрой в поле, эхо `.chapter-ornament`); встроенная библейская **цитата** (`blockquote.scripture` + `.cite`); кредит источника (`.source-credit`); медиа-пометы с URL (`.media-note`/`.media-label`/`.src`); КАПС-возглас (`.closing`).
+
+**Данные (ZML 2) vs CSS:** в данные ушли — подтип «цитата ≠ эпиграф», атрибуция `cite`, порядковый номер движения, роль секции, тип медиа-пометы, byline, флаг «цитирована в тексте» (`*10` без `↩`), подтип `.term`. В CSS-тему — рубрицированная цифра, левая линейка цитаты, золотой `.epi-label`/`.media-label`, буквица, dotted-`.src`, литеральность КАПС.
+
+**Спека держалась:** ни один токен/тип-скейл не переопределялся; добавления аддитивны и собраны из существующего словаря темы. Единственный реальный зазор — стиховая спека знала `blockquote` только как эпиграф-стих, для прозы пришлось достроить `blockquote.scripture` (встроенная цитата-источник с левой линейкой и `.cite` снизу справа — визуально отличается от центрированного золото-маркированного эпиграфа геометрией, не цветом/кеглем).
+
+**Файлы:**
+- `C:\Users\admin\design-experiment\prose_classic-narrow\index.html`
+- `C:\Users\admin\design-experiment\theme_classic-narrow_prose_001.md`

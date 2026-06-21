@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<meta name="robots" content="noindex">
+<link id="theme-css" rel="stylesheet" href="../themes/{{THEME}}.css?v={{CSS_VERSION}}">
+<style id="shir-base">
+/* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
+.wrap.w-narrow{max-width:820px;}
+.wrap.w-wide{max-width:1080px;}
+/* Спец-страница «Песнь ступеней» шире обычной статьи (грид плиток). */
+.wrap.songs-page{max-width:1340px;}
+@media(min-width:1500px){.wrap.songs-page{max-width:1480px;}}
+.wrap.songs-page.w-narrow{max-width:1080px;}
+
+/* ── [shir] грид музыкальных плиток (ZML3 §6) — СТРУКТУРНАЯ база, тема-агностик.
+   Палитра/типографика/форма карточки — per-theme (.songgrid/.song в *.css). ── */
+.songgrid{display:grid; gap:28px; align-items:stretch;
+  grid-template-columns:repeat(auto-fill,
+    minmax(max(var(--shir-min,300px),
+      calc((100% - (var(--shir-cols,3) - 1) * 28px) / var(--shir-cols,3))), 1fr));}
+/* плитки в ряду — равной высоты (align-items:stretch растягивает карточку на высоту
+   ряда). Контент жмётся кверху, низ-добор пустой → нижние края выровнены. (2026-06-18) */
+.song{margin:0; position:relative; display:flex; flex-direction:column; overflow:hidden;
+  background:var(--paper,#fff); border:1px solid var(--rule,rgba(127,127,127,.3));
+  border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,.08);
+  transition:box-shadow .15s, border-color .15s;}
+.song:hover{box-shadow:0 4px 16px rgba(0,0,0,.13); border-color:var(--accent,#888);}
+.song .yt{position:relative; aspect-ratio:16/9; cursor:pointer;
+  background:#000 center/cover no-repeat;}
+.song .yt .play{position:absolute; inset:0; margin:auto; width:74px; height:52px;
+  background:rgba(20,20,20,.78); border-radius:13px; transition:background .15s;}
+.song .yt .play::after{content:""; position:absolute; top:50%; left:50%;
+  transform:translate(-38%,-50%); border-style:solid; border-width:13px 0 13px 21px;
+  border-color:transparent transparent transparent #fff;}
+.song .yt:hover .play{background:#cc0000;}
+.song .yt:focus-visible{outline:3px solid var(--accent,#cc0000); outline-offset:2px;}
+.song .yt iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+/* динамик-mute — в правом-нижнем углу ПОДПИСИ (под ссылками), а не на кадре клипа:
+   на пёстром превью его часто не видно; на светлом фоне подписи виден всегда. ВАЖНО:
+   `position:absolute` БЕЗ резерва padding → высота плитки НЕ растёт (вердикт оператора
+   «динамик не должен увеличивать высоту НИКОГДА»). На ~5 плитках длинная последняя
+   строка ссылок доходит до угла → drop-shadow цвета `--paper` (гало вокруг глифа) даёт
+   чистую читаемость поверх текста, при этом на остальных невидимо (paper по paper).
+   Цвет — тема (--muted → --accent hover; красный в mute). YouTube убрал кнопку звука
+   в рекламе — даём свою. (2026-06-18) */
+.song figcaption{padding:14px 16px 16px;}
+.song .song-mute{position:absolute; right:8px; bottom:6px;
+  display:inline-flex; align-items:center; justify-content:center; width:22px; height:19px;
+  padding:0; border:0; cursor:pointer; background:transparent;
+  color:var(--muted,#888); opacity:.82; transition:color .15s, opacity .15s;
+  filter:drop-shadow(0 0 1.5px var(--paper,#fff)) drop-shadow(0 0 1.5px var(--paper,#fff));
+  -webkit-tap-highlight-color:transparent;}
+.song:hover .song-mute,.song .song-mute:focus-visible{opacity:1; outline:none;}
+.song .song-mute:hover{color:var(--accent,#cc0000);}
+.song .song-mute svg{width:19px; height:19px; display:block;}
+.song .song-mute .spk-slash{display:none;}
+.song .song-mute[aria-pressed="true"]{color:#cc0000; opacity:1;}
+.song .song-mute[aria-pressed="true"] .spk-wave{display:none;}
+.song .song-mute[aria-pressed="true"] .spk-slash{display:inline;}
+.song .t{margin:0 0 .45em; line-height:1.25; color:var(--ink,#222);}
+.song .t .trk-ttl{font-weight:700;}
+.song .t .trk-sep{opacity:.5; font-weight:400;}
+.song .t .trk-art{font-weight:400; opacity:.85;}
+.song .a{margin:0; font-size:.92rem; line-height:1.65; color:var(--muted,#666);}
+.song .a a{color:var(--accent,#45203c); text-decoration:none;
+  border-bottom:1px solid transparent;}
+.song .a a:hover{border-bottom-color:currentColor;}
+.song .a a.broken{color:#a33; text-decoration:line-through dotted; border:none;}
+.song .a .sep{color:var(--accent,#d98a00); opacity:.6; padding:0 .12em; vertical-align:-.04em;}
+/* битая строка [shir] (§6.3): видимый маркер-заглушка вместо плитки. */
+.song-broken{outline:2px dashed #c0392b; background:rgba(192,57,43,.07); box-shadow:none;}
+.song-broken .shir-broken{padding:1rem; color:#c0392b; font-size:.85rem; line-height:1.5;}
+.song-broken .shir-broken code{display:block; margin-top:.4em; opacity:.8;
+  font-family:monospace; word-break:break-all;}
+
+.song-intro{margin:.2em 0 1.8em; line-height:1.6;}
+/* ── viewbar (тема/ширина) — структура; типографика/цвета у темы. ── */
+header.breadcrumbs{display:flex; gap:1.2em; row-gap:.3em; align-items:baseline; flex-wrap:wrap;}
+header.breadcrumbs .crumbs{flex:1 1 auto;}
+.viewbar{display:flex; gap:1.1em; row-gap:.3em; align-items:center; flex-wrap:wrap;
+  font-size:.78rem; margin:0 0 0 auto;}
+.viewbar label{display:inline-flex; gap:.35em; align-items:center; white-space:nowrap;}
+.viewbar select{font:inherit; color:inherit; background:transparent; border:none;
+  border-bottom:1px solid currentColor; padding:0 1px 1px; cursor:pointer;}
+.viewbar select option{color:#222; background:#fff;}
+.viewbar a{text-decoration:none; white-space:nowrap;}
+.viewbar .vb-edit{font:inherit; color:inherit; background:none; border:none; padding:0; white-space:nowrap; cursor:pointer;}
+.viewbar .vb-edit:disabled{opacity:.45; cursor:default;}
+.viewbar .vb-edit[hidden]{display:none;} /* скрыта у анонима/не-редактора; ya-songs.js снимает hidden редакторам */
+</style>
+</head>
+<body class="songs-page-body" data-theme="{{THEME}}" data-worker="{{WORKER_URL}}"
+  data-art-section="songs" data-art-type="" data-fm-theme="{{FM_THEME}}" data-fm-width="{{FM_WIDTH}}"
+  data-pagefind-ignore="all">
+<div class="wrap songs-page {{WRAP_CLASS}}">
+<header class="breadcrumbs">
+<span class="crumbs"><a href="../index.html">Главная</a><span class="sep">›</span>{{TITLE}}</span>
+<nav class="viewbar" aria-label="Вид страницы">
+  <label>Тема
+    <select id="zml-theme">
+      <option value="A_editorial">editorial</option>
+      <option value="B_manuscript">manuscript</option>
+      <option value="cyberpunk">cyberpunk</option>
+      <option value="swiss">swiss</option>
+      <option value="ar_deco">ar-deco</option>
+    </select>
+  </label>
+  <label>Ширина
+    <select id="zml-width">
+      <option value="wide">широкая</option>
+      <option value="narrow">узкая</option>
+    </select>
+  </label>
+  <a class="vb-orig" href="index.html?orig=1">Оригинал</a>
+  <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
+</nav>
+</header>
+<h1 id="article-title">{{TITLE_H1}}</h1>
+<article>
+{{ARTICLE_BODY}}
+</article>
+
+<footer class="footer">
+<p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+<p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a>.</p>
+</footer>
+</div>
+<script>
+(function(){
+  // Lazy-YouTube (ZML3 §6.5): превью hqdefault.jpg → клик/Enter/Space впрыскивает
+  // iframe autoplay. 220 фреймов сразу = смерть страницы → грузим по требованию.
+  function ytPost(f, func){
+    if (!f) return;
+    try { f.contentWindow.postMessage('{"event":"command","func":"'+func+'","args":[]}', '*'); } catch(e){}
+  }
+  function applyMute(el){
+    var btn = el.querySelector('.song-mute'); if (!btn) return;
+    var f = el.querySelector('iframe'); if (!f) return;        // плеер ещё не впрыснут
+    var func = btn.getAttribute('aria-pressed') === 'true' ? 'mute' : 'unMute';
+    ytPost(f, func);                                            // играет рекламу → срабатывает сразу
+    setTimeout(function(){ ytPost(f, func); }, 700);            // ретраи на «только что открыли»
+    setTimeout(function(){ ytPost(f, func); }, 1800);
+  }
+  document.querySelectorAll('.songgrid .song').forEach(function(fig){
+    var el = fig.querySelector('.yt[data-id]');
+    if (!el) return;                                           // битая плитка — нет плеера
+    function go(){
+      if (el.querySelector('iframe')) return;                  // уже играет — не перезапускать
+      var id = el.dataset.id;
+      var ifr = document.createElement('iframe');
+      ifr.src = 'https://www.youtube.com/embed/' + id +
+        '?autoplay=1&rel=0&enablejsapi=1&origin=' + encodeURIComponent(location.origin);
+      ifr.title = 'YouTube';
+      ifr.setAttribute('allow', 'autoplay; encrypted-media; fullscreen');
+      ifr.allowFullscreen = true;
+      var play = el.querySelector('.play'); if (play) play.remove();
+      el.insertBefore(ifr, el.firstChild);
+      applyMute(fig);                                          // применить запомненный mute
+    }
+    el.addEventListener('click', go);
+    el.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); }
+    });
+    var btn = fig.querySelector('.song-mute');                 // динамик в подписи (сиблинг .yt)
+    if (btn) {
+      btn.addEventListener('click', function(ev){              // native button: Enter/Space → click
+        ev.stopPropagation();
+        var on = btn.getAttribute('aria-pressed') !== 'true';
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        btn.setAttribute('aria-label', on ? 'Включить звук' : 'Заглушить звук');
+        btn.title = on ? 'Включить звук' : 'Заглушить звук (реклама)';
+        applyMute(fig);
+      });
+    }
+  });
+
+  // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  var sel = document.getElementById('zml-theme');
+  var wsel = document.getElementById('zml-width');
+  var link = document.getElementById('theme-css');
+  var wrap = document.querySelector('.wrap');
+  var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+  if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
+  if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
+  if (sel) sel.addEventListener('change', function(){
+    var t = sel.value;
+    document.body.setAttribute('data-theme', t);
+    if (link) link.setAttribute('href', '../themes/' + t + '.css' + (ver ? ('?v=' + ver) : ''));
+  });
+  if (wsel) wsel.addEventListener('change', function(){
+    if (!wrap) return;
+    wrap.classList.toggle('w-narrow', wsel.value === 'narrow');
+    wrap.classList.toggle('w-wide', wsel.value === 'wide');
+  });
+
+  // Ф8′ ре-резолвинг вида для ЗАЛОГИНЕННОГО (аноним уже получил запечённый дефолт).
+  // «Песнь Ступеней» = раздел "songs": тянем личные/глобальные правила воркера и
+  // применяем через те же селекты темы/ширины (зеркало resolveDisplay в render.js).
+  (function(){
+    var b = document.body;
+    var section = b.getAttribute('data-art-section') || 'songs';
+    var type = b.getAttribute('data-art-type') || '';
+    var fmTheme = b.getAttribute('data-fm-theme') || '';
+    var fmWidth = b.getAttribute('data-fm-width') || '';
+    var wk = (b.getAttribute('data-worker') || '').replace(/\/+$/, '');
+    var sess; try { sess = JSON.parse(localStorage.getItem('ya_session') || 'null'); } catch(e){}
+    if (!sess || !sess.token || !wk) return;
+    function resolve(cfg){
+      var g=(cfg&&cfg.global)||{}, rules=(cfg&&cfg.rules)||[], rd='', rw='';
+      for (var i=0;i<rules.length;i++){ var m=rules[i]&&rules[i].match; if(!m) continue;
+        if ((m.kind==='section'&&m.value===section)||(m.kind==='type'&&m.value===type)){
+          rd=rules[i].design||''; rw=rules[i].width||''; break; } }
+      return { design:(fmTheme||rd||g.design||'A_editorial'), width:(fmWidth||rw||g.width||'wide') };
+    }
+    function apply(d){
+      if (sel && sel.value!==d.design){ sel.value=d.design; sel.dispatchEvent(new Event('change')); }
+      var w = /narrow|820/.test(d.width)?'narrow':'wide';
+      if (wsel && wsel.value!==w){ wsel.value=w; wsel.dispatchEvent(new Event('change')); }
+    }
+    fetch(wk+'/api/settings',{headers:{Authorization:'Bearer '+sess.token}})
+      .then(function(r){ return r.ok?r.json():null; })
+      .then(function(cfg){ if(cfg) apply(resolve(cfg)); })
+      .catch(function(){});
+  })();
+})();
+</script>
+<script src="../ya-songs.js" defer></script>
+</body>
+</html>

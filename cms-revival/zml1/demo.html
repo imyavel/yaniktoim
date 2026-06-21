@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Демо ZML — все типы блоков</title>
+<meta name="description" content="Технический образец формата с минимальным примером каждой конструкции — для визуальной проверки рендера.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="article-page">
+<div class="wrap wide">
+
+<header class="breadcrumbs"><a href="#">Главная</a><span class="sep">›</span><a href="#">Демо</a><span class="sep">›</span>Демо ZML — все типы блоков</header>
+
+<h1 id="article-title">Демо ZML — все типы блоков</h1>
+<p class="byline">Элиягу Бар Малей · #000 · 28 мая 2026 · Оригинал: <a href="#" target="_blank" rel="noopener">демо</a></p>
+
+<article>
+
+<details class="article-toc">
+<summary>Содержание</summary>
+<ol>
+<li><a href="#akt-1">АКТ ПЕРВЫЙ. ОБЫЧНЫЙ ПАРАГРАФ И ССЫЛКИ</a></li>
+<li><a href="#akt-2">АКТ ВТОРОЙ. СТИХ С CAPS-ВКЛЮЧЕНИЯМИ</a></li>
+<li><a href="#akt-3">АКТ ТРЕТИЙ. ЦИТАТА И ЭПИЛОГ</a></li>
+<li><a href="#akt-4">АКТ ЧЕТВЁРТЫЙ. МУЗЫКА И «СМ. ТАКЖЕ»</a></li>
+<li><a href="#notes">Примечания</a></li>
+</ol>
+</details>
+
+<h2 class="subtitle">Демо ZML — все типы блоков<sup id="cite_ref-1"><a href="#cite_note-1">[1]</a></sup></h2>
+
+<p class="attribution">Это пример лидирующей атрибуции — короткий вводный параграф до первой секции.</p>
+
+<div class="epigraph" data-label="Эпиграф">
+<p>Воин выбирает свой путь сердца и идёт по нему до конца.</p>
+<span class="cite">— К. Кастанеда</span>
+</div>
+
+<div class="epigraph" data-label="Эпиграф">
+<p>Цитата эпиграфа в несколько строк — без указания автора в той же строке.</p>
+<p>Второй абзац того же эпиграфа.</p>
+</div>
+
+<div class="poem">Свет наполнит это Кли<sup id="cite_ref-2"><a href="#cite_note-2">[2]</a></sup>
+Трепетной любовью
+Ты держи Его внутри
+Как свое, родное.
+
+Стих второй строфы
+Тоже четыре строки
+И последняя
+Здесь стоит.</div>
+
+<ol class="num">
+<li>Первый тезис нумерованной группы — рендер сам поставит «1.» перед ним.</li>
+<li>Второй тезис — внутри работает обычная inline-разметка, включая ссылки на <a class="internal" href="#">Всеотец Мирами Правит</a> и сноски<sup id="cite_ref-2-extra"><a href="#cite_note-2">[2]</a></sup>.</li>
+<li>Третий тезис может занимать несколько строк подряд внутри одного абзаца, но без пустых строк, иначе разделится на новый пункт.</li>
+</ol>
+
+<h2 id="akt-1">АКТ ПЕРВЫЙ. ОБЫЧНЫЙ ПАРАГРАФ И ССЫЛКИ <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<p>О связи духовной Любви и материальной любви, о Пути Воина-Исраэль (синтез учения К.Кастанеды и Каббалы). Подробности см. <a class="internal" href="#">Жизнь в Дар</a> или <a class="internal" href="#">Всеотец Мирами Правит</a> — обе резолвятся во внутренние ссылки с автоматическим заголовком из manifest.</p>
+
+<p>Каббалистический контекст — <a class="zohar" href="https://imyavel.github.io/zohar-sulam/akdama/004.html">Книга Зоар. Введение (Акдама). «МИ бара ЭЛЕ» Элияhу</a>, и параллельно <a class="zohar" href="https://imyavel.github.io/zohar-sulam/beresheet/017.html">Книга Зоар. Берешит. [заголовок статьи 17 из zohar_index]</a> — оба отображаются золотистым «зоарным» цветом с автоподстановкой полного заголовка из zohar_index.</p>
+
+<p>Внешний ресурс — <a href="http://proza.ru/avtor/viktor1717" target="_blank" rel="noopener">страница автора viktor1717</a> — остаётся обычной ссылкой <code>target="_blank"</code>. Без анкора было бы <a href="http://proza.ru/avtor/viktor1717" target="_blank" rel="noopener">http://proza.ru/avtor/viktor1717</a> — анкор взялся бы из самого URL.</p>
+
+<p><span class="sb">Внимание: полностью-caps параграф должен превратиться в small-caps с восстановлением имён: Орёл, Творец, Адам, Господь, Бог, Ева.</span></p>
+
+<p><span class="sb">А вот пример маркера `^`: тропа Воина ведёт через Кли к Нагвалю и к Орлу — первые три слова выделены вручную через ^, последнее поднялось автоматом из встроенного списка.</span></p>
+
+<h2 id="akt-2">АКТ ВТОРОЙ. СТИХ С CAPS-ВКЛЮЧЕНИЯМИ <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<div class="poem">Обычная строка стиха
+Ещё одна обычная
+
+<span class="sb">Верхнерегистровый кусок с Кетер внутри
+Продолжает Хохма ещё одной
+Строкой — рендер соединит в один span</span>
+
+И снова обычная строка
+После возвращения регистра.</div>
+
+<h2 id="akt-3">АКТ ТРЕТИЙ. ЦИТАТА И ЭПИЛОГ <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<blockquote class="q" data-label="Цитата">
+<p>Только наполнение Светом с Его последующим исчезновением делает Кли пригодным к выполнению своего предназначения.</p>
+<span class="cite">— Бааль Сулам</span>
+</blockquote>
+
+<p>Параграф между цитатой и эпилогом — поясняет связь.</p>
+
+<div class="epilogue" data-label="Эпилог">
+<p>Здесь подведение итогов всей статьи. Класс epilogue — близкий родственник эпиграфа, но с меткой «Эпилог» вместо «Эпиграф».</p>
+</div>
+
+<h2 id="akt-4">АКТ ЧЕТВЁРТЫЙ. МУЗЫКА И «СМ. ТАКЖЕ» <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+
+<div class="music-group" data-label="Музыка под настроение">
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="title">Within Temptation — Let Us Burn</span><span class="caret">›</span><a class="ext" href="https://youtu.be/5DBuIhr1Id4" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/5DBuIhr1Id4" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="title">Metallica — Sanitarium</span><span class="caret">›</span><a class="ext" href="https://youtu.be/oAycSf8COQo" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/oAycSf8COQo" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+<details class="music"><summary><span class="label">Музыка под настроение:</span><span class="title">Браво — Это за окном Рассвет</span><span class="caret">›</span><a class="ext" href="https://youtu.be/yLUOwe9f2X8" target="_blank" rel="noopener" title="Открыть на YouTube">↗</a></summary><div class="player"><iframe data-src="https://www.youtube.com/embed/yLUOwe9f2X8" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></details>
+<div class="music-noplayer"><div class="summary"><span class="label">Музыка под настроение:</span><span class="title">Неизвестный исполнитель — Песня без рабочей ссылки</span></div></div>
+</div>
+
+<p class="colophon">Арт. #000, записано 28 мая 2026 г.</p>
+
+<h2 id="notes">Примечания <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
+<ol class="notes">
+<li id="cite_note-1" value="1"><a class="backref" href="#cite_ref-1" title="Вернуться к месту в тексте">↑</a> Демонстрационная сноска — показывает popup-bubble на hover и переход к телу сноски при клике.</li>
+<li id="cite_note-2" value="2"><a class="backref" href="#cite_ref-2" title="Вернуться к месту в тексте">↑</a> Кли ( - ивр. каб.: инструмент, желание, сосуд, способ, действие, механизм). "Только наполнение Светом с Его последующим исчезновением (осветлением - издохехут ивр.) делают Кли пригодным к выполнению своего предназначения" - Бааль Сулам, Введение в Науку Каббала. См. также: <a class="internal" href="#">Жизнь в Дар</a></li>
+<li class="anon">См. также: <a href="http://proza.ru/avtor/viktor1717" target="_blank" rel="noopener">страница автора viktor1717</a></li>
+<li class="anon">См. также: <a class="internal" href="#">Всеотец Мирами Правит</a> — параллельная работа на ту же тему.</li>
+<li class="anon">Дополнение: <a class="zohar" href="https://imyavel.github.io/zohar-sulam/akdama/004.html">Книга Зоар. Введение (Акдама). «МИ бара ЭЛЕ» Элияhу</a> — каббалистический контекст.</li>
+</ol>
+
+</article>
+
+<nav class="article-nav">
+  <span class="prev"><a href="#">← Предыдущая</a></span>
+  <span class="next"><a href="#">Следующая →</a></span>
+</nav>
+
+<footer class="footer">
+<p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+<p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+</footer>
+</div>
+
+<script>
+// Lazy YouTube embed: swap data-src → src on first open of each <details.music>.
+document.querySelectorAll('details.music').forEach(function(d){
+  d.addEventListener('toggle', function(){
+    if (!d.open) return;
+    var f = d.querySelector('iframe[data-src]');
+    if (f) {
+      f.src = f.getAttribute('data-src');
+      f.removeAttribute('data-src');
+    }
+  });
+});
+
+// Footnote popup-bubble: on hover over <sup><a href="#cite_note-N">…</a></sup>
+(function(){
+  var bubble = null, hideTimer = null;
+  function ensureBubble(){
+    if (bubble) return bubble;
+    bubble = document.createElement('div');
+    bubble.className = 'footnote-bubble';
+    bubble.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); });
+    bubble.addEventListener('mouseleave', scheduleHide);
+    document.body.appendChild(bubble);
+    return bubble;
+  }
+  function scheduleHide(){
+    if (hideTimer) clearTimeout(hideTimer);
+    hideTimer = setTimeout(function(){ if (bubble) bubble.classList.remove('show'); }, 180);
+  }
+  function show(link){
+    var href = link.getAttribute('href') || '';
+    if (!href.startsWith('#')) return;
+    var target = document.getElementById(href.slice(1));
+    if (!target) return;
+    var b = ensureBubble();
+    var clone = target.cloneNode(true);
+    var back = clone.querySelector('a.backref');
+    if (back) back.remove();
+    b.innerHTML = clone.innerHTML;
+    b.classList.add('show');
+    var r = link.getBoundingClientRect();
+    var sx = window.pageXOffset, sy = window.pageYOffset;
+    b.style.left = '0px'; b.style.top = '0px';
+    var bw = b.offsetWidth, bh = b.offsetHeight;
+    var left = sx + r.left + r.width/2 - bw/2;
+    var maxLeft = sx + document.documentElement.clientWidth - bw - 8;
+    if (left > maxLeft) left = maxLeft;
+    if (left < sx + 8) left = sx + 8;
+    var top = sy + r.top - bh - 10;
+    var placeBelow = (top - sy) < 8;
+    if (placeBelow) top = sy + r.bottom + 10;
+    b.style.left = left + 'px';
+    b.style.top  = top  + 'px';
+    b.classList.toggle('below', placeBelow);
+  }
+  document.querySelectorAll('sup a[href^="#cite_note-"]').forEach(function(a){
+    a.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); show(a); });
+    a.addEventListener('mouseleave', scheduleHide);
+    a.addEventListener('focus', function(){ show(a); });
+    a.addEventListener('blur',  scheduleHide);
+  });
+})();
+</script>
+</body>
+</html>

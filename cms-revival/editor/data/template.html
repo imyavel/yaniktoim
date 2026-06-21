@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="icon" href="../../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../../img/favicon.png">
+<link rel="apple-touch-icon" href="../../img/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}} — Путь Восходящей Звезды</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<link rel="stylesheet" href="../style.css?v={{CSS_VERSION}}">
+<style id="spl-base">
+/* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
+.wrap.w-narrow{max-width:820px;}
+.wrap.w-wide{max-width:1080px;}
+/* [spl] spoiler — structural, theme-agnostic. Themes may tune --spl-cover. */
+.spoiler{position:relative;display:inline-block;cursor:pointer;border-radius:3px;vertical-align:baseline;}
+.spoiler:not(.revealed) .spoiler-content{visibility:hidden;}
+.spoiler:not(.revealed)::before{content:"";position:absolute;inset:-1px;border-radius:3px;
+  background:var(--spl-cover,repeating-linear-gradient(45deg,#4a4a4a 0 7px,#2f2f2f 7px 14px));
+  background-size:auto;animation:spl-shimmer 1.4s linear infinite;}
+.spoiler.revealed{cursor:auto;}
+.spoiler:focus-visible{outline:2px solid currentColor;outline-offset:2px;}
+@keyframes spl-shimmer{from{background-position:0 0;}to{background-position:20px 0;}}
+@media (prefers-reduced-motion:reduce){.spoiler:not(.revealed)::before{animation:none;}}
+/* [subsec] section subtitle — base (themes refine): muted italic, tight to ## heading. */
+.sec-sub{margin:.15em 0 1.3em;font-style:italic;font-size:.95em;opacity:.7;line-height:1.45;text-indent:0;text-align:left;}
+h2 + .sec-sub, h2.subtitle + .sec-sub{margin-top:-.5em;}
+/* [sig] подпись / [cry] возглас (ZML3 C11) — base, themes refine. */
+.sig{text-align:right;font-style:italic;margin:1.4rem 0;}
+.cry{text-align:center;font-weight:700;letter-spacing:.05em;margin:1.6rem 0;}
+/* глифы (C13) + inline term/leit (C10) — base no-op-ish; themes colour or ignore. */
+.glyph{white-space:nowrap;}
+.term{text-decoration:underline dotted;text-underline-offset:3px;}
+.leit{font-style:italic;}
+/* fn-ревью (2026-06-12) — структурная база новых конструкций; темы уточняют. */
+h1#article-title sup{font-size:.42em;font-weight:400;line-height:0;letter-spacing:normal;vertical-align:super;}
+p.line{font-size:.88em;opacity:.72;letter-spacing:.02em;text-indent:0;}
+ul.ul{margin:1em 0;padding-left:1.6em;}
+ul.ul li::marker{content:var(--marker, initial);}
+ol.num.num-paren li::marker{content:counter(list-item) ") ";}
+article .epigraph.dedication, article .epilogue.dedication{text-align:right;font-style:italic;}
+details.article-toc ol ol{margin:.15em 0 .15em 1.1em;}
+/* [toc nonum]: заголовки сами нумерованы (1 / 1.1 / 1.1.1) → гасим авто-числа <ol>
+   (две класса-метки → перебивает per-theme `.article-toc ol{padding-left}` по специфичности) */
+details.article-toc.nonum ol{list-style:none; padding-left:0;}
+details.article-toc.nonum ol ol{margin-left:1.1em;}
+</style>
+</head>
+<body class="article-page" data-art="{{NUMBER}}" data-theme="{{THEME}}">
+<button id="edit-fab" class="edit-fab" type="button" title="Редактировать (Edit)" hidden>✎</button>
+<div class="wrap {{WRAP_CLASS}}">
+<header class="breadcrumbs"><a href="../index.html">Главная</a><span class="sep">›</span><a href="{{SECTION_HREF}}">{{SECTION_NAME}}</a><span class="sep">›</span>{{TITLE}}</header>
+{{ILLUSTRATION}}
+<h1 id="article-title">{{TITLE_H1}}{{AUDIO}}</h1>
+<p class="byline">Элиягу Бар Малей · #{{NUMBER}} · {{DATE_DISPLAY}} · Источник: <a href="{{ORIGIN_URL}}" target="_blank" rel="noopener">{{ORIGIN_LABEL}}</a></p>
+<article>
+{{ARTICLE_TOC}}
+{{ARTICLE_BODY}}
+</article>
+
+<nav class="article-nav">
+  <span class="prev">{{PREV_LINK}}</span>
+  <span class="next">{{NEXT_LINK}}</span>
+</nav>
+
+<footer class="footer">
+<p class="editinfo">Последняя правка: {{LAST_EDIT}}</p>
+<p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+<p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+</footer>
+</div>
+<script>
+// Article behaviours, wrapped so the in-page editor can re-bind them after a
+// live re-render (window.yanikBindArticle). Idempotent via data-* guards.
+(function(){
+  var bubble = null, hideTimer = null;
+  function ensureBubble(){
+    if (bubble) return bubble;
+    bubble = document.createElement('div');
+    bubble.className = 'footnote-bubble';
+    bubble.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); });
+    bubble.addEventListener('mouseleave', scheduleHide);
+    document.body.appendChild(bubble);
+    return bubble;
+  }
+  function scheduleHide(){
+    if (hideTimer) clearTimeout(hideTimer);
+    hideTimer = setTimeout(function(){ if (bubble) bubble.classList.remove('show'); }, 180);
+  }
+  function show(link){
+    var href = link.getAttribute('href') || '';
+    if (!href.startsWith('#')) return;
+    var target = document.getElementById(href.slice(1));
+    if (!target) return;
+    var b = ensureBubble();
+    var clone = target.cloneNode(true);
+    var back = clone.querySelector('a.backref');
+    if (back) back.remove();
+    b.innerHTML = clone.innerHTML;
+    b.classList.add('show');
+    var r = link.getBoundingClientRect();
+    var sx = window.pageXOffset, sy = window.pageYOffset;
+    b.style.left = '0px'; b.style.top = '0px';
+    var bw = b.offsetWidth, bh = b.offsetHeight;
+    var left = sx + r.left + r.width/2 - bw/2;
+    var maxLeft = sx + document.documentElement.clientWidth - bw - 8;
+    if (left > maxLeft) left = maxLeft;
+    if (left < sx + 8) left = sx + 8;
+    var top = sy + r.top - bh - 10;
+    var placeBelow = (top - sy) < 8;
+    if (placeBelow) top = sy + r.bottom + 10;
+    b.style.left = left + 'px';
+    b.style.top  = top  + 'px';
+    b.classList.toggle('below', placeBelow);
+  }
+  // Lazy YouTube embed: data-src → src on first open (avoids YouTube Error 153
+  // inside a zero-size closed <details>).
+  function bindMusic(){
+    document.querySelectorAll('details.music').forEach(function(d){
+      if (d.dataset.musicBound) return; d.dataset.musicBound = '1';
+      d.addEventListener('toggle', function(){
+        if (!d.open) return;
+        var f = d.querySelector('iframe[data-src]');
+        if (f) { f.src = f.getAttribute('data-src'); f.removeAttribute('data-src'); }
+      });
+    });
+  }
+  function bindFootnotes(){
+    document.querySelectorAll('sup a[href^="#cite_note-"]').forEach(function(a){
+      if (a.dataset.fnBound) return; a.dataset.fnBound = '1';
+      a.addEventListener('mouseenter', function(){ if (hideTimer) clearTimeout(hideTimer); show(a); });
+      a.addEventListener('mouseleave', scheduleHide);
+      a.addEventListener('focus', function(){ show(a); });
+      a.addEventListener('blur',  scheduleHide);
+    });
+  }
+  // [spl] spoiler reveal: click / Enter / Space drops the cover. Idempotent.
+  function bindSpoilers(){
+    document.querySelectorAll('.spoiler').forEach(function(sp){
+      if (sp.dataset.splBound) return; sp.dataset.splBound = '1';
+      function reveal(){ sp.classList.add('revealed'); }
+      sp.addEventListener('click', reveal);
+      sp.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); reveal(); }
+      });
+    });
+  }
+  window.yanikBindArticle = function(){ bindMusic(); bindFootnotes(); bindSpoilers(); };
+  window.yanikBindArticle();
+
+  // Load the editor/login module. It decides what to show: a discreet «Вход»
+  // button in Worker mode (→ ✎ once a writer logs in), or ✎ in interim PAT mode
+  // when ?edit=1 set the yanik_edit flag. The heavy renderer is lazy-loaded only
+  // on entering edit, so readers stay light.
+  try{
+    var p = new URLSearchParams(location.search);
+    if (p.get('edit') === '1') localStorage.setItem('yanik_edit','1');
+    if (p.get('edit') === '0') localStorage.removeItem('yanik_edit');
+    var s = document.createElement('script');
+    s.type = 'module'; s.src = '../editor/inline.js?v={{CSS_VERSION}}';
+    document.body.appendChild(s);
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
