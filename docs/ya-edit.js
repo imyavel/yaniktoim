@@ -90,21 +90,29 @@
   // ── открытие: загрузить ZML + зависимости + ze-core, смонтировать редактор ─────
   function openEditor() {
     btn.disabled = true;
-    fetch(ART + ".zml", { cache: "no-store" })
-      .then(function (r) { if (!r.ok) throw new Error("ZML " + r.status); return r.text(); })
-      .then(function (zml) { return loadDeps().then(function () { return zml; }); })
-      .then(function (zml) {
-        return import(modUrl("ze-core.js")).then(function (mod) {
-          mod.mountZmlEditor({
-            label: "Правка ZML · #" + ART,
-            initialZml: ensureViewZml(zml),
-            renderView: renderView,
-            preprocess: deps.fawMarkup,   // [faw] без «|» → разметка по слогам перед сохранением
-            save: saveToWorker,
-            image: { artId: ART },     // Ф8(b): блок «Иллюстрация» (image: + бинарь)
-            savedPrimaryLabel: "На статью",
-            onClosed: function () { btn.disabled = false; }
-          });
+    import(modUrl("ze-core.js"))
+      .then(function (mod) {
+        // Перед правкой проверяем, что логин не протух (TTL сессии 12 ч). Протух/нет —
+        // ze-core покажет модальный вход; открываем редактор ТОЛЬКО при успехе, уже
+        // свежим токеном. Отмена входа → редактор не открываем.
+        return mod.ensureFreshSession({ worker: WORKER }).then(function (fresh) {
+          if (!fresh) { btn.disabled = false; return; }
+          sess = fresh;   // обновлённый токен — saveToWorker берёт его в момент сохранения
+          return fetch(ART + ".zml", { cache: "no-store" })
+            .then(function (r) { if (!r.ok) throw new Error("ZML " + r.status); return r.text(); })
+            .then(function (zml) { return loadDeps().then(function () { return zml; }); })
+            .then(function (zml) {
+              mod.mountZmlEditor({
+                label: "Правка ZML · #" + ART,
+                initialZml: ensureViewZml(zml),
+                renderView: renderView,
+                preprocess: deps.fawMarkup,   // [faw] без «|» → разметка по слогам перед сохранением
+                save: saveToWorker,
+                image: { artId: ART },     // Ф8(b): блок «Иллюстрация» (image: + бинарь)
+                savedPrimaryLabel: "На статью",
+                onClosed: function () { btn.disabled = false; }
+              });
+            });
         });
       })
       .catch(function (e) {

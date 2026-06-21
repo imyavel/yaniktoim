@@ -265,6 +265,101 @@ export function mountZmlEditor(opts) {
   return { close: close };
 }
 
+// ── Свежесть сессии + модальный логин (общий гейт для редакторов) ─────────────
+// Перед открытием редактора убеждаемся, что токен не протух: его `exp` (unix-сек)
+// зашит в сам токен → читаем локально, без сети. Свежий → resolve(session) сразу.
+// Протух/нет токена → показываем модальное окно входа (тот же worker /api/login,
+// что и на главной); при успехе обновляем localStorage("ya_session") и резолвим
+// свежую сессию. Отмена/Esc → resolve(null): вызывающий редактор НЕ открывает.
+// marginSec — запас (деф. 300с): если до истечения меньше, тоже просим перелогин,
+// чтобы правка не упёрлась в 401 на «Сохранить».
+export function ensureFreshSession(opts) {
+  opts = opts || {};
+  const worker = String(opts.worker || "").replace(/\/+$/, "");
+  const marginSec = opts.marginSec != null ? opts.marginSec : 300;
+  const sess = readSession();
+  if (sess && sess.token && sessionFresh(sess.token, marginSec)) return Promise.resolve(sess);
+  return loginModal({ worker: worker, prefillNick: sess && sess.nick });
+}
+
+function readSession() {
+  try { return JSON.parse(localStorage.getItem("ya_session") || "null"); }
+  catch (e) { return null; }
+}
+// exp зашит в payload токена «<b64url(json)>.<sig>». Берём только число exp — оно
+// ASCII, поэтому регэксп по atob-строке надёжен и без utf8-возни вокруг ника.
+function tokenExp(token) {
+  try {
+    let body = String(token).split(".")[0];
+    if (!body) return null;
+    body = body.replace(/-/g, "+").replace(/_/g, "/");
+    while (body.length % 4) body += "=";
+    const m = /"exp"\s*:\s*(\d+)/.exec(atob(body));
+    return m ? parseInt(m[1], 10) : null;
+  } catch (e) { return null; }
+}
+function sessionFresh(token, marginSec) {
+  const exp = tokenExp(token);
+  if (exp == null) return false;            // exp не распарсили → считаем несвежим (перелогин безопаснее)
+  return exp > (Date.now() / 1000) + marginSec;
+}
+
+function loginModal(opts) {
+  injectStyles();                           // #ze-pop стили могут быть ещё не вставлены (редактор не монтировался)
+  return new Promise(function (resolve) {
+    const worker = opts.worker;
+    const m = document.createElement("div");
+    m.id = "ze-pop";
+    m.innerHTML =
+      '<div class="ze-pop-card">' +
+        '<p><b>Сессия входа истекла</b></p>' +
+        '<p>Войдите снова, чтобы продолжить правку.</p>' +
+        '<div class="ze-login-row"><input class="ze-login-nick" type="text" placeholder="ник" autocomplete="username"></div>' +
+        '<div class="ze-login-row"><input class="ze-login-pass" type="password" placeholder="пароль" autocomplete="current-password"></div>' +
+        '<div class="ze-login-msg" aria-live="polite"></div>' +
+        '<div class="ze-pop-row">' +
+          '<button type="button" class="ze-btn" data-l="cancel">Отмена</button>' +
+          '<button type="button" class="ze-btn ze-primary" data-l="login">Войти</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(m);
+    const nick = m.querySelector(".ze-login-nick");
+    const pass = m.querySelector(".ze-login-pass");
+    const msg = m.querySelector(".ze-login-msg");
+    const loginBtn = m.querySelector('[data-l="login"]');
+    if (opts.prefillNick) { nick.value = opts.prefillNick; pass.focus(); } else nick.focus();
+
+    function done(result) { if (m.parentNode) m.parentNode.removeChild(m); resolve(result); }
+    function setDisabled(on) { loginBtn.disabled = on; nick.disabled = on; pass.disabled = on; }
+    function submit() {
+      const n = nick.value.trim(), p = pass.value;
+      if (!n || !p) { msg.textContent = "Введите ник и пароль."; return; }
+      if (!worker) { msg.textContent = "Не задан адрес сервера входа."; return; }
+      msg.textContent = ""; setDisabled(true);
+      fetch(worker + "/api/login", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nick: n, password: p })
+      })
+        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (res) {
+          if (!res.ok || !res.d || !res.d.token) throw new Error((res.d && res.d.error) || "ошибка входа");
+          const s = { token: res.d.token, nick: res.d.nick, role: res.d.role };
+          try { localStorage.setItem("ya_session", JSON.stringify(s)); } catch (e) {}
+          done(s);
+        })
+        .catch(function (e) { setDisabled(false); msg.textContent = (e && e.message) || "ошибка входа"; pass.focus(); pass.select(); });
+    }
+    m.addEventListener("click", function (ev) {
+      const b = ev.target.closest("[data-l]"); if (!b) return;
+      if (b.getAttribute("data-l") === "login") submit(); else done(null);
+    });
+    m.addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter") { ev.preventDefault(); submit(); }
+      else if (ev.key === "Escape") { ev.preventDefault(); done(null); }
+    });
+  });
+}
+
 // В srcdoc-превью базовый URL = URL родительской (боевой) страницы, поэтому ссылка
 // «#foo» резолвится в «<реальный .view.html>#foo» и КЛИК уводит iframe на боевой
 // (старый) файл — оглавление/сноски/«↑ наверх» показывали бы СТАРУЮ версию вместо
@@ -367,6 +462,10 @@ function injectStyles() {
     "#ze-pop p{margin:0 0 .7em;}" +
     "#ze-pop .ze-pop-row{display:flex;gap:.6em;justify-content:flex-end;margin-top:1em;}" +
     "#ze-pop .ze-btn{font:inherit;border-radius:6px;padding:.4em 1em;cursor:pointer;border:1px solid #bbb;background:#f3f3f3;color:#222;}" +
-    "#ze-pop .ze-primary{background:#2d6cdf;border-color:#2d6cdf;color:#fff;}";
+    "#ze-pop .ze-primary{background:#2d6cdf;border-color:#2d6cdf;color:#fff;}" +
+    "#ze-pop .ze-login-row{margin:.5em 0;}" +
+    "#ze-pop .ze-login-row input{width:100%;box-sizing:border-box;font:inherit;padding:.45em .6em;" +
+      "border:1px solid #bbb;border-radius:6px;background:#fff;color:#222;}" +
+    "#ze-pop .ze-login-msg{min-height:1.1em;color:#b00;font-size:.9em;}";
   document.head.appendChild(st);
 }
