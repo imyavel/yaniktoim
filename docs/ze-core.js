@@ -61,7 +61,11 @@ export function mountZmlEditor(opts) {
   const ta = ui.querySelector(".ze-text");
   const iframe = ui.querySelector(".ze-prev");
   ta.value = baseline;
+  // Открываем В НАЧАЛЕ документа: каретку в 0 и скролл вверх (иначе браузер
+  // оставляет textarea прокрученным к концу после установки value).
+  try { ta.setSelectionRange(0, 0); } catch (e) {}
   ta.focus();
+  ta.scrollTop = 0;
   if (imgOpt) setupImageBar();
 
   ui.addEventListener("click", function (ev) {
@@ -80,6 +84,7 @@ export function mountZmlEditor(opts) {
     catch (e) { status("Ошибка рендера: " + (e.message || e), true); return; }
     html = swapPreviewImage(html); // невыложённую картинку показываем как data:-URL
     html = injectPreviewNav(html); // якоря #… скроллят ВНУТРИ превью, не уводят на боевой файл
+    html = injectPreviewChrome(html); // в превью кнопка «Править» неактивна (мы уже в правке)
     iframe.srcdoc = html;          // srcdoc → относительные ../themes, ../img от родителя
     iframe.classList.remove("ze-hidden");
     ta.classList.add("ze-hidden");
@@ -383,6 +388,16 @@ function injectPreviewNav(html) {
   return html.indexOf("</body>") >= 0
     ? html.replace("</body>", PREVIEW_NAV_SCRIPT + "</body>")
     : html + PREVIEW_NAV_SCRIPT;
+}
+
+// В превью мы УЖЕ внутри редактора → кнопка «✎ Править» (её оживляет ya-edit.js
+// внутри iframe) не нужна и не должна быть кликабельной. Прячем её стилем
+// (перебивает снятие [hidden] скриптом). Якоря/скролл превью не трогаем.
+var PREVIEW_CHROME_STYLE = "<style>.viewbar .vb-edit{display:none!important;}</style>";
+function injectPreviewChrome(html) {
+  return html.indexOf("</head>") >= 0
+    ? html.replace("</head>", PREVIEW_CHROME_STYLE + "</head>")
+    : PREVIEW_CHROME_STYLE + html;
 }
 
 // ── frontmatter image: чтение/установка/удаление строки (чистые функции) ───────
