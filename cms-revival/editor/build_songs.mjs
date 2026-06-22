@@ -1,8 +1,8 @@
 // Build the «Песнь Ступеней» special page (ZML3 §6.8): docs/songs/index.zml →
 // docs/songs/index.view.html via template_songs.html. NOT an art-id article →
 // own template (no byline/prev-next/TOC), art-links get base "../art/".
-// url-unification: пишет ZML-рендер в docs/songs/index.html (единственный адрес);
-// index.view.html → редирект-заглушка. Reuses render.js.
+// url-unification: пишет ZML-рендер в docs/songs/index.html (единственный адрес;
+// index.view.html упразднён). Reuses render.js.
 // Usage: node build_songs.mjs
 
 import { readFileSync, writeFileSync, readdirSync, copyFileSync, mkdirSync, existsSync } from "node:fs";
@@ -34,7 +34,7 @@ try { displayConfig = JSON.parse(readFileSync(join(docsSongs, "..", "config", "d
 catch (e) { /* нет конфига → дефолты A_editorial/wide */ }
 const manifestByArt = Object.fromEntries(manifest.map((r) => [r.art, r]));
 
-// node build_songs.mjs [inZml] [outHtml] — по умолчанию index.zml → index.view.html.
+// node build_songs.mjs [inZml] [outHtml] — по умолчанию index.zml → index.html.
 const argIn = process.argv[2];
 const argOut = process.argv[3];
 const zmlPath = argIn ? join(process.cwd(), argIn) : join(docsSongs, "index.zml");
@@ -48,19 +48,11 @@ const zml = readFileSync(zmlPath, "utf8");
 const rec = { art: "songs", section: "", title: "Песнь Ступеней", url: "" };
 const html = renderSongsHtml({
   zml, rec, manifest, manifestByArt, zoharIndex, properNouns,
-  template, artHrefBase: "../art/", siteConfig, displayConfig, // docs/songs/ → docs/art/<id>.view.html
+  template, artHrefBase: "../art/", siteConfig, displayConfig, // docs/songs/ → docs/art/<id>.html
 });
 
 // url-unification: единственный адрес — docs/songs/index.html (ZML-рендер; «old»-
-// варианта у songs нет). Прежний index.view.html → редирект-заглушка (как у статей).
+// варианта у songs нет). Прежний index.view.html упразднён (удалён).
 const out = argOut ? join(process.cwd(), argOut) : join(docsSongs, "index.html");
 writeFileSync(out, html);
 console.log("OK songs ->", out, html.length, "B");
-if (!argOut) {
-  const stub = '<!doctype html><html lang="ru"><head><meta charset="utf-8">\n' +
-    '<meta name="robots" content="noindex"><link rel="canonical" href="index.html">\n' +
-    '<meta http-equiv="refresh" content="0; url=index.html"></head>\n' +
-    '<body data-pagefind-ignore="all"><a href="index.html">→ Перейти к странице</a></body></html>\n';
-  writeFileSync(join(docsSongs, "index.view.html"), stub);
-  console.log("OK songs stub -> songs/index.view.html");
-}

@@ -199,15 +199,7 @@ const IMG_NAME_RX = /^[A-Za-z0-9_-]{1,64}\.(jpe?g|png|gif|webp)$/i;
 // Без точки/слэша → art безопасно подставлять в путь docs/art/<art>.*
 const ART_ID_RX = /^[A-Za-z0-9_-]{1,32}$/;
 
-// url-unification: прежний NNN.view.html / songs/index.view.html → редирект-заглушка
-// (уже расшаренные ссылки не ломаем). noindex + pagefind-ignore. Та же форма, что в
-// editor/build_views.mjs. forced_views/`view:` упразднены — больше не отражаем.
-function redirectStub(target) {
-  return '<!doctype html><html lang="ru"><head><meta charset="utf-8">\n' +
-    '<meta name="robots" content="noindex"><link rel="canonical" href="' + target + '">\n' +
-    '<meta http-equiv="refresh" content="0; url=' + target + '"></head>\n' +
-    '<body data-pagefind-ignore="all"><a href="' + target + '">→ Перейти к статье</a></body></html>\n';
-}
+// url-unification: один адрес NNN.html; forced_views/`view:`/.view.html упразднены.
 
 async function handleSave(env, payload, body) {
   if (payload.role !== "editor" && payload.role !== "admin") {
@@ -221,12 +213,11 @@ async function handleSave(env, payload, body) {
   let files, message;
   if (body.page === "songs") {
     // спец-страница «Песнь Ступеней»: источник docs/songs/index.zml → единый
-    // рендер docs/songs/index.html (renderSongsHtml = build_songs.mjs). Прежний
-    // index.view.html → редирект-заглушка. «old»-варианта у songs нет.
+    // рендер docs/songs/index.html (renderSongsHtml = build_songs.mjs). «old»-
+    // варианта у songs нет; .view.html упразднён.
     files = [
       { path: "docs/songs/index.zml", content: zml },
       { path: "docs/songs/index.html", content: html },
-      { path: "docs/songs/index.view.html", content: redirectStub("index.html") },
     ];
     message = `cms: edit songs — ${payload.nick}`;
   } else {
@@ -234,13 +225,12 @@ async function handleSave(env, payload, body) {
     if (!art) return json(env, { error: "нужны art, zml, html" }, 400);
     if (!ART_ID_RX.test(String(art))) return json(env, { error: "битый art-id" }, 400);
     // url-unification: источник docs/art/<art>.zml → единый рендер docs/art/<art>.html
-    // (тот же render.js, что build_views.mjs → паритет). Прежний .view.html →
-    // редирект-заглушка. NB: браузерный рендер БЕЗ ctx.legacyBody → у правленой через
-    // веб статьи опция «old» временно скрыта до следующей полной build_views.
+    // (тот же render.js, что build_views.mjs → паритет). NB: браузерный рендер БЕЗ
+    // ctx.legacyBody → у правленой через веб статьи опция «old» временно скрыта до
+    // следующей полной build_views.
     files = [
       { path: `docs/art/${art}.zml`, content: zml },
       { path: `docs/art/${art}.html`, content: html },
-      { path: `docs/art/${art}.view.html`, content: redirectStub(`${art}.html`) },
     ];
     // Ф8(b) опц. иллюстрация: бинарная картинка в docs/img/<name>. content —
     // ЧИСТЫЙ base64 байтов (флаг binary → commitFiles кладёт в blob без utf8-обёртки).

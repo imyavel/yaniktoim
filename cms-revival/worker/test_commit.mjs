@@ -138,10 +138,10 @@ try {
   r = await call("POST", "/api/save", { token: etoken, body: { art: "03H", zml: zmlText, html: htmlText, image: { name: "03H.jpg", content: imgB64 }, branch: "main" } });
   d = await r.json();
   ok("editor /api/save+image → ok+sha", r.status === 200 && d.ok === true && d.sha === "NEWCOMMIT");
-  ok("создано 4 blob'а (zml+html+view-заглушка+img)", Object.keys(ghStore.blobs).length - before === 4);
+  ok("создано 3 blob'а (zml+html+img)", Object.keys(ghStore.blobs).length - before === 3);
   const stree = ghStore.trees[ghStore.trees.length - 1];
-  ok("дерево = 4 пути", JSON.stringify((stree.tree || []).map((t) => t.path).sort()) ===
-    JSON.stringify(["docs/art/03H.html", "docs/art/03H.view.html", "docs/art/03H.zml", "docs/img/03H.jpg"]));
+  ok("дерево = 3 пути (.html, без .view.html)", JSON.stringify((stree.tree || []).map((t) => t.path).sort()) ===
+    JSON.stringify(["docs/art/03H.html", "docs/art/03H.zml", "docs/img/03H.jpg"]));
   const imgBlob = ghStore.blobs[stree.tree.find((t) => t.path === "docs/img/03H.jpg").sha];
   ok("img blob: encoding base64", imgBlob.encoding === "base64");
   ok("img blob: ЧИСТЫЙ base64 (НЕ двойное кодирование)",
@@ -149,7 +149,7 @@ try {
   ok("img blob: байты восстановлены точно", Buffer.from(imgBlob.content, "base64").equals(imgBytes));
   ok("zml blob: текст через utf8-обёртку", dec(ghStore.blobs[stree.tree.find((t) => t.path === "docs/art/03H.zml").sha].content) === zmlText);
   ok("03H.html = переданный рендер", dec(ghStore.blobs[stree.tree.find((t) => t.path === "docs/art/03H.html").sha].content) === htmlText);
-  ok("03H.view.html = редирект-заглушка → .html", /refresh[\s\S]*url=03H\.html/.test(dec(ghStore.blobs[stree.tree.find((t) => t.path === "docs/art/03H.view.html").sha].content)));
+  ok("03H.view.html НЕ создаётся (упразднён)", !(stree.tree || []).some((t) => t.path === "docs/art/03H.view.html"));
 
   r = await call("POST", "/api/save", { token: etoken, body: { art: "03H", zml: zmlText, html: htmlText, image: { name: "../evil.jpg", content: imgB64 } } });
   ok("image имя с .. → 400", r.status === 400);
@@ -160,7 +160,7 @@ try {
   before = Object.keys(ghStore.blobs).length;
   r = await call("POST", "/api/save", { token: etoken, body: { art: "03H", zml: zmlText, html: htmlText } });
   d = await r.json();
-  ok("/api/save без image → 3 blob'а (zml+html+view-заглушка)", r.status === 200 && d.ok && Object.keys(ghStore.blobs).length - before === 3);
+  ok("/api/save без image → 2 blob'а (zml+html)", r.status === 200 && d.ok && Object.keys(ghStore.blobs).length - before === 2);
   r = await call("POST", "/api/save", { token: etoken, body: { art: "../../etc/x", zml: zmlText, html: htmlText } });
   ok("битый art-id → 400", r.status === 400);
 
@@ -171,10 +171,10 @@ try {
   r = await call("POST", "/api/save", { token: etoken, body: { page: "songs", zml: sZml, html: sHtml, branch: "main" } });
   d = await r.json();
   ok("editor /api/save page:songs → ok+sha", r.status === 200 && d.ok === true && d.sha === "NEWCOMMIT");
-  ok("songs: создано 3 blob'а (zml+html+view-заглушка)", Object.keys(ghStore.blobs).length - before === 3);
+  ok("songs: создано 2 blob'а (zml+html)", Object.keys(ghStore.blobs).length - before === 2);
   const songsTree = ghStore.trees[ghStore.trees.length - 1];
-  ok("songs: пути = index.zml + index.html + index.view.html", JSON.stringify((songsTree.tree || []).map((t) => t.path).sort()) ===
-    JSON.stringify(["docs/songs/index.html", "docs/songs/index.view.html", "docs/songs/index.zml"]));
+  ok("songs: пути = index.zml + index.html (без .view.html)", JSON.stringify((songsTree.tree || []).map((t) => t.path).sort()) ===
+    JSON.stringify(["docs/songs/index.html", "docs/songs/index.zml"]));
   ok("songs: zml-blob == payload", dec(ghStore.blobs[songsTree.tree.find((t) => t.path === "docs/songs/index.zml").sha].content) === sZml);
   ok("songs: art-id НЕ требуется (нет docs/art/)", !(songsTree.tree || []).some((t) => t.path.startsWith("docs/art/")));
   ok("songs: commit-message про songs", ghStore.commits[ghStore.commits.length - 1].message.includes("edit songs"));

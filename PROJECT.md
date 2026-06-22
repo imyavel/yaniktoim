@@ -25,12 +25,12 @@
 Корпус из **352 статей** (проза и стихи), https://imyavel.github.io/yaniktoim/ . Источник истины контента —
 **ZML** (свой текстовый формат). У каждой статьи ОДИН публичный адрес `art/NNN.html` (ZML-рендер с полным
 OG, индексируется). Вид — 5 ZML-тем + «оригинал (старый html)» как 6-й дизайн — выбирается рантайм-
-резолвером из `display.json`/личных настроек **без пересборки**; `.view.html` упразднён как маршрут
-(оставлены тонкие редирект-заглушки на старые ссылки). Правка — прямо на сайте
+резолвером из `display.json`/личных настроек **без пересборки**; `.view.html` упразднён
+полностью (удалён — внешние ссылки на него не сохраняются). Правка — прямо на сайте
 (логин → редактор ZML → коммит в репо через Cloudflare Worker).
 
 - **`art/`** — корпус: на статью `<id>.zml` (источник) → `<id>.html` (единый рендер-контейнер;
-  `<id>.view.html` — редирект-заглушка `→ .html`). Вход «old»-варианта — `cms-revival/legacy_html/<id>.html` (архив старого LLM-html).
+  `<id>.view.html` упразднён). Вход «old»-варианта — `cms-revival/legacy_html/<id>.html` (архив старого LLM-html).
 - **`img/`** — иллюстрации (~209).
 - **`config/`** — состояние CMS: `structure.json` (разделы/порядок/статусы), `display.json` (глобальный вид «дизайн+ширина» + правила по разделам/типам; дизайн включает «old»). `forced_views.json`/`default_view` **упразднены** (один URL, вид резолвится рантаймом; пер-статейный override — `frontmatter.theme`).
   ↳ **Контракт через репо:** `structure.json` в рантайме читает заглавная домена `imyavel.github.io/index.html` (счётчик «N статей в M разделах», тот же origin) — при смене его схемы (`articles[].status`, `sections[].archived`) проверить этого потребителя.
@@ -44,7 +44,7 @@ OG, индексируется). Вид — 5 ZML-тем + «оригинал (�
 # Движок — `yaniktoim/cms-revival/` (исходники, в репо)
 - **`zml3/SPEC.md`** — канон формата ZML. Публичная копия — `docs/zml/SPEC.md` (копировать вручную при правке спеки).
 - **`editor/`** — `render.js` (+ `verse_split.js`, `faw_markup.js`, шаблоны `data/template_*.html`) и сборщики.
-  `node cms-revival/editor/build_views.mjs [id…]` рендерит `.zml`→`art/NNN.html` (читает `cms-revival/legacy_html/` для «old»-оверлея, пишет редирект-заглушки `.view.html`) И синкает render+шаблоны+темы в `docs/`. OG/индексация — в `template_view.html`.
+  `node cms-revival/editor/build_views.mjs [id…]` рендерит `.zml`→`art/NNN.html` (читает `cms-revival/legacy_html/` для «old»-оверлея) И синкает render+шаблоны+темы в `docs/`. OG/индексация — в `template_view.html`.
   Тот же `render.js` крутится в браузерном редакторе → паритет байт-в-байт, без дрейфа.
 - **`themes/`** — 5 CSS-тем (`A_editorial`,`B_manuscript`,`swiss`,`cyberpunk`,`ar_deco`) — единственный источник (`docs/themes/` производный).
 - **`worker/`** — Cloudflare Worker `yaniktoim-auth.imyavel.workers.dev`: логин (HMAC-сессия, TTL 12 ч) ·
@@ -54,7 +54,7 @@ OG, индексируется). Вид — 5 ZML-тем + «оригинал (�
 - **`config/`**, **`plans/`** — конфиги/планы; `zml1/`,`zml2/`,`cms-superseded/` — исторические референсы формата.
 
 ## Как править, собирать, деплоить
-- **Правка на сайте**: статья — ✎ на `art/NNN.html`; структура/новая статья — `structure.html` (admin); песни — `songs/index.html`. Всё → Worker → коммит (Worker пишет `NNN.html` + заглушку `.view.html`).
+- **Правка на сайте**: статья — ✎ на `art/NNN.html`; структура/новая статья — `structure.html` (admin); песни — `songs/index.html`. Всё → Worker → коммит (Worker пишет `NNN.html`).
 - **Добавление по сырому тексту**: `add_art.md` / `add_art_roza.md`, драйвер `.batch/add_one_transform.py`.
 - **Пересборки**: вью+синк — `node cms-revival/editor/build_views.mjs`; песни — `gen_songs_zml.py` + `build_songs.mjs`;
   поиск+sitemap — `reindex.bat` (перед каждым push); руководство — `cms-revival/guide_build/build_pdf.py`.
@@ -64,7 +64,7 @@ OG, индексируется). Вид — 5 ZML-тем + «оригинал (�
 ---
 
 # Инварианты и правила
-- **Один публичный URL** `art/NNN.html` на статью; `.view.html` как маршрут не существует (только тонкие редирект-заглушки для старых ссылок). Вид (5 тем + «old») резолвится рантаймом — `display.json`/`frontmatter.theme` меняются без пересборки корпуса.
+- **Один публичный URL** `art/NNN.html` на статью; `.view.html` упразднён полностью (удалён). Вид (5 тем + «old») резолвится рантаймом — `display.json`/`frontmatter.theme` меняются без пересборки корпуса.
 - 352 статьи, 0 ошибок рендера; **пересборка идемпотентна** — `build_views.mjs` не меняет уже отрендеренные/правленные файлы (проверять `git diff docs/` = пусто).
 - Файлы вида `<name>_NNN.ext` не править в-месте: копия `_NNN+1`.
 - Правки — на живой сайт через `push.bat`, отладка вёрстки — всегда локально до выката.

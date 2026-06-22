@@ -636,10 +636,11 @@ URL). Публикуем пилоты. ✔ на живом сайте обе в�
   Telegram, индексируется), без `noindex`. «Старый html» стал **6-м дизайном «old»** в рантайм-
   резолвере рядом с 5 ZML-темами: его архив лежит в `cms-revival/legacy_html/`, `build_views`
   вшивает тело в инертный `<template>`, boot монтирует его в Shadow DOM (lazy-YT/сноски оживляются
-  scoped-исполнением старых скриптов). Прежние `…/NNN.view.html` → тонкие редирект-заглушки
-  (расшаренные ссылки целы). Упразднены `ya-switch.js`, `forced_views.json`, `default_view`;
+  scoped-исполнением старых скриптов). Прежние `…/NNN.view.html` удалены полностью (внутри
+  сайта ссылок на них нет; внешние не сохраняем). Упразднены `ya-switch.js`, `forced_views.json`, `default_view`;
   пер-статейный override = `frontmatter.theme` (вкл. `old`). Арт-id-токен «Артикль №<ID>» (weight=10)
   перенесён из старого html в сам ZML-рендер (`template_view.html`) — поиск по id жив. **Почему:**
   один вид ссылок и один файл; OG/раскрытие в Telegram и индексация ZML-рендера; правки админ-вида
   доходят до анонимов в рантайме без пересборки. **Воркер** требует редеплоя под новую модель
-  (save → `NNN.html`+заглушка; `F8_THEMES`+`old`; без `default_view`/forced). План — `roadmap_url_unification.md`.
+  (save → `NNN.html`; `F8_THEMES`+`old`; без `default_view`/forced). План — `roadmap_url_unification.md`
+  (его §8.5 «заглушки» переопределён: оператор решил удалять `.view.html`, не редиректить).
