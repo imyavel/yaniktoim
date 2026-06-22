@@ -25,18 +25,20 @@
 Корпус из **352 статей** (проза и стихи), https://imyavel.github.io/yaniktoim/ . Источник истины контента —
 **ZML** (свой текстовый формат). У каждой статьи ОДИН публичный адрес `art/NNN.html` (ZML-рендер с полным
 OG, индексируется). Вид — 5 ZML-тем + «оригинал (старый html)» как 6-й дизайн — выбирается рантайм-
-резолвером из `display.json`/личных настроек **без пересборки**; `.view.html` упразднён
-полностью (удалён — внешние ссылки на него не сохраняются). Правка — прямо на сайте
-(логин → редактор ZML → коммит в репо через Cloudflare Worker).
+резолвером из **общего** `display.json` (вид сайта един для всех; per-user отменён) **без пересборки**;
+`.view.html` упразднён полностью (удалён — внешние ссылки на него не сохраняются). Правка — прямо на
+сайте, **постоянного логина нет**: «Управление» внизу главной (модальное окно входа) → админка; на статье
+«✎ Править» видна всем и по клику запрашивает вход; сессия эфемерная (по выходу стирается). Правка →
+коммит в репо через Cloudflare Worker; правивший пишется в подвал статьи («Редакция: <ник>»).
 
 - **`art/`** — корпус: на статью `<id>.zml` (источник) → `<id>.html` (единый рендер-контейнер;
   `<id>.view.html` упразднён). Вход «old»-варианта — `cms-revival/legacy_html/<id>.html` (архив старого LLM-html).
 - **`img/`** — иллюстрации (~209).
-- **`config/`** — состояние CMS: `structure.json` (разделы/порядок/статусы), `display.json` (глобальный вид «дизайн+ширина» + правила по разделам/типам; дизайн включает «old»). `forced_views.json`/`default_view` **упразднены** (один URL, вид резолвится рантаймом; пер-статейный override — `frontmatter.theme`).
+- **`config/`** — состояние CMS: `structure.json` (разделы/порядок/статусы), `display.json` (**единственный, общий** вид «дизайн+ширина» + правила по разделам/типам; дизайн включает «old»), `audit.json` (журнал правок «кто/когда/что» — пишет worker тем же коммитом, читает кнопка «Журнал» в админке; в репо, открыто). `forced_views.json`/`default_view` **упразднены** (один URL, вид резолвится рантаймом; пер-статейный override — `frontmatter.theme`).
   ↳ **Контракт через репо:** `structure.json` в рантайме читает заглавная домена `imyavel.github.io/index.html` (счётчик «N статей в M разделах», тот же origin) — при смене его схемы (`articles[].status`, `sections[].archived`) проверить этого потребителя.
 - **`editor/`**, **`themes/`** — **производные** (синкаются из `cms-revival/` сборкой `build_views.mjs`; руками не править).
-- **CMS-клиент** (hand-maintained прямо в `docs/`): `ze-core.js` (общий движок правки + модальный логин/`ensureFreshSession`) ·
-  `ya-edit.js` (статья) · `ya-struct.js` (структура+создание) · `ya-songs.js` (песни) · `ya-auth.js` (логин на главной). Переключение вида (5 тем + «old») целиком в boot-скрипте шаблона (зеркало `resolveDisplay`); отдельного `ya-switch` больше нет.
+- **CMS-клиент** (hand-maintained прямо в `docs/`): `ze-core.js` (движок правки + модальное окно входа `loginModal`/`ensureFreshSession`; «Сохранить» → авто-возврат на статью, без диалога) ·
+  `ya-edit.js` (статья; «✎ Править» видна всем, вход по клику, проставляет `editor:<ник>`) · `ya-struct.js` (структура+создание) · `ya-songs.js` (песни) · `ya-auth.js` (кнопка «Управление» → вход → `admin.html`). Админка (`admin.html`): общий дизайн + «Журнал» + «Закрыть» (стирает сессию). Переключение вида (5 тем + «old») целиком в boot-скрипте шаблона (зеркало `resolveDisplay` по общему `display.json`); отдельного `ya-switch` больше нет.
 - **Страницы:** `index.html` · 7 разделов (`best` Избранное · `dreamon` · `cyberson` · `dabudet` · `confront` · `shoshana` · `other`) ·
   `songs/` («Песнь Ступеней») · `admin.html` · `structure.html` · `search.html` · `privacy.html`.
 - **`zml/SPEC.md`** — публичная копия спеки. **`guide/rukovodstvo.pdf`** — руководство (A4). **`pagefind/`** — индекс поиска.
@@ -48,7 +50,8 @@ OG, индексируется). Вид — 5 ZML-тем + «оригинал (�
   Тот же `render.js` крутится в браузерном редакторе → паритет байт-в-байт, без дрейфа.
 - **`themes/`** — 5 CSS-тем (`A_editorial`,`B_manuscript`,`swiss`,`cyberpunk`,`ar_deco`) — единственный источник (`docs/themes/` производный).
 - **`worker/`** — Cloudflare Worker `yaniktoim-auth.imyavel.workers.dev`: логин (HMAC-сессия, TTL 12 ч) ·
-  `/api/save` · `/api/commit` · `/api/settings` · users/promote. Секреты (`GH_TOKEN`,`SESSION_SECRET`,`ADMIN_BOOTSTRAP`) —
+  `/api/save` · `/api/commit` · `/api/settings` (всегда **глобальный** `display.json`, пишет любой admin; per-user KV упразднён) · users/promote.
+  Каждая мутация (`save`/`commit`/`settings`) тем же коммитом дописывает запись в `docs/config/audit.json` (журнал). Секреты (`GH_TOKEN`,`SESSION_SECRET`,`ADMIN_BOOTSTRAP`) —
   в Cloudflare (`wrangler secret`), **не в репо**. Учётки/хеши — в KV `USERS` (3 admin). Тесты: `cd cms-revival/worker && node test_commit.mjs`.
 - **`guide_build/`** — источник руководства: `guide.html` + `build_pdf.py` → `guide.pdf`, затем `cp guide.pdf ../../docs/guide/rukovodstvo.pdf`.
 - **`config/`**, **`plans/`** — конфиги/планы; `zml1/`,`zml2/`,`cms-superseded/` — исторические референсы формата.
