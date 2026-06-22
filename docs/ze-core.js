@@ -124,7 +124,12 @@ export function mountZmlEditor(opts) {
         setBusy(false);
         baseline = zml;            // сохранено → нет «несохранённых правок»
         pendingImage = null;       // картинка закоммичена
-        savedPopup();
+        // Без диалога «Остаться/На статью»: коротко подтверждаем и возвращаемся
+        // на страницу статьи (close снимает оверлей). Обновление сайта — 30–90 с,
+        // читатель увидит правку после Ctrl+R (правка уже закоммичена).
+        status("Сохранено ✓ — обновление сайта 30–90 с, затем Ctrl+R.");
+        if (typeof opts.onSavedPrimary === "function") opts.onSavedPrimary();
+        setTimeout(close, 900);
       })
       .catch(function (e) { setBusy(false); status("Сохранение не удалось: " + (e.message || e), true); });
   }
@@ -144,35 +149,6 @@ export function mountZmlEditor(opts) {
     if (ui.parentNode) ui.parentNode.removeChild(ui);
     MOUNTED = false;
     if (typeof opts.onClosed === "function") opts.onClosed();
-  }
-
-  // popup после успешного сохранения: «Остаться» (продолжить правку) | главная кнопка
-  function savedPopup() {
-    const pop = document.createElement("div");
-    pop.id = "ze-pop";
-    pop.innerHTML =
-      '<div class="ze-pop-card">' +
-        '<p><b>Изменения сохранены.</b></p>' +
-        '<p>' + esc(opts.savedMessage ||
-          "Обновление сайта обычно занимает 30–90 секунд. Затем нажмите Ctrl+R (или F5).") + '</p>' +
-        '<div class="ze-pop-row">' +
-          '<button type="button" class="ze-btn" data-pop="stay">Остаться в правке</button>' +
-          '<button type="button" class="ze-btn ze-primary" data-pop="ok">' +
-            esc(opts.savedPrimaryLabel || "Готово") + '</button>' +
-        '</div>' +
-      '</div>';
-    document.body.appendChild(pop);
-    pop.addEventListener("click", function (ev) {
-      const b = ev.target.closest("[data-pop]"); if (!b) return;
-      const primary = b.getAttribute("data-pop") === "ok";
-      pop.parentNode.removeChild(pop);
-      if (primary) {
-        if (typeof opts.onSavedPrimary === "function") opts.onSavedPrimary();
-        close();
-      } else {
-        status("Сохранено. Можно продолжать правку.");
-      }
-    });
   }
 
   // DOM-модалка подтверждения (нативный confirm блокирует рендерер iframe).
