@@ -1749,6 +1749,15 @@ export function renderArticleHtml(ctx) {
   html = replaceAllLiteral(html, "{{ARTICLE_BODY}}", articleInner);
   html = replaceAllLiteral(html, "{{PREV_LINK}}", prevLink);
   html = replaceAllLiteral(html, "{{NEXT_LINK}}", nextLink);
+  // Иконки prev/next в закреплённой верхней панели: только href (текст — у иконки).
+  // Берём адрес из готовых prevLink/nextLink; нет соседа → пустой href + hidden
+  // (no-JS не кликнет в никуда; ya-edit.js::refreshSiblings уточнит по живой структуре).
+  const navPrevHref = (prevLink.match(/href="([^"]+)"/) || ["", ""])[1];
+  const navNextHref = (nextLink.match(/href="([^"]+)"/) || ["", ""])[1];
+  html = replaceAllLiteral(html, "{{NAV_PREV_HREF}}", navPrevHref);
+  html = replaceAllLiteral(html, "{{NAV_NEXT_HREF}}", navNextHref);
+  html = replaceAllLiteral(html, "{{NAV_PREV_HIDDEN}}", navPrevHref ? "" : "hidden");
+  html = replaceAllLiteral(html, "{{NAV_NEXT_HIDDEN}}", navNextHref ? "" : "hidden");
   html = replaceAllLiteral(html, "{{LAST_EDIT}}", lastEdit);
   // Индексируемость (P3/url-unification): сам отрендеренный NNN.html — теперь
   // ЕДИНСТВЕННЫЙ публичный адрес и должен попадать в Pagefind (раньше искался

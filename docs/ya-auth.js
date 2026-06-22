@@ -1,10 +1,22 @@
-/* Ф8′ — общий клиент авторизации (главная + админка).
- * Логин по нику через Cloudflare Worker; сессия в localStorage("ya_session").
- * Экспорт: window.YaAuth = { WORKER, session, logout, login, renderAuthInto }.
+/* ya-auth.js — клиент авторизации (главная).
+ * Постоянного логина на сайте НЕТ: сессия живёт только внутри потока «Управление»
+ * (вход → админка → «Закрыть») или цикла правки статьи; по выходу localStorage
+ * чистится. Внизу главной — одна кнопка «Управление»: открывает модальное окно
+ * входа (ze-core.loginModal), при успехе ведёт в admin.html.
+ * Экспорт: window.YaAuth = { WORKER, session, logout, login, renderManageInto }.
  */
 (function (global) {
   "use strict";
   var WORKER = "https://yaniktoim-auth.imyavel.workers.dev";
+
+  // Динамический import() резолвим от URL САМОГО скрипта (на проде /yaniktoim/),
+  // а не от документа — иначе ze-core.js не находится (см. ya-edit.js).
+  var SELF = document.currentScript || document.querySelector('script[src*="ya-auth.js"]');
+  var SELF_SRC = SELF ? SELF.src : new URL("ya-auth.js", document.baseURI).href;
+  var ASSET_VER = "20260622-01";   // бастит кэш динамических модулей при правках
+  var modUrl = function (p) {
+    return new URL(p + (p.indexOf("?") < 0 ? "?v=" + ASSET_VER : ""), SELF_SRC).href;
+  };
 
   function session() {
     try { return JSON.parse(localStorage.getItem("ya_session") || "null"); } catch (e) { return null; }
@@ -34,44 +46,31 @@
   }
   var A = "color:inherit;text-decoration:none;border-bottom:1px dotted currentColor;cursor:pointer;white-space:nowrap;";
 
-  // Рисует состояние входа в контейнер: «Войти» (раскрывает форму) или ник·Админка·Выйти.
-  function renderAuthInto(box) {
+  // Кнопка «Управление»: модальное окно входа → при успехе в админку.
+  function openManage() {
+    import(modUrl("ze-core.js"))
+      .then(function (mod) {
+        return mod.loginModal({
+          worker: WORKER, title: "Управление",
+          message: "Войдите, чтобы управлять сайтом.",
+        });
+      })
+      .then(function (s) { if (s && s.token) location.href = "admin.html"; })
+      .catch(function (e) { alert("Не удалось открыть вход: " + (e && e.message || e)); });
+  }
+
+  // Рисует в контейнере одну ссылку «Управление» (заменяет прежний логин-виджет).
+  function renderManageInto(box) {
     box.innerHTML = "";
     box.setAttribute("style", "display:inline-flex;gap:.9em;align-items:center;font-size:.85rem;");
-    var s = session();
-    if (s && s.nick) {
-      box.appendChild(el("span", { style: "opacity:.75;" }, s.nick + (s.role === "admin" ? " (admin)" : "")));
-      box.appendChild(el("a", { href: "admin.html", style: A }, "Админка"));
-      var out = el("a", { href: "#", style: A }, "Выйти");
-      out.onclick = function (e) { e.preventDefault(); logout(); location.reload(); };
-      box.appendChild(out);
-      return;
-    }
-    var open = el("a", { href: "#login", style: A }, "Войти");
-    open.onclick = function (e) { e.preventDefault(); showForm(box); };
-    box.appendChild(open);
-    if (location.hash === "#login") showForm(box);
+    var m = el("a", { href: "#manage", style: A }, "Управление");
+    m.onclick = function (e) { e.preventDefault(); openManage(); };
+    box.appendChild(m);
+    if (location.hash === "#manage") openManage();
   }
 
-  function showForm(box) {
-    box.innerHTML = "";
-    var f = el("form", { style: "display:inline-flex;gap:.5em;align-items:center;flex-wrap:wrap;" });
-    var nick = el("input", { type: "text", placeholder: "ник", autocomplete: "username",
-      style: "font:inherit;padding:.2em .4em;width:8em;" });
-    var pass = el("input", { type: "password", placeholder: "пароль", autocomplete: "current-password",
-      style: "font:inherit;padding:.2em .4em;width:8em;" });
-    var btn = el("button", { type: "submit", style: "font:inherit;cursor:pointer;padding:.2em .7em;" }, "Войти");
-    var msg = el("span", { style: "color:#b00;font-size:.85em;" });
-    f.appendChild(nick); f.appendChild(pass); f.appendChild(btn); f.appendChild(msg);
-    f.onsubmit = function (e) {
-      e.preventDefault(); msg.textContent = ""; btn.disabled = true;
-      login(nick.value.trim(), pass.value).then(function () {
-        renderAuthInto(box);
-      }).catch(function (err) { msg.textContent = err.message || "ошибка"; btn.disabled = false; });
-    };
-    box.appendChild(f);
-    nick.focus();
-  }
-
-  global.YaAuth = { WORKER: WORKER, session: session, logout: logout, login: login, renderAuthInto: renderAuthInto };
+  global.YaAuth = {
+    WORKER: WORKER, session: session, logout: logout, login: login,
+    renderManageInto: renderManageInto,
+  };
 })(window);

@@ -20,7 +20,7 @@
   try { sess = JSON.parse(localStorage.getItem("ya_session") || "null"); } catch (e) {}
   if (!sess || !sess.token || sess.role !== "admin") {
     root.innerHTML = '<p>Управление структурой доступно только администратору.</p>' +
-      '<p><a href="index.html">На главную</a> — войдите под учёткой admin.</p>';
+      '<p>Откройте через «Управление» внизу <a href="index.html">главной</a> → «Админка» → «Управление структурой».</p>';
     return;
   }
 
@@ -28,7 +28,7 @@
   var artDeps = null;
 
   Promise.all([
-    import("./editor/render.js"),
+    import("./editor/render.js?v=20260622-01"),
     fetch("config/structure.json").then(j),
     fetch("editor/data/manifest.json").then(j),
     fetch("editor/data/template_index.tpl").then(t),

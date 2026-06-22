@@ -279,7 +279,11 @@ export function ensureFreshSession(opts) {
   const marginSec = opts.marginSec != null ? opts.marginSec : 300;
   const sess = readSession();
   if (sess && sess.token && sessionFresh(sess.token, marginSec)) return Promise.resolve(sess);
-  return loginModal({ worker: worker, prefillNick: sess && sess.nick });
+  return loginModal({
+    worker: worker, prefillNick: sess && sess.nick,
+    title: opts.title || "Сессия входа истекла",
+    message: opts.message || "Войдите снова, чтобы продолжить правку.",
+  });
 }
 
 function readSession() {
@@ -304,16 +308,21 @@ function sessionFresh(token, marginSec) {
   return exp > (Date.now() / 1000) + marginSec;
 }
 
-function loginModal(opts) {
+// Модальное окно входа (общее: «Управление» на главной, «Править» на статье,
+// перелогин при протухшей сессии). opts.title/opts.message переопределяют текст.
+// При успехе пишет ya_session в localStorage и резолвит {token,nick,role};
+// Отмена/Esc → resolve(null).
+export function loginModal(opts) {
+  opts = opts || {};
   injectStyles();                           // #ze-pop стили могут быть ещё не вставлены (редактор не монтировался)
   return new Promise(function (resolve) {
-    const worker = opts.worker;
+    const worker = String(opts.worker || "").replace(/\/+$/, "");
     const m = document.createElement("div");
     m.id = "ze-pop";
     m.innerHTML =
       '<div class="ze-pop-card">' +
-        '<p><b>Сессия входа истекла</b></p>' +
-        '<p>Войдите снова, чтобы продолжить правку.</p>' +
+        '<p><b>' + esc(opts.title || "Вход") + '</b></p>' +
+        '<p>' + esc(opts.message || "Введите ник и пароль.") + '</p>' +
         '<div class="ze-login-row"><input class="ze-login-nick" type="text" placeholder="ник" autocomplete="username"></div>' +
         '<div class="ze-login-row"><input class="ze-login-pass" type="password" placeholder="пароль" autocomplete="current-password"></div>' +
         '<div class="ze-login-msg" aria-live="polite"></div>' +

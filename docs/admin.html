@@ -29,23 +29,41 @@
   .adm .msg{font-size:.9rem;}
   .adm .gate{margin:2em 0;font-size:1rem;}
   .adm .empty{opacity:.6;font-style:italic;padding:.6em .45em;}
-  #ya-login{margin-left:auto;}
+  .adm .adm-bar{display:flex;align-items:center;gap:.7em;}
+  .adm .adm-bar .sp{flex:1;}
+  .adm .adm-bar .btn{padding:.3em .8em;}
+  #journal td.t{white-space:nowrap;font-variant-numeric:tabular-nums;opacity:.85;}
+  #journal td.act{white-space:nowrap;}
+  #journal .what{word-break:break-word;}
 </style>
 </head>
 <body data-pagefind-ignore="all">
 <div class="wrap adm">
-<header class="breadcrumbs" style="display:flex;align-items:center;gap:1em;">
-  <a href="index.html">Главная</a>
-  <span id="ya-login"></span>
+<header class="breadcrumbs adm-bar">
+  <a href="index.html" id="go-home">← Главная</a>
+  <span class="sp"></span>
+  <button type="button" class="btn" id="open-journal" hidden>Журнал</button>
+  <button type="button" class="btn" id="close-admin" hidden>Закрыть</button>
 </header>
 
-<h1>Админка вида</h1>
-<p class="scope" id="scope">Настройки отображения статей: дизайн (5 тем + «оригинал») и ширина по разделам и типам работ.</p>
-<p class="scope" style="margin-top:-.6em"><a href="structure.html">→ Управление структурой</a> (порядок/имена разделов, перемещение и архив статей; только admin)</p>
+<h1>Админка</h1>
+<p class="scope" id="scope">Дизайн (5 тем + «оригинал») и ширина — общие для всего сайта.</p>
+<p class="scope" style="margin-top:-.6em"><a href="structure.html">→ Управление структурой</a> (порядок/имена разделов, перемещение и архив статей)</p>
 <p class="scope" style="margin-top:-.6em"><a href="guide/rukovodstvo.pdf" target="_blank" rel="noopener">📖 Руководство и справочник ZML (PDF)</a> — как управлять сайтом и писать в формате ZML; с оглавлением и закладками</p>
 
 <div id="gate" class="gate" hidden>
-  Чтобы менять настройки, войдите (поле входа — вверху справа).
+  Админка открывается через кнопку «Управление» внизу <a href="index.html">главной страницы</a>.
+</div>
+
+<div id="journal" hidden>
+  <div class="bar">
+    <button type="button" class="btn" id="journal-back">← К настройкам</button>
+    <span class="msg" id="journal-msg"></span>
+  </div>
+  <table>
+    <thead><tr><th>Когда</th><th>Кто</th><th>Действие</th><th>Что</th></tr></thead>
+    <tbody id="journal-rows"></tbody>
+  </table>
 </div>
 
 <div id="editor" hidden>
@@ -73,7 +91,7 @@
 
 </div>
 
-<script src="ya-auth.js"></script>
+<script src="ya-auth.js?v=20260622-01"></script>
 <script>
 (function () {
   "use strict";
@@ -193,21 +211,74 @@
         b.disabled = false;
         if (!x.ok) { msg.style.color = "#b00"; msg.textContent = x.d.error || "ошибка"; return; }
         msg.style.color = "#0a0";
-        msg.textContent = x.d.scope === "global"
-          ? "Сохранено глобально (видят все без логина)." : "Сохранено (личные настройки).";
+        msg.textContent = "Сохранено — применится ко всему сайту (обновление 30–90 с).";
       }).catch(function (e) { b.disabled = false; msg.style.color = "#b00"; msg.textContent = e.message || "сеть"; });
   };
 
+  // ── Журнал правок: читаем config/audit.json (в репо, открыто), рисуем таблицей ──
+  var ACT_RU = {
+    "edit-article": "правка статьи", "edit-songs": "правка «Песни Ступеней»",
+    "structure": "структура", "display": "вид сайта",
+  };
+  function fmtTime(iso) {
+    var d = new Date(iso);
+    if (isNaN(d)) return iso || "—";
+    function p(n) { return (n < 10 ? "0" : "") + n; }
+    return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate()) +
+      " " + p(d.getHours()) + ":" + p(d.getMinutes());
+  }
+  function loadJournal() {
+    var rows = document.getElementById("journal-rows");
+    var jmsg = document.getElementById("journal-msg");
+    rows.innerHTML = ""; jmsg.style.color = ""; jmsg.textContent = "Загрузка…";
+    fetch("config/audit.json", { cache: "no-cache" })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (arr) {
+        if (!Array.isArray(arr) || !arr.length) { jmsg.textContent = "Журнал пуст."; return; }
+        jmsg.textContent = arr.length + " " + ruPlural(arr.length, "запись", "записи", "записей");
+        arr.slice().reverse().forEach(function (e) {     // новые сверху
+          var tr = document.createElement("tr");
+          tr.innerHTML =
+            '<td class="t"></td><td></td><td class="act"></td><td class="what"></td>';
+          tr.children[0].textContent = fmtTime(e.t);
+          tr.children[1].textContent = e.nick || "—";
+          tr.children[2].textContent = ACT_RU[e.act] || e.act || "—";
+          tr.children[3].textContent = e.what || "";
+          rows.appendChild(tr);
+        });
+      })
+      .catch(function () { jmsg.style.color = "#b00"; jmsg.textContent = "Не удалось загрузить журнал."; });
+  }
+  function ruPlural(n, one, few, many) {
+    var a = n % 10, b = n % 100;
+    if (a === 1 && b !== 11) return one;
+    if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return few;
+    return many;
+  }
+
+  function leave(e) { if (e) e.preventDefault(); YaAuth.logout(); location.href = "index.html"; }
+
   function boot() {
-    var box = document.getElementById("ya-login");
-    if (box) YaAuth.renderAuthInto(box);
     var s = YaAuth.session();
-    if (!s) { document.getElementById("gate").hidden = false; return; }
-    var isMaster = (s.nick || "").trim().toLowerCase() === "admin";
-    document.getElementById("scope").textContent = isMaster
-      ? "Вы — Admin: изменения глобальные, их видят все читатели без логина."
-      : "Личные настройки: применяются только когда вы залогинены (глобальный дефолт задаёт только Admin).";
+    // Постоянного логина нет: в админку попадают через «Управление» (вход уже
+    // выполнен). Нет admin-сессии → гейт-подсказка, без полей входа здесь.
+    if (!s || !s.token || s.role !== "admin") { document.getElementById("gate").hidden = false; return; }
+
+    document.getElementById("close-admin").hidden = false;
+    document.getElementById("open-journal").hidden = false;
     document.getElementById("editor").hidden = false;
+    document.getElementById("close-admin").onclick = leave;
+    document.getElementById("go-home").onclick = leave;   // уход с главной тоже сбрасывает сессию
+
+    var editor = document.getElementById("editor");
+    var journal = document.getElementById("journal");
+    document.getElementById("open-journal").onclick = function () {
+      editor.hidden = true; journal.hidden = false; loadJournal();
+    };
+    document.getElementById("journal-back").onclick = function () {
+      journal.hidden = true; editor.hidden = false;
+    };
+
     fetch(YaAuth.WORKER + "/api/settings", { headers: { Authorization: "Bearer " + s.token } })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (cfg) { fill(cfg || {}); })

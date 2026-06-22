@@ -21,7 +21,10 @@
   // ниже остаётся document-relative (верно резолвится от страницы в docs/songs/).
   var SELF = document.currentScript || document.querySelector('script[src*="ya-songs.js"]');
   var SELF_SRC = SELF ? SELF.src : new URL("ya-songs.js", document.baseURI).href;
-  var modUrl = function (p) { return new URL(p, SELF_SRC).href; };
+  var ASSET_VER = "20260622-01";   // бастит кэш динамических модулей (ze-core/render) при правках
+  var modUrl = function (p) {
+    return new URL(p + (p.indexOf("?") < 0 ? "?v=" + ASSET_VER : ""), SELF_SRC).href;
+  };
   var body = document.body;
   if (!body || !body.classList.contains("songs-page-body")) return;
   var btn = document.querySelector(".viewbar .vb-edit");
@@ -29,19 +32,19 @@
 
   var WORKER = (body.getAttribute("data-worker") || "").replace(/\/+$/, "");
 
-  function getSession() {
-    try { return JSON.parse(localStorage.getItem("ya_session") || "null"); }
-    catch (e) { return null; }
-  }
-  var sess = getSession();
-  var canEdit = !!(sess && sess.token && (sess.role === "editor" || sess.role === "admin"));
-  if (!canEdit) return; // кнопка скрыта (hidden в шаблоне) — аноним/не-редактор её не видят
-
-  btn.hidden = false;   // показываем только editor/admin
+  // Постоянного логина нет: кнопка видна всем, вход спрашиваем по клику; сессия
+  // эфемерная — стирается по закрытию редактора (dropSession).
+  var sess = null;
+  btn.hidden = false;
   btn.disabled = false;
   btn.removeAttribute("aria-disabled");
-  btn.title = "Редактировать ZML-источник «Песни Ступеней»";
+  btn.title = "Редактировать ZML-источник «Песни Ступеней» (нужен вход)";
   btn.addEventListener("click", openEditor);
+
+  function dropSession() {
+    sess = null;
+    try { localStorage.removeItem("ya_session"); } catch (e) {}
+  }
 
   // ── ленивые зависимости рендера (грузятся 1 раз при первом открытии) ──────────
   var deps = null;
@@ -82,19 +85,33 @@
   // ── открытие: загрузить ZML + зависимости + ze-core, смонтировать редактор ─────
   function openEditor() {
     btn.disabled = true;
-    fetch("index.zml", { cache: "no-store" })
-      .then(function (r) { if (!r.ok) throw new Error("ZML " + r.status); return r.text(); })
-      .then(function (zml) { return loadDeps().then(function () { return zml; }); })
-      .then(function (zml) {
-        return import(modUrl("ze-core.js")).then(function (mod) {
-          mod.mountZmlEditor({
-            label: "Правка ZML · Песнь Ступеней",
-            initialZml: ensureViewZml(zml),
-            renderView: renderView,
-            save: saveSongs,
-            savedPrimaryLabel: "На страницу",
-            onClosed: function () { btn.disabled = false; }
-          });
+    import(modUrl("ze-core.js"))
+      .then(function (mod) {
+        // Вход по клику; редактор открываем только при успешном входе с правом записи.
+        return mod.loginModal({
+          worker: WORKER, title: "Правка «Песни Ступеней»",
+          message: "Войдите, чтобы редактировать.",
+        }).then(function (s) {
+          if (!s || !s.token) { btn.disabled = false; return; }
+          if (s.role !== "editor" && s.role !== "admin") {
+            btn.disabled = false; dropSession();
+            alert("У этой учётки нет прав на правку (роль: " + (s.role || "—") + ").");
+            return;
+          }
+          sess = s;
+          return fetch("index.zml", { cache: "no-store" })
+            .then(function (r) { if (!r.ok) throw new Error("ZML " + r.status); return r.text(); })
+            .then(function (zml) { return loadDeps().then(function () { return zml; }); })
+            .then(function (zml) {
+              mod.mountZmlEditor({
+                label: "Правка ZML · Песнь Ступеней",
+                initialZml: ensureViewZml(zml),
+                renderView: renderView,
+                save: saveSongs,
+                savedPrimaryLabel: "На страницу",
+                onClosed: function () { btn.disabled = false; dropSession(); }   // логин не сохраняется
+              });
+            });
         });
       })
       .catch(function (e) {

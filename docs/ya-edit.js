@@ -17,7 +17,10 @@
   // резолвится от страницы в docs/art/.
   var SELF = document.currentScript || document.querySelector('script[src*="ya-edit.js"]');
   var SELF_SRC = SELF ? SELF.src : new URL("ya-edit.js", document.baseURI).href;
-  var modUrl = function (p) { return new URL(p, SELF_SRC).href; };
+  var ASSET_VER = "20260622-01";   // бастит кэш динамических модулей (ze-core/render) при правках
+  var modUrl = function (p) {
+    return new URL(p + (p.indexOf("?") < 0 ? "?v=" + ASSET_VER : ""), SELF_SRC).href;
+  };
   var body = document.body;
   if (!body || !body.classList.contains("article-page")) return;
 
@@ -35,19 +38,20 @@
   var btn = document.querySelector(".viewbar .vb-edit");
   if (!btn) return;
 
-  function getSession() {
-    try { return JSON.parse(localStorage.getItem("ya_session") || "null"); }
-    catch (e) { return null; }
-  }
-  var sess = getSession();
-  var canEdit = !!(sess && sess.token && (sess.role === "editor" || sess.role === "admin"));
-  if (!canEdit) return; // кнопка скрыта (hidden в шаблоне) — аноним/не-редактор её не видят
-
-  btn.hidden = false;   // показываем только editor/admin
+  // Постоянного логина на сайте НЕТ: кнопка «Править» видна ВСЕМ, вход спрашиваем
+  // по клику (ze-core.loginModal). Сессия эфемерная — живёт весь цикл правки
+  // (правка↔просмотр) и стирается по закрытию редактора (dropSession).
+  var sess = null;
+  btn.hidden = false;
   btn.disabled = false;
   btn.removeAttribute("aria-disabled");
-  btn.title = "Редактировать ZML-источник";
+  btn.title = "Редактировать ZML-источник (нужен вход)";
   btn.addEventListener("click", openEditor);
+
+  function dropSession() {
+    sess = null;
+    try { localStorage.removeItem("ya_session"); } catch (e) {}
+  }
 
   // ── ленивые зависимости рендера (грузятся 1 раз при первом открытии) ──────────
   var deps = null;
@@ -92,12 +96,19 @@
     btn.disabled = true;
     import(modUrl("ze-core.js"))
       .then(function (mod) {
-        // Перед правкой проверяем, что логин не протух (TTL сессии 12 ч). Протух/нет —
-        // ze-core покажет модальный вход; открываем редактор ТОЛЬКО при успехе, уже
-        // свежим токеном. Отмена входа → редактор не открываем.
-        return mod.ensureFreshSession({ worker: WORKER }).then(function (fresh) {
-          if (!fresh) { btn.disabled = false; return; }
-          sess = fresh;   // обновлённый токен — saveToWorker берёт его в момент сохранения
+        // Вход по клику: модальное окно. Открываем редактор ТОЛЬКО при успешном
+        // входе с правом записи. Отмена/Esc → редактор не открываем.
+        return mod.loginModal({
+          worker: WORKER, title: "Правка статьи",
+          message: "Войдите, чтобы редактировать.",
+        }).then(function (s) {
+          if (!s || !s.token) { btn.disabled = false; return; }
+          if (s.role !== "editor" && s.role !== "admin") {
+            btn.disabled = false; dropSession();
+            alert("У этой учётки нет прав на правку (роль: " + (s.role || "—") + ").");
+            return;
+          }
+          sess = s;   // токен — saveToWorker берёт его в момент сохранения
           return fetch(ART + ".zml", { cache: "no-store" })
             .then(function (r) { if (!r.ok) throw new Error("ZML " + r.status); return r.text(); })
             .then(function (zml) { return loadDeps().then(function () { return zml; }); })
@@ -110,7 +121,7 @@
                 save: saveToWorker,
                 image: { artId: ART },     // Ф8(b): блок «Иллюстрация» (image: + бинарь)
                 savedPrimaryLabel: "На статью",
-                onClosed: function () { btn.disabled = false; }
+                onClosed: function () { btn.disabled = false; dropSession(); }   // логин не сохраняется
               });
             });
         });
@@ -133,7 +144,9 @@
   function refreshSiblings() {
     var navPrev = document.querySelector(".article-nav .prev");
     var navNext = document.querySelector(".article-nav .next");
-    if (!navPrev && !navNext) return;
+    var topPrev = document.querySelector(".topnav .tn-prev");
+    var topNext = document.querySelector(".topnav .tn-next");
+    if (!navPrev && !navNext && !topPrev && !topNext) return;
     if (!ART) return;
     Promise.all([
       fetch("../config/structure.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }),
@@ -159,6 +172,14 @@
       }
       fill(navPrev, idx > 0 ? sibs[idx - 1] : null, -1);
       fill(navNext, idx < sibs.length - 1 ? sibs[idx + 1] : null, 1);
+      // верхняя панель: иконки prev/next (только href; нет соседа → прячем)
+      function fillIco(a, rec) {
+        if (!a) return;
+        if (rec) { a.setAttribute("href", rec.art + ".html"); a.hidden = false; }
+        else { a.removeAttribute("href"); a.hidden = true; }
+      }
+      fillIco(topPrev, idx > 0 ? sibs[idx - 1] : null);
+      fillIco(topNext, idx < sibs.length - 1 ? sibs[idx + 1] : null);
     }).catch(function () { /* офлайн/ошибка → остаётся запечённый prev/next */ });
   }
 

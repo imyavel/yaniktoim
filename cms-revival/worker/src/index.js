@@ -7,8 +7,10 @@
 //
 // Хранилище: KV namespace USERS. Ключи:
 //   user:<nick>      → { nick, role, salt, hash, createdAt }
-//   settings:<nick>  → личные настройки вида editor'а (Ф8′, global+rules; дизайн вкл. «old»)
+//   (settings:<nick> — УПРАЗДНЁН: вид сайта теперь общий, см. display.json ниже)
 // Роли: "pending" (вошёл, писать нельзя) → "editor" (пишет) / "admin" (+управляет).
+// Вид сайта ОБЩИЙ для всех (per-user отменён): docs/config/display.json, правит любой
+// admin. Журнал правок: docs/config/audit.json — кто/когда/что менял (в репо, открыто).
 //
 // Секреты (wrangler secret put …): GH_TOKEN, SESSION_SECRET, ADMIN_BOOTSTRAP.
 // Vars (wrangler.toml): ALLOW_ORIGIN, REPO ("imyavel/yaniktoim"), [INVITE_CODE].
@@ -169,6 +171,23 @@ async function commitFiles(env, { branch, message, author, files }) {
   return commit.sha;
 }
 
+// ── Журнал правок (audit log) ────────────────────────────────────────────────
+// Кто и когда что менял на сайте. Незашифрованный JSON-массив в репо
+// docs/config/audit.json (секрета нет — см. PROJECT.md). Запись дописывается В ТОТ
+// ЖЕ коммит, что и сама правка (читаем текущий лог → push записи → отдаём file-entry
+// вызывающему, он кладёт её в files[] перед commitFiles → правка и её журнал атомарны).
+// Доступ на чтение — кнопка «Журнал» в админке (прямой fetch config/audit.json).
+const AUDIT_PATH = "docs/config/audit.json";
+const AUDIT_CAP = 5000; // держим последние N записей — файл не растёт безгранично
+async function auditFileEntry(env, branch, entry) {
+  const txt = await ghReadFileText(env, AUDIT_PATH, branch || "main");
+  let arr = [];
+  if (txt) { try { const j = JSON.parse(txt); if (Array.isArray(j)) arr = j; } catch (e) { /* битый → начнём заново */ } }
+  arr.push(entry);
+  if (arr.length > AUDIT_CAP) arr = arr.slice(arr.length - AUDIT_CAP);
+  return { path: AUDIT_PATH, content: JSON.stringify(arr) + "\n" };
+}
+
 // ── handlers ────────────────────────────────────────────────────────────────
 async function handleRegister(env, body) {
   if (env.INVITE_CODE && body.invite !== env.INVITE_CODE) return json(env, { error: "нужен инвайт-код" }, 403);
@@ -251,6 +270,11 @@ async function handleSave(env, payload, body) {
   }
   const branch = body.branch || "main";
   try {
+    files.push(await auditFileEntry(env, branch, {
+      t: new Date().toISOString(), nick: payload.nick,
+      act: body.page === "songs" ? "edit-songs" : "edit-article",
+      what: body.page === "songs" ? "songs" : body.art,
+    }));
     const sha = await commitFiles(env, { branch, author: payload.nick, message, files });
     return json(env, { ok: true, sha });
   } catch (e) {
@@ -278,20 +302,23 @@ async function handleCommit(env, who, body) {
   }
   const message = (typeof body.message === "string" && body.message.trim())
     ? body.message.trim().slice(0, 200) : `cms: структура — ${who.nick}`;
+  const branch = body.branch || "main";
   try {
-    const sha = await commitFiles(env, { branch: body.branch || "main", author: who.nick, message, files });
+    files.push(await auditFileEntry(env, branch, {
+      t: new Date().toISOString(), nick: who.nick, act: "structure", what: message,
+    }));
+    const sha = await commitFiles(env, { branch, author: who.nick, message, files });
     return json(env, { ok: true, sha });
   } catch (e) {
     return json(env, { error: String(e.message || e) }, 502);
   }
 }
 
-// ── Ф8′ display settings ─────────────────────────────────────────────────────
-// Персональные настройки вида (global + rules) у каждого юзера.
-//   • editor → личные в KV `settings:<nick>`;
-//   • admin  → ГЛОБАЛЬНЫЕ = коммит docs/config/display.json (видят анонимы).
-// GET у незаведённого editor отдаёт глобаль (стартовая точка = «как у анонима»).
-// url-unification: «old» — 6-й дизайн (не отдельная «версия»); default_view упразднён.
+// ── display settings (общий вид сайта) ───────────────────────────────────────
+// Вид (global design/width + правила по разделам/типам) — ОДИН на весь сайт:
+// docs/config/display.json, его видят все. GET отдаёт этот файл всем; PUT пишет
+// его (любой admin) с записью в журнал. Per-user (KV settings:<nick>) упразднён.
+// «old» — 6-й дизайн (не отдельная «версия»); default_view упразднён.
 const F8_THEMES = ["A_editorial", "B_manuscript", "cyberpunk", "swiss", "ar_deco", "old"];
 const F8_WIDTHS = ["narrow", "wide"];
 const F8_DEFAULT = { version: 1, global: { design: "A_editorial", width: "wide" }, rules: [] };
@@ -333,34 +360,28 @@ async function readGlobalSettings(env) {
   return F8_DEFAULT;
 }
 
-// Ф8′: ГЛОБАЛЬНЫЕ умолчания (их видят анонимы) задаёт ТОЛЬКО мастер-аккаунт «Admin»
-// — гейт по НИКУ, не по роли. Прочие admin'ы (Nipna/Anibe) и editor'ы пишут ЛИЧНЫЕ
-// настройки (видят только себя залогиненными). Так повышение их до admin даёт права
-// на структуру/правку/юзеров, но НЕ на публичный дефолт показа.
-const isMasterAdmin = (u) => (u.nick || "").trim().toLowerCase() === "admin";
-
+// Вид сайта — ОБЩИЙ для всех (per-user отменён): дизайн/ширина живут в одном файле
+// docs/config/display.json, его видят все читатели. Менять может ЛЮБОЙ admin (раньше
+// глобаль задавал только мастер-«Admin», прочие писали личные в KV — упразднено).
+// Каждое сохранение пишется в журнал (audit.json) тем же коммитом.
 async function handleGetSettings(env, u) {
-  if (isMasterAdmin(u)) return json(env, await readGlobalSettings(env));
-  const raw = await env.USERS.get(`settings:${u.nick.toLowerCase()}`);
-  if (raw) { try { return json(env, sanitizeSettings(JSON.parse(raw))); } catch (e) { /* битый */ } }
-  return json(env, await readGlobalSettings(env)); // не настроен → глобаль как старт
+  return json(env, await readGlobalSettings(env));
 }
 
 async function handlePutSettings(env, u, body) {
+  if (u.role !== "admin") return json(env, { error: "дизайн меняет только admin (роль: " + u.role + ")" }, 403);
   const s = sanitizeSettings(body);
-  if (isMasterAdmin(u)) {
-    try {
-      const sha = await commitFiles(env, {
-        branch: "main", author: u.nick,
-        message: `cms: display settings (global) — ${u.nick}`,
-        files: [{ path: "docs/config/display.json", content: JSON.stringify(s, null, 2) + "\n" }],
-      });
-      return json(env, { ok: true, scope: "global", sha });
-    } catch (e) { return json(env, { error: String(e.message || e) }, 502); }
-  }
-  if (u.role !== "editor" && u.role !== "admin") return json(env, { error: "нет прав (роль: " + u.role + ")" }, 403);
-  await env.USERS.put(`settings:${u.nick.toLowerCase()}`, JSON.stringify(s));
-  return json(env, { ok: true, scope: "personal" });
+  try {
+    const files = [{ path: "docs/config/display.json", content: JSON.stringify(s, null, 2) + "\n" }];
+    files.push(await auditFileEntry(env, "main", {
+      t: new Date().toISOString(), nick: u.nick, act: "display", what: "общий вид сайта (дизайн/ширина)",
+    }));
+    const sha = await commitFiles(env, {
+      branch: "main", author: u.nick,
+      message: `cms: display settings (global) — ${u.nick}`, files,
+    });
+    return json(env, { ok: true, scope: "global", sha });
+  } catch (e) { return json(env, { error: String(e.message || e) }, 502); }
 }
 
 async function handleAdminUsers(env) {

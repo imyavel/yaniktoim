@@ -138,9 +138,18 @@ details.music[open] .trk-play{transform:rotate(90deg);}
 /* viewbar — управление видом статьи (тема/ширина/оригинал/править).
    Сидит в одной строке с крошками (крошки слева, управление справа).
    Здесь только структура; типографика/цвета — у темы (.viewbar в THEME_CONTRACT). */
-header.breadcrumbs{display:flex;gap:1.2em;row-gap:.3em;align-items:baseline;flex-wrap:wrap;}
-/* крошки ВСЕГДА слева — перебиваем темы, центрирующие шапку (B_manuscript/ar_deco). */
-header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
+/* Шапка ZML-вида ЗАКРЕПЛЕНА вверху (sticky) — как панель в «оригинале». Фон/линия
+   берутся из переменных темы (--bg/--rule), поэтому работает на всех 5 темах. */
+header.breadcrumbs{display:flex;gap:1.2em;row-gap:.3em;align-items:center;flex-wrap:wrap;
+  position:sticky;top:0;z-index:50;background:var(--bg,#fff);padding-top:.5rem;}
+/* Иконочная навигация СЛЕВА (Главная/Раздел/Назад/Вперёд) — перебиваем темы,
+   центрирующие шапку (B_manuscript/ar_deco): flex-grow толкает .viewbar вправо. */
+header.breadcrumbs .topnav{display:inline-flex;align-items:center;gap:.15em;flex:1 1 auto;text-align:left;}
+.tn-ico{display:inline-flex;align-items:center;justify-content:center;width:34px;height:30px;
+  border-radius:6px;color:inherit;text-decoration:none;border-bottom:none;}
+.tn-ico svg{width:18px;height:18px;display:block;}
+.tn-ico:hover{background:color-mix(in srgb,currentColor 14%,transparent);}
+.tn-ico[hidden]{display:none;}
 .viewbar{display:flex;gap:1.1em;row-gap:.3em;align-items:center;flex-wrap:wrap;
   font-size:.78rem;margin:0 0 0 auto;}
 .viewbar label{display:inline-flex;gap:.35em;align-items:center;white-space:nowrap;}
@@ -171,7 +180,12 @@ body.legacy-active .viewbar{position:fixed;top:0;right:0;z-index:60;margin:0;
 <span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №1BA</span>
 <div class="wrap w-wide">
 <header class="breadcrumbs">
-<span class="crumbs"><a href="../index.html">Главная</a><span class="sep">›</span><a href="../dreamon/index.html">Мечтай!!</a></span>
+<nav class="topnav" aria-label="Навигация">
+  <a class="tn-ico" href="../index.html" title="Главная" aria-label="Главная"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/></svg></a>
+  <a class="tn-ico" href="../dreamon/index.html" title="Раздел: Мечтай!!" aria-label="Раздел: Мечтай!!"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="9" y1="6" x2="20" y2="6"/><line x1="9" y1="12" x2="20" y2="12"/><line x1="9" y1="18" x2="20" y2="18"/><line x1="4" y1="6" x2="4.01" y2="6"/><line x1="4" y1="12" x2="4.01" y2="12"/><line x1="4" y1="18" x2="4.01" y2="18"/></svg></a>
+  <a class="tn-ico tn-prev" href="1AH.html"  title="Предыдущая статья" aria-label="Предыдущая статья"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg></a>
+  <a class="tn-ico tn-next" href="341.html"  title="Следующая статья" aria-label="Следующая статья"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></a>
+</nav>
 <nav class="viewbar" aria-label="Вид статьи">
   <label>Тема
     <select id="zml-theme">
@@ -1647,21 +1661,17 @@ Beats in time with yours</li>
     alignPoemsSoon();
   });
 
-  // Ф8′ ре-резолвинг вида. Настройки Admin (global design/width + правила по
-  // разделам/типам, с приоритетом per-article frontmatter) распространяются на
-  // ВСЕХ через ОДИН resolveDisplay (зеркало render.js). Залогинен → личные правила
-  // из worker KV (/api/settings); аноним → глобальный display.json (тот же файл,
-  // что коммитит Admin) → правки Admin доходят до анонимов В РАНТАЙМЕ, не только
-  // редирект «new/old». Запечённая build_views тема — лишь стартовый/no-JS дефолт:
-  // если совпадает с резолвом (обычный случай), apply() ничего не трогает (нет мигания).
+  // Ре-резолвинг вида. Вид сайта ОБЩИЙ для всех (per-user отменён): дизайн/ширина
+  // + правила по разделам/типам берём из глобального config/display.json (приоритет
+  // per-article frontmatter). Один resolveDisplay (зеркало render.js) для всех —
+  // правки админа доходят до читателей в рантайме. Запечённая build_views тема —
+  // стартовый/no-JS дефолт: совпал с резолвом (обычный случай) → apply() молчит (нет мигания).
   (function(){
     var body = document.body;
     var section = body.getAttribute('data-art-section') || '';
     var type    = body.getAttribute('data-art-type') || '';
     var fmTheme = body.getAttribute('data-fm-theme') || '';
     var fmWidth = body.getAttribute('data-fm-width') || '';
-    var worker  = (body.getAttribute('data-worker') || '').replace(/\/+$/, '');
-    var sess; try { sess = JSON.parse(localStorage.getItem('ya_session')||'null'); } catch(e){}
     function resolve(cfg){
       var g=(cfg&&cfg.global)||{}, rules=(cfg&&cfg.rules)||[], rd='', rw='';
       for (var i=0;i<rules.length;i++){ var m=rules[i]&&rules[i].match; if(!m) continue;
@@ -1675,16 +1685,14 @@ Beats in time with yours</li>
       var w = /narrow|820/.test(d.width)?'narrow':'wide';
       if (wsel && wsel.value!==w){ wsel.value=w; wsel.dispatchEvent(new Event('change')); }
     }
-    // залогинен с воркером → личный KV; иначе (аноним) → общий display.json.
-    var src = (sess && sess.token && worker)
-      ? fetch(worker+'/api/settings',{headers:{Authorization:'Bearer '+sess.token}})
-      : fetch('../config/display.json',{cache:'no-cache'});
-    src.then(function(r){ return r.ok?r.json():null; })
+    // общий вид для всех → один источник config/display.json (его коммитит админка).
+    fetch('../config/display.json',{cache:'no-cache'})
+       .then(function(r){ return r.ok?r.json():null; })
        .then(function(cfg){ if(cfg) apply(resolve(cfg)); })
        .catch(function(){});
   })();
 })();
 </script>
-<script src="../ya-edit.js" defer></script>
+<script src="../ya-edit.js?v=20260622-01" defer></script>
 </body>
 </html>
