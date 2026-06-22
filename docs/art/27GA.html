@@ -647,6 +647,17 @@ body.legacy-active .viewbar{position:fixed;top:0;right:0;z-index:60;margin:0;
     sh.appendChild(legacyTpl.content.cloneNode(true));
     document.body.appendChild(legacyHost);
     runLegacyScripts(sh);                                          // оживить плеер/сноски
+    // Якорные ссылки (#оглавление, #сноски-туда-обратно, #top) внутри Shadow DOM нативно
+    // НЕ прокручивают: фрагмент резолвится в light-DOM, а цель — в шадоу. Перехватываем и
+    // скроллим вручную по sh.getElementById (пустой/несуществующий якорь, напр. #top → вверх).
+    sh.addEventListener('click', function(e){
+      var a = e.target && e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a) return;
+      e.preventDefault();
+      var t = sh.getElementById(a.getAttribute('href').slice(1));
+      if (t) t.scrollIntoView();                                   // нативный мгновенный «прыжок», как в оригинале
+      else window.scrollTo(0, 0);                                  // #top / пустой якорь
+    });
     var vb = document.querySelector('.viewbar');                   // виджет вида — наружу .wrap,
     if (vb){ legacyVbHome = vb.parentNode; document.body.appendChild(vb); } // чтобы пережил display:none
     var yo = sh.querySelector('.ya-old');                          // фон старого body → на страницу
