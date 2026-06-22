@@ -153,6 +153,14 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
 /* по умолчанию кнопка СКРЫТА (hidden в разметке) — аноним/не-редактор её не видят;
    ya-edit.js снимает hidden только у editor/admin. Явное правило перебивает темы. */
 .viewbar .vb-edit[hidden]{display:none;}
+/* «old» (6-й дизайн) — архивный рендер занимает страницу целиком, как до унификации:
+   host — на всю ширину окна, поэтому .ya-old и его .wrap{width:66%} считаются от вьюпорта
+   (а не от темовой .wrap max-1080). Тему .wrap прячем, виджет вида плавает поверх. */
+#legacy-host{display:block;width:100%;}
+body.legacy-active > .wrap{display:none;}
+body.legacy-active .viewbar{position:fixed;top:0;right:0;z-index:60;margin:0;
+  padding:.45rem .7rem;background:rgba(250,250,250,.92);border:1px solid var(--rule,#ddd);
+  border-top:0;border-right:0;border-bottom-left-radius:6px;}
 </style>
 </head>
 <body class="article-page" data-art="12FA" data-theme="swiss"
@@ -915,28 +923,34 @@ header.breadcrumbs .crumbs{flex:1 1 auto;text-align:left;}
       s.remove();
     });
   }
-  function hideEl(el){ if (el){ el.setAttribute('data-zml-hidden', el.style.display || ''); el.style.display = 'none'; } }
+  // «old» берёт страницу целиком (как до унификации): фон старого <body>/<html> и ширина
+  // его .wrap{66%} должны считаться от вьюпорта. Поэтому host — прямой ребёнок <body> во
+  // всю ширину (НЕ вложен в темовую .wrap, что ужимало колонку и оставляло фон темы по краям).
+  // Тему .wrap прячем целиком (CSS .legacy-active), фон старого body переносим на страницу,
+  // виджет вида выносим из шапки наружу — он плавает поверх (CSS), чтобы можно было выйти из old.
+  var legacyVbHome = null, legacyPrevBg = '';
   function mountLegacy(){
-    if (legacyHost || !hasLegacy || !wrap) return;
+    if (legacyHost || !hasLegacy) return;
     legacyHost = document.createElement('div');
     legacyHost.id = 'legacy-host';
     var sh = legacyHost.attachShadow({mode:'open'});
     sh.appendChild(legacyTpl.content.cloneNode(true));
-    Array.prototype.forEach.call(wrap.children, function(c){       // прячем ZML-контент,
-      if (c.tagName === 'HEADER') return;                          // кроме строки виджета
-      hideEl(c);
-    });
-    // у old свои крошки → прячем ZML-крошки (виджет вида в той же строке оставляем).
-    hideEl(wrap.querySelector('header.breadcrumbs .crumbs'));
-    wrap.appendChild(legacyHost);
+    document.body.appendChild(legacyHost);
     runLegacyScripts(sh);                                          // оживить плеер/сноски
+    var vb = document.querySelector('.viewbar');                   // виджет вида — наружу .wrap,
+    if (vb){ legacyVbHome = vb.parentNode; document.body.appendChild(vb); } // чтобы пережил display:none
+    var yo = sh.querySelector('.ya-old');                          // фон старого body → на страницу
+    legacyPrevBg = document.body.style.background;
+    if (yo){ var bg = getComputedStyle(yo).backgroundColor; if (bg) document.body.style.background = bg; }
+    document.body.classList.add('legacy-active');
   }
   function unmountLegacy(){
     if (!legacyHost) return;
     legacyHost.remove(); legacyHost = null;
-    if (wrap) Array.prototype.forEach.call(wrap.querySelectorAll('[data-zml-hidden]'), function(c){
-      c.style.display = c.getAttribute('data-zml-hidden'); c.removeAttribute('data-zml-hidden');
-    });
+    var vb = document.querySelector('.viewbar');                   // вернуть виджет в шапку
+    if (vb && legacyVbHome){ legacyVbHome.appendChild(vb); legacyVbHome = null; }
+    document.body.classList.remove('legacy-active');
+    document.body.style.background = legacyPrevBg || '';
   }
 
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
