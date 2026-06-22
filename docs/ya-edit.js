@@ -117,7 +117,9 @@
                 label: "Правка ZML · #" + ART,
                 initialZml: ensureViewZml(zml),
                 renderView: renderView,
-                preprocess: deps.fawMarkup,   // [faw] без «|» → разметка по слогам перед сохранением
+                preprocess: function (src) {   // [faw]-разметка + проставить editor:<ник> (контракт «Редакция»)
+                  return setFmEditor(deps.fawMarkup(src), sess && sess.nick);
+                },
                 save: saveToWorker,
                 image: { artId: ART },     // Ф8(b): блок «Иллюстрация» (image: + бинарь)
                 savedPrimaryLabel: "На статью",
@@ -138,6 +140,24 @@
   // в LF), имя функции и место вызова не трогаем.
   function ensureViewZml(zml) {
     return String(zml == null ? "" : zml).replace(/\r\n/g, "\n");
+  }
+
+  // Контракт «Редакция»: дефолт-редактор «Иван Иванович» (= собрано ИИ) меняется на
+  // ник вошедшего при реальной правке. Прописываем/обновляем строку `editor:` во
+  // frontmatter (render.js берёт fm.editor → подвал «Редакция: <ник>»). Текст в LF
+  // (textarea-baseline ze-core), коммит-нормализация дальше по конвейеру.
+  function setFmEditor(text, nick) {
+    nick = String(nick == null ? "" : nick).trim();
+    if (!nick) return text;
+    var m = /^---\n([\s\S]*?)\n---\n?/.exec(text);
+    if (!m) return "---\neditor: " + nick + "\n---\n" + text.replace(/^\n+/, "");
+    var inner = m[1];
+    if (/^[ \t]*editor[ \t]*:.*$/m.test(inner)) {
+      inner = inner.replace(/^[ \t]*editor[ \t]*:.*$/m, "editor: " + nick);
+    } else {
+      inner = inner.replace(/\s+$/, "") + "\neditor: " + nick;
+    }
+    return "---\n" + inner + "\n---\n" + text.slice(m[0].length);
   }
 
   // Пересчёт prev/next из живого structure.json (см. вызов выше). Read-only, без прав.
