@@ -139,9 +139,17 @@ details.music[open] .trk-play{transform:rotate(90deg);}
    Сидит в одной строке с крошками (крошки слева, управление справа).
    Здесь только структура; типографика/цвета — у темы (.viewbar в THEME_CONTRACT). */
 /* Шапка ZML-вида ЗАКРЕПЛЕНА вверху (sticky) — как панель в «оригинале». Фон/линия
-   берутся из переменных темы (--bg/--rule), поэтому работает на всех 5 темах. */
+   берутся из переменных темы (--bg/--rule), поэтому работает на всех 5 темах.
+   Верхний отступ над панелью ВСЕГДА одинаков: обнуляем padding-top у .wrap (иначе у
+   верха страницы он добавлялся к собственному отступу панели, и зазор «прыгал» после
+   прокрутки), зазор задаёт только сама панель. */
+.wrap{padding-top:0;}
 header.breadcrumbs{display:flex;gap:1.2em;row-gap:.3em;align-items:center;flex-wrap:wrap;
-  position:sticky;top:0;z-index:50;background:var(--bg,#fff);padding-top:.5rem;}
+  position:sticky;top:0;z-index:50;background:var(--bg,#fff);padding-top:.55rem;
+  transition:transform .25s ease;}
+/* авто-скрытие: скролл вниз — панель уезжает вверх; вверх (или у самого верха) —
+   возвращается. Класс .tn-tuck вешает boot-скрипт по направлению прокрутки. */
+header.breadcrumbs.tn-tuck{transform:translateY(-115%);}
 /* Иконочная навигация СЛЕВА (Главная/Раздел/Назад/Вперёд) — перебиваем темы,
    центрирующие шапку (B_manuscript/ar_deco): flex-grow толкает .viewbar вправо. */
 header.breadcrumbs .topnav{display:inline-flex;align-items:center;gap:.15em;flex:1 1 auto;text-align:left;}
@@ -904,6 +912,25 @@ body.legacy-active .viewbar{position:fixed;top:0;right:0;z-index:60;margin:0;
        .then(function(r){ return r.ok?r.json():null; })
        .then(function(cfg){ if(cfg) apply(resolve(cfg)); })
        .catch(function(){});
+  })();
+
+  // Авто-скрытие закреплённой панели: вниз — прячем (уезжает вверх), вверх или у
+  // самого верха — показываем. Пороги ±4px гасят дрожание. requestAnimationFrame —
+  // не дёргаем layout на каждый scroll-эвент.
+  (function(){
+    var hdr = document.querySelector('header.breadcrumbs');
+    if (!hdr) return;
+    var lastY = window.pageYOffset || 0, ticking = false;
+    function upd(){
+      var y = window.pageYOffset || 0;
+      if (y <= 4) hdr.classList.remove('tn-tuck');               // у верха — всегда видна
+      else if (y > lastY + 4) hdr.classList.add('tn-tuck');      // вниз — прячем
+      else if (y < lastY - 4) hdr.classList.remove('tn-tuck');   // вверх — возвращаем
+      lastY = y; ticking = false;
+    }
+    window.addEventListener('scroll', function(){
+      if (!ticking){ ticking = true; requestAnimationFrame(upd); }
+    }, { passive: true });
   })();
 })();
 </script>
