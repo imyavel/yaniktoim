@@ -1134,7 +1134,15 @@ function renderNum(b, ctx) {
           .filter(Boolean)
           .join("\n");
       } else {
-        body = linesToHtml(bodyRaw, ctx.inline);
+        // Многоабзацный пункт без вложенного блока (напр. 06I п.2 — два абзаца
+        // прозы под одним номером): рендерим через parseMain, чтобы пустая строка
+        // стала границей <p>, а не схлопнулась в один <br> (linesToHtml выкидывает
+        // пустые строки). Одноабзацные пункты идут прежним путём — zero-regress
+        // для 22R/23TA/35Q/1CB/1CM.
+        const plainBlocks = parseMain(bodyRaw.replace(/^\s+/, ""));
+        body = plainBlocks.length > 1
+          ? plainBlocks.map((blk) => renderBlocks([blk], ctx)).filter(Boolean).join("\n")
+          : linesToHtml(bodyRaw, ctx.inline);
       }
       let idAttr = "";
       if (isToc) {
