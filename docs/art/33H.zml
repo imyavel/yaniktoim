@@ -6,6 +6,7 @@ image: 33H.jpg
 type: dialog
 audio: [{"url": "https://t.me/art_017_tracks/631", "label": "Слушать аудио-озвучку"}]
 summary: Эзотерическое стихотворение о Сам Самыче, наступающем созданиям в начале и раскрывающем нагвалям правило ЯНИКТОИМ через линию имени.
+editor: Nipna
 ---
 [dlg]
 Говорит и отвечает сам себе с собой Сам Самыч
@@ -57,7 +58,8 @@ summary: Эзотерическое стихотворение о Сам Сам�
 
 [mus="Музыка"]
 [https://www.youtube.com/watch?v=aM56CgSR340|Русы косы|Пикник]
+[https://www.youtube.com/watch?v=-zj801elnTA|Pharaoh sails to Orion|Nightwish]
 [/mus]
 
 
-[^*]: Музыка: ▶ Nightwish — Pharaoh sails to Orion [https://www.youtube.com/watch?v=-zj801elnTA|↗]
+[^*]: Nightwish - Pharaoh Sails to Orion
