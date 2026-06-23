@@ -190,7 +190,7 @@ body.legacy-active .viewbar{position:fixed;top:0;right:0;z-index:60;margin:0;
 <header class="breadcrumbs">
 <nav class="topnav" aria-label="Навигация">
   <a class="tn-ico" href="../index.html" title="Главная" aria-label="Главная"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/></svg></a>
-  <a class="tn-ico" href="../cyberson/index.html" title="Раздел: Киберсон" aria-label="Раздел: Киберсон"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="9" y1="6" x2="20" y2="6"/><line x1="9" y1="12" x2="20" y2="12"/><line x1="9" y1="18" x2="20" y2="18"/><line x1="4" y1="6" x2="4.01" y2="6"/><line x1="4" y1="12" x2="4.01" y2="12"/><line x1="4" y1="18" x2="4.01" y2="18"/></svg></a>
+  <a class="tn-ico tn-section" href="../cyberson/index.html" title="Раздел: Киберсон" aria-label="Раздел: Киберсон"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="9" y1="6" x2="20" y2="6"/><line x1="9" y1="12" x2="20" y2="12"/><line x1="9" y1="18" x2="20" y2="18"/><line x1="4" y1="6" x2="4.01" y2="6"/><line x1="4" y1="12" x2="4.01" y2="12"/><line x1="4" y1="18" x2="4.01" y2="18"/></svg></a>
   <a class="tn-ico tn-prev" href="341A.html"  title="Предыдущая статья" aria-label="Предыдущая статья"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg></a>
   <a class="tn-ico tn-next" href="32J.html"  title="Следующая статья" aria-label="Следующая статья"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></a>
 </nav>
@@ -794,8 +794,19 @@ body.legacy-active .viewbar{position:fixed;top:0;right:0;z-index:60;margin:0;
       return { design:(fmTheme||rd||g.design||'A_editorial'),
                width:(fmWidth||rw||g.width||'wide') };
     }
+    // Резолвер мог дать дизайн, которого нет в селекте — типичный случай: design==="old",
+    // но у статьи нет архивного html, и опция «old» удалена выше. Тогда sel.value="old" стал бы
+    // "" → change-хендлер выставил бы href="../themes/.css" (404, статья без темы). Фолбэк:
+    // swiss, иначе первая доступная опция.
+    function pickDesign(want){
+      if (!sel || sel.querySelector('option[value="'+want+'"]')) return want;
+      if (sel.querySelector('option[value="swiss"]')) return 'swiss';
+      var first = sel.querySelector('option');
+      return first ? first.value : want;
+    }
     function apply(d){
-      if (sel && sel.value!==d.design){ sel.value=d.design; sel.dispatchEvent(new Event('change')); }
+      var want = pickDesign(d.design);
+      if (sel && sel.value!==want){ sel.value=want; sel.dispatchEvent(new Event('change')); }
       var w = /narrow|820/.test(d.width)?'narrow':'wide';
       if (wsel && wsel.value!==w){ wsel.value=w; wsel.dispatchEvent(new Event('change')); }
     }

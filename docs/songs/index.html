@@ -890,8 +890,18 @@ header.breadcrumbs .crumbs{flex:1 1 auto;}
           rd=rules[i].design||''; rw=rules[i].width||''; break; } }
       return { design:(fmTheme||rd||g.design||'A_editorial'), width:(fmWidth||rw||g.width||'wide') };
     }
+    // У песен «old»-варианта нет (опции «old» в селекте нет). Если глобаль/правило
+    // дали design==="old", sel.value="old" стал бы "" → href="../themes/.css" (404).
+    // Фолбэк: swiss, иначе первая доступная опция.
+    function pickDesign(want){
+      if (!sel || sel.querySelector('option[value="'+want+'"]')) return want;
+      if (sel.querySelector('option[value="swiss"]')) return 'swiss';
+      var first = sel.querySelector('option');
+      return first ? first.value : want;
+    }
     function apply(d){
-      if (sel && sel.value!==d.design){ sel.value=d.design; sel.dispatchEvent(new Event('change')); }
+      var want = pickDesign(d.design);
+      if (sel && sel.value!==want){ sel.value=want; sel.dispatchEvent(new Event('change')); }
       var w = /narrow|820/.test(d.width)?'narrow':'wide';
       if (wsel && wsel.value!==w){ wsel.value=w; wsel.dispatchEvent(new Event('change')); }
     }

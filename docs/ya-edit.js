@@ -177,6 +177,17 @@
       (a[1] || []).forEach(function (r) { titleByArt[r.art] = r.title || ""; });
       var me = st.articles.find(function (x) { return x.art === ART && x.status !== "archived"; });
       if (!me) return;                       // статья архивирована/не в structure — не трогаем запечённое
+      // Крошка раздела из ЖИВОГО structure.json: статью могли перенести в другой раздел
+      // (запечённый href/имя ведут на старый до полной пересборки), а SECTION_NAME вообще
+      // из хардкода SECTION_HUMAN (для кастомных разделов = слаг). Чиним для всех читателей.
+      var secIco = document.querySelector(".topnav .tn-section");
+      if (secIco && me.section) {
+        var secRec = (st.sections || []).find(function (x) { return x.slug === me.section; });
+        var secName = (secRec && secRec.name) || me.section;
+        secIco.setAttribute("href", "../" + me.section + "/index.html");
+        secIco.setAttribute("title", "Раздел: " + secName);
+        secIco.setAttribute("aria-label", "Раздел: " + secName);
+      }
       var sibs = st.articles
         .filter(function (x) { return x.section === me.section && x.status !== "archived"; })
         .sort(function (x, y) { return (x.order - y.order) || (x.art < y.art ? -1 : 1); });

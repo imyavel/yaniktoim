@@ -191,7 +191,7 @@ body.legacy-active .viewbar{position:fixed;top:0;right:0;z-index:60;margin:0;
 <header class="breadcrumbs">
 <nav class="topnav" aria-label="Навигация">
   <a class="tn-ico" href="../index.html" title="Главная" aria-label="Главная"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/></svg></a>
-  <a class="tn-ico" href="../dabudet/index.html" title="Раздел: Да будет Свет!" aria-label="Раздел: Да будет Свет!"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="9" y1="6" x2="20" y2="6"/><line x1="9" y1="12" x2="20" y2="12"/><line x1="9" y1="18" x2="20" y2="18"/><line x1="4" y1="6" x2="4.01" y2="6"/><line x1="4" y1="12" x2="4.01" y2="12"/><line x1="4" y1="18" x2="4.01" y2="18"/></svg></a>
+  <a class="tn-ico tn-section" href="../dabudet/index.html" title="Раздел: Да будет Свет!" aria-label="Раздел: Да будет Свет!"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="9" y1="6" x2="20" y2="6"/><line x1="9" y1="12" x2="20" y2="12"/><line x1="9" y1="18" x2="20" y2="18"/><line x1="4" y1="6" x2="4.01" y2="6"/><line x1="4" y1="12" x2="4.01" y2="12"/><line x1="4" y1="18" x2="4.01" y2="18"/></svg></a>
   <a class="tn-ico tn-prev" href="2CI.html"  title="Предыдущая статья" aria-label="Предыдущая статья"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg></a>
   <a class="tn-ico tn-next" href="1AA.html"  title="Следующая статья" aria-label="Следующая статья"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></a>
 </nav>
@@ -254,7 +254,334 @@ body.legacy-active .viewbar{position:fixed;top:0;right:0;z-index:60;margin:0;
      <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
      ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
      иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
-<template id="legacy-render"></template>
+<template id="legacy-render"><style>
+  :host{
+    --bg:#f6f3ec;
+    --paper:#fffdf8;
+    --ink:#23201b;
+    --muted:#6a6258;
+    --accent:#9a3b1f;
+    --accent2:#1f5d63;
+    --rule:#ddd5c6;
+    --hl:#ffe9a8;
+  }
+  *{box-sizing:border-box;}
+  .ya-old{scroll-behavior:smooth;}
+  .ya-old{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.7;
+  }
+  .wrap{
+    width:66%;
+    max-width:980px;
+    margin:0 auto;
+    padding:32px 24px 80px;
+  }
+  .breadcrumbs{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    margin-bottom:22px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .breadcrumbs a{color:var(--accent2);text-decoration:none;}
+  .breadcrumbs a:hover{text-decoration:underline;}
+  .breadcrumbs span{margin:0 8px;color:#b9b0a0;}
+  .lead-img{
+    display:block;
+    max-width:100%;
+    width:auto;
+    height:auto;
+    margin:0 auto 28px;
+    border:1px solid var(--rule);
+    border-radius:3px;
+  }
+  h1{
+    font-size:2.1em;
+    line-height:1.2;
+    font-weight:700;
+    margin:.2em 0 .8em;
+    color:var(--ink);
+    letter-spacing:.01em;
+  }
+  h1::after{
+    content:"";
+    display:block;
+    width:84px;
+    height:3px;
+    background:var(--accent);
+    margin-top:.45em;
+  }
+  p{margin:0 0 1.25em;}
+  .article p{text-align:justify;hyphens:auto;}
+  em{font-style:italic;}
+  a{color:var(--accent2);}
+
+  /* Music player */
+  .music{
+    margin:0 0 1.8em;
+    border:1px solid var(--rule);
+    border-left:4px solid var(--accent);
+    background:var(--paper);
+    border-radius:4px;
+    padding:14px 18px;
+  }
+  .music-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--accent);
+    margin-bottom:8px;
+  }
+  .track{
+    border-top:1px dotted var(--rule);
+    padding-top:10px;
+  }
+  .music-label + .track{border-top:none;padding-top:0;}
+  .track-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+  }
+  .track-head .arrow{
+    color:var(--accent);
+    transition:transform .2s;
+    font-size:13px;
+  }
+  .track.open .track-head .arrow{transform:rotate(90deg);}
+  .track-title{flex:1;}
+  .track-title b{color:var(--ink);}
+  .track-title span{color:var(--muted);}
+  .ext{color:var(--accent2);text-decoration:none;font-size:15px;}
+  .ext:hover{text-decoration:underline;}
+  .player{
+    display:none;
+    margin-top:12px;
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+  }
+  .track.open .player{display:block;}
+  .player iframe{
+    position:absolute;
+    top:0;left:0;
+    width:100%;height:100%;
+    border:0;
+    border-radius:3px;
+  }
+
+  /* Footnotes */
+  sup.fnref{font-size:.7em;line-height:0;}
+  sup.fnref a{
+    text-decoration:none;
+    color:var(--accent);
+    font-weight:700;
+    padding:0 1px;
+  }
+  .fn-marker{position:relative;}
+  .fn-pop{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:140%;
+    width:300px;
+    max-width:72vw;
+    background:#2b2620;
+    color:#f3ede1;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    line-height:1.5;
+    text-align:left;
+    padding:10px 13px;
+    border-radius:6px;
+    box-shadow:0 6px 22px rgba(0,0,0,.28);
+    z-index:30;
+  }
+  .fn-pop.below{bottom:auto;top:140%;}
+  .fn-pop a{color:#ffd9a0;}
+  .fn-marker:hover .fn-pop{display:block;}
+
+  .notes{
+    margin-top:48px;
+    padding-top:18px;
+    border-top:2px solid var(--rule);
+  }
+  .notes h2{
+    font-size:1.25em;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    letter-spacing:.03em;
+    color:var(--accent);
+    margin:0 0 .7em;
+  }
+  .notes ol{padding-left:1.4em;margin:0;}
+  .notes li{
+    font-size:16px;
+    line-height:1.6;
+    margin-bottom:.7em;
+    color:var(--muted);
+  }
+  .notes li:target{
+    background:var(--hl);
+    border-radius:3px;
+    padding:3px 6px;
+    margin-left:-6px;
+  }
+  .backref{text-decoration:none;color:var(--accent);margin-left:6px;}
+
+  /* corpus nav */
+  .pager{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:54px;
+    padding-top:22px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .pager a{
+    color:var(--accent2);
+    text-decoration:none;
+    max-width:46%;
+  }
+  .pager a:hover{text-decoration:underline;}
+  .pager .lbl{
+    display:block;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.07em;
+    color:var(--muted);
+    margin-bottom:3px;
+  }
+  .pager .next{text-align:right;margin-left:auto;}
+  footer{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+  footer a{color:var(--accent2);}
+
+  @media(max-width:900px){
+    .wrap{width:100%;max-width:680px;}
+    .ya-old{font-size:18px;}
+  }
+</style>
+<div class="ya-old" data-scheme="editorial">
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №3C5</span>
+<div class="wrap">
+
+  <nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span>›</span>
+    <a href="../dabudet/index.html">Да будет Свет!</a>
+  </nav>
+
+  <img class="lead-img" src="../img/3C5.jpg" alt="">
+
+  <h1>Жизнь в Дар<a class="audio-link" href="https://t.me/art_017_tracks/345" target="_blank" rel="noopener noreferrer" title="Слушать аудио-озвучку" aria-label="Аудио-озвучка" style="text-decoration:none;font-size:.62em;vertical-align:middle;margin-left:.4em;white-space:nowrap;">🎧</a></h1>
+
+  <div class="music">
+    <div class="music-label">Музыка под настроение:</div>
+    <div class="track" id="track1">
+      <div class="track-head" onclick="toggleTrack('track1')">
+        <span class="arrow">▶</span>
+        <span class="track-title"><b>After Dark</b> <span>— Tito &amp; Tarantula</span></span>
+        <a class="ext" href="https://www.youtube.com/watch?v=7oJ6sbYRSmw" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗</a>
+      </div>
+      <div class="player" data-embed="https://www.youtube.com/embed/7oJ6sbYRSmw"></div>
+    </div>
+  </div>
+
+  <div class="article">
+    <p>А смысл в чем? Ева, это Дар Орла Адаму. Подарок. Подарок нужно заслужить. То есть захотеть и добиться своими силами. Механизм очень прост. Пока подарок дарен кому-то без его собственного включения своего смысла цели и намерения в действие его дарения самому себе со стороны Высшего, этот "подарок" подобен дарам Золотой Рыбки у Пушкина. То есть, "старик" раз за разом оказывается у разбитого корыта, поскольку смысл этой истории в скрытом хитколелуте<sup class="fnref fn-marker" id="ref1"><a href="#fn1">*</a><span class="fn-pop">См. также: <a href="33F.html" target="_blank" rel="noopener">Хозяин и гость, Зеир Арихович Анпин</a></span></sup>, имеющимся между его "старухой" и золотой рыбкой, посредством "желания получать", то есть Змея, который в нем скрыто действует, ведя "старика", от "старухи" до "золотой рыбки" и обратно через "разбитое корыто". Называемом "Змей" (Выползающий из "яблока Древа познания...", осуществляющий свое грязное, но нужное, дело, и заползающий обратно, чтобы повторять то же самое снова и снова).</p>
+
+    <p>Адам должен научиться (Питону, хахаха). Быть Змеем самому. Заменить своим намерением Намерение "эманаций Орла". И тогда он сможет достичь своей цели. Своими средствами. То есть, "получить", таки, "Дар Орла". И Еву в придачу :)</p>
+
+    <p>Как это делается? Очень просто. Нет действующего без Цели. Ступень Жизни в Дар, это ступень действия, которое делает действующий, имеющий вполне четкую определенную Цель. Которую будет достигать (в нашем случае, не достигать, оставаясь раз за разом у "разбитого корыта") раз за разом "получатель" Жизни, то есть "подарка", в котором скрыта ступень намерения и цели, достигаемая и раскрываемая посредством действия тем, кто этот подарок получает, получая в подарок и проживая определенный объем "Жизни этого мира". Реальный подарок, это не этот объем Жизни и не та жизнь, которую он проживает, а тот Путь, который ведет к его получению. Реальный подарок раскрывается в конце пройденного этапа жизненного Пути, как Кли, выстроенное посредством его прохождения "получающим" Дар. Сделаем и услышим!</p>
+
+    <p>Кли - это инструмент, навык, способность, личная Сила, выраженная в умении делать действие, посредством которого это Кли было изначально сформировано. То есть становиться "подобным по свойствам" Тому, Кто это действие изначально совершает, делая подарок, "давая в Дар" Жизнь и чувственное восприятие. Но тот, кто получает этот дар, вырабатывает в себе ответ на вопрос "нафига", для того, чтобы самому совершать это действие осознанно. Находясь "в сотрудничестве" с Тем, Кто этот Дар реально "дарует" чувствующим существам (т.е. ему самому), создавая Еву и Змея, как одно неразрывное целое, паним и ахораим, Мужчиной и Женщиной Он создал Их. И Сам Себя спрятал между ними :)</p>
+
+    <p>П.С.</p>
+  </div>
+
+  <section class="notes">
+    <h2>Примечания</h2>
+    <ol>
+      <li id="fn1">См. также: <a href="33F.html" target="_blank" rel="noopener">Хозяин и гость, Зеир Арихович Анпин</a> <a class="backref" href="#ref1" title="Вернуться к тексту">↩</a></li>
+    </ol>
+  </section>
+
+  <nav class="pager">
+    <a class="prev" href="2CI.html">
+      <span class="lbl">← Предыдущая</span>
+      Место, Которое изменить нельзя
+    </a>
+    <a class="next" href="1AA.html">
+      <span class="lbl">Следующая →</span>
+      Бремя Власти Небес
+    </a>
+  </nav>
+
+  <footer>
+    <p class="attrib">Адаптировано Claude Opus 4.8 от Anthropic и Элиягу Бар Малей.</p>
+    <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
+  </footer>
+
+</div>
+
+<script>
+function toggleTrack(id){
+  var t=document.getElementById(id);
+  var p=t.querySelector('.player');
+  if(!t.classList.contains('open')){
+    if(!p.querySelector('iframe')){
+      var f=document.createElement('iframe');
+      f.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      f.setAttribute('allowfullscreen','');
+      f.src=p.getAttribute('data-embed');
+      p.appendChild(f);
+    }
+    t.classList.add('open');
+  } else {
+    t.classList.remove('open');
+  }
+}
+// footnote popup side flip
+document.querySelectorAll('.fn-marker').forEach(function(m){
+  m.addEventListener('mouseenter',function(){
+    var pop=m.querySelector('.fn-pop');
+    if(!pop)return;
+    pop.classList.remove('below');
+    var r=m.getBoundingClientRect();
+    if(r.top<180){pop.classList.add('below');}
+  });
+});
+</script>
+
+<script type="application/json" id="yanik-meta">
+{
+  "scheme": "editorial",
+  "form": "проза",
+  "rationale": "Текст — короткое прозаическое эссе-комментарий (каббалистическое толкование про Дар, Адама, Змея и Кли), без стихотворных строк, поэтому выбрана редакторская широкоформатная схема, а не узкий манускрипт. Колонка задана на 66% ширины окна (max-width 980px) — широкая основная полоса лонгрида с justify-вёрсткой для плотного аналитического текста; на узких экранах разворачивается на полную ширину.\nОглавление не делал: подразделов в статье нет (единый поток с финальной строкой 'П.С.'), есть лишь один авторский смайл-разрыв — формального деления на главы недостаточно для TOC. Единственный музыкальный трек (Tito & Tarantula, YouTube) оформлен сворачиваемым ленивым плеером с меткой 'Музыка под настроение'; сводный раздел не нужен, так как трек один (порог >2). Единственная сноска со звёздочкой реализована и как якорная (вниз/вверх с подсветкой :target), и как popup при наведении с авто-переворотом вверх/вниз у края экрана. Палитра — тёплый бумажный фон с терракотовым и сине-зелёным акцентами, авторские глифы ':)' , 'хахаха', кавычки и капс сохранены дословно.",
+  "features": ["music", "footnotes"]
+}
+</script>
+</div></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -508,8 +835,19 @@ body.legacy-active .viewbar{position:fixed;top:0;right:0;z-index:60;margin:0;
       return { design:(fmTheme||rd||g.design||'A_editorial'),
                width:(fmWidth||rw||g.width||'wide') };
     }
+    // Резолвер мог дать дизайн, которого нет в селекте — типичный случай: design==="old",
+    // но у статьи нет архивного html, и опция «old» удалена выше. Тогда sel.value="old" стал бы
+    // "" → change-хендлер выставил бы href="../themes/.css" (404, статья без темы). Фолбэк:
+    // swiss, иначе первая доступная опция.
+    function pickDesign(want){
+      if (!sel || sel.querySelector('option[value="'+want+'"]')) return want;
+      if (sel.querySelector('option[value="swiss"]')) return 'swiss';
+      var first = sel.querySelector('option');
+      return first ? first.value : want;
+    }
     function apply(d){
-      if (sel && sel.value!==d.design){ sel.value=d.design; sel.dispatchEvent(new Event('change')); }
+      var want = pickDesign(d.design);
+      if (sel && sel.value!==want){ sel.value=want; sel.dispatchEvent(new Event('change')); }
       var w = /narrow|820/.test(d.width)?'narrow':'wide';
       if (wsel && wsel.value!==w){ wsel.value=w; wsel.dispatchEvent(new Event('change')); }
     }

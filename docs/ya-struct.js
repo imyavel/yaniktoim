@@ -283,19 +283,25 @@
     var d = new Date(), p = function (n) { return (n < 10 ? "0" : "") + n; };
     return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate());
   }
-  // ── кодек art-id (SPEC §2.3 — побайтно как legacy build_art_ids.py) ──
+  // ── кодек art-id (SPEC §2.3 — побайтно как legacy build_art_ids.py для дат
+  // 1994–2029 и суффиксов 1..52). Общий принцип: art-id = дата-префикс +
+  // суффикс-разрешитель коллизий, наращиваемый до уникальности. НИЧЕГО не бросаем:
+  // год вне диапазона продолжает последовательность, суффикс безграничен.
   function encYear(y) {
-    if (y >= 2020 && y <= 2029) return String(y - 2020);
-    if (y >= 1994 && y <= 2019) return String.fromCharCode(90 - (2019 - y));
-    throw new Error("год вне диапазона art-id: " + y);
+    if (y >= 2020 && y <= 2029) return String(y - 2020);                      // '0'..'9'
+    if (y >= 1994 && y <= 2019) return String.fromCharCode(90 - (2019 - y));  // 'A'..'Z'
+    if (y >= 2030 && y <= 2055) return String.fromCharCode(97 + (y - 2030));  // 'a'..'z' (расширение)
+    return "Y" + y;   // запредельный год — лишь бы не бросать; уникальность добьёт суффикс
   }
   function encMonth(m) { return m <= 9 ? String(m) : String.fromCharCode(65 + m - 10); }
   function encDay(d) { return d <= 9 ? String(d) : String.fromCharCode(65 + d - 10); }
+  // Суффикс — биективная база-52 (как столбцы Excel): 0→"" · 1..26→A..Z ·
+  // 27..52→a..z (байт-в-байт legacy) · 53→AA · 54→AB · … — растёт без предела.
+  var SUF52 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   function encSuffix(n) {
-    if (n === 0) return "";
-    if (n <= 26) return String.fromCharCode(64 + n);
-    if (n <= 52) return String.fromCharCode(97 + n - 27);
-    throw new Error("за сегодня уже >53 статей");
+    var s = "";
+    while (n > 0) { var r = (n - 1) % 52; s = SUF52.charAt(r) + s; n = Math.floor((n - 1) / 52); }
+    return s;
   }
   function mintArtId() {
     var d = new Date();
@@ -303,8 +309,7 @@
     var taken = {};
     structure.articles.forEach(function (a) { taken[a.art] = 1; });
     Object.keys(byArt).forEach(function (k) { taken[k] = 1; });
-    for (var p = 0; p <= 52; p++) { var id = base + encSuffix(p); if (!taken[id]) return id; }
-    throw new Error("исчерпан суффикс art-id на сегодня");
+    for (var p = 0; ; p++) { var id = base + encSuffix(p); if (!taken[id]) return id; }  // суффикс безграничен → id всегда найдётся
   }
 
   function templateZml(art, today) {
