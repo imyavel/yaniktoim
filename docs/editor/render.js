@@ -429,31 +429,48 @@ function resolveInternals(s, manifestByArt) {
   });
 }
 
-// {ch|N} — конкретная статья главы; {ch|} — ВСЯ глава (её index-страница);
-// {|} — ВЕСЬ Зоар (корневой index = полное оглавление). Глава и номер в регэкспе
-// необязательны (пустые). Следующий пасс {term|…}/{leit|…} ловит только нецифровое
-// содержимое, поэтому {term|текст} сюда НЕ попадает (цифр после | нет).
+// {ch|N|§} — статья + якорь параграфа; {ch||§} — статья по § (номер опущен,
+// глобальная форма цитаты Зоара); {ch|N} — статья; {ch|} — ВСЯ глава (index);
+// {|} — ВЕСЬ Зоар (корневой index). Третье поле (§) опционально. Следующий пасс
+// {term|…}/{leit|…} ловит только нецифровое после |, поэтому сюда НЕ попадает.
 function resolveZohar(s, zoharIndex) {
   const chapters = zoharIndex.chapters || {};
   const articles = zoharIndex.articles || {};
+  const paras = zoharIndex.paras || {};
   const base = zoharIndex._url_base || "https://imyavel.github.io/zohar-sulam";
-  return s.replace(/\{([a-z][a-z-]*)?\|(\d*)\}/g, (_, ch, num) => {
-    // {|} → весь Зоар: корневой index (полное оглавление)
-    if (!ch) return `<a class="zohar" href="${base}/">Книга Зоар</a>`;
+  // слаг главы может содержать цифру (bereshit-1/2 после split) → [a-z0-9-]
+  return s.replace(/\{([a-z][a-z0-9-]*)?\|(\d*)(?:\|(\d*))?\}/g, (m, ch, num, para) => {
+    const broken = `<a class="broken" href="#">${m}</a>`;
+    // {|} → весь Зоар; {|N}/{||§} (без главы, но с номером/§) → broken
+    if (!ch) return (num || para) ? broken : `<a class="zohar" href="${base}/">Книга Зоар</a>`;
     const chInfo = chapters[ch];
-    if (!chInfo) return `<a class="broken" href="#">{${ch}|${num}}</a>`;
-    const knigaHuman = chInfo.kniga_human || "";
-    // {ch|} → вся глава: её собственная index-страница
-    if (!num) {
-      const chHuman = chInfo.human || ch;
-      const anchor = knigaHuman ? `Книга Зоар. ${knigaHuman}. ${chHuman}` : `Книга Зоар. ${chHuman}`;
+    if (!chInfo) return broken;
+    const chHuman = chInfo.human || ch;
+    // Метка главы в анкоре: akdama — особо «Предисловие», прочие — «глава <human>».
+    const chLabel = ch === "akdama" ? "Предисловие" : `глава ${chHuman}`;
+    // определить статью: явный N либо поиск по § (paras[ch][§]) при опущенном N
+    let artNum = num;
+    if (!num && para) {
+      artNum = (paras[ch] || {})[para];
+      if (!artNum) return broken; // {ch||§}: § не найден в главе
+    }
+    // {ch|} → вся глава (нет ни N, ни §): её index-страница
+    if (!artNum && !para) {
+      const anchor = `Книга Зоар, ${chLabel}`;
       return `<a class="zohar" href="${base}/${ch}/">${htmlEscape(anchor)}</a>`;
     }
-    // {ch|N} → конкретная статья
-    const artTitle = (articles[ch] || {})[num];
-    if (!artTitle) return `<a class="broken" href="#">{${ch}|${num}}</a>`;
-    const href = `${base}/${ch}/${String(parseInt(num, 10)).padStart(3, "0")}.html`;
-    const anchor = `Книга Зоар. ${knigaHuman}. ${artTitle}`;
+    const artNumStr = String(parseInt(artNum, 10));
+    const artTitle = (articles[ch] || {})[artNumStr];
+    if (!artTitle) return broken;
+    // валидация §: должен принадлежать именно статье artNum
+    if (para) {
+      const owner = (paras[ch] || {})[para];
+      if (owner !== artNumStr) return broken;
+    }
+    // § и #p-якорь — ТОЛЬКО при явном параграфе. {ch|N} (на статью целиком) → без § и без якоря.
+    const href = `${base}/${ch}/${artNumStr.padStart(3, "0")}.html`
+      + (para ? `#p${para}` : "");
+    const anchor = `Книга Зоар, ${chLabel}, ${artTitle}` + (para ? `, § ${para}` : "");
     return `<a class="zohar" href="${href}">${htmlEscape(anchor)}</a>`;
   });
 }

@@ -8,8 +8,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ZML3 ТЕСТ КОНСТРУКЦИЙ &lt;\^/&gt;</title>
 <meta name="description" content="">
-<meta name="robots" content="noindex">
-<link id="theme-css" rel="stylesheet" href="../../themes/ar_deco.css?v=20260612-02">
+<link rel="canonical" href="https://imyavel.github.io/yaniktoim/art/zml3test.html">
+<meta property="og:title" content="ZML3 ТЕСТ КОНСТРУКЦИЙ &lt;\^/&gt;">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://imyavel.github.io/yaniktoim/art/zml3test.html">
+<meta property="og:description" content="">
+<meta property="og:site_name" content="Путь Восходящей Звезды">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ZML3 ТЕСТ КОНСТРУКЦИЙ &lt;\^/&gt;">
+<meta name="twitter:description" content="">
+
+<link id="theme-css" rel="stylesheet" href="../../themes/ar_deco.css?v=20260620-01">
 <style id="spl-base">
 /* Column width — ORTHOGONAL to theme (Ф1 set: ~820 narrow / ~1080 wide). */
 .wrap.w-narrow{max-width:820px;}
@@ -29,6 +39,36 @@
 /* [subsec] section subtitle — base (themes refine): muted italic, tight to ## heading. */
 .sec-sub{margin:.15em 0 1.3em;font-style:italic;font-size:.95em;opacity:.7;line-height:1.45;text-indent:0;text-align:left;}
 h2 + .sec-sub, h2.subtitle + .sec-sub{margin-top:-.5em;}
+/* [meta] metadata card (proza-шапка) — base через :where() (0-специфичность → любое правило темы перебивает, хотя <style> идёт после <link> темы). */
+:where(.meta){margin:1.4em auto .6em;max-width:560px;padding:.85em 1.2em;background:var(--panel,rgba(128,128,128,.06));border:1px solid var(--rule,#ddd);border-left:4px solid var(--accent2,var(--accent,#999));border-radius:3px;line-height:1.5;color:var(--muted,inherit);text-indent:0;}
+:where(.meta b){color:var(--ink,inherit);font-weight:600;}
+:where(.meta .epi){display:block;margin-top:.5em;padding-top:.5em;border-top:1px dashed var(--rule,#ddd);font-style:italic;color:var(--accent,inherit);}
+/* [faw] free-associative writing — стихи, записанные прозой. Строки-сегменты «|»
+   → .faw-l.a/.b с чередованием стиля (границы строк видны на глаз). Режим (монолит
+   display:inline — swiss/editorial/cyberpunk · построчно display:block — manuscript/
+   ar_deco) и чередование задаёт ТЕМА. База — только отступ блока и нулевой-специфичности
+   фолбэк построчно через :where() (любое правило темы его перебивает; стиль <style> идёт
+   ПОСЛЕ <link> темы, поэтому обычное `.faw-l` затёрло бы тему — отсюда :where). */
+.faw{margin:1.5rem 0;}
+/* Абзацы внутри [faw] (безымянный [fp]): каждый — блок .faw-p, между ними отступ. Виден и
+   в монолитных темах (между блоками), и в построчных. Внутри .faw-p строки идут по теме. */
+.faw .faw-p + .faw-p{margin-top:1.1em;}
+:where(.faw-l){display:block;}
+/* [faw sta=N] зазор-строфа: пустая строка после каждых N строк. Верт. margin к inline
+   не применяется → в монолите параметр игнорируется (как и задумано). */
+:where(.faw-l.faw-se){margin-bottom:1em;}
+/* Капитализация первой буквы строки (.faw-cap) — фича ПОСТРОЧНЫХ тем (manuscript/ar_deco):
+   там строки начинаются с заглавной, как в стихах. Монолитные темы .faw-cap НЕ трогают —
+   текст течёт прозой в авторском регистре. См. THEME_CONTRACT. */
+/* [fp] маркер нумерованного пункта внутри [faw] (§2.5): инлайн-бейдж — строку НЕ рвёт (стих
+   течёт сквозь пункты), может стоять в середине строки; даёт якорь для TOC. Не наследует
+   курсив/регистр чередования. Базовый вид (тема может уточнить через --accent). */
+.faw-pt{display:inline-block;font-family:ui-sans-serif,system-ui,sans-serif;font-weight:700;
+  font-size:.62em;line-height:1.5;vertical-align:.16em;color:var(--accent,#777);
+  border:1px solid currentColor;border-radius:.5em;padding:0 .42em;margin:0 .45em 0 .1em;
+  font-style:normal;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;
+  scroll-margin-top:1.4rem;text-decoration:none;}
+.faw-l .faw-cap{font-style:inherit;}
 /* fn-ревью (2026-06-12) — структурная база новых конструкций; темы уточняют. */
 /* [^N] в H1: sup-маркер на глаз отличим от текста заголовка (THEME_CONTRACT). */
 h1#article-title sup{font-size:.42em;font-weight:400;line-height:0;letter-spacing:normal;vertical-align:super;}
@@ -43,6 +83,10 @@ ol.num.num-paren li::marker{content:counter(list-item) ") ";}
 article .epigraph.dedication, article .epilogue.dedication{text-align:right;font-style:italic;}
 /* TOC: вложенный 2-й уровень (###). */
 details.article-toc ol ol{margin:.15em 0 .15em 1.1em;}
+/* [toc nonum]: заголовки сами нумерованы (1 / 1.1 / 1.1.1) → гасим авто-числа <ol>
+   (две класса-метки → перебивает per-theme `.article-toc ol{padding-left}` по специфичности) */
+details.article-toc.nonum ol{list-style:none; padding-left:0;}
+details.article-toc.nonum ol ol{margin-left:1.1em;}
 /* [sig] подпись / [cry] возглас (ZML3 C11) — base, themes refine. */
 .sig{text-align:right;font-style:italic;margin:1.4rem 0;}
 .cry{text-align:center;font-weight:700;letter-spacing:.05em;margin:1.6rem 0;}
@@ -50,11 +94,70 @@ details.article-toc ol ol{margin:.15em 0 .15em 1.1em;}
 .glyph{white-space:nowrap;}
 .term{text-decoration:underline dotted;text-underline-offset:3px;}
 .leit{font-style:italic;}
+/* музыка Б2: inter-track заметка (1AQA «Слушать вместе…») — base, themes refine. */
+.music-note{text-align:center;font-style:italic;opacity:.72;font-size:.92em;
+  margin:.2rem 0 .5rem;}
+/* музыка-плашка (канон оригинала): ▶ N) **Название** — *Автор* — название жирным,
+   автор обычным-курсивом, ► играбел-индикатор (крутится при раскрытии). Специфичность
+   `.music-group .title …` перебивает курсив `.title` темы. */
+.music-group .trk-play{display:inline-block;font-size:.82em;opacity:.65;margin-right:.1em;
+  transition:transform .18s ease;}
+details.music[open] .trk-play{transform:rotate(90deg);}
+.music-group .title .trk-num{opacity:.55;font-style:normal;font-variant-numeric:tabular-nums;}
+.music-group .title .trk-ttl{font-weight:600;font-style:normal;}
+.music-group .title .trk-sep{opacity:.5;font-weight:400;}
+.music-group .title .trk-art{font-weight:400;font-style:italic;opacity:.78;}
+/* трек-строка = flex: текст слева ВО ВСЕХ темах (перебивает theme text-align:center
+   у B_manuscript/ar_deco — флекс-айтемы паковка слева), динамик-mute прижат вправо
+   (2026-06-18). */
+.music-group details.music>summary,.music-group .music-noplayer>.summary{
+  display:flex; align-items:center; flex-wrap:wrap; gap:.12em; text-align:left;}
+.music-group .title{min-width:0;}
+/* кнопка-динамик (mute рекламы YouTube) — справа на строчке */
+.music-group .trk-mute{margin-left:auto; flex:0 0 auto; align-self:center;
+  cursor:pointer; opacity:.5; color:inherit; line-height:0; padding:.1em .2em;
+  border-radius:4px; transition:opacity .15s,color .15s;
+  -webkit-tap-highlight-color:transparent;}
+.music-group .trk-mute:hover,.music-group .trk-mute:focus-visible{opacity:1; outline:none;}
+.music-group .trk-mute svg{width:1.2em; height:1.2em; display:block;}
+.music-group .trk-mute .spk-slash{display:none;}
+.music-group .trk-mute[aria-pressed="true"]{opacity:.95; color:var(--accent,currentColor);}
+.music-group .trk-mute[aria-pressed="true"] .spk-wave{display:none;}
+.music-group .trk-mute[aria-pressed="true"] .spk-slash{display:inline;}
+/* [dlg] форум-стиль (№2, по образцу форума ccastaneda.ru): пост-в-рамке + метка
+   спикера small-caps. base — themes refine (--accent2 = акцент темы). */
+.dialog .post{border-left:3px solid var(--accent2,currentColor);
+  background:color-mix(in srgb, currentColor 4%, transparent);
+  padding:.55rem .95rem;margin:.7rem 0;border-radius:0 4px 4px 0;}
+.dialog .post-by{display:block;font-variant:small-caps;letter-spacing:.05em;
+  font-weight:700;font-style:normal;font-size:.9em;color:var(--accent2,inherit);
+  opacity:.95;margin-bottom:.25em;}
+.dialog .post-text{display:block;}
+.dialog .post-text + .post-text{margin-top:.55em;}/* многоабзацная реплика */
+.dialog .dlg-line{margin:.45rem 0;}
 /* viewbar — управление видом статьи (тема/ширина/оригинал/править).
    Сидит в одной строке с крошками (крошки слева, управление справа).
    Здесь только структура; типографика/цвета — у темы (.viewbar в THEME_CONTRACT). */
-header.breadcrumbs{display:flex;gap:1.2em;row-gap:.3em;align-items:baseline;flex-wrap:wrap;}
-header.breadcrumbs .crumbs{flex:1 1 auto;}
+/* Шапка ZML-вида ЗАКРЕПЛЕНА вверху (sticky) — как панель в «оригинале». Фон/линия
+   берутся из переменных темы (--bg/--rule), поэтому работает на всех 5 темах.
+   Верхний отступ над панелью ВСЕГДА одинаков: обнуляем padding-top у .wrap (иначе у
+   верха страницы он добавлялся к собственному отступу панели, и зазор «прыгал» после
+   прокрутки), зазор задаёт только сама панель. */
+.wrap{padding-top:0;}
+header.breadcrumbs{display:flex;gap:1.2em;row-gap:.3em;align-items:center;flex-wrap:wrap;
+  position:sticky;top:0;z-index:50;background:var(--bg,#fff);padding-top:.55rem;
+  transition:transform .25s ease;}
+/* авто-скрытие: скролл вниз — панель уезжает вверх; вверх (или у самого верха) —
+   возвращается. Класс .tn-tuck вешает boot-скрипт по направлению прокрутки. */
+header.breadcrumbs.tn-tuck{transform:translateY(-115%);}
+/* Иконочная навигация СЛЕВА (Главная/Раздел/Назад/Вперёд) — перебиваем темы,
+   центрирующие шапку (B_manuscript/ar_deco): flex-grow толкает .viewbar вправо. */
+header.breadcrumbs .topnav{display:inline-flex;align-items:center;gap:.15em;flex:1 1 auto;text-align:left;}
+.tn-ico{display:inline-flex;align-items:center;justify-content:center;width:34px;height:30px;
+  border-radius:6px;color:inherit;text-decoration:none;border-bottom:none;}
+.tn-ico svg{width:18px;height:18px;display:block;}
+.tn-ico:hover{background:color-mix(in srgb,currentColor 14%,transparent);}
+.tn-ico[hidden]{display:none;}
 .viewbar{display:flex;gap:1.1em;row-gap:.3em;align-items:center;flex-wrap:wrap;
   font-size:.78rem;margin:0 0 0 auto;}
 .viewbar label{display:inline-flex;gap:.35em;align-items:center;white-space:nowrap;}
@@ -64,12 +167,33 @@ header.breadcrumbs .crumbs{flex:1 1 auto;}
 .viewbar a{text-decoration:none;white-space:nowrap;}
 .viewbar .vb-edit{font:inherit;color:inherit;background:none;border:none;padding:0;white-space:nowrap;}
 .viewbar .vb-edit:disabled{opacity:.45;cursor:default;}
+/* по умолчанию кнопка СКРЫТА (hidden в разметке) — аноним/не-редактор её не видят;
+   ya-edit.js снимает hidden только у editor/admin. Явное правило перебивает темы. */
+.viewbar .vb-edit[hidden]{display:none;}
+/* «old» (6-й дизайн) — архивный рендер занимает страницу целиком, как до унификации:
+   host — на всю ширину окна, поэтому .ya-old и его .wrap{width:66%} считаются от вьюпорта
+   (а не от темовой .wrap max-1080). Тему .wrap прячем, виджет вида плавает поверх. */
+#legacy-host{display:block;width:100%;}
+body.legacy-active > .wrap{display:none;}
+body.legacy-active .viewbar{position:fixed;top:0;right:0;z-index:60;margin:0;
+  padding:.45rem .7rem;background:rgba(250,250,250,.92);border:1px solid var(--rule,#ddd);
+  border-top:0;border-right:0;border-bottom-left-radius:6px;}
 </style>
 </head>
-<body class="article-page" data-art="zml3test" data-theme="ar_deco" data-pagefind-ignore="all">
+<body class="article-page" data-art="zml3test" data-theme="ar_deco"
+  data-art-section="best" data-art-type="prose"
+  data-fm-theme="ar_deco" data-fm-width="narrow" data-worker="">
+<!-- Поиск по арт-id: скрытый weighted токен (tools/add_artid_search.py) — теперь в самом
+     ZML-рендере NNN.html (раньше жил в старом html). «654/03H/№182» ранжирует статью первой. -->
+<span class="pf-artid" data-pagefind-weight="10" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Артикль №zml3test</span>
 <div class="wrap w-narrow">
 <header class="breadcrumbs">
-<span class="crumbs"><a href="../index.html">Главная</a><span class="sep">›</span><a href="../best/index.html">Избранное</a></span>
+<nav class="topnav" aria-label="Навигация">
+  <a class="tn-ico" href="../index.html" title="Главная" aria-label="Главная"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/></svg></a>
+  <a class="tn-ico tn-section" href="../best/index.html" title="Раздел: Избранное" aria-label="Раздел: Избранное"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="9" y1="6" x2="20" y2="6"/><line x1="9" y1="12" x2="20" y2="12"/><line x1="9" y1="18" x2="20" y2="18"/><line x1="4" y1="6" x2="4.01" y2="6"/><line x1="4" y1="12" x2="4.01" y2="12"/><line x1="4" y1="18" x2="4.01" y2="18"/></svg></a>
+  <a class="tn-ico tn-prev" href="" hidden title="Предыдущая статья" aria-label="Предыдущая статья"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg></a>
+  <a class="tn-ico tn-next" href="" hidden title="Следующая статья" aria-label="Следующая статья"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></a>
+</nav>
 <nav class="viewbar" aria-label="Вид статьи">
   <label>Тема
     <select id="zml-theme">
@@ -78,6 +202,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;}
       <option value="cyberpunk">cyberpunk</option>
       <option value="swiss">swiss</option>
       <option value="ar_deco">ar-deco</option>
+      <option value="old">оригинал (старый)</option>
     </select>
   </label>
   <label>Ширина
@@ -86,13 +211,12 @@ header.breadcrumbs .crumbs{flex:1 1 auto;}
       <option value="narrow">узкая</option>
     </select>
   </label>
-  <a class="vb-orig" href="zml3test.html">Оригинал</a>
-  <button class="vb-edit" type="button" disabled aria-disabled="true" title="Редактирование появится позже">✎ Править</button>
+  <button class="vb-edit" type="button" hidden disabled aria-disabled="true" title="Доступно редакторам после входа">✎ Править</button>
 </nav>
 </header>
 
 <h1 id="article-title">ZML3 ТЕСТ КОНСТРУКЦИЙ<sup id="cite_ref-21"><a href="#cite_note-21">[21]</a></sup> <span class="glyph">&lt;\^/&gt;</span></h1>
-<p class="byline">Элиягу Бар Малей · #zml3test · Записано 2021/06/03 — 2021/06/25 — 2021/08/09 · Источник: <a href="https://example.org" target="_blank" rel="noopener">example.org</a></p>
+<p class="byline">Элиягу Бар Малей · #zml3test · 2026-06-11 · Источник: <a href="https://example.org" target="_blank" rel="noopener">example.org</a></p>
 <article>
 
 <details class="article-toc" open>
@@ -115,7 +239,7 @@ header.breadcrumbs .crumbs{flex:1 1 auto;}
 
 <p class="line line-tags">Будущий мир · Круг Жизни · Конфронтология</p>
 
-<p>Проза с инлайн-крючками: <span class="term">Экран</span> — это <span class="term">Кли</span> средней линии, а фраза <span class="leit">Роза среди шипов</span> — лейтмотив корпуса. Глиф рук вверх <span class="glyph">&lt;\^/&gt;</span> и рук вниз <span class="glyph">&lt;/v\&gt;</span>, и авторский эмотикон <span class="glyph">;::)))</span> в потоке текста. Сноска дефолт-группы<sup id="cite_ref-1"><a href="#cite_note-1">[1]</a></sup>, сноска из группы книг<sup id="cite_ref-kn-1"><a href="#cite_note-kn-1">¤1</a></sup> и звёздная<sup id="cite_ref-star1"><a href="#cite_note-star1">*</a></sup>.</p>
+<p>Проза с инлайн-крючками: <span class="term">Экран</span> — это <span class="term">Кли</span> средней линии, а фраза <span class="leit">Роза среди шипов</span> — лейтмотив корпуса. Глиф рук вверх <span class="glyph">&lt;\^/&gt;</span> и рук вниз <span class="glyph">&lt;/v\&gt;</span>, и авторский эмотикон <span class="glyph">;::)))</span> в потоке текста. Сноска дефолт-группы<sup id="cite_ref-1"><a href="#cite_note-1">[1]</a></sup>, сноска из группы книг<sup id="cite_ref-kn-1"><a href="#cite_note-kn-1">¤1</a></sup> и звёздная<sup id="cite_ref-star1"><a href="#cite_note-star1">*</a></sup>. Ссылки на Зоар: статья с параграфом <a class="zohar" href="https://imyavel.github.io/zohar-sulam/achrei-mot/007.html#p53">Книга Зоар. Ваикра (Левит). Ибо в облаке являюсь Я над крышкой, §53</a>, цитата по параграфу <a class="zohar" href="https://imyavel.github.io/zohar-sulam/achrei-mot/007.html#p53">Книга Зоар. Ваикра (Левит). Ибо в облаке являюсь Я над крышкой, §53</a>, вся глава <a class="zohar" href="https://imyavel.github.io/zohar-sulam/bo/">Книга Зоар. Шмот (Исход). Бо (Войди)</a> и весь Зоар <a class="zohar" href="https://imyavel.github.io/zohar-sulam/">Книга Зоар</a>.</p>
 
 <p class="line line-dateline">Написано: Понедельник, 15 Февраля 2021 г.</p>
 
@@ -163,7 +287,8 @@ header.breadcrumbs .crumbs{flex:1 1 auto;}
 <h2 id="посвящение-и-подпись">Посвящение и подпись <a class="back-to-toc" href="#article-title" title="К началу статьи">↑</a></h2>
 
 <div class="epigraph dedication" data-label="Посвящение">
-<p>Посвящается Воинам Духа — идущим средней линией</p>
+<p>Посвящается Воинам Духа —<br>
+идущим средней линией</p>
 </div>
 
 <div class="sig">Элиягу Бар Малей<br>
@@ -189,6 +314,11 @@ header.breadcrumbs .crumbs{flex:1 1 auto;}
 <p class="license">Текст доступен на условиях <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" rel="license">Creative Commons Attribution 4.0 (CC BY 4.0)</a> — при указании автора (Элиягу Бар Малей) и ссылки на этот сайт.</p>
 </footer>
 </div>
+<!-- «old» (6-й дизайн): инертный носитель архивного старого рендера. Его инлайн
+     <style>/<script> не действуют, пока не клонированы в Shadow DOM (mountLegacy).
+     ДОЛЖЕН стоять ВЫШЕ boot-скрипта (инлайн-script исполняется при парсинге —
+     иначе getElementById вернёт null). Пусто (нет архива) → boot прячет опцию «old». -->
+<template id="legacy-render"></template>
 <script>
 // Article behaviours (footnotes popup, lazy YouTube, spoilers). Read-only view:
 // no editor/login module is loaded.
@@ -216,6 +346,12 @@ header.breadcrumbs .crumbs{flex:1 1 auto;}
     var clone = target.cloneNode(true);
     var back = clone.querySelector('a.backref');
     if (back) back.remove();
+    // муз-трек как цель сноски: во всплывашке — ТОЛЬКО название трека (+ ↗),
+    // БЕЗ плеера/iframe-фрейма и дубль-этикетки (вердикт оператора 14:46)
+    if ((clone.className || '').indexOf('music') >= 0 || clone.querySelector('iframe, .player')) {
+      Array.prototype.forEach.call(clone.querySelectorAll('.player, .caret, .label, .trk-play'),
+        function(e){ e.remove(); });
+    }
     b.innerHTML = clone.innerHTML;
     b.classList.add('show');
     var r = link.getBoundingClientRect();
@@ -233,14 +369,47 @@ header.breadcrumbs .crumbs{flex:1 1 auto;}
     b.style.top  = top  + 'px';
     b.classList.toggle('below', placeBelow);
   }
+  function ytPost(f, func){
+    if (!f) return;
+    try { f.contentWindow.postMessage('{"event":"command","func":"'+func+'","args":[]}', '*'); } catch(e){}
+  }
+  function applyMute(d){
+    var btn = d.querySelector('.trk-mute'); if (!btn) return;
+    var f = d.querySelector('iframe');
+    if (!f || f.getAttribute('data-src')) return;   // плеер ещё не впрыснут
+    var func = btn.getAttribute('aria-pressed') === 'true' ? 'mute' : 'unMute';
+    ytPost(f, func);                                 // плеер готов (играет рекламу) → срабатывает сразу
+    setTimeout(function(){ ytPost(f, func); }, 700); // ретраи на случай «только что открыли»
+    setTimeout(function(){ ytPost(f, func); }, 1800);
+  }
   function bindMusic(){
     document.querySelectorAll('details.music').forEach(function(d){
       if (d.dataset.musicBound) return; d.dataset.musicBound = '1';
       d.addEventListener('toggle', function(){
         if (!d.open) return;
         var f = d.querySelector('iframe[data-src]');
-        if (f) { f.src = f.getAttribute('data-src'); f.removeAttribute('data-src'); }
+        if (f) {
+          var src = f.getAttribute('data-src');
+          src += (src.indexOf('?') >= 0 ? '&' : '?') + 'origin=' + encodeURIComponent(location.origin);
+          f.src = src; f.removeAttribute('data-src');
+        }
+        applyMute(d);                                // применить запомненное mute-состояние
       });
+      var btn = d.querySelector('.trk-mute');
+      if (btn) {
+        var toggle = function(ev){
+          ev.preventDefault(); ev.stopPropagation();  // не дёргать details.open
+          var on = btn.getAttribute('aria-pressed') !== 'true';
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+          btn.setAttribute('aria-label', on ? 'Включить звук' : 'Заглушить звук');
+          btn.title = on ? 'Включить звук' : 'Заглушить звук (реклама YouTube)';
+          applyMute(d);
+        };
+        btn.addEventListener('click', toggle);
+        btn.addEventListener('keydown', function(ev){
+          if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') toggle(ev);
+        });
+      }
     });
   }
   function bindFootnotes(){
@@ -295,16 +464,85 @@ header.breadcrumbs .crumbs{flex:1 1 auto;}
   alignPoemsSoon();
 
   // Theme / width live switcher (preview only — swaps the theme stylesheet).
+  // «old» (6-й дизайн) — не CSS-тема, а архивный рендер: монтируем его клон в
+  // Shadow DOM (mountLegacy), ZML-контент прячем; виджет вида остаётся над шадоу.
   var sel = document.getElementById('zml-theme');
   var wsel = document.getElementById('zml-width');
   var link = document.getElementById('theme-css');
   var wrap = document.querySelector('.wrap');
   var ver = (link && (link.getAttribute('href').match(/[?&]v=([^&]+)/)||[])[1]) || '';
+
+  // ── «old»-оверлей: Shadow DOM с архивным старым html ────────────────────────
+  var legacyTpl = document.getElementById('legacy-render');
+  var hasLegacy = !!(legacyTpl && legacyTpl.innerHTML.trim());
+  if (!hasLegacy && sel){ var oo = sel.querySelector('option[value="old"]'); if (oo) oo.remove(); }
+  var legacyHost = null;
+  // Старый html самодостаточен по CSS (инлайн), но его инлайн-<script> в шадоу сами
+  // не исполнятся (template инертен; document.* не пробивает шадоу). Исполняем их,
+  // проксируя document-запросы в shadow root: lazy-YT, edge-flip сносок, подсветка.
+  function runLegacyScripts(root){
+    var proxy = new Proxy(document, { get: function(t, p){
+      if (p === 'querySelectorAll') return function(s){ return root.querySelectorAll(s); };
+      if (p === 'querySelector')    return function(s){ return root.querySelector(s); };
+      if (p === 'getElementById')   return function(id){ return root.getElementById(id); };
+      var v = t[p]; return (typeof v === 'function') ? v.bind(t) : v;
+    }});
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function(s){
+      if (s.src) return;
+      var ty = (s.getAttribute('type')||'').toLowerCase();
+      if (ty && ty !== 'text/javascript' && ty !== 'application/javascript') return;
+      try { (new Function('document', s.textContent))(proxy); } catch(e){}
+      s.remove();
+    });
+  }
+  // «old» берёт страницу целиком (как до унификации): фон старого <body>/<html> и ширина
+  // его .wrap{66%} должны считаться от вьюпорта. Поэтому host — прямой ребёнок <body> во
+  // всю ширину (НЕ вложен в темовую .wrap, что ужимало колонку и оставляло фон темы по краям).
+  // Тему .wrap прячем целиком (CSS .legacy-active), фон старого body переносим на страницу,
+  // виджет вида выносим из шапки наружу — он плавает поверх (CSS), чтобы можно было выйти из old.
+  var legacyVbHome = null, legacyPrevBg = '';
+  function mountLegacy(){
+    if (legacyHost || !hasLegacy) return;
+    legacyHost = document.createElement('div');
+    legacyHost.id = 'legacy-host';
+    var sh = legacyHost.attachShadow({mode:'open'});
+    sh.appendChild(legacyTpl.content.cloneNode(true));
+    document.body.appendChild(legacyHost);
+    runLegacyScripts(sh);                                          // оживить плеер/сноски
+    // Якорные ссылки (#оглавление, #сноски-туда-обратно, #top) внутри Shadow DOM нативно
+    // НЕ прокручивают: фрагмент резолвится в light-DOM, а цель — в шадоу. Перехватываем и
+    // скроллим вручную по sh.getElementById (пустой/несуществующий якорь, напр. #top → вверх).
+    sh.addEventListener('click', function(e){
+      var a = e.target && e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a) return;
+      e.preventDefault();
+      var t = sh.getElementById(a.getAttribute('href').slice(1));
+      if (t) t.scrollIntoView();                                   // нативный мгновенный «прыжок», как в оригинале
+      else window.scrollTo(0, 0);                                  // #top / пустой якорь
+    });
+    var vb = document.querySelector('.viewbar');                   // виджет вида — наружу .wrap,
+    if (vb){ legacyVbHome = vb.parentNode; document.body.appendChild(vb); } // чтобы пережил display:none
+    var yo = sh.querySelector('.ya-old');                          // фон старого body → на страницу
+    legacyPrevBg = document.body.style.background;
+    if (yo){ var bg = getComputedStyle(yo).backgroundColor; if (bg) document.body.style.background = bg; }
+    document.body.classList.add('legacy-active');
+  }
+  function unmountLegacy(){
+    if (!legacyHost) return;
+    legacyHost.remove(); legacyHost = null;
+    var vb = document.querySelector('.viewbar');                   // вернуть виджет в шапку
+    if (vb && legacyVbHome){ legacyVbHome.appendChild(vb); legacyVbHome = null; }
+    document.body.classList.remove('legacy-active');
+    document.body.style.background = legacyPrevBg || '';
+  }
+
   if (sel) sel.value = document.body.getAttribute('data-theme') || 'A_editorial';
   if (wsel) wsel.value = (wrap && wrap.classList.contains('w-narrow')) ? 'narrow' : 'wide';
   if (link) link.addEventListener('load', alignPoemsSoon); // новая тема догрузилась → пересчёт рейки
   if (sel) sel.addEventListener('change', function(){
     var t = sel.value;
+    if (t === 'old'){ mountLegacy(); return; }   // оверлей; CSS-тему не свопаем
+    unmountLegacy();
     document.body.setAttribute('data-theme', t);
     if (link) link.setAttribute('href', '../../themes/'+t+'.css'+(ver?('?v='+ver):''));
   });
@@ -314,7 +552,69 @@ header.breadcrumbs .crumbs{flex:1 1 auto;}
     wrap.classList.toggle('w-wide', wsel.value==='wide');
     alignPoemsSoon();
   });
+
+  // Ре-резолвинг вида. Вид сайта ОБЩИЙ для всех (per-user отменён): дизайн/ширина
+  // + правила по разделам/типам берём из глобального config/display.json (приоритет
+  // per-article frontmatter). Один resolveDisplay (зеркало render.js) для всех —
+  // правки админа доходят до читателей в рантайме. Запечённая build_views тема —
+  // стартовый/no-JS дефолт: совпал с резолвом (обычный случай) → apply() молчит (нет мигания).
+  (function(){
+    var body = document.body;
+    var section = body.getAttribute('data-art-section') || '';
+    var type    = body.getAttribute('data-art-type') || '';
+    var fmTheme = body.getAttribute('data-fm-theme') || '';
+    var fmWidth = body.getAttribute('data-fm-width') || '';
+    function resolve(cfg){
+      var g=(cfg&&cfg.global)||{}, rules=(cfg&&cfg.rules)||[], rd='', rw='';
+      for (var i=0;i<rules.length;i++){ var m=rules[i]&&rules[i].match; if(!m) continue;
+        if ((m.kind==='section'&&m.value===section)||(m.kind==='type'&&m.value===type)){
+          rd=rules[i].design||''; rw=rules[i].width||''; break; } }
+      return { design:(fmTheme||rd||g.design||'A_editorial'),
+               width:(fmWidth||rw||g.width||'wide') };
+    }
+    // Резолвер мог дать дизайн, которого нет в селекте — типичный случай: design==="old",
+    // но у статьи нет архивного html, и опция «old» удалена выше. Тогда sel.value="old" стал бы
+    // "" → change-хендлер выставил бы href="../../themes/.css" (404, статья без темы). Фолбэк:
+    // swiss, иначе первая доступная опция.
+    function pickDesign(want){
+      if (!sel || sel.querySelector('option[value="'+want+'"]')) return want;
+      if (sel.querySelector('option[value="swiss"]')) return 'swiss';
+      var first = sel.querySelector('option');
+      return first ? first.value : want;
+    }
+    function apply(d){
+      var want = pickDesign(d.design);
+      if (sel && sel.value!==want){ sel.value=want; sel.dispatchEvent(new Event('change')); }
+      var w = /narrow|820/.test(d.width)?'narrow':'wide';
+      if (wsel && wsel.value!==w){ wsel.value=w; wsel.dispatchEvent(new Event('change')); }
+    }
+    // общий вид для всех → один источник config/display.json (его коммитит админка).
+    fetch('../config/display.json',{cache:'no-cache'})
+       .then(function(r){ return r.ok?r.json():null; })
+       .then(function(cfg){ if(cfg) apply(resolve(cfg)); })
+       .catch(function(){});
+  })();
+
+  // Авто-скрытие закреплённой панели: вниз — прячем (уезжает вверх), вверх или у
+  // самого верха — показываем. Пороги ±4px гасят дрожание. requestAnimationFrame —
+  // не дёргаем layout на каждый scroll-эвент.
+  (function(){
+    var hdr = document.querySelector('header.breadcrumbs');
+    if (!hdr) return;
+    var lastY = window.pageYOffset || 0, ticking = false;
+    function upd(){
+      var y = window.pageYOffset || 0;
+      if (y <= 4) hdr.classList.remove('tn-tuck');               // у верха — всегда видна
+      else if (y > lastY + 4) hdr.classList.add('tn-tuck');      // вниз — прячем
+      else if (y < lastY - 4) hdr.classList.remove('tn-tuck');   // вверх — возвращаем
+      lastY = y; ticking = false;
+    }
+    window.addEventListener('scroll', function(){
+      if (!ticking){ ticking = true; requestAnimationFrame(upd); }
+    }, { passive: true });
+  })();
 })();
 </script>
+<script src="../ya-edit.js?v=20260622-03" defer></script>
 </body>
 </html>

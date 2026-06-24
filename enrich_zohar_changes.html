@@ -1,0 +1,75 @@
+<!doctype html><html lang=ru><meta charset=utf-8><title>enrich_zohar_changes</title><style>body{font:15px/1.6 -apple-system,Segoe UI,Roboto,sans-serif;max-width:960px;margin:2rem auto;padding:0 1.2rem;color:#222}
+h1{color:#6b2d5c}h2{color:#6b2d5c;border-bottom:1px solid #eee;padding-bottom:.3rem;margin-top:2rem}h3{color:#7a3a68}
+a{color:#3a6ea5}code{background:#f4f0f2;padding:.1em .3em;border-radius:3px;font-size:.9em;white-space:nowrap}
+table{border-collapse:collapse;width:100%;margin:1rem 0}th,td{border:1px solid #ddd;padding:.5rem .7rem;text-align:left;vertical-align:top}
+th{background:#f7f2f5}td:first-child{white-space:nowrap}blockquote{background:#f9f6f8;border-left:3px solid #6b2d5c;margin:0;padding:.6rem 1rem;color:#444}
+hr{border:none;border-top:1px solid #eee;margin:1.5rem 0}</style>
+<h1>enrich_zohar — отчёт об изменениях (для приёмки)</h1>
+
+<blockquote>Сгенерирован 2026-06-24 по итогам автономного прохода по <code>enrich_zohar.md</code><br>(инфраструктура §2–§3, §6 + детерминированная часть корпуса §4–5/корзина A).<br>Открой в preview, кликай по статьям и проверяй глазами. Сначала — **меняющие<br>видимый текст<b>, потом — где </b>только добавлена/расширена <code>{}</code>-ссылка**.<br><b>Ссылки ведут на локальные preview-серверы</b> (открываются в браузере из VS Code):<br>корпус — <code>http://localhost:8099</code> (yaniktoim/docs), Зоар — <code>http://localhost:8776</code><br>(zohar-sulam). Оба сейчас подняты; если перезапускал VS Code — скажи, подниму снова.</blockquote>
+
+<hr>
+
+<h2>A. Изменения, меняющие видимый ТЕКСТ (проверять первыми)</h2>
+
+<h3>A1. Соседний репозиторий <code>zohar-sulam</code> — разделение Берешита (§2.0)</h3>
+<p>Глава <code>bereshit</code> (102 статьи) разделена на две <b>обычные</b> главы:</p>
+<ul><li><b><code>bereshit-1</code></b> «Берешит 1 (Вначале)» — статьи 001–049 (номера те же), § 1–482.</li><li><b><code>bereshit-2</code></b> «Берешит 2 (Вначале)» — статьи 001–053 (бывшие 050–102, −49), § 1–448.</li></ul>
+
+<p>В перенесённых статьях законно меняются <code>&lt;title&gt;</code>/<code>&lt;h1&gt;</code>/хлебные крошки/canonical/</p>
+<p>og/JSON-LD/нав/строка-меты (имя главы и номер). <b>Тело перевода — байт-в-байт прежнее</b></p>
+<p>(проверено). Старый путь <code>bereshit/*</code> исчез → 404 (принято планом, Q1).</p>
+
+<h3>A2. <code>zohar-sulam</code> — новый стиль индексов (§2.4): из «трекера прогресса» в справочник</h3>
+<ul><li>Корневой <code>index.html</code>: «Содержит: <b>53 главы</b> · 1780 статей»; строки книг — «N глав(а/ы)»</li></ul>
+<p>  со склонением (1 глава · 13 глав · 12 глав · 10 глав · 7 глав).</p>
+<ul><li><code>kniga-bereshit/index.html</code>: «Содержит: <b>13 глав</b> · 474 статьи»; строки глав вида</li></ul>
+<p>  «<code>noach · 44 статьи</code>», две главы — Берешит 1 (Вначале) / Берешит 2 (Вначале).</p>
+<ul><li>Индексы глав: шапка «§ 1 – NN», строки статей — «§ A – B» вместо «✅».</li></ul>
+
+<h3>A3. <code>zohar-sulam</code> — починка 3 «битых» статей (побочный фикс, текст меняется)</h3>
+<p>У трёх статей заголовок исторически утёк в тело (<code># Статья N. …</code>), а <code>&lt;title&gt;/&lt;h1&gt;/og</code></p>
+<p>были пусты — из-за этого §-якорь не ставился и <code>{глава|N}</code> вёл на статью без заголовка.</p>
+<p>Восстановлено детерминированно из самой утёкшей строки:</p>
+<ul><li><a href="http://localhost:8776/vayera/005.html" target="_blank">vayera/005</a> — «Статья 5. Кто взойдёт на гору Господню» (§ 76–92; §76 снова размечен);</li><li><a href="http://localhost:8776/vayechi/021.html" target="_blank">vayechi/021</a> — «Статья 21. Когда приходит время его уйти из мира»;</li><li><a href="http://localhost:8776/vayechi/082.html" target="_blank">vayechi/082</a> — «Статья 82. Серебро не считалось во дни Шломо».</li></ul>
+
+<h3>A4. <code>zohar-sulam</code> — якоря параграфов (§2.1, невидимо в теле)</h3>
+<p>Каждому <code>&lt;p class=&quot;para-start&quot;&gt;NN)</code> добавлен <code>id=&quot;pNN&quot;</code> (15 866 §). Видимая отрисовка</p>
+<p>тела <b>не меняется</b> (только атрибут <code>id</code>); CSS <code>p.para-start{scroll-margin-top}</code>.</p>
+
+<hr>
+
+<h2>B. Изменения, где добавлена/расширена <code>{}</code>-ссылка (текст не меняется)</h2>
+
+<p>Корзина A (детерминированная часть): существующие <code>{глава|N}</code> со сноской-цитатой</p>
+<p>«…, <b>п. §</b>, …» доведены до каноничной формы <code>{глава||§}</code> (цитата по параграфу;</p>
+<p>§ проверен по индексу — принадлежит именно статье N). <b>29 ссылок в 14 статьях.</b></p>
+
+<table><thead><tr><th>Статья</th><th>Что изменилось (было → стало)</th></tr></thead><tbody><tr><td><a href="http://localhost:8099/art/09G.html" target="_blank">09G — Моя Звезда</a></td><td><code>{akdama|29}</code> → <code>{akdama||236}</code></td></tr><tr><td><a href="http://localhost:8099/art/0BC.html" target="_blank">0BC — Маасер</a></td><td><code>{akdama|29}</code>→<code>{akdama||233}</code> · <code>{akdama|30}</code>→<code>{akdama||237}</code> · <code>{akdama|4}</code>→<code>{akdama||13}</code></td></tr><tr><td><a href="http://localhost:8099/art/0BCA.html" target="_blank">0BCA — Кто создал Их</a></td><td><code>{akdama|4}</code>→<code>{akdama||13}</code> · <code>{akdama|12}</code>→<code>{akdama||75}</code></td></tr><tr><td><a href="http://localhost:8099/art/0BH.html" target="_blank">0BH — Кто Она</a></td><td><code>{akdama|30}</code>→<code>{akdama||237}</code> · <code>{akdama|6}</code>→<code>{akdama||23}</code> · <code>{bereshit|1}</code>→<code>{bereshit-1||1}</code> · <code>{bereshit|95}</code>→<code>{bereshit-2||366}</code> · <code>{akdama|1}</code>→<code>{akdama||1}</code> · <code>{akdama|22}</code>→<code>{akdama||198}</code> · <code>{akdama|3}</code>→<code>{akdama||7}</code></td></tr><tr><td><a href="http://localhost:8099/art/12F.html" target="_blank">12F — Чем помогает Творец…</a></td><td><code>{akdama|12}</code> → <code>{akdama||91}</code></td></tr><tr><td><a href="http://localhost:8099/art/163.html" target="_blank">163 — Онтология единства Души 1</a></td><td><code>{akdama|29}</code>→<code>{akdama||233}</code> · <code>{akdama|3}</code>→<code>{akdama||7}</code></td></tr><tr><td><a href="http://localhost:8099/art/163A.html" target="_blank">163A — Онтология единства Души 2</a></td><td><code>{akdama|29}</code>→<code>{akdama||233}</code> · <code>{akdama|3}</code>→<code>{akdama||7}</code></td></tr><tr><td><a href="http://localhost:8099/art/17U.html" target="_blank">17U — Часть 5. Точка Невозврата</a></td><td><code>{akdama|29}</code> → <code>{akdama||236}</code></td></tr><tr><td><a href="http://localhost:8099/art/18AA.html" target="_blank">18AA — Один день из жизни дельфинов</a></td><td><code>{akdama|12}</code> → <code>{akdama||85}</code></td></tr><tr><td><a href="http://localhost:8099/art/18T.html" target="_blank">18T — Ревность ангелов Творца…</a></td><td><code>{akdama|11}</code> → <code>{akdama||66}</code></td></tr><tr><td><a href="http://localhost:8099/art/217A.html" target="_blank">217A — Коротко, но очень важно</a></td><td><code>{akdama|17}</code> → <code>{akdama||170}</code></td></tr><tr><td><a href="http://localhost:8099/art/239.html" target="_blank">239 — Мечтай!!</a></td><td><code>{akdama|14}</code>→<code>{akdama||126}</code> · <code>{akdama|12}</code>→<code>{akdama||91}</code></td></tr><tr><td><a href="http://localhost:8099/art/28MA.html" target="_blank">28MA — Здесь стоит Трон Элиягу</a></td><td><code>{akdama|29}</code>→<code>{akdama||236}</code> · <code>{akdama|12}</code>→<code>{akdama||91}</code> · <code>{akdama|7}</code>→<code>{akdama||40}</code> · <code>{akdama|4}</code>→<code>{akdama||11}</code></td></tr><tr><td><a href="http://localhost:8099/art/2C7.html" target="_blank">2C7 — ДНА - Мечта</a></td><td><code>{akdama|3}</code> → <code>{akdama||7}</code></td></tr></tbody></table>
+
+<p>Якорь-текст ссылок теперь оканчивается на «, §N» и ведёт прямо на параграф</p>
+<p>(напр. <code>…/akdama/006.html#p23</code> «Книга Зоар. Введение (Акдама). Буквы рава Хамнуны Старца, §23»).</p>
+
+<hr>
+
+<h2>C. Движок / спека / руководство (§3, §6)</h2>
+
+<ul><li><code>cms-revival/editor/render.js</code> — <code>resolveZohar</code>: третье поле <code>{глава|N|§}</code> / <code>{глава||§}</code></li></ul>
+<p>  (статья по §), якорь <code>#p§</code>, валидация §↔статья. <b>Слаг главы допускает цифру</b></p>
+<p>  (<code>bereshit-1/2</code>) — отклонение от регэкспа плана §3.1, иначе новые главы не резолвились.</p>
+<ul><li>Фикстуры teststand (5 тем) — добавлен §-пример, перерендерены.</li><li><code>cms-revival/zml3/SPEC.md</code> (+ копия <code>docs/zml/SPEC.md</code>) — §3 порядок парсинга и таблица.</li><li><code>cms-revival/guide_build/guide.html</code> + пересобран <code>guide.pdf</code> → <code>docs/guide/rukovodstvo.pdf</code>.</li><li><code>zohar_index.json</code> пересобран из репо zohar-sulam: 53 главы, 1780 статей, карта <code>paras</code></li></ul>
+<p>  (§→статья) для <code>{глава||§}</code>.</p>
+
+<hr>
+
+<h2>D. Что НЕ сделано — ждёт LLM-триажа (следующая фаза)</h2>
+
+<p>Открытая часть §4–5 — требует чтения контекста по каждому файлу (не детерминируется):</p>
+<ul><li><b>Корзина A, остаток:</b> ~49 ссылок <code>{akdama|N}</code> в 32 статьях БЕЗ явного «п. §» в сноске —</li></ul>
+<p>  многие, вероятно, законно остаются на уровне статьи (автор цитирует статью целиком).</p>
+<ul><li><b>Корзина B:</b> ~110 файлов упоминают Зоар/Сулам/Ашлаг текстом без ссылки — проставить <code>{глава||§}</code>.</li><li><b>Корзина C:</b> реальные цитаты Зоара без ссылки → ссылка + <b>замена чужого перевода на наш</b></li></ul>
+<p>  (необратимо; правило целостности внешних текстов — работать только с полным исходником).</p>
+<ul><li><b>Корзина D:</b> где стоит общая <code>{глава|}</code>/<code>{|}</code>, а контекст конкретен — поднять до §.</li></ul>
+
+<p>Рекомендация: запускать пакетно через headless <code>claude -p</code>, пилот 3–5 статей,</p>
+<p>корзина C — под присмотром (меняет авторский текст).</p>
