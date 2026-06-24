@@ -80,6 +80,8 @@
     padding-left:3.5mm; }
   .d-epi .cite{ display:block; text-align:right; font-style:normal; font-size:9.5pt;
     color:var(--soft); margin-top:1.2mm; }
+  .d-quote{ color:#3a352c; font-style:italic; border-left:2px solid var(--accent2);
+    padding-left:3.5mm; }
   .d-term{ border-bottom:1px dotted var(--accent); }
   sup.fn{ color:var(--accent2); font-weight:bold; font-size:.75em; }
   .d-note{ font-size:9.5pt; color:var(--soft); border-top:1px solid var(--line);
@@ -96,6 +98,18 @@
   .d-tile .tt{ padding:2mm 2.5mm; font-family:"Segoe UI",sans-serif; font-size:8.5pt; }
   .d-tile .tt b{ display:block; }
   .glyph{ color:var(--accent); font-weight:bold; }
+  /* dialog / line / byline demos */
+  .d-post{ border-left:2px solid var(--accent); background:#faf8f4;
+    padding:1.5mm 3mm; margin:0 0 1.8mm; border-radius:0 3px 3px 0; }
+  .d-post .by{ display:block; font-family:"Segoe UI",sans-serif; font-size:8.3pt;
+    font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:var(--accent);
+    margin-bottom:.5mm; }
+  .d-dlgline{ color:var(--soft); font-style:italic; margin:0 0 1.8mm; }
+  .d-line{ font-family:"Segoe UI",sans-serif; font-size:9pt; color:var(--soft); letter-spacing:.3px; }
+  .d-byline{ font-family:"Segoe UI",sans-serif; font-size:9pt; color:var(--soft);
+    border-bottom:1px solid var(--line); padding-bottom:1.5mm; margin-bottom:2mm; }
+  .d-ol{ margin:0; padding-left:6mm; }
+  .d-ol li{ margin:0 0 1mm; }
 
   /* UI mock (toolbar buttons etc.) */
   .ui-btn{ display:inline-block; font-family:"Segoe UI",sans-serif; font-size:9.5pt;
@@ -117,6 +131,7 @@
   .toc li{ margin:0 0 1.3mm; font-size:11.5pt; }
   .toc li a{ color:var(--ink); }
   .toc li .n{ color:var(--accent); display:inline-block; min-width:7mm; font-weight:bold; }
+  .toc.two ol{ column-count:2; column-gap:10mm; }
 
   /* cheat-sheet table */
   table.cheat{ width:100%; border-collapse:collapse; font-size:9.5pt; margin:2.5mm 0; break-inside:auto; }
@@ -139,8 +154,8 @@
   <div class="star">✦</div>
   <h1>Путь Восходящей&nbsp;Звезды</h1>
   <div class="rule"></div>
-  <div class="sub">Руководство по управлению сайтом<br>и наглядный справочник формата&nbsp;ZML</div>
-  <div class="meta">Для редакторов и администраторов · imyavel.github.io/yaniktoim<br>Редакция от 23 июня 2026</div>
+  <div class="sub">Руководство по управлению сайтом<br>и полный справочник формата&nbsp;ZML</div>
+  <div class="meta">Для редакторов и администраторов · imyavel.github.io/yaniktoim<br>Редакция от 24 июня 2026</div>
 </section>
 
 <!-- ════════ TOC ════════ -->
@@ -166,29 +181,36 @@
     <li><span class="n">12</span><a href="#s12">Когда правки видны · частые вопросы</a></li>
   </ol>
 
-  <div class="pt">Часть II · Справочник ZML</div>
-  <ol>
+  <div class="pt">Часть II · Полный справочник ZML</div>
+  <ol class="two-up" style="column-count:2;column-gap:9mm;">
     <li><span class="n">13</span><a href="#s13">Что такое ZML</a></li>
     <li><span class="n">14</span><a href="#s14">Шапка статьи (frontmatter)</a></li>
-    <li><span class="n">15</span><a href="#s15">Заголовки и разделы</a></li>
-    <li><span class="n">16</span><a href="#s16">Абзацы, курсив, ссылки</a></li>
-    <li><span class="n">17</span><a href="#s17">Сноски</a></li>
-    <li><span class="n">18</span><a href="#s18">Стихи и поэмы</a></li>
-    <li><span class="n">19</span><a href="#s19">Эпиграф, эпилог, посвящение</a></li>
-    <li><span class="n">20</span><a href="#s20">Цитата, подпись, возглас, диалог</a></li>
-    <li><span class="n">21</span><a href="#s21">Перечни и списки</a></li>
-    <li><span class="n">22</span><a href="#s22">Спойлер</a></li>
-    <li><span class="n">23</span><a href="#s23">Термины и лейтмотивы</a></li>
-    <li><span class="n">24</span><a href="#s24">Музыка и аудио</a></li>
-    <li><span class="n">25</span><a href="#s25">«Песнь Ступеней» — блок&nbsp;[shir]</a></li>
-    <li><span class="n">26</span><a href="#s26">Глифы и спецсимволы</a></li>
-    <li><span class="n">27</span><a href="#s27">Темы и ширина</a></li>
-    <li><span class="n">28</span><a href="#s28">Стихи, записанные прозой — [faw]</a></li>
+    <li><span class="n">15</span><a href="#s15">Заголовки, разделы, оглавление</a></li>
+    <li><span class="n">16</span><a href="#s16">Абзацы, переносы, курсив</a></li>
+    <li><span class="n">17</span><a href="#s17">Ссылки</a></li>
+    <li><span class="n">18</span><a href="#s18">Сноски — все виды</a></li>
+    <li><span class="n">19</span><a href="#s19">Стихи — [poem]</a></li>
+    <li><span class="n">20</span><a href="#s20">Стихи, записанные прозой — [faw]</a></li>
+    <li><span class="n">21</span><a href="#s21">Эпиграф, эпилог, посвящение — [epi]</a></li>
+    <li><span class="n">22</span><a href="#s22">Цитата — [quote]</a></li>
+    <li><span class="n">23</span><a href="#s23">Подпись и возглас — [sig], [cry]</a></li>
+    <li><span class="n">24</span><a href="#s24">Диалог — [dlg]</a></li>
+    <li><span class="n">25</span><a href="#s25">Списки и перечни — [ul], [num]</a></li>
+    <li><span class="n">26</span><a href="#s26">Служебные строки — [line]</a></li>
+    <li><span class="n">27</span><a href="#s27">Музыка — [mus]</a></li>
+    <li><span class="n">28</span><a href="#s28">Аудио-озвучка — 🎧</a></li>
+    <li><span class="n">29</span><a href="#s29">«Песнь Ступеней» — [shir]</a></li>
+    <li><span class="n">30</span><a href="#s30">Спойлер — [spl]</a></li>
+    <li><span class="n">31</span><a href="#s31">Термины и лейтмотивы</a></li>
+    <li><span class="n">32</span><a href="#s32">ПРОПИСНЫЕ — флаг caps</a></li>
+    <li><span class="n">33</span><a href="#s33">Глифы и спецсимволы</a></li>
+    <li><span class="n">34</span><a href="#s34">Темы и ширина</a></li>
+    <li><span class="n">35</span><a href="#s35">Что сайт добавляет сам</a></li>
   </ol>
 
   <div class="pt">Приложение</div>
   <ol>
-    <li><span class="n">★</span><a href="#cheat">Шпаргалка ZML — одной страницей</a></li>
+    <li><span class="n">★</span><a href="#cheat">Шпаргалка ZML — все конструкции одной таблицей</a></li>
   </ol>
 </nav>
 
@@ -328,7 +350,7 @@
 <p>Это особая страница — сетка музыкальных плиток (YouTube) с подписями и ссылками на статьи.
 Она редактируется как обычная ZML-страница: откройте её новый вид и нажмите
 <span class="ui-btn">✎&nbsp;Править</span>. Каждая песня — это <b>одна строка</b> внутри блока
-<span class="tag">[shir]</span> (подробно — раздел&nbsp;25).</p>
+<span class="tag">[shir]</span> (подробно — раздел&nbsp;29).</p>
 <div class="box"><span class="lbl">Подсказка</span>
 Чтобы добавить песню, скопируйте соседнюю строку и поменяйте в ней: ID&nbsp;ролика&nbsp;YouTube,
 название, автора и список статей. <span class="ui-btn">Просмотр</span> покажет результат.</div>
@@ -366,23 +388,24 @@
 <p>Если ещё не сохранили — нажмите <span class="ui-btn">Отмена</span>. Если сохранили — текст не потерян:
 прежняя версия хранится в истории (обратитесь к администратору, чтобы откатить).</p>
 <h4>«Нужно вставить ссылку / сноску / стихи»</h4>
-<p>Всё это — простая разметка ZML. Смотрите Часть&nbsp;II: ссылки — раздел&nbsp;16, сноски —
-раздел&nbsp;17, стихи — раздел&nbsp;18.</p>
+<p>Всё это — простая разметка ZML. Смотрите Часть&nbsp;II: ссылки — раздел&nbsp;17, сноски —
+раздел&nbsp;18, стихи — раздел&nbsp;19.</p>
 <div class="box tech"><span class="lbl">Технически — массовые/локальные изменения</span>
 Правки <i>через сайт</i> публикуются сами (сервис коммитит в репозиторий). Массовая работа с корпусом
 ведётся локально: пересборка видов — <span class="tag">build_views.mjs</span>, публикация трёх
 репозиториев — <span class="tag">push.bat</span> (он же переиндексирует поиск и карту сайта).</div>
 
 <!-- ════════════════════════ ЧАСТЬ II ════════════════════════ -->
-<h2 class="part"><span class="pgmark">~MKP2~</span><span class="pn">Часть вторая</span>Справочник&nbsp;ZML</h2>
-<p class="lead">ZML — это текст статьи плюс простые пометки. Ниже каждая конструкция показана парой
-<b>«как пишется» → «как выглядит»</b>. Всё необязательное можно не использовать: базовая статья —
-это просто абзацы текста.</p>
+<h2 class="part"><span class="pgmark">~MKP2~</span><span class="pn">Часть вторая</span>Полный справочник&nbsp;ZML</h2>
+<p class="lead">ZML — это текст статьи плюс простые пометки. Здесь описана <b>каждая</b> конструкция формата:
+для частых — пара <b>«как пишется» → «как выглядит»</b>, для тонкостей — врезки
+<span class="box tech" style="display:inline;padding:.2mm 1.5mm;margin:0;border-width:2px;"><b>Технически</b></span>.
+Всё необязательное можно не использовать: базовая статья — это просто абзацы текста.</p>
 
 <h3 class="sec" id="s13"><span class="pgmark">~MK13~</span><span class="num">13.</span>Что такое ZML</h3>
 <p>Файл статьи устроен так: сверху <b>шапка</b> (служебные поля) между строками
 <span class="tag">---</span>, ниже — <b>тело</b> (текст с разметкой). Абзацы разделяются
-<b>пустой строкой</b>. Перенос строки внутри блока — значим (он сохранится).</p>
+<b>пустой строкой</b>. Любой перенос строки внутри блока <b>значим</b> — он сохранится как перенос.</p>
 <div class="zml"><span class="c">--- шапка ---</span>
 <span class="k">title:</span> Вначале
 <span class="k">art:</span> "03H"
@@ -395,36 +418,49 @@
 <div class="box tip"><span class="lbl">Принцип</span>
 Пишите осмысленный текст и помечайте лишь то, что нужно (сноску, стих, ссылку). Красоту добавит тема —
 вручную оформление набирать не нужно.</div>
+<div class="box tech"><span class="lbl">Технически — как это работает</span>
+Один и тот же движок <span class="tag">render.js</span> превращает ZML в HTML и на сервере (пересборка),
+и прямо в браузере (предпросмотр и сохранение) — поэтому «Просмотр» показывает точно то, что увидит читатель.
+Парные теги — это <span class="tag">[тег]…[/тег]</span>; одиночные маркеры (например
+<span class="tag">[toc]</span>) закрывать не нужно.</div>
 
 <h3 class="sec" id="s14"><span class="pgmark">~MK14~</span><span class="num">14.</span>Шапка статьи (frontmatter)</h3>
-<p>Между двумя строками <span class="tag">---</span>. Обязательны только <span class="tag">title</span>
-и <span class="tag">art</span>; остальное — по необходимости.</p>
+<p>Между двумя строками <span class="tag">---</span>. Каждое поле — на своей строке, в виде
+<span class="tag">имя: значение</span>. Обязательны только <span class="tag">title</span> и
+<span class="tag">art</span>; остальное — по необходимости.</p>
 <table class="fm-tbl">
   <tr><th>Поле</th><th>Зачем</th></tr>
-  <tr><td class="s">title</td><td>Название статьи (обязательно).</td></tr>
-  <tr><td class="s">art</td><td>Номер-идентификатор статьи (обязательно; выдаётся при создании).</td></tr>
-  <tr><td class="s">date</td><td>Дата в виде ГГГГ-ММ-ДД.</td></tr>
-  <tr><td class="s">image</td><td>Имя файла обложки (ставится кнопкой «Иллюстрация»).</td></tr>
-  <tr><td class="s">theme</td><td>Тема оформления: A_editorial, B_manuscript, cyberpunk, swiss, ar_deco или <span class="tag">old</span> (оригинал).</td></tr>
-  <tr><td class="s">width</td><td>Ширина колонки: <span class="tag">wide</span> или <span class="tag">narrow</span>.</td></tr>
+  <tr><td class="s">title</td><td><b>Обязательно.</b> Название статьи (идёт в заголовок вкладки и метаданные). Если в теле нет строки <span class="tag">#</span> — служит и видимым заголовком.</td></tr>
+  <tr><td class="s">art</td><td><b>Обязательно.</b> Номер-идентификатор статьи (выдаётся при создании). По нему работают ссылки <span class="tag">[[…]]</span>.</td></tr>
+  <tr><td class="s">zml</td><td>Версия формата. Пишем <span class="tag">zml: 3</span> для самодокументирования.</td></tr>
+  <tr><td class="s">date</td><td>Дата в виде ГГГГ-ММ-ДД. Если не задано — берётся из каталога.</td></tr>
+  <tr><td class="s">image</td><td>Имя файла обложки (ставится кнопкой «Иллюстрация»). Картинка встаёт вверху статьи.</td></tr>
+  <tr><td class="s">theme</td><td>Тема оформления: A_editorial, B_manuscript, cyberpunk, swiss, ar_deco или <span class="tag">old</span> (оригинал). Перебивает общую настройку.</td></tr>
+  <tr><td class="s">width</td><td>Ширина колонки: <span class="tag">wide</span> или <span class="tag">narrow</span>. Независима от темы.</td></tr>
   <tr><td class="s">summary</td><td>Краткое описание для поисковиков (в тексте не показывается).</td></tr>
-  <tr><td class="s">audio</td><td>Ссылки на аудио-озвучку (значок 🎧 у заголовка) — см. раздел&nbsp;24.</td></tr>
+  <tr><td class="s">audio</td><td>Ссылки на аудио-озвучку (значок 🎧 у заголовка) — см. раздел&nbsp;28.</td></tr>
   <tr><td class="s">notes_title</td><td>Своё название для раздела сносок (по умолчанию «Примечания»).</td></tr>
-  <tr><td class="s">caps</td><td><span class="tag">on</span> включает особую обработку ПРОПИСНЫХ (по умолчанию выключено).</td></tr>
+  <tr><td class="s">caps</td><td><span class="tag">on</span> включает особую обработку ПРОПИСНЫХ (раздел&nbsp;32). По умолчанию выключено — прописные печатаются как есть.</td></tr>
+  <tr><td class="s">allow_faw</td><td><span class="tag">true</span> включает стихотворный вид блоков <span class="tag">[faw]</span> (раздел&nbsp;20). По умолчанию выключено.</td></tr>
   <tr><td class="s">dropcap</td><td><span class="tag">off</span> убирает буквицу в начале (если тема её рисует).</td></tr>
 </table>
 <div class="box tech"><span class="lbl">Технически</span>
 Тема и ширина — два независимых рычага. Если в шапке их нет, значения берутся из Админки вида
-(общие или по правилу раздела/типа). Поле во frontmatter перебивает общую настройку.</div>
+(общие или по правилу раздела/типа). Поле во frontmatter перебивает общую настройку. Значение можно
+писать в кавычках (<span class="tag">art: "03H"</span>) — кавычки снимаются. Флаги
+<span class="tag">caps</span>/<span class="tag">allow_faw</span> считаются включёнными при значениях
+<span class="tag">on/true/1/yes/да</span>.</div>
 
-<h3 class="sec" id="s15"><span class="pgmark">~MK15~</span><span class="num">15.</span>Заголовки и разделы</h3>
+<h3 class="sec" id="s15"><span class="pgmark">~MK15~</span><span class="num">15.</span>Заголовки, разделы, оглавление</h3>
 <p><b>Заголовок статьи в теле</b> — строка с <span class="tag">#</span> (необязательно; если есть —
 заменяет <span class="tag">title</span> как видимый заголовок). <b>Жанровая пометка</b> под
-заголовком — <span class="tag">[sub]…[/sub]</span>.</p>
+заголовком — <span class="tag">[sub]…[/sub]</span> (эхо-строка: жанр, «из переписки…»; в оглавление
+не входит).</p>
 <p><b>Разделы</b> внутри статьи — строка <span class="tag">##&nbsp;Заголовок</span>. Вложенный
-подзаголовок — <span class="tag">###</span>. Пояснение под заголовком раздела —
-<span class="tag">[subsec]…[/subsec]</span>. Оглавление статьи появляется там, где стоит маркер
-<span class="tag">[toc]</span>.</p>
+подзаголовок — <span class="tag">###</span>. Можно дать разделу короткий адрес-якорь в фигурных
+скобках: <span class="tag">## Заголовок {slug}</span> (иначе он создастся сам из первых слов).
+Пояснение под заголовком раздела — <span class="tag">[subsec]…[/subsec]</span>. Оглавление статьи
+появляется там, где стоит маркер <span class="tag">[toc]</span>.</p>
 <div class="zml"><span class="k">#</span> Вначале
 <span class="k">[sub]</span>из размышлений о восхождении<span class="k">[/sub]</span>
 <span class="k">[toc]</span>
@@ -435,14 +471,22 @@
 <div class="demo"><div class="cap res">как выглядит</div>
   <div class="d-h1">Вначале</div>
   <div class="d-sub">из размышлений о восхождении</div>
-  <div style="font-size:9pt;color:#5c5852;border:1px dashed #d8d2c6;padding:1mm 2mm;margin:2mm 0;">📑 Оглавление: Первая ступень …</div>
+  <div style="font-size:9pt;color:#5c5852;border:1px dashed #d8d2c6;padding:1mm 2mm;margin:2mm 0;">📑 Содержание: Первая ступень …</div>
   <div style="font-weight:bold;font-size:12pt;border-bottom:1px solid #d8d2c6;">Первая ступень <span style="color:#8a5a2b;font-weight:normal;">↑</span></div>
   <div style="font-style:italic;color:#5c5852;font-size:9.5pt;">краткое пояснение к разделу</div>
   <div style="margin-top:1mm;">Текст раздела…</div>
 </div>
 <div class="box"><span class="lbl">Где что</span>
-<span class="tag">[sub]</span> — это пометка-эхо под названием (жанр, посвящение), она не попадает в
-оглавление. Структуру статьи задают только <span class="tag">##</span> и <span class="tag">###</span>.</div>
+<span class="tag">[sub]</span> — пометка-эхо под названием (жанр, посвящение), в оглавление не попадает.
+Структуру статьи задают только <span class="tag">##</span> и <span class="tag">###</span> — они и идут
+в оглавление (<span class="tag">###</span> вложенным вторым уровнем).</div>
+<div class="box tech"><span class="lbl">Технически — варианты [toc] и role=</span>
+<span class="tag">[toc collapsed]</span> — оглавление свёрнуто по умолчанию.
+<span class="tag">[toc nonum]</span> — без авто-нумерации пунктов (нужно, если заголовки уже несут
+свои числа «1 / 1.1», иначе двойная нумерация); флаги сочетаются.
+У <span class="tag">##</span> бывает атрибут <span class="tag">role=</span>
+(<span class="tag">preface / epigraph / body / apparatus / colophon / prayer / chapter</span>) —
+подсказка теме о роли раздела; по умолчанию выводится из позиции.</div>
 
 <p><b>Карточка-метаданные</b> (proza-шапка «Серия / Рассказ / Написано / Формат…») —
 <span class="tag">[meta]…[/meta]</span>. Каждая строка <span class="tag">Ярлык: значение</span>
@@ -468,24 +512,43 @@
 <div class="box"><span class="lbl">Когда</span> карточку берём для proza-шапки с ярлыками (как
 в оригинале). Если рамки-шапки в оригинале не было — оставляем обычные абзацы.</div>
 
-<h3 class="sec" id="s16"><span class="pgmark">~MK16~</span><span class="num">16.</span>Абзацы, курсив, ссылки</h3>
-<p><b>Курсив</b> — обернуть фразу подчёркиваниями: <span class="tag">_вот так_</span>.<br>
-<b>Внешняя ссылка</b> — <span class="tag">[адрес|подпись]</span> (голые ссылки в тексте не используем).<br>
-<b>Ссылка на другую статью сборника</b> — <span class="tag">[[арт-id]]</span> (подпись подставится сама).<br>
-<b>Ссылка на Зоар</b> — <span class="tag">{chapter|N}</span>.</p>
+<h3 class="sec" id="s16"><span class="pgmark">~MK16~</span><span class="num">16.</span>Абзацы, переносы, курсив</h3>
+<p><b>Абзац</b> — обычный текст; абзацы разделяются <b>пустой строкой</b>. <b>Перенос строки</b>
+внутри абзаца сохраняется (станет переносом и на странице) — это общее правило формата: ничего не
+«склеивается» само.</p>
+<p><b>Курсив</b> — обернуть фразу подчёркиваниями: <span class="tag">_вот так_</span>. Подчёркивания
+должны стоять на границах слова (не внутри слова), длина фразы — примерно до 60&nbsp;символов.</p>
+<div class="zml">Это _важная_ мысль.
+А это — вторая строка того же абзаца.</div>
+<div class="demo"><div class="cap res">как выглядит</div>
+  Это <i>важная</i> мысль.<br>А это — вторая строка того же абзаца.</div>
+<div class="box tech"><span class="lbl">Технически — переносы значимы везде</span>
+Каждый перенос строки в <span class="tag">.zml</span> авторский, и движок рисует его реальным
+<span class="tag">&lt;br&gt;</span> во всех блоках (проза, цитата, эпиграф, стих, перечень, подпись,
+продолжение сноски). Пустая строка = граница абзаца. Деление verse/prose — только стилевое и
+никогда не «решает судьбу» строк.</div>
+
+<h3 class="sec" id="s17"><span class="pgmark">~MK17~</span><span class="num">17.</span>Ссылки</h3>
+<p>Три вида ссылок (голые URL в тексте не используем — оборачиваем):</p>
+<ul class="plain">
+  <li><b>Внешняя ссылка</b> — <span class="tag">[адрес|подпись]</span>.</li>
+  <li><b>На другую статью сборника</b> — <span class="tag">[[арт-id]]</span> (подпись подставится сама из каталога).</li>
+  <li><b>На Книгу Зоар</b> — <span class="tag">{глава|N}</span> (название главы и адрес подставятся сами).</li>
+</ul>
 <div class="zml">Это _важная_ мысль; подробнее — в статье <span class="k">[[654]]</span>.
 Источник: <span class="k">[https://example.org|внешний текст]</span>.</div>
 <div class="demo"><div class="cap res">как выглядит</div>
-  Это <i>важная</i> мысль; подробнее — в статье <a href="#s16" style="color:#3a6ea5;">«Название статьи&nbsp;654»</a>.
-  Источник: <a href="#s16" style="color:#3a6ea5;">внешний текст</a>.</div>
+  Это <i>важная</i> мысль; подробнее — в статье <a href="#s17" style="color:#3a6ea5;">«Название статьи&nbsp;654»</a>.
+  Источник: <a href="#s17" style="color:#3a6ea5;">внешний текст</a>.</div>
 <div class="box tip"><span class="lbl">Совет</span>
-В ссылке <span class="tag">[[654]]</span> название статьи подставляется автоматически из каталога —
-не дублируйте его руками, иначе при переименовании разойдётся.</div>
+В ссылке <span class="tag">[[654]]</span> название статьи подставляется автоматически — не дублируйте
+его руками, иначе при переименовании разойдётся. Если id не найден, ссылка подсветится как «битая» —
+проверьте номер.</div>
 
-<h3 class="sec" id="s17"><span class="pgmark">~MK17~</span><span class="num">17.</span>Сноски</h3>
+<h3 class="sec" id="s18"><span class="pgmark">~MK18~</span><span class="num">18.</span>Сноски — все виды</h3>
 <p>Сноска — две части: <b>маркер</b> в тексте <span class="tag">[^1]</span> и <b>определение</b>
-в конце <span class="tag">[^1]: текст сноски</span>. Маркеры кликабельны, определения собираются
-в разделе «Примечания».</p>
+в конце <span class="tag">[^1]: текст</span>. Маркеры кликабельны, определения собираются в разделе
+«Примечания» (внизу), у каждого — стрелка <span class="tag">↑</span> назад к месту в тексте.</p>
 <div class="zml">Мысль требует пояснения.<span class="k">[^1]</span>
 
 <span class="k">[^1]:</span> Это и есть пояснение.</div>
@@ -493,36 +556,78 @@
   Мысль требует пояснения.<sup class="fn">1</sup>
   <div class="d-note"><b>Примечания</b><br><sup class="fn">1</sup>&nbsp;Это и есть пояснение. <span style="color:#8a5a2b;">↑</span></div>
 </div>
-<h4>Бывает ещё</h4>
-<ul class="plain">
-  <li><b>Звёздная</b> сноска — <span class="tag">[^*]</span> / <span class="tag">[^*]:</span>.</li>
-  <li><b>Анонимная</b> («См.&nbsp;также») — <span class="tag">[^]:</span>.</li>
-  <li><b>Группы сносок</b> — именованные <span class="tag">[^имя.1]</span>, а вывод группы на нужном
-    месте — блоком <span class="tag">[refs=имя]</span>.</li>
-</ul>
-<div class="box tech"><span class="lbl">Технически</span>
-Продолжение длинной сноски — с отступом в 4 пробела (станет переносом строки). Если у определения
-нет маркера в тексте — номер сохранится, но стрелки «назад» не будет (возвращаться некуда).</div>
+<h4>Все разновидности сносок</h4>
+<table class="fm-tbl">
+  <tr><th>Вид</th><th>Как пишется</th><th>Когда</th></tr>
+  <tr><td>Обычная</td><td class="s">[^1] … [^1]:</td><td>нумерованная сноска.</td></tr>
+  <tr><td>Звёздная</td><td class="s">[^*] … [^*]:</td><td>авторский значок ✱ вместо номера (бывает [^**], [^***]).</td></tr>
+  <tr><td>Анонимная</td><td class="s">[^]: текст</td><td>без маркера в тексте; печатается «См.&nbsp;также: …».</td></tr>
+  <tr><td>Со своим ярлыком</td><td class="s">[^|Источник]: …</td><td>анонимная, но с вашим префиксом вместо «См. также».</td></tr>
+  <tr><td>Группа (именованная)</td><td class="s">[^муз.1] … [^муз.1]:</td><td>отдельная серия сносок (см. ниже).</td></tr>
+</table>
+<h4>Группы сносок и вывод на нужном месте</h4>
+<p>Если в статье несколько <i>серий</i> примечаний (например музыкальные ссылки отдельно от обычных),
+их разделяют <b>именами</b>: маркер <span class="tag">[^муз.1]</span>, определение
+<span class="tag">[^муз.1]: …</span>. Вывести список именно этой группы в нужном месте документа —
+блоком <span class="tag">[refs=муз]</span> (заголовок над ним — обычный <span class="tag">##</span>).
+Свой значок серии: <span class="tag">[refs=муз glyph=¤]</span> — маркеры станут «¤1, ¤2…».</p>
+<div class="box tech"><span class="lbl">Технически — тонкости</span>
+<ul style="margin:1mm 0 0;padding-left:5mm;">
+  <li><b>Продолжение</b> длинной сноски — со следующей строки с отступом в 4&nbsp;пробела (станет переносом).</li>
+  <li><b>Повторный</b> маркер на ту же сноску допустим — ссылки получают уникальные «возвраты».</li>
+  <li><b>Сирота</b> (определение есть, а маркера в тексте нет) — номер сохраняется, но стрелки «назад» не будет (возвращаться некуда).</li>
+  <li><b>Маркер в заголовке</b> — <span class="tag">#</span>/<span class="tag">title:</span> может нести <span class="tag">[^N]</span>; в заголовке вкладки он вычищается, в видимом — работает.</li>
+  <li>Группы без своего <span class="tag">[refs]</span> и обычные сноски выводятся хвостом под заголовком <span class="tag">notes_title</span>.</li>
+</ul></div>
 
-<h3 class="sec" id="s18"><span class="pgmark">~MK18~</span><span class="num">18.</span>Стихи и поэмы</h3>
+<h3 class="sec" id="s19"><span class="pgmark">~MK19~</span><span class="num">19.</span>Стихи — [poem]</h3>
 <p>Стихотворный блок — <span class="tag">[poem]…[/poem]</span>: переносы строк сохраняются как есть.
-Необязательный заголовок — <span class="tag">[poem title=Название]</span>. Если же стихи записаны
-сплошной прозой (без переносов) — см. раздел&nbsp;28, блок <span class="tag">[faw]</span>.</p>
-<div class="zml"><span class="k">[poem]</span>
+Необязательный заголовок стихотворения — <span class="tag">[poem title=Название]</span>. Если же
+стихи записаны <i>сплошной прозой</i> (без переносов) — это другой блок, <span class="tag">[faw]</span>
+(раздел&nbsp;20).</p>
+<div class="zml"><span class="k">[poem title=Восхождение]</span>
 Я поднимаюсь по ступеням,
 сквозь свет и тень, сквозь шум и тишь,
 и каждый шаг — ответ сомненьям.
 <span class="k">[/poem]</span></div>
 <div class="demo"><div class="cap res">как выглядит</div>
+  <div style="font-weight:bold;font-family:Georgia;margin-bottom:1mm;">Восхождение</div>
   <div class="d-poem">Я поднимаюсь по ступеням,
 сквозь свет и тень, сквозь шум и тишь,
 и каждый шаг — ответ сомненьям.</div></div>
 
-<h3 class="sec" id="s19"><span class="pgmark">~MK19~</span><span class="num">19.</span>Эпиграф, эпилог, посвящение</h3>
+<h3 class="sec" id="s20"><span class="pgmark">~MK20~</span><span class="num">20.</span>Стихи, записанные прозой — [faw]</h3>
+<p>Иногда стихи записаны сплошной прозой подряд, но выдержаны в скрытом размере (счёт слогов).
+Блок <span class="tag">[faw]…[/faw]</span> помечает такой текст, чтобы сайт мог показать его
+стихотворными строками.</p>
+<p><b>По умолчанию <span class="tag">[faw]</span> показывается обычной прозой.</b> Чтобы включить
+стихотворный вид, добавьте в шапку <span class="tag">allow_faw: true</span> и нажмите
+<span class="ui-btn">Сохранить</span>.</p>
+<p><b>Разбивку на строки сайт расставляет сам</b> при «Сохранить» — знаком <span class="tag">|</span>
+по счёту слогов (можно поправить вручную). Граница абзаца внутри — просто <b>пустая строка</b>;
+нумерованный пункт — отдельной строкой <span class="tag">=== 1 {s1} ===</span> (попадёт в оглавление
+и получит значок-якорь). Музыку и сноски оставляйте <i>вне</i> <span class="tag">[faw]</span>.</p>
+<div class="zml"><span class="c">--- в шапке: allow_faw: true ---</span>
+<span class="k">[faw]</span>
+Я поднимаюсь по ступеням сквозь свет и тень сквозь шум и тишь и каждый шаг ответ сомненьям
+<span class="k">[/faw]</span></div>
+<div class="demo"><div class="cap res">как выглядит (allow_faw: true)</div>
+  <div class="d-faw"><span class="a">Я поднимаюсь по ступеням,</span><span class="b">Сквозь свет и тень, сквозь шум и тишь,</span><span class="a">И каждый шаг — ответ сомненьям.</span></div></div>
+<div class="box"><span class="lbl">Два вида</span>
+Пока <span class="tag">allow_faw</span> не включён, тот же блок виден сплошной прозой (абзацы и
+нумерованные пункты сохраняются). Поставьте <span class="tag">allow_faw: true</span> — и текст
+разобьётся на строки. Сама разметка <span class="tag">|</span> уже лежит в тексте и ждёт включения.</div>
+<div class="box tech"><span class="lbl">Технически — атрибуты</span>
+<span class="tag">[faw meter=8]</span> фиксирует размер строки (иначе подбирается сам, 5–14 слогов).
+<span class="tag">[faw sta=4]</span> — строфы по 4 строки (зазор после каждой; виден в «построчных»
+темах). В «построчных» темах каждая строка начинается с заглавной (как принято в стихах); в
+«монолитных» темах текст течёт прозой, а границы строк различимы чередованием стиля.</div>
+
+<h3 class="sec" id="s21"><span class="pgmark">~MK21~</span><span class="num">21.</span>Эпиграф, эпилог, посвящение — [epi]</h3>
 <p>Один блок-роль <span class="tag">[epi]…[/epi]</span> — «обрамление». Вид задаётся
 <span class="tag">kind</span>: <span class="tag">prose</span> (по умолчанию), <span class="tag">verse</span>
 (стих), <span class="tag">aphorism</span> (краткая сентенция), <span class="tag">dedi</span> (посвящение).
-Источник цитаты — <span class="tag">cite=</span>.</p>
+Источник цитаты — необязательный <span class="tag">cite=</span>.</p>
 <div class="zml"><span class="k">[epi kind=verse cite=Псалмы]</span>
 Из глубины воззвал я —
 и услышан был.
@@ -532,68 +637,143 @@
   <span class="cite">— Псалмы</span></div></div>
 <div class="box"><span class="lbl">Эпилог</span>
 Отдельного тега нет: <b>эпилог — это тот же <span class="tag">[epi]</span> в самом конце</b> статьи
-(перед сносками). Метку «Эпилог» рисует сам сайт по положению блока.</div>
+(последний блок перед сносками). Метку «Эпилог» вместо «Эпиграф» сайт ставит сам по положению блока.
+<span class="tag">kind=dedi</span> рисуется как «Посвящение».</div>
 
-<h3 class="sec" id="s20"><span class="pgmark">~MK20~</span><span class="num">20.</span>Цитата, подпись, возглас, диалог</h3>
+<h3 class="sec" id="s22"><span class="pgmark">~MK22~</span><span class="num">22.</span>Цитата — [quote]</h3>
+<p>Цитата-источник в потоке текста — <span class="tag">[quote kind=scripture cite=…]…[/quote]</span>.
+Источник (<span class="tag">cite=</span>) подписывается справа. В отличие от эпиграфа, ярлык над
+цитатой не рисуется.</p>
+<div class="zml"><span class="k">[quote kind=scripture cite="Берешит 1:1"]</span>
+В начале сотворил Всесильный небо и землю.
+<span class="k">[/quote]</span></div>
+<div class="demo"><div class="cap res">как выглядит</div>
+  <div class="d-quote">В начале сотворил Всесильный небо и землю.
+  <span style="display:block;text-align:right;font-style:normal;font-size:9.5pt;color:#5c5852;margin-top:1mm;">— Берешит 1:1</span></div></div>
+
+<h3 class="sec" id="s23"><span class="pgmark">~MK23~</span><span class="num">23.</span>Подпись и возглас — [sig], [cry]</h3>
 <ul class="plain">
-  <li><b>Цитата-источник</b> в потоке текста — <span class="tag">[quote kind=scripture cite=…]…[/quote]</span>.</li>
   <li><b>Подпись автора</b> (справа, курсивом) — <span class="tag">[sig]…[/sig]</span>.</li>
-  <li><b>Эмфатический возглас</b> (рефрен, слоган) — <span class="tag">[cry]…[/cry]</span>.</li>
-  <li><b>Диалог</b> — <span class="tag">[dlg]…[/dlg]</span> (реплики — обычными абзацами внутри).</li>
+  <li><b>Эмфатический возглас</b> (рефрен, слоган, инвокация; по центру) — <span class="tag">[cry]…[/cry]</span>.</li>
 </ul>
 <div class="zml"><span class="k">[cry]</span>Восходи!<span class="k">[/cry]</span>
 
-<span class="k">[sig]</span>— Автор<span class="k">[/sig]</span></div>
+<span class="k">[sig]</span>— Элиягу Бар Малей<span class="k">[/sig]</span></div>
 <div class="demo"><div class="cap res">как выглядит</div>
   <div class="d-cry">Восходи!</div>
-  <div class="d-sig" style="margin-top:2mm;">— Автор</div></div>
+  <div class="d-sig" style="margin-top:2mm;">— Элиягу Бар Малей</div></div>
 
-<h3 class="sec" id="s21"><span class="pgmark">~MK21~</span><span class="num">21.</span>Перечни и списки</h3>
+<h3 class="sec" id="s24"><span class="pgmark">~MK24~</span><span class="num">24.</span>Диалог — [dlg]</h3>
+<p>Блок <span class="tag">[dlg]…[/dlg]</span> оформляет диалог: реплики пишутся <b>обычными абзацами</b>
+(пустая строка между ними). Сайт распознаёт <b>кто говорит</b> по метке в начале реплики и рисует
+каждую реплику отдельным «постом» с именем-меткой.</p>
+<p><b>Надёжный способ задать спикера</b> — поставить в начале абзаца маркер
+<span class="tag">&gt;&gt; Имя</span> на отдельной строке, а саму реплику — ниже:</p>
+<div class="zml"><span class="k">[dlg]</span>
+<span class="k">&gt;&gt; Вопрос</span>
+Как объединение усиливает намерение?
+
+<span class="k">&gt;&gt; Ответ</span>
+Через подобие свойств: круг даёт то, чего нет у одного.
+<span class="k">[/dlg]</span></div>
+<div class="demo"><div class="cap res">как выглядит</div>
+  <div class="d-post"><span class="by">Вопрос</span>Как объединение усиливает намерение?</div>
+  <div class="d-post"><span class="by">Ответ</span>Через подобие свойств: круг даёт то, чего нет у одного.</div>
+</div>
+<div class="box warn"><span class="lbl">Главное про [dlg]</span>
+Если у реплик <b>нет распознаваемой метки</b>, блок <span class="tag">[dlg]</span> ничего не оформит —
+реплики выведутся обычными строками, как простая проза (тег окажется «пустышкой»). Поэтому либо
+ставьте <span class="tag">&gt;&gt; Имя</span>, либо убирайте <span class="tag">[dlg]</span>, если это
+не диалог.</div>
+<div class="box tech"><span class="lbl">Технически — как распознаётся спикер</span>
+Метку реплики сайт определяет двумя путями (на блок — только один):
+<ul style="margin:1mm 0 0;padding-left:5mm;">
+  <li><b>Явный маркер</b> <span class="tag">&gt;&gt; Метка</span> в начале абзаца. Если он есть хотя бы
+    у одной реплики — весь блок размечается только так (рекомендуется).</li>
+  <li><b>Иначе — автораспознавание</b> по началу абзаца: <span class="tag">Ник написал(а):</span> ·
+    <span class="tag">Вопрос:</span>/<span class="tag">Ответ:</span> (с двоеточием или точкой —
+    разделитель обязателен) · <span class="tag">Имя:</span> (одно слово с заглавной + двоеточие + пробел).</li>
+</ul>
+Абзац без метки <b>приклеивается</b> к предыдущему спикеру (реплика может быть из нескольких абзацев).
+Что <b>не</b> распознаётся как спикер: тире-реплики «— …», слитное «ОтветМир…», «Вопрос 1» без
+двоеточия. Тема может оформлять посты в стиле форума (рамка, имя капителью).</div>
+
+<h3 class="sec" id="s25"><span class="pgmark">~MK25~</span><span class="num">25.</span>Списки и перечни — [ul], [num]</h3>
 <p><b>Маркированный список</b> — <span class="tag">[ul]…[/ul]</span>, пункты со «-&nbsp;». Свой значок —
-<span class="tag">[ul marker=◆]</span>.<br>
-<b>Нумерованный перечень</b> (с авторскими номерами) — <span class="tag">[num]…[/num]</span>.</p>
+<span class="tag">[ul marker=◆]</span>.</p>
 <div class="zml"><span class="k">[ul]</span>
 - первый пункт
 - второй пункт
 <span class="k">[/ul]</span></div>
 <div class="demo"><div class="cap res">как выглядит</div>
   <ul style="margin:0;padding-left:5mm;"><li>первый пункт</li><li>второй пункт</li></ul></div>
+<p><b>Нумерованный перечень</b> — <span class="tag">[num]…[/num]</span>. Каждый пункт начинается со
+своего номера: <span class="tag">1.</span> или <span class="tag">1)</span> — сайт сохраняет
+<i>авторские</i> номера (и пропуски, и стиль скобки).</p>
+<div class="zml"><span class="k">[num]</span>
+1. Первое положение.
+2. Второе положение.
+<span class="k">[/num]</span></div>
+<div class="demo"><div class="cap res">как выглядит</div>
+  <ol class="d-ol"><li>Первое положение.</li><li>Второе положение.</li></ol></div>
 <div class="box"><span class="lbl">Внимание</span>
-Диалоги оформляются не списком, а блоком <span class="tag">[dlg]</span> (раздел&nbsp;20) или прозой с тире.</div>
+Диалоги оформляются не списком, а блоком <span class="tag">[dlg]</span> (раздел&nbsp;24) или прозой с тире.</div>
+<div class="box tech"><span class="lbl">Технически — [num] умеет больше</span>
+Пункт может быть <b>многоабзацным</b> (пустая строка внутри пункта даёт второй абзац) и даже нести
+<b>вложенный блок</b> (эпиграф, цитата, плеер <span class="tag">[mus]</span> под своим номером).
+<span class="tag">[num kind=toc]</span> — пункты получают якоря и входят в оглавление своими номерами;
+<span class="tag">[num kind="toc|Пункт"]</span> — в оглавлении «Пункт 1», «Пункт 2»…</div>
 
-<h3 class="sec" id="s22"><span class="pgmark">~MK22~</span><span class="num">22.</span>Спойлер</h3>
-<p>Скрытый под обложкой фрагмент (как в Телеграме): <span class="tag">[spl]…[/spl]</span>. Клик
-раскрывает. Можно задать свою картинку-обложку: <span class="tag">[spl="cover.gif"]…[/spl]</span>.
-Работает и внутри других блоков.</p>
-<div class="zml">Развязка: <span class="k">[spl]</span>он достиг вершины<span class="k">[/spl]</span>.</div>
+<h3 class="sec" id="s26"><span class="pgmark">~MK26~</span><span class="num">26.</span>Служебные строки — [line]</h3>
+<p>Короткая роль-строка, которую тема оформляет особо. Закрытый список видов:</p>
+<ul class="plain">
+  <li><span class="tag">[line kind=tags]…[/line]</span> — цепочка тегов («Будущий мир · Круг Жизни · …»).</li>
+  <li><span class="tag">[line kind=dateline]…[/line]</span> — дата-строка («Написано: Понедельник, 15 Февраля 2021&nbsp;г.»).</li>
+</ul>
+<div class="zml"><span class="k">[line kind=dateline]</span>Написано: 15 Февраля 2021 г.<span class="k">[/line]</span>
+<span class="k">[line kind=tags]</span>Будущий мир · Круг Жизни · Восхождение<span class="k">[/line]</span></div>
 <div class="demo"><div class="cap res">как выглядит</div>
-  Развязка: <span class="d-spl">▓▓▓ нажмите, чтобы раскрыть ▓▓▓</span>.</div>
+  <div class="d-line">Написано: 15 Февраля 2021 г.</div>
+  <div class="d-line" style="margin-top:1mm;">Будущий мир · Круг Жизни · Восхождение</div></div>
+<div class="box"><span class="lbl">Зачем отдельно</span>
+Авторские дата-строки ставятся <span class="tag">[line kind=dateline]</span> на своём месте в теле.
+При этом дату «официальную» сайт всё равно рисует в подписи под заголовком (раздел&nbsp;35) — так и
+задумано.</div>
 
-<h3 class="sec" id="s23"><span class="pgmark">~MK23~</span><span class="num">23.</span>Термины и лейтмотивы</h3>
-<p>Необязательная инлайн-пометка смыслового термина или сквозного мотива:
-<span class="tag">{term|текст}</span> и <span class="tag">{leit|текст}</span>. Тема может их выделять
-или нет.</p>
-<div class="zml">Главное — это <span class="k">{term|</span>отдача<span class="k">}</span>,
-а сквозной мотив — <span class="k">{leit|</span>восхождение<span class="k">}</span>.</div>
-<div class="demo"><div class="cap res">как выглядит</div>
-  Главное — это <span class="d-term">отдача</span>, а сквозной мотив —
-  <span class="d-term" style="border-color:#3a6ea5;">восхождение</span>.</div>
-<div class="box tip"><span class="lbl">Совет</span>
-Метьте только редкие, осмысленные слова. Частые обороты помечать не нужно — это смысловое решение,
-а не «подсветить всё».</div>
-
-<h3 class="sec" id="s24"><span class="pgmark">~MK24~</span><span class="num">24.</span>Музыка и аудио</h3>
-<p><b>Музыкальный блок</b> в статье — <span class="tag">[mus]…[/mus]</span>, строки внутри:
-<span class="tag">адрес | название | автор</span>. Подпись блока — <span class="tag">[mus="Музыка"]</span>.</p>
+<h3 class="sec" id="s27"><span class="pgmark">~MK27~</span><span class="num">27.</span>Музыка — [mus]</h3>
+<p>Музыкальный блок в статье — <span class="tag">[mus]…[/mus]</span>; каждая строка внутри:
+<span class="tag">[адрес | название | автор]</span>. Подпись блока — <span class="tag">[mus="Музыка под настроение"]</span>.
+YouTube-ссылка превращается в плеер прямо на странице.</p>
 <div class="zml"><span class="k">[mus="Под настроение"]</span>
-https://youtu.be/ID | Песнь восхождения | Шломо Карлебах
+[https://youtu.be/ID | Песнь восхождения | Шломо Карлебах]
+<span class="c">&gt; Можно вставить заметку между треками — строкой на «&gt;».</span>
+[https://youtu.be/ID2 | Другая песнь | Автор]
 <span class="k">[/mus]</span></div>
-<p><b>Аудио-озвучка статьи</b> (значок 🎧 у заголовка) — поле <span class="tag">audio:</span> в шапке:</p>
-<div class="zml"><span class="k">audio:</span> [{"url": "https://t.me/...", "label": "Слушать озвучку"}]</div>
+<div class="demo"><div class="cap res">как выглядит</div>
+  <div style="border:1px solid #d8d2c6;border-radius:4px;padding:1.5mm 3mm;font-size:10pt;">
+    <span style="color:#8a5a2b;">Под настроение:</span> ▶ <b>Песнь восхождения</b> — <i>Шломо Карлебах</i> <span style="color:#3a6ea5;">↗</span></div>
+  <div style="font-style:italic;color:#5c5852;font-size:9.5pt;margin:1mm 0;">Можно вставить заметку между треками…</div>
+  <div style="border:1px solid #d8d2c6;border-radius:4px;padding:1.5mm 3mm;font-size:10pt;">
+    <span style="color:#8a5a2b;">Под настроение:</span> ▶ <b>Другая песнь</b> — <i>Автор</i> <span style="color:#3a6ea5;">↗</span></div></div>
+<div class="box tech"><span class="lbl">Технически</span>
+Строка, начинающаяся с <span class="tag">&gt;</span>, — заметка между треками. Поля
+<span class="tag">название</span>/<span class="tag">автор</span> могут нести сноску <span class="tag">[^N]</span>.
+Продвинутое: <span class="tag">[mus refs=имя glyph=¶]</span> делает сами треки <i>целями</i> сносок
+(маркер <span class="tag">[^имя.N]</span> в тексте ведёт на плеер) — применяется в статьях с
+«рекомендуемой музыкой».</div>
+
+<h3 class="sec" id="s28"><span class="pgmark">~MK28~</span><span class="num">28.</span>Аудио-озвучка — 🎧</h3>
+<p>Если у статьи есть аудио-озвучка (значок 🎧 рядом с заголовком) — это поле
+<span class="tag">audio:</span> в шапке. Значение — список объектов
+<span class="tag">{"url": …, "label": …}</span>; озвучек может быть несколько (по частям статьи).</p>
+<div class="zml"><span class="k">audio:</span> [{"url": "https://t.me/art_017_tracks/12", "label": "Слушать озвучку"}]</div>
 <div class="demo"><div class="cap res">как выглядит</div>
   <span class="d-h1" style="display:inline;">Вначале</span> <span style="font-size:11pt;">🎧</span></div>
+<div class="box"><span class="lbl">Где включается</span>
+Обычно это поле проставляется при импорте. Достаточно вписать ссылку и подпись — значок
+встанет у заголовка сам.</div>
 
-<h3 class="sec" id="s25"><span class="pgmark">~MK25~</span><span class="num">25.</span>«Песнь Ступеней» — блок [shir]</h3>
+<h3 class="sec" id="s29"><span class="pgmark">~MK29~</span><span class="num">29.</span>«Песнь Ступеней» — блок [shir]</h3>
 <p>Сетка музыкальных плиток. Контейнер — <span class="tag">[shir cols=3 min=300]…[/shir]</span>.
 Одна песня = <b>одна строка</b>, колонки разделяются <span class="tag">|</span>:</p>
 <div class="zml"><span class="k">[shir cols=3 min=300]</span>
@@ -606,28 +786,63 @@ dQw4w9WgXcQ | Песнь восхождения | Шломо Карлебах | 
     <div class="d-tile"><div class="thumb">▶</div><div class="tt"><b>Другая песнь</b>Автор</div></div>
   </div></div>
 <div class="box"><span class="lbl">Колонки</span>
-Обязательны три: <b>ID&nbsp;YouTube</b>, <b>Композиция</b>, <b>Автор</b>. Четвёртая (список статей) —
-необязательна. ID&nbsp;ролика — чистый, без «?si». Если в названии нужен символ <span class="tag">|</span>
-— пишите <span class="tag">\|</span>.</div>
+Обязательны <b>ID&nbsp;YouTube</b> и <b>Композиция</b>; <b>Автор</b> и четвёртая колонка (список статей) —
+необязательны. ID&nbsp;ролика — чистый, без «?si». Своя подпись ссылки на статью — <span class="tag">id:Текст</span>.
+Если в названии нужен символ <span class="tag">|</span> — пишите <span class="tag">\|</span>.</div>
 <div class="box warn"><span class="lbl">Если плитка не появилась</span>
-Скорее всего в строке не хватает одного из трёх обязательных полей — проверьте разделители
-<span class="tag">|</span>. Ломается только эта строка, остальные плитки остаются.</div>
+В строке не хватает ID ролика или названия — на месте плитки покажется заметный значок ⚠ с номером
+строки. Ломается только эта строка, остальные плитки остаются.</div>
 
-<h3 class="sec" id="s26"><span class="pgmark">~MK26~</span><span class="num">26.</span>Глифы и спецсимволы</h3>
+<h3 class="sec" id="s30"><span class="pgmark">~MK30~</span><span class="num">30.</span>Спойлер — [spl]</h3>
+<p>Скрытый под обложкой фрагмент (как в Телеграме): <span class="tag">[spl]…[/spl]</span>. Клик
+раскрывает. Можно задать свою картинку-обложку: <span class="tag">[spl="cover.gif"]…[/spl]</span>.
+Работает и внутри других блоков, и внутри заголовка.</p>
+<div class="zml">Развязка: <span class="k">[spl]</span>он достиг вершины<span class="k">[/spl]</span>.</div>
+<div class="demo"><div class="cap res">как выглядит</div>
+  Развязка: <span class="d-spl">▓▓▓ нажмите, чтобы раскрыть ▓▓▓</span>.</div>
+
+<h3 class="sec" id="s31"><span class="pgmark">~MK31~</span><span class="num">31.</span>Термины и лейтмотивы</h3>
+<p>Необязательная инлайн-пометка смыслового термина или сквозного мотива:
+<span class="tag">{term|текст}</span> и <span class="tag">{leit|текст}</span>. Тема может их выделять
+или нет.</p>
+<div class="zml">Главное — это <span class="k">{term|</span>отдача<span class="k">}</span>,
+а сквозной мотив — <span class="k">{leit|</span>восхождение<span class="k">}</span>.</div>
+<div class="demo"><div class="cap res">как выглядит</div>
+  Главное — это <span class="d-term">отдача</span>, а сквозной мотив —
+  <span class="d-term" style="border-color:#3a6ea5;">восхождение</span>.</div>
+<div class="box tip"><span class="lbl">Совет</span>
+Метьте только редкие, осмысленные слова. Частые обороты (например доксологии) помечать не нужно —
+это смысловое решение, а не «подсветить всё».</div>
+
+<h3 class="sec" id="s32"><span class="pgmark">~MK32~</span><span class="num">32.</span>ПРОПИСНЫЕ — флаг caps</h3>
+<p>По умолчанию (<span class="tag">caps</span> выключен) ПРОПИСНЫЕ буквы печатаются <b>как есть</b>.
+Если в шапке поставить <span class="tag">caps: on</span>, включается особая обработка прописных:</p>
+<ul class="plain">
+  <li>строка, набранная в основном ПРОПИСНЫМИ (≥70% и хотя бы 3 буквы), показывается капителью (small-caps — на усмотрение темы);</li>
+  <li>имена из служебного списка остаются с Заглавной (со всеми падежами), напр. «Творец», «Орёл»;</li>
+  <li>ручной <span class="tag">^Слово</span> форсит заглавную в КАПС-строке;</li>
+  <li>включается капитализация по предложениям; оборот «Свят Благословен Он» сохраняется как единое целое.</li>
+</ul>
+<div class="box"><span class="lbl">Когда включать</span>
+Только если у статьи особый КАПС-стиль (как в zml1). Для большинства статей флаг не нужен —
+прописные и так печатаются как написаны.</div>
+
+<h3 class="sec" id="s33"><span class="pgmark">~MK33~</span><span class="num">33.</span>Глифы и спецсимволы</h3>
 <p>Некоторые авторские значки сайт оформляет особо (тема их подсвечивает): «руки вверх»
-<span class="tag">&lt;\^/&gt;</span>, «руки вниз» <span class="tag">&lt;/v\&gt;</span>, смайлы.
-Писать их можно прямо в тексте.</p>
+<span class="tag">&lt;\^/&gt;</span>, «руки вниз» <span class="tag">&lt;/v\&gt;</span>, авторский смайл
+<span class="tag">;::)))</span>. Писать их можно прямо в тексте.</p>
 <div class="demo"><div class="cap res">как выглядит</div>
   Слава Творцу <span class="glyph">&lt;\^/&gt;</span></div>
 <div class="box warn"><span class="lbl">Мусор из proza.ru</span>
 Цепочки из двух и более точек с запятой (<span class="tag">;;;;</span>) — это artefact импорта, не глиф.
 Их нужно убирать (восстановив нужный символ по смыслу).</div>
 
-<h3 class="sec" id="s27"><span class="pgmark">~MK27~</span><span class="num">27.</span>Темы и ширина</h3>
+<h3 class="sec" id="s34"><span class="pgmark">~MK34~</span><span class="num">34.</span>Темы и ширина</h3>
 <p>Внешний вид статьи задают два независимых параметра:</p>
 <ul class="plain">
   <li><b>Тема</b> (<span class="tag">theme</span>): <i>A_editorial</i> (строгая редакторская),
-    <i>B_manuscript</i> (рукопись), <i>cyberpunk</i>, <i>swiss</i>, <i>ar_deco</i>.</li>
+    <i>B_manuscript</i> (рукопись), <i>cyberpunk</i>, <i>swiss</i>, <i>ar_deco</i> — плюс
+    <span class="tag">old</span> (оригинальная вёрстка).</li>
   <li><b>Ширина</b> (<span class="tag">width</span>): <i>wide</i> (~1080px) или <i>narrow</i> (~820px).</li>
 </ul>
 <p>На новом виде статьи есть переключатель тем и ширины — можно подобрать вид на глаз. Выбор
@@ -636,57 +851,58 @@ dQw4w9WgXcQ | Песнь восхождения | Шломо Карлебах | 
 Любая тема умеет показывать любой текст (и стихи, и прозу, и сноски). Лучше всего тема смотрится в
 своей «родной» ширине, но при смене ширины не ломается.</div>
 
-<h3 class="sec" id="s28"><span class="pgmark">~MK28~</span><span class="num">28.</span>Стихи, записанные прозой — [faw]</h3>
-<p>Иногда стихи записаны сплошной прозой подряд, но выдержаны в скрытом размере (счёт слогов).
-Блок <span class="tag">[faw]…[/faw]</span> помечает такой текст, чтобы сайт мог показать его
-стихотворными строками.</p>
-<p><b>По умолчанию [faw] показывается обычной прозой.</b> Чтобы включить стихотворный вид
-(разбивку на строки), добавьте в шапку <span class="tag">allow_faw: true</span> и нажмите
-<span class="ui-btn">Сохранить</span>.</p>
-<p><b>Разбивку на строки сайт расставляет сам</b> при «Сохранить» — знаком <span class="tag">|</span>
-по счёту слогов (можно поправить вручную). Нумерованный пункт отмечается отдельной строкой
-<span class="tag">=== 1 {s1} ===</span> (попадёт в оглавление и получит значок), а граница абзаца —
-просто пустой строкой. Музыку и сноски оставляйте <i>вне</i> <span class="tag">[faw]</span>.</p>
-<div class="zml"><span class="c">--- в шапке: allow_faw: true ---</span>
-<span class="k">[faw]</span>
-Я поднимаюсь по ступеням сквозь свет и тень сквозь шум и тишь и каждый шаг ответ сомненьям
-<span class="k">[/faw]</span></div>
-<div class="demo"><div class="cap res">как выглядит (allow_faw: true)</div>
-  <div class="d-faw"><span class="a">Я поднимаюсь по ступеням,</span><span class="b">Сквозь свет и тень, сквозь шум и тишь,</span><span class="a">И каждый шаг — ответ сомненьям.</span></div></div>
-<div class="box"><span class="lbl">Два вида</span>
-Пока <span class="tag">allow_faw</span> не включён, тот же блок виден сплошной прозой (абзацы и
-нумерованные пункты сохраняются). Поставьте <span class="tag">allow_faw: true</span> — и текст
-разобьётся на строки. Сама разметка <span class="tag">|</span> уже лежит в тексте и ждёт включения.</div>
+<h3 class="sec" id="s35"><span class="pgmark">~MK35~</span><span class="num">35.</span>Что сайт добавляет сам</h3>
+<p>Часть оформления генерируется автоматически — это <b>не</b> нужно писать в ZML:</p>
+<ul class="plain">
+  <li><b>Подпись под заголовком</b> (byline): номер статьи, дата и ссылка «Источник:» на оригинал.</li>
+  <li><b>Стрелка ↑</b> у каждого раздела — возврат к началу статьи.</li>
+  <li><b>Соседние статьи</b> внизу — «← предыдущая» и «следующая →» по порядку в разделе.</li>
+  <li><b>Раздел «Примечания»</b> — собирается из определений сносок (его имя — поле <span class="tag">notes_title</span>).</li>
+  <li><b>Отметка правки</b> — «Редакция: ник» того, кто последним сохранял статью.</li>
+</ul>
+<div class="demo"><div class="cap res">как выглядит (подпись под заголовком)</div>
+  <div class="d-byline">#654 · 17 марта 2020 · Источник: proza.ru/avtor/agent017</div>
+  <div style="font-size:10pt;">…текст статьи…</div></div>
+<div class="box"><span class="lbl">Вывод</span>
+Пишите только содержание и смысловую разметку — служебную «обвязку» (даты, навигацию, сбор сносок)
+сайт делает за вас.</div>
 
 <!-- ════════════════════════ ПРИЛОЖЕНИЕ ════════════════════════ -->
 <h2 class="part"><span class="pgmark">~MKAP~</span><span class="pn">Приложение</span>Шпаргалка ZML</h2>
-<p class="lead" id="cheat">Самое нужное — одним взглядом.</p>
+<p class="lead" id="cheat">Все конструкции формата — одной таблицей.</p>
 <table class="cheat">
   <tr><th>Что нужно</th><th>Как пишется</th></tr>
   <tr><td>Шапка статьи</td><td class="s">--- title: … / art: … ---</td></tr>
   <tr><td>Абзац</td><td class="s">текст + пустая строка</td></tr>
   <tr><td>Заголовок в теле</td><td class="s"># Заголовок</td></tr>
-  <tr><td>Раздел / подзаголовок</td><td class="s">## Раздел · ### Вложенный</td></tr>
   <tr><td>Жанровая пометка</td><td class="s">[sub]…[/sub]</td></tr>
+  <tr><td>Раздел / подзаголовок</td><td class="s">## Раздел {slug} · ### Вложенный</td></tr>
   <tr><td>Пояснение под разделом</td><td class="s">[subsec]…[/subsec]</td></tr>
   <tr><td>Карточка-метаданные</td><td class="s">[meta]Ярлык: значение …[/meta]</td></tr>
-  <tr><td>Оглавление</td><td class="s">[toc]</td></tr>
+  <tr><td>Оглавление</td><td class="s">[toc] · [toc collapsed] · [toc nonum]</td></tr>
   <tr><td>Курсив</td><td class="s">_фраза_</td></tr>
   <tr><td>Внешняя ссылка</td><td class="s">[адрес|подпись]</td></tr>
   <tr><td>Ссылка на статью</td><td class="s">[[арт-id]]</td></tr>
+  <tr><td>Ссылка на Зоар</td><td class="s">{глава|N}</td></tr>
   <tr><td>Сноска</td><td class="s">текст[^1] … [^1]: пояснение</td></tr>
-  <tr><td>Стих</td><td class="s">[poem]…[/poem]</td></tr>
+  <tr><td>Сноска: звёздная · анонимная</td><td class="s">[^*]:… · [^]:… · [^|Ярлык]:…</td></tr>
+  <tr><td>Группа сносок · вывод</td><td class="s">[^имя.1]:… · [refs=имя glyph=¤]</td></tr>
+  <tr><td>Стих</td><td class="s">[poem title=…]…[/poem]</td></tr>
   <tr><td>Стихи прозой</td><td class="s">[faw]…[/faw] + allow_faw: true</td></tr>
-  <tr><td>Эпиграф / эпилог</td><td class="s">[epi kind=verse]…[/epi]</td></tr>
-  <tr><td>Цитата-источник</td><td class="s">[quote kind=scripture]…[/quote]</td></tr>
+  <tr><td>Эпиграф / эпилог / посвящение</td><td class="s">[epi kind=verse|aphorism|dedi cite=…]…[/epi]</td></tr>
+  <tr><td>Цитата-источник</td><td class="s">[quote kind=scripture cite=…]…[/quote]</td></tr>
   <tr><td>Подпись · возглас</td><td class="s">[sig]…[/sig] · [cry]…[/cry]</td></tr>
-  <tr><td>Список · перечень</td><td class="s">[ul]…[/ul] · [num]…[/num]</td></tr>
-  <tr><td>Спойлер</td><td class="s">[spl]…[/spl]</td></tr>
-  <tr><td>Термин · мотив</td><td class="s">{term|…} · {leit|…}</td></tr>
-  <tr><td>Музыка</td><td class="s">[mus]url|назв.|автор[/mus]</td></tr>
+  <tr><td>Диалог</td><td class="s">[dlg] &gt;&gt; Имя / реплика [/dlg]</td></tr>
+  <tr><td>Список · перечень</td><td class="s">[ul marker=◆]…[/ul] · [num]…[/num]</td></tr>
+  <tr><td>Служебная строка</td><td class="s">[line kind=tags|dateline]…[/line]</td></tr>
+  <tr><td>Музыка</td><td class="s">[mus="…"][url|назв.|автор][/mus]</td></tr>
   <tr><td>Сетка песен</td><td class="s">[shir cols=3] id|назв.|автор|статьи [/shir]</td></tr>
   <tr><td>Аудио 🎧 (в шапке)</td><td class="s">audio: [{"url":…,"label":…}]</td></tr>
-  <tr><td>Закрепить вид статьи</td><td class="s">theme: &lt;тема|old&gt; (в шапке)</td></tr>
+  <tr><td>Спойлер</td><td class="s">[spl]…[/spl] · [spl="cover.gif"]…[/spl]</td></tr>
+  <tr><td>Термин · мотив</td><td class="s">{term|…} · {leit|…}</td></tr>
+  <tr><td>Глифы</td><td class="s">&lt;\^/&gt; · &lt;/v\&gt; · ;::)))</td></tr>
+  <tr><td>Закрепить вид статьи</td><td class="s">theme: &lt;тема|old&gt; · width: wide|narrow (в шапке)</td></tr>
+  <tr><td>Прописные по zml1-правилам</td><td class="s">caps: on (в шапке)</td></tr>
 </table>
 <div class="box tip" style="margin-top:5mm;"><span class="lbl">И помните</span>
 Перед «Сохранить» — всегда <span class="ui-btn">Просмотр</span>. После — подождите минуту и
