@@ -167,8 +167,7 @@ python -X utf8 -c "import re,glob;from pathlib import Path;TAG=re.compile(r'\{([
 ## 8. Инфраструктурный чек-лист (выкат 2026-06-24)
 - [x] `render.js` — формат анкора; § и `#p`-якорь ТОЛЬКО при явном §; `{глава|N}` без §; akdama→«Предисловие» (проверено).
 - [x] **SPEC** — «якоря-текст» обновлён под новый формат в обеих копиях (`cms-revival/zml3/SPEC.md`, `docs/zml/SPEC.md`).
-- [ ] **guide.html + rukovodstvo.pdf** — ОТЛОЖЕНО: примеры анкора (`cms-revival/guide_build/guide.html` стр.536–562,906)
-      ещё старый вид «Книга Зоар. Ваикра (Левит). …, §53»; пересобрать PDF `build_pdf.py`→`cp … docs/guide/rukovodstvo.pdf`.
+- [x] **guide.html + rukovodstvo.pdf** — примеры анкора обновлены под новый формат (+пометка «§ только при явном §; akdama→Предисловие»); PDF пересобран (44 стр.) → `docs/guide/rukovodstvo.pdf`.
 - [x] **применена унификация** — 126 правок (118 структурных + 8 safe-TEXT) в `.zml`; 15 прозовых-TEXT и сверка цитат ОТЛОЖЕНЫ.
 - [x] **перерендер корпуса** `build_views.mjs` — 143 art/html, 0 битых анкоров; синкнут `docs/editor/render.js`.
 - [ ] **push** yaniktoim (reindex + commit + push) — выполняется.
