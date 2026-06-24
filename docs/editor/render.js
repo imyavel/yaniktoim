@@ -429,17 +429,30 @@ function resolveInternals(s, manifestByArt) {
   });
 }
 
+// {ch|N} — конкретная статья главы; {ch|} — ВСЯ глава (её index-страница);
+// {|} — ВЕСЬ Зоар (корневой index = полное оглавление). Глава и номер в регэкспе
+// необязательны (пустые). Следующий пасс {term|…}/{leit|…} ловит только нецифровое
+// содержимое, поэтому {term|текст} сюда НЕ попадает (цифр после | нет).
 function resolveZohar(s, zoharIndex) {
   const chapters = zoharIndex.chapters || {};
   const articles = zoharIndex.articles || {};
   const base = zoharIndex._url_base || "https://imyavel.github.io/zohar-sulam";
-  return s.replace(/\{([a-z][a-z-]*)\|(\d+)\}/g, (_, ch, num) => {
+  return s.replace(/\{([a-z][a-z-]*)?\|(\d*)\}/g, (_, ch, num) => {
+    // {|} → весь Зоар: корневой index (полное оглавление)
+    if (!ch) return `<a class="zohar" href="${base}/">Книга Зоар</a>`;
     const chInfo = chapters[ch];
     if (!chInfo) return `<a class="broken" href="#">{${ch}|${num}}</a>`;
+    const knigaHuman = chInfo.kniga_human || "";
+    // {ch|} → вся глава: её собственная index-страница
+    if (!num) {
+      const chHuman = chInfo.human || ch;
+      const anchor = knigaHuman ? `Книга Зоар. ${knigaHuman}. ${chHuman}` : `Книга Зоар. ${chHuman}`;
+      return `<a class="zohar" href="${base}/${ch}/">${htmlEscape(anchor)}</a>`;
+    }
+    // {ch|N} → конкретная статья
     const artTitle = (articles[ch] || {})[num];
     if (!artTitle) return `<a class="broken" href="#">{${ch}|${num}}</a>`;
     const href = `${base}/${ch}/${String(parseInt(num, 10)).padStart(3, "0")}.html`;
-    const knigaHuman = chInfo.kniga_human || "";
     const anchor = `Книга Зоар. ${knigaHuman}. ${artTitle}`;
     return `<a class="zohar" href="${href}">${htmlEscape(anchor)}</a>`;
   });
