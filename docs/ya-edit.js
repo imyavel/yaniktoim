@@ -17,7 +17,7 @@
   // резолвится от страницы в docs/art/.
   var SELF = document.currentScript || document.querySelector('script[src*="ya-edit.js"]');
   var SELF_SRC = SELF ? SELF.src : new URL("ya-edit.js", document.baseURI).href;
-  var ASSET_VER = "20260622-03";   // бастит кэш динамических модулей (ze-core/render) при правках
+  var ASSET_VER = "20260624-01";   // бастит кэш динамических модулей (ze-core/render) при правках
   var modUrl = function (p) {
     return new URL(p + (p.indexOf("?") < 0 ? "?v=" + ASSET_VER : ""), SELF_SRC).href;
   };
@@ -26,6 +26,17 @@
 
   var ART = body.getAttribute("data-art") || "";
   var WORKER = (body.getAttribute("data-worker") || "").replace(/\/+$/, "");
+
+  // «Старый» вид (6-й дизайн) ЗАФИКСИРОВАН и НЕ должен пропадать при правке через
+  // сайт. Браузер рендерит без доступа к cms-revival/legacy_html/ (его читает только
+  // build_views) → раньше {{LEGACY_BODY}} уходил пустым и опция «оригинал (старый)»
+  // отваливалась до следующей полной пересборки (roadmap_url_unification §70). Снимаем
+  // уже готовый legacy-оверлей из ТЕКУЩЕЙ страницы (template#legacy-render) ОДИН раз при
+  // загрузке и переносим его в каждый ре-рендер (Просмотр/Сохранение) как ctx.legacyBody.
+  // Пусто (zml-only статья) → так и остаётся пусто (опция скрыта) — поведение то же.
+  // Захват ленивый (в openEditor), чтобы не платить сериализацией .innerHTML на каждой
+  // загрузке у читателей; на момент открытия DOM ещё оригинальный (template на месте).
+  var LEGACY_BODY = "";
 
   // Ф10: prev/next в подвале ZML-вида пересчитываем из ЖИВОГО structure.json — для
   // ВСЕХ читателей (запускаем до гейта прав). Подвал запекается на сборке из manifest
@@ -87,13 +98,17 @@
     return deps.render({
       zml: zml, rec: rec, manifest: deps.manifest, manifestByArt: deps.byArt,
       zoharIndex: deps.zoharIndex, template: deps.template,
-      properNouns: deps.properNouns, displayConfig: deps.displayConfig, siteConfig: deps.siteConfig
+      properNouns: deps.properNouns, displayConfig: deps.displayConfig, siteConfig: deps.siteConfig,
+      legacyBody: LEGACY_BODY   // переносим зафиксированный «старый» вид (не теряем при правке)
     });
   }
 
   // ── открытие: загрузить ZML + зависимости + ze-core, смонтировать редактор ─────
   function openEditor() {
     btn.disabled = true;
+    // снять зафиксированный «старый» вид с текущей (ещё оригинальной) страницы
+    var _lt = document.getElementById("legacy-render");
+    if (_lt) LEGACY_BODY = _lt.innerHTML;
     import(modUrl("ze-core.js"))
       .then(function (mod) {
         // Вход по клику: модальное окно. Открываем редактор ТОЛЬКО при успешном
