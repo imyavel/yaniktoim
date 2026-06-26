@@ -113,7 +113,7 @@
     .catch(function () {});
 })();
 </script>
-<script src="ya-auth.js"></script>
-<script>(function(){var b=document.getElementById("ya-login");if(b&&window.YaAuth)YaAuth.renderAuthInto(b);})();</script>
+<script src="ya-auth.js?v=20260622-01"></script>
+<script>(function(){var b=document.getElementById("ya-login");if(b&&window.YaAuth)YaAuth.renderManageInto(b);})();</script>
 </body>
 </html>
