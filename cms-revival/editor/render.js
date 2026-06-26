@@ -98,6 +98,11 @@ function htmlEscape(s) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+// Escape for a double-quoted HTML attribute value (htmlEscape + the quote itself).
+function attrEscape(s) {
+  return htmlEscape(String(s)).replace(/"/g, "&quot;");
+}
+
 // Python str.capitalize(): first char upper, the rest lower.
 function capitalizeWord(w) {
   if (!w) return w;
@@ -177,6 +182,12 @@ const FN_BODY_RX = new RegExp(
 // <ol> (когда сами заголовки нумерованы «1 / 1.1 / 1.1.1» — иначе двойная нумерация).
 const TOC_RX = /^\[toc\b([^\]]*)\]\s*$/;
 const REFS_RX = /^\[refs(?:=(?:"([^"\]]+)"|([^\s\]"]+)))?((?:\s+[^\]]*)?)\]\s*$/;
+// [img src=файл alt=… cap=…] (ZML3 §2.7) — самостоятельный блок-маркер картинки
+// (как [toc]/[refs], БЕЗ закрывающего тега). Тег обязан стоять на своей строке,
+// отделённой пустыми строками (правило блока §1). Короткая форма: [img="файл"].
+// Кавыч-сегменты глотаются целиком (как ATTR_PART парных тегов) — чтобы `]` внутри
+// cap="… [url|анкор]" не обрывал атрибуты; вне кавычек `]` закрывает тег.
+const IMG_RX = /^\[img\b((?:"[^"]*"|[^\]"])*)\]\s*$/;
 
 export function parseBody(body) {
   const lines = body.split("\n");
@@ -315,6 +326,13 @@ function parseMain(body) {
         group: (mr[1] || mr[2] || "").trim(),
         attrs: parseAttrs(mr[3] || ""),
       });
+      pos = lineEnd + 1;
+      continue;
+    }
+
+    const mi = IMG_RX.exec(line);
+    if (mi) {
+      blocks.push({ type: "img", attrs: parseAttrs(mi[1] || "") });
       pos = lineEnd + 1;
       continue;
     }
@@ -707,9 +725,33 @@ function renderBlocks(blocks, ctx) {
         break;
       }
       case "refs":      out.push(renderRefsBlock(b, ctx)); break;
+      case "img":       out.push(renderImg(b, ctx)); break;
     }
   }
   return out.filter((p) => p).join("\n\n");
+}
+
+// [img src=… alt=… cap=…] (ZML3 §2.7) — иллюстрация в потоке тела. Активирует
+// зарезервированный тег [img]. Картинка берётся из docs/img/ (тот же ../img/ базис,
+// что и обложка), оборачивается в <figure class="zimg"> + опц. <figcaption> (cap=).
+// alt= — текст доступности (экранированный атрибут); cap= — видимая подпись (инлайн-
+// резолв: ссылки/курсив/сноски работают). src можно дать и короткой формой [img="имя"].
+// [img] без src — флаг (ничего не рисуем + console.warn): пустую картинку не вставляем.
+function renderImg(b, ctx) {
+  const a = b.attrs || {};
+  const src = String(a.src || a.label || "").trim();
+  if (!src) {
+    if (typeof console !== "undefined" && console.warn) {
+      console.warn("ZML [img]: нет src — картинка не нарисована");
+    }
+    return "<!-- ZML:flag img-no-src -->";
+  }
+  const alt = attrEscape(a.alt != null ? a.alt : "");
+  const cap = a.cap != null ? String(a.cap).trim() : "";
+  const capHtml = cap
+    ? `\n  <figcaption>${resolveInline(cap, ctx.inline)}</figcaption>`
+    : "";
+  return `<figure class="zimg">\n  <img src="../img/${attrEscape(src)}" alt="${alt}" loading="lazy">${capHtml}\n</figure>`;
 }
 
 const TOC_PLACEHOLDER = "<!--ZML:TOC-->";

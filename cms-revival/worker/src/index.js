@@ -266,6 +266,23 @@ async function handleSave(env, payload, body) {
       }
       files.push({ path: `docs/img/${name}`, content: img.content, binary: true });
     }
+    // Ф8(b2): картинки В ТЕКСТЕ (тег [img]) — массив бинарей в тот же коммит. Имя/
+    // содержимое валидируются так же, как обложка; до 50 за коммит. Файл не удаляем при
+    // «снятии» тега (его убирают из ZML) — «рукописи не горят»; сюда приходят лишь новые/заменённые.
+    if (body.images != null) {
+      if (!Array.isArray(body.images)) return json(env, { error: "images должен быть массивом" }, 400);
+      if (body.images.length > 50) return json(env, { error: "слишком много картинок за раз (>50)" }, 400);
+      for (const img of body.images) {
+        const name = img && typeof img.name === "string" ? img.name.trim() : "";
+        if (!IMG_NAME_RX.test(name)) {
+          return json(env, { error: "имя картинки: буквы/цифры/_-, расширение jpg|jpeg|png|gif|webp" }, 400);
+        }
+        if (typeof img.content !== "string" || !img.content) {
+          return json(env, { error: "пустое содержимое картинки " + name }, 400);
+        }
+        files.push({ path: `docs/img/${name}`, content: img.content, binary: true });
+      }
+    }
     message = `cms: edit ${art} — ${payload.nick}`;
   }
   const branch = body.branch || "main";

@@ -17,7 +17,7 @@
   // резолвится от страницы в docs/art/.
   var SELF = document.currentScript || document.querySelector('script[src*="ya-edit.js"]');
   var SELF_SRC = SELF ? SELF.src : new URL("ya-edit.js", document.baseURI).href;
-  var ASSET_VER = "20260624-01";   // бастит кэш динамических модулей (ze-core/render) при правках
+  var ASSET_VER = "20260626-01";   // бастит кэш динамических модулей (ze-core/render) при правках
   var modUrl = function (p) {
     return new URL(p + (p.indexOf("?") < 0 ? "?v=" + ASSET_VER : ""), SELF_SRC).href;
   };
@@ -232,8 +232,12 @@
   function saveToWorker(zml, html, extras) {
     if (!WORKER) return Promise.reject(new Error("не задан адрес Worker (data-worker)"));
     var payload = { art: ART, zml: zml, html: html, branch: "main" };
-    // Ф8(b): если выбрана новая/заменённая картинка — кладём её бинарь в тот же коммит.
+    // Ф8(b): если выбрана новая/заменённая обложка — кладём её бинарь в тот же коммит.
     if (extras && extras.image) payload.image = { name: extras.image.name, content: extras.image.content };
+    // Ф8(b2): картинки в тексте ([img]) — массив бинарей в тот же коммит.
+    if (extras && extras.images && extras.images.length) {
+      payload.images = extras.images.map(function (im) { return { name: im.name, content: im.content }; });
+    }
     return fetch(WORKER + "/api/save", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: "Bearer " + sess.token },

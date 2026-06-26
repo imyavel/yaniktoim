@@ -28,7 +28,7 @@
   var artDeps = null;
 
   Promise.all([
-    import("./editor/render.js?v=20260622-01"),
+    import("./editor/render.js?v=20260626-01"),
     fetch("config/structure.json").then(j),
     fetch("editor/data/manifest.json").then(j),
     fetch("editor/data/template_index.tpl").then(t),
@@ -365,7 +365,7 @@
     });
   }
 
-  function commitNewArticle(art, slug, zml, html, today) {
+  function commitNewArticle(art, slug, zml, html, today, extras) {
     if (!WORKER) return Promise.reject(new Error("не задан Worker URL (site.json)"));
     var title = parseTitle(zml) || "Новая статья";
     // Клон structure; живые не трогаем до успеха коммита (Отмена = ничего).
@@ -387,6 +387,18 @@
       { path: "docs/" + slug + "/index.html",
         content: deps.renderSectionIndexHtml({ slug: slug, structure: st, manifestByArt: byArt, template: deps.tplSection, buildDate: bd }) }
     ];
+    // Картинки (обложка + [img] в тексте) — бинарными файлами в тот же коммит /api/commit
+    // (handleCommit пропускает флаг binary в commitFiles). Имена клиент генерит сам
+    // (<art>.<ext> / <art>_N.<ext>) — раскладываем в docs/img/, валидируя имя на всякий.
+    var IMG_NAME = /^[A-Za-z0-9_-]{1,64}\.(jpe?g|png|gif|webp)$/i;
+    var imgs = [];
+    if (extras && extras.image) imgs.push(extras.image);
+    if (extras && extras.images) imgs = imgs.concat(extras.images);
+    imgs.forEach(function (im) {
+      if (im && IMG_NAME.test(im.name || "") && im.content) {
+        files.push({ path: "docs/img/" + im.name, content: im.content, binary: true });
+      }
+    });
     return fetch(WORKER + "/api/commit", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: "Bearer " + sess.token },
@@ -408,14 +420,15 @@
       var today = isoToday(), art;
       try { art = mintArtId(); } catch (e) { status(e.message, true); return; }
       var zml = templateZml(art, today);
-      import("./ze-core.js").then(function (mod) {
+      import("./ze-core.js?v=20260626-01").then(function (mod) {
         status("");
         mod.mountZmlEditor({
           label: "Новая статья · #" + art + " → " + secName(slug),
           initialZml: zml,
           renderView: function (z) { return renderNewView(z, art, slug, today); },
           preprocess: deps.fawMarkup,   // [faw] без «|» → разметка по слогам перед сохранением
-          save: function (z, html) { return commitNewArticle(art, slug, z, html, today); },
+          image: { artId: art },        // панели «Обложка» + «В тексте» ([img]) в новой статье
+          save: function (z, html, extras) { return commitNewArticle(art, slug, z, html, today, extras); },
           savedMessage: "Статья создана. Обновление сайта — 30–90 сек, затем Ctrl+R. Откройте её, чтобы продолжить правку тела.",
           savedPrimaryLabel: "Открыть статью",
           onSavedPrimary: function () { location.href = "art/" + art + ".html"; }

@@ -13,7 +13,7 @@
   // а не от документа — иначе ze-core.js не находится (см. ya-edit.js).
   var SELF = document.currentScript || document.querySelector('script[src*="ya-auth.js"]');
   var SELF_SRC = SELF ? SELF.src : new URL("ya-auth.js", document.baseURI).href;
-  var ASSET_VER = "20260622-01";   // бастит кэш динамических модулей при правках
+  var ASSET_VER = "20260626-01";   // бастит кэш динамических модулей при правках
   var modUrl = function (p) {
     return new URL(p + (p.indexOf("?") < 0 ? "?v=" + ASSET_VER : ""), SELF_SRC).href;
   };
