@@ -28,7 +28,7 @@
   var artDeps = null;
 
   Promise.all([
-    import("./editor/render.js?v=20260626-01"),
+    import("./editor/render.js?v=20260626-02"),
     fetch("config/structure.json").then(j),
     fetch("editor/data/manifest.json").then(j),
     fetch("editor/data/template_index.tpl").then(t),
@@ -420,13 +420,16 @@
       var today = isoToday(), art;
       try { art = mintArtId(); } catch (e) { status(e.message, true); return; }
       var zml = templateZml(art, today);
-      import("./ze-core.js?v=20260626-01").then(function (mod) {
+      import("./ze-core.js?v=20260626-02").then(function (mod) {
         status("");
         mod.mountZmlEditor({
           label: "Новая статья · #" + art + " → " + secName(slug),
           initialZml: zml,
           renderView: function (z) { return renderNewView(z, art, slug, today); },
           preprocess: deps.fawMarkup,   // [faw] без «|» → разметка по слогам перед сохранением
+          // превью из structure.html: база = docs/art/, чтобы ../themes/../img/… вью
+          // резолвились (иначе тема/оформление в превью новой статьи не подхватывались)
+          previewBase: new URL("art/", document.baseURI).href,
           image: { artId: art },        // панели «Обложка» + «В тексте» ([img]) в новой статье
           save: function (z, html, extras) { return commitNewArticle(art, slug, z, html, today, extras); },
           savedMessage: "Статья создана. Обновление сайта — 30–90 сек, затем Ctrl+R. Откройте её, чтобы продолжить правку тела.",

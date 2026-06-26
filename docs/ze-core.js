@@ -89,6 +89,7 @@ export function mountZmlEditor(opts) {
     try { html = opts.renderView(ta.value); }
     catch (e) { status("Ошибка рендера: " + (e.message || e), true); return; }
     html = swapPreviewImage(html); // невыложённую картинку показываем как data:-URL
+    html = injectPreviewBase(html, opts.previewBase); // см. ниже: база для ../themes/../img/…
     html = injectPreviewNav(html); // якоря #… скроллят ВНУТРИ превью, не уводят на боевой файл
     html = injectPreviewChrome(html); // в превью кнопка «Править» неактивна (мы уже в правке)
     iframe.srcdoc = html;          // srcdoc → относительные ../themes, ../img от родителя
@@ -201,15 +202,22 @@ export function mountZmlEditor(opts) {
     bar.innerHTML =
       '<span class="ze-imglabel">Обложка:</span>' +
       '<span class="ze-imgname"></span>' +
-      '<span class="ze-spacer"></span>' +
       '<button type="button" class="ze-btn ze-imgpick">Загрузить…</button>' +
       '<button type="button" class="ze-btn ze-imgdel ze-hidden">Удалить</button>' +
-      '<input type="file" class="ze-imgfile ze-hidden" accept="image/jpeg,image/png,image/gif,image/webp">';
+      '<input type="file" class="ze-imgfile ze-hidden" accept="image/jpeg,image/png,image/gif,image/webp">' +
+      '<span class="ze-imgsep" aria-hidden="true"></span>' +
+      '<span class="ze-imglabel">В тексте:</span>' +
+      '<span class="ze-inslist"></span>' +
+      '<button type="button" class="ze-btn ze-insadd">+ Картинка…</button>' +
+      '<input type="file" class="ze-insfile ze-hidden" accept="image/jpeg,image/png,image/gif,image/webp">';
     ui.querySelector(".ze-bar").insertAdjacentElement("afterend", bar);
     const nameEl = bar.querySelector(".ze-imgname");
     const pickBtn = bar.querySelector(".ze-imgpick");
     const delBtn = bar.querySelector(".ze-imgdel");
     const fileInp = bar.querySelector(".ze-imgfile");
+    const listEl = bar.querySelector(".ze-inslist");
+    const insFile = bar.querySelector(".ze-insfile");
+    const addBtn = bar.querySelector(".ze-insadd");
 
     function refresh() {
       const cur = getFmImage(ta.value);
@@ -238,21 +246,9 @@ export function mountZmlEditor(opts) {
       status("Обложка отвязана (файл в репозитории остаётся — «рукописи не горят»).");
     });
 
-    // (2) Картинки в тексте — теги [img src=…]. «+ Картинка…» вставляет тег на месте
-    // каретки; список ниже даёт по каждой «Заменить…» (новые байты) и «Удалить» (снять
-    // тег из текста). Имена файлов — <artId>_N.<ext>, нумеруются автоматически.
-    const ibar = document.createElement("div");
-    ibar.className = "ze-imgbar ze-imgbar-inline";
-    ibar.innerHTML =
-      '<span class="ze-imglabel">В тексте:</span>' +
-      '<span class="ze-inslist"></span>' +
-      '<span class="ze-spacer"></span>' +
-      '<button type="button" class="ze-btn ze-insadd">+ Картинка…</button>' +
-      '<input type="file" class="ze-insfile ze-hidden" accept="image/jpeg,image/png,image/gif,image/webp">';
-    bar.insertAdjacentElement("afterend", ibar);
-    const listEl = ibar.querySelector(".ze-inslist");
-    const insFile = ibar.querySelector(".ze-insfile");
-    const addBtn = ibar.querySelector(".ze-insadd");
+    // Картинки в тексте — теги [img src=…] (вторая группа той же панели). «+ Картинка…»
+    // вставляет тег на месте каретки; у каждой картинки «Заменить…» (новые байты) и
+    // «Удалить» (снять тег). Имена файлов — <artId>_N.<ext>, нумеруются автоматически.
     let pickMode = { mode: "add" };   // режим следующего выбора: add | replace(name)
 
     function refreshInline() {
@@ -271,7 +267,7 @@ export function mountZmlEditor(opts) {
     ta.addEventListener("input", refreshInline);  // ручная правка тегов → список освежается
 
     addBtn.addEventListener("click", function () { pickMode = { mode: "add" }; insFile.click(); });
-    ibar.addEventListener("click", function (ev) {
+    bar.addEventListener("click", function (ev) {
       const b = ev.target.closest("[data-ins]"); if (!b) return;
       const name = b.getAttribute("data-name");
       if (b.getAttribute("data-ins") === "del") {
@@ -470,6 +466,20 @@ function injectPreviewChrome(html) {
     : PREVIEW_CHROME_STYLE + html;
 }
 
+// srcdoc-превью резолвит относительные пути (../themes/<тема>.css, ../img/…, ../editor/,
+// ../config/) от URL РОДИТЕЛЬСКОЙ страницы. У правки статьи родитель = docs/art/NNN.html,
+// и пути сходятся сами. У создания статьи родитель = docs/structure.html → ../themes
+// уходит в корень репо и оформление темы не подхватывается. opts.previewBase (абсолютный
+// URL каталога art/) вставляет <base> ПЕРВЫМ в <head>, чтобы все относительные ссылки вью
+// резолвились как из docs/art/. Без previewBase (правка статьи) ничего не вставляем.
+function injectPreviewBase(html, base) {
+  if (!base) return html;
+  var tag = '<base href="' + esc(base) + '">';
+  if (html.indexOf("<head>") >= 0) return html.replace("<head>", "<head>" + tag);
+  if (html.indexOf("</head>") >= 0) return html.replace("</head>", tag + "</head>");
+  return tag + html;
+}
+
 // ── frontmatter image: чтение/установка/удаление строки (чистые функции) ───────
 function fmBounds(text) {
   const m = /^---\n([\s\S]*?)\n---\n?/.exec(text);
@@ -590,11 +600,11 @@ function injectStyles() {
       "background:#2a2a2a;border-bottom:1px solid #000;flex:0 0 auto;}" +
     "#ze-root .ze-title{font-weight:600;letter-spacing:.02em;}" +
     "#ze-root .ze-spacer{flex:1 1 auto;}" +
-    "#ze-root .ze-imgbar{display:flex;align-items:center;gap:.5em;padding:.45em .8em;" +
+    "#ze-root .ze-imgbar{display:flex;flex-wrap:wrap;align-items:center;gap:.5em;padding:.45em .8em;" +
       "background:#242424;border-bottom:1px solid #000;flex:0 0 auto;font-size:.92em;}" +
     "#ze-root .ze-imglabel{color:#9a9a9a;}" +
     "#ze-root .ze-imgname{color:#d8d8a0;font-family:ui-monospace,Consolas,monospace;}" +
-    "#ze-root .ze-imgbar-inline{flex-wrap:wrap;}" +
+    "#ze-root .ze-imgsep{align-self:stretch;width:1px;background:#444;margin:.1em .35em;}" +
     "#ze-root .ze-inslist{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;}" +
     "#ze-root .ze-insempty{color:#777;}" +
     "#ze-root .ze-inschip{display:inline-flex;align-items:center;gap:.4em;background:#2f2f2f;" +
