@@ -316,7 +316,6 @@
     return [
       "---",
       "title: Новая статья",
-      'art: "' + art + '"',
       "date: " + today,
       "type: prose",
       "view: zml",
@@ -420,7 +419,7 @@
       var today = isoToday(), art;
       try { art = mintArtId(); } catch (e) { status(e.message, true); return; }
       var zml = templateZml(art, today);
-      import("./ze-core.js?v=20260626-02").then(function (mod) {
+      import("./ze-core.js?v=20260627-01").then(function (mod) {
         status("");
         mod.mountZmlEditor({
           label: "Новая статья · #" + art + " → " + secName(slug),

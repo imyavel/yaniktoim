@@ -217,6 +217,14 @@ const IMG_NAME_RX = /^[A-Za-z0-9_-]{1,64}\.(jpe?g|png|gif|webp)$/i;
 // art-id из реального корпуса: алфавитно-цифровой + «_»/«-» (есть напр. `roza_mira`).
 // Без точки/слэша → art безопасно подставлять в путь docs/art/<art>.*
 const ART_ID_RX = /^[A-Za-z0-9_-]{1,32}$/;
+// Дата во frontmatter индикативна (закодирована в art-id/имени файла) → заморожена:
+// при /api/save сверяем дату входящего ZML с тем, что на диске, и отклоняем смену.
+function fmDateOf(zml) {
+  const m = String(zml || "").match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if (!m) return "";
+  const line = m[1].split(/\r?\n/).find((l) => /^date\s*:/.test(l));
+  return line ? line.replace(/^date\s*:/, "").trim() : "";
+}
 
 // url-unification: один адрес NNN.html; forced_views/`view:`/.view.html упразднены.
 
@@ -243,6 +251,16 @@ async function handleSave(env, payload, body) {
     const art = body.art;
     if (!art) return json(env, { error: "нужны art, zml, html" }, 400);
     if (!ART_ID_RX.test(String(art))) return json(env, { error: "битый art-id" }, 400);
+    // Заморозка date: индикативно (дата закодирована в art-id/имени файла). Сверяем с
+    // диском; расхождение = отказ (смена даты = будущее переименование, не правка).
+    // ghReadFileText на 404 даёт "" → новый файл/нечего сверять, проверку пропускаем.
+    const onDiskZml = await ghReadFileText(env, `docs/art/${art}.zml`, body.branch || "main");
+    if (onDiskZml) {
+      const wasDate = fmDateOf(onDiskZml), nowDate = fmDateOf(zml);
+      if (wasDate !== nowDate) {
+        return json(env, { error: `поле date у сохранённой статьи менять нельзя (на диске ${wasDate || "—"}, прислано ${nowDate || "—"})` }, 409);
+      }
+    }
     // url-unification: источник docs/art/<art>.zml → единый рендер docs/art/<art>.html
     // (тот же render.js, что build_views.mjs → паритет). NB: браузерный рендер БЕЗ
     // ctx.legacyBody → у правленой через веб статьи опция «old» временно скрыта до

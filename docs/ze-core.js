@@ -85,6 +85,8 @@ export function mountZmlEditor(opts) {
   document.addEventListener("keydown", escClose);
 
   function showPreview() {
+    const block = identityBlock(ta.value);
+    if (block) { status(block, true); return; }
     let html;
     try { html = opts.renderView(ta.value); }
     catch (e) { status("Ошибка рендера: " + (e.message || e), true); return; }
@@ -104,6 +106,16 @@ export function mountZmlEditor(opts) {
     ta.focus();
   }
 
+  // Заморозка индикативных полей (напр. `date` у сохранённой статьи): opts.checkIdentity
+  // сверяет текущий ZML с baseline (тем, что на диске) и возвращает текст ошибки, если
+  // менять нельзя. Блокирует И просмотр, И сохранение. Нет хука → не проверяем (новые
+  // статьи до первого сохранения правят date свободно).
+  function identityBlock(zml) {
+    if (typeof opts.checkIdentity !== "function") return "";
+    try { return opts.checkIdentity(zml, baselineGet()) || ""; }
+    catch (e) { return "Проверка полей не пройдена: " + (e.message || e); }
+  }
+
   function doSave() {
     // Предобработка перед сохранением (opts.preprocess): например, авто-разметка
     // [faw] по слогам (вставка «|»). Результат показываем в textarea — оператор
@@ -115,6 +127,8 @@ export function mountZmlEditor(opts) {
       if (typeof src !== "string") src = ta.value;
       if (src !== ta.value) ta.value = src;
     }
+    const block = identityBlock(src);
+    if (block) { status(block, true); return; }
     let html;
     try { html = opts.renderView(src); }
     catch (e) { status("Не сохраняю — ошибка рендера: " + (e.message || e), true); return; }

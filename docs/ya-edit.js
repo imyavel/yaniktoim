@@ -17,7 +17,7 @@
   // резолвится от страницы в docs/art/.
   var SELF = document.currentScript || document.querySelector('script[src*="ya-edit.js"]');
   var SELF_SRC = SELF ? SELF.src : new URL("ya-edit.js", document.baseURI).href;
-  var ASSET_VER = "20260626-02";   // бастит кэш динамических модулей (ze-core/render) при правках
+  var ASSET_VER = "20260627-01";   // бастит кэш динамических модулей (ze-core/render) при правках
   var modUrl = function (p) {
     return new URL(p + (p.indexOf("?") < 0 ? "?v=" + ASSET_VER : ""), SELF_SRC).href;
   };
@@ -103,6 +103,18 @@
     });
   }
 
+  // Дата индикативна (закодирована в art-id и имени файла) → у сохранённой статьи
+  // заморожена: ze-core зовёт checkIdentity на превью И сохранении (см. mount ниже).
+  function fmDateField(zml) {
+    var m = String(zml || "").match(/^---\r?\n([\s\S]*?)\r?\n---/);
+    if (!m) return null;
+    var lines = m[1].split(/\r?\n/);
+    for (var i = 0; i < lines.length; i++) {
+      if (/^date\s*:/.test(lines[i])) return lines[i].replace(/^date\s*:/, "").trim();
+    }
+    return "";
+  }
+
   // ── открытие: загрузить ZML + зависимости + ze-core, смонтировать редактор ─────
   function openEditor() {
     btn.disabled = true;
@@ -136,6 +148,13 @@
                   return setFmEditor(deps.fawMarkup(src), sess && sess.nick);
                 },
                 save: saveToWorker,
+                checkIdentity: function (curZml, baseZml) {   // заморозка date у сохранённой статьи
+                  var was = fmDateField(baseZml), now = fmDateField(curZml);
+                  if (was === now) return "";
+                  return "Поле «date» у сохранённой статьи менять нельзя — дата индикативна "
+                       + "(закодирована в art-id и имени файла). Верни прежнюю дату"
+                       + (was ? " (" + was + ")" : "") + "; смена даты появится позже, через переименование.";
+                },
                 image: { artId: ART },     // Ф8(b): блок «Иллюстрация» (image: + бинарь)
                 savedPrimaryLabel: "На статью",
                 onClosed: function () { btn.disabled = false; dropSession(); }   // логин не сохраняется

@@ -1801,6 +1801,13 @@ export function renderArticleHtml(ctx) {
   // <title>/breadcrumbs/prev-next keep the marker-free literal text.
   html = replaceAllLiteral(html, "{{TITLE_H1}}", p.titleH1);
   html = replaceAllLiteral(html, "{{TITLE}}", htmlEscape(title));
+  // Заголовок окна браузера (<title>) — название из ОГЛАВЛЕНИЯ (manifest/structure
+  // rec.title), а НЕ H1/fm.title статьи: в каталоге у статьи короткое каноническое
+  // имя, тогда как fm.title нередко = развёрнутый авторский H1 (КАПС, глифы). og:title/
+  // twitter:title/хлебные крошки остаются на fm.title. Фолбэк — title (новые статьи
+  // без записи в manifest).
+  const windowTitle = ((ctx.rec && ctx.rec.title) || "").trim() || title;
+  html = replaceAllLiteral(html, "{{WINDOW_TITLE}}", htmlEscape(windowTitle));
   html = replaceAllLiteral(html, "{{AUDIO}}", p.audioHtml || "");
   html = replaceAllLiteral(html, "{{DESCRIPTION}}", htmlEscape(description));
   html = replaceAllLiteral(html, "{{CSS_VERSION}}", CSS_VERSION);

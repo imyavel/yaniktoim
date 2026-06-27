@@ -426,7 +426,6 @@
 <b>пустой строкой</b>. Любой перенос строки внутри блока <b>значим</b> — он сохранится как перенос.</p>
 <div class="zml"><span class="c">--- шапка ---</span>
 <span class="k">title:</span> Вначале
-<span class="k">art:</span> "03H"
 <span class="k">date:</span> 2020-03-17
 <span class="c">--- тело ---</span>
 
@@ -444,14 +443,13 @@
 
 <h3 class="sec" id="s14"><span class="pgmark">~MK14~</span><span class="num">14.</span>Шапка статьи (frontmatter)</h3>
 <p>Между двумя строками <span class="tag">---</span>. Каждое поле — на своей строке, в виде
-<span class="tag">имя: значение</span>. Обязательны только <span class="tag">title</span> и
-<span class="tag">art</span>; остальное — по необходимости.</p>
+<span class="tag">имя: значение</span>. Обязателен только <span class="tag">title</span>;
+остальное — по необходимости.</p>
 <table class="fm-tbl">
   <tr><th>Поле</th><th>Зачем</th></tr>
-  <tr><td class="s">title</td><td><b>Обязательно.</b> Название статьи (идёт в заголовок вкладки и метаданные). Если в теле нет строки <span class="tag">#</span> — служит и видимым заголовком.</td></tr>
-  <tr><td class="s">art</td><td><b>Обязательно.</b> Номер-идентификатор статьи (выдаётся при создании). По нему работают ссылки <span class="tag">[[…]]</span>.</td></tr>
+  <tr><td class="s">title</td><td><b>Обязательно.</b> Название статьи (идёт в метаданные и соцсети — og:title; <b>заголовок вкладки браузера берётся из оглавления</b>, а не отсюда). Если в теле нет строки <span class="tag">#</span> — служит и видимым заголовком.</td></tr>
   <tr><td class="s">zml</td><td>Версия формата. Пишем <span class="tag">zml: 3</span> для самодокументирования.</td></tr>
-  <tr><td class="s">date</td><td>Дата в виде ГГГГ-ММ-ДД. Если не задано — берётся из каталога.</td></tr>
+  <tr><td class="s">date</td><td>Дата в виде ГГГГ-ММ-ДД. Если не задано — берётся из каталога. У уже сохранённой статьи менять нельзя — дата индикативна (привязана к id статьи), правка отклоняется.</td></tr>
   <tr><td class="s">image</td><td>Имя файла обложки (ставится кнопкой «Обложка», раздел&nbsp;5). Картинка встаёт вверху статьи. Картинки в тексте — тег [img], а не это поле.</td></tr>
   <tr><td class="s">theme</td><td>Тема оформления: A_editorial, B_manuscript, cyberpunk, swiss, ar_deco или <span class="tag">old</span> (оригинал). Перебивает общую настройку.</td></tr>
   <tr><td class="s">width</td><td>Ширина колонки: <span class="tag">wide</span> или <span class="tag">narrow</span>. Независима от темы.</td></tr>
@@ -465,7 +463,7 @@
 <div class="box tech"><span class="lbl">Технически</span>
 Тема и ширина — два независимых рычага. Если в шапке их нет, значения берутся из Админки вида
 (общие или по правилу раздела/типа). Поле во frontmatter перебивает общую настройку. Значение можно
-писать в кавычках (<span class="tag">art: "03H"</span>) — кавычки снимаются. Флаги
+писать в кавычках (<span class="tag">theme: "swiss"</span>) — кавычки снимаются. Флаги
 <span class="tag">caps</span>/<span class="tag">allow_faw</span> считаются включёнными при значениях
 <span class="tag">on/true/1/yes/да</span>.</div>
 
@@ -910,7 +908,7 @@ dQw4w9WgXcQ | Песнь восхождения | Шломо Карлебах | 
 <p class="lead" id="cheat">Все конструкции формата — одной таблицей.</p>
 <table class="cheat">
   <tr><th>Что нужно</th><th>Как пишется</th></tr>
-  <tr><td>Шапка статьи</td><td class="s">--- title: … / art: … ---</td></tr>
+  <tr><td>Шапка статьи</td><td class="s">--- title: … / date: … ---</td></tr>
   <tr><td>Абзац</td><td class="s">текст + пустая строка</td></tr>
   <tr><td>Заголовок в теле</td><td class="s"># Заголовок</td></tr>
   <tr><td>Жанровая пометка</td><td class="s">[sub]…[/sub]</td></tr>
