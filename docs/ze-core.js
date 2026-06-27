@@ -85,8 +85,9 @@ export function mountZmlEditor(opts) {
   document.addEventListener("keydown", escClose);
 
   function showPreview() {
-    const block = identityBlock(ta.value);
-    if (block) { status(block, true); return; }
+    guardThen(doShowPreview);
+  }
+  function doShowPreview() {
     let html;
     try { html = opts.renderView(ta.value); }
     catch (e) { status("Ошибка рендера: " + (e.message || e), true); return; }
@@ -107,13 +108,23 @@ export function mountZmlEditor(opts) {
   }
 
   // Заморозка индикативных полей (напр. `date` у сохранённой статьи): opts.checkIdentity
-  // сверяет текущий ZML с baseline (тем, что на диске) и возвращает текст ошибки, если
-  // менять нельзя. Блокирует И просмотр, И сохранение. Нет хука → не проверяем (новые
-  // статьи до первого сохранения правят date свободно).
-  function identityBlock(zml) {
-    if (typeof opts.checkIdentity !== "function") return "";
-    try { return opts.checkIdentity(zml, baselineGet()) || ""; }
-    catch (e) { return "Проверка полей не пройдена: " + (e.message || e); }
+  // сверяет текущий ZML с baseline (тем, что на диске). Если поле менять нельзя — вернёт
+  // {message, fix}; тогда показываем модалку-предупреждение, а по OK редактор сам
+  // возвращает прежнее значение (fix) и действие продолжается. Нет хука / поле не тронуто
+  // → сразу proceed. Новые статьи до первого сохранения правят date свободно.
+  function guardThen(proceed) {
+    if (typeof opts.checkIdentity !== "function") return proceed();
+    let res;
+    try { res = opts.checkIdentity(ta.value, baselineGet()); }
+    catch (e) { return status("Проверка полей не пройдена: " + (e.message || e), true); }
+    if (!res) return proceed();
+    noticeModal(res.message, function () {
+      try {
+        const fixed = res.fix && res.fix(ta.value);
+        if (typeof fixed === "string") ta.value = fixed;
+      } catch (e) { /* fix упал — продолжаем с тем, что есть */ }
+      proceed();
+    });
   }
 
   function doSave() {
@@ -127,8 +138,10 @@ export function mountZmlEditor(opts) {
       if (typeof src !== "string") src = ta.value;
       if (src !== ta.value) ta.value = src;
     }
-    const block = identityBlock(src);
-    if (block) { status(block, true); return; }
+    guardThen(doSaveCommit);
+  }
+  function doSaveCommit() {
+    const src = ta.value;   // после возможной авто-починки индикативного поля (date)
     let html;
     try { html = opts.renderView(src); }
     catch (e) { status("Не сохраняю — ошибка рендера: " + (e.message || e), true); return; }
@@ -192,6 +205,23 @@ export function mountZmlEditor(opts) {
       const yes = b.getAttribute("data-c") === "yes";
       m.parentNode.removeChild(m);
       if (yes) onYes();
+    });
+  }
+
+  // Однокнопочная модалка-уведомление (OK). Мягкое предупреждение: показать, дождаться
+  // OK, затем продолжить (onOk).
+  function noticeModal(msg, onOk) {
+    const m = document.createElement("div");
+    m.id = "ze-pop";
+    m.innerHTML = '<div class="ze-pop-card"><p>' + esc(msg) + '</p>' +
+      '<div class="ze-pop-row">' +
+        '<button type="button" class="ze-btn ze-primary" data-c="ok">OK</button>' +
+      '</div></div>';
+    document.body.appendChild(m);
+    m.addEventListener("click", function (ev) {
+      const b = ev.target.closest("[data-c]"); if (!b) return;
+      m.parentNode.removeChild(m);
+      if (typeof onOk === "function") onOk();
     });
   }
 

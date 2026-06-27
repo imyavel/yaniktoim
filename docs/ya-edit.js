@@ -17,7 +17,7 @@
   // резолвится от страницы в docs/art/.
   var SELF = document.currentScript || document.querySelector('script[src*="ya-edit.js"]');
   var SELF_SRC = SELF ? SELF.src : new URL("ya-edit.js", document.baseURI).href;
-  var ASSET_VER = "20260627-01";   // бастит кэш динамических модулей (ze-core/render) при правках
+  var ASSET_VER = "20260627-02";   // бастит кэш динамических модулей (ze-core/render) при правках
   var modUrl = function (p) {
     return new URL(p + (p.indexOf("?") < 0 ? "?v=" + ASSET_VER : ""), SELF_SRC).href;
   };
@@ -114,6 +114,24 @@
     }
     return "";
   }
+  // Авто-починка: вернуть в шапку прежнее значение date. value="" → убрать строку date;
+  // иначе заменить значение (или добавить строку, если её не было). Концы строк сохраняем.
+  function setFmDateField(zml, value) {
+    var s = String(zml);
+    var m = s.match(/^(---\r?\n)([\s\S]*?)(\r?\n---)/);
+    if (!m) return zml;
+    var nl = m[2].indexOf("\r\n") >= 0 ? "\r\n" : "\n";
+    var lines = m[2].split(/\r?\n/), hasDate = false;
+    for (var i = 0; i < lines.length; i++) {
+      if (/^date\s*:/.test(lines[i])) {
+        hasDate = true;
+        if (value === "") { lines.splice(i, 1); i--; }
+        else lines[i] = "date: " + value;
+      }
+    }
+    if (!hasDate && value) lines.push("date: " + value);
+    return m[1] + lines.join(nl) + m[3] + s.slice(m[0].length);
+  }
 
   // ── открытие: загрузить ZML + зависимости + ze-core, смонтировать редактор ─────
   function openEditor() {
@@ -150,10 +168,13 @@
                 save: saveToWorker,
                 checkIdentity: function (curZml, baseZml) {   // заморозка date у сохранённой статьи
                   var was = fmDateField(baseZml), now = fmDateField(curZml);
-                  if (was === now) return "";
-                  return "Поле «date» у сохранённой статьи менять нельзя — дата индикативна "
-                       + "(закодирована в art-id и имени файла). Верни прежнюю дату"
-                       + (was ? " (" + was + ")" : "") + "; смена даты появится позже, через переименование.";
+                  if (was === now) return null;
+                  return {
+                    message: "Дату у сохранённой статьи менять нельзя — она индикативна "
+                           + "(закодирована в id и имени файла). Возвращаю прежнее значение"
+                           + (was ? ": " + was : "") + ". Смена даты появится позже, через переименование.",
+                    fix: function (zml) { return setFmDateField(zml, was); }
+                  };
                 },
                 image: { artId: ART },     // Ф8(b): блок «Иллюстрация» (image: + бинарь)
                 savedPrimaryLabel: "На статью",
