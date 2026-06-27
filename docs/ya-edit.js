@@ -17,7 +17,7 @@
   // резолвится от страницы в docs/art/.
   var SELF = document.currentScript || document.querySelector('script[src*="ya-edit.js"]');
   var SELF_SRC = SELF ? SELF.src : new URL("ya-edit.js", document.baseURI).href;
-  var ASSET_VER = "20260627-02";   // бастит кэш динамических модулей (ze-core/render) при правках
+  var ASSET_VER = "20260627-03";   // бастит кэш динамических модулей (ze-core/render) при правках
   var modUrl = function (p) {
     return new URL(p + (p.indexOf("?") < 0 ? "?v=" + ASSET_VER : ""), SELF_SRC).href;
   };
@@ -172,7 +172,7 @@
                   return {
                     message: "Дату у сохранённой статьи менять нельзя — она индикативна "
                            + "(закодирована в id и имени файла). Возвращаю прежнее значение"
-                           + (was ? ": " + was : "") + ". Смена даты появится позже, через переименование.",
+                           + (was ? ": " + was : "") + ".",
                     fix: function (zml) { return setFmDateField(zml, was); }
                   };
                 },

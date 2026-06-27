@@ -122,8 +122,10 @@ export function mountZmlEditor(opts) {
       try {
         const fixed = res.fix && res.fix(ta.value);
         if (typeof fixed === "string") ta.value = fixed;
-      } catch (e) { /* fix упал — продолжаем с тем, что есть */ }
-      proceed();
+      } catch (e) { /* fix упал — оставляем как есть */ }
+      // По OK НЕ продолжаем действие (не уходим в просмотр/сохранение): вернули прежнее
+      // значение и остаёмся на странице правки.
+      showEditor();
     });
   }
 
