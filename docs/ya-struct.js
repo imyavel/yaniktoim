@@ -248,7 +248,7 @@
   // перезагружаем страницу управления. ze-core не подгрузился → старый статичный попап.
   function awaitStructDeploy(structJson) {
     status("Сохранено ✓ — ждём появления на сайте…");
-    import("./ze-core.js?v=20260627-05").then(function (mod) {
+    import("./ze-core.js?v=20260627-06").then(function (mod) {
       mod.waitForDeploy({
         url: new URL("config/structure.json", document.baseURI).href,
         match: function (text) { return text === structJson; },
@@ -435,7 +435,7 @@
       var today = isoToday(), art;
       try { art = mintArtId(); } catch (e) { status(e.message, true); return; }
       var zml = templateZml(art, today);
-      import("./ze-core.js?v=20260627-05").then(function (mod) {
+      import("./ze-core.js?v=20260627-06").then(function (mod) {
         status("");
         mod.mountZmlEditor({
           label: "Новая статья · #" + art + " → " + secName(slug),

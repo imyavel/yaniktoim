@@ -179,12 +179,15 @@ export function mountZmlEditor(opts) {
         // обновляем страницу сами. «ОК» — перестать ждать (правка уже в репо, увидится по Ctrl+R).
         var dw = typeof opts.deployWait === "function" ? opts.deployWait(zml, html) : null;
         if (dw && dw.url) {
-          status("Сохранено ✓ — ждём появления правки на сайте…");
+          // Сначала закрываем редактор — под ним показывается страница как есть сейчас
+          // (ещё старая, деплой не доехал). Окно ожидания вешаем уже НА НЕЁ. По готовности
+          // обновляем/переходим; «Пропустить» — просто снять окно (страница уже видна).
+          close();
           waitForDeploy({
             url: dw.url,
             match: typeof dw.match === "function" ? dw.match : function (text) { return text === html; },
-            onReady: function () { close(); (typeof dw.onReady === "function" ? dw.onReady : function () { location.reload(); })(); },
-            onDismiss: function () { close(); if (typeof dw.onDismiss === "function") dw.onDismiss(); }
+            onReady: typeof dw.onReady === "function" ? dw.onReady : function () { location.reload(); },
+            onDismiss: typeof dw.onDismiss === "function" ? dw.onDismiss : null
           });
           return;
         }
@@ -427,10 +430,10 @@ export function waitForDeploy(opts) {
       '<p><b>Ожидаем обновление сайта…</b></p>' +
       '<p class="ze-wait-line">Прошло <span class="ze-wait-sec">0</span>&nbsp;с. ' +
         'Страница обновится сама, как только правка появится на сайте.</p>' +
-      '<p class="ze-wait-note ze-hidden">Дольше обычного — можно нажать «ОК» и ' +
+      '<p class="ze-wait-note ze-hidden">Дольше обычного — можно нажать «Пропустить» и ' +
         'обновить страницу позже вручную (Ctrl+R).</p>' +
       '<div class="ze-pop-row">' +
-        '<button type="button" class="ze-btn ze-primary" data-w="ok">ОК</button>' +
+        '<button type="button" class="ze-btn ze-primary" data-w="ok">Пропустить</button>' +
       '</div>' +
     '</div>';
   document.body.appendChild(m);
