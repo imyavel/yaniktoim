@@ -118,14 +118,21 @@ export function mountZmlEditor(opts) {
     try { res = opts.checkIdentity(ta.value, baselineGet()); }
     catch (e) { return status("Проверка полей не пройдена: " + (e.message || e), true); }
     if (!res) return proceed();
+    // Каретку/прокрутку запоминаем ДО переустановки value: ta.value=… сбрасывает курсор
+    // в конец. Дата той же длины (ISO 10 симв.) → смещения после неё не плывут, каретка
+    // садится на прежнее место.
+    const ss = ta.selectionStart, se = ta.selectionEnd, top = ta.scrollTop;
     noticeModal(res.message, function () {
       try {
         const fixed = res.fix && res.fix(ta.value);
         if (typeof fixed === "string") ta.value = fixed;
       } catch (e) { /* fix упал — оставляем как есть */ }
       // По OK НЕ продолжаем действие (не уходим в просмотр/сохранение): вернули прежнее
-      // значение и остаёмся на странице правки.
+      // значение и остаёмся на странице правки, с прежней кареткой и прокруткой.
       showEditor();
+      const len = ta.value.length;
+      try { ta.setSelectionRange(Math.min(ss, len), Math.min(se, len)); } catch (e) {}
+      ta.scrollTop = top;
     });
   }
 
