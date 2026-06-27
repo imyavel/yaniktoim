@@ -2171,6 +2171,14 @@
       "section": "dabudet",
       "order": 52,
       "status": "published"
+    },
+    {
+      "art": "66R",
+      "section": "dabudet",
+      "order": 53,
+      "status": "published",
+      "title": "Новая статья",
+      "date": "2026-06-27"
     }
   ]
 }
