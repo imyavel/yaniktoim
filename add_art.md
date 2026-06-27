@@ -1,272 +1,245 @@
-# Добавление одной статьи с proza.ru в корпus «Путь Восходящей Звезды»
+# Добавление одной статьи в корпус «Путь Восходящей Звезды» (ZML-конвейер)
 
-> **⚠️ url-unification (2026-06-21).** У статьи теперь ОДИН публичный адрес `docs/art/NNN.html` —
-> это ZML-рендер-контейнер (его собирает `build_views.mjs` из `docs/art/NNN.zml`), а НЕ отдельная
-> «старая» вёрстка. Шаги ниже, пишущие самостоятельный старый html прямо в `docs/art/NNN.html`,
-> **устарели** (этот html-конвейер — legacy). Для нового материала источник — `.zml`; во фронтматтере
-> задавайте `summary:` — он идёт в OG/`<meta description>` (раскрытие в Telegram). Вид (5 тем + «оригинал»)
-> резолвится рантаймом; `.view.html` — редирект-заглушка. «old»-оверлей доступен только тем статьям,
-> у кого есть архив `cms-revival/legacy_html/NNN.html`; у новых статей опция «оригинал» скрыта.
+> **АКТУАЛЬНО на 2026-06-27.** Этот файл переписан под ЖИВОЙ ZML-конвейер. Старая
+> версия описывала legacy-путь (proza.ru → LLM-вёрстка raw-html через
+> `legacy/src/3b_transform_html.py` / `.batch/add_one_transform.py`, ручная правка
+> индексов, `gen_descriptions`/`apply_seo`). **Тот путь УПРАЗДНЁН** — PROJECT.md
+> прямо запрещает запускать конвертер. Любая новая статья делается так, как описано
+> ниже: пишем `.zml`, регистрируем в `structure.json`+`manifest.json`, рендерим
+> `build_views.mjs`+`build_index.mjs`. Точка входа проекта — `PROJECT.md`.
 
-Процедура для произвольной статьи `https://proza.ru/YYYY/MM/DD/NNN`. Корпус —
-самодостаточные HTML-страницы в `docs/` (живое) + единый источник истины
-`manifest.json`. Старый конвейер заморожен в `legacy/` (НЕ запускать целиком),
-но отдельные его функции вёрстки переиспользуются (см. шаг 3). Живые
-индексы (`docs/index.html`, `docs/<section>/index.html`, `docs/songs/`) —
-самостоятельные файлы, их правим адресно (5_index.py из legacy их НЕ
-перегенерирует — он затрёт богатую главную).
+Корень репо: `C:\Users\admin\imyavel\yaniktoim` (всё в одном репо `yaniktoim`).
+Источник статьи — **любой URL** (Дзен, proza.ru, …): берём оттуда ПОЛНЫЙ реальный
+текст (см. CLAUDE.md про целостность внешних текстов — если полный текст получить не
+удалось, остановиться и спросить оператора, а не додумывать).
 
-> Правка версионных файлов (`<name>_NNN.ext`) — копией в `NNN+1`, не в-месте
-> (см. CLAUDE.md). Промпт вёрстки сейчас — `batch_runner/convert_prompt_005.md`;
-> если правишь промпт — делай `convert_prompt_006.md` и обнови ссылку в
-> `legacy/src/3b_transform_html.py` (`PROMPT_MD`).
+---
+
+## Модель данных (что есть источник истины)
+
+Три файла на статью — у каждого своя зона ответственности:
+
+| Файл | Чем владеет | Кто читает |
+|---|---|---|
+| **`docs/art/<art>.zml`** | КОНТЕНТ + метаданные статьи: `title`, `date`, `summary` (→ OG), `image`, `type`, тело в ZML. Это первичный источник содержимого. | `render.js` (страница статьи) |
+| **`docs/config/structure.json`** | СТРУКТУРА: разделы (имя/порядок/`archived`) + размещение статьи (`section`, `order`, `status`). Источник истины структуры; правится UI-редактором структуры. | `build_index.mjs`, браузерный `ya-struct.js` |
+| **`manifest.json`** | Пер-статейные поля для ОФЛАЙН-рендера: `title`, `date_chosen`, `url`, `section`, `section_order`, `number`, `img`. | `build_views.mjs`, `build_index.mjs` (крошки, prev/next, заголовки/даты в списках) |
+
+Ключевой момент про офлайн-рендер: `build_views.mjs` берёт `rec` из **manifest** —
+из него идут хлебные крошки (раздел), prev/next (`section_order`) и короткий
+`<title>` окна. Если статьи нет в manifest, крошки скатятся в «Без категории», а
+prev/next исчезнут. Браузерное «+ статья» этого не делает (manifest узнаёт о статье
+лишь при ручном дозаписи) — поэтому **офлайн-путь надёжнее: обновляем и
+`structure.json`, и `manifest.json`**, тогда страница, навигация и списки верны сразу,
+локально, до push.
+
+> ⚠️ **Два порядка должны совпадать.** Порядок в списке раздела = `order` в
+> structure.json; prev/next = `section_order` в manifest.json. При вставке в середину
+> раздела сдвигай `+1` ОБА у всех статей, идущих после новой. В конец раздела —
+> просто `max(...)+1`, сдвигать никого не надо.
+
+> ⚠️ **`tools/build_structure.py` НЕ запускать** в живом режиме — он пересобирает
+> `structure.json` из manifest и затирает все ручные/UI-правки структуры. Это
+> одноразовый сид Ф10.
 
 ---
 
 ## 0. Идентификаторы статьи
 
-Из URL `https://proza.ru/2026/06/06/409`:
-- `stem = 2026_06_06_409` (нецифры → `_`).
-- `url_date = 2026-06-06`, `url_nnn = 409`.
-- `date_chosen` — дата для сортировки/art-id. По умолчанию = `url_date`; если в
-  теле статьи явно указана другая дата написания, берётся она (`date_source`).
-- `art` — короткий id (см. `legacy/src/build_art_ids.py`):
-  - **год**: `0..9` = 2020..2029; `Z..A` = 2019..1994.
-  - **месяц**: `1..9`, `A`=10, `B`=11, `C`=12.
-  - **день**: `1..9`, `A`=10 … `V`=31.
-  - **суффикс** (N-я статья в тот же `date_chosen`, 0-based): пусто, затем `A..Z`
-    (2-я..27-я), затем `a..z`.
-  - Пример: 2026-06-06, единственная за день → `6`+`6`+`6` = **`666`**.
-  - Проверь, что выбранный `art` не занят в `manifest.json` (коллизия → следующий
-    суффикс).
+### `art` — короткий id (кодек, SPEC §2.3, зеркало в `ya-struct.js::mintArtId`)
+Префикс = дата (по умолчанию `date_chosen`), затем суффикс-разрешитель коллизий:
+- **год**: `2020..2029` → `0..9`; `2019..1994` → `Z..A`; `2030..2055` → `a..z`.
+- **месяц**: `1..9`, `A`=10, `B`=11, `C`=12.
+- **день**: `1..9`, `A`=10 … (chr 65+день−10), т.е. 10→`A`, 26→`Q`, 31→`V`.
+- **суффикс** (N-я статья за тот же день, биективная база-52): 0→«» · 1..26→`A..Z` ·
+  27..52→`a..z` · 53→`AA` … Растёт без предела до первого свободного id.
+- Пример: 2026-06-26 → `6`+`6`+`Q` = **`66Q`** (+суффикс при коллизии).
 
-Проверка занятости и счётчиков:
+Проверка занятости (id не должен встречаться ни в manifest, ни в structure):
 ```bash
-python -X utf8 -c "import json;m=json.load(open('manifest.json',encoding='utf-8'));print('total',len(m));print('art free', not any(r.get('art')=='666' for r in m));print('dabudet',sum(1 for r in m if r['section']=='dabudet'))"
+cd C:\Users\admin\imyavel\yaniktoim
+python -X utf8 -c "import json; m=json.load(open('manifest.json',encoding='utf-8')); s=json.load(open('docs/config/structure.json',encoding='utf-8')); ART='66Q'; taken=any(r.get('art')==ART for r in m) or any(a.get('art')==ART for a in s['articles']); print('art',ART,'free' if not taken else 'TAKEN'); print('total',len(m))"
 ```
 
----
-
-## 1. Скачать сырьё в `raw/`
-
-Отдельная статья на proza.ru публична — **логин не нужен** (cookies нужны были
-только для листингов автора). Скачиваем HTML (кодировка cp1251) и первую
-картинку из `<div class="maintext">`.
-
-- `raw/<stem>.html` — сырой HTML страницы (как есть, cp1251→utf-8).
-- `raw/<stem>.jpg` — иллюстрация статьи.
-
-**ВАЖНО про картинку.** В публичном (незалогиненном) HTML страницы тег `<img>`
-с иллюстрацией автора часто ОТСУТСТВУЕТ (виден только лого `/images/proza.svg` и
-счётчики) — `find_first_img` из `legacy/src/1_fetch.py` его не найдёт. Но сам
-файл лежит по **каноническому пути** `https://proza.ru/pics/YYYY/MM/DD/NNN.jpg`
-(те же цифры, что в URL статьи). Поэтому надёжный порядок:
-1. попробовать прямой `https://proza.ru/pics/<YYYY>/<MM>/<DD>/<NNN>.jpg`
-   (HTTP 200 + `Content-Type: image/jpeg` → качать; 404 отдаёт HTML-страницу);
-2. если 404 — попробовать `.png`/`.jpeg`;
-3. если и там нет — статья действительно без иллюстрации (`img: null`).
-
-Качать `requests`-ом с UA браузера и `Referer` на страницу статьи.
+### Дата и раздел
+- `date_chosen` — дата статьи (ISO `YYYY-MM-DD`). Управляет сортировкой, art-id и
+  byline. Если оператор задаёт дату явно (напр. «вчерашняя») — берём её.
+- `section` — слаг раздела. Соответствие имён (из `structure.json`):
+  `best`=Избранное · `dreamon`=Мечтай!! · `cyberson`=Киберсон ·
+  **`dabudet`=Да будет Свет!** · `confront`=Конфронтология Духа ·
+  `shoshana`=Роза Среди Шипов · `other`=Без категории.
 
 ---
 
-## 2. Запись в `manifest.json`
+## 1. Текст и картинка
 
-`manifest.json` — единый источник истины (массив объектов). Добавить новый
-объект **в копию-инкремент не требуется** (это не версионный файл), но сделай
-бэкап перед правкой: `cp manifest.json manifest.bak.json`.
+1. Получить ПОЛНЫЙ текст статьи по URL (Дзен/proza/…). Дзен — рендер через JS;
+   при пустом fetch использовать Chrome MCP (`get_page_text`/`read_page`) или
+   `WebFetch`. Сверить, что забрали весь текст (заголовок, все абзацы, сноски,
+   ссылки на музыку/видео). При неполном — остановиться, сообщить, спросить.
+2. Картинку (если есть) скачать → `docs/img/<art>.<ext>` (обычно `<art>.jpg`).
+   На неё сошлёмся через frontmatter `image:` (обложка) или тег `[img]` в теле.
 
-Поля новой записи (по образцу существующих):
+---
+
+## 2. Написать `docs/art/<art>.zml`
+
+Формат — ZML3 (канон: `cms-revival/zml3/SPEC.md`; публичная копия `docs/zml/SPEC.md`).
+Frontmatter (поля — SPEC §1.1; реальный образец — `docs/art/2C7.zml`):
+
+```
+---
+title: ТОЧНОЕ НАЗВАНИЕ СТАТЬИ
+date: 2026-06-26
+type: prose            # prose | poem (влияет на тему через display.json)
+summary: 1–2 фразы для <meta description>/OG (раскрытие в Telegram/поиске). НЕ выводится в теле.
+image: 66Q.jpg         # опц.: обложка → <img class="cover" src="../img/66Q.jpg">; убрать строку, если картинки нет
+notes_title: Примечания  # опц.: авторское имя секции сносок (деф. «Примечания»)
+audio: [{"url": "...", "label": "Слушать аудио-озвучку"}]  # опц.: 🎧 у H1
+---
+```
+
+Тело (минимум — абзацы через пустую строку). Полезные блоки ZML3:
+- `# Авторский H1` — опц. отображаемый заголовок (если отличается от `title`).
+- `[sub]жанровая пометка[/sub]` · `[subsec]…[/subsec]` (подзаголовок секции).
+- `## Заголовок секции {slug}` · `### Вложенный` · `[toc]` (маркер оглавления).
+- `_курсив_` · `[https://url|текст]` · сноски `текст[^1]` … `[^1]: тело сноски`.
+- `[poem] … [/poem]` — стихи (строфы разделяются пустой строкой).
+- Музыка `[mus="Подпись"] [https://youtube…|Трек|Исполнитель] [/mus]`; галерея
+  плиток — `[shir]` (см. SPEC §6). YouTube — чистый ID, без `?si` (см. память).
+- Картинка в тексте — `[img …]` (обложка — через frontmatter `image:`, не тегом).
+
+Подсмотреть живые примеры: `docs/art/2C7.zml` (проза+музыка+audio),
+любой `.zml` нужного жанра. ZML-теги, не уверенные в синтаксисе — сверять по SPEC.
+
+---
+
+## 3. Зарегистрировать статью в `structure.json` и `manifest.json`
+
+Бэкап перед правкой: `cp manifest.json manifest.bak.json`.
+
+**`docs/config/structure.json`** — добавить объект в `articles[]` (в позицию раздела,
+сдвинув `order` соседей при вставке в середину):
+```json
+{ "art": "66Q", "section": "dabudet", "order": <позиция 0-based>, "status": "published" }
+```
+
+**`manifest.json`** — добавить запись (массив объектов). Поля, которые реально читает
+рендер, помечены ★; остальные — для консистентности с корпусом:
 ```json
 {
-  "stem": "2026_06_06_409",
-  "url": "https://proza.ru/2026/06/06/409",
-  "section": "dabudet",
-  "title": "<точное название с proza.ru>",
-  "html": "2026_06_06_409.html",
-  "img": "2026_06_06_409.jpg",
-  "url_date": "2026-06-06",
-  "url_nnn": 409,
-  "text_date": null,
-  "date_chosen": "2026-06-06",
-  "date_source": "url",
-  "number": "351",
-  "section_order": <позиция в каталоге раздела>,
-  "art": "666"
+  "art": "66Q",
+  "section": "dabudet",                ★ крошки
+  "title": "ТОЧНОЕ НАЗВАНИЕ СТАТЬИ",   ★ <title> окна, заголовок в списках, подписи prev/next
+  "date_chosen": "2026-06-26",         ★ дата в byline/списках (если нет fm.date)
+  "url": "https://dzen.ru/a/…",        ★ ссылка-источник в byline
+  "section_order": <та же позиция, что order>,  ★ prev/next
+  "number": "353",                     следующий по корпусу (текущий total+1)
+  "img": "66Q.jpg",
+  "stem": "2026_06_26_66Q",
+  "date_source": "manual"
 }
 ```
-
-- `number` — следующий по корпусу (текущий total + 1), 3 знака с ведущими нулями
-  при <100.
-- `section_order` — **позиция статьи в каталоге автора для этого раздела** (как
-  её разместил автор), 0-based. Каноничный способ — `legacy/src/2b_section_order.py`
-  (нужны `raw/proza_cookies.txt`): он перечитывает book-страницу раздела и
-  проставляет индекс. Соответствие slug→book: dreamon=17, cyberson=24,
-  **dabudet=13**, confront=16, shoshana=25, other=20; `best` — страница автора
-  без `&book`. Для ОДНОЙ статьи проще: открыть листинг раздела на proza, найти,
-  на какой позиции автор поставил новую статью, и:
-  - присвоить ей этот `section_order`;
-  - **сдвинуть на +1** `section_order` у всех статей раздела, что идут после неё
-    (иначе дубль порядка). Если автор поставил статью в самый конец — просто
-    `max(section_order раздела)+1`, сдвигать никого не надо.
-
-`section_order` управляет и порядком в индексе раздела, и навигацией
-prev/next — поэтому важно его проставить до вёрстки (nav берётся из manifest).
+`number` — порядковый по корпусу (на момент 352 статей новый = 353). При вставке в
+середину раздела сдвинуть на `+1` `section_order` (manifest) И `order` (structure) у
+всех статей раздела ПОСЛЕ новой — синхронно.
 
 ---
 
-## 3. Вёрстка ТЕМ ЖЕ ПРОМПТОМ → `docs/art/<art>.html`
+## 4. Рендер страницы + индексов
 
-Это ядро. Используем тот же промпт и тот же headless-вызов, что и пакетный
-раннер. Самый надёжный путь — переиспользовать функцию вёрстки напрямую:
-
+Из корня репо (нужны node + установленные зависимости; см. PROJECT.md «Запуск с чистого компа»):
 ```bash
-cd C:\Users\admin\yaniktoim
-python -X utf8 legacy/src/3b_transform_html.py --number 351
-#  либо по art:  python -X utf8 legacy/src/3b_transform_html.py 666
-#  --force  — перезаписать уже существующий docs/art/666.html
+cd C:\Users\admin\imyavel\yaniktoim
+node cms-revival/editor/build_views.mjs 66Q          # docs/art/66Q.zml → docs/art/66Q.html
+node cms-revival/editor/build_index.mjs              # пересобрать docs/index.html + все docs/<slug>/index.html из structure.json
 ```
-
-Что делает `transform_one` (см. `legacy/src/3b_transform_html.py`):
-1. `extract_body` — из `raw/<stem>.html` достаёт ТОЛЬКО `<div class="text">` как
-   plain-text (как видит читатель): `<br>`→`\n`, срез тегов, `html.unescape`,
-   чистка `;;`-мусора, NBSP→пробел. Заголовок НЕ включается (подаётся метаданными).
-2. `build_nav` — собирает обязательную обвязку из manifest: хлебные крошки
-   (Главная + раздел), prev/next по `section_order` (на стыке раздела — в соседний
-   раздел), колофон CC BY 4.0, путь картинки `../img/<art>.jpg`.
-3. `build_prompt` — склеивает `convert_prompt_005.md` + метаблок (url, title) +
-   nav-JSON + путь файла назначения + сырое тело.
-4. `call_claude` — `claude.exe -p --model claude-opus-4-8 --output-format json
-   --allowedTools Write,Edit,Read --permission-mode bypassPermissions
-   --add-dir docs/art --max-turns 60 --system-prompt <изоляция от CLAUDE.md>`,
-   с `CLAUDE_CODE_MAX_OUTPUT_TOKENS=128000`. Агент САМ пишет страницу в
-   `docs/art/<art>.html` (Write + дописки Edit). Успех = на диске валидный
-   HTML от `<!DOCTYPE>` до `</html>`. 429 → лимит (ждать сброса). Лог и сырьё —
-   в `_logs/html_<art>.*`.
-5. После успеха: `_ensure_favicon` (дописывает favicon-линки после `<head>`) и
-   `publish_image` (копирует `raw/<stem>.jpg` → `docs/img/<art>.jpg`).
-
-> Промпт даёт две схемы: **manuscript** (узкая колонка, для стихов/поэм) и
-> **editorial** (широкая, для прозы). Выбор — за моделью по доминирующей форме.
-> Схема пишется в `data-scheme` на `<body>` (это же маркер «построено» для
-> очереди раннера) и дублируется в скрытом блоке `yanik-meta` перед `</body>`.
-
-Если `claude.exe` не находится по контейнерному пути — `_resolve_claude_exe`
-берёт самую свежую версию-папку или `claude` из PATH (см. CLAUDE.md про headless).
-
----
-
-## 4. Швы навигации у соседей
-
-Новая страница уже содержит правильные prev/next (из manifest). Но её **два
-соседа** по разделу (статья перед ней и статья после неё по `section_order`) уже
-построены со старыми ссылками — у них внизу нужно обновить блок «предыдущая/
-следующая», чтобы появился новый сосед `666`.
-
-Два варианта:
-- **Адресно (рекомендуется):** найти в `docs/art/<сосед>.html` нижний
-  nav-блок и поправить href/название одной ссылки (prev у того, кто идёт ПОСЛЕ
-  новой; next у того, кто идёт ДО неё).
-- **Перевёрстка:** прогнать тех же соседей через шаг 3 с `--force` — но это
-  меняет их вёрстку целиком, применять только если правка вручную неудобна.
-
-Названия соседей и их `art` бери из manifest (раздел `dabudet`, сортировка по
-`section_order`).
-
----
-
-## 5. Списки (индексы)
-
-Правим адресно (это самостоятельные HTML, не шаблоны):
-
-**`docs/<section>/index.html`** (напр. `docs/dabudet/index.html`):
-- вставить `<li>` на позицию, соответствующую `section_order`:
-  ```html
-  <li><span class="num">#666</span><a href="../art/666.html">НАЗВАНИЕ</a><span class="meta">ДД.ММ.ГГГГ</span></li>
+- `build_views.mjs <art>` рендерит ОДНУ статью (без аргументов — весь корпус,
+  идемпотентно). Он же синкает темы и `docs/editor/` (производные — не править руками).
+- `build_index.mjs` регенерирует главную и страницы разделов (счётчики, `<li>`,
+  meta-описания) из `structure.json`+`manifest.json`. **Руками индексы НЕ править.**
+- **Швы prev/next у соседей:** их страницы построены без знания о новой статье.
+  Перерендерить соседей (или весь корпус), чтобы их prev/next подхватили новую:
+  ```bash
+  node cms-revival/editor/build_views.mjs <prev_art> <next_art>   # либо без аргументов — все
   ```
-  (дата в формате `dd.mm.YYYY` из `date_chosen`).
-- счётчик `<p class="meta">Статей: 51</p>` → 52.
-- в `<head>`: `description`/`og:description`/`twitter:description`
-  «… — 51 статей …» → 52.
 
-**`docs/index.html`** (главная):
-- `<p class="meta">… 350 статей в 7 разделах.</p>` → 351.
-- в `<ul class="toc">` строка раздела: `<span class="meta">51 статей</span>` → 52.
-- meta `description` («350 статей, 7 разделов») и twitter/og — синхронно.
-
-**`imyavel.github.io/index.html`** (заглавный хаб, отдельный репозиторий):
-- в карточке «Путь Восходящей Звезды» счётчик `Корпус авторских
-  произведений — 350 статей в 7 разделах…` инкрементировать (→ 351 и т.д.).
-  Склонение: …1 → «статья» (351 статья), …2/3/4 → «статьи» (352 статьи),
-  иначе → «статей» (355 статей); 11–14 всегда «статей».
+Локальная отладка вёрстки — превью (`preview_*`, конфиг `zml-preview`, порт 8099)
+или `viewshots.py`. Вёрстку проверять ЛОКАЛЬНО до push. Превью на время правок
+держать поднятым; перед завершением — остановить (preview_list → preview_stop).
 
 ---
 
-## 6. Песнь Ступеней (`docs/songs/index.html`)
+## 5. Песнь Ступеней (только если в статье есть YouTube-музыка)
 
-Только если в новой статье есть музыкальные треки с YouTube. Страница
-генерируется из `.batch/songs_data.json` (videoID → `{arts:[...], title}`) +
-`.batch/art_titles.json` (art → название статьи).
-
-1. Найти в `docs/art/666.html` YouTube-плееры (атрибут `data-id="<videoID>"`)
-   и их подписи (название — исполнитель).
-2. В `.batch/songs_data.json`: для каждого videoID — если есть, добавить `666`
-   в его `arts`; если нет — создать запись `{"<id>": {"arts": ["666"], "title":
-   "Исполнитель — Название"}}`.
-3. В `.batch/art_titles.json`: добавить `"666": "НАЗВАНИЕ СТАТЬИ"`.
-4. Перегенерировать: `python -X utf8 .batch/songs_build.py` → перезапишет
-   `docs/songs/index.html` и напечатает число треков.
-5. Если общее число композиций выросло — обновить «217 композиций» в
-   `docs/index.html` (строка songs в `<ul class="toc">`).
-
-Если музыки в статье нет — шаг пропустить.
+Источник страницы песен — `docs/songs/index.zml` (блок `[shir]`), рендер —
+`build_songs.mjs`. Legacy `.batch/songs_build.py` + `songs_data.json` НЕ использовать.
+1. Добавить/дополнить плитки трека в `docs/songs/index.zml` (`[shir]`: `ytID|Композиция|Исполнитель|…`, привязка к art).
+2. Пересобрать: `node cms-revival/editor/build_songs.mjs` → `docs/songs/index.html`.
+3. Число композиций на главной и в `structure.json::specials[songs].meta` считается из
+   числа плиток (`build_index.mjs`/`build_structure.py` берут его из `[shir]`); проверить,
+   что счётчик обновился.
 
 ---
 
-## 7. SEO-описание
+## 6. SEO
 
-```bash
-python -X utf8 tools/gen_descriptions.py --only art/666.html   # → descriptions.json (Opus 4.8, headless)
-python -X utf8 tools/apply_seo.py                              # идемпотентно вставит canonical/og/twitter/description во ВСЕ страницы docs/
-```
-`apply_seo.py` добавляет только недостающее — повторный прогон безопасен и
-доберёт теги на новых/правленых индексах тоже.
+Отдельный шаг НЕ нужен: `template_view.html` печёт `canonical`/`og:*`/`twitter:*`/
+`<meta description>` прямо из frontmatter (`summary`→description, `title`→og:title,
+`image`→og:image). Достаточно заполнить `summary:` в `.zml`. Скрипты
+`tools/gen_descriptions.py`/`tools/apply_seo.py` — legacy (для старых raw-html), для
+ZML-статьи они no-op; запускать не требуется.
 
 ---
 
-## 8. Поиск + sitemap
+## 7. Поиск + sitemap
 
 ```bash
 reindex.bat
 ```
-Делает: `pagefind --site docs` (перестроить индекс поиска по docs/) +
-`python -X utf8 tools/build_sitemap.py` (sitemap.xml + robots.txt из текущего
-состояния docs/). Запускать ПОСЛЕ всех правок страниц, ПЕРЕД push.
+= `pagefind --site docs` (с предварительным wipe `docs/pagefind` — НЕ убирать, иначе
+индекс распухает) + `tools/build_sitemap.py` (sitemap.xml + robots.txt). Запускать
+ПОСЛЕ всех правок, ПЕРЕД push. NB: `.bat` заканчивается `pause` — под `cmd /c`
+зависает; при автоматизации выполнять две команды напрямую.
 
 ---
 
-## 9. Публикация
+## 8. Публикация
 
-```bash
-push.bat add art 666 — <краткое название>
-```
-= `git add -A` + commit (от имени imyavel) + `git push origin main`. Сайт
-обновится на GitHub Pages (`https://imyavel.github.io/yaniktoim/`).
+Боевой деплой — мульти-репо `imyavel/push.bat` (reindex+commit+push трёх репо;
+PROJECT.md). Для одной статьи в одном репо достаточно локального
+`yaniktoim/push.bat` (`git add -A` + commit от имени imyavel + `git push origin main`).
+Оба `.bat` заканчиваются `pause`.
+
+> **Гонка с воркером.** Если push отклонён `fetch first` — воркер закоммитил живую
+> правку. `git pull --rebase`, при конфликте по статье ПЕРЕСОБРАТЬ её
+> (`build_views.mjs <art>`), затем push (см. память `project_yaniktoim_push_race_worker`).
+
+Сайт обновится на GitHub Pages (`https://imyavel.github.io/yaniktoim/`) за ~30–90 сек.
+
+---
+
+## Альтернатива: создать статью прямо на сайте (браузер)
+
+Лёгкий путь без локального рендера: «Управление» внизу главной → вход → Админка →
+«Управление структурой» (`structure.html`) → у нужного раздела «+ статья» → ZML-
+редактор (шаблон с примерами) → «Сохранить». Воркер коммитит `.zml`+`.html`+
+`structure.json`+перегенерированные индексы (+картинки). art-id минтится сам.
+**Ограничение:** manifest НЕ обновляется → prev/next и короткий `<title>` появятся
+только после ручной дозаписи в `manifest.json` и `build_views.mjs`. Для аккуратной
+навигации сразу — предпочесть офлайн-путь (шаги 0–8).
 
 ---
 
 ## Чек-лист
 
-- [ ] `raw/<stem>.html` + `raw/<stem>.jpg` скачаны
-- [ ] запись добавлена в `manifest.json` (art, number, section_order проставлены;
-      сдвинуты section_order соседей при вставке в середину)
-- [ ] `docs/art/<art>.html` сверстан тем же промптом, favicon + `docs/img/<art>.jpg`
-- [ ] prev/next у двух соседей по разделу поправлены
-- [ ] `docs/<section>/index.html` — `<li>` вставлен, счётчик +1
-- [ ] `docs/index.html` — total +1, счётчик раздела +1, meta синхронны
-- [ ] Песнь Ступеней перегенерирована (если есть музыка) + счётчик на главной
-- [ ] `gen_descriptions --only` + `apply_seo`
+- [ ] ПОЛНЫЙ текст статьи получен с URL; картинка → `docs/img/<art>.<ext>`
+- [ ] `art`-id вычислен и свободен; `date_chosen`, `section` определены
+- [ ] `docs/art/<art>.zml` написан (frontmatter: title, date, type, **summary**, image?; тело в ZML)
+- [ ] запись в `structure.json` (`art/section/order/status`) — order проставлен, соседи сдвинуты при вставке в середину
+- [ ] запись в `manifest.json` (title, date_chosen, url, **section_order**=order, number, img) — бэкап `manifest.bak.json`
+- [ ] `build_views.mjs <art>` + `build_index.mjs`; соседи перерендерены (prev/next)
+- [ ] локальная проверка вёрстки (превью), крошки/byline/prev/next/обложка верны
+- [ ] Песнь Ступеней (`build_songs.mjs`) — если есть музыка
 - [ ] `reindex.bat` (Pagefind + sitemap)
-- [ ] `push.bat`
-</content>
-</invoke>
+- [ ] push (`imyavel/push.bat` или локальный `push.bat`)

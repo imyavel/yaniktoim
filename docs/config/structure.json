@@ -49,7 +49,7 @@
       "slug": "songs",
       "name": "Песнь Ступеней",
       "href": "songs/index.html",
-      "meta": "220 композиций"
+      "meta": "234 композиции"
     }
   ],
   "articles": [
@@ -2165,6 +2165,12 @@
       "order": 27,
       "status": "published",
       "num": "РМ"
+    },
+    {
+      "art": "66Q",
+      "section": "dabudet",
+      "order": 52,
+      "status": "published"
     }
   ]
 }

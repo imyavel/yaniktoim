@@ -5630,5 +5630,17 @@
     "number": "352",
     "section_order": 27,
     "art": "roza_mira"
+  },
+  {
+    "art": "66Q",
+    "section": "dabudet",
+    "title": "Что такое \"хорошо\" [а что такое - \"плохо\"]",
+    "date_chosen": "2026-06-26",
+    "url": "https://dzen.ru/a/aj41UYrBkyT5AjTx",
+    "section_order": 52,
+    "number": "353",
+    "img": "66Q.jpg",
+    "stem": "2026_06_26_66Q",
+    "date_source": "manual"
   }
 ]

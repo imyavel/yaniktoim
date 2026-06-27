@@ -1,16 +1,16 @@
 ---
 title: Песнь Ступеней
-summary: Песнь Ступеней — вся музыка корпуса «Путь Восходящей Звезды»: 220 композиций со ссылками на статьи.
+summary: Песнь Ступеней — вся музыка корпуса «Путь Восходящей Звезды»: 234 композиции со ссылками на статьи.
 ---
-Вся музыка корпуса — 220 композиций. Под каждой плиткой — статьи, где она звучит. Нажмите на плитку, чтобы включить.
+Вся музыка корпуса — 234 композиции. Под каждой плиткой — статьи, где она звучит. Нажмите на плитку, чтобы включить.
 
 [shir cols=3 min=300]
-mpLE30Nadfs | Моя Звезда | Вячеслав Бутусов | 09G, 186B, 1AS, 1BI, 2BG, 2BN, 364, 53KA
-IwH9YvhPN7c | Circle of Life | Elton John | 12L, 16K, 217A, 272, 28MA, 33F, 462
+mpLE30Nadfs | Моя Звезда | Вячеслав Бутусов | 09G, 186B, 1AS, 1BI, 2BG, 2BN, 364, 53KA, 251
+IwH9YvhPN7c | Circle of Life | Elton John | 12L, 16K, 217A, 272, 28MA, 33F, 462, 163A
 hz4YfY4agT8 | Верхом на звезде | Найк Борзов | 1AQA, 1AT, 1B3, 1BA, 21K, 28MA, 336
-KjgWWjkNbhU | Can You Feel the Love Tonight | Elton John | 18HB, 193, 1AH, 217A, 364, 457
+KjgWWjkNbhU | Can You Feel the Love Tonight | Elton John | 18HB, 193, 1AH, 217A, 364, 457, 237
 GCQ0ndJdYNc | Blue Cafe | Chris Rea | 165A, 17U, 217A, 24F, 271
-Eqilin4Cv08 | Chronology, Pt. 4 | Jean-Michel Jarre | 16F, 1BA, 1BN, 217A, 341A
+Eqilin4Cv08 | Chronology, Pt. 4 | Jean-Michel Jarre | 16F, 1BA, 1BN, 217A, 341A, 61H
 FsE3D1b9j-8 | Dream On | Jadyn Rylee | 16J, 239, 253, 26O, 457
 CJI7_-3PVCM | Far Above the Clouds | Mike Oldfield | 0CA, 1B7, 262, 33F, 34T
 16ukY5QqHGs | Tears of Time | Zoom | 12PB, 16E, 185, 217A, 32J
@@ -19,16 +19,16 @@ yLUOwe9f2X8 | Это за окном рассвет | Браво | 182, 217A, 25
 DFtOELd5pEI | Я вернусь | Игорь Тальков | 12F, 16J, 22R, 239, 3AT
 TF4Orx0765Q | Moment of Peace | Gregorian | 16J, 271, 273A, 2BG
 kIBdpFJyFkc | Nemo | Nightwish | 217A, 266, 33D, 365
-oAycSf8COQo | Welcome Home (Sanitarium) | Metallica | 182, 1AT, 217, 217A
-KbmYHDbaE-o | Дыши | Серебро | 15R, 18FA, 24H, 336
-cLlhdsT5Mko | Жить вопреки | В. Кипелов | 185A, 2A9, 35Q, 3B7
+oAycSf8COQo | Welcome Home (Sanitarium) | Metallica | 182, 1AT, 217, 217A, 1CM
+KbmYHDbaE-o | Дыши | Серебро | 15R, 18FA, 24H, 336, 1CM
+cLlhdsT5Mko | Жить вопреки | В. Кипелов | 185A, 2A9, 35Q, 3B7, 251
 RYp1OmzaC5Y | Пророк | Кипелов | 16D, 17BA, 18I, 217A
 f1xADw21Lx4 | Точка невозврата | Ария | 15E, 15F, 215B, 217A
 84kbG2ExdZs | Цунами | Нюша | 12F, 12FA, 1AA, 253
 lI2WRR8lXgE | Ever Dream | Nightwish | 239, 27K, 322
-TLGWQfK-6DY | It's Like That | Run-D.M.C. | 11U, 11UA, 193
+TLGWQfK-6DY | It's Like That | Run-D.M.C. | 11U, 11UA, 193, 163A, 323
 xk3BvNLeNgw | Once Again | Hang Massive | 18MB, 2B6, 341A
-tL25rbnvM4o | The Phantom of the Opera | Nightwish | 18M, 28MA, 33F
+tL25rbnvM4o | The Phantom of the Opera | Nightwish | 18M, 28MA, 33F, 1CM
 5njp0jlu72E | The Riddler | Nightwish | 217A, 23T, 23TA
 YUqGg6pYLKw | Давай представим | Саша Н., Tanto | 19E, 2A9, 2BI
 MQpTyHJ6pKQ | Игра с огнём | Ария | 138A, 17D, 28MA
@@ -49,7 +49,7 @@ U52aAa9VkEk | Bless the Child | Nightwish | 28MA, 2B3
 3H5gVP-doac | It's All One | Tony Cosinec | 0CA, 368
 A2KcBLXdlNk | Jerusalem of Gold | Shuli Nathan | 16F, 217A
 AMD2TwRvuoU | Kiss From A Rose | Seal | 11H, 18T
-lDK9QqIzhwk | Livin' on a Prayer | Bon Jovi | 1B5, 1C8
+lDK9QqIzhwk | Livin' on a Prayer | Bon Jovi | 1B5, 1C8, 1CM
 ftI_p44xGWU | Magnetic Fields, Pt. 2 | Jean-Michel Jarre | 12PA, 14R
 8sLL5Uggb9g | Mea Culpa | Enigma | 1AQA, 22S
 aDdOnl0bHO4 | One of Us | Joan Osborne | 26O, 47H
@@ -75,7 +75,7 @@ qw5YwI97KGM | Пока город спит | Burito | 2BSA, 42DA
 Ds0uaN__mn8 | Прогулки по воде | Вячеслав Бутусов | 17Q, 2BSA
 878xizG_-js | Тебе дадут знак | Ария | 186A, 24F
 NSNUcKritNw | Чёрная луна | Агата Кристи | 21LA, 42D
-N9PNCCW7hvo | Чёрно-белые дни | Amatory | 343, 42D
+N9PNCCW7hvo | Чёрно-белые дни | Amatory | 343, 42D, 341
 7oJ6sbYRSmw | After Dark | Tito & Tarantula | 3C5
 gaAtqgbA5WA | Ahead of the Game | Mark Knopfler | 339
 Xg6iQxpdgLI | Alien Nation | Scorpions | 384
@@ -86,8 +86,8 @@ jYe0VljGrEk | Warriors of the World | Brides of Lucifer | 464
 PgsfVJMWL0E | Choose Life | Trainspotting | 3B7
 5Pdrz_TQRgk | Deep Silent Complete | Nightwish | 217A
 C3lWwBslWqg | Desert Rose | Sting | 18MA
-lWA2pjMjpBs | Diamonds | Rihanna | 35Q
-1b9gH-OlozU | Don't Judge a Book by Its Cover | Jadyn Rylee | 247
+lWA2pjMjpBs | Diamonds | Rihanna | 35Q, 1CM
+1b9gH-OlozU | Don't Judge a Book by Its Cover | Jadyn Rylee | 247, 55D
 W3q8Od5qJio | Du Hast | Rammstein | 253
 XAi3VTSdTxU | Earth Song | Michael Jackson | 271
 t1TcDHrkQYg | Forever Young | Alphaville | 221B
@@ -95,7 +95,7 @@ XS088Opj9o0 | Frozen | Madonna | 1AP
 YODCM26JXOY | Ghost Love Score | Nightwish | 2BN
 AoQyF5Lzp8E | Guardian Angel | Jadyn Rylee | 227A
 z-FDVZTaLeY | Halleluja | Rammstein | 254B
--6Xl9tBWt54 | Hard Rock Hallelujah | Lordi | 46L
+-6Xl9tBWt54 | Hard Rock Hallelujah | Lordi | 46L, 158A
 LgOPBbBUpUo | Hard Rock Аллилуйя | RADIO TAPOK & Lordi | 34O
 cbB3iGRHtqA | How Much Is the Fish? | Scooter | 34TA
 L3wKzyIN1yk | Human | Rag'n'Bone Man | 334
@@ -108,7 +108,7 @@ CZMuDbaXbC8 | Lux Aeterna | Clint Mansell | 341B
 tP4ExA43rRk | Magnetic Fields 2 | Jean-Michel Jarre | 341A
 8bnfcXixwqs | Moment of Peace | Silenzium | 246
 hHkhzNLHC4g | Moskau | Rammstein & t.A.T.u. | 357
-CUmOFqQRkco | My Heart Will Go On | Celine Dion | 193
+CUmOFqQRkco | My Heart Will Go On | Celine Dion | 193, 1CM
 xMVTKOoy1uk | Omen | The Prodigy | 18A
 5BtnPBEUxc0 | Oxygene 7 | Jean-Michel Jarre | 1AD
 jLpwlEUJe70 | Oxygène 7 | Jean-Michel Jarre | 127A
@@ -133,14 +133,14 @@ Jfh_v9pORWc | The Roundabout | Enigma | 17O
 eyBG-YFo4Vc | Time | Joslin | 2BK
 eRV9uPr4Dz4 | Until It Sleeps | Metallica | 384
 QuZH1szwjbI | Voice of Change | Jadyn Rylee | 2BG
-zxKrBSHKO-0 | Voices of Infinity | Yakuro | 163
+zxKrBSHKO-0 | Voices of Infinity | Yakuro | 163, 163A
 R_gG4IwR9mk | Voices | Vangelis | 31I
 qT6XCvDUUsU | Why Does My Heart Feel So Bad? | Moby | 189
 -x_8Lkb6sAM | Wild Hearts Can't Be Broken | Jadyn Rylee | 1CB
 92UaUyJZ6ZE | Yerushalayim Shel Zahav | Naomi Shemer | 34Q
 shN7zv0Ffuw | А мы любили | Hi-Fi | 2BS
 0BpNnPAROIk | А на меньшее я не согласен | Николай Носков | 27G
-fQqhRHucLHE | А я всё летала | Блестящие | 0CA
+fQqhRHucLHE | А я всё летала | Блестящие | 0CA, 1ATA, 1CM
 hDpheC9Xra0 | Берегись | Мастер | 337
 5oQSie6Rk0Y | Бобр (Зимний сон) | Slava Skripka | 53KA
 GvSQvf6J96I | В далёком созвездии Тау Кита | Владимир Высоцкий | 2AFA
@@ -158,7 +158,7 @@ GWpF9LIhXhk | Десять дохлых енотов | Масяня | 191
 GwQusKuOWf0 | Джокер в игре | Король и Шут | 19N
 QIluhFzlK2g | Домой | Maayan Band | 35Q
 VyS9GKNUsWI | Дорога в облака | Браво | 176
-pX06wlCAcUI | Дорогая передача | Владимир Высоцкий | 1AT
+pX06wlCAcUI | Дорогая передача | Владимир Высоцкий | 1AT, 237
 NL2BUrPFUE0 | Дыхание | Вячеслав Бутусов | 17QA
 EkZwyOT9szo | Замыкая круг | Все звёзды | 237
 bdB7jX7vnFQ | Позорная звезда | Агата Кристи | 1B5A
@@ -225,4 +225,18 @@ pWlT_fMIo6s | Улетай на крыльях ветра | Е. Сотников
 vV9tFTTsidc | Часики | Егор Крид & Валерия | 332
 Jn1kng-nFuY | Я искала Тебя | The Рифма | 189
 QXDRPtufEbA | Я свободен | Кипелов | 22SA
+_WbFR-weSLA | Once Again | Rafaele Castiglione | 12P
+B7UmUX68KtE | Popcorn | The Muppets | 16C, 2AB
+X-jdl9hcCeg | The Godfather (Orchestral Suite) | Danish National Symphony Orchestra | 1AQ
+9OydVHXO4CM | Моя Звезда Всегда Со Мной | Вячеслав Бутусов | 1AS
+pQ6r80lfIsw | Remember The Time | NANA | 1ATA
+XkptwawfnJQ | Не думай о секундах свысока | к/ф «17 мгновений весны» | 1BH, 28MA
+claKl5gUL6w | Поехали! | Хава Нагила | 1CIA
+NeQM1c-XCDc | Deutschland | Rammstein | 1CIA
+vx2u5uUu3DE | Bon Jovi. Its My Life. Это Моя Жизнь (Перевод мой) |  | 1CM
+_zlVnbM4xFA | You know, you're acting like you don't know | Eminem vs 50 Cent | 2C3
+3JWTaaS7LdU | I Will Always Love You | Whitney Houston | 31I
+xdzBf7xzqeI | Апрель | Кино | 336
+zinzvs86qNA | Наблюдатель | Король и Шут | 341
+sc47le0Byq0 | Нам с Тобой | В. Цой | 66Q
 [/shir]
