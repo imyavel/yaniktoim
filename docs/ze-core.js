@@ -172,9 +172,23 @@ export function mountZmlEditor(opts) {
         baseline = zml;            // сохранено → нет «несохранённых правок»
         pendingImage = null;       // обложка закоммичена
         pendingInline.clear();     // картинки в тексте закоммичены
-        // Без диалога «Остаться/На статью»: коротко подтверждаем и возвращаемся
-        // на страницу статьи (close снимает оверлей). Обновление сайта — 30–90 с,
-        // читатель увидит правку после Ctrl+R (правка уже закоммичена).
+        // Деплой GitHub Pages идёт 30–90 с после коммита. Если вызывающий описал, что и
+        // где проверять (opts.deployWait → {url, match?, onReady?}), показываем модалку-
+        // ожидание со счётчиком секунд и кнопкой «ОК»: раз в пару секунд тянем целевой URL
+        // и сравниваем с тем, что закоммитили; правка доехала → закрываем редактор и
+        // обновляем страницу сами. «ОК» — перестать ждать (правка уже в репо, увидится по Ctrl+R).
+        var dw = typeof opts.deployWait === "function" ? opts.deployWait(zml, html) : null;
+        if (dw && dw.url) {
+          status("Сохранено ✓ — ждём появления правки на сайте…");
+          waitForDeploy({
+            url: dw.url,
+            match: typeof dw.match === "function" ? dw.match : function (text) { return text === html; },
+            onReady: function () { close(); (typeof dw.onReady === "function" ? dw.onReady : function () { location.reload(); })(); },
+            onDismiss: function () { close(); if (typeof dw.onDismiss === "function") dw.onDismiss(); }
+          });
+          return;
+        }
+        // Фолбэк (deployWait не задан): прежнее поведение — коротко подтвердить и закрыть.
         status("Сохранено ✓ — обновление сайта 30–90 с, затем Ctrl+R.");
         if (typeof opts.onSavedPrimary === "function") opts.onSavedPrimary();
         setTimeout(close, 900);
@@ -387,6 +401,73 @@ export function mountZmlEditor(opts) {
   }
 
   return { close: close };
+}
+
+// ── Ожидание деплоя GitHub Pages после сохранения ─────────────────────────────
+// Коммит уходит мгновенно, но публичный сайт обновляется через 30–90 с (сборка
+// Pages). Показываем модалку «Ожидаем обновление сайта…» со счётчиком прошедших
+// секунд и кнопкой «ОК», и раз в пару секунд тянем целевой URL (cache-bust + no-store,
+// чтобы не словить кэш CDN/браузера) — как только отданный сайтом текст совпал с тем,
+// что мы закоммитили, правка доехала: onReady (обычно reload/переход на страницу).
+// «ОК» — перестать ждать (onDismiss); правка уже в репо, увидится позже по Ctrl+R.
+//   opts: { url, match(text)->bool, onReady(), onDismiss(), intervalMs }
+export function waitForDeploy(opts) {
+  opts = opts || {};
+  injectStyles();
+  const url = String(opts.url || "");
+  const match = typeof opts.match === "function" ? opts.match : function () { return false; };
+  const intervalMs = opts.intervalMs > 0 ? opts.intervalMs : 2000;
+  const startedAt = Date.now();
+  let finished = false, pollTimer = null, tickTimer = null;
+
+  const m = document.createElement("div");
+  m.id = "ze-pop";
+  m.innerHTML =
+    '<div class="ze-pop-card ze-wait-card">' +
+      '<p><b>Ожидаем обновление сайта…</b></p>' +
+      '<p class="ze-wait-line">Прошло <span class="ze-wait-sec">0</span>&nbsp;с. ' +
+        'Страница обновится сама, как только правка появится на сайте.</p>' +
+      '<p class="ze-wait-note ze-hidden">Дольше обычного — можно нажать «ОК» и ' +
+        'обновить страницу позже вручную (Ctrl+R).</p>' +
+      '<div class="ze-pop-row">' +
+        '<button type="button" class="ze-btn ze-primary" data-w="ok">ОК</button>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(m);
+  const secEl = m.querySelector(".ze-wait-sec");
+  const noteEl = m.querySelector(".ze-wait-note");
+
+  function teardown() {
+    finished = true;
+    if (pollTimer) clearTimeout(pollTimer);
+    if (tickTimer) clearInterval(tickTimer);
+    if (m.parentNode) m.parentNode.removeChild(m);
+  }
+  function ready() { if (finished) return; teardown(); if (typeof opts.onReady === "function") opts.onReady(); }
+  function dismiss() { if (finished) return; teardown(); if (typeof opts.onDismiss === "function") opts.onDismiss(); }
+
+  tickTimer = setInterval(function () {
+    const s = Math.round((Date.now() - startedAt) / 1000);
+    if (secEl) secEl.textContent = String(s);
+    if (s >= 120 && noteEl) noteEl.classList.remove("ze-hidden");   // дольше обычного — подсказать про ручное обновление
+  }, 1000);
+
+  function poll() {
+    if (finished) return;
+    const bust = url + (url.indexOf("?") < 0 ? "?" : "&") + "_dz=" + Date.now();   // обойти кэш CDN/браузера
+    fetch(bust, { cache: "no-store" })
+      .then(function (r) { return r.ok ? r.text() : null; })
+      .then(function (text) {
+        if (finished) return;
+        if (text != null && match(text)) { ready(); return; }
+        pollTimer = setTimeout(poll, intervalMs);
+      })
+      .catch(function () { if (!finished) pollTimer = setTimeout(poll, intervalMs); });
+  }
+  pollTimer = setTimeout(poll, 500);   // первый опрос почти сразу (правка без изменений уже «доехала»)
+
+  m.addEventListener("click", function (ev) { if (ev.target.closest('[data-w="ok"]')) dismiss(); });
+  return { close: dismiss };
 }
 
 // ── Свежесть сессии + модальный логин (общий гейт для редакторов) ─────────────
@@ -696,6 +777,9 @@ function injectStyles() {
     "#ze-pop .ze-login-row{margin:.5em 0;}" +
     "#ze-pop .ze-login-row input{width:100%;box-sizing:border-box;font:inherit;padding:.45em .6em;" +
       "border:1px solid #bbb;border-radius:6px;background:#fff;color:#222;}" +
-    "#ze-pop .ze-login-msg{min-height:1.1em;color:#b00;font-size:.9em;}";
+    "#ze-pop .ze-login-msg{min-height:1.1em;color:#b00;font-size:.9em;}" +
+    "#ze-pop .ze-hidden{display:none!important;}" +
+    "#ze-pop .ze-wait-card .ze-wait-sec{font-weight:700;font-variant-numeric:tabular-nums;}" +
+    "#ze-pop .ze-wait-card .ze-wait-note{color:#b00;font-size:.9em;}";
   document.head.appendChild(st);
 }

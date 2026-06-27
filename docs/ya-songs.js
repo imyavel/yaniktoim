@@ -21,7 +21,7 @@
   // ниже остаётся document-relative (верно резолвится от страницы в docs/songs/).
   var SELF = document.currentScript || document.querySelector('script[src*="ya-songs.js"]');
   var SELF_SRC = SELF ? SELF.src : new URL("ya-songs.js", document.baseURI).href;
-  var ASSET_VER = "20260626-02";   // бастит кэш динамических модулей (ze-core/render) при правках
+  var ASSET_VER = "20260627-05";   // бастит кэш динамических модулей (ze-core/render) при правках
   var modUrl = function (p) {
     return new URL(p + (p.indexOf("?") < 0 ? "?v=" + ASSET_VER : ""), SELF_SRC).href;
   };
@@ -109,6 +109,15 @@
                 renderView: renderView,
                 save: saveSongs,
                 savedPrimaryLabel: "На страницу",
+                // после сохранения ждём, пока боевая «Песнь Ступеней» начнёт отдавать
+                // свежий html, и сами обновляем страницу — без ручного Ctrl+R.
+                deployWait: function (zml, html) {
+                  return {
+                    url: location.origin + location.pathname,
+                    match: function (text) { return text === html; },
+                    onReady: function () { location.reload(); }
+                  };
+                },
                 onClosed: function () { btn.disabled = false; dropSession(); }   // логин не сохраняется
               });
             });

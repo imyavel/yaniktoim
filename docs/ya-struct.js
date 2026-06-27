@@ -29,7 +29,7 @@
 
   Promise.all([
     import("./editor/render.js?v=20260626-02"),
-    fetch("config/structure.json").then(j),
+    fetch("config/structure.json", { cache: "no-cache" }).then(j),   // свежий после авто-reload (не из кэша)
     fetch("editor/data/manifest.json").then(j),
     fetch("editor/data/template_index.tpl").then(t),
     fetch("editor/data/template_section.tpl").then(t),
@@ -228,6 +228,7 @@
       files.push({ path: "docs/" + s.slug + "/index.html",
         content: deps.renderSectionIndexHtml({ slug: s.slug, structure: structure, manifestByArt: byArt, template: deps.tplSection, buildDate: buildDate }) });
     });
+    var structJson = files[0].content;   // docs/config/structure.json — его и ждём на сайте
     status("Сохранение… (" + files.length + " файлов)");
     setBusy(true);
     fetch(WORKER + "/api/commit", {
@@ -238,8 +239,23 @@
       .then(function (res) {
         setBusy(false);
         if (!res.ok || !res.d.ok) throw new Error((res.d && res.d.error) || "HTTP");
-        savedPopup();
+        awaitStructDeploy(structJson);
       }).catch(function (e) { setBusy(false); status("Не сохранилось: " + (e.message || e), true); });
+  }
+
+  // После коммита структуры ждём, пока боевой config/structure.json начнёт отдавать
+  // свежий вариант (деплой Pages 30–90 с) — модалка-счётчик из ze-core; доехало →
+  // перезагружаем страницу управления. ze-core не подгрузился → старый статичный попап.
+  function awaitStructDeploy(structJson) {
+    status("Сохранено ✓ — ждём появления на сайте…");
+    import("./ze-core.js?v=20260627-05").then(function (mod) {
+      mod.waitForDeploy({
+        url: new URL("config/structure.json", document.baseURI).href,
+        match: function (text) { return text === structJson; },
+        onReady: function () { location.reload(); },
+        onDismiss: function () { status("Сохранено. Сайт обновится в течение ~минуты — затем обновите страницу (Ctrl+R)."); }
+      });
+    }).catch(function () { savedPopup(); });
   }
 
   // ── мелочи ────────────────────────────────────────────────────────────────────
@@ -419,7 +435,7 @@
       var today = isoToday(), art;
       try { art = mintArtId(); } catch (e) { status(e.message, true); return; }
       var zml = templateZml(art, today);
-      import("./ze-core.js?v=20260627-01").then(function (mod) {
+      import("./ze-core.js?v=20260627-05").then(function (mod) {
         status("");
         mod.mountZmlEditor({
           label: "Новая статья · #" + art + " → " + secName(slug),
@@ -431,9 +447,15 @@
           previewBase: new URL("art/", document.baseURI).href,
           image: { artId: art },        // панели «Обложка» + «В тексте» ([img]) в новой статье
           save: function (z, html, extras) { return commitNewArticle(art, slug, z, html, today, extras); },
-          savedMessage: "Статья создана. Обновление сайта — 30–90 сек, затем Ctrl+R. Откройте её, чтобы продолжить правку тела.",
-          savedPrimaryLabel: "Открыть статью",
-          onSavedPrimary: function () { location.href = "art/" + art + ".html"; }
+          // после создания ждём появления новой статьи на сайте (деплой Pages), затем
+          // сами переходим на неё — без ручного Ctrl+R.
+          deployWait: function (z, html) {
+            return {
+              url: new URL("art/" + art + ".html", document.baseURI).href,
+              match: function (text) { return text === html; },
+              onReady: function () { location.href = "art/" + art + ".html"; }
+            };
+          }
         });
       }).catch(function (e) { status("ze-core: " + (e.message || e), true); });
     }).catch(function (e) { status("Загрузка движка статьи: " + (e.message || e), true); });
