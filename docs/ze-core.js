@@ -65,6 +65,10 @@ export function mountZmlEditor(opts) {
   // текста (файл в репозитории остаётся — «рукописи не горят»).
   const pendingInline = new Map();
 
+  // Просмотр сворачивает плашку «Шапка статьи»; флаг помнит, была ли она раскрыта до
+  // «Просмотр», чтобы вернуть ровно прежнее состояние при выходе из просмотра.
+  let fmReopenAfterPreview = false;
+
   const ui = document.createElement("div");
   ui.id = "ze-root";
   ui.innerHTML =
@@ -127,6 +131,11 @@ export function mountZmlEditor(opts) {
     html = injectPreviewBase(html, opts.previewBase); // см. ниже: база для ../themes/../img/…
     html = injectPreviewNav(html); // якоря #… скроллят ВНУТРИ превью, не уводят на боевой файл
     html = injectPreviewChrome(html); // в превью кнопка «Править» неактивна (мы уже в правке)
+    // Просмотр: убрать плашку «Шапка статьи», запомнив, была ли она раскрыта (вернём при выходе).
+    if (fmBodyEl) {
+      fmReopenAfterPreview = !fmBodyEl.classList.contains("ze-hidden");
+      if (fmReopenAfterPreview) { fmBodyEl.classList.add("ze-hidden"); setFmToggleArrow(false); }
+    }
     iframe.srcdoc = html;          // srcdoc → относительные ../themes, ../img от родителя
     iframe.classList.remove("ze-hidden");
     ta.classList.add("ze-hidden");
@@ -136,6 +145,7 @@ export function mountZmlEditor(opts) {
   function showEditor() {
     iframe.classList.add("ze-hidden"); ta.classList.remove("ze-hidden");
     toggle("preview", true); toggle("back", false);
+    if (fmReopenAfterPreview) { openFmBody(); fmReopenAfterPreview = false; }  // вернуть шапку, если была раскрыта до просмотра
     ta.focus();
   }
 

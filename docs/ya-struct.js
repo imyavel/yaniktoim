@@ -344,7 +344,7 @@
       "date: " + today,
       "type: prose",
       "---",
-      "[epi kind=prose]",
+      "[epi]",
       "Эпиграф или вводная цитата — по желанию. Удалите весь блок, если не нужен.",
       "[/epi]",
       "",
@@ -360,6 +360,10 @@
       "",
       "Так начинается вторая строфа.",
       "[/poem]",
+      "",
+      "[mus]",
+      "[https://youtu.be/XXXXXXXXXXX|Название трека|Исполнитель]",
+      "[/mus]",
       "",
       "[^1]: Текст сноски — номера проставляются автоматически.",
       ""
@@ -451,7 +455,7 @@
       var today = isoToday(), art;
       try { art = mintArtId(); } catch (e) { status(e.message, true); return; }
       var zml = templateZml(art, today);
-      import("./ze-core.js?v=20260628-05").then(function (mod) {
+      import("./ze-core.js?v=20260628-07").then(function (mod) {
         status("");
         mod.mountZmlEditor({
           label: "Новая статья · #" + art + " → " + secName(slug),
