@@ -28,7 +28,7 @@
   var artDeps = null;
 
   Promise.all([
-    import("./editor/render.js?v=20260628-03"),
+    import("./editor/render.js?v=20260628-04"),
     fetch("config/structure.json", { cache: "no-cache" }).then(j),   // свежий после авто-reload (не из кэша)
     fetch("editor/data/manifest.json").then(j),
     fetch("editor/data/template_index.tpl").then(t),
@@ -343,7 +343,6 @@
       "title: Новая статья",
       "date: " + today,
       "type: prose",
-      "view: zml",
       "---",
       "[epi kind=prose]",
       "Эпиграф или вводная цитата — по желанию. Удалите весь блок, если не нужен.",
@@ -374,6 +373,13 @@
     if (!m) return "";
     return m[1].replace(/^["']|["']$/g, "").trim();
   }
+  // Дата из шапки (оператор мог сменить дефолт-сегодня в плашке) → в каталог (structure.date).
+  function parseDate(zml) {
+    var fm = zml.match(/^---([\s\S]*?)---/);
+    if (!fm) return "";
+    var m = fm[1].match(/^date:[ \t]*(.+?)[ \t]*$/m);
+    return m ? m[1].replace(/^["']|["']$/g, "").trim() : "";
+  }
 
   function secName(slug) {
     var s = structure.sections.find(function (x) { return x.slug === slug; });
@@ -392,13 +398,14 @@
   function commitNewArticle(art, slug, zml, html, today, extras) {
     if (!WORKER) return Promise.reject(new Error("не задан Worker URL (site.json)"));
     var title = parseTitle(zml) || "Новая статья";
+    var artDate = parseDate(zml) || today;   // дата из плашки (деф. сегодня) — в каталог
     // Клон structure; живые не трогаем до успеха коммита (Отмена = ничего).
     var st = JSON.parse(JSON.stringify(structure));
     var ex = st.articles.find(function (a) { return a.art === art; });
     var maxO = st.articles.filter(function (a) { return a.section === slug && a.status !== "archived"; })
       .reduce(function (m, a) { return Math.max(m, a.order); }, -1);
-    if (ex) { ex.section = slug; ex.status = "published"; ex.title = title; ex.date = today; }
-    else st.articles.push({ art: art, section: slug, order: maxO + 1, status: "published", title: title, date: today });
+    if (ex) { ex.section = slug; ex.status = "published"; ex.title = title; ex.date = artDate; }
+    else st.articles.push({ art: art, section: slug, order: maxO + 1, status: "published", title: title, date: artDate });
     var bd = isoToday();
     // url-unification: новая статья сразу = единый docs/art/NNN.html (ZML-рендер).
     // forced_views/default_view упразднены; «old»-варианта у новой статьи нет.
@@ -444,11 +451,12 @@
       var today = isoToday(), art;
       try { art = mintArtId(); } catch (e) { status(e.message, true); return; }
       var zml = templateZml(art, today);
-      import("./ze-core.js?v=20260628-03").then(function (mod) {
+      import("./ze-core.js?v=20260628-04").then(function (mod) {
         status("");
         mod.mountZmlEditor({
           label: "Новая статья · #" + art + " → " + secName(slug),
           initialZml: zml,
+          frontmatter: { mode: "new" },   // шапка — отдельной плашкой (развёрнута; нужно настоящее название)
           renderView: function (z) { return renderNewView(z, art, slug, today); },
           preprocess: deps.fawMarkup,   // [faw] без «|» → разметка по слогам перед сохранением
           // превью из structure.html: база = docs/art/, чтобы ../themes/../img/… вью

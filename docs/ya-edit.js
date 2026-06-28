@@ -17,7 +17,7 @@
   // резолвится от страницы в docs/art/.
   var SELF = document.currentScript || document.querySelector('script[src*="ya-edit.js"]');
   var SELF_SRC = SELF ? SELF.src : new URL("ya-edit.js", document.baseURI).href;
-  var ASSET_VER = "20260628-03";   // бастит кэш динамических модулей (ze-core/render) при правках
+  var ASSET_VER = "20260628-04";   // бастит кэш динамических модулей (ze-core/render) при правках
   var modUrl = function (p) {
     return new URL(p + (p.indexOf("?") < 0 ? "?v=" + ASSET_VER : ""), SELF_SRC).href;
   };
@@ -161,6 +161,7 @@
               mod.mountZmlEditor({
                 label: "Правка ZML · #" + ART,
                 initialZml: ensureViewZml(zml),
+                frontmatter: { mode: "edit" },   // шапка — отдельной плашкой (свёрнута; дата read-only)
                 renderView: renderView,
                 preprocess: function (src) {   // [faw]-разметка + проставить editor:<ник> (контракт «Редакция»)
                   return setFmEditor(deps.fawMarkup(src), sess && sess.nick);

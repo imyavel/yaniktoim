@@ -30,8 +30,28 @@ export function mountZmlEditor(opts) {
 
   // textarea нормализует CRLF→LF при установке value → baseline тоже к LF,
   // иначе CRLF-исходник всегда «грязный» (ложное «несохранённые изменения»).
+  // Структурная шапка (opts.frontmatter): «---…---» вынимается из textarea в
+  // отдельную плашку (ze-fm) — заголовок/дата/тип/тема/ширина/описание полями,
+  // прочее («хвост») сырьём; обложка image/image_v — в панели «Иллюстрация» (на
+  // модели). Тогда шапку нельзя «удалить как текст», а без title/date не сохранить.
+  // Без opts.frontmatter поведение прежнее (вся шапка живёт в textarea — напр. songs).
+  const fmCfg = opts.frontmatter && typeof opts.frontmatter === "object" ? opts.frontmatter : null;
+  let fmModel = null;
+  // Ссылки на узлы плашки — объявлены ДО инициализации (setupFrontmatterPanel зовётся
+  // в init раньше своей строки в теле функции; let ниже = TDZ при присваивании).
+  let fmBodyEl = null, fmSumEl = null, fmRestEl = null, fmTitleEl = null;
+  const initNorm = (opts.initialZml || "").replace(/\r\n/g, "\n");
+  let bodyInit = initNorm;
+  if (fmCfg) {
+    const sp = splitFrontmatter(initNorm);
+    fmModel = parseFmModel(sp.inner == null ? "" : sp.inner);
+    bodyInit = sp.body;
+  }
+  let baseline;                       // «сохранённый ПОЛНЫЙ ZML»; выставим после монтажа
   const baselineGet = () => baseline;
-  let baseline = (opts.initialZml || "").replace(/\r\n/g, "\n");
+  // Полный ZML = сериализованная шапка-модель + тело textarea (или просто textarea
+  // без плашки). Единая точка сборки для превью/сохранения/«грязно?»/checkIdentity.
+  function curZml() { return fmModel ? serializeFm(fmModel) + ta.value : ta.value; }
   // Ф8(b): иллюстрация. imgOpt={artId} включает блок «Иллюстрация»; pendingImage —
   // выбранный, но ещё не сохранённый файл {name, mime, b64}. Источник истины «какая
   // картинка» — строка `image:` во frontmatter textarea (её и правят кнопки блока);
@@ -66,13 +86,15 @@ export function mountZmlEditor(opts) {
 
   const ta = ui.querySelector(".ze-text");
   const iframe = ui.querySelector(".ze-prev");
-  ta.value = baseline;
+  ta.value = bodyInit;
   // Открываем В НАЧАЛЕ документа: каретку в 0 и скролл вверх (иначе браузер
   // оставляет textarea прокрученным к концу после установки value).
   try { ta.setSelectionRange(0, 0); } catch (e) {}
   ta.focus();
   ta.scrollTop = 0;
   if (imgOpt) setupImageBar();
+  if (fmCfg) setupFrontmatterPanel(fmCfg);
+  baseline = curZml();                // на старте «сохранённое» = текущее
 
   ui.addEventListener("click", function (ev) {
     const b = ev.target.closest("[data-act]"); if (!b) return;
@@ -89,7 +111,7 @@ export function mountZmlEditor(opts) {
   }
   function doShowPreview() {
     let html;
-    try { html = opts.renderView(ta.value); }
+    try { html = opts.renderView(curZml()); }
     catch (e) { status("Ошибка рендера: " + (e.message || e), true); return; }
     html = swapPreviewImage(html); // невыложённую картинку показываем как data:-URL
     html = injectPreviewBase(html, opts.previewBase); // см. ниже: база для ../themes/../img/…
@@ -115,17 +137,17 @@ export function mountZmlEditor(opts) {
   function guardThen(proceed) {
     if (typeof opts.checkIdentity !== "function") return proceed();
     let res;
-    try { res = opts.checkIdentity(ta.value, baselineGet()); }
+    try { res = opts.checkIdentity(curZml(), baselineGet()); }
     catch (e) { return status("Проверка полей не пройдена: " + (e.message || e), true); }
     if (!res) return proceed();
     // Каретку/прокрутку запоминаем ДО переустановки value: ta.value=… сбрасывает курсор
     // в конец. Дата той же длины (ISO 10 симв.) → смещения после неё не плывут, каретка
-    // садится на прежнее место.
+    // садится на прежнее место. (При структурной шапке дата read-only — этот путь спит.)
     const ss = ta.selectionStart, se = ta.selectionEnd, top = ta.scrollTop;
     noticeModal(res.message, function () {
       try {
-        const fixed = res.fix && res.fix(ta.value);
-        if (typeof fixed === "string") ta.value = fixed;
+        const fixed = res.fix && res.fix(curZml());
+        if (typeof fixed === "string") applyFull(fixed);
       } catch (e) { /* fix упал — оставляем как есть */ }
       // По OK НЕ продолжаем действие (не уходим в просмотр/сохранение): вернули прежнее
       // значение и остаёмся на странице правки, с прежней кареткой и прокруткой.
@@ -137,20 +159,26 @@ export function mountZmlEditor(opts) {
   }
 
   function doSave() {
+    // Структурная шапка: не сохраняем без заголовка/даты (у новой статьи — и без
+    // настоящего названия). Раскрываем плашку и подсвечиваем поле.
+    if (fmModel) {
+      const v = validateFm();
+      if (v) { openFmBody(); status(v.message, true); if (v.focus) v.focus(); return; }
+    }
     // Предобработка перед сохранением (opts.preprocess): например, авто-разметка
-    // [faw] по слогам (вставка «|»). Результат показываем в textarea — оператор
-    // видит, что именно сохраняется, и может поправить/пересохранить.
-    let src = ta.value;
+    // [faw] по слогам (вставка «|») и проставление editor:. Результат раскладываем
+    // обратно в плашку+тело — оператор видит, что именно сохранится, и может поправить.
+    let full = curZml();
     if (typeof opts.preprocess === "function") {
-      try { src = opts.preprocess(src); }
+      try { full = opts.preprocess(full); }
       catch (e) { status("Не сохраняю — ошибка предобработки: " + (e.message || e), true); return; }
-      if (typeof src !== "string") src = ta.value;
-      if (src !== ta.value) ta.value = src;
+      if (typeof full !== "string") full = curZml();
+      applyFull(full);
     }
     guardThen(doSaveCommit);
   }
   function doSaveCommit() {
-    const src = ta.value;   // после возможной авто-починки индикативного поля (date)
+    const src = curZml();   // полный ZML: шапка-плашка + тело (после авто-починок выше)
     let html;
     try { html = opts.renderView(src); }
     catch (e) { status("Не сохраняю — ошибка рендера: " + (e.message || e), true); return; }
@@ -207,7 +235,7 @@ export function mountZmlEditor(opts) {
       .catch(function (e) { setBusy(false); status("Сохранение не удалось: " + (e.message || e), true); });
   }
 
-  function isDirty() { return ta.value !== baselineGet() || !!pendingImage || pendingInline.size > 0; }
+  function isDirty() { return curZml() !== baselineGet() || !!pendingImage || pendingInline.size > 0; }
   function doCancel() {
     if (isDirty()) { confirmModal("Отменить несохранённые изменения?", close); return; }
     close();
@@ -298,7 +326,9 @@ export function mountZmlEditor(opts) {
     const addBtn = bar.querySelector(".ze-insadd");
 
     function refresh() {
-      const cur = getFmImage(ta.value);
+      // Обложка — поле image: модели-шапки (при структурной плашке) либо строка
+      // image: во frontmatter textarea (старый путь, без плашки).
+      const cur = fmModel ? (fmModel.image || "") : getFmImage(ta.value);
       nameEl.textContent = cur ? (cur + (pendingImage ? "  (новая — не сохранена)" : "")) : "— нет —";
       delBtn.classList.toggle("ze-hidden", !cur);
       pickBtn.textContent = cur ? "Заменить…" : "Загрузить…";
@@ -315,13 +345,15 @@ export function mountZmlEditor(opts) {
         // image: (имя файла, всегда <art>.<ext>) + image_v: (хэш байтов). Имя при замене не
         // меняется → без версии HTML не менялся бы и браузер отдавал бы старый кэш; image_v
         // двигает ?v= у обложки в рендере, так что замена реально видна и детектится деплоем.
-        ta.value = setFmImageVer(setFmImage(ta.value, name), hashB64(b64));
+        if (fmModel) { fmModel.image = name; fmModel.image_v = hashB64(b64); }
+        else ta.value = setFmImageVer(setFmImage(ta.value, name), hashB64(b64));
         refresh();
         status("Обложка выбрана: " + name + ". «Просмотр» покажет её, «Сохранить» — выложит.");
       });
     });
     delBtn.addEventListener("click", function () {
-      ta.value = removeFmImageVer(removeFmImage(ta.value));   // снять и image:, и image_v:
+      if (fmModel) { fmModel.image = ""; fmModel.image_v = ""; }   // снять и image:, и image_v:
+      else ta.value = removeFmImageVer(removeFmImage(ta.value));
       pendingImage = null;
       refresh();
       status("Обложка отвязана (файл в репозитории остаётся — «рукописи не горят»).");
@@ -415,6 +447,133 @@ export function mountZmlEditor(opts) {
       html = html.replace(rx, function () { return data; });
     }
     return html;
+  }
+
+  // ── Структурная шапка-плашка (ze-fm) ────────────────────────────────────────
+  // Заголовок/дата/тип/тема/ширина/описание — отдельными полями; «хвост» (editor,
+  // caps, dropcap, allow_faw, notes_title, audio, zml, неизвестное) — сырьём в
+  // свёрнутом «Дополнительно». Источник истины — fmModel; плашка лишь его отражает
+  // и правит. Обложка (image) живёт в панели «Иллюстрация» (на той же модели).
+  function setupFrontmatterPanel(cfg) {
+    const isNew = cfg.mode === "new";
+    function optsHtml(list, cur, emptyLabel) {
+      let has = false, h = '<option value="">' + esc(emptyLabel) + "</option>";
+      list.forEach(function (v) {
+        if (v === cur) has = true;
+        h += '<option value="' + esc(v) + '"' + (v === cur ? " selected" : "") + ">" + esc(v) + "</option>";
+      });
+      if (cur && !has) h += '<option value="' + esc(cur) + '" selected>' + esc(cur) + "</option>";  // незнакомое значение не теряем
+      return h;
+    }
+    const panel = document.createElement("div");
+    panel.className = "ze-fm";
+    panel.innerHTML =
+      '<div class="ze-fm-hd">' +
+        '<button type="button" class="ze-fm-toggle" data-fm="toggle">' + (isNew ? "▾" : "▸") + "</button>" +
+        '<span class="ze-fm-name">Шапка статьи</span>' +
+        '<span class="ze-fm-sum"></span>' +
+      "</div>" +
+      '<div class="ze-fm-body' + (isNew ? "" : " ze-hidden") + '">' +
+        '<div class="ze-fm-grid">' +
+          '<span class="ze-fm-lbl">Заголовок<b>*</b></span>' +
+          '<input type="text" class="ze-fm-f ze-fm-title" placeholder="Название статьи">' +
+          '<span class="ze-fm-lbl">Дата<b>*</b></span>' +
+          '<input type="date" class="ze-fm-f ze-fm-date"' + (isNew ? "" : " disabled") + ">" +
+          '<span class="ze-fm-lbl">Тип</span>' +
+          '<select class="ze-fm-f ze-fm-type">' + optsHtml(FM_TYPES, fmModel.type, "— prose —") + "</select>" +
+          '<span class="ze-fm-lbl">Тема</span>' +
+          '<select class="ze-fm-f ze-fm-theme">' + optsHtml(FM_THEMES, fmModel.theme, "— по умолчанию —") + "</select>" +
+          '<span class="ze-fm-lbl">Ширина</span>' +
+          '<select class="ze-fm-f ze-fm-width">' + optsHtml(FM_WIDTHS, fmModel.width, "— по умолчанию —") + "</select>" +
+          '<span class="ze-fm-lbl">Описание</span>' +
+          '<input type="text" class="ze-fm-f ze-fm-summary" placeholder="мета-описание (в тексте не видно)">' +
+        "</div>" +
+        '<div class="ze-fm-more">' +
+          '<button type="button" class="ze-fm-moretoggle" data-fm="more">▸ Дополнительно</button>' +
+          '<textarea class="ze-fm-rest ze-hidden" spellcheck="false" placeholder="прочие поля шапки, по строке: ключ: значение"></textarea>' +
+        "</div>" +
+      "</div>";
+    ui.querySelector(".ze-bar").insertAdjacentElement("afterend", panel);
+    fmBodyEl = panel.querySelector(".ze-fm-body");
+    fmSumEl = panel.querySelector(".ze-fm-sum");
+    fmRestEl = panel.querySelector(".ze-fm-rest");
+    fmTitleEl = panel.querySelector(".ze-fm-title");
+    const dateEl = panel.querySelector(".ze-fm-date");
+    const typeEl = panel.querySelector(".ze-fm-type");
+    const themeEl = panel.querySelector(".ze-fm-theme");
+    const widthEl = panel.querySelector(".ze-fm-width");
+    const sumEl = panel.querySelector(".ze-fm-summary");
+    fmTitleEl.value = fmModel.title || "";
+    dateEl.value = fmModel.date || "";
+    sumEl.value = fmModel.summary || "";
+    fmRestEl.value = fmModel.rest || "";
+    autoGrowRest();
+    syncSummary();
+    fmTitleEl.addEventListener("input", function () { fmModel.title = fmTitleEl.value; syncSummary(); });
+    if (isNew) dateEl.addEventListener("input", function () { fmModel.date = dateEl.value; syncSummary(); });
+    typeEl.addEventListener("change", function () { fmModel.type = typeEl.value; });
+    themeEl.addEventListener("change", function () { fmModel.theme = themeEl.value; });
+    widthEl.addEventListener("change", function () { fmModel.width = widthEl.value; });
+    sumEl.addEventListener("input", function () { fmModel.summary = sumEl.value; });
+    fmRestEl.addEventListener("input", function () { fmModel.rest = fmRestEl.value; autoGrowRest(); });
+    panel.addEventListener("click", function (ev) {
+      const b = ev.target.closest("[data-fm]"); if (!b) return;
+      if (b.getAttribute("data-fm") === "toggle") {
+        const hidden = fmBodyEl.classList.toggle("ze-hidden");
+        b.textContent = hidden ? "▸" : "▾";
+      } else if (b.getAttribute("data-fm") === "more") {
+        const hidden = fmRestEl.classList.toggle("ze-hidden");
+        b.textContent = (hidden ? "▸" : "▾") + " Дополнительно";
+        if (!hidden) autoGrowRest();
+      }
+    });
+    function autoGrowRest() {
+      fmRestEl.style.height = "auto";
+      fmRestEl.style.height = Math.max(38, Math.min(200, fmRestEl.scrollHeight + 2)) + "px";
+    }
+  }
+  function syncSummary() {
+    if (!fmSumEl) return;
+    const t = (fmModel.title || "").trim(), d = (fmModel.date || "").trim();
+    fmSumEl.textContent = (t || "без заголовка") + (d ? " · " + d : "");
+  }
+  // После preprocess/авто-починки полный ZML заново раскладываем в плашку+тело.
+  function applyFull(full) {
+    if (!fmModel) { if (full !== ta.value) ta.value = full; return; }
+    const sp = splitFrontmatter(full);
+    if (sp.inner == null) { ta.value = full; return; }
+    fmModel = parseFmModel(sp.inner);
+    ta.value = sp.body;
+    syncPanelFromModel();
+  }
+  function syncPanelFromModel() {
+    if (!fmBodyEl) return;
+    const q = function (s) { return fmBodyEl.querySelector(s); };
+    if (q(".ze-fm-title")) q(".ze-fm-title").value = fmModel.title || "";
+    if (q(".ze-fm-date")) q(".ze-fm-date").value = fmModel.date || "";
+    if (q(".ze-fm-type")) q(".ze-fm-type").value = fmModel.type || "";
+    if (q(".ze-fm-theme")) q(".ze-fm-theme").value = fmModel.theme || "";
+    if (q(".ze-fm-width")) q(".ze-fm-width").value = fmModel.width || "";
+    if (q(".ze-fm-summary")) q(".ze-fm-summary").value = fmModel.summary || "";
+    if (fmRestEl) fmRestEl.value = fmModel.rest || "";
+    syncSummary();
+  }
+  function openFmBody() {
+    if (!fmBodyEl) return;
+    fmBodyEl.classList.remove("ze-hidden");
+    const tg = fmBodyEl.parentNode.querySelector('[data-fm="toggle"]');
+    if (tg) tg.textContent = "▾";
+  }
+  function validateFm() {
+    const t = (fmModel.title || "").trim();
+    if (!t) return { message: "Укажите заголовок статьи — без него не сохраняю.",
+      focus: function () { if (fmTitleEl) fmTitleEl.focus(); } };
+    if (fmCfg.mode === "new" && t === "Новая статья")
+      return { message: "Дайте статье настоящее название (не «Новая статья») — без него не сохраняю.",
+        focus: function () { if (fmTitleEl) { fmTitleEl.focus(); fmTitleEl.select(); } } };
+    if (fmCfg.mode === "new" && !(fmModel.date || "").trim())
+      return { message: "Укажите дату статьи (по умолчанию — сегодня)." };
+    return null;
   }
 
   return { close: close };
@@ -685,6 +844,57 @@ function hashB64(s) {
   return ("0000000" + h.toString(16)).slice(-8);
 }
 
+// ── Структурная шапка: split / parse-в-модель / сериализация (чистые функции) ──
+// «Управляемые» ключи (FM_MANAGED) уходят в поля плашки и в панель обложки; ВСЁ
+// остальное (editor/edited/caps/dropcap/allow_faw/notes_title/audio/zml/неизвестное)
+// — в model.rest ВЕРБАТИМ (строки шапки как есть, сохраняя порядок и оформление).
+// Экспортируются ради юнит-тестов round-trip; в браузере используются как обычные.
+export function splitFrontmatter(text) {
+  const m = /^---\n([\s\S]*?)\n---\n?/.exec(String(text || ""));
+  if (!m) return { inner: null, body: String(text || "") };
+  return { inner: m[1], body: String(text).slice(m[0].length) };
+}
+var FM_MANAGED = ["title", "date", "image", "image_v", "type", "theme", "width", "summary"];
+// Списки значений виджетов плашки — на уровне модуля (доступны до тела mountZmlEditor,
+// иначе TDZ: setupFrontmatterPanel зовётся в инициализации раньше своей строки в замыкании).
+var FM_TYPES = ["prose", "prose_num", "verse", "dialog", "poem"];
+var FM_THEMES = ["A_editorial", "B_manuscript", "swiss", "cyberpunk", "ar_deco"];
+var FM_WIDTHS = ["wide", "narrow"];
+export function parseFmModel(inner) {
+  const model = { title: "", date: "", image: "", image_v: "", type: "", theme: "", width: "", summary: "", rest: "" };
+  const rest = [], taken = {};
+  String(inner || "").split("\n").forEach(function (raw) {
+    const line = raw.replace(/\s+$/, "");
+    const mm = /^([A-Za-z_][\w-]*)[ \t]*:[ \t]*(.*)$/.exec(line);
+    if (mm && FM_MANAGED.indexOf(mm[1]) >= 0 && !taken[mm[1]]) {
+      taken[mm[1]] = true;
+      let v = mm[2].trim();
+      if ((v[0] === '"' && v.slice(-1) === '"') || (v[0] === "'" && v.slice(-1) === "'")) v = v.slice(1, -1);
+      model[mm[1]] = v;
+    } else {
+      rest.push(raw);   // вербатим (включая пустые строки/комментарии/неизвестные ключи)
+    }
+  });
+  model.rest = rest.join("\n").replace(/^\n+/, "").replace(/\n+$/, "");
+  return model;
+}
+export function serializeFm(model) {
+  const lines = [];
+  function put(k, v) { if (v != null && String(v) !== "") lines.push(k + ": " + v); }
+  put("title", model.title);
+  put("date", model.date);
+  put("image", model.image);
+  put("image_v", model.image_v);
+  put("type", model.type);
+  put("theme", model.theme);
+  put("width", model.width);
+  put("summary", model.summary);
+  if (model.rest && model.rest.trim() !== "") {
+    model.rest.split("\n").forEach(function (l) { lines.push(l); });
+  }
+  return "---\n" + lines.join("\n") + "\n---\n";
+}
+
 // ── inline-картинки [img src=…]: чтение/вставка/замена/удаление (чистые функции) ─
 // Зеркало IMG_RX рендера: кавыч-сегменты глотаются целиком (`]` внутри cap="…" не рвёт тег).
 function imgSrcOfAttrs(s) {
@@ -780,6 +990,27 @@ function injectStyles() {
     "#ze-root .ze-spacer{flex:1 1 auto;}" +
     "#ze-root .ze-imgbar{display:flex;flex-wrap:wrap;align-items:center;gap:.5em;padding:.45em .8em;" +
       "background:#242424;border-bottom:1px solid #000;flex:0 0 auto;font-size:.92em;}" +
+    "#ze-root .ze-fm{background:#242424;border-bottom:1px solid #000;flex:0 0 auto;font-size:.92em;}" +
+    "#ze-root .ze-fm-hd{display:flex;align-items:center;gap:.5em;padding:.4em .8em;min-width:0;}" +
+    "#ze-root .ze-fm-toggle{font:inherit;background:none;border:0;color:#cdcdcd;cursor:pointer;padding:0 .15em;}" +
+    "#ze-root .ze-fm-name{color:#9a9a9a;font-weight:600;flex:0 0 auto;}" +
+    "#ze-root .ze-fm-sum{color:#d8d8a0;font-family:ui-monospace,Consolas,monospace;font-size:.9em;" +
+      "overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;}" +
+    "#ze-root .ze-fm-body{padding:.1em .9em .7em;}" +
+    "#ze-root .ze-fm-grid{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.4em .7em;" +
+      "align-items:center;max-width:780px;}" +
+    "#ze-root .ze-fm-lbl{color:#9a9a9a;justify-self:end;white-space:nowrap;}" +
+    "#ze-root .ze-fm-lbl b{color:#e0a0a0;margin-left:.12em;font-weight:600;}" +
+    "#ze-root .ze-fm-f{font:inherit;background:#1b1b1b;color:#e6e6e6;border:1px solid #555;" +
+      "border-radius:5px;padding:.32em .5em;width:100%;box-sizing:border-box;}" +
+    "#ze-root .ze-fm-f:disabled{opacity:.55;cursor:default;}" +
+    "#ze-root .ze-fm-more{max-width:780px;margin-top:.6em;}" +
+    "#ze-root .ze-fm-moretoggle{font:inherit;background:none;border:0;color:#7db4ff;cursor:pointer;" +
+      "padding:0;text-decoration:underline;font-size:.95em;}" +
+    "#ze-root .ze-fm-moretoggle:hover{color:#a9ccff;}" +
+    "#ze-root .ze-fm-rest{width:100%;box-sizing:border-box;margin-top:.4em;background:#1b1b1b;" +
+      "color:#e6e6e6;border:1px solid #555;border-radius:5px;padding:.4em .55em;resize:vertical;" +
+      "font:13px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;}" +
     "#ze-root .ze-imglabel{color:#9a9a9a;}" +
     "#ze-root .ze-imgname{color:#d8d8a0;font-family:ui-monospace,Consolas,monospace;}" +
     "#ze-root .ze-imgsep{align-self:stretch;width:1px;background:#444;margin:.1em .35em;}" +
