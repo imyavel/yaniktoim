@@ -185,6 +185,15 @@ export function mountZmlEditor(opts) {
       if (typeof full !== "string") full = curZml();
       applyFull(full);
     }
+    // Мягкое предупреждение перед сохранением (opts.preSaveWarn): возвращает текст —
+    // показываем подтверждение, «Да» продолжает сохранение, «Нет» оставляет в правке
+    // (напр. голые музыкальные ссылки, не оформленные в тег [mus]). Нет хука / пусто →
+    // сохраняем как обычно. Скан — по тексту ПОСЛЕ предобработки (что реально уйдёт).
+    if (typeof opts.preSaveWarn === "function") {
+      var warnMsg = null;
+      try { warnMsg = opts.preSaveWarn(curZml()); } catch (e) { warnMsg = null; }
+      if (warnMsg) { confirmModal(warnMsg, function () { guardThen(doSaveCommit); }); return; }
+    }
     guardThen(doSaveCommit);
   }
   function doSaveCommit() {
@@ -395,7 +404,14 @@ export function mountZmlEditor(opts) {
     refreshInline();
     ta.addEventListener("input", refreshInline);  // ручная правка тегов → список освежается
 
-    addBtn.addEventListener("click", function () { pickMode = { mode: "add" }; insFile.click(); });
+    // Картинка в тексте имеет смысл только при наличии основной (обложки): сперва
+    // обложка, потом дополнительные. Нет обложки (и не выбрана новая) → не открываем
+    // выбор файла, показываем уведомление. Замена/удаление уже вставленных — не трогаем.
+    function hasCover() { return !!(fmModel ? (fmModel.image || "") : getFmImage(ta.value)); }
+    addBtn.addEventListener("click", function () {
+      if (!hasCover()) { noticeModal("Сначала добавьте основную картинку (обложку)."); return; }
+      pickMode = { mode: "add" }; insFile.click();
+    });
     bar.addEventListener("click", function (ev) {
       const b = ev.target.closest("[data-ins]"); if (!b) return;
       const name = b.getAttribute("data-name");

@@ -17,7 +17,7 @@
   // резолвится от страницы в docs/art/.
   var SELF = document.currentScript || document.querySelector('script[src*="ya-edit.js"]');
   var SELF_SRC = SELF ? SELF.src : new URL("ya-edit.js", document.baseURI).href;
-  var ASSET_VER = "20260628-05";   // бастит кэш динамических модулей (ze-core/render) при правках
+  var ASSET_VER = "20260628-06";   // бастит кэш динамических модулей (ze-core/render) при правках
   var modUrl = function (p) {
     return new URL(p + (p.indexOf("?") < 0 ? "?v=" + ASSET_VER : ""), SELF_SRC).href;
   };
@@ -166,6 +166,7 @@
                 preprocess: function (src) {   // [faw]-разметка + проставить editor:<ник> (контракт «Редакция»)
                   return setFmEditor(deps.fawMarkup(src), sess && sess.nick);
                 },
+                preSaveWarn: warnBareMusicLinks,   // голые youtube-ссылки вне тега [mus]
                 save: saveToWorker,
                 checkIdentity: function (curZml, baseZml) {   // заморозка date у сохранённой статьи
                   var was = fmDateField(baseZml), now = fmDateField(curZml);
@@ -223,6 +224,24 @@
       inner = inner.replace(/\s+$/, "") + "\neditor: " + nick;
     }
     return "---\n" + inner + "\n---\n" + text.slice(m[0].length);
+  }
+
+  // Мягкая проверка на «Сохранить»: голые youtube-ссылки, не оформленные в плеер [mus]
+  // (руководство §27). Ловим ИМЕННО сырьё, вставленное в текст: ссылки внутри [mus]…[/mus]
+  // (трек) и [shir]…[/shir] (грид плиток), а равно в любых [url|…]/[…|url] (сноски,
+  // инлайн «Музыка под настроение») — намеренные, НЕ трогаем. В корпусе сырых ссылок нет
+  // (все 350+ оформлены) → готовые статьи проверка не тревожит. Возврат: текст-предупреждение
+  // (нашлась голая) либо null. Реализация — чистая строка (тестируема отдельно от UI).
+  function warnBareMusicLinks(zml) {
+    var s = String(zml == null ? "" : zml)
+      .replace(/^\uFEFF?---\r?\n[\s\S]*?\r?\n---\r?\n?/, "")     // снять шапку (audio:-ссылка — свой конструкт)
+      .replace(/\[mus\b[^\]]*\][\s\S]*?\[\/mus\]/gi, " ")            // плееры [mus] — уже оформлено
+      .replace(/\[shir\b[^\]]*\][\s\S]*?\[\/shir\]/gi, " ");         // гриды [shir] — тоже
+    // Ссылка youtube, перед которой НЕ «[» и НЕ «|» = вне [url|…]/[…|url] → голая.
+    var bare = /(^|[^\[|])https?:\/\/(?:[\w-]+\.)*(?:youtu\.be|youtube\.com)\//i.test(s);
+    return bare
+      ? 'Оформите музыкальные ссылки в тег [mus] (см. раздел "27. Музыка" руководства в Админке). Сохранить всё равно?'
+      : null;
   }
 
   // Пересчёт prev/next из живого structure.json (см. вызов выше). Read-only, без прав.
