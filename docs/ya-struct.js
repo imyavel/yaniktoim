@@ -28,7 +28,7 @@
   var artDeps = null;
 
   Promise.all([
-    import("./editor/render.js?v=20260628-01"),
+    import("./editor/render.js?v=20260628-03"),
     fetch("config/structure.json", { cache: "no-cache" }).then(j),   // свежий после авто-reload (не из кэша)
     fetch("editor/data/manifest.json").then(j),
     fetch("editor/data/template_index.tpl").then(t),
@@ -444,7 +444,7 @@
       var today = isoToday(), art;
       try { art = mintArtId(); } catch (e) { status(e.message, true); return; }
       var zml = templateZml(art, today);
-      import("./ze-core.js?v=20260628-02").then(function (mod) {
+      import("./ze-core.js?v=20260628-03").then(function (mod) {
         status("");
         mod.mountZmlEditor({
           label: "Новая статья · #" + art + " → " + secName(slug),

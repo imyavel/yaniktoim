@@ -312,13 +312,16 @@ export function mountZmlEditor(opts) {
       readPicked(f, function (ext, mime, b64) {
         const name = (imgOpt.artId || "image") + "." + ext;
         pendingImage = { name: name, mime: mime, b64: b64 };
-        ta.value = setFmImage(ta.value, name);   // прописать строку image: во frontmatter
+        // image: (имя файла, всегда <art>.<ext>) + image_v: (хэш байтов). Имя при замене не
+        // меняется → без версии HTML не менялся бы и браузер отдавал бы старый кэш; image_v
+        // двигает ?v= у обложки в рендере, так что замена реально видна и детектится деплоем.
+        ta.value = setFmImageVer(setFmImage(ta.value, name), hashB64(b64));
         refresh();
         status("Обложка выбрана: " + name + ". «Просмотр» покажет её, «Сохранить» — выложит.");
       });
     });
     delBtn.addEventListener("click", function () {
-      ta.value = removeFmImage(ta.value);
+      ta.value = removeFmImageVer(removeFmImage(ta.value));   // снять и image:, и image_v:
       pendingImage = null;
       refresh();
       status("Обложка отвязана (файл в репозитории остаётся — «рукописи не горят»).");
@@ -406,7 +409,10 @@ export function mountZmlEditor(opts) {
     if (pendingImage) pend.push(pendingImage);
     pendingInline.forEach(function (p) { pend.push(p); });
     for (const p of pend) {
-      html = html.split('"../img/' + p.name + '"').join('"data:' + p.mime + ";base64," + p.b64 + '"');
+      // src обложки может нести кэш-версию (?v=…) — матчим её опционально
+      const rx = new RegExp('"\\.\\./img/' + p.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + '(?:\\?[^"]*)?"', "g");
+      const data = '"data:' + p.mime + ";base64," + p.b64 + '"';
+      html = html.replace(rx, function () { return data; });
     }
     return html;
   }
@@ -650,6 +656,33 @@ function removeFmImage(text) {
   const b = fmBounds(text); if (!b) return text;
   const inner = b.inner.replace(/^[ \t]*image[ \t]*:.*\n?/m, "").replace(/\s+$/, "");
   return "---\n" + inner + "\n---\n" + text.slice(b.end);
+}
+// image_v — кэш-версия обложки (хэш байтов): render добавляет её как ?v= к src обложки
+// и og:image, чтобы замена картинки С ТЕМ ЖЕ ИМЕНЕМ была видна (не залипала в кэше) и
+// меняла HTML (тогда детектор деплоя её ловит). Зеркало set/removeFmImage для ключа image_v.
+function setFmImageVer(text, ver) {
+  const b = fmBounds(text);
+  if (!b) return "---\nimage_v: " + ver + "\n---\n" + text.replace(/^\n+/, "");
+  let inner = b.inner;
+  if (/^[ \t]*image_v[ \t]*:.*$/m.test(inner)) inner = inner.replace(/^[ \t]*image_v[ \t]*:.*$/m, "image_v: " + ver);
+  else inner = inner.replace(/\s+$/, "") + "\nimage_v: " + ver;
+  return "---\n" + inner + "\n---\n" + text.slice(b.end);
+}
+function removeFmImageVer(text) {
+  const b = fmBounds(text); if (!b) return text;
+  const inner = b.inner.replace(/^[ \t]*image_v[ \t]*:.*\n?/m, "").replace(/\s+$/, "");
+  return "---\n" + inner + "\n---\n" + text.slice(b.end);
+}
+// Короткий детерминированный хэш байтов картинки (FNV-1a 32-бит по base64) → 8 hex.
+// Не криптостойкий — нужен лишь как кэш-версия: одинаковые байты → один хэш (идемпотентно),
+// разные → разный ?v=. Math.imul даёт точное 32-битное умножение.
+function hashB64(s) {
+  let h = 0x811c9dc5 >>> 0;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  return ("0000000" + h.toString(16)).slice(-8);
 }
 
 // ── inline-картинки [img src=…]: чтение/вставка/замена/удаление (чистые функции) ─

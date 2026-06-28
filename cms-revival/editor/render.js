@@ -1703,10 +1703,15 @@ export function renderArticleParts(ctx) {
   const originUrl = rec.url || "";
   const originLabel = originUrl.replace(/^https?:\/\//, "").replace(/\/+$/, "");
   const [prevLink, nextLink] = siblings(rec, manifest);
+  // Кэш-бастер обложки: при замене картинки имя файла остаётся прежним (<art>.<ext>),
+  // поэтому без версии браузер/CDN отдавал бы старый кэш, а детектор деплоя не видел бы
+  // изменения HTML. Редактор пишет во frontmatter image_v (хэш байтов) → ?v= меняется
+  // вместе с картинкой. Нет image_v (старые статьи) → ссылка как раньше, без ?v.
+  const imgVer = fm.image_v ? "?v=" + fm.image_v : "";
   let illustration = "";
   if (fm.image) {
     illustration =
-      `<img class="cover" src="../img/${fm.image}" alt="${htmlEscape(title)}">\n`;
+      `<img class="cover" src="../img/${fm.image}${imgVer}" alt="${htmlEscape(title)}">\n`;
   }
 
   // audio narration 🎧 (ZML3): frontmatter audio:[{url,label}] → 🎧 link(s) by H1.
@@ -1817,9 +1822,10 @@ export function renderArticleHtml(ctx) {
   html = replaceAllLiteral(html, "{{ILLUSTRATION}}", illustration);
   // OG/twitter image (P3): абсолютный URL той же иллюстрации (fm.image) — ради
   // богатого раскрытия в Telegram. Нет картинки → плейсхолдер пуст (OG падёт на title).
+  const ogVer = p.fm.image_v ? "?v=" + p.fm.image_v : "";   // та же кэш-версия, что у обложки
   const ogImage = p.fm.image
-    ? `<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/${p.fm.image}">\n` +
-      `<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/${p.fm.image}">`
+    ? `<meta property="og:image" content="https://imyavel.github.io/yaniktoim/img/${p.fm.image}${ogVer}">\n` +
+      `<meta name="twitter:image" content="https://imyavel.github.io/yaniktoim/img/${p.fm.image}${ogVer}">`
     : "";
   html = replaceAllLiteral(html, "{{OG_IMAGE}}", ogImage);
   html = replaceAllLiteral(html, "{{NUMBER}}", ctx.rec.art);
