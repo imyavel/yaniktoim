@@ -263,23 +263,18 @@
       .then(function (res) {
         setBusy(false);
         if (!res.ok || !res.d.ok) throw new Error((res.d && res.d.error) || "HTTP");
-        awaitStructDeploy(structJson);
+        // Сразу выходим из управления на заглавную и ждём обновление ТАМ: что именно
+        // ждать (боевой config/structure.json == закоммиченному) кладём в sessionStorage —
+        // бутстрап в index.html подхватит это на загрузке и покажет окно ожидания,
+        // а по приезду деплоя сам перезагрузит заглавную.
+        try {
+          sessionStorage.setItem("ya_deploywait", JSON.stringify({
+            url: new URL("config/structure.json", document.baseURI).href,
+            expect: structJson
+          }));
+        } catch (e) {}
+        location.href = "index.html";
       }).catch(function (e) { setBusy(false); status("Не сохранилось: " + (e.message || e), true); });
-  }
-
-  // После коммита структуры ждём, пока боевой config/structure.json начнёт отдавать
-  // свежий вариант (деплой Pages 30–90 с) — модалка-счётчик из ze-core; доехало →
-  // перезагружаем страницу управления. ze-core не подгрузился → старый статичный попап.
-  function awaitStructDeploy(structJson) {
-    status("Сохранено ✓ — ждём появления на сайте…");
-    import("./ze-core.js?v=20260627-06").then(function (mod) {
-      mod.waitForDeploy({
-        url: new URL("config/structure.json", document.baseURI).href,
-        match: function (text) { return text === structJson; },
-        onReady: function () { location.reload(); },
-        onDismiss: function () { status("Сохранено. Сайт обновится в течение ~минуты — затем обновите страницу (Ctrl+R)."); }
-      });
-    }).catch(function () { savedPopup(); });
   }
 
   // ── мелочи ────────────────────────────────────────────────────────────────────
@@ -287,16 +282,6 @@
   function setBusy(on) { root.querySelectorAll(".st-btn,.st-mini,.st-arrows button").forEach(function (b) { b.disabled = on; }); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function confirmStr(m) { return window.confirm(m); }
-  function savedPopup() {
-    var p = document.createElement("div");
-    p.style.cssText = "position:fixed;inset:0;z-index:99;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45)";
-    p.innerHTML = '<div style="max-width:420px;margin:1em;background:#fff;color:#222;border-radius:10px;padding:1.3em 1.5em;box-shadow:0 12px 40px rgba(0,0,0,.35)">' +
-      "<p style=\"margin:0 0 .7em\"><b>Структура сохранена.</b></p>" +
-      "<p style=\"margin:0 0 1em\">Сайт обновится через 30–90 сек. Затем обновите страницу (Ctrl+R). Крошки внутри статей подтянут раздел при следующей полной пересборке.</p>" +
-      '<div style="text-align:right"><button class="st-btn st-primary" id="st-pop-ok">Ок</button></div></div>';
-    document.body.appendChild(p);
-    p.querySelector("#st-pop-ok").addEventListener("click", function () { p.remove(); status("Сохранено. Обновите через ~минуту."); });
-  }
 
   // ── Ф10E: создание новой статьи ───────────────────────────────────────────────
   // Статья «рождается» в оверлей-редакторе (ze-core) из шаблона; на сайт попадает
@@ -459,7 +444,7 @@
       var today = isoToday(), art;
       try { art = mintArtId(); } catch (e) { status(e.message, true); return; }
       var zml = templateZml(art, today);
-      import("./ze-core.js?v=20260627-06").then(function (mod) {
+      import("./ze-core.js?v=20260628-02").then(function (mod) {
         status("");
         mod.mountZmlEditor({
           label: "Новая статья · #" + art + " → " + secName(slug),
@@ -471,10 +456,11 @@
           previewBase: new URL("art/", document.baseURI).href,
           image: { artId: art },        // панели «Обложка» + «В тексте» ([img]) в новой статье
           save: function (z, html, extras) { return commitNewArticle(art, slug, z, html, today, extras); },
-          // после создания ждём появления новой статьи на сайте (деплой Pages), затем
-          // сами переходим на неё — без ручного Ctrl+R.
+          // после создания ждём появления новой статьи на сайте ПРЯМО В РЕДАКТОРЕ
+          // (keepEditorOpen), затем сами переходим на неё — без ручного Ctrl+R.
           deployWait: function (z, html) {
             return {
+              keepEditorOpen: true,
               url: new URL("art/" + art + ".html", document.baseURI).href,
               match: function (text) { return text === html; },
               onReady: function () { location.href = "art/" + art + ".html"; }

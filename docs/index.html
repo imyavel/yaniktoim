@@ -122,5 +122,24 @@
 </script>
 <script src="ya-auth.js?v=20260622-01"></script>
 <script>(function(){var b=document.getElementById("ya-login");if(b&&window.YaAuth)YaAuth.renderManageInto(b);})();</script>
+<!-- Ожидание деплоя после «Сохранить» в управлении разделами: ya-struct уходит на
+     заглавную и кладёт в sessionStorage что ждать; здесь подхватываем и показываем
+     окно ожидания (ze-core.waitForDeploy), по приезду деплоя — reload заглавной. -->
+<script type="module">
+(function(){
+  var raw; try { raw = sessionStorage.getItem("ya_deploywait"); } catch(e){ return; }
+  if (!raw) return;
+  try { sessionStorage.removeItem("ya_deploywait"); } catch(e){}
+  var cfg; try { cfg = JSON.parse(raw); } catch(e){ return; }
+  if (!cfg || !cfg.url || typeof cfg.expect !== "string") return;
+  import("./ze-core.js?v=20260628-02").then(function(mod){
+    mod.waitForDeploy({
+      url: cfg.url,
+      match: function(text){ return text === cfg.expect; },
+      onReady: function(){ location.reload(); }
+    });
+  }).catch(function(){});
+})();
+</script>
 </body>
 </html>

@@ -179,15 +179,23 @@ export function mountZmlEditor(opts) {
         // обновляем страницу сами. «ОК» — перестать ждать (правка уже в репо, увидится по Ctrl+R).
         var dw = typeof opts.deployWait === "function" ? opts.deployWait(zml, html) : null;
         if (dw && dw.url) {
-          // Сначала закрываем редактор — под ним показывается страница как есть сейчас
-          // (ещё старая, деплой не доехал). Окно ожидания вешаем уже НА НЕЁ. По готовности
-          // обновляем/переходим; «Пропустить» — просто снять окно (страница уже видна).
-          close();
+          // По умолчанию закрываем редактор и ждём на уже видимой странице (правка
+          // СУЩЕСТВУЮЩЕЙ статьи — как сейчас). Если dw.keepEditorOpen (создание НОВОЙ
+          // статьи) — окно ожидания висит прямо в редакторе, по готовности уходим на
+          // созданную страницу; «Пропустить» тогда закрывает редактор.
+          var keep = !!dw.keepEditorOpen;
+          if (!keep) close();
           waitForDeploy({
             url: dw.url,
             match: typeof dw.match === "function" ? dw.match : function (text) { return text === html; },
-            onReady: typeof dw.onReady === "function" ? dw.onReady : function () { location.reload(); },
-            onDismiss: typeof dw.onDismiss === "function" ? dw.onDismiss : null
+            onReady: function () {
+              if (keep) close();
+              (typeof dw.onReady === "function" ? dw.onReady : function () { location.reload(); })();
+            },
+            onDismiss: function () {
+              if (keep) close();
+              if (typeof dw.onDismiss === "function") dw.onDismiss();
+            }
           });
           return;
         }
