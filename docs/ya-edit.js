@@ -17,7 +17,7 @@
   // резолвится от страницы в docs/art/.
   var SELF = document.currentScript || document.querySelector('script[src*="ya-edit.js"]');
   var SELF_SRC = SELF ? SELF.src : new URL("ya-edit.js", document.baseURI).href;
-  var ASSET_VER = "20260627-06";   // бастит кэш динамических модулей (ze-core/render) при правках
+  var ASSET_VER = "20260628-01";   // бастит кэш динамических модулей (ze-core/render) при правках
   var modUrl = function (p) {
     return new URL(p + (p.indexOf("?") < 0 ? "?v=" + ASSET_VER : ""), SELF_SRC).href;
   };
@@ -258,7 +258,8 @@
       var idx = sibs.findIndex(function (x) { return x.art === ART; });
       if (idx < 0) return;
       function esc(s) { return String(s).replace(/[&<>]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]; }); }
-      function ttl(rec) { return titleByArt[rec.art] || rec.title || rec.art; }
+      // имя как в каталоге: запись structure (rec.title — переименование) приоритетна, иначе manifest
+      function ttl(rec) { return rec.title || titleByArt[rec.art] || rec.art; }
       function fill(span, rec, dir) {
         if (!span) return;
         if (!rec) { span.innerHTML = ""; return; }

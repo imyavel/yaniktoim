@@ -1965,9 +1965,11 @@ export function renderSectionIndexHtml(ctx) {
     .sort((a, b) => (a.order - b.order) || (a.art < b.art ? -1 : 1));
   const lis = arts.map((a) => {
     const rec = manifestByArt[a.art] || {};
-    // title/date: manifest приоритетно; для НОВОЙ (zml-only) статьи её в manifest
-    // ещё нет → фолбэк на поля самой записи structure (a.title/a.date).
-    const title = htmlEscape(rec.title || a.title || a.art);
+    // title: запись structure ПРИОРИТЕТНА (переименование в каталоге пишет a.title —
+    // имя в каталоге намеренно «разнесено» с H1/ZML), иначе manifest, иначе art-id.
+    // date: manifest приоритетно (дата индикативна, не переименовывается); для НОВОЙ
+    // (zml-only) статьи manifest её ещё не знает → фолбэк на a.date.
+    const title = htmlEscape(a.title || rec.title || a.art);
     const date = fmtDateRu(rec.date_chosen || rec.date || a.date || "");
     // url-unification: единственный адрес статьи — NNN.html (форсы/default_view упразднены).
     const href = `../art/${a.art}.html`;

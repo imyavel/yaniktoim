@@ -28,7 +28,7 @@
   var artDeps = null;
 
   Promise.all([
-    import("./editor/render.js?v=20260626-02"),
+    import("./editor/render.js?v=20260628-01"),
     fetch("config/structure.json", { cache: "no-cache" }).then(j),   // свежий после авто-reload (не из кэша)
     fetch("editor/data/manifest.json").then(j),
     fetch("editor/data/template_index.tpl").then(t),
@@ -66,7 +66,14 @@
   function archivedArticles() {
     return structure.articles.filter(function (a) { return a.status === "archived"; });
   }
-  function title(art) { var r = byArt[art]; return (r && r.title) || art; }
+  // Имя в каталоге: запись structure приоритетна (переименование на сайте), иначе
+  // manifest, иначе art-id — то же правило, что в render.js::renderSectionIndexHtml.
+  function title(art) {
+    var a = structure.articles.find(function (x) { return x.art === art; });
+    if (a && a.title) return a.title;
+    var r = byArt[art];
+    return (r && r.title) || art;
+  }
 
   // ── операции ──────────────────────────────────────────────────────────────
   function swapOrder(list, i, jdx) { var t0 = list[i].order; list[i].order = list[jdx].order; list[jdx].order = t0; }
@@ -121,6 +128,21 @@
     structure.articles.find(function (x) { return x.art === art; }).status = "archived";
     render();
   }
+  // Переименование имени статьи В КАТАЛОГЕ (списки разделов). H1/ZML НЕ трогаем —
+  // имя в каталоге намеренно «разнесено» с заголовком страницы. Имя живёт в записи
+  // structure.json (a.title) и приоритетно в render; пустой ввод снимает override
+  // (возврат к названию из manifest). Применится после «Сохранить».
+  function renameArticle(art) {
+    var a = structure.articles.find(function (x) { return x.art === art; });
+    if (!a) return;
+    var cur = a.title || (byArt[art] && byArt[art].title) || "";
+    var nm = prompt("Название статьи в каталоге (заголовок H1 на странице не меняется).\n"
+      + "Пусто — вернуть имя из корпуса:", cur);
+    if (nm == null) return;
+    nm = nm.trim();
+    if (nm) a.title = nm; else delete a.title;   // пусто → снять переименование
+    render();
+  }
   function restoreArticle(art) {
     var a = structure.articles.find(function (x) { return x.art === art; });
     a.status = "published";
@@ -171,6 +193,7 @@
             '<span class="num">#' + esc(a.num || a.art) + "</span>" +
             '<span class="ttl">' + esc(title(a.art)) + "</span>" +
             (opts ? '<select data-act="art-move" data-id="' + esc(a.art) + '"><option value="">переместить…</option>' + opts + "</select>" : "") +
+            '<button class="st-mini" data-act="art-rename" data-id="' + esc(a.art) + '">переименовать</button>' +
             '<button class="st-mini" data-act="art-arch" data-id="' + esc(a.art) + '">в архив</button>' +
             "</li>";
         });
@@ -206,6 +229,7 @@
       case "sec-toggle": expanded[id] = !expanded[id]; render(); break;
       case "art-up": moveArticle(id, -1); break;
       case "art-down": moveArticle(id, 1); break;
+      case "art-rename": renameArticle(id); break;
       case "art-arch": archiveArticle(id); break;
       case "art-restore": restoreArticle(id); break;
       case "reset": if (confirmStr("Сбросить все несохранённые изменения?")) location.reload(); break;
