@@ -21,7 +21,7 @@
   // ниже остаётся document-relative (верно резолвится от страницы в docs/songs/).
   var SELF = document.currentScript || document.querySelector('script[src*="ya-songs.js"]');
   var SELF_SRC = SELF ? SELF.src : new URL("ya-songs.js", document.baseURI).href;
-  var ASSET_VER = "20260628-04";   // бастит кэш динамических модулей (ze-core/render) при правках
+  var ASSET_VER = "20260628-05";   // бастит кэш динамических модулей (ze-core/render) при правках
   var modUrl = function (p) {
     return new URL(p + (p.indexOf("?") < 0 ? "?v=" + ASSET_VER : ""), SELF_SRC).href;
   };

@@ -69,7 +69,11 @@ export function mountZmlEditor(opts) {
   ui.id = "ze-root";
   ui.innerHTML =
     '<div class="ze-bar">' +
-      '<span class="ze-title">' + esc(opts.label || "Редактор ZML") + '</span>' +
+      (fmCfg
+        ? '<button type="button" class="ze-fm-toggle" data-act="fmtoggle">' +
+            (fmCfg.mode === "new" ? "▾" : "▸") + " Шапка статьи</button>" +
+          '<span class="ze-fm-sum"></span>'
+        : '<span class="ze-title">' + esc(opts.label || "Редактор ZML") + '</span>') +
       '<span class="ze-spacer"></span>' +
       '<button type="button" class="ze-btn" data-act="preview">Просмотр</button>' +
       '<button type="button" class="ze-btn ze-hidden" data-act="back">← Редактировать</button>' +
@@ -92,8 +96,8 @@ export function mountZmlEditor(opts) {
   try { ta.setSelectionRange(0, 0); } catch (e) {}
   ta.focus();
   ta.scrollTop = 0;
+  if (fmCfg) setupFrontmatterPanel(fmCfg);   // плашку — раньше, чтобы панель картинок легла внутрь неё
   if (imgOpt) setupImageBar();
-  if (fmCfg) setupFrontmatterPanel(fmCfg);
   baseline = curZml();                // на старте «сохранённое» = текущее
 
   ui.addEventListener("click", function (ev) {
@@ -103,6 +107,12 @@ export function mountZmlEditor(opts) {
     else if (act === "back") showEditor();
     else if (act === "save") doSave();
     else if (act === "cancel") doCancel();
+    else if (act === "fmtoggle") toggleFmBody();
+    else if (act === "fmmore") {            // «Дополнительно» (сырой хвост шапки)
+      const hidden = fmRestEl.classList.toggle("ze-hidden");
+      b.textContent = (hidden ? "▸" : "▾") + " Дополнительно";
+      if (!hidden) autoGrowRest();
+    }
   });
   document.addEventListener("keydown", escClose);
 
@@ -316,7 +326,13 @@ export function mountZmlEditor(opts) {
       '<span class="ze-inslist"></span>' +
       '<button type="button" class="ze-btn ze-insadd">+ Картинка…</button>' +
       '<input type="file" class="ze-insfile ze-hidden" accept="image/jpeg,image/png,image/gif,image/webp">';
-    ui.querySelector(".ze-bar").insertAdjacentElement("afterend", bar);
+    // Со структурной плашкой панель картинок прячется ВНУТРЬ неё (перед «Дополнительно»);
+    // без плашки (старый путь) — отдельной строкой сразу под верхней панелью.
+    const fmPanel = ui.querySelector(".ze-fm");
+    const moreEl = fmPanel && fmPanel.querySelector(".ze-fm-more");
+    if (fmPanel && moreEl) fmPanel.insertBefore(bar, moreEl);
+    else if (fmPanel) fmPanel.appendChild(bar);
+    else ui.querySelector(".ze-bar").insertAdjacentElement("afterend", bar);
     const nameEl = bar.querySelector(".ze-imgname");
     const pickBtn = bar.querySelector(".ze-imgpick");
     const delBtn = bar.querySelector(".ze-imgdel");
@@ -456,46 +472,44 @@ export function mountZmlEditor(opts) {
   // и правит. Обложка (image) живёт в панели «Иллюстрация» (на той же модели).
   function setupFrontmatterPanel(cfg) {
     const isNew = cfg.mode === "new";
-    function optsHtml(list, cur, emptyLabel) {
+    function optsHtml(list, cur, emptyLabel, labelOf) {
+      labelOf = labelOf || function (v) { return v; };
       let has = false, h = '<option value="">' + esc(emptyLabel) + "</option>";
       list.forEach(function (v) {
         if (v === cur) has = true;
-        h += '<option value="' + esc(v) + '"' + (v === cur ? " selected" : "") + ">" + esc(v) + "</option>";
+        h += '<option value="' + esc(v) + '"' + (v === cur ? " selected" : "") + ">" + esc(labelOf(v)) + "</option>";
       });
-      if (cur && !has) h += '<option value="' + esc(cur) + '" selected>' + esc(cur) + "</option>";  // незнакомое значение не теряем
+      if (cur && !has) h += '<option value="' + esc(cur) + '" selected>' + esc(labelOf(cur)) + "</option>";  // незнакомое значение не теряем
       return h;
     }
+    // «old» = оригинальный (старый) html: валиден как frontmatter.theme — boot-резолвер
+    // (зеркало resolveDisplay) применяет архивный оверлей; на статьях без архива опция в
+    // самом виде убирается, в редакторе оставляем как доступный выбор.
+    const themeLabel = function (v) { return v === "old" ? "оригинал (старый html)" : v; };
     const panel = document.createElement("div");
-    panel.className = "ze-fm";
+    panel.className = "ze-fm" + (isNew ? "" : " ze-hidden");   // сама плашка = выпадающее тело
     panel.innerHTML =
-      '<div class="ze-fm-hd">' +
-        '<button type="button" class="ze-fm-toggle" data-fm="toggle">' + (isNew ? "▾" : "▸") + "</button>" +
-        '<span class="ze-fm-name">Шапка статьи</span>' +
-        '<span class="ze-fm-sum"></span>' +
+      '<div class="ze-fm-grid">' +
+        '<span class="ze-fm-lbl">Заголовок<b>*</b></span>' +
+        '<input type="text" class="ze-fm-f ze-fm-title" placeholder="Название статьи">' +
+        '<span class="ze-fm-lbl">Дата<b>*</b></span>' +
+        '<input type="date" class="ze-fm-f ze-fm-date"' + (isNew ? "" : " disabled") + ">" +
+        '<span class="ze-fm-lbl">Тип</span>' +
+        '<select class="ze-fm-f ze-fm-type">' + optsHtml(FM_TYPES, fmModel.type, "— prose —") + "</select>" +
+        '<span class="ze-fm-lbl">Тема</span>' +
+        '<select class="ze-fm-f ze-fm-theme">' + optsHtml(FM_THEMES, fmModel.theme, "— по умолчанию —", themeLabel) + "</select>" +
+        '<span class="ze-fm-lbl">Ширина</span>' +
+        '<select class="ze-fm-f ze-fm-width">' + optsHtml(FM_WIDTHS, fmModel.width, "— по умолчанию —") + "</select>" +
+        '<span class="ze-fm-lbl">Описание</span>' +
+        '<input type="text" class="ze-fm-f ze-fm-summary" placeholder="мета-описание (в тексте не видно)">' +
       "</div>" +
-      '<div class="ze-fm-body' + (isNew ? "" : " ze-hidden") + '">' +
-        '<div class="ze-fm-grid">' +
-          '<span class="ze-fm-lbl">Заголовок<b>*</b></span>' +
-          '<input type="text" class="ze-fm-f ze-fm-title" placeholder="Название статьи">' +
-          '<span class="ze-fm-lbl">Дата<b>*</b></span>' +
-          '<input type="date" class="ze-fm-f ze-fm-date"' + (isNew ? "" : " disabled") + ">" +
-          '<span class="ze-fm-lbl">Тип</span>' +
-          '<select class="ze-fm-f ze-fm-type">' + optsHtml(FM_TYPES, fmModel.type, "— prose —") + "</select>" +
-          '<span class="ze-fm-lbl">Тема</span>' +
-          '<select class="ze-fm-f ze-fm-theme">' + optsHtml(FM_THEMES, fmModel.theme, "— по умолчанию —") + "</select>" +
-          '<span class="ze-fm-lbl">Ширина</span>' +
-          '<select class="ze-fm-f ze-fm-width">' + optsHtml(FM_WIDTHS, fmModel.width, "— по умолчанию —") + "</select>" +
-          '<span class="ze-fm-lbl">Описание</span>' +
-          '<input type="text" class="ze-fm-f ze-fm-summary" placeholder="мета-описание (в тексте не видно)">' +
-        "</div>" +
-        '<div class="ze-fm-more">' +
-          '<button type="button" class="ze-fm-moretoggle" data-fm="more">▸ Дополнительно</button>' +
-          '<textarea class="ze-fm-rest ze-hidden" spellcheck="false" placeholder="прочие поля шапки, по строке: ключ: значение"></textarea>' +
-        "</div>" +
+      '<div class="ze-fm-more">' +
+        '<button type="button" class="ze-fm-moretoggle" data-act="fmmore">▸ Дополнительно</button>' +
+        '<textarea class="ze-fm-rest ze-hidden" spellcheck="false" placeholder="прочие поля шапки, по строке: ключ: значение"></textarea>' +
       "</div>";
     ui.querySelector(".ze-bar").insertAdjacentElement("afterend", panel);
-    fmBodyEl = panel.querySelector(".ze-fm-body");
-    fmSumEl = panel.querySelector(".ze-fm-sum");
+    fmBodyEl = panel;                          // плашка целиком и есть выпадающее тело
+    fmSumEl = ui.querySelector(".ze-fm-sum");  // сводка живёт в верхней строке
     fmRestEl = panel.querySelector(".ze-fm-rest");
     fmTitleEl = panel.querySelector(".ze-fm-title");
     const dateEl = panel.querySelector(".ze-fm-date");
@@ -516,26 +530,27 @@ export function mountZmlEditor(opts) {
     widthEl.addEventListener("change", function () { fmModel.width = widthEl.value; });
     sumEl.addEventListener("input", function () { fmModel.summary = sumEl.value; });
     fmRestEl.addEventListener("input", function () { fmModel.rest = fmRestEl.value; autoGrowRest(); });
-    panel.addEventListener("click", function (ev) {
-      const b = ev.target.closest("[data-fm]"); if (!b) return;
-      if (b.getAttribute("data-fm") === "toggle") {
-        const hidden = fmBodyEl.classList.toggle("ze-hidden");
-        b.textContent = hidden ? "▸" : "▾";
-      } else if (b.getAttribute("data-fm") === "more") {
-        const hidden = fmRestEl.classList.toggle("ze-hidden");
-        b.textContent = (hidden ? "▸" : "▾") + " Дополнительно";
-        if (!hidden) autoGrowRest();
-      }
-    });
-    function autoGrowRest() {
-      fmRestEl.style.height = "auto";
-      fmRestEl.style.height = Math.max(38, Math.min(200, fmRestEl.scrollHeight + 2)) + "px";
-    }
   }
+  function autoGrowRest() {
+    if (!fmRestEl) return;
+    fmRestEl.style.height = "auto";
+    fmRestEl.style.height = Math.max(38, Math.min(200, fmRestEl.scrollHeight + 2)) + "px";
+  }
+  function setFmToggleArrow(open) {
+    const tg = ui.querySelector(".ze-fm-toggle");
+    if (tg) tg.textContent = (open ? "▾" : "▸") + " Шапка статьи";
+  }
+  function toggleFmBody() {
+    if (!fmBodyEl) return;
+    const hidden = fmBodyEl.classList.toggle("ze-hidden");
+    setFmToggleArrow(!hidden);
+  }
+  // Сводка в верхней строке: «· #art · Название · Дата» (слово «Шапка статьи» — в тогле).
   function syncSummary() {
     if (!fmSumEl) return;
+    const art = imgOpt && imgOpt.artId;
     const t = (fmModel.title || "").trim(), d = (fmModel.date || "").trim();
-    fmSumEl.textContent = (t || "без заголовка") + (d ? " · " + d : "");
+    fmSumEl.textContent = (art ? " · #" + art : "") + " · " + (t || "без заголовка") + (d ? " · " + d : "");
   }
   // После preprocess/авто-починки полный ZML заново раскладываем в плашку+тело.
   function applyFull(full) {
@@ -561,8 +576,7 @@ export function mountZmlEditor(opts) {
   function openFmBody() {
     if (!fmBodyEl) return;
     fmBodyEl.classList.remove("ze-hidden");
-    const tg = fmBodyEl.parentNode.querySelector('[data-fm="toggle"]');
-    if (tg) tg.textContent = "▾";
+    setFmToggleArrow(true);
   }
   function validateFm() {
     const t = (fmModel.title || "").trim();
@@ -858,7 +872,7 @@ var FM_MANAGED = ["title", "date", "image", "image_v", "type", "theme", "width",
 // Списки значений виджетов плашки — на уровне модуля (доступны до тела mountZmlEditor,
 // иначе TDZ: setupFrontmatterPanel зовётся в инициализации раньше своей строки в замыкании).
 var FM_TYPES = ["prose", "prose_num", "verse", "dialog", "poem"];
-var FM_THEMES = ["A_editorial", "B_manuscript", "swiss", "cyberpunk", "ar_deco"];
+var FM_THEMES = ["A_editorial", "B_manuscript", "swiss", "cyberpunk", "ar_deco", "old"];
 var FM_WIDTHS = ["wide", "narrow"];
 export function parseFmModel(inner) {
   const model = { title: "", date: "", image: "", image_v: "", type: "", theme: "", width: "", summary: "", rest: "" };
@@ -990,13 +1004,15 @@ function injectStyles() {
     "#ze-root .ze-spacer{flex:1 1 auto;}" +
     "#ze-root .ze-imgbar{display:flex;flex-wrap:wrap;align-items:center;gap:.5em;padding:.45em .8em;" +
       "background:#242424;border-bottom:1px solid #000;flex:0 0 auto;font-size:.92em;}" +
-    "#ze-root .ze-fm{background:#242424;border-bottom:1px solid #000;flex:0 0 auto;font-size:.92em;}" +
-    "#ze-root .ze-fm-hd{display:flex;align-items:center;gap:.5em;padding:.4em .8em;min-width:0;}" +
-    "#ze-root .ze-fm-toggle{font:inherit;background:none;border:0;color:#cdcdcd;cursor:pointer;padding:0 .15em;}" +
-    "#ze-root .ze-fm-name{color:#9a9a9a;font-weight:600;flex:0 0 auto;}" +
-    "#ze-root .ze-fm-sum{color:#d8d8a0;font-family:ui-monospace,Consolas,monospace;font-size:.9em;" +
-      "overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;}" +
-    "#ze-root .ze-fm-body{padding:.1em .9em .7em;}" +
+    "#ze-root .ze-fm-toggle{font:inherit;font-weight:600;background:none;border:0;color:#e6e6e6;" +
+      "cursor:pointer;padding:0;white-space:nowrap;flex:0 0 auto;}" +
+    "#ze-root .ze-fm-toggle:hover{color:#fff;}" +
+    "#ze-root .ze-fm-sum{color:#9a9a9a;font-family:ui-monospace,Consolas,monospace;font-size:.9em;" +
+      "overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:0 1 auto;min-width:0;}" +
+    "#ze-root .ze-fm{background:#242424;border-bottom:1px solid #000;flex:0 0 auto;font-size:.92em;" +
+      "padding:.55em .9em .7em;max-height:56vh;overflow:auto;}" +
+    "#ze-root .ze-fm .ze-imgbar{background:transparent;border-bottom:0;border-top:1px solid #3a3a3a;" +
+      "padding:.5em 0 0;margin-top:.55em;}" +
     "#ze-root .ze-fm-grid{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.4em .7em;" +
       "align-items:center;max-width:780px;}" +
     "#ze-root .ze-fm-lbl{color:#9a9a9a;justify-self:end;white-space:nowrap;}" +
