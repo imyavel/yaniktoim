@@ -18,6 +18,7 @@
 // Эндпоинты (JSON): POST /api/register, /api/login, GET /api/me,
 //   POST /api/save (zml+view; опц. binary image: → docs/img/), GET /api/admin/users,
 //   POST /api/admin/promote, POST /api/commit (admin мультифайл; files[].binary),
+//   POST /api/redeploy (editor/admin: пустой коммит → перезапуск деплоя Pages),
 //   GET/PUT /api/settings (Ф8′: editor→KV; admin→коммит docs/config/display.json).
 
 const enc = new TextEncoder();
@@ -349,6 +350,39 @@ async function handleCommit(env, who, body) {
   }
 }
 
+// ── redeploy: перезапуск деплоя GitHub Pages пустым коммитом ──────────────────
+// Коммит уходит мгновенно, но публикация Pages может упасть/зависнуть
+// («Deployment failed, try again later» на стадии syncing_files — гонка частых
+// пушей либо транзиентная деградация Pages), и правка не доезжает до сайта. Тогда
+// клиентское окно ожидания (ze-core.waitForDeploy) вызывает /api/redeploy: делаем
+// ПУСТОЙ коммит (та же tree, что у HEAD) — push-событие заново запускает workflow
+// «pages build and deployment». Прав — editor/admin (та же граница, что /api/save).
+// GH_TOKEN нужен лишь Contents:write (re-run самого workflow требовал бы
+// Actions:write, которого у токена нет; пустой коммит — обходит это ограничение).
+async function handleRedeploy(env, who, body) {
+  if (who.role !== "editor" && who.role !== "admin") {
+    return json(env, { error: "нет прав на перезапуск деплоя (роль: " + who.role + ")" }, 403);
+  }
+  const branch = body && typeof body.branch === "string" && body.branch ? body.branch : "main";
+  try {
+    const ref = await gh(env, `git/ref/heads/${encodeURIComponent(branch)}`);
+    const headSha = ref.object.sha;
+    const headCommit = await gh(env, `git/commits/${headSha}`);
+    const stamp = new Date().toISOString();
+    // tree = tree HEAD'а (без изменений файлов) → это git-эквивалент `commit --allow-empty`.
+    const commit = await gh(env, "git/commits", { method: "POST", body: JSON.stringify({
+      message: `cms: redeploy Pages (пустой коммит) — ${who.nick}`,
+      tree: headCommit.tree.sha, parents: [headSha],
+      author: { name: who.nick, email: `${encodeURIComponent(who.nick)}@yaniktoim.users`, date: stamp },
+      committer: { name: who.nick, email: `${encodeURIComponent(who.nick)}@yaniktoim.users`, date: stamp },
+    }) });
+    await gh(env, `git/refs/heads/${encodeURIComponent(branch)}`, { method: "PATCH", body: JSON.stringify({ sha: commit.sha }) });
+    return json(env, { ok: true, sha: commit.sha });
+  } catch (e) {
+    return json(env, { error: String(e.message || e) }, 502);
+  }
+}
+
 // ── display settings (общий вид сайта) ───────────────────────────────────────
 // Вид (global design/width + правила по разделам/типам) — ОДИН на весь сайт:
 // docs/config/display.json, его видят все. GET отдаёт этот файл всем; PUT пишет
@@ -490,6 +524,14 @@ async function route(req, env) {
         if (!pl) return json(env, { error: "не авторизован" }, 401);
         const u = await getUser(env, pl.nick);
         return handleCommit(env, { nick: u ? u.nick : pl.nick, role: u ? u.role : pl.role }, await req.json());
+      }
+
+      if (req.method === "POST" && p === "/api/redeploy") {
+        const pl = await authedPayload(env, req);
+        if (!pl) return json(env, { error: "не авторизован" }, 401);
+        const u = await getUser(env, pl.nick);
+        const rb = await req.json().catch(function () { return {}; });
+        return handleRedeploy(env, { nick: u ? u.nick : pl.nick, role: u ? u.role : pl.role }, rb);
       }
 
       if (p === "/api/settings" && (req.method === "GET" || req.method === "PUT")) {

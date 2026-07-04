@@ -17,7 +17,7 @@
   // резолвится от страницы в docs/art/.
   var SELF = document.currentScript || document.querySelector('script[src*="ya-edit.js"]');
   var SELF_SRC = SELF ? SELF.src : new URL("ya-edit.js", document.baseURI).href;
-  var ASSET_VER = "20260628-07";   // бастит кэш динамических модулей (ze-core/render) при правках
+  var ASSET_VER = "20260704-01";   // бастит кэш динамических модулей (ze-core/render) при правках
   var modUrl = function (p) {
     return new URL(p + (p.indexOf("?") < 0 ? "?v=" + ASSET_VER : ""), SELF_SRC).href;
   };
@@ -26,6 +26,14 @@
 
   var ART = body.getAttribute("data-art") || "";
   var WORKER = (body.getAttribute("data-worker") || "").replace(/\/+$/, "");
+  // Репо для проверки статуса деплоя через ПУБЛИЧНЫЙ GitHub API (проектный сайт на
+  // <owner>.github.io/<repo>/…). Только для чтения статуса; сам перезапуск идёт через
+  // воркер (его env.REPO) → неточность здесь некритична, фолбэк — известный слаг.
+  var REPO = (function () {
+    var owner = location.host.replace(/\.github\.io$/i, "");
+    var seg = location.pathname.split("/").filter(Boolean)[0] || "";
+    return (owner && seg && /\.github\.io$/i.test(location.host)) ? owner + "/" + seg : "imyavel/yaniktoim";
+  })();
 
   // «Старый» вид (6-й дизайн) ЗАФИКСИРОВАН и НЕ должен пропадать при правке через
   // сайт. Браузер рендерит без доступа к cms-revival/legacy_html/ (его читает только
@@ -182,11 +190,15 @@
                 savedPrimaryLabel: "На статью",
                 // после сохранения ждём, пока боевая страница статьи начнёт отдавать СВЕЖИЙ
                 // html (тот, что закоммитили), и сами её обновляем — без ручного Ctrl+R.
-                deployWait: function (zml, html) {
+                deployWait: function (zml, html, saveRes) {
                   return {
                     url: location.origin + location.pathname,
                     match: function (text) { return text === html; },
-                    onReady: function () { location.reload(); }
+                    onReady: function () { location.reload(); },
+                    // отказоустойчивость: sha правки (статус деплоя) + перезапуск через воркер
+                    sha: saveRes && saveRes.sha, repo: REPO,
+                    redeployUrl: WORKER + "/api/redeploy",
+                    token: sess && sess.token
                   };
                 },
                 onClosed: function () { btn.disabled = false; dropSession(); }   // логин не сохраняется
@@ -314,6 +326,9 @@
       body: JSON.stringify(payload)
     })
       .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
-      .then(function (res) { if (!res.ok || !res.d.ok) throw new Error((res.d && res.d.error) || "HTTP-ошибка"); });
+      .then(function (res) {
+        if (!res.ok || !res.d.ok) throw new Error((res.d && res.d.error) || "HTTP-ошибка");
+        return res.d;   // { ok, sha } — sha нужен окну ожидания для проверки статуса деплоя
+      });
   }
 })();

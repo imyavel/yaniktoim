@@ -50,7 +50,8 @@ OG, индексируется). Вид — 5 ZML-тем + «оригинал (�
   Тот же `render.js` крутится в браузерном редакторе → паритет байт-в-байт, без дрейфа.
 - **`themes/`** — 5 CSS-тем (`A_editorial`,`B_manuscript`,`swiss`,`cyberpunk`,`ar_deco`) — единственный источник (`docs/themes/` производный).
 - **`worker/`** — Cloudflare Worker `yaniktoim-auth.imyavel.workers.dev`: логин (HMAC-сессия, TTL 12 ч) ·
-  `/api/save` · `/api/commit` · `/api/settings` (всегда **глобальный** `display.json`, пишет любой admin; per-user KV упразднён) · users/promote.
+  `/api/save` · `/api/commit` · `/api/settings` (всегда **глобальный** `display.json`, пишет любой admin; per-user KV упразднён) ·
+  `/api/redeploy` (editor/admin: пустой коммит → перезапуск деплоя Pages, когда тот упал; см. ниже) · users/promote.
   Каждая мутация (`save`/`commit`/`settings`) тем же коммитом дописывает запись в `docs/config/audit.json` (журнал). Секреты (`GH_TOKEN`,`SESSION_SECRET`,`ADMIN_BOOTSTRAP`) —
   в Cloudflare (`wrangler secret`), **не в репо**. Учётки/хеши — в KV `USERS` (3 admin). Тесты: `cd cms-revival/worker && node test_commit.mjs`.
 - **`guide_build/`** — источник руководства: `guide.html` + `build_pdf.py` → `guide.pdf`, затем `cp guide.pdf ../../docs/guide/rukovodstvo.pdf`.
@@ -63,6 +64,11 @@ OG, индексируется). Вид — 5 ZML-тем + «оригинал (�
   поиск+sitemap — `reindex.bat` (перед каждым push); руководство — `cms-revival/guide_build/build_pdf.py`.
 - **Локальная отладка**: превью `preview_*` (конфиг `zml-preview`, порт 8099) или `viewshots.py` → JPEG. Вёрстку отлаживать **локально ПЕРЕД push**.
 - **Деплой**: `imyavel/push.bat` (reindex + commit + push трёх репо). Воркер: `cd cms-revival/worker && wrangler deploy` (нужен токен).
+- **Отказоустойчивость деплоя** (после правки на сайте): окно ожидания `ze-core.waitForDeploy` не ждёт бесконечно —
+  читает реальный статус деплоя Pages для sha правки через **публичный** GitHub API (репо открытый, без токена) и при
+  провале/зависании перезапускает деплой через `worker /api/redeploy` (пустой коммит). До **10** попыток со счётчиком в
+  окне, затем состояние fail (правка в репо, появится по Ctrl+R). Причина: Pages иногда роняет `syncing_files`
+  («Deployment failed, try again later») при гонке частых пушей — см. [`project_yaniktoim_pages_deploy_pagefind`].
 
 ---
 

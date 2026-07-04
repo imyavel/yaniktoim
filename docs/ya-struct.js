@@ -25,6 +25,12 @@
   }
 
   var deps = {}, structure = null, byArt = {}, WORKER = "", expanded = {};
+  // Репо для проверки статуса деплоя через публичный GitHub API (см. ya-edit.js).
+  var REPO = (function () {
+    var owner = location.host.replace(/\.github\.io$/i, "");
+    var seg = location.pathname.split("/").filter(Boolean)[0] || "";
+    return (owner && seg && /\.github\.io$/i.test(location.host)) ? owner + "/" + seg : "imyavel/yaniktoim";
+  })();
   var artDeps = null;
 
   Promise.all([
@@ -446,6 +452,7 @@
         if (!byArt[art]) byArt[art] = { art: art, title: title, section: slug, date_chosen: today };
         expanded[slug] = true;
         render();
+        return res.d;   // { ok, sha } — sha нужен окну ожидания для проверки статуса деплоя
       });
   }
 
@@ -455,7 +462,7 @@
       var today = isoToday(), art;
       try { art = mintArtId(); } catch (e) { status(e.message, true); return; }
       var zml = templateZml(art, today);
-      import("./ze-core.js?v=20260628-07").then(function (mod) {
+      import("./ze-core.js?v=20260704-01").then(function (mod) {
         status("");
         mod.mountZmlEditor({
           label: "Новая статья · #" + art + " → " + secName(slug),
@@ -470,12 +477,16 @@
           save: function (z, html, extras) { return commitNewArticle(art, slug, z, html, today, extras); },
           // после создания ждём появления новой статьи на сайте ПРЯМО В РЕДАКТОРЕ
           // (keepEditorOpen), затем сами переходим на неё — без ручного Ctrl+R.
-          deployWait: function (z, html) {
+          deployWait: function (z, html, saveRes) {
             return {
               keepEditorOpen: true,
               url: new URL("art/" + art + ".html", document.baseURI).href,
               match: function (text) { return text === html; },
-              onReady: function () { location.href = "art/" + art + ".html"; }
+              onReady: function () { location.href = "art/" + art + ".html"; },
+              // отказоустойчивость: sha создания (статус деплоя) + перезапуск через воркер
+              sha: saveRes && saveRes.sha, repo: REPO,
+              redeployUrl: WORKER + "/api/redeploy",
+              token: sess && sess.token
             };
           }
         });

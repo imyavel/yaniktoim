@@ -21,7 +21,7 @@
   // ниже остаётся document-relative (верно резолвится от страницы в docs/songs/).
   var SELF = document.currentScript || document.querySelector('script[src*="ya-songs.js"]');
   var SELF_SRC = SELF ? SELF.src : new URL("ya-songs.js", document.baseURI).href;
-  var ASSET_VER = "20260628-07";   // бастит кэш динамических модулей (ze-core/render) при правках
+  var ASSET_VER = "20260704-01";   // бастит кэш динамических модулей (ze-core/render) при правках
   var modUrl = function (p) {
     return new URL(p + (p.indexOf("?") < 0 ? "?v=" + ASSET_VER : ""), SELF_SRC).href;
   };
@@ -31,6 +31,12 @@
   if (!btn) return;
 
   var WORKER = (body.getAttribute("data-worker") || "").replace(/\/+$/, "");
+  // Репо для проверки статуса деплоя через публичный GitHub API (см. ya-edit.js).
+  var REPO = (function () {
+    var owner = location.host.replace(/\.github\.io$/i, "");
+    var seg = location.pathname.split("/").filter(Boolean)[0] || "";
+    return (owner && seg && /\.github\.io$/i.test(location.host)) ? owner + "/" + seg : "imyavel/yaniktoim";
+  })();
 
   // Постоянного логина нет: кнопка видна всем, вход спрашиваем по клику; сессия
   // эфемерная — стирается по закрытию редактора (dropSession).
@@ -111,11 +117,15 @@
                 savedPrimaryLabel: "На страницу",
                 // после сохранения ждём, пока боевая «Песнь Ступеней» начнёт отдавать
                 // свежий html, и сами обновляем страницу — без ручного Ctrl+R.
-                deployWait: function (zml, html) {
+                deployWait: function (zml, html, saveRes) {
                   return {
                     url: location.origin + location.pathname,
                     match: function (text) { return text === html; },
-                    onReady: function () { location.reload(); }
+                    onReady: function () { location.reload(); },
+                    // отказоустойчивость: sha правки (статус деплоя) + перезапуск через воркер
+                    sha: saveRes && saveRes.sha, repo: REPO,
+                    redeployUrl: WORKER + "/api/redeploy",
+                    token: sess && sess.token
                   };
                 },
                 onClosed: function () { btn.disabled = false; dropSession(); }   // логин не сохраняется
@@ -144,6 +154,9 @@
       body: JSON.stringify({ page: "songs", zml: zml, html: html, branch: "main" })
     })
       .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
-      .then(function (res) { if (!res.ok || !res.d.ok) throw new Error((res.d && res.d.error) || "HTTP-ошибка"); });
+      .then(function (res) {
+        if (!res.ok || !res.d.ok) throw new Error((res.d && res.d.error) || "HTTP-ошибка");
+        return res.d;   // { ok, sha } — sha нужен окну ожидания для проверки статуса деплоя
+      });
   }
 })();

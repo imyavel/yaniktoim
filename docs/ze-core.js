@@ -224,7 +224,7 @@ export function mountZmlEditor(opts) {
             : null,
         });
       })
-      .then(function () {
+      .then(function (saveRes) {
         setBusy(false);
         baseline = zml;            // сохранено → нет «несохранённых правок»
         pendingImage = null;       // обложка закоммичена
@@ -234,7 +234,9 @@ export function mountZmlEditor(opts) {
         // ожидание со счётчиком секунд и кнопкой «ОК»: раз в пару секунд тянем целевой URL
         // и сравниваем с тем, что закоммитили; правка доехала → закрываем редактор и
         // обновляем страницу сами. «ОК» — перестать ждать (правка уже в репо, увидится по Ctrl+R).
-        var dw = typeof opts.deployWait === "function" ? opts.deployWait(zml, html) : null;
+        // saveRes — ответ воркера ({ ok, sha }); прокидываем в deployWait, чтобы окно
+        // ожидания знало sha коммита (проверка статуса деплоя) и мог перезапустить деплой.
+        var dw = typeof opts.deployWait === "function" ? opts.deployWait(zml, html, saveRes) : null;
         if (dw && dw.url) {
           // По умолчанию закрываем редактор и ждём на уже видимой странице (правка
           // СУЩЕСТВУЮЩЕЙ статьи — как сейчас). Если dw.keepEditorOpen (создание НОВОЙ
@@ -252,7 +254,10 @@ export function mountZmlEditor(opts) {
             onDismiss: function () {
               if (keep) close();
               if (typeof dw.onDismiss === "function") dw.onDismiss();
-            }
+            },
+            // отказоустойчивость деплоя: распознать провал и перезапустить (см. waitForDeploy)
+            sha: dw.sha, repo: dw.repo, redeployUrl: dw.redeployUrl, token: dw.token,
+            maxRetries: dw.maxRetries, attemptMs: dw.attemptMs
           });
           return;
         }
@@ -621,20 +626,48 @@ export function mountZmlEditor(opts) {
 
 // ── Ожидание деплоя GitHub Pages после сохранения ─────────────────────────────
 // Коммит уходит мгновенно, но публичный сайт обновляется через 30–90 с (сборка
-// Pages). Показываем модалку «Ожидаем обновление сайта…» со счётчиком прошедших
-// секунд и кнопкой «ОК», и раз в пару секунд тянем целевой URL (cache-bust + no-store,
-// чтобы не словить кэш CDN/браузера) — как только отданный сайтом текст совпал с тем,
-// что мы закоммитили, правка доехала: onReady (обычно reload/переход на страницу).
-// «ОК» — перестать ждать (onDismiss); правка уже в репо, увидится позже по Ctrl+R.
-//   opts: { url, match(text)->bool, onReady(), onDismiss(), intervalMs }
+// Pages). Показываем модалку «Ожидаем обновление сайта…» со счётчиком секунд и
+// кнопкой «Пропустить», и раз в пару секунд тянем целевой URL (cache-bust + no-store) —
+// как только отданный сайтом текст совпал с закоммиченным, правка доехала: onReady.
+//
+// Отказоустойчивость. Деплой Pages иногда падает/зависает («Deployment failed, try
+// again later» на стадии syncing_files — гонка частых пушей либо деградация Pages), и
+// тогда контент НИКОГДА не совпадёт — прежняя версия ждала бы вечно «у моря погоды».
+// Теперь раз в statusEveryMs смотрим РЕАЛЬНЫЙ статус деплоя текущего sha через
+// публичный GitHub API (репо открытый, без токена) и:
+//   • error/failure                     → сразу перезапускаем деплой;
+//   • «нет деплоя» дольше grace          → застрял → перезапускаем;
+//   • building/queued/success/unknown    → ждём (content-poll поймает успех за секунды);
+//   • страховочный дедлайн attemptMs     → ничего не разрешилось → перезапускаем.
+// Перезапуск = POST redeployUrl (воркер делает пустой коммит → новый push → новый
+// деплой). Счётчик попыток растёт в окне; максимум maxRetries (деф. 10) — исчерпали,
+// показываем состояние fail (правка в репо, появится позже по Ctrl+R). Если
+// redeployUrl/repo не заданы (старый вызыватель) — деградируем до простого дедлайн-
+// ретрая: ждём attemptMs, перезапуск-нет → всё равно ограничение по попыткам и fail.
+//   opts: { url, match(text)->bool, onReady(), onDismiss(), intervalMs,
+//           sha, repo:"owner/name", redeployUrl, token, maxRetries, attemptMs }
 export function waitForDeploy(opts) {
   opts = opts || {};
   injectStyles();
   const url = String(opts.url || "");
   const match = typeof opts.match === "function" ? opts.match : function () { return false; };
-  const intervalMs = opts.intervalMs > 0 ? opts.intervalMs : 2000;
+  const intervalMs = opts.intervalMs > 0 ? opts.intervalMs : 2500;      // content-poll
+  const attemptMs = opts.attemptMs > 0 ? opts.attemptMs : 150000;       // страховочный дедлайн попытки
+  const statusEveryMs = 12000;                                          // как часто спрашиваем статус деплоя
+  const maxRetries = opts.maxRetries > 0 ? opts.maxRetries : 10;
+  const repo = String(opts.repo || "");
+  const redeployUrl = String(opts.redeployUrl || "");
+  const token = String(opts.token || "");
+  let curSha = String(opts.sha || "");
   const startedAt = Date.now();
-  let finished = false, pollTimer = null, tickTimer = null;
+
+  let stopped = false;         // опрос/тики остановлены (успех/пропуск/fail)
+  let finished = false;        // окно снято окончательно
+  let retry = 0;               // сделано перезапусков деплоя
+  let attemptStart = Date.now();
+  let checking = false;        // идёт проверка статуса — не запускать вторую
+  let retrying = false;        // перезапуск в полёте — не входить в ретрай повторно
+  let pollTimer = null, tickTimer = null, statusTimer = null;
 
   const m = document.createElement("div");
   m.id = "ze-pop";
@@ -643,6 +676,8 @@ export function waitForDeploy(opts) {
       '<p><b>Ожидаем обновление сайта…</b></p>' +
       '<p class="ze-wait-line">Прошло <span class="ze-wait-sec">0</span>&nbsp;с. ' +
         'Страница обновится сама, как только правка появится на сайте.</p>' +
+      '<p class="ze-wait-retry ze-hidden">Деплой не завершился — перезапускаю. ' +
+        'Попытка <span class="ze-retry-n">0</span> из <span class="ze-retry-max">10</span>…</p>' +
       '<p class="ze-wait-note ze-hidden">Дольше обычного — можно нажать «Пропустить» и ' +
         'обновить страницу позже вручную (Ctrl+R).</p>' +
       '<div class="ze-pop-row">' +
@@ -652,33 +687,123 @@ export function waitForDeploy(opts) {
   document.body.appendChild(m);
   const secEl = m.querySelector(".ze-wait-sec");
   const noteEl = m.querySelector(".ze-wait-note");
+  const retryEl = m.querySelector(".ze-wait-retry");
+  const retryNEl = m.querySelector(".ze-retry-n");
+  const retryMaxEl = m.querySelector(".ze-retry-max");
+  if (retryMaxEl) retryMaxEl.textContent = String(maxRetries);
 
-  function teardown() {
-    finished = true;
-    if (pollTimer) clearTimeout(pollTimer);
-    if (tickTimer) clearInterval(tickTimer);
-    if (m.parentNode) m.parentNode.removeChild(m);
+  function stopTimers() {
+    stopped = true;
+    if (pollTimer) { clearTimeout(pollTimer); pollTimer = null; }
+    if (tickTimer) { clearInterval(tickTimer); tickTimer = null; }
+    if (statusTimer) { clearInterval(statusTimer); statusTimer = null; }
   }
+  function teardown() { finished = true; stopTimers(); if (m.parentNode) m.parentNode.removeChild(m); }
   function ready() { if (finished) return; teardown(); if (typeof opts.onReady === "function") opts.onReady(); }
   function dismiss() { if (finished) return; teardown(); if (typeof opts.onDismiss === "function") opts.onDismiss(); }
 
+  // Исчерпаны попытки: окно НЕ снимаем — показываем fail и «Закрыть» (→ dismiss).
+  function fail() {
+    stopTimers();
+    m.innerHTML =
+      '<div class="ze-pop-card ze-wait-card">' +
+        '<p><b>Не удалось опубликовать правку.</b></p>' +
+        '<p>Деплой сайта не прошёл после ' + maxRetries + ' попыток перезапуска ' +
+          '(GitHub Pages сейчас недоступен или деградирован). Правка сохранена в ' +
+          'репозитории — она появится, когда Pages починится; обновите страницу позже (Ctrl+R).</p>' +
+        '<div class="ze-pop-row">' +
+          '<button type="button" class="ze-btn ze-primary" data-w="ok">Закрыть</button>' +
+        '</div>' +
+      '</div>';
+  }
+
   tickTimer = setInterval(function () {
+    if (stopped) return;
     const s = Math.round((Date.now() - startedAt) / 1000);
     if (secEl) secEl.textContent = String(s);
-    if (s >= 120 && noteEl) noteEl.classList.remove("ze-hidden");   // дольше обычного — подсказать про ручное обновление
+    if (retry === 0 && s >= 120 && noteEl) noteEl.classList.remove("ze-hidden");
+    // Страховочный дедлайн попытки — в тике (сработает, даже если проверка статуса
+    // зависла/недоступна): ничего не разрешилось за attemptMs → перезапуск.
+    if (!retrying && (Date.now() - attemptStart) >= attemptMs) doRetry();
   }, 1000);
 
+  // Ранняя проверка статуса деплоя: поймать явный провал БЫСТРЕЕ дедлайна (иначе бы
+  // тупо ждали attemptMs «у моря погоды»). Дедлайн-ретрай висит на тике — здесь только
+  // error/failure и «деплой так и не появился».
+  function statusCheck() {
+    if (stopped || checking || retrying) return;
+    const attemptElapsed = Date.now() - attemptStart;
+    checking = true;
+    checkDeployState(repo, curSha).then(function (state) {
+      checking = false;
+      if (stopped || retrying) return;
+      if (state === "error" || state === "failure") { doRetry(); return; }
+      if (state === "none" && attemptElapsed >= 45000) doRetry();   // деплой так и не появился → застрял
+      // building/queued/success/unknown → ждём (content-poll поймает успех; дедлайн — в тике)
+    }).catch(function () { checking = false; });
+  }
+  statusTimer = setInterval(statusCheck, statusEveryMs);
+
+  function doRetry() {
+    if (stopped || retrying) return;
+    retry += 1;
+    if (retry > maxRetries) { fail(); return; }
+    if (retryEl) retryEl.classList.remove("ze-hidden");
+    if (noteEl) noteEl.classList.add("ze-hidden");
+    if (retryNEl) retryNEl.textContent = String(retry);
+    attemptStart = Date.now();   // отсчёт новой попытки
+    retrying = true;             // блок повторного входа, пока перезапуск в полёте
+    redeploy().then(function (newSha) {
+      if (!stopped && newSha) curSha = newSha;   // ждём деплой уже нового (пустого) коммита
+    }).catch(function () { /* воркер недоступен → просто ждём/ретраим по дедлайну */ })
+      .then(function () { retrying = false; attemptStart = Date.now(); });   // отсчёт с момента реального перезапуска
+  }
+
+  // Реальный статус деплоя Pages для sha — через ПУБЛИЧНЫЙ GitHub API (репо открытый,
+  // без токена; api.github.com отдаёт CORS `*`). Зовём редко (statusEveryMs) — анонимный
+  // лимит 60/час не мешает; при его исчерпании ответ 403 → "unknown" → дедлайн-ретрай.
+  // Любая ошибка/пустота → "unknown"/"none". «none» = для sha нет деплоя github-pages.
+  function checkDeployState(repoFull, sha) {
+    if (!repoFull || !sha) return Promise.resolve("unknown");
+    const base = "https://api.github.com/repos/" + repoFull;
+    const hdr = { Accept: "application/vnd.github+json" };
+    return fetch(base + "/deployments?sha=" + encodeURIComponent(sha) + "&environment=github-pages&per_page=1", { headers: hdr })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (arr) {
+        if (!Array.isArray(arr) || !arr.length) return "none";
+        return fetch(base + "/deployments/" + arr[0].id + "/statuses?per_page=1", { headers: hdr })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (st) { return (Array.isArray(st) && st.length && st[0].state) ? String(st[0].state) : "unknown"; });
+      })
+      .catch(function () { return "unknown"; });
+  }
+
+  // Перезапуск деплоя: воркер делает пустой коммит в ветку (нужны redeployUrl + token).
+  function redeploy() {
+    if (!redeployUrl || !token) return Promise.reject(new Error("redeploy не настроен"));
+    return fetch(redeployUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: "Bearer " + token },
+      body: JSON.stringify({ branch: "main" }),
+    }).then(function (r) {
+      return r.json().then(function (d) {
+        if (!r.ok || !d || !d.ok) throw new Error((d && d.error) || "redeploy failed");
+        return d.sha;
+      });
+    });
+  }
+
   function poll() {
-    if (finished) return;
+    if (stopped) return;
     const bust = url + (url.indexOf("?") < 0 ? "?" : "&") + "_dz=" + Date.now();   // обойти кэш CDN/браузера
     fetch(bust, { cache: "no-store" })
       .then(function (r) { return r.ok ? r.text() : null; })
       .then(function (text) {
-        if (finished) return;
+        if (stopped) return;
         if (text != null && match(text)) { ready(); return; }
         pollTimer = setTimeout(poll, intervalMs);
       })
-      .catch(function () { if (!finished) pollTimer = setTimeout(poll, intervalMs); });
+      .catch(function () { if (!stopped) pollTimer = setTimeout(poll, intervalMs); });
   }
   pollTimer = setTimeout(poll, 500);   // первый опрос почти сразу (правка без изменений уже «доехала»)
 
@@ -1091,6 +1216,7 @@ function injectStyles() {
     "#ze-pop .ze-pop-row{display:flex;gap:.6em;justify-content:flex-end;margin-top:1em;}" +
     "#ze-pop .ze-btn{font:inherit;border-radius:6px;padding:.4em 1em;cursor:pointer;border:1px solid #bbb;background:#f3f3f3;color:#222;}" +
     "#ze-pop .ze-primary{background:#2d6cdf;border-color:#2d6cdf;color:#fff;}" +
+    "#ze-pop .ze-wait-retry{color:#b26a00;font-weight:600;}" +
     "#ze-pop .ze-login-row{margin:.5em 0;}" +
     "#ze-pop .ze-login-row input{width:100%;box-sizing:border-box;font:inherit;padding:.45em .6em;" +
       "border:1px solid #bbb;border-radius:6px;background:#fff;color:#222;}" +
