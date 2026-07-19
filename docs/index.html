@@ -37,6 +37,8 @@
 Чтобы «с ясностью без слов»<br>
 Осознать, что в «этом Мире»<br>
 Управляет всем Любовь.</p>
+
+<p hidden><a id="lucky-link" href="">🪄 Мне повезет!</a></p>
 </div>
 </div>
 <h1>Путь Восходящей Звезды</h1>
@@ -116,6 +118,38 @@
       if (!zml) return;
       var n = countShir(zml);
       if (n > 0) meta.textContent = n + " " + ruPlural(n, "композиция", "композиции", "композиций");
+    })
+    .catch(function () {});
+})();
+</script>
+<script>
+/* «Мне повезет!» под стихом — случайная опубликованная статья. Список берём в
+   рантайме из config/structure.json (актуален при правках через CMS, без
+   пересборки главной); ссылка скрыта, пока список не приехал. href обновляется
+   прямо перед переходом (mousedown/keydown), чтобы Ctrl/Shift/средний клик
+   нативно открывали свежую случайную статью — как на zohar-sulam. */
+(function () {
+  var lucky = document.getElementById("lucky-link");
+  if (!lucky) return;
+  fetch("config/structure.json", { cache: "no-cache" })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d || !d.articles) return;
+      var archived = {};
+      (d.sections || []).forEach(function (s) { if (s.archived) archived[s.slug] = 1; });
+      var arts = d.articles.filter(function (a) {
+        return a.status === "published" && !archived[a.section];
+      });
+      if (!arts.length) return;
+      function pick() {
+        return "art/" + arts[Math.floor(Math.random() * arts.length)].art + ".html";
+      }
+      lucky.href = pick();
+      lucky.addEventListener("mousedown", function () { lucky.href = pick(); });
+      lucky.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") lucky.href = pick();
+      });
+      lucky.parentNode.hidden = false;
     })
     .catch(function () {});
 })();
