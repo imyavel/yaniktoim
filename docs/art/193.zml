@@ -3,18 +3,27 @@ title: ЖЕМЧУЖИНА СЕВЕРА[^1]
 date: 2021-09-03
 image: 193.jpg
 type: verse
-audio: [{"url": "https://t.me/art_017_tracks/310", "label": "Слушать аудио-озвучку"}]
 summary: Стихотворная история Жемчужина Севера из серии Добрая речь о школьнице Дусе и неприметном парне Феде, встретившихся у костра в дачной компании.
+audio: [{"url": "https://t.me/art_017_tracks/310", "label": "Слушать аудио-озвучку"}]
+editor: Nipna
 ---
-Серия: ДОБРАЯ РЕЧЬ · Рассказ 1 · Школьная история (School Story, Bro!) · Написано: 3 сентября 2021 г.
+[meta]
+Серия: ДОБРАЯ РЕЧЬ
+Рассказ: 1
+Форват: Школьная история (School Story, Bro!)
+Написано: 3 сентября 2021 г.
+[/meta]
 
+[epi kind=verse]
 There`s a time for everyone, if they only learn, that the twisting kaleidoscope moves us all in turn.
-
 There`s a rhyme and reason to the wild outdoors, when the heart of this star-crossed voyager beats in time with yours.
+[/epi]
 
 [mus]
 [https://youtu.be/KjgWWjkNbhU|Can you feel the love tonight|Elton John (The Lion King)]
 [/mus]
+
+## Жемчужина Севера
 
 [mus]
 [https://www.youtube.com/watch?v=FAlys2LOX5Q|Scarborough Fair / Canticle|Jadyn Rylee, Sina and Charlotte Zone]
