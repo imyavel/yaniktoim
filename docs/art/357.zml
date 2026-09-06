@@ -3,8 +3,9 @@ title: Нейрогинекологическое
 date: 2023-05-07
 image: 357.jpg
 type: verse
-audio: [{"url": "https://t.me/art_017_tracks/289", "label": "Слушать аудио-озвучку"}]
 summary: Стихотворение в свободной форме о механизмах мышления, восприятии чужих идей как собственных и самообмане сознания.
+audio: [{"url": "https://t.me/art_017_tracks/289", "label": "Слушать аудио-озвучку"}]
+editor: Nipna
 ---
 [mus]
 [https://www.youtube.com/watch?v=hHkhzNLHC4g|Moskau|Rammstein & Tatu]
@@ -69,3 +70,5 @@ summary: Стихотворение в свободной форме о меха
 "Сочно в кучки сам с собой"
 "Твердый пир про смерть и боль"
 [/poem]
+
+См. также: [[337]]
