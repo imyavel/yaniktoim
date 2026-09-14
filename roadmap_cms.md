@@ -476,7 +476,7 @@ KV-namespace **USERS** id `2a6d63cdc96c447491471c80cb62bb5c`; в нём 3 учё
 - **Взято из ZML2 батчем «всё» (C10–C14):** inline `{term|…}`/`{leit|…}` · блоки `[sig]`/`[cry]` ·
   `[quote kind=scripture]` · глифы `<\^/>`/`</v\>`/эмотиконы→`.glyph` + чистка `;;;;` · `[num]` обобщён.
 - **Модель `[epi]` (A4+B5):** единый блок-роль «обрамление», ось `kind=prose|verse|aphorism`; эпилог =
-  `[epi]` в хвостовой позиции (тег `[epil]` убран). [[project_yaniktoim_epigraph_functional]]
+  `[epi]` в хвостовой позиции (тег `[epil]` убран). Канон `[epi]` — `cms-revival/zml3/SPEC.md`.
 - **Прочее закрыто:** B6 см.-также → `См. также: [[ID]] — Автор` · B7 byline → канон art-id ·
   B8 H1-приоритет внутри-статьи над manifest · B9 cover → `frontmatter.image` (`../img/`) ·
   `lead-source` без изменений · выключка эпиграфа — per-theme · музыка-дубль не дедупим · `[mus]` валиден при ≥1 поле.
@@ -630,7 +630,7 @@ URL). Публикуем пилоты. ✔ на живом сайте обе в�
   индексируемый токен «Артикль №<ID>» (weight=10) — `tools/add_artid_search.py`; поиск по `654/237/03H/22SA/1AQA`
   (с `#` и без — Pagefind токенизирует `№`/`#` → чистый id) ставит статью первой, проверено в превью end-to-end.
   Без `data-pagefind-meta` (он рисовал англ. ярлык «Artid:» в UI); вес перебивает список раздела и шум. Побочно:
-  `proza-design/` исключён из индекса и sitemap (363 стр.). [[project_yaniktoim_search]]
+  `proza-design/` исключён из индекса и sitemap (363 стр.). Поиск (Pagefind) — см. PROJECT.md «Ловушки и правила корпуса».
 - ✔ **URL-унификация — ВЫПОЛНЕНО (2026-06-21).** Ушли от двойного адреса `NNN.html` (старый)
   ⁄ `NNN.view.html` (ZML) к ОДНОМУ `art/NNN.html` — это ZML-рендер с полным OG (раскрывается в
   Telegram, индексируется), без `noindex`. «Старый html» стал **6-м дизайном «old»** в рантайм-
