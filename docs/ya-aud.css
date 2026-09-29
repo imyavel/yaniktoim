@@ -1,0 +1,64 @@
+/* [aud] — плейлист аудио-плашек (ZML3 §2.8). Подключается рендером только в статьях
+   с блоком [aud] (первый блок статьи несёт <link>), поведение — ya-aud.js.
+   Вид — как голосовое в Telegram, но ниже: круглая кнопка · волна · время.
+   Цвета — из переменных темы (--accent/--paper/--rule/--ink/--muted) с фолбэками,
+   поэтому один файл работает во всех 5 темах; тема может перебить любое правило. */
+.zaud{
+  --zaud-on:var(--accent,#2a7ae2);
+  --zaud-off:color-mix(in srgb,var(--ink,currentColor) 26%,transparent);
+  --zaud-h:24px;
+  display:flex; flex-direction:column; gap:.35rem;
+  max-width:520px; margin:1.5rem 0; text-indent:0; text-align:left;
+}
+/* темы с осевой вёрсткой (заголовки и служебные строки по центру) — блок тоже по центру */
+body[data-theme="B_manuscript"] .zaud, body[data-theme="ar_deco"] .zaud{margin-left:auto; margin-right:auto;}
+.zaud-label{font-family:var(--sans,system-ui,sans-serif); font-size:.72rem; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--muted,inherit); opacity:.85; padding-left:.2rem;}
+.zaud-item{
+  display:flex; align-items:center; gap:.65rem; box-sizing:border-box;
+  min-height:42px; padding:4px .85rem 4px 5px;
+  background:var(--paper,rgba(128,128,128,.07)); color:var(--ink,inherit);
+  border:1px solid var(--rule,rgba(128,128,128,.35)); border-radius:21px;
+  transition:border-color .15s, box-shadow .15s;
+}
+.zaud-item.is-active{border-color:color-mix(in srgb,var(--zaud-on) 60%,transparent);
+  box-shadow:0 1px 6px color-mix(in srgb,var(--zaud-on) 16%,transparent);}
+.zaud-btn{
+  flex:0 0 auto; width:32px; height:32px; padding:0; margin:0; border:0; border-radius:50%;
+  display:inline-flex; align-items:center; justify-content:center; cursor:pointer;
+  background:var(--zaud-on); color:var(--paper,#fff);
+  -webkit-tap-highlight-color:transparent; transition:transform .12s, filter .12s;
+}
+.zaud-btn:hover{filter:brightness(1.1);}
+.zaud-btn:active{transform:scale(.93);}
+.zaud-btn:focus-visible,.zaud-wave:focus-visible{outline:2px solid var(--zaud-on); outline-offset:2px;}
+.zaud-btn svg{width:20px; height:20px; display:block;}
+.zaud-btn .zaud-i-pause{display:none;}
+.zaud-item.is-playing .zaud-i-play{display:none;}
+.zaud-item.is-playing .zaud-i-pause{display:block;}
+.zaud-item.is-loading .zaud-btn{animation:zaud-pulse 1s ease-in-out infinite;}
+@keyframes zaud-pulse{50%{opacity:.55;}}
+@media (prefers-reduced-motion:reduce){.zaud-item.is-loading .zaud-btn{animation:none; opacity:.7;}}
+.zaud-body{flex:1 1 auto; min-width:0; display:flex; flex-direction:column; justify-content:center; gap:1px;}
+.zaud-cap{font-family:var(--sans,system-ui,sans-serif); font-size:.78rem; line-height:1.25;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+/* волна: фон = «сыграно | осталось» по --p, форма столбиков — SVG-маска (ставит ya-aud.js
+   под текущую ширину). Пока маски нет — тонкая линия той же заливки. */
+.zaud-wave{
+  height:var(--zaud-h); cursor:pointer; touch-action:pan-y;
+  background:linear-gradient(to right,var(--zaud-on) var(--p,0%),var(--zaud-off) var(--p,0%));
+  -webkit-mask:linear-gradient(#000,#000) center/100% 3px no-repeat;
+          mask:linear-gradient(#000,#000) center/100% 3px no-repeat;
+}
+.zaud-wave.is-ready{-webkit-mask-size:100% 100%; mask-size:100% 100%;}
+.zaud-time{flex:0 0 auto; min-width:2.6em; text-align:right; white-space:nowrap;
+  font-family:var(--sans,system-ui,sans-serif); font-size:.76rem; font-variant-numeric:tabular-nums;
+  color:var(--muted,inherit);}
+.zaud-item.is-active .zaud-time{min-width:5.9em;}
+.zaud-item.is-error{border-style:dashed; opacity:.7;}
+.zaud-item.is-error .zaud-btn{background:var(--muted,#888);}
+.zaud noscript audio{display:block; width:100%; height:32px;}
+@media (max-width:480px){
+  .zaud{max-width:none;}
+  .zaud-item{gap:.5rem; padding-right:.65rem;}
+}

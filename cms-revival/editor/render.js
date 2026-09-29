@@ -82,7 +82,7 @@ function applyHonorific(s) {
 // Epilogue is NOT a separate tag (ZML3 A4): an epilogue is an [epi] block in
 // TAIL position, labelled «Эпилог» by the renderer via block index. So only
 // [epi] is parsed here — [epil] was retired with the Ф3 shadowing quirk.
-const PAIRED = ["poem", "epi", "quote", "num", "mus", "shir", "subsec", "sub", "meta", "sig", "cry", "line", "ul", "dlg", "faw"];
+const PAIRED = ["poem", "epi", "quote", "num", "mus", "shir", "aud", "subsec", "sub", "meta", "sig", "cry", "line", "ul", "dlg", "faw"];
 const PAIRED_ALT = PAIRED.join("|");
 
 // Footnote GROUPS (fn-ревью, вердикты 1+3): marker [^имя.N], definition
@@ -708,6 +708,7 @@ function renderBlocks(blocks, ctx) {
         break;
       }
       case "shir":      out.push(renderShir(b, ctx)); break;
+      case "aud":       out.push(renderAud(b, ctx)); break;
       case "subsec":    out.push(renderSubsec(b, ctx)); break;
       case "sub":       out.push(renderSub(b, ctx)); break;
       case "meta":      out.push(renderMeta(b, ctx)); break;
@@ -1451,6 +1452,80 @@ function renderShir(b, ctx) {
   // широко → ровно cols колонок, узко → сам отдаёт колонки до min.
   const style = `--shir-cols:${cols};--shir-min:${min}px`;
   return `<div class="songgrid" style="${style}">\n${tiles.join("\n")}\n</div>`;
+}
+
+// [aud] / [aud="Этикетка"] — плейлист аудио-плашек (ZML3 §2.8): записи, лежащие в
+// docs/audio/, играются прямо в статье; доиграла одна — сама стартует следующая.
+// Запись = ОДНА СТРОКА: <файл> | <м:сс> | <Подпись> — обязателен только файл; поле
+// вида «м:сс» — длительность (видна до загрузки записи), любое другое — подпись
+// (инлайн резолвится), порядок полей после файла свободный. Файлы и «волну»
+// (<файл>.json рядом) готовит tools/aud_prep.py. Рендер отдаёт готовую разметку
+// плашки; поведение и вид — docs/ya-aud.js + ya-aud.css, их подключает ПЕРВЫЙ [aud]
+// статьи (шаблон и остальной корпус не трогаются). Без JS — <noscript> с родным
+// плеером. Битая строка роняет только свою плашку (флаг + console.warn).
+export const AUD_VERSION = "20260929-01";
+const AUD_FILE_RX = /^[A-Za-z0-9][A-Za-z0-9._-]*\.(?:mp3|m4a|ogg|opus|wav)$/i;
+const AUD_DUR_RX = /^(?:(\d+):)?(\d{1,2}):(\d\d)$/;
+const AUD_BTN =
+  '<svg class="zaud-i-play" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8.5 5.2v13.6L19.5 12z"/></svg>' +
+  '<svg class="zaud-i-pause" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 5h3.6v14H7zm6.4 0H17v14h-3.6z"/></svg>';
+
+function renderAud(b, ctx) {
+  const label = String((b.attrs && b.attrs.label) || "").trim();
+  const inner = b.inner.replace(/^\n+/, "").replace(/\n+$/, "");
+  const items = [];
+  let lineNo = 0;
+  for (const raw of inner.split("\n")) {
+    const line = raw.trim();
+    if (!line) continue;
+    lineNo += 1;
+    const f = splitEscaped(line, "|").map((x) => x.trim());
+    const file = f[0] || "";
+    if (!AUD_FILE_RX.test(file)) {
+      if (typeof console !== "undefined" && console.warn) {
+        console.warn(`ZML [aud]: строка ${lineNo} — нет файла записи — «${line}»`);
+      }
+      items.push(`<!-- ZML:flag aud-broken line=${lineNo} -->`);
+      continue;
+    }
+    let durText = "", durSec = 0;
+    const caps = [];
+    for (const fld of f.slice(1)) {
+      if (!fld) continue;
+      const m = AUD_DUR_RX.exec(fld);
+      if (m && !durText) {
+        durText = fld;
+        durSec = (parseInt(m[1] || "0", 10) * 60 + parseInt(m[2], 10)) * 60 + parseInt(m[3], 10);
+      } else caps.push(fld);
+    }
+    const cap = caps.join(" | ");
+    const n = items.filter((x) => !x.startsWith("<!--")).length + 1;
+    const src = `../audio/${attrEscape(file)}`;
+    const name = attrEscape(cap.replace(/\[\^[^\]]+\]/g, "").trim() || `запись ${n}`);
+    items.push(
+      `<div class="zaud-item" data-src="${src}"${durSec ? ` data-dur="${durSec}"` : ""}>` +
+      `<button class="zaud-btn" type="button" aria-label="Слушать: ${name}">${AUD_BTN}</button>` +
+      `<div class="zaud-body">` +
+      (cap ? `<div class="zaud-cap">${resolveInline(cap, ctx.inline)}</div>` : "") +
+      `<div class="zaud-wave" role="slider" tabindex="0" aria-label="Позиция: ${name}" ` +
+      `aria-valuemin="0" aria-valuemax="${durSec}" aria-valuenow="0"></div></div>` +
+      `<span class="zaud-time">${htmlEscape(durText)}</span>` +
+      `<noscript><audio controls preload="none" src="${src}"></audio></noscript>` +
+      `</div>`,
+    );
+  }
+  if (!items.some((x) => !x.startsWith("<!--"))) return items.join("\n");
+  // ассеты плеера — один раз на статью, у первого блока
+  const first = !ctx.audSeen;
+  ctx.audSeen = true;
+  const labelHtml = label ? `<div class="zaud-label">${resolveInline(label, ctx.inline)}</div>\n` : "";
+  return (
+    (first ? `<link rel="stylesheet" href="../ya-aud.css?v=${AUD_VERSION}">\n` : "") +
+    `<div class="zaud" role="group" aria-label="${attrEscape(label.replace(/\[\^[^\]]+\]/g, "").trim() || "Аудио")}">\n` +
+    labelHtml + items.join("\n") +
+    `\n</div>` +
+    (first ? `\n<script src="../ya-aud.js?v=${AUD_VERSION}" defer></script>` : "")
+  );
 }
 
 // ════════════════════════════════════════════════════════════════════════════

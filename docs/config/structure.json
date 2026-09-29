@@ -49,7 +49,7 @@
       "slug": "songs",
       "name": "Песнь Ступеней",
       "href": "songs/index.html",
-      "meta": "229 композиций"
+      "meta": "230 композиций"
     }
   ],
   "articles": [
@@ -1998,171 +1998,177 @@
       "status": "published"
     },
     {
-      "art": "591",
+      "art": "69T",
       "section": "other",
       "order": 0,
       "status": "published"
     },
     {
-      "art": "53KA",
+      "art": "591",
       "section": "other",
       "order": 1,
       "status": "published"
     },
     {
-      "art": "52H",
+      "art": "53KA",
       "section": "other",
       "order": 2,
       "status": "published"
     },
     {
-      "art": "443",
+      "art": "52H",
       "section": "other",
       "order": 3,
       "status": "published"
     },
     {
-      "art": "433",
+      "art": "443",
       "section": "other",
       "order": 4,
       "status": "published"
     },
     {
-      "art": "3CM",
+      "art": "433",
       "section": "other",
       "order": 5,
       "status": "published"
     },
     {
-      "art": "416B",
+      "art": "3CM",
       "section": "other",
       "order": 6,
       "status": "published"
     },
     {
-      "art": "3C7",
+      "art": "416B",
       "section": "other",
       "order": 7,
       "status": "published"
     },
     {
-      "art": "32K",
+      "art": "3C7",
       "section": "other",
       "order": 8,
       "status": "published"
     },
     {
-      "art": "2BM",
+      "art": "32K",
       "section": "other",
       "order": 9,
       "status": "published"
     },
     {
-      "art": "2BB",
+      "art": "2BM",
       "section": "other",
       "order": 10,
       "status": "published"
     },
     {
-      "art": "2BA",
+      "art": "2BB",
       "section": "other",
       "order": 11,
       "status": "published"
     },
     {
-      "art": "2AFB",
+      "art": "2BA",
       "section": "other",
       "order": 12,
       "status": "published"
     },
     {
-      "art": "2AF",
+      "art": "2AFB",
       "section": "other",
       "order": 13,
       "status": "published"
     },
     {
-      "art": "2AB",
+      "art": "2AF",
       "section": "other",
       "order": 14,
       "status": "published"
     },
     {
-      "art": "29NA",
+      "art": "2AB",
       "section": "other",
       "order": 15,
       "status": "published"
     },
     {
-      "art": "2AA",
+      "art": "29NA",
       "section": "other",
       "order": 16,
       "status": "published"
     },
     {
-      "art": "165A",
+      "art": "2AA",
       "section": "other",
       "order": 17,
       "status": "published"
     },
     {
-      "art": "24F",
+      "art": "165A",
       "section": "other",
       "order": 18,
       "status": "published"
     },
     {
-      "art": "273",
+      "art": "24F",
       "section": "other",
       "order": 19,
       "status": "published"
     },
     {
-      "art": "27E",
+      "art": "273",
       "section": "other",
       "order": 20,
       "status": "published"
     },
     {
-      "art": "27G",
+      "art": "27E",
       "section": "other",
       "order": 21,
       "status": "published"
     },
     {
-      "art": "27GA",
+      "art": "27G",
       "section": "other",
       "order": 22,
       "status": "published"
     },
     {
-      "art": "27J",
+      "art": "27GA",
       "section": "other",
       "order": 23,
       "status": "published"
     },
     {
-      "art": "27K",
+      "art": "27J",
       "section": "other",
       "order": 24,
       "status": "published"
     },
     {
-      "art": "271",
+      "art": "27K",
       "section": "other",
       "order": 25,
       "status": "published"
     },
     {
-      "art": "217A",
+      "art": "271",
       "section": "other",
       "order": 26,
       "status": "published"
     },
     {
-      "art": "roza_mira",
+      "art": "217A",
       "section": "other",
       "order": 27,
+      "status": "published"
+    },
+    {
+      "art": "roza_mira",
+      "section": "other",
+      "order": 28,
       "status": "published",
       "num": "РМ"
     },
